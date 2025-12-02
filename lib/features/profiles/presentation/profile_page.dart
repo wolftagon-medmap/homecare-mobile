@@ -300,6 +300,13 @@ class _ProfileInformationSection extends StatelessWidget {
                 context.push(AppRoutes.profilePhysicalSigns);
               },
             ),
+            _ProfileListTile(
+              title: 'Mental State',
+              svgAsset: 'assets/icons/mental_health.svg',
+              onTap: () {
+                context.push(AppRoutes.profileMentalState);
+              },
+            ),
           ],
         ),
       ),

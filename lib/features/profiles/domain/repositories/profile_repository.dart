@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:m2health/core/error/failures.dart';
+import 'package:m2health/features/profiles/domain/entities/mental_health_state.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
@@ -11,4 +12,9 @@ abstract class ProfileRepository {
       String role);
   Future<Either<Failure, Unit>> updateProfessionalProfile(
       UpdateProfessionalProfileParams params);
+
+  // Mental Health
+  Future<Either<Failure, MentalHealthState>> getMentalHealthState();
+  Future<Either<Failure, Unit>> updateMentalHealthState(
+      MentalHealthState state);
 }

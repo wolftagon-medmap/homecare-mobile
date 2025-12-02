@@ -26,7 +26,8 @@ class AppRoutes {
 
   // Appointment
   static const String appointmentDetail = '/appointment/detail';
-  static const String providerAppointmentDetail = '/appointment/provider-detail';
+  static const String providerAppointmentDetail =
+      '/appointment/provider-detail';
   static const String scheduleAppoointment = '/schedule-appointment';
 
   static const String payment = '/payment';
@@ -39,6 +40,7 @@ class AppRoutes {
   static const String profileMedicalHistory = '/medical-history';
   static const String profileLifestyle = '/lifestyle';
   static const String profilePhysicalSigns = '/physical-signs';
+  static const String profileMentalState = '/mental-state';
   static const String editProfessionalProfile = '/edit-professional-profile';
   static const String editProfessionalServices = '/edit-professional-services';
   static const String workingSchedule = '/working-schedule';
