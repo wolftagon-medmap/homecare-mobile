@@ -31,7 +31,6 @@ import './AppLanguage.dart';
 import './app_localzations.dart';
 import 'package:provider/provider.dart';
 
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 
 void main() async {
@@ -95,10 +94,7 @@ void main() async {
       ],
       child: ChangeNotifierProvider(
         create: (context) => AppLanguage(),
-        child: DevicePreview(
-          enabled: !kReleaseMode,
-          builder: (context) => MyApp(appLanguage: appLanguage),
-        ),
+        child: MyApp(appLanguage: appLanguage),
       ),
     ),
   );
@@ -244,14 +240,9 @@ class _MyAppState extends State<MyApp> {
                   ColorScheme.fromSeed(seedColor: Const.colorDashboard),
               useMaterial3: true,
             ),
-            locale: DevicePreview.locale(context),
             builder: (context, child) {
               return Scaffold(
-                body: Stack(
-                  children: [
-                    DevicePreview.appBuilder(context, child),
-                  ],
-                ),
+                body: child,
                 bottomNavigationBar:
                     _showBottomAppBar ? const BottomAppBar() : null,
               );
