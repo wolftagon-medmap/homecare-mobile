@@ -61,10 +61,10 @@ final GoRouter router = GoRouter(
       },
     ),
 
-    GoRoute(
-      path: '/locations',
-      builder: (context, state) => LocationPage(),
-    ),
+    // GoRoute(
+    //   path: '/locations',
+    //   builder: (context, state) => LocationPage(),
+    // ),
   ],
   // errorPageBuilder: (context, state) {
   //   return MaterialPage(child: HomePage());
