@@ -50,7 +50,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
     _phoneController = TextEditingController(text: profile?.phoneNumber);
     _drugAllergyController = TextEditingController(text: profile?.drugAllergy);
     _selectedGender = genderItems.contains(profile?.gender?.toTitleCase())
-        ? profile?.gender
+        ? profile?.gender?.toTitleCase()
         : null;
 
     _addressController = TextEditingController();
