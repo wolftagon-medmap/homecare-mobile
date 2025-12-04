@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/error/failures.dart';
+import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
 import 'package:m2health/utils.dart';
@@ -62,6 +63,24 @@ class ProfileCubit extends Cubit<ProfileState> {
       );
     }
   }
+
+  // void setSelectedAddress(Address address) {
+  //   if (state is! PatientProfileLoaded) return;
+  //   final currentState = state as PatientProfileLoaded;
+  //   final updatedProfile = currentState.profile.copyWith(
+  //     address: address,
+  //   );
+  //   emit(PatientProfileLoaded(updatedProfile));
+  // }
+
+  // void setGender(String gender) {
+  //   if (state is! PatientProfileLoaded) return;
+  //   final currentState = state as PatientProfileLoaded;
+  //   final updatedProfile = currentState.profile.copyWith(
+  //     gender: gender,
+  //   );
+  //   emit(PatientProfileLoaded(updatedProfile));
+  // }
 
   Future<void> updateProfile(UpdateProfileParams params) async {
     emit(ProfileSaving());

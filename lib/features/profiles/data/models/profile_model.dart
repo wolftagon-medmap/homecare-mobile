@@ -1,7 +1,8 @@
+import 'package:m2health/features/profiles/data/models/address_model.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 
 class ProfileModel extends Profile {
-  ProfileModel({
+  const ProfileModel({
     required super.id,
     required super.userId,
     required super.name,
@@ -13,6 +14,7 @@ class ProfileModel extends Profile {
     super.gender,
     super.drugAllergy,
     super.avatar,
+    super.address,
     super.createdAt,
     super.updatedAt,
   });
@@ -30,6 +32,9 @@ class ProfileModel extends Profile {
       gender: json['gender'] ?? '',
       drugAllergy: json['drug_allergy'] ?? '',
       avatar: json['avatar'] ?? '',
+      address: json['address'] != null 
+          ? AddressModel.fromJson(json['location'])
+          : null,
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])
           : null,

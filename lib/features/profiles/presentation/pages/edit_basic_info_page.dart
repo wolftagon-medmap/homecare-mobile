@@ -1,14 +1,15 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/string_extensions.dart';
+import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'dart:io';
 import 'package:m2health/features/profiles/domain/usecases/update_profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
+import 'package:m2health/features/profiles/presentation/pages/address_map_page.dart';
 
 class EditBasicInfoPage extends StatefulWidget {
   const EditBasicInfoPage({super.key});
@@ -30,6 +31,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
   late TextEditingController _addressController;
   late TextEditingController _drugAllergyController;
   String? _selectedGender;
+  Address? _address;
 
   final List<String> genderItems = ['Male', 'Female'];
 
@@ -46,10 +48,16 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
     _heightController =
         TextEditingController(text: profile?.height?.toString());
     _phoneController = TextEditingController(text: profile?.phoneNumber);
-    _addressController = TextEditingController(text: profile?.homeAddress);
     _drugAllergyController = TextEditingController(text: profile?.drugAllergy);
-    _selectedGender =
-        genderItems.contains(profile?.gender) ? profile?.gender : null;
+    _selectedGender = genderItems.contains(profile?.gender?.toTitleCase())
+        ? profile?.gender
+        : null;
+
+    _addressController = TextEditingController();
+    if (profile?.address != null) {
+      _address = profile!.address;
+      _addressController.text = _buildHomeAddressText(_address!);
+    }
   }
 
   @override
@@ -76,6 +84,12 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
     setState(() {
       _selectedImage = null;
     });
+  }
+
+  String _buildHomeAddressText(Address address) {
+    return [address.name, address.formattedAddress]
+        .where((part) => part != null && part.isNotEmpty)
+        .join(', ');
   }
 
   void _submitForm() {
@@ -152,7 +166,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                                   _selectedImage!,
                                   fit: BoxFit.cover,
                                 )
-                              : profile != null && profile?.avatar != null
+                              : profile != null && profile!.avatar != null
                                   ? Image.network(
                                       profile!.avatar!,
                                       fit: BoxFit.cover,
@@ -241,10 +255,14 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
+                  dropdownColor: Colors.white,
                   items: genderItems.map((String value) {
                     return DropdownMenuItem<String?>(
                       value: value,
-                      child: Text(value),
+                      child: Text(
+                        value,
+                        style: const TextStyle(fontWeight: FontWeight.normal),
+                      ),
                     );
                   }).toList(),
                   initialValue: _selectedGender,
@@ -288,12 +306,37 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                   keyboardType: TextInputType.phone,
                 ),
                 const SizedBox(height: 20),
-                TextFormField(
-                  controller: _addressController,
-                  decoration: InputDecoration(
-                    labelText: 'Home Address',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
+                GestureDetector(
+                  onTap: () async {
+                    // Navigate to Map Page and wait for result
+                    final result = await Navigator.push<Address>(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddressMapPage(
+                          initialAddress: _address,
+                        ),
+                      ),
+                    );
+                    if (result != null && context.mounted) {
+                      setState(() {
+                        _address = result;
+                        _addressController.text =
+                            _buildHomeAddressText(_address!);
+                      });
+                    }
+                  },
+                  child: AbsorbPointer(
+                    child: TextFormField(
+                      controller: _addressController,
+                      decoration: InputDecoration(
+                        labelText: 'Home Address',
+                        hintText: 'Tap to select location on map',
+                        suffixIcon: const Icon(Icons.map, color: Const.aqua),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      maxLines: 3,
                     ),
                   ),
                 ),
