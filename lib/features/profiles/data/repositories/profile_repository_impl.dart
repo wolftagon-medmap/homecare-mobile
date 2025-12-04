@@ -20,7 +20,9 @@ class ProfileRepositoryImpl extends ProfileRepository {
       final profile = await remoteDatasource.getProfile();
       log('Profile fetched: $profile', name: 'ProfileRepositoryImpl');
       return Right(profile);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      log('Failed to fetch profile: $e',
+          name: 'ProfileRepositoryImpl', stackTrace: stackTrace);
       if (e is Failure) {
         return Left(e);
       }
@@ -107,7 +109,8 @@ class ProfileRepositoryImpl extends ProfileRepository {
   Future<Either<Failure, Unit>> updateMentalHealthState(
       MentalHealthState state) async {
     try {
-      final Map<String, dynamic> data = MentalHealthStateModel.fromEntity(state).toJson();
+      final Map<String, dynamic> data =
+          MentalHealthStateModel.fromEntity(state).toJson();
       await remoteDatasource.updateMentalHealthState(data);
       return const Right(unit);
     } catch (e) {

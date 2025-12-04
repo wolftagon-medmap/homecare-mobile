@@ -32,8 +32,8 @@ class ProfileModel extends Profile {
       gender: json['gender'] ?? '',
       drugAllergy: json['drug_allergy'] ?? '',
       avatar: json['avatar'] ?? '',
-      address: json['address'] != null 
-          ? AddressModel.fromJson(json['location'])
+      address: json['address'] != null
+          ? AddressModel.fromJson(json['address'])
           : null,
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])

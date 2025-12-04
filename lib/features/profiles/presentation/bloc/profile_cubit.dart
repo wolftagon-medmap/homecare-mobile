@@ -53,6 +53,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       final result = await getProfileUseCase();
       result.fold(
         (failure) {
+          log('Failed to load profile: ${failure.message}',
+              name: 'ProfileCubit');
           if (failure is UnauthorizedFailure) {
             emit(ProfileUnauthenticated());
           } else {
