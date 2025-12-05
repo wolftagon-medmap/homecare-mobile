@@ -5,7 +5,7 @@ import 'package:m2health/features/profiles/presentation/profile_page.dart';
 import 'package:m2health/features/appointment/pages/appointment_page.dart';
 import 'package:m2health/core/presentation/views/dashboard.dart';
 import 'package:m2health/core/presentation/views/favourites.dart';
-import 'package:m2health/core/presentation/views/medical_store.dart';
+import 'package:m2health/features/medical_store/presentation/pages/medical_store_page.dart';
 
 class CustomBottomAppBar extends StatefulWidget {
   static final GlobalKey<_CustomBottomAppBarState> globalKey =
