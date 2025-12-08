@@ -7,7 +7,7 @@ import 'package:m2health/route/dashboard_routes.dart';
 import 'package:m2health/route/navigator_keys.dart';
 import 'package:m2health/core/presentation/views/dashboard.dart';
 import 'package:m2health/core/presentation/views/favourites.dart';
-import 'package:m2health/core/presentation/views/medical_store.dart';
+import 'package:m2health/features/medical_store/presentation/pages/medical_store_page.dart';
 import 'package:m2health/features/profiles/presentation/profile_page.dart';
 
 class CoreRoutes {
