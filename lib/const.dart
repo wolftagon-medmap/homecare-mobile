@@ -14,6 +14,7 @@ class Const {
   static const String API_RESET_PASSWORD = URL_API + '/auth/reset-password';
   static const String API_APPOINTMENT = URL_API + '/appointments';
   static const String API_PROFILE = URL_API + '/profiles';
+  static const String API_MEDICAL_STORE = URL_API + '/medical-stores';
   static const String API_MEDICAL_RECORDS = URL_API + '/medical-records';
   static const String API_PERSONAL_CASES = URL_API + '/personal-cases';
   static const String API_CERTIFICATES = URL_API + '/certificates';
