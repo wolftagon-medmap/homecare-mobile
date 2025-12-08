@@ -36,4 +36,28 @@ class UpdateProfileParams {
     this.drugAllergy,
     this.avatar,
   });
+
+  UpdateProfileParams copyWith({
+    String? name,
+    int? age,
+    double? weight,
+    double? height,
+    String? phoneNumber,
+    String? homeAddress,
+    String? gender,
+    String? drugAllergy,
+    File? avatar,
+  }) {
+    return UpdateProfileParams(
+      name: name ?? this.name,
+      age: age ?? this.age,
+      weight: weight ?? this.weight,
+      height: height ?? this.height,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      homeAddress: homeAddress ?? this.homeAddress,
+      gender: gender ?? this.gender,
+      drugAllergy: drugAllergy ?? this.drugAllergy,
+      avatar: avatar ?? this.avatar,
+    );
+  }
 }

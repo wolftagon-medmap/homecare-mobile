@@ -192,8 +192,8 @@ class _MyAppState extends State<MyApp> {
                 surfaceTintColor: Colors.transparent,
               ),
               textSelectionTheme: TextSelectionThemeData(
-                cursorColor: Const.tosca,
-                selectionColor: Const.tosca.withValues(alpha: 0.4),
+                cursorColor: Const.aqua,
+                selectionColor: Const.aqua.withValues(alpha: 0.4),
               ),
               inputDecorationTheme: InputDecorationTheme(
                 border: OutlineInputBorder(
@@ -216,6 +216,12 @@ class _MyAppState extends State<MyApp> {
                     color: Const.tosca,
                     width: 1.5,
                   ),
+                ),
+                hintStyle: const TextStyle(
+                  color: Colors.grey,
+                ),
+                labelStyle: const TextStyle(
+                  color: Colors.black,
                 ),
               ),
               textTheme: const TextTheme(

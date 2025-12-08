@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
@@ -166,20 +167,6 @@ class _PatientHeader extends StatelessWidget {
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
               const SizedBox(height: 4),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Icon(Icons.location_on, size: 16, color: Colors.grey),
-                  const SizedBox(width: 4),
-                  Expanded(
-                    child: Text(
-                      patient.homeAddress ?? 'Unknown Location',
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
@@ -194,6 +181,20 @@ class _PatientHeader extends StatelessWidget {
                     fontSize: 12,
                   ),
                 ),
+              ),
+              const SizedBox(height: 4),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Icon(Icons.location_on, size: 16, color: Colors.grey),
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      patient.homeAddress ?? 'Unknown Location',
+                      style: const TextStyle(fontSize: 12),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -242,6 +243,38 @@ class _PatientInfoTable extends StatelessWidget {
         _buildInfoRow('Weight', '${patient.weight} kg'),
         _buildInfoRow('Height', '${patient.height} cm'),
         _buildInfoRow('Address', patient.homeAddress),
+        if (patient.address != null)
+          Container(
+            height: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            clipBehavior: Clip.antiAlias,
+            margin: const EdgeInsets.symmetric(vertical: 16.0),
+            child: GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(
+                  patient.address!.latitude,
+                  patient.address!.longitude,
+                ),
+                zoom: 15,
+              ),
+              markers: {
+                Marker(
+                  markerId: MarkerId('patient_${patient.id}_home_address'),
+                  position: LatLng(
+                      patient.address!.latitude, patient.address!.longitude),
+                ),
+              },
+              liteModeEnabled: true,
+              zoomControlsEnabled: true,
+              scrollGesturesEnabled: true,
+              tiltGesturesEnabled: false,
+              rotateGesturesEnabled: false,
+              myLocationButtonEnabled: false,
+              mapType: MapType.normal,
+            ),
+          ),
       ],
     );
   }
