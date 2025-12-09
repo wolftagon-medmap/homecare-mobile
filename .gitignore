@@ -49,3 +49,4 @@ app.*.map.json
 .gemini/
 gemini.md
 flutter.md
+.tasks/

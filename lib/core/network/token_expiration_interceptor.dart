@@ -9,7 +9,7 @@ class TokenExpirationInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) {
     // Check if the error is 401 Unauthorized
     if (err.response?.statusCode == 401 &&
-        err.response?.data['code'] == 'E_INVALID_CREDENTIALS') {
+        err.response?.data['code'] == 'E_UNAUTHORIZED_ACCESS') {
       rootScaffoldMessengerKey.currentState?.showSnackBar(
         const SnackBar(
           content: Text(

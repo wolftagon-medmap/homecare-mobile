@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
@@ -222,6 +223,38 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
             text: profile.homeAddress ?? 'N/A',
             isFlexible: true,
           ),
+          if (profile.address != null)
+            Container(
+              height: 150,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              clipBehavior: Clip.antiAlias,
+              margin: const EdgeInsets.symmetric(vertical: 16.0),
+              child: GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(
+                    profile.address!.latitude,
+                    profile.address!.longitude,
+                  ),
+                  zoom: 15,
+                ),
+                markers: {
+                  Marker(
+                    markerId: MarkerId('patient_${profile.id}_home_address'),
+                    position: LatLng(
+                        profile.address!.latitude, profile.address!.longitude),
+                  ),
+                },
+                liteModeEnabled: true,
+                zoomControlsEnabled: true,
+                scrollGesturesEnabled: true,
+                tiltGesturesEnabled: false,
+                rotateGesturesEnabled: false,
+                myLocationButtonEnabled: false,
+                mapType: MapType.normal,
+              ),
+            ),
         ],
       ),
     );

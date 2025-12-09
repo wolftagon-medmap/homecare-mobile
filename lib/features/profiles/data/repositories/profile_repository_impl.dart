@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/features/profiles/data/datasources/profile_remote_datasource.dart';
+import 'package:m2health/features/profiles/data/models/mental_health_state_model.dart';
+import 'package:m2health/features/profiles/domain/entities/mental_health_state.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'package:m2health/features/profiles/domain/repositories/profile_repository.dart';
@@ -18,7 +20,9 @@ class ProfileRepositoryImpl extends ProfileRepository {
       final profile = await remoteDatasource.getProfile();
       log('Profile fetched: $profile', name: 'ProfileRepositoryImpl');
       return Right(profile);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      log('Failed to fetch profile: $e',
+          name: 'ProfileRepositoryImpl', stackTrace: stackTrace);
       if (e is Failure) {
         return Left(e);
       }
@@ -80,6 +84,34 @@ class ProfileRepositoryImpl extends ProfileRepository {
 
       await remoteDatasource.updateProfessionalProfile(
           params.role, profileData, params.avatar);
+      return const Right(unit);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  // --- Mental Health State Methods ---
+
+  @override
+  Future<Either<Failure, MentalHealthState>> getMentalHealthState() async {
+    try {
+      final state = await remoteDatasource.getMentalHealthState();
+      return Right(state);
+    } catch (e) {
+      if (e is Failure) {
+        return Left(e);
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> updateMentalHealthState(
+      MentalHealthState state) async {
+    try {
+      final Map<String, dynamic> data =
+          MentalHealthStateModel.fromEntity(state).toJson();
+      await remoteDatasource.updateMentalHealthState(data);
       return const Right(unit);
     } catch (e) {
       return Left(ServerFailure(e.toString()));

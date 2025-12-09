@@ -226,30 +226,33 @@ class _AppointmentListViewState extends State<AppointmentListView> {
       onRefresh: widget.onRefresh,
       backgroundColor: Colors.white,
       color: Const.aqua,
-      child: ListView.builder(
-        controller: _scrollController,
-        physics: const AlwaysScrollableScrollPhysics(
-          parent: BouncingScrollPhysics(),
-        ),
-        itemCount: appointments.length + 1, // +1 for loading indicator
-        itemBuilder: (context, index) {
-          if (index == appointments.length) {
-            if (widget.tabData.status == LoadStatus.loadingMore) {
-              return const Center(
-                  child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: CircularProgressIndicator(),
-              ));
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 64.0),
+        child: ListView.builder(
+          controller: _scrollController,
+          physics: const AlwaysScrollableScrollPhysics(
+            parent: BouncingScrollPhysics(),
+          ),
+          itemCount: appointments.length + 1, // +1 for loading indicator
+          itemBuilder: (context, index) {
+            if (index == appointments.length) {
+              if (widget.tabData.status == LoadStatus.loadingMore) {
+                return const Center(
+                    child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: CircularProgressIndicator(),
+                ));
+              }
+              return const SizedBox.shrink();
             }
-            return const SizedBox.shrink();
-          }
 
-          final appointment = appointments[index];
-          return _AppointmentListItem(
-            key: ValueKey(appointment.id),
-            appointment: appointment,
-          );
-        },
+            final appointment = appointments[index];
+            return _AppointmentListItem(
+              key: ValueKey(appointment.id),
+              appointment: appointment,
+            );
+          },
+        ),
       ),
     );
   }
@@ -340,6 +343,7 @@ class _AppointmentListItem extends StatelessWidget {
         style: TextStyle(
           color: Colors.red,
           fontWeight: FontWeight.bold,
+          fontSize: 13,
         ),
       ),
     );

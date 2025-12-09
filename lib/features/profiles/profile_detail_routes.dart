@@ -9,6 +9,8 @@ import 'package:m2health/features/profiles/presentation/pages/admin/manage_servi
 import 'package:m2health/features/profiles/presentation/pages/edit_lifestyle_n_selfcare_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_medical_history_n_risk_factor_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_physical_sign_page.dart';
+import 'package:m2health/features/profiles/presentation/pages/edit_mental_state_page.dart';
+import 'package:m2health/features/profiles/presentation/bloc/mental_health_state_cubit.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_professional_profile.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_basic_info_page.dart';
 import 'package:m2health/features/medical_record/presentation/pages/medical_records_page.dart';
@@ -47,6 +49,16 @@ class ProfileDetailRoutes {
       name: AppRoutes.profilePhysicalSigns,
       builder: (context, state) {
         return const EditPhysicalSignPage();
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.profileMentalState,
+      name: AppRoutes.profileMentalState,
+      builder: (context, state) {
+        return BlocProvider(
+          create: (context) => MentalHealthStateCubit(repository: sl()),
+          child: const EditMentalStatePage(),
+        );
       },
     ),
 

@@ -31,7 +31,6 @@ import './AppLanguage.dart';
 import './app_localzations.dart';
 import 'package:provider/provider.dart';
 
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 
 void main() async {
@@ -95,10 +94,7 @@ void main() async {
       ],
       child: ChangeNotifierProvider(
         create: (context) => AppLanguage(),
-        child: DevicePreview(
-          enabled: !kReleaseMode,
-          builder: (context) => MyApp(appLanguage: appLanguage),
-        ),
+        child: MyApp(appLanguage: appLanguage),
       ),
     ),
   );
@@ -196,8 +192,8 @@ class _MyAppState extends State<MyApp> {
                 surfaceTintColor: Colors.transparent,
               ),
               textSelectionTheme: TextSelectionThemeData(
-                cursorColor: Const.tosca,
-                selectionColor: Const.tosca.withValues(alpha: 0.4),
+                cursorColor: Const.aqua,
+                selectionColor: Const.aqua.withValues(alpha: 0.4),
               ),
               inputDecorationTheme: InputDecorationTheme(
                 border: OutlineInputBorder(
@@ -220,6 +216,12 @@ class _MyAppState extends State<MyApp> {
                     color: Const.tosca,
                     width: 1.5,
                   ),
+                ),
+                hintStyle: const TextStyle(
+                  color: Colors.grey,
+                ),
+                labelStyle: const TextStyle(
+                  color: Colors.black,
                 ),
               ),
               textTheme: const TextTheme(
@@ -244,14 +246,9 @@ class _MyAppState extends State<MyApp> {
                   ColorScheme.fromSeed(seedColor: Const.colorDashboard),
               useMaterial3: true,
             ),
-            locale: DevicePreview.locale(context),
             builder: (context, child) {
               return Scaffold(
-                body: Stack(
-                  children: [
-                    DevicePreview.appBuilder(context, child),
-                  ],
-                ),
+                body: child,
                 bottomNavigationBar:
                     _showBottomAppBar ? const BottomAppBar() : null,
               );

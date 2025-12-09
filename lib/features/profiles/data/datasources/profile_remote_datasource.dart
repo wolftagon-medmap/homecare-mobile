@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/error/failures.dart';
+import 'package:m2health/features/profiles/data/models/mental_health_state_model.dart';
 import 'package:m2health/features/profiles/data/models/professional_profile_model.dart';
 import 'package:m2health/features/profiles/data/models/profile_model.dart';
 import 'package:m2health/utils.dart';
@@ -28,6 +29,10 @@ abstract class ProfileRemoteDatasource {
       int id, String role);
   Future<void> verifyProfessional(int id, String role);
   Future<void> revokeVerification(int id, String role);
+
+  // Mental Health State
+  Future<MentalHealthStateModel> getMentalHealthState();
+  Future<void> updateMentalHealthState(Map<String, dynamic> data);
 }
 
 class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
@@ -257,6 +262,37 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
       );
     } on DioException catch (e) {
       throw Exception('Failed to revoke verification: ${e.message}');
+    }
+  }
+
+  @override
+  Future<MentalHealthStateModel> getMentalHealthState() async {
+    try {
+      final response = await dio.get(
+        '${Const.API_PROFILE}/mental-health-state',
+        options: await _getAuthHeaders(),
+      );
+      final data = response.data['data'];
+      return MentalHealthStateModel.fromJson(data);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        throw const UnauthorizedFailure("User is not authenticated");
+      }
+      throw Exception('Failed to load mental health state. Error: ${e.message}');
+    }
+  }
+
+  @override
+  Future<void> updateMentalHealthState(Map<String, dynamic> data) async {
+    try {
+      await dio.put(
+        '${Const.API_PROFILE}/mental-health-state',
+        data: data,
+        options: await _getAuthHeaders(),
+      );
+    } on DioException catch (e) {
+      throw Exception(
+          'Failed to update mental health state. Error: ${e.message}');
     }
   }
 }
