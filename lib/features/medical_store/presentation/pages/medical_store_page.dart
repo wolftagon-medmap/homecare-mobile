@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/medical_store/domain/entity/medical_store.dart';
 import 'package:m2health/features/medical_store/presentation/bloc/medical_store_cubit.dart';
 import 'package:m2health/features/medical_store/presentation/bloc/medical_store_state.dart';
+import 'package:m2health/features/medical_store/presentation/pages/medical_store_detail_page.dart';
+import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
 class MedicalStorePage extends StatefulWidget {
@@ -201,74 +204,83 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              SizedBox(
-                height: 120,
-                width: double.infinity,
-                child: ClipRRect(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(12)),
-                  child: product.isLocalImage
-                      ? Image.asset(
-                          product.imageUrl,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.network(
-                          product.imageUrl,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              Container(
-                            color: Colors.grey[200],
-                            child: const Center(
-                                child: Icon(Icons.broken_image, size: 50)),
-                          ),
-                        ),
-                ),
-              ),
-              Positioned(
-                top: 0,
-                right: 0,
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.favorite_border,
-                    color: Colors.grey,
-                  ),
-                  onPressed: () {
-                    // Handle favorite action
-                  },
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: () {
+        final params = MedicalStoreDetailPageParams(
+          productId: product.id,
+          title: product.name,
+        );
+        context.goNamed(AppRoutes.medicalStoreDetail, extra: params);
+      },
+      child: Card(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
               children: [
-                Text(
-                  product.name,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
+                SizedBox(
+                  height: 120,
+                  width: double.infinity,
+                  child: ClipRRect(
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(12)),
+                    child: product.isLocalImage
+                        ? Image.asset(
+                            product.imageUrl,
+                            fit: BoxFit.cover,
+                          )
+                        : Image.network(
+                            product.imageUrl,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                Container(
+                              color: Colors.grey[200],
+                              child: const Center(
+                                  child: Icon(Icons.broken_image, size: 50)),
+                            ),
+                          ),
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
                 ),
-                const SizedBox(height: 4),
-                if (product.price != null)
-                  Text(
-                    '\$${product.price}',
-                    style: const TextStyle(fontSize: 12),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.favorite_border,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      // Handle favorite action
+                    },
                   ),
+                ),
               ],
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
+                  if (product.price != null)
+                    Text(
+                      '\$${product.price}',
+                      style: const TextStyle(fontSize: 12),
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

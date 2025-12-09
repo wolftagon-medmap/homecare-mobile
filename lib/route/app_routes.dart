@@ -73,6 +73,8 @@ class AppRoutes {
   static const String diabeticProfileForm = '$diabeticCare/profile/form';
   static const String diabeticProfileSummary = '$diabeticCare/profile/summary';
 
+  static const String medicalStoreDetail = '$medicalStore/detail';
+
   // static const String home = '/';
   // static const String submenu = 'submenu';
   // static const String dashboard= 'dashboard';
