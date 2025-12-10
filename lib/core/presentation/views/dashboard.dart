@@ -355,7 +355,7 @@ class _DashboardState extends State<Dashboard> {
                             ),
                             MainServiceMenuItem(
                               onTap: () {
-                                context.push(AppRoutes.secondOpinionMedical);
+                                context.push(AppRoutes.homecareForElderly);
                               },
                               iconPath: 'assets/icons/ic_homecare_elderly.png',
                               title: AppLocalizations.of(context)!

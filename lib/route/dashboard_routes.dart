@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:m2health/features/diabetes/diabetic_care_routes.dart';
 import 'package:m2health/features/booking_appointment/nursing/presentation/pages/nursing_services_page.dart';
+import 'package:m2health/features/homecare_elderly/presentation/pages/homecare_elderly_service_page.dart';
 import 'package:m2health/features/precision/precision_nutrition_routes.dart';
 import 'package:m2health/route/navigator_keys.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_services_page.dart';
@@ -60,7 +61,7 @@ class DashboardRoutes {
       path: AppRoutes.secondOpinionMedical,
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        return OpinionMedical();
+        return const OpinionMedical();
       },
     ),
     GoRoute(
@@ -69,6 +70,13 @@ class DashboardRoutes {
       routes: PrecisionNutritionRoutes.routes,
       builder: (context, state) {
         return const PrecisionNutritionPage();
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.homecareForElderly,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) {
+        return const HomecareElderlyServicePage();
       },
     ),
   ];

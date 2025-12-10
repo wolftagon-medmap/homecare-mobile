@@ -23,6 +23,7 @@ class AppRoutes {
   static const String remotePatientMonitoring = '/remote-patient-monitoring';
   static const String secondOpinionMedical = '/second-opinion-medical';
   static const String precisionNutrition = '/precision-nutrition';
+  static const String homecareForElderly = '/homecare-for-elderly';
 
   // Appointment
   static const String appointmentDetail = '/appointment/detail';
