@@ -46,7 +46,7 @@ class HouseCleaningPage extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-        child: PrimaryButton(text: 'Book', onPressed: () {}),
+        child: PrimaryButton(text: 'Request Services', onPressed: () {}),
       ),
     );
   }
