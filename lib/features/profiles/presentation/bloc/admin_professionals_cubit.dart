@@ -42,7 +42,10 @@ class AdminProfessionalsCubit extends Cubit<AdminProfessionalsState> {
   Future<void> fetchProfessionals(String role, String status) async {
     try {
       emit(AdminProsLoading());
-      final result = await remoteDatasource.getAdminProfessionals(status: status);
+      final result = await remoteDatasource.getAdminProfessionals(
+        status: status,
+        role: role,
+      );
       emit(AdminProsLoaded(result));
     } catch (e) {
       emit(AdminProsError(e.toString()));

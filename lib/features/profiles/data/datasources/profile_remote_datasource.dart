@@ -24,7 +24,7 @@ abstract class ProfileRemoteDatasource {
 
   // Admin
   Future<List<ProfessionalProfileModel>> getAdminProfessionals(
-      {String? status});
+      {String? status, String? role});
   Future<ProfessionalProfileModel> getAdminProfessionalDetail(int id);
   Future<void> verifyProfessional(int id);
   Future<void> revokeVerification(int id);
@@ -191,12 +191,13 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   // --- Admin Methods ---
   @override
   Future<List<ProfessionalProfileModel>> getAdminProfessionals(
-      {String? status}) async {
+      {String? status, String? role}) async {
     try {
       final response = await dio.get(
         '${Const.URL_API}/admin/professionals',
         queryParameters: {
           'status': status, // 'verified' or 'unverified'
+          'role': role,     // e.g., 'nurse', 'pharmacist', etc.
         },
         options: await _getAuthHeaders(),
       );
