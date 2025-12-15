@@ -6,7 +6,6 @@ import 'package:m2health/features/booking_appointment/add_on_services/domain/ent
 import 'package:m2health/features/booking_appointment/nursing/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/health_status.dart';
-import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/mobility_status.dart';
 import 'package:m2health/features/booking_appointment/nursing/domain/entities/nursing_case.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
 import 'package:m2health/features/booking_appointment/nursing/domain/usecases/create_nursing_appointment.dart';

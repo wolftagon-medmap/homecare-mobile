@@ -14,14 +14,16 @@ import 'package:table_calendar/table_calendar.dart';
 class ScheduleAppointmentPageData {
   final ProfessionalEntity professional;
   final bool isSubmitting;
-  final Function(DateTime)? onTimeSlotSelected;
+  final Function(TimeSlot)? onSlotSelected;
   final AppointmentEntity? currentAppointment; // For reschedule mode
+  final String? serviceType;
 
   ScheduleAppointmentPageData({
     required this.professional,
     this.isSubmitting = false,
-    this.onTimeSlotSelected,
+    this.onSlotSelected,
     this.currentAppointment,
+    this.serviceType,
   });
 }
 
@@ -51,16 +53,16 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
   }
 
   void _submit() {
-    final selectedTime =
-        context.read<ScheduleAppointmentCubit>().state.selectedTime;
+    final selectedSlot =
+        context.read<ScheduleAppointmentCubit>().state.selectedSlot;
 
-    if (selectedTime == null) {
+    if (selectedSlot == null) {
       log('No time slot selected on submit', name: 'ScheduleAppointmentView');
       return;
     }
 
-    if (widget.data.onTimeSlotSelected != null) {
-      widget.data.onTimeSlotSelected!(selectedTime);
+    if (widget.data.onSlotSelected != null) {
+      widget.data.onSlotSelected!(selectedSlot);
       return;
     }
 
@@ -68,7 +70,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
       final appointmentId = widget.data.currentAppointment!.id!;
       context.read<ScheduleAppointmentCubit>().rescheduleAppointment(
             appointmentId: appointmentId,
-            newTime: selectedTime,
+            newTime: selectedSlot.startTime,
           );
     }
   }
@@ -85,6 +87,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
           providerId: widget.data.professional.id,
           date: date,
           currentlyBookedSlot: currentlyBookedSlot,
+          serviceType: widget.data.serviceType,
         );
   }
 
@@ -144,9 +147,9 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
 
                   return TimeSlotGridView(
                     timeSlots: state.slots,
-                    selectedTime: state.selectedTime,
-                    onTimeSelected: (time) {
-                      context.read<ScheduleAppointmentCubit>().selectTime(time);
+                    selectedSlot: state.selectedSlot,
+                    onSlotSelected: (slot) {
+                      context.read<ScheduleAppointmentCubit>().selectSlot(slot);
                     },
                   );
                 },
@@ -314,7 +317,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
         },
         builder: (context, state) {
           final isButtonDisabled =
-              state.selectedTime == null || widget.data.isSubmitting;
+              state.selectedSlot == null || widget.data.isSubmitting;
           return ElevatedButton(
             onPressed: isButtonDisabled ? null : _submit,
             style: ElevatedButton.styleFrom(

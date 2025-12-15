@@ -10,8 +10,8 @@ class ProfessionalRemoteDatasource {
 
   ProfessionalRemoteDatasource(this.dio);
 
-  Future<List<ProfessionalModel>> getProfessionals(
-    String role, {
+  Future<List<ProfessionalModel>> getProfessionals({
+    String? role,
     String? name,
     List<int>? serviceIds,
     bool? isHomeScreeningAuthorized,
@@ -19,7 +19,7 @@ class ProfessionalRemoteDatasource {
     try {
       final token = await Utils.getSpString(Const.TOKEN);
       final queryParams = {
-        'provider_type': role,
+        if (role != null) 'role': role,
         if (name != null) 'name': name,
         if (serviceIds != null && serviceIds.isNotEmpty)
           'service_ids[]': serviceIds,
@@ -53,14 +53,11 @@ class ProfessionalRemoteDatasource {
     }
   }
 
-  Future<ProfessionalModel> getProfessionalDetail(String role, int id) async {
+  Future<ProfessionalModel> getProfessionalDetail(int id) async {
     final token = await Utils.getSpString(Const.TOKEN);
 
     final response = await dio.get(
       '${Const.URL_API}/professionals/$id',
-      queryParameters: {
-        'provider_type': role,
-      },
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',

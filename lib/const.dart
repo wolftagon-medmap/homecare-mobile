@@ -62,6 +62,12 @@ class Const {
       '$URL_API/schedule/preview-slots';
   static const String API_SCHEDULE_SLOTS = '$URL_API/schedule/slots';
 
+  // Subscriptions
+  static const String API_SUBSCRIPTIONS = '$URL_API/subscriptions';
+  static const String API_SUBSCRIPTIONS_PLANS = '$API_SUBSCRIPTIONS/plans';
+  static const String API_SUBSCRIPTIONS_ME = '$API_SUBSCRIPTIONS/me';
+  static const String API_SUBSCRIPTIONS_PURCHASE = '$API_SUBSCRIPTIONS/purchase';
+
   static const String ROLE = 'role';
   static const String IS_LOGED_IN = 'is_logged_in';
   static const String TOKEN = 'token';

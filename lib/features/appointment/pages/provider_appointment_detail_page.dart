@@ -433,6 +433,9 @@ class _PersonalCaseInfo extends StatelessWidget {
       final personalCase = appointment.pharmacyCase;
       servicesList = personalCase?.addOnServices.map((e) => e.name).toList();
       issues = personalCase?.issues;
+    } else if (appointment.type == 'homecare') {
+      final personalCase = appointment.homecareRequestData;
+      servicesList = personalCase?.services;
     }
 
     // sort issues by updatedAt descending
@@ -465,74 +468,77 @@ class _PersonalCaseInfo extends StatelessWidget {
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
           ),
         const SizedBox(height: 24),
-        const Text(
-          'Patient Issues',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-        ),
-        const SizedBox(height: 8),
-        if (issues != null && issues.isNotEmpty)
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: issues.length,
-            itemBuilder: (context, issueIndex) {
-              final issue = issues![issueIndex];
-              final images = issue.imageUrls;
+        if (issues != null) ...[
+          const Text(
+            'Patient Issues',
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+          ),
+          const SizedBox(height: 8),
+          if (issues.isNotEmpty)
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: issues.length,
+              itemBuilder: (context, issueIndex) {
+                final issue = issues![issueIndex];
+                final images = issue.imageUrls;
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${issueIndex + 1}. ${issue.title}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w500,
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${issueIndex + 1}. ${issue.title}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  const Text('Description:'),
-                  Text(
-                    issue.description,
-                    style: const TextStyle(height: 1.5),
-                  ),
-                  const SizedBox(height: 4),
-                  if (images.isNotEmpty)
-                    SizedBox(
-                      height: 80,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: images.length,
-                        itemBuilder: (context, imageIndex) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: GestureDetector(
-                              onTap: () =>
-                                  _showFullImage(context, images[imageIndex]),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(images[imageIndex]),
+                    const SizedBox(height: 4),
+                    const Text('Description:'),
+                    Text(
+                      issue.description,
+                      style: const TextStyle(height: 1.5),
+                    ),
+                    const SizedBox(height: 4),
+                    if (images.isNotEmpty)
+                      SizedBox(
+                        height: 80,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: images.length,
+                          itemBuilder: (context, imageIndex) {
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: GestureDetector(
+                                onTap: () =>
+                                    _showFullImage(context, images[imageIndex]),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(images[imageIndex]),
+                                ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Icon(Icons.access_time,
+                            size: 16, color: Colors.grey[600]),
+                        const SizedBox(width: 8),
+                        Text(
+                          "Created on: ${DateFormat('MMM d, y, HH:mm').format(issue.updatedAt!)}",
+                          style:
+                              TextStyle(fontSize: 12, color: Colors.grey[600]),
+                        ),
+                      ],
                     ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Icon(Icons.access_time,
-                          size: 16, color: Colors.grey[600]),
-                      const SizedBox(width: 8),
-                      Text(
-                        "Created on: ${DateFormat('MMM d, y, HH:mm').format(issue.updatedAt!)}",
-                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                ],
-              );
-            },
-          )
+                    const SizedBox(height: 16),
+                  ],
+                );
+              },
+            )
+        ]
       ],
     );
   }

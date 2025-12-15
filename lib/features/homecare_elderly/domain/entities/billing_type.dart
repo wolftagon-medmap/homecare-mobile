@@ -1,0 +1,4 @@
+enum BillingType {
+  hourly,
+  subscription,
+}

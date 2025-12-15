@@ -95,6 +95,8 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
           // Conditional rendering based on appointment type
           if (appointment.type == 'screening')
             _buildScreeningInfo(appointment)
+          else if (appointment.type == 'homecare')
+            _buildHomecareTaskInfo(appointment)
           else
             _buildConcernInfo(appointment),
           const SizedBox(height: 16),
@@ -368,6 +370,39 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
     );
   }
 
+  Widget _buildHomecareTaskInfo(AppointmentEntity appointment) {
+    List<String>? tasks = appointment.homecareRequestData?.services;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Requested Homecare Tasks',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          const SizedBox(height: 4),
+          if (tasks != null && tasks.isNotEmpty)
+            ...tasks.map((task) => Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.check, color: Const.aqua, size: 20),
+                      const SizedBox(width: 8),
+                      Text(task),
+                    ],
+                  ),
+                ))
+          else
+            const Text('No specific homecare tasks requested.'),
+        ],
+      ),
+    );
+  }
+
   Widget _buildConcernInfo(AppointmentEntity appointment) {
     List<PersonalIssue>? issues;
 
@@ -531,14 +566,12 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
             ),
             const Divider(height: 20),
           ],
-          const Text(
-            'Services',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
-          if (services.isEmpty)
-            const Text('No services selected.')
-          else
+          if (services.isNotEmpty) ...[
+            const Text(
+              'Services',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
             ...services.map(
               (addOn) => Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
@@ -551,7 +584,8 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
                 ),
               ),
             ),
-          const Divider(height: 16),
+            const Divider(height: 16),
+          ],
           Row(
             children: [
               const Text(

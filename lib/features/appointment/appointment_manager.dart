@@ -9,7 +9,8 @@ class AppointmentManager {
   static const List<String> providerRoles = [
     'pharmacist',
     'nurse',
-    'radiologist'
+    'radiologist',
+    'caregiver',
   ];
 
   /// Check if the current user is a provider

@@ -193,10 +193,10 @@ class _NursingAppointmentFlowPageState
                       professional: state.selectedProfessional!,
                       isSubmitting: state.submissionStatus ==
                           AppointmentSubmissionStatus.submitting,
-                      onTimeSlotSelected: (timeSlot) {
+                      onSlotSelected: (timeSlot) {
                         context
                             .read<NursingAppointmentFlowBloc>()
-                            .add(FlowTimeSlotSelected(timeSlot));
+                            .add(FlowTimeSlotSelected(timeSlot.startTime));
                       },
                     )),
                   ), // Placeholder
