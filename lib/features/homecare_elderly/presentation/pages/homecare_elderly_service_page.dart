@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/app_localzations.dart';
+import 'package:m2health/core/extensions/string_extensions.dart';
+import 'package:m2health/features/homecare_elderly/presentation/pages/homecare_package_details_page.dart';
 import 'package:m2health/features/homecare_elderly/presentation/pages/house_cleaning_page.dart';
 import 'package:m2health/features/homecare_elderly/presentation/pages/kitchen_bathroom_repair_page.dart';
 import 'package:m2health/features/homecare_elderly/presentation/pages/living_security_page.dart';
+import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
+import 'package:m2health/features/subscription/presentation/bloc/subscription_state.dart';
 
-class HomecareElderlyServicePage extends StatelessWidget {
+class HomecareElderlyServicePage extends StatefulWidget {
   const HomecareElderlyServicePage({super.key});
+
+  @override
+  State<HomecareElderlyServicePage> createState() =>
+      _HomecareElderlyServicePageState();
+}
+
+class _HomecareElderlyServicePageState
+    extends State<HomecareElderlyServicePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<SubscriptionCubit>().fetchSubscriptionData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +39,7 @@ class HomecareElderlyServicePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              _buildSubscriptionHeader(context),
               MenuCard(
                 title: "House & Bedding Cleaning",
                 description:
@@ -70,6 +89,91 @@ class HomecareElderlyServicePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildSubscriptionHeader(BuildContext context) {
+    return BlocBuilder<SubscriptionCubit, SubscriptionState>(
+      builder: (context, state) {
+        final hasSubscription = state.hasActiveSubscription;
+        final balance = state.totalBalance;
+        final plans = state.plans;
+        final defaultPlan = plans.isNotEmpty ? plans.first : null;
+        final offerText = defaultPlan != null
+            ? '${defaultPlan.quotaAmount} ${defaultPlan.quotaUnit.toTitleCase()}s for \$${defaultPlan.price.toStringAsFixed(2)}'
+            : '12 Hours for \$300.00';
+
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomecarePackageDetailsPage(),
+              ),
+            );
+          },
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFF35C5CF), Color(0xFF2FA2AA)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF35C5CF).withValues(alpha: 0.3),
+                  blurRadius: 8,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.card_membership,
+                      color: Colors.white, size: 28),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        hasSubscription
+                            ? 'Homecare Plus Active'
+                            : 'Get Homecare Plus',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        hasSubscription ? 'Balance: $balance Hours' : offerText,
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.9),
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Icon(Icons.arrow_forward_ios,
+                    color: Colors.white, size: 16),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

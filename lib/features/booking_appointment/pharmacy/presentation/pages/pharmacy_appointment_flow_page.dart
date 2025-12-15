@@ -193,10 +193,10 @@ class PharmacyAppointmentFlowPageState
                         professional: state.selectedProfessional!,
                         isSubmitting: state.submissionStatus ==
                             AppointmentSubmissionStatus.submitting,
-                        onTimeSlotSelected: (timeSlot) {
+                        onSlotSelected: (timeSlot) {
                           context
                               .read<PharmacyAppointmentFlowBloc>()
-                              .add(FlowTimeSlotSelected(timeSlot));
+                              .add(FlowTimeSlotSelected(timeSlot.startTime));
                         },
                       ),
                     ),

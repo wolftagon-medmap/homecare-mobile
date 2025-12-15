@@ -1,11 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/features/diabetes/widgets/diabetes_form_widget.dart';
-import 'package:m2health/features/homecare_elderly/domain/entity/homecare_task.dart';
+import 'package:m2health/features/homecare_elderly/domain/entities/homecare_task.dart';
+import 'package:m2health/features/homecare_elderly/presentation/pages/homecare_appointment_flow_page.dart';
 
 const Color _mainColor = Color(0xFFF79E1B);
 
-class HouseCleaningPage extends StatelessWidget {
+class HouseCleaningPage extends StatefulWidget {
   const HouseCleaningPage({super.key});
+
+  @override
+  State<HouseCleaningPage> createState() => _HouseCleaningPageState();
+}
+
+class _HouseCleaningPageState extends State<HouseCleaningPage> {
+  List<String> _selectedTasks = [];
+
+  void _onTasksChanged(List<String> tasks) {
+    setState(() {
+      _selectedTasks = tasks;
+    });
+  }
+
+  void _onRequestServices() {
+    if (_selectedTasks.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please select at least one task.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomecareAppointmentFlowPage(
+          selectedTasks: _selectedTasks,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +54,10 @@ class HouseCleaningPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: ListView(
-          children: const [
-            _FeatureCard(),
-            SizedBox(height: 24),
-            Column(
+          children: [
+            const _FeatureCard(),
+            const SizedBox(height: 24),
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -39,14 +74,17 @@ class HouseCleaningPage extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 24),
-            _TaskList(),
+            const SizedBox(height: 24),
+            _TaskList(onChanged: _onTasksChanged),
           ],
         ),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-        child: PrimaryButton(text: 'Request Services', onPressed: () {}),
+        child: PrimaryButton(
+          text: 'Request Services',
+          onPressed: _onRequestServices,
+        ),
       ),
     );
   }
@@ -119,7 +157,9 @@ class _FeatureCard extends StatelessWidget {
 }
 
 class _TaskList extends StatefulWidget {
-  const _TaskList();
+  final ValueChanged<List<String>> onChanged;
+
+  const _TaskList({required this.onChanged});
 
   @override
   State<_TaskList> createState() => _TaskListState();
@@ -135,7 +175,20 @@ class _TaskListState extends State<_TaskList> {
         const HomecareTask(id: 6, name: 'Deep clean refrigerator'),
       ];
 
-  List<HomecareTask> selectedTasks = [];
+  final List<String> selectedTasks = [];
+
+  void toggleSelection(HomecareTask task, bool? value) {
+    setState(() {
+      if (value == true) {
+        if (!selectedTasks.contains(task.name)) {
+          selectedTasks.add(task.name);
+        }
+      } else {
+        selectedTasks.remove(task.name);
+      }
+      widget.onChanged(selectedTasks);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,16 +209,7 @@ class _TaskListState extends State<_TaskList> {
           itemCount: tasks.length,
           itemBuilder: (context, index) {
             final task = tasks[index];
-            bool isSelected = selectedTasks.contains(task);
-            void toggleSelection(bool? value) {
-              setState(() {
-                if (value == true) {
-                  selectedTasks.add(task);
-                } else {
-                  selectedTasks.remove(task);
-                }
-              });
-            }
+            bool isSelected = selectedTasks.contains(task.name);
 
             return Container(
               margin: const EdgeInsets.symmetric(vertical: 4.0),
@@ -182,7 +226,7 @@ class _TaskListState extends State<_TaskList> {
                   ),
                 ),
                 value: isSelected,
-                onChanged: toggleSelection,
+                onChanged: (val) => toggleSelection(task, val),
                 controlAffinity: ListTileControlAffinity.leading,
                 contentPadding: EdgeInsets.zero,
                 visualDensity: VisualDensity.compact,

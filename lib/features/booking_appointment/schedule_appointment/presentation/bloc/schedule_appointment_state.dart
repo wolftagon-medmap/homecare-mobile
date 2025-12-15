@@ -3,7 +3,7 @@ part of 'schedule_appointment_cubit.dart';
 class ScheduleAppointmentState extends Equatable {
   final ActionStatus status; // for fetching available time slots
   final List<TimeSlot> slots;
-  final DateTime? selectedTime;
+  final TimeSlot? selectedSlot;
   final String? errorMessage; // error for fetching slots
 
   final ActionStatus rescheduleStatus;
@@ -12,7 +12,7 @@ class ScheduleAppointmentState extends Equatable {
   const ScheduleAppointmentState({
     this.status = ActionStatus.initial,
     this.slots = const [],
-    this.selectedTime,
+    this.selectedSlot,
     this.errorMessage,
     this.rescheduleStatus = ActionStatus.initial,
     this.rescheduleErrorMessage,
@@ -21,7 +21,7 @@ class ScheduleAppointmentState extends Equatable {
   ScheduleAppointmentState copyWith({
     ActionStatus? status,
     List<TimeSlot>? slots,
-    DateTime? selectedTime,
+    TimeSlot? selectedSlot,
     String? errorMessage,
     ActionStatus? rescheduleStatus,
     String? rescheduleErrorMessage,
@@ -29,7 +29,7 @@ class ScheduleAppointmentState extends Equatable {
     return ScheduleAppointmentState(
       status: status ?? this.status,
       slots: slots ?? this.slots,
-      selectedTime: selectedTime ?? this.selectedTime,
+      selectedSlot: selectedSlot ?? this.selectedSlot,
       errorMessage: errorMessage ?? this.errorMessage,
       rescheduleStatus: rescheduleStatus ?? this.rescheduleStatus,
       rescheduleErrorMessage:
@@ -47,12 +47,12 @@ class ScheduleAppointmentState extends Equatable {
 
   factory ScheduleAppointmentState.success({
     required List<TimeSlot> slots,
-    DateTime? selectedTime,
+    TimeSlot? selectedSlot,
   }) {
     return ScheduleAppointmentState(
       status: ActionStatus.success,
       slots: slots,
-      selectedTime: selectedTime,
+      selectedSlot: selectedSlot,
     );
   }
 
@@ -67,7 +67,7 @@ class ScheduleAppointmentState extends Equatable {
   List<Object?> get props => [
         status,
         slots,
-        selectedTime,
+        selectedSlot,
         errorMessage,
         rescheduleStatus,
         rescheduleErrorMessage,

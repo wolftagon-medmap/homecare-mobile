@@ -21,7 +21,7 @@ class _AdminProfessionalsPageState extends State<AdminProfessionalsPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -39,10 +39,13 @@ class _AdminProfessionalsPageState extends State<AdminProfessionalsPage>
           controller: _tabController,
           labelColor: Const.aqua,
           indicatorColor: Const.aqua,
+          isScrollable: true,
+          tabAlignment: TabAlignment.start,
           tabs: const [
             Tab(text: "Nurses"),
             Tab(text: "Pharmacists"),
             Tab(text: "Radiologists"),
+            Tab(text: "Caregivers/Helpers")
           ],
         ),
       ),
@@ -52,6 +55,7 @@ class _AdminProfessionalsPageState extends State<AdminProfessionalsPage>
           _ProfessionalListTab(role: 'nurse'),
           _ProfessionalListTab(role: 'pharmacist'),
           _ProfessionalListTab(role: 'radiologist'),
+          _ProfessionalListTab(role: 'caregiver'),
         ],
       ),
     );

@@ -158,10 +158,10 @@ class _HomeHealthScreeningFlowPageState
                         professional: state.selectedProfessional!,
                         isSubmitting: state.submissionStatus ==
                             ScreeningSubmissionStatus.submitting,
-                        onTimeSlotSelected: (timeSlot) {
+                        onSlotSelected: (timeSlot) {
                           context
                               .read<HomeHealthScreeningFlowBloc>()
-                              .add(ScreeningTimeSlotSelected(timeSlot));
+                              .add(ScreeningTimeSlotSelected(timeSlot.startTime));
                         },
                       ),
                     ),

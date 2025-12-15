@@ -115,12 +115,19 @@ class AuthRepository {
   Future<AuthResult> register(
       String email, String password, String username, String role) async {
     try {
-      String endpoint = '${Const.API_REGISTER}/$role';
       final payload = {
         "email": email,
         "password": password,
         "username": username,
       };
+
+      late String endpoint;
+      if (['nurse', 'pharmacist', 'radiologist', 'caregiver'].contains(role)) {
+        endpoint = '${Const.API_REGISTER}/professional';
+        payload['role'] = role;
+      } else {
+        endpoint = '${Const.API_REGISTER}/$role';
+      }
       final response = await dio.post(
         endpoint,
         data: payload,

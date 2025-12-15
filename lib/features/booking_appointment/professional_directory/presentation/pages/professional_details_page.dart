@@ -29,7 +29,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
     super.initState();
     context
         .read<ProfessionalDetailCubit>()
-        .fetchProfessionalDetail(widget.role, widget.professionalId);
+        .fetchProfessionalDetail(widget.professionalId);
   }
 
   String get title {

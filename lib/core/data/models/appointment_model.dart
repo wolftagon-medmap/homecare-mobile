@@ -1,4 +1,5 @@
 import 'package:m2health/features/home_health_screening/data/models/screening_request_data.dart';
+import 'package:m2health/features/homecare_elderly/data/model/homecare_request_data_model.dart';
 import 'package:m2health/features/payment/data/model/payment_model.dart';
 import 'package:m2health/features/booking_appointment/nursing/data/models/nursing_personal_case.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
@@ -19,11 +20,11 @@ class AppointmentModel extends AppointmentEntity {
     required super.createdAt,
     required super.updatedAt,
     super.providerId,
-    super.providerType,
     super.provider,
     super.nursingCase,
     super.pharmacyCase,
     super.screeningRequestData,
+    super.homecareRequestData,
     super.patientProfile,
     super.payment,
   });
@@ -47,8 +48,13 @@ class AppointmentModel extends AppointmentEntity {
             appointmentJson['pharmacy_request_data'])
         : null;
     final screeningRequest = appointmentJson['screening_request_data'] != null
-        ? ScreeningRequestData.fromJson(appointmentJson['screening_request_data'])
+        ? ScreeningRequestData.fromJson(
+            appointmentJson['screening_request_data'])
         : null;
+    final homecareRequest = appointmentJson['homecare_request_data'] != null
+        ? HomecareRequestDataModel.fromJson(appointmentJson['homecare_request_data'])
+        : null;
+
     return AppointmentModel(
       id: appointmentJson['id'],
       userId: appointmentJson['user_id'],
@@ -61,11 +67,11 @@ class AppointmentModel extends AppointmentEntity {
       createdAt: DateTime.parse(appointmentJson['created_at']),
       updatedAt: DateTime.parse(appointmentJson['updated_at']),
       providerId: appointmentJson['provider_id'],
-      providerType: appointmentJson['provider_type'],
       provider: provider,
       nursingCase: nursingCase,
       pharmacyCase: pharmacyCase,
       screeningRequestData: screeningRequest,
+      homecareRequestData: homecareRequest,
       patientProfile: patient,
       payment: payment,
     );
@@ -84,7 +90,6 @@ class AppointmentModel extends AppointmentEntity {
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
       'provider_id': providerId,
-      'provider_type': providerType,
     };
   }
 
@@ -101,7 +106,6 @@ class AppointmentModel extends AppointmentEntity {
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       providerId: entity.providerId,
-      providerType: entity.providerType,
       provider: entity.provider,
       nursingCase: entity.nursingCase,
       patientProfile: entity.patientProfile,

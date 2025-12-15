@@ -6,7 +6,7 @@ class GetProfessionalDetail {
 
   GetProfessionalDetail(this.repository);
 
-  Future<ProfessionalEntity> call(String role, int id) async {
-    return await repository.getProfessionalDetail(role, id);
+  Future<ProfessionalEntity> call(int id) async {
+    return await repository.getProfessionalDetail(id);
   }
 }

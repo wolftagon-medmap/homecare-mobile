@@ -13,6 +13,7 @@ import 'package:m2health/features/precision/bloc/nutrition_assessment_cubit.dart
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
 import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
+import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:m2health/route/app_router.dart';
 import 'package:m2health/route/navigator_keys.dart';
@@ -91,6 +92,7 @@ void main() async {
           ),
         ),
         BlocProvider(create: (context) => DiabetesFormCubit(sl<Dio>())),
+        BlocProvider(create: (context) => sl<SubscriptionCubit>()),
       ],
       child: ChangeNotifierProvider(
         create: (context) => AppLanguage(),

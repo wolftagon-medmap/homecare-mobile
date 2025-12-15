@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Const {
-  // static const String BASE_URL = 'http://192.168.0.114:3333';
+  // static const String BASE_URL = 'http://127.0.0.1:3333';
   static const String BASE_URL = 'https://homecare-api.med-map.org';
   static const String URL_API = BASE_URL + '/v1';
   static const String URL_IMG_PLACEHOLDER = 'https://placehold.co/100x100';
@@ -34,13 +34,8 @@ class Const {
   // Wellness Genomics
   static const String API_WELLNESS_GENOMICS = '$URL_API/wellness-genomics';
 
-  static const String API_PHARMACIST_SERVICES =
-      URL_API + '/pharmacist-services';
-  static const String API_NURSE_SERVICES = URL_API + '/nurse-services';
-  static const String API_RADIOLOGIST_SERVICES =
-      URL_API + '/radiologist-services';
-  static const String API_PROVIDERS_AVAILABLE =
-      URL_API + '/providers/available';
+  static const String API_PROFESSIONALS = URL_API + '/professionals';
+
   static const String API_SERVICE_TITLES = URL_API + '/service-titles';
   static const String API_SCREENING_SERVICE = '$URL_API/screening-services';
   static const String API_ADMIN_SCREENING_SERVICES =
@@ -66,6 +61,12 @@ class Const {
   static const String API_SCHEDULE_PREVIEW_SLOTS =
       '$URL_API/schedule/preview-slots';
   static const String API_SCHEDULE_SLOTS = '$URL_API/schedule/slots';
+
+  // Subscriptions
+  static const String API_SUBSCRIPTIONS = '$URL_API/subscriptions';
+  static const String API_SUBSCRIPTIONS_PLANS = '$API_SUBSCRIPTIONS/plans';
+  static const String API_SUBSCRIPTIONS_ME = '$API_SUBSCRIPTIONS/me';
+  static const String API_SUBSCRIPTIONS_PURCHASE = '$API_SUBSCRIPTIONS/purchase';
 
   static const String ROLE = 'role';
   static const String IS_LOGED_IN = 'is_logged_in';

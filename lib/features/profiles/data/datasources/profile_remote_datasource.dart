@@ -16,19 +16,18 @@ abstract class ProfileRemoteDatasource {
   Future<void> updateProfile(Map<String, dynamic> profile, File? avatar);
 
   // Professional
-  Future<ProfessionalProfileModel> getProfessionalProfile(String role);
+  Future<ProfessionalProfileModel> getProfessionalProfile();
   Future<void> updateProfessionalProfile(
-      String role, Map<String, dynamic> data, File? avatar);
-  Future<void> updateProvidedServices(String role, List<int> serviceIds,
+      Map<String, dynamic> data, File? avatar);
+  Future<void> updateProvidedServices(List<int> serviceIds,
       {bool? isHomeScreeningAuthorized});
 
   // Admin
   Future<List<ProfessionalProfileModel>> getAdminProfessionals(
-      String role, String status);
-  Future<ProfessionalProfileModel> getAdminProfessionalDetail(
-      int id, String role);
-  Future<void> verifyProfessional(int id, String role);
-  Future<void> revokeVerification(int id, String role);
+      {String? status, String? role});
+  Future<ProfessionalProfileModel> getAdminProfessionalDetail(int id);
+  Future<void> verifyProfessional(int id);
+  Future<void> revokeVerification(int id);
 
   // Mental Health State
   Future<MentalHealthStateModel> getMentalHealthState();
@@ -45,18 +44,18 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
     return Options(headers: {'Authorization': 'Bearer $token'});
   }
 
-  String _getEndpointByRole(String role) {
-    switch (role) {
-      case 'nurse':
-        return Const.API_NURSE_SERVICES; // e.g., /v1/nurse-services
-      case 'pharmacist':
-        return Const.API_PHARMACIST_SERVICES; // e.g., /v1/pharmacist-services
-      case 'radiologist':
-        return Const.API_RADIOLOGIST_SERVICES; // e.g., /v1/radiologist-services
-      default:
-        throw Exception('Invalid professional role');
-    }
-  }
+  // String _getEndpointByRole(String role) {
+  //   switch (role) {
+  //     case 'nurse':
+  //       return Const.API_NURSE_SERVICES; // e.g., /v1/nurse-services
+  //     case 'pharmacist':
+  //       return Const.API_PHARMACIST_SERVICES; // e.g., /v1/pharmacist-services
+  //     case 'radiologist':
+  //       return Const.API_RADIOLOGIST_SERVICES; // e.g., /v1/radiologist-services
+  //     default:
+  //       throw Exception('Invalid professional role');
+  //   }
+  // }
 
   @override
   Future<ProfileModel> getProfile() async {
@@ -111,9 +110,9 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   // --- Professional Profile Methods ---
 
   @override
-  Future<ProfessionalProfileModel> getProfessionalProfile(String role) async {
+  Future<ProfessionalProfileModel> getProfessionalProfile() async {
     try {
-      final endpoint = '${_getEndpointByRole(role)}/my-profile';
+      const endpoint = '${Const.API_PROFESSIONALS}/my-profile';
       final response = await dio.get(
         endpoint,
         options: await _getAuthHeaders(),
@@ -123,6 +122,8 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
           name: 'ProfileRemoteDatasourceImpl');
       return ProfessionalProfileModel.fromJson(data);
     } on DioException catch (e) {
+      log('Dio error while fetching professional profile: ${e.response}',
+          error: e, name: 'ProfileRemoteDatasourceImpl');
       if (e.response?.statusCode == 401) {
         throw const UnauthorizedFailure("User is not authenticated");
       }
@@ -133,9 +134,9 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
 
   @override
   Future<void> updateProfessionalProfile(
-      String role, Map<String, dynamic> data, File? avatar) async {
+      Map<String, dynamic> data, File? avatar) async {
     try {
-      final endpoint = '${_getEndpointByRole(role)}/my-profile';
+      const endpoint = '${Const.API_PROFESSIONALS}/my-profile';
       final formData = FormData();
 
       data.forEach((key, value) {
@@ -168,24 +169,10 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   }
 
   @override
-  Future<void> updateProvidedServices(String role, List<int> serviceIds,
+  Future<void> updateProvidedServices(List<int> serviceIds,
       {bool? isHomeScreeningAuthorized}) async {
     try {
-      String endpoint;
-      switch (role) {
-        case 'nurse':
-          endpoint = '${Const.API_NURSE_SERVICES}/my-services';
-          break;
-        case 'pharmacist':
-          endpoint = '${Const.API_PHARMACIST_SERVICES}/my-services';
-          break;
-        case 'radiologist':
-          endpoint = '${Const.API_RADIOLOGIST_SERVICES}/my-services';
-          break;
-        default:
-          throw Exception('Invalid role');
-      }
-
+      const endpoint = '${Const.API_PROFESSIONALS}/my-services';
       final Map<String, dynamic> data = {'service_ids': serviceIds};
       if (isHomeScreeningAuthorized != null) {
         data['is_home_screening_authorized'] = isHomeScreeningAuthorized;
@@ -204,13 +191,13 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   // --- Admin Methods ---
   @override
   Future<List<ProfessionalProfileModel>> getAdminProfessionals(
-      String role, String status) async {
+      {String? status, String? role}) async {
     try {
       final response = await dio.get(
         '${Const.URL_API}/admin/professionals',
         queryParameters: {
-          'provider_type': role,
           'status': status, // 'verified' or 'unverified'
+          'role': role,     // e.g., 'nurse', 'pharmacist', etc.
         },
         options: await _getAuthHeaders(),
       );
@@ -223,12 +210,10 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   }
 
   @override
-  Future<ProfessionalProfileModel> getAdminProfessionalDetail(
-      int id, String role) async {
+  Future<ProfessionalProfileModel> getAdminProfessionalDetail(int id) async {
     try {
       final response = await dio.get(
         '${Const.URL_API}/admin/professionals/$id',
-        queryParameters: {'provider_type': role},
         options: await _getAuthHeaders(),
       );
 
@@ -240,11 +225,10 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   }
 
   @override
-  Future<void> verifyProfessional(int id, String role) async {
+  Future<void> verifyProfessional(int id) async {
     try {
       await dio.post(
         '${Const.URL_API}/professionals/$id/verify',
-        queryParameters: {'provider_type': role},
         options: await _getAuthHeaders(),
       );
     } on DioException catch (e) {
@@ -253,11 +237,10 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   }
 
   @override
-  Future<void> revokeVerification(int id, String role) async {
+  Future<void> revokeVerification(int id) async {
     try {
       await dio.post(
         '${Const.URL_API}/professionals/$id/revoke',
-        queryParameters: {'provider_type': role},
         options: await _getAuthHeaders(),
       );
     } on DioException catch (e) {
@@ -278,7 +261,8 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
       if (e.response?.statusCode == 401) {
         throw const UnauthorizedFailure("User is not authenticated");
       }
-      throw Exception('Failed to load mental health state. Error: ${e.message}');
+      throw Exception(
+          'Failed to load mental health state. Error: ${e.message}');
     }
   }
 
