@@ -17,15 +17,13 @@ class GetAvailableTimeSlots {
 
 class GetAvailableTimeSlotsParams extends Equatable {
   final int providerId;
-  final String providerType;
   final DateTime date;
 
   const GetAvailableTimeSlotsParams({
     required this.providerId,
-    required this.providerType,
     required this.date,
   });
 
   @override
-  List<Object?> get props => [providerId, providerType, date];
+  List<Object?> get props => [providerId, date];
 }

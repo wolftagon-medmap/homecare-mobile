@@ -18,7 +18,6 @@ class AppointmentEntity extends Equatable {
   final DateTime createdAt;
   final DateTime updatedAt;
   final int? providerId;
-  final String? providerType;
 
   final ProfessionalEntity? provider;
   final NursingCase? nursingCase;
@@ -39,7 +38,6 @@ class AppointmentEntity extends Equatable {
     required this.createdAt,
     required this.updatedAt,
     this.providerId,
-    this.providerType,
     this.provider,
     this.nursingCase,
     this.pharmacyCase,
@@ -61,7 +59,6 @@ class AppointmentEntity extends Equatable {
         createdAt,
         updatedAt,
         providerId,
-        providerType,
         provider,
         nursingCase,
         pharmacyCase,

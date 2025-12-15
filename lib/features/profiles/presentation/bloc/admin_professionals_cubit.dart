@@ -42,7 +42,7 @@ class AdminProfessionalsCubit extends Cubit<AdminProfessionalsState> {
   Future<void> fetchProfessionals(String role, String status) async {
     try {
       emit(AdminProsLoading());
-      final result = await remoteDatasource.getAdminProfessionals(role, status);
+      final result = await remoteDatasource.getAdminProfessionals(status: status);
       emit(AdminProsLoaded(result));
     } catch (e) {
       emit(AdminProsError(e.toString()));
@@ -53,7 +53,7 @@ class AdminProfessionalsCubit extends Cubit<AdminProfessionalsState> {
     try {
       // Don't emit loading here to prevent full page reload,
       // usually handled by UI loading indicator on button
-      await remoteDatasource.verifyProfessional(id, role);
+      await remoteDatasource.verifyProfessional(id);
       emit(const AdminProsActionSuccess("Professional verified successfully"));
     } catch (e) {
       emit(AdminProsError(e.toString()));

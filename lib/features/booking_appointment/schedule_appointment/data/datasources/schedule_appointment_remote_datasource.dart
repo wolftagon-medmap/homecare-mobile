@@ -20,7 +20,6 @@ class ScheduleAppointmentRemoteDataSource {
 
     final queryParams = {
       'provider_id': params.providerId,
-      'provider_type': params.providerType,
       'date': formattedDate,
       'timezone': timezone,
     };

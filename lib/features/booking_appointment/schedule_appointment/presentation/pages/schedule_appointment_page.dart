@@ -83,7 +83,6 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
 
     await context.read<ScheduleAppointmentCubit>().fetchSlots(
           providerId: widget.data.professional.id,
-          providerType: widget.data.professional.role.toLowerCase(),
           date: date,
           currentlyBookedSlot: currentlyBookedSlot,
         );

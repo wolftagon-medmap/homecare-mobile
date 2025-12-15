@@ -8,7 +8,7 @@ class GetProfessionalProfile {
 
   GetProfessionalProfile(this.repository);
 
-  Future<Either<Failure, ProfessionalProfile>> call(String role) async {
-    return await repository.getProfessionalProfile(role);
+  Future<Either<Failure, ProfessionalProfile>> call() async {
+    return await repository.getProfessionalProfile();
   }
 }

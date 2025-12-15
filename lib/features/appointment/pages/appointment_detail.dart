@@ -371,9 +371,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
   Widget _buildConcernInfo(AppointmentEntity appointment) {
     List<PersonalIssue>? issues;
 
-    if (appointment.providerType == 'nurse') {
+    if (appointment.type == 'nursing') {
       issues = appointment.nursingCase?.issues;
-    } else if (appointment.providerType == 'pharmacist') {
+    } else if (appointment.type == 'pharmacy') {
       issues = appointment.pharmacyCase?.issues;
     }
 

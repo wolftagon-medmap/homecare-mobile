@@ -425,11 +425,11 @@ class _PersonalCaseInfo extends StatelessWidget {
     List<String>? servicesList;
     List<PersonalIssue>? issues;
 
-    if (appointment.providerType == 'nurse') {
+    if (appointment.type == 'nursing') {
       final personalCase = appointment.nursingCase;
       servicesList = personalCase?.addOnServices.map((e) => e.name).toList();
       issues = personalCase?.issues;
-    } else if (appointment.providerType == 'pharmacist') {
+    } else if (appointment.type == 'pharmacy') {
       final personalCase = appointment.pharmacyCase;
       servicesList = personalCase?.addOnServices.map((e) => e.name).toList();
       issues = personalCase?.issues;

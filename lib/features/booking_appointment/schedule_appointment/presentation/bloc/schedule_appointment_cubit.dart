@@ -23,7 +23,6 @@ class ScheduleAppointmentCubit extends Cubit<ScheduleAppointmentState> {
 
   Future<void> fetchSlots({
     required int providerId,
-    required String providerType,
     required DateTime date,
     TimeSlot? currentlyBookedSlot,
   }) async {
@@ -31,7 +30,6 @@ class ScheduleAppointmentCubit extends Cubit<ScheduleAppointmentState> {
 
     final params = GetAvailableTimeSlotsParams(
       providerId: providerId,
-      providerType: providerType,
       date: date,
     );
     final result = await _getAvailableTimeSlots(params);

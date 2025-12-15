@@ -54,18 +54,19 @@ class ProfileRepositoryImpl extends ProfileRepository {
   // --- Professional Profile Methods ---
 
   @override
-  Future<Either<Failure, ProfessionalProfile>> getProfessionalProfile(
-      String role) async {
+  Future<Either<Failure, ProfessionalProfile>> getProfessionalProfile() async {
     try {
-      final profile = await remoteDatasource.getProfessionalProfile(role);
+      final profile = await remoteDatasource.getProfessionalProfile();
       log('Professional Profile fetched: $profile',
           name: 'ProfileRepositoryImpl');
       return Right(profile);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      log('Failed to fetch professional profile',
+          error: e, name: 'ProfileRepositoryImpl', stackTrace: stackTrace);
       if (e is Failure) {
         return Left(e);
       }
-      return Left(ServerFailure(e.toString()));
+      return const Left(ServerFailure('Failed to fetch professional profile'));
     }
   }
 
@@ -83,7 +84,9 @@ class ProfileRepositoryImpl extends ProfileRepository {
       };
 
       await remoteDatasource.updateProfessionalProfile(
-          params.role, profileData, params.avatar);
+        profileData,
+        params.avatar,
+      );
       return const Right(unit);
     } catch (e) {
       return Left(ServerFailure(e.toString()));

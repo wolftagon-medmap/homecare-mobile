@@ -19,7 +19,6 @@ class AppointmentModel extends AppointmentEntity {
     required super.createdAt,
     required super.updatedAt,
     super.providerId,
-    super.providerType,
     super.provider,
     super.nursingCase,
     super.pharmacyCase,
@@ -61,7 +60,6 @@ class AppointmentModel extends AppointmentEntity {
       createdAt: DateTime.parse(appointmentJson['created_at']),
       updatedAt: DateTime.parse(appointmentJson['updated_at']),
       providerId: appointmentJson['provider_id'],
-      providerType: appointmentJson['provider_type'],
       provider: provider,
       nursingCase: nursingCase,
       pharmacyCase: pharmacyCase,
@@ -84,7 +82,6 @@ class AppointmentModel extends AppointmentEntity {
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
       'provider_id': providerId,
-      'provider_type': providerType,
     };
   }
 
@@ -101,7 +98,6 @@ class AppointmentModel extends AppointmentEntity {
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       providerId: entity.providerId,
-      providerType: entity.providerType,
       provider: entity.provider,
       nursingCase: entity.nursingCase,
       patientProfile: entity.patientProfile,

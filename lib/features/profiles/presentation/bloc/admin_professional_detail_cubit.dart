@@ -45,8 +45,7 @@ class AdminProfessionalDetailCubit extends Cubit<AdminProfessionalDetailState> {
   Future<void> loadDetail(int id, String role) async {
     try {
       emit(AdminProDetailLoading());
-      final profile =
-          await remoteDatasource.getAdminProfessionalDetail(id, role);
+      final profile = await remoteDatasource.getAdminProfessionalDetail(id);
       emit(AdminProDetailLoaded(profile));
     } catch (e) {
       emit(AdminProDetailError(e.toString()));
@@ -60,11 +59,11 @@ class AdminProfessionalDetailCubit extends Cubit<AdminProfessionalDetailState> {
         // Show loading state (optional, or handle in UI via flag)
         // emit(AdminProDetailLoading());
 
-        await remoteDatasource.verifyProfessional(id, role);
+        await remoteDatasource.verifyProfessional(id);
 
         // Refresh data to get updated status/timestamps
         final updatedProfile =
-            await remoteDatasource.getAdminProfessionalDetail(id, role);
+            await remoteDatasource.getAdminProfessionalDetail(id);
         emit(AdminProDetailVerified(updatedProfile));
       } catch (e) {
         emit(AdminProDetailError(e.toString()));
@@ -79,11 +78,11 @@ class AdminProfessionalDetailCubit extends Cubit<AdminProfessionalDetailState> {
     if (currentState is AdminProDetailLoaded) {
       try {
         // Call API
-        await remoteDatasource.revokeVerification(id, role);
+        await remoteDatasource.revokeVerification(id);
 
         // Refresh data to get updated status
         final updatedProfile =
-            await remoteDatasource.getAdminProfessionalDetail(id, role);
+            await remoteDatasource.getAdminProfessionalDetail(id);
 
         // Reuse Verified state or create a new one if distinct UI behavior is needed
         // For simplicity, we treat it as a status update
