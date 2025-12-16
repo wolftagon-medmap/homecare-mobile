@@ -49,4 +49,40 @@ class SubscriptionRepositoryImpl implements SubscriptionRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, SubscriptionPlanEntity>> createSubscriptionPlan(Map<String, dynamic> body) async {
+    try {
+      final result = await remoteDataSource.createSubscriptionPlan(body);
+      return Right(result);
+    } on DioException catch (e) {
+      return Left(ServerFailure(e.response?.data['message'] ?? e.message));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SubscriptionPlanEntity>> updateSubscriptionPlan(int id, Map<String, dynamic> body) async {
+    try {
+      final result = await remoteDataSource.updateSubscriptionPlan(id, body);
+      return Right(result);
+    } on DioException catch (e) {
+      return Left(ServerFailure(e.response?.data['message'] ?? e.message));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SubscriptionPlanEntity>> toggleSubscriptionPlanActive(int id) async {
+    try {
+      final result = await remoteDataSource.toggleSubscriptionPlanActive(id);
+      return Right(result);
+    } on DioException catch (e) {
+      return Left(ServerFailure(e.response?.data['message'] ?? e.message));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

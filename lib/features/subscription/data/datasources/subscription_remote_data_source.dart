@@ -8,6 +8,11 @@ abstract class SubscriptionRemoteDataSource {
   Future<List<SubscriptionPlanModel>> getSubscriptionPlans();
   Future<List<UserSubscriptionModel>> getUserSubscriptions();
   Future<UserSubscriptionModel> purchaseSubscription(int planId);
+  
+  // Admin
+  Future<SubscriptionPlanModel> createSubscriptionPlan(Map<String, dynamic> body);
+  Future<SubscriptionPlanModel> updateSubscriptionPlan(int id, Map<String, dynamic> body);
+  Future<SubscriptionPlanModel> toggleSubscriptionPlanActive(int id);
 }
 
 class SubscriptionRemoteDataSourceImpl implements SubscriptionRemoteDataSource {
@@ -60,5 +65,37 @@ class SubscriptionRemoteDataSourceImpl implements SubscriptionRemoteDataSource {
     // Response structure: { message: '...', data: subscription }
     final data = response.data['data'];
     return UserSubscriptionModel.fromJson(data);
+  }
+
+  @override
+  Future<SubscriptionPlanModel> createSubscriptionPlan(Map<String, dynamic> body) async {
+    final token = await Utils.getSpString(Const.TOKEN);
+    final response = await dio.post(
+      Const.API_ADMIN_SUBSCRIPTIONS,
+      data: body,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+    return SubscriptionPlanModel.fromJson(response.data['data']);
+  }
+
+  @override
+  Future<SubscriptionPlanModel> updateSubscriptionPlan(int id, Map<String, dynamic> body) async {
+    final token = await Utils.getSpString(Const.TOKEN);
+    final response = await dio.put(
+      '${Const.API_ADMIN_SUBSCRIPTIONS}/$id',
+      data: body,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+    return SubscriptionPlanModel.fromJson(response.data['data']);
+  }
+
+  @override
+  Future<SubscriptionPlanModel> toggleSubscriptionPlanActive(int id) async {
+    final token = await Utils.getSpString(Const.TOKEN);
+    final response = await dio.patch(
+      '${Const.API_ADMIN_SUBSCRIPTIONS}/$id/toggle-active',
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+    return SubscriptionPlanModel.fromJson(response.data['data']);
   }
 }

@@ -23,6 +23,7 @@ class HomecareAppointmentFlowState extends Equatable {
   final AppointmentSubmissionStatus submissionStatus;
   final AppointmentEntity? createdAppointment;
   final String? errorMessage;
+  final double? hourlyRate;
 
   const HomecareAppointmentFlowState({
     this.currentStep = HomecareFlowStep.searchProfessional,
@@ -33,6 +34,7 @@ class HomecareAppointmentFlowState extends Equatable {
     this.submissionStatus = AppointmentSubmissionStatus.initial,
     this.createdAppointment,
     this.errorMessage,
+    this.hourlyRate,
   });
 
   HomecareAppointmentFlowState copyWith({
@@ -44,6 +46,7 @@ class HomecareAppointmentFlowState extends Equatable {
     AppointmentSubmissionStatus? submissionStatus,
     AppointmentEntity? createdAppointment,
     String? errorMessage,
+    double? hourlyRate,
   }) {
     return HomecareAppointmentFlowState(
       currentStep: currentStep ?? this.currentStep,
@@ -54,6 +57,7 @@ class HomecareAppointmentFlowState extends Equatable {
       submissionStatus: submissionStatus ?? this.submissionStatus,
       createdAppointment: createdAppointment ?? this.createdAppointment,
       errorMessage: errorMessage ?? this.errorMessage,
+      hourlyRate: hourlyRate ?? this.hourlyRate,
     );
   }
 
@@ -67,5 +71,6 @@ class HomecareAppointmentFlowState extends Equatable {
         submissionStatus,
         createdAppointment,
         errorMessage,
+        hourlyRate,
       ];
 }
