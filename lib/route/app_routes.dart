@@ -48,6 +48,7 @@ class AppRoutes {
   static const String manageServices = '/manage-services';
   static const String adminProfessionals = '/admin-professionals';
   static const String manageHealthScreening = '/manage-health-screening';
+  static const String adminHomecareConfig = '/admin-homecare-config';
 
   static const String partnership = '/request-partnership';
   static const String partnership_list = '/partnership-list';

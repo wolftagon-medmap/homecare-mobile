@@ -535,6 +535,20 @@ class _AdminSection extends StatelessWidget {
                 context.push(AppRoutes.adminProfessionals);
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.settings_accessibility,
+                  color: Color(0xFF35C5CF)),
+              title: const Text('Homecare Configuration'),
+              titleTextStyle: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () {
+                context.push(AppRoutes.adminHomecareConfig);
+              },
+            ),
           ],
         ),
       ),

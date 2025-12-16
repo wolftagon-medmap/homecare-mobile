@@ -7,6 +7,9 @@ import 'package:m2health/features/subscription/domain/usecases/get_user_subscrip
 import 'package:m2health/features/subscription/domain/usecases/purchase_subscription.dart';
 import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
 
+import 'package:m2health/features/subscription/domain/usecases/toggle_subscription_plan_active.dart';
+import 'package:m2health/features/subscription/domain/usecases/update_subscription_plan.dart';
+
 void initSubscriptionModule(GetIt sl) {
   // Datasource
   sl.registerLazySingleton<SubscriptionRemoteDataSource>(
@@ -20,6 +23,8 @@ void initSubscriptionModule(GetIt sl) {
   sl.registerLazySingleton(() => GetSubscriptionPlans(sl()));
   sl.registerLazySingleton(() => GetUserSubscriptions(sl()));
   sl.registerLazySingleton(() => PurchaseSubscription(sl()));
+  sl.registerLazySingleton(() => UpdateSubscriptionPlan(sl()));
+  sl.registerLazySingleton(() => ToggleSubscriptionPlanActive(sl()));
 
   // Cubit
   sl.registerFactory(() => SubscriptionCubit(

@@ -81,6 +81,7 @@ class _HomecareAppointmentFlowPageState
     return BlocProvider(
       create: (context) => HomecareAppointmentFlowBloc(
         createHomecareAppointment: sl(),
+        getHomecareRates: sl(),
       )..add(FlowStarted(widget.selectedTasks)),
       child: BlocConsumer<HomecareAppointmentFlowBloc,
           HomecareAppointmentFlowState>(
@@ -344,8 +345,12 @@ class _HomecareReviewPage extends StatelessWidget {
   Widget _buildBillingSection(BuildContext context) {
     return BlocBuilder<SubscriptionCubit, SubscriptionState>(
       builder: (context, subscriptionState) {
+        const HOMECARE_DURATION_HOURS = 2;
         final subscriptionBalance = subscriptionState.totalBalance;
-        final canUseSubscription = subscriptionBalance >= 2;
+        final canUseSubscription =
+            subscriptionBalance >= HOMECARE_DURATION_HOURS;
+        final hourlyRate = state.hourlyRate ?? 0;
+        final totalHourlyCost = hourlyRate * HOMECARE_DURATION_HOURS;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -372,17 +377,26 @@ class _HomecareReviewPage extends StatelessWidget {
                 },
                 child: Column(
                   children: [
-                    const RadioListTile<BillingType>(
-                      title: Text('Hourly Rate',
+                    RadioListTile<BillingType>(
+                      title: const Text('Hourly Rate',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
                           )),
-                      subtitle: Text('\$50.00 (2 Hours)',
-                          style: TextStyle(
+                      subtitle: Text(
+                          '\$${totalHourlyCost.toStringAsFixed(2)} (2 Hours)',
+                          style: const TextStyle(
                             fontSize: 12,
                           )),
                       value: BillingType.hourly,
+                      groupValue: state.billingType,
+                      onChanged: (value) {
+                        if (value != null) {
+                          context
+                              .read<HomecareAppointmentFlowBloc>()
+                              .add(BillingTypeChanged(value));
+                        }
+                      },
                       activeColor: Const.aqua,
                     ),
                     const Divider(height: 1),

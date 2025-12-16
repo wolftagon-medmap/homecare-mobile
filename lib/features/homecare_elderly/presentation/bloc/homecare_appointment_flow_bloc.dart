@@ -7,6 +7,7 @@ import 'package:m2health/features/booking_appointment/professional_directory/dom
 import 'package:m2health/features/booking_appointment/schedule_appointment/domain/entities/time_slot.dart';
 import 'package:m2health/features/homecare_elderly/domain/entities/billing_type.dart';
 import 'package:m2health/features/homecare_elderly/domain/usecases/create_homecare_appointment.dart';
+import 'package:m2health/features/homecare_elderly/domain/usecases/get_homecare_rates.dart';
 
 part 'homecare_appointment_flow_event.dart';
 part 'homecare_appointment_flow_state.dart';
@@ -14,9 +15,11 @@ part 'homecare_appointment_flow_state.dart';
 class HomecareAppointmentFlowBloc
     extends Bloc<HomecareAppointmentFlowEvent, HomecareAppointmentFlowState> {
   final CreateHomecareAppointment createHomecareAppointment;
+  final GetHomecareRates getHomecareRates;
 
   HomecareAppointmentFlowBloc({
     required this.createHomecareAppointment,
+    required this.getHomecareRates,
   }) : super(const HomecareAppointmentFlowState(selectedTasks: [])) {
     on<FlowStarted>(_onFlowStarted);
     on<FlowStepChanged>(_onStepChanged);
@@ -27,8 +30,20 @@ class HomecareAppointmentFlowBloc
   }
 
   void _onFlowStarted(
-      FlowStarted event, Emitter<HomecareAppointmentFlowState> emit) {
+      FlowStarted event, Emitter<HomecareAppointmentFlowState> emit) async {
     emit(state.copyWith(selectedTasks: event.tasks));
+
+    final result = await getHomecareRates();
+    result.fold(
+      (failure) => log('Failed to fetch hourly rate: ${failure.message}',
+          name: 'HomecareAppointmentFlowBloc'),
+      (addOns) {
+        if (addOns.isNotEmpty) {
+          final hourlyAddOn = addOns.first;
+          emit(state.copyWith(hourlyRate: hourlyAddOn.price));
+        }
+      },
+    );
   }
 
   void _onStepChanged(
@@ -57,8 +72,8 @@ class HomecareAppointmentFlowBloc
     emit(state.copyWith(billingType: event.billingType));
   }
 
-  void _onSubmitAppointment(
-      SubmitAppointment event, Emitter<HomecareAppointmentFlowState> emit) async {
+  void _onSubmitAppointment(SubmitAppointment event,
+      Emitter<HomecareAppointmentFlowState> emit) async {
     emit(state.copyWith(
         submissionStatus: AppointmentSubmissionStatus.submitting));
 

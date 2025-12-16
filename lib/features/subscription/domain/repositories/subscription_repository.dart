@@ -7,4 +7,9 @@ abstract class SubscriptionRepository {
   Future<Either<Failure, List<SubscriptionPlanEntity>>> getSubscriptionPlans();
   Future<Either<Failure, List<UserSubscriptionEntity>>> getUserSubscriptions();
   Future<Either<Failure, UserSubscriptionEntity>> purchaseSubscription(int planId);
+  
+  // Admin
+  Future<Either<Failure, SubscriptionPlanEntity>> createSubscriptionPlan(Map<String, dynamic> body);
+  Future<Either<Failure, SubscriptionPlanEntity>> updateSubscriptionPlan(int id, Map<String, dynamic> body);
+  Future<Either<Failure, SubscriptionPlanEntity>> toggleSubscriptionPlanActive(int id);
 }

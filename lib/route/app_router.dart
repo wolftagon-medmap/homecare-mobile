@@ -3,6 +3,7 @@ import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:m2health/features/payment/presentation/pages/payment_page.dart';
+import 'package:m2health/features/homecare_elderly/admin/pages/admin_homecare_configuration_page.dart';
 import 'package:m2health/route/auth_routes.dart';
 import 'package:m2health/route/core_routes.dart';
 import 'package:go_router/go_router.dart';
@@ -59,6 +60,12 @@ final GoRouter router = GoRouter(
           child: PaymentPage(appointment: appointment),
         );
       },
+    ),
+
+    GoRoute(
+      path: AppRoutes.adminHomecareConfig,
+      name: AppRoutes.adminHomecareConfig,
+      builder: (context, state) => const AdminHomecareConfigurationPage(),
     ),
 
     // GoRoute(
