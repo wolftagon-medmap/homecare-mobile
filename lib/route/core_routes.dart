@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:m2health/features/appointment/appointment_module.dart';
+import 'package:m2health/features/medical_store/medical_store_routes.dart';
 import 'package:m2health/main.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/route/appointment_routes.dart';
@@ -40,7 +41,8 @@ class CoreRoutes {
           routes: [
             GoRoute(
               path: AppRoutes.medicalStore,
-              builder: (context, state) => MedicalStorePage(),
+              routes: MedicalStoreDetailRoutes.routes,
+              builder: (context, state) => const MedicalStorePage(),
             ),
           ],
         ),

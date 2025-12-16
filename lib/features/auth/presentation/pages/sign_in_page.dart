@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:m2health/route/app_routes.dart';
@@ -262,7 +263,7 @@ class _SignInPageState extends State<SignInPage> {
 
   void _showRoleSelectionDialog(BuildContext context, String idToken) {
     final cubit = context.read<SignInCubit>();
-    String selectedRole = 'patient';
+    UserRole selectedRole = UserRole.patient;
 
     showDialog(
       context: context,
@@ -280,7 +281,7 @@ class _SignInPageState extends State<SignInPage> {
               const Text(
                   'Welcome!\nPlease select your account type to continue.'),
               const SizedBox(height: 24),
-              DropdownButtonFormField<String>(
+              DropdownButtonFormField<UserRole>(
                 decoration: InputDecoration(
                   labelText: 'Select User Type',
                   border: OutlineInputBorder(
@@ -288,17 +289,22 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
                 initialValue: selectedRole,
-                items: <String>['Patient', 'Nurse', 'Pharmacist', 'Radiologist']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value.toLowerCase(),
+                items: <UserRole>[
+                  UserRole.patient,
+                  UserRole.nurse,
+                  UserRole.pharmacist,
+                  UserRole.radiologist,
+                  UserRole.caregiver
+                ].map<DropdownMenuItem<UserRole>>((UserRole value) {
+                  return DropdownMenuItem<UserRole>(
+                    value: value,
                     child: Text(
-                      value,
+                      value.displayName,
                       style: const TextStyle(fontWeight: FontWeight.w400),
                     ),
                   );
                 }).toList(),
-                onChanged: (String? newValue) {
+                onChanged: (UserRole? newValue) {
                   if (newValue != null) {
                     setState(() {
                       selectedRole = newValue;
@@ -318,7 +324,8 @@ class _SignInPageState extends State<SignInPage> {
               onPressed: () {
                 Navigator.pop(ctx);
                 // Retry Google Auth with the selected role and cached token
-                cubit.signInWithGoogle(role: selectedRole, idToken: idToken);
+                cubit.signInWithGoogle(
+                    role: selectedRole.value, idToken: idToken);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Const.aqua,

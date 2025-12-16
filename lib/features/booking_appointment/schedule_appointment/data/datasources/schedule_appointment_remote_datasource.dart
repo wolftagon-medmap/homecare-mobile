@@ -20,9 +20,9 @@ class ScheduleAppointmentRemoteDataSource {
 
     final queryParams = {
       'provider_id': params.providerId,
-      'provider_type': params.providerType,
       'date': formattedDate,
       'timezone': timezone,
+      'service_type': params.serviceType,
     };
 
     log('Query Params: $queryParams', name: 'ScheduleRemoteDataSource');

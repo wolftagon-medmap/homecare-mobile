@@ -23,16 +23,16 @@ class ScheduleAppointmentCubit extends Cubit<ScheduleAppointmentState> {
 
   Future<void> fetchSlots({
     required int providerId,
-    required String providerType,
     required DateTime date,
     TimeSlot? currentlyBookedSlot,
+    String? serviceType,
   }) async {
     emit(ScheduleAppointmentState.loading());
 
     final params = GetAvailableTimeSlotsParams(
       providerId: providerId,
-      providerType: providerType,
       date: date,
+      serviceType: serviceType,
     );
     final result = await _getAvailableTimeSlots(params);
 
@@ -40,7 +40,7 @@ class ScheduleAppointmentCubit extends Cubit<ScheduleAppointmentState> {
       (failure) => emit(ScheduleAppointmentState.error(failure.message)),
       (slots) {
         List<TimeSlot> finalSlots = List<TimeSlot>.from(slots);
-        DateTime? newSelectedTime;
+        TimeSlot? newSelectedSlot;
 
         // --- Reschedule Mode Logic ---
         //  Add the currently booked slot back if it's not in the available slots
@@ -55,20 +55,20 @@ class ScheduleAppointmentCubit extends Cubit<ScheduleAppointmentState> {
         // Pre-select the time if it's the currently booked one on this day
         if (currentlyBookedSlot != null &&
             isSameDay(currentlyBookedSlot.startTime, date)) {
-          newSelectedTime = currentlyBookedSlot.startTime;
+          newSelectedSlot = currentlyBookedSlot;
         }
         // --- End Reschedule Logic ---
 
         emit(ScheduleAppointmentState.success(
           slots: finalSlots,
-          selectedTime: newSelectedTime,
+          selectedSlot: newSelectedSlot,
         ));
       },
     );
   }
 
-  void selectTime(DateTime time) {
-    emit(state.copyWith(selectedTime: time));
+  void selectSlot(TimeSlot slot) {
+    emit(state.copyWith(selectedSlot: slot));
   }
 
   Future<void> rescheduleAppointment({

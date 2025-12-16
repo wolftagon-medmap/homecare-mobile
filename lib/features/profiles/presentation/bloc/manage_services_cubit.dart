@@ -157,7 +157,6 @@ class ManageServicesCubit extends Cubit<ManageServicesState> {
       try {
         final ids = currentState.selectedServices.map((e) => e.id).toList();
         await profileRemoteDatasource.updateProvidedServices(
-          role,
           ids,
           isHomeScreeningAuthorized:
               role == 'nurse' ? currentState.isHomeScreeningAuthorized : null,

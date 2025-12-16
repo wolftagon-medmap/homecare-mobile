@@ -6,13 +6,16 @@ class GetProfessionals {
 
   GetProfessionals(this.repository);
 
-  Future<List<ProfessionalEntity>> call(String serviceType,
-      {String? name,
+  Future<List<ProfessionalEntity>> call(
+      {String? role,
+      String? name,
       List<int>? serviceIds,
       bool? isHomeScreeningAuthorized}) async {
-    return await repository.getProfessionals(serviceType,
-        name: name,
-        serviceIds: serviceIds,
-        isHomeScreeningAuthorized: isHomeScreeningAuthorized);
+    return await repository.getProfessionals(
+      role: role,
+      name: name,
+      serviceIds: serviceIds,
+      isHomeScreeningAuthorized: isHomeScreeningAuthorized,
+    );
   }
 }

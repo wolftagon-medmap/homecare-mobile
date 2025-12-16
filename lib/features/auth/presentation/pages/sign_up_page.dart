@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
@@ -24,7 +25,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String? _passwordError;
-  String? _selectedRole;
+  UserRole? _selectedRole;
 
   void _validatePasswords() {
     setState(() {
@@ -45,7 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
             _emailController.text.trim(),
             _passwordController.text,
             _usernameController.text.trim(),
-            _selectedRole!,
+            _selectedRole!.value,
           );
     } else if (_selectedRole == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -223,7 +224,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                     ),
                     const SizedBox(height: 20),
-                    DropdownButtonFormField<String>(
+                    DropdownButtonFormField<UserRole>(
                       decoration: InputDecoration(
                         hintText: 'Select User Type',
                         border: OutlineInputBorder(
@@ -231,27 +232,28 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                       initialValue: _selectedRole,
-                      items: <String>[
-                        'Patient',
-                        'Nurse',
-                        'Pharmacist',
-                        'Radiologist'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value.toLowerCase(),
+                      items: <UserRole>[
+                        UserRole.patient,
+                        UserRole.nurse,
+                        UserRole.pharmacist,
+                        UserRole.radiologist,
+                        UserRole.caregiver,
+                      ].map<DropdownMenuItem<UserRole>>((UserRole value) {
+                        return DropdownMenuItem<UserRole>(
+                          value: value,
                           child: Text(
-                            value,
+                            value.displayName,
                             style: const TextStyle(fontWeight: FontWeight.w400),
                           ),
                         );
                       }).toList(),
-                      onChanged: (String? newValue) {
+                      onChanged: (UserRole? newValue) {
                         setState(() {
                           _selectedRole = newValue;
                         });
                       },
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null) {
                           return 'Please select a user type';
                         }
                         return null;
@@ -343,7 +345,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               }
                               context
                                   .read<SignUpCubit>()
-                                  .signUpWithGoogle(_selectedRole!);
+                                  .signUpWithGoogle(_selectedRole!.value);
                             },
                           ),
                           const SizedBox(width: 16),

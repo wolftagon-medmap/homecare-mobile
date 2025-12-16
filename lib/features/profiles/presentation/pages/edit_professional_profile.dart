@@ -419,6 +419,7 @@ class _JobTitleDropdown extends StatelessWidget {
       'Nurse',
       'Pharmacist',
       'Radiologist',
+      'Caregiver/Helper',
     ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

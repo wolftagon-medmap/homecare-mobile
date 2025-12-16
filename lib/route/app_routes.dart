@@ -23,6 +23,7 @@ class AppRoutes {
   static const String remotePatientMonitoring = '/remote-patient-monitoring';
   static const String secondOpinionMedical = '/second-opinion-medical';
   static const String precisionNutrition = '/precision-nutrition';
+  static const String homecareForElderly = '/homecare-for-elderly';
 
   // Appointment
   static const String appointmentDetail = '/appointment/detail';
@@ -47,6 +48,7 @@ class AppRoutes {
   static const String manageServices = '/manage-services';
   static const String adminProfessionals = '/admin-professionals';
   static const String manageHealthScreening = '/manage-health-screening';
+  static const String adminHomecareConfig = '/admin-homecare-config';
 
   static const String partnership = '/request-partnership';
   static const String partnership_list = '/partnership-list';
@@ -72,6 +74,8 @@ class AppRoutes {
   // Diabetic Care Module
   static const String diabeticProfileForm = '$diabeticCare/profile/form';
   static const String diabeticProfileSummary = '$diabeticCare/profile/summary';
+
+  static const String medicalStoreDetail = '$medicalStore/detail';
 
   // static const String home = '/';
   // static const String submenu = 'submenu';

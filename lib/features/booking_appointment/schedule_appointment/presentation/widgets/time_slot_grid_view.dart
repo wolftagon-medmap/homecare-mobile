@@ -6,14 +6,14 @@ import 'package:timezone/timezone.dart' as tz;
 
 class TimeSlotGridView extends StatelessWidget {
   final List<TimeSlot> timeSlots;
-  final DateTime? selectedTime;
-  final ValueChanged<DateTime> onTimeSelected;
+  final TimeSlot? selectedSlot;
+  final ValueChanged<TimeSlot> onSlotSelected;
 
   const TimeSlotGridView({
     super.key,
     required this.timeSlots,
-    required this.selectedTime,
-    required this.onTimeSelected,
+    required this.selectedSlot,
+    required this.onSlotSelected,
   });
 
   @override
@@ -29,7 +29,7 @@ class TimeSlotGridView extends StatelessWidget {
       itemBuilder: (context, index) {
         final timeSlot = timeSlots[index];
         final time = timeSlot.startTime;
-        final isSelected = selectedTime == time;
+        final isSelected = selectedSlot == timeSlot;
 
         // Convert to local time zone for display
         final localTime = tz.TZDateTime.from(time, tz.local);
@@ -37,7 +37,7 @@ class TimeSlotGridView extends StatelessWidget {
 
         return GestureDetector(
           onTap: () {
-            onTimeSelected(time);
+            onSlotSelected(timeSlot);
           },
           child: Container(
             margin: const EdgeInsets.all(4.0),

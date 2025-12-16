@@ -55,21 +55,6 @@ class _DashboardState extends State<Dashboard> {
     debugPrint('Username loaded: $userName');
   }
 
-  final List<Map<String, String>> services = [
-    {'image': 'assets/icons/ilu_physio.webp', 'name': 'Physiotherapy'},
-    {
-      'image': 'assets/icons/ilu_remote_monitoring.png',
-      'name': 'Remote Patient Monitoring'
-    },
-    {
-      'image': 'assets/icons/ilu_ocuTherapy.webp',
-      'name': 'Occupational\nTherapy'
-    },
-    {'image': 'assets/icons/ilu_health.png', 'name': 'Health Risk\nAssessment'},
-    {'image': 'assets/icons/ilu_dietitian.webp', 'name': 'Dietitian Services'},
-    {'image': 'assets/icons/ilu_sleep.png', 'name': 'Sleep & Mental\nHealth'},
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Consumer<AppLanguage>(
@@ -289,6 +274,7 @@ class _DashboardState extends State<Dashboard> {
               controller: _scrollController,
               child: Column(
                 children: [
+                  // MAIN SERVICES
                   Padding(
                     padding:
                         const EdgeInsets.only(top: 40, right: 24, left: 24),
@@ -309,7 +295,7 @@ class _DashboardState extends State<Dashboard> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            RectangularIconWithTitle(
+                            MainServiceMenuItem(
                               onTap: () {
                                 context.push(AppRoutes.pharmaServices);
                               },
@@ -318,9 +304,8 @@ class _DashboardState extends State<Dashboard> {
                                   .translate('pharmacist_services2'),
                               backgroundColor:
                                   const Color.fromRGBO(142, 244, 220, 0.4),
-                              titleColor: Colors.black,
                             ),
-                            RectangularIconWithTitle(
+                            MainServiceMenuItem(
                               onTap: () {
                                 context.push(AppRoutes.nursingServices);
                               },
@@ -329,9 +314,8 @@ class _DashboardState extends State<Dashboard> {
                                   .translate('home_nursing'),
                               backgroundColor:
                                   const Color.fromRGBO(154, 225, 255, 0.35),
-                              titleColor: Colors.black,
                             ),
-                            RectangularIconWithTitle(
+                            MainServiceMenuItem(
                               onTap: () {
                                 context.push(AppRoutes.diabeticCare);
                               },
@@ -340,7 +324,6 @@ class _DashboardState extends State<Dashboard> {
                                   .translate('diabetic_care'),
                               backgroundColor:
                                   const Color.fromRGBO(142, 244, 220, 0.4),
-                              titleColor: Colors.black,
                             ),
                           ],
                         ),
@@ -348,7 +331,7 @@ class _DashboardState extends State<Dashboard> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            RectangularIconWithTitle(
+                            MainServiceMenuItem(
                               onTap: () {
                                 context.push(AppRoutes.homeHealthScreening);
                               },
@@ -358,9 +341,8 @@ class _DashboardState extends State<Dashboard> {
                                   .translate('home_screening'),
                               backgroundColor:
                                   const Color.fromRGBO(178, 140, 255, 0.2),
-                              titleColor: Colors.black,
                             ),
-                            RectangularIconWithTitle(
+                            MainServiceMenuItem(
                               onTap: () {
                                 context.push(AppRoutes.precisionNutrition);
                               },
@@ -370,56 +352,23 @@ class _DashboardState extends State<Dashboard> {
                                   .translate('precision_nutrition'),
                               backgroundColor:
                                   const Color.fromRGBO(154, 225, 255, 0.33),
-                              titleColor: Colors.black,
                             ),
-                            RectangularIconWithTitle(
+                            MainServiceMenuItem(
                               onTap: () {
-                                context.push(AppRoutes.secondOpinionMedical);
+                                context.push(AppRoutes.homecareForElderly);
                               },
-                              iconPath: 'assets/icons/ic_2nd_opinion.png',
+                              iconPath: 'assets/icons/ic_homecare_elderly.png',
                               title: AppLocalizations.of(context)!
-                                  .translate('2nd_opinion'),
+                                  .translate('homecare_for_elderly'),
                               backgroundColor:
                                   const Color.fromRGBO(178, 140, 255, 0.2),
-                              titleColor: Colors.black,
                             ),
                           ],
                         ),
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 30),
-                  // Card(
-                  //   color: Colors.white,
-                  //   margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                  //   child: ListTile(
-                  //     title: const Text('Health Profile',
-                  //         style: TextStyle(
-                  //             fontSize: 18, color: Color(0xFF35C5CF))),
-                  //     subtitle: Text(userName ?? 'User'),
-                  //     trailing: Row(
-                  //       mainAxisSize: MainAxisSize.min,
-                  //       children: [
-                  //         TextButton(
-                  //           onPressed: () {
-                  //             context.go(AppRoutes.profile);
-                  //           },
-                  //           child: const Text('View all',
-                  //               style: TextStyle(
-                  //                   fontSize: 14, color: Colors.black)),
-                  //         ),
-                  //         IconButton(
-                  //           icon: const Icon(Icons.more_vert),
-                  //           onPressed: () {
-                  //             // Handle more options action
-                  //           },
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-
                   const Row(
                     children: <Widget>[
                       Expanded(
@@ -431,9 +380,10 @@ class _DashboardState extends State<Dashboard> {
                     ],
                   ),
 
+                  // ALLIED HEALTH SERVICES
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 40, right: 24, left: 24),
+                    padding: const EdgeInsets.only(
+                        top: 40, right: 24, left: 24, bottom: 40),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -449,82 +399,65 @@ class _DashboardState extends State<Dashboard> {
                           ),
                         ),
                         const SizedBox(height: 28),
-                        GridView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 0,
-                            childAspectRatio: 2 / 3,
-                          ),
-                          itemCount: services.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: AlliedHealthMenuItem(
+                                imagePath: 'assets/icons/ilu_physio.webp',
+                                label: 'Physiotherapy',
+                                onTap: showComingSoonDialog,
+                              ),
+                            ),
+                            Expanded(
+                              child: AlliedHealthMenuItem(
+                                imagePath:
+                                    'assets/icons/ilu_remote_monitoring.png',
+                                label: 'Remote Patient Monitoring',
                                 onTap: () {
-                                  if (services[index]['name'] ==
-                                      'Remote Patient Monitoring') {
-                                    context.push(
-                                        AppRoutes.remotePatientMonitoring);
-                                  } else {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                          ),
-                                          title: const Text('Coming Soon'),
-                                          content: const Text(
-                                              'This feature will be available soon!'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  }
+                                  context
+                                      .push(AppRoutes.remotePatientMonitoring);
                                 },
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: const Color.fromRGBO(
-                                              247, 248, 248, 1),
-                                          width: 2,
-                                        ),
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(16),
-                                        child: Image.asset(
-                                          services[index]['image']!,
-                                          height: 72,
-                                          width: 111,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      services[index]['name']!,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ],
-                                ));
-                          },
-                        )
+                              ),
+                            ),
+                            Expanded(
+                              child: AlliedHealthMenuItem(
+                                imagePath: 'assets/icons/ilu_2nd_opinion.webp',
+                                label: '2nd Opinion for Medical Image',
+                                onTap: () {
+                                  context.push(AppRoutes.secondOpinionMedical);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: AlliedHealthMenuItem(
+                                imagePath: 'assets/icons/ilu_health.png',
+                                label: 'Health Risk Assessment',
+                                onTap: showComingSoonDialog,
+                              ),
+                            ),
+                            Expanded(
+                              child: AlliedHealthMenuItem(
+                                imagePath: 'assets/icons/ilu_dietitian.webp',
+                                label: 'Dietitian Services',
+                                onTap: showComingSoonDialog,
+                              ),
+                            ),
+                            Expanded(
+                              child: AlliedHealthMenuItem(
+                                imagePath: 'assets/icons/ilu_sleep.png',
+                                label: 'Sleep & Mental Health',
+                                onTap: showComingSoonDialog,
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -536,72 +469,41 @@ class _DashboardState extends State<Dashboard> {
       },
     );
   }
-}
 
-class CircularIconWithTitle extends StatelessWidget {
-  final String iconPath;
-  final String title;
-  final Color backgroundColor;
-  // final Color iconColor;
-  final Color titleColor;
-  final VoidCallback onTap;
-
-  const CircularIconWithTitle({
-    super.key,
-    required this.iconPath,
-    required this.title,
-    required this.backgroundColor,
-    // required this.iconColor,
-    required this.titleColor,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            radius: 40, // Adjust the radius as needed
-            backgroundColor: backgroundColor,
-            child: Image.asset(
-              iconPath,
-              width: 50, // Adjust the size as needed
-              height: 50, // Adjust the size as needed
-              // color: iconColor.withOpacity(1.0), // Use withOpacity to control opacity
-            ),
+  void showComingSoonDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
           ),
-          const SizedBox(
-              height: 8), // Add some space between the avatar and the title
-          Text(
-            title,
-            style: TextStyle(
-              color: titleColor,
-              fontSize: 12,
-              fontWeight: FontWeight.w700,
+          backgroundColor: Colors.white,
+          title: const Text('Coming Soon'),
+          content: const Text('This feature will be available soon!'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK', style: TextStyle(color: Const.aqua)),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      },
     );
   }
 }
 
-class RectangularIconWithTitle extends StatelessWidget {
+class MainServiceMenuItem extends StatelessWidget {
   final String iconPath;
   final String title;
   final Color backgroundColor;
-  final Color titleColor;
   final VoidCallback onTap;
 
-  const RectangularIconWithTitle({
+  const MainServiceMenuItem({
     super.key,
     required this.iconPath,
     required this.title,
     required this.backgroundColor,
-    required this.titleColor,
     required this.onTap,
   });
 
@@ -640,10 +542,10 @@ class RectangularIconWithTitle extends StatelessWidget {
               maxLines: 2,
               softWrap: true,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: titleColor,
+              style: const TextStyle(
+                color: Colors.black,
                 fontSize: 12,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w500,
                 // height: 13.25 / 12,
               ),
             ),
@@ -654,63 +556,50 @@ class RectangularIconWithTitle extends StatelessWidget {
   }
 }
 
-class SearchInputBox extends StatefulWidget {
-  const SearchInputBox({super.key});
+class AlliedHealthMenuItem extends StatelessWidget {
+  final String imagePath;
+  final String label;
+  final VoidCallback onTap;
 
-  @override
-  _SearchInputBoxState createState() => _SearchInputBoxState();
-}
-
-class _SearchInputBoxState extends State<SearchInputBox> {
-  final TextEditingController _controller = TextEditingController();
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed
-    _controller.dispose();
-    super.dispose();
-  }
+  const AlliedHealthMenuItem({
+    super.key,
+    required this.imagePath,
+    required this.label,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(
-          30.0, 20.0, 30.0, 10.0), // Set margin around the entire TextField
-      child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft:
-              Radius.circular(50.0), // Adjust these values for the oval shape
-          topRight:
-              Radius.circular(50.0), // Adjust these values for the oval shape
-          bottomLeft:
-              Radius.circular(50.0), // Adjust these values for the oval shape
-          bottomRight:
-              Radius.circular(50.0), // Adjust these values for the oval shape
-        ),
-        child: TextField(
-          controller: _controller, // Assign the controller to the TextField
-
-          decoration: InputDecoration(
-            filled: true, // Enable filling the TextField with a color
-            fillColor: Colors.grey[100], // Set the background color to grey
-            contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            prefixIcon: IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {
-                // Handle search action here
-                print('Search submitted: ${_controller.text}');
-              },
+    return GestureDetector(
+        onTap: onTap,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: const Color.fromRGBO(247, 248, 248, 1),
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  imagePath,
+                  height: 72,
+                  width: 111,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-            hintText: 'Search...',
-            border: InputBorder.none, // Remove border
-            focusedBorder: InputBorder.none, // Remove border when focused
-            enabledBorder: InputBorder.none, // Remove border when enabled
-            errorBorder:
-                InputBorder.none, // Remove border when there's an error
-            disabledBorder: InputBorder.none, // Remove border when disabled
-          ),
-        ),
-      ),
-    );
+            const SizedBox(height: 10),
+            Text(
+              label,
+              style: const TextStyle(fontSize: 12),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ));
   }
 }
