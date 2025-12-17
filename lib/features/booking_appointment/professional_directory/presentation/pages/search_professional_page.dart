@@ -70,7 +70,7 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
       case 'radiologist':
         return 'Search Radiologist';
       case 'caregiver':
-        return 'Search Caregiver/Helper';
+        return 'Search Caregiver/Helper/Worker';
       default:
         return 'Search Professional';
     }
