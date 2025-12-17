@@ -106,11 +106,101 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get tab_home;
 
+  /// Services
+  ///
+  /// In en, this message translates to:
+  /// **'Services'**
+  String get services;
+
+  /// Label for the Allied Health services
+  ///
+  /// In en, this message translates to:
+  /// **'Allied Health'**
+  String get allied_services;
+
+  /// Label for the iRX Pharmacist Service
+  ///
+  /// In en, this message translates to:
+  /// **'iRX Pharmacist Service'**
+  String get pharmacist_services;
+
+  /// Label for the Home Nursing service
+  ///
+  /// In en, this message translates to:
+  /// **'Home Nursing'**
+  String get nursing_service;
+
+  /// Label for the Diabetic Care service
+  ///
+  /// In en, this message translates to:
+  /// **'Diabetic Care'**
+  String get diabetic_care_service;
+
+  /// Label for the Home Health Screening service
+  ///
+  /// In en, this message translates to:
+  /// **'Home Health Screening'**
+  String get home_screening_service;
+
+  /// Label for the Precision Nutrition service
+  ///
+  /// In en, this message translates to:
+  /// **'Precision Nutrition'**
+  String get precision_nutrition_service;
+
+  /// Label for the Home Care for Elderly service
+  ///
+  /// In en, this message translates to:
+  /// **'Home Care for Elderly'**
+  String get homecare_for_elderly_service;
+
+  /// Label for the Physiotherapy service
+  ///
+  /// In en, this message translates to:
+  /// **'Physiotherapy'**
+  String get physiotherapy_service;
+
+  /// Label for the Remote Patient Monitoring service
+  ///
+  /// In en, this message translates to:
+  /// **'Remote Patient Monitoring'**
+  String get remote_patient_monitoring_service;
+
+  /// Label for the 2nd Opinion for Medical Image service
+  ///
+  /// In en, this message translates to:
+  /// **'2nd Opinion for Medical Image'**
+  String get second_opinion_service;
+
+  /// Label for the Health Risk Assessment service
+  ///
+  /// In en, this message translates to:
+  /// **'Health Risk Assessment'**
+  String get health_risk_assessment_service;
+
+  /// Label for the Dietitian Service
+  ///
+  /// In en, this message translates to:
+  /// **'Dietitian Service'**
+  String get dietitian_service;
+
+  /// Label for the Sleep & Mental Health service
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep & Mental Health'**
+  String get sleep_and_mental_health_service;
+
   /// Greeting message on the dashboard
   ///
   /// In en, this message translates to:
   /// **'Live Longer & Live Healthier, {displayName}!'**
   String dashboard_greeting(String displayName);
+
+  /// Placeholder text for the AI chat feature on the dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Chat With AI doctor for all your health questions'**
+  String get dashboard_chat_ai_placeholder;
 }
 
 class _AppLocalizationsDelegate

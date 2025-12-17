@@ -1,4 +1,20 @@
 {
   "@@locale": "zh",
-  "tab_home": "主页"
+  "tab_home": "首页",
+  "services": "服务",
+  "allied_services": "辅助医疗",
+  "pharmacist_services": "iRX 药师服务",
+  "nursing_service": "居家护理",
+  "diabetic_care_service": "糖尿病护理",
+  "home_screening_service": "居家健康筛查",
+  "precision_nutrition_service": "精准营养",
+  "homecare_for_elderly_service": "长者居家护理",
+  "physiotherapy_service": "物理治疗",
+  "remote_patient_monitoring_service": "远程健康监测",
+  "second_opinion_service": "医学影像第二意见",
+  "health_risk_assessment_service": "健康风险评估",
+  "dietitian_service": "营养师服务",
+  "sleep_and_mental_health_service": "睡眠与心理健康",
+  "dashboard_greeting": "更长寿，更健康，{displayName}！",
+  "dashboard_chat_ai_placeholder": "咨询AI医生，解答您的健康疑问"
 }

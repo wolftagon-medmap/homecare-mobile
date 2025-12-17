@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:m2health/const.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Dashboard extends StatefulWidget {
@@ -213,7 +213,7 @@ class _DashboardState extends State<Dashboard> {
                         ] else
                           Expanded(
                             child: Text(
-                              "Live Longer & Live Healthier, $displayName!",
+                              context.l10n.dashboard_greeting(displayName),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -241,12 +241,12 @@ class _DashboardState extends State<Dashboard> {
                           color: const Color.fromARGB(255, 0, 0, 0),
                         ),
                         const SizedBox(width: 10),
-                        const Expanded(
+                        Expanded(
                           child: TextField(
                             decoration: InputDecoration(
                               hintText:
-                                  "Chat With AI doctor for all your health questions",
-                              hintStyle: TextStyle(
+                                  context.l10n.dashboard_chat_ai_placeholder,
+                              hintStyle: const TextStyle(
                                   color: Color(0xFF8A96BC), fontSize: 11),
                               border: InputBorder.none,
                               enabledBorder: InputBorder.none,
@@ -277,8 +277,7 @@ class _DashboardState extends State<Dashboard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      // AppLocalizations.of(context)!.translate('services'),
-                      "Services",
+                      context.l10n.services,
                       textAlign: TextAlign.left,
                       style: const TextStyle(
                         color: Color(0xFF232F55),
@@ -297,9 +296,7 @@ class _DashboardState extends State<Dashboard> {
                             context.push(AppRoutes.pharmaServices);
                           },
                           iconPath: 'assets/icons/ic_pharma_service.png',
-                          title:
-                              // AppLocalizations.of(context)!.translate('pharmacist_services2'),
-                              "iRX Pharmacist Service",
+                          title: context.l10n.pharmacist_services,
                           backgroundColor:
                               const Color.fromRGBO(142, 244, 220, 0.4),
                         ),
@@ -308,9 +305,7 @@ class _DashboardState extends State<Dashboard> {
                             context.push(AppRoutes.nursingServices);
                           },
                           iconPath: 'assets/icons/ic_nurse.png',
-                          title:
-                              // AppLocalizations.of(context)!.translate('home_nursing'),
-                              "Home Nursing",
+                          title: context.l10n.nursing_service,
                           backgroundColor:
                               const Color.fromRGBO(154, 225, 255, 0.35),
                         ),
@@ -319,9 +314,7 @@ class _DashboardState extends State<Dashboard> {
                             context.push(AppRoutes.diabeticCare);
                           },
                           iconPath: 'assets/icons/ic_diabetic.png',
-                          title:
-                              // AppLocalizations.of(context)!.translate('diabetic_care'),
-                              "Diabetic Care",
+                          title: context.l10n.diabetic_care_service,
                           backgroundColor:
                               const Color.fromRGBO(142, 244, 220, 0.4),
                         ),
@@ -330,15 +323,14 @@ class _DashboardState extends State<Dashboard> {
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MainServiceMenuItem(
                           onTap: () {
                             context.push(AppRoutes.homeHealthScreening);
                           },
                           iconPath: 'assets/icons/ic_home_health_screening.png',
-                          title:
-                              // AppLocalizations.of(context)!                                  .translate('home_screening'),
-                              "Home Health Screening",
+                          title: context.l10n.home_screening_service,
                           backgroundColor:
                               const Color.fromRGBO(178, 140, 255, 0.2),
                         ),
@@ -347,9 +339,7 @@ class _DashboardState extends State<Dashboard> {
                             context.push(AppRoutes.precisionNutrition);
                           },
                           iconPath: 'assets/icons/ic_precision_nutrition.webp',
-                          title:
-                              // AppLocalizations.of(context)!.translate('precision_nutrition'),
-                              "Precision Nutrition",
+                          title: context.l10n.precision_nutrition_service,
                           backgroundColor:
                               const Color.fromRGBO(154, 225, 255, 0.33),
                         ),
@@ -358,9 +348,7 @@ class _DashboardState extends State<Dashboard> {
                             context.push(AppRoutes.homecareForElderly);
                           },
                           iconPath: 'assets/icons/ic_homecare_elderly.png',
-                          title:
-                              // AppLocalizations.of(context)!.translate('homecare_for_elderly'),
-                              "Home Care for Elderly",
+                          title: context.l10n.homecare_for_elderly_service,
                           backgroundColor:
                               const Color.fromRGBO(178, 140, 255, 0.2),
                         ),
@@ -389,8 +377,7 @@ class _DashboardState extends State<Dashboard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      // AppLocalizations.of(context)!.translate('allied_services'),
-                      "Allied Health",
+                      context.l10n.allied_services,
                       textAlign: TextAlign.left,
                       style: const TextStyle(
                         color: Color(0xFF232F55),
@@ -406,14 +393,15 @@ class _DashboardState extends State<Dashboard> {
                         Expanded(
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_physio.webp',
-                            label: 'Physiotherapy',
+                            label: context.l10n.physiotherapy_service,
                             onTap: showComingSoonDialog,
                           ),
                         ),
                         Expanded(
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_remote_monitoring.png',
-                            label: 'Remote Patient Monitoring',
+                            label:
+                                context.l10n.remote_patient_monitoring_service,
                             onTap: () {
                               context.push(AppRoutes.remotePatientMonitoring);
                             },
@@ -422,7 +410,7 @@ class _DashboardState extends State<Dashboard> {
                         Expanded(
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_2nd_opinion.webp',
-                            label: '2nd Opinion for Medical Image',
+                            label: context.l10n.second_opinion_service,
                             onTap: () {
                               context.push(AppRoutes.secondOpinionMedical);
                             },
@@ -437,21 +425,21 @@ class _DashboardState extends State<Dashboard> {
                         Expanded(
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_health.png',
-                            label: 'Health Risk Assessment',
+                            label: context.l10n.health_risk_assessment_service,
                             onTap: showComingSoonDialog,
                           ),
                         ),
                         Expanded(
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_dietitian.webp',
-                            label: 'Dietitian Services',
+                            label: context.l10n.dietitian_service,
                             onTap: showComingSoonDialog,
                           ),
                         ),
                         Expanded(
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_sleep.png',
-                            label: 'Sleep & Mental Health',
+                            label: context.l10n.sleep_and_mental_health_service,
                             onTap: showComingSoonDialog,
                           ),
                         ),
@@ -536,7 +524,7 @@ class MainServiceMenuItem extends StatelessWidget {
             child: Text(
               title,
               textAlign: TextAlign.center,
-              maxLines: 2,
+              maxLines: 3,
               softWrap: true,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(

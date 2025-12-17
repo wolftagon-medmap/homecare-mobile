@@ -1,4 +1,20 @@
 {
   "@@locale": "id",
-  "tab_home": "Beranda"
+  "tab_home": "Beranda",
+  "services": "Layanan Utama",
+  "allied_services": "Layanan Kesehatan Penunjang",
+  "pharmacist_services": "Layanan Apoteker iRX",
+  "nursing_service": "Perawat ke Rumah",
+  "diabetic_care_service": "Perawatan Diabetes",
+  "home_screening_service": "Skrining Kesehatan di Rumah",
+  "precision_nutrition_service": "Nutrisi Presisi",
+  "homecare_for_elderly_service": "Perawatan Lansia di Rumah",
+  "physiotherapy_service": "Fisioterapi",
+  "remote_patient_monitoring_service": "Pemantauan Kesehatan Jarak Jauh",
+  "second_opinion_service": "Pendapat Kedua Citra Medis",
+  "health_risk_assessment_service": "Penilaian Risiko Kesehatan",
+  "dietitian_service": "Layanan Ahli Gizi",
+  "sleep_and_mental_health_service": "Tidur & Kesehatan Mental",
+  "dashboard_greeting": "Hidup Lebih Lama & Sehat, {displayName}!",
+  "dashboard_chat_ai_placeholder": "Tanya dokter AI seputar kesehatan Anda"
 }

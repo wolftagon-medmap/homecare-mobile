@@ -6,7 +6,13 @@
   },
 
   "services": "Services",
+  "@services": {
+    "description": "Services"
+  },
   "allied_services": "Allied Health",
+  "@allied_services": {
+    "description": "Label for the Allied Health services"
+  },
 
   "pharmacist_services": "iRX Pharmacist Service",
   "@pharmacist_services": {
