@@ -1,10 +1,38 @@
 {
   "@@locale": "en",
+  "common_cancel": "Cancel",
+  "@common_cancel": {},
+  "common_confirm": "Confirm",
+  "@common_confirm": {},
+  "common_delete": "Delete",
+  "@common_delete": {},
+  "common_error": "Error: {message}",
+  "@common_error": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "common_no": "No",
+  "@common_no": {},
+  "common_no_data": "No data available",
+  "@common_no_data": {},
+  "common_retry": "Retry",
+  "@common_retry": {},
+  "common_status": "Status",
+  "@common_status": {},
+  "common_description": "Description",
+  "@common_description": {},
+  "common_yes": "Yes",
+  "@common_yes": {},
+  "common_complete": "Complete",
+  "@common_complete": {},
+
   "tab_home": "Home",
   "@tab_home": {
     "description": "Label for the home tab"
   },
-
   "services": "Services",
   "@services": {
     "description": "Services"
@@ -13,7 +41,6 @@
   "@allied_services": {
     "description": "Label for the Allied Health services"
   },
-
   "pharmacist_services": "iRX Pharmacist Service",
   "@pharmacist_services": {
     "description": "Label for the iRX Pharmacist Service"
@@ -62,8 +89,6 @@
   "@sleep_and_mental_health_service": {
     "description": "Label for the Sleep & Mental Health service"
   },
-
-
   "dashboard_greeting": "Live Longer & Live Healthier, {displayName}!",
   "@dashboard_greeting": {
     "description": "Greeting message on the dashboard",
@@ -77,5 +102,284 @@
   "dashboard_chat_ai_placeholder": "Chat With AI doctor for all your health questions",
   "@dashboard_chat_ai_placeholder": {
     "description": "Placeholder text for the AI chat feature on the dashboard"
+  },
+
+  "appointment_title": "Appointments",
+  "@appointment_title": {},
+  "appointment_list_title": "My Appointment",
+  "@appointment_list_title": {
+    "description": "Title for the appointment list section"
+  },
+  "appointment_status_upcoming": "Upcoming",
+  "@appointment_status_upcoming": {
+    "description": "Status appointment is upcoming"
+  },
+  "appointment_status_pending": "Pending",
+  "@appointment_status_pending": {
+    "description": "Status appointment is pending"
+  },
+  "appointment_status_waiting_approval": "Waiting Approval",
+  "@appointment_status_waiting_approval": {
+    "description": "Status appointment is waiting for approval"
+  },
+  "appointment_status_accepted": "Accepted",
+  "@appointment_status_accepted": {},
+  "appointment_status_completed": "Completed",
+  "@appointment_status_completed": {
+    "description": "Status appointment is completed"
+  },
+  "appointment_status_cancelled": "Cancelled",
+  "@appointment_status_cancelled": {
+    "description": "Status appointment is cancelled"
+  },
+  "appointment_status_missed": "Missed",
+  "@appointment_status_missed": {
+    "description": "Status appointment is missed"
+  },
+  "appointment_list_empty": "No {appointment_status} appointments found.",
+  "@appointment_list_empty": {
+    "description": "Message displayed when there are no appointments found for a specific status",
+    "placeholders": {
+      "appointment_status": {
+        "type": "String",
+        "example": "upcoming"
+      }
+    }
+  },
+  "appointment_cancel_booking_btn": "Cancel Booking",
+  "@appointment_cancel_booking_btn": {
+    "description": "Label for the button to cancel an appointment booking"
+  },
+  "appointment_reschedule_btn": "Reschedule",
+  "@appointment_reschedule_btn": {
+    "description": "Label for the button to reschedule an appointment"
+  },
+  "appointment_book_again_btn": "Book Again",
+  "@appointment_book_again_btn": {
+    "description": "Label for the button to book an appointment again"
+  },
+  "appointment_rating_btn": "Rate",
+  "@appointment_rating_btn": {
+    "description": "Label for the button to rate an appointment"
+  },
+  "appointment_decline_btn": "Decline",
+  "@appointment_decline_btn": {
+    "description": "Label for the button to decline an appointment"
+  },
+  "appointment_accept_btn": "Accept",
+  "@appointment_accept_btn": {
+    "description": "Label for the button to accept an appointment"
+  },
+  "appointment_mark_complete_btn": "Mark as Complete",
+  "@appointment_mark_complete_btn": {
+    "description": "Label for the button to mark an appointment as complete"
+  },
+  "appointment_screening_confirm_sample_btn": "Confirm Sample Collected",
+  "@appointment_screening_confirm_sample_btn": {
+    "description": "Label for the button to confirm that a sample has been collected for a screening appointment"
+  },
+  "appointment_screening_upload_report_btn": "Upload Report",
+  "@appointment_screening_upload_report_btn": {
+    "description": "Label for the button to upload a report for a screening appointment"
+  },
+  "appointment_arrange_video_consultation": "Arrange Video Consultation",
+  "@appointment_arrange_video_consultation": {},
+  "appointment_pay_btn": "Pay",
+  "@appointment_pay_btn": {},
+
+  "appointment_detail_title": "Appointment Detail",
+  "@appointment_detail_title": {
+    "description": "Title for the appointment detail page"
+  },
+  "appointment_detail_schedule_title": "Appointment Schedule",
+  "@appointment_detail_schedule_title": {
+    "description": "Title for the appointment schedule section in the appointment detail page"
+  },
+  "appointment_detail_patient_title": "Patient Information",
+  "@appointment_detail_patient_title": {
+    "description": "Title for the patient information section in the appointment detail page"
+  },
+  "appointment_detail_lab_test_title": "Lab Test Information",
+  "@appointment_detail_lab_test_title": {
+    "description": "Title for the lab test information section in the appointment detail page"
+  },
+  "appointment_detail_report": "{count, plural, =0{No Reports} =1{Report} other{Reports}}",
+  "@appointment_detail_report": {
+    "description": "Label for the report section in the appointment detail page",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "appointment_detail_requested_homecare_task": "Requested Homecare Tasks",
+  "@appointment_detail_requested_homecare_task": {
+    "description": "Label for the requested homecare tasks section in the appointment detail page"
+  },
+  "appointment_detail_requested_homecare_task_empty": "No specific homecare tasks requested.",
+  "@appointment_detail_requested_homecare_task_empty": {
+    "description": "Message displayed when there are no requested homecare tasks in the appointment detail page"
+  },
+  "appointment_detail_patient_problem_title": "Patient Problems",
+  "@appointment_detail_patient_problem_title": {
+    "description": "Title for the patient problems section in the appointment detail page"
+  },
+  "appointment_detail_patient_problem_empty": "No specific problem details provided.",
+  "@appointment_detail_patient_problem_empty": {
+    "description": "Message displayed when there are no patient problems in the appointment detail page"
+  },
+  "appointment_detail_payment_title": "Payment Information",
+  "@appointment_detail_payment_title": {
+    "description": "Title for the payment information section in the appointment detail page"
+  },
+  "appointment_detail_estimated_budget": "Estimated Budget",
+  "@appointment_detail_estimated_budget": {
+    "description": "Label for the estimated budget in the appointment detail page"
+  },
+  "appointment_detail_payment_details": "Payment Details",
+  "@appointment_detail_payment_details": {},
+  "appointment_detail_payment_date": "Payment Date",
+  "@appointment_detail_payment_date": {
+    "description": "Label for the payment date in the appointment detail page"
+  },
+  "appointment_detail_payment_method": "Payment Method",
+  "@appointment_detail_payment_method": {
+    "description": "Label for the payment method in the appointment detail page"
+  },
+  "appointment_detail_order_completed_date": "Order Completed",
+  "@appointment_detail_order_completed_date": {
+    "description": "Label for the order completed date in the appointment detail page"
+  },
+  "appointment_detail_total_amount": "Total: {amount}",
+  "@appointment_detail_total_amount": {
+    "description": "Label for the total amount in the appointment detail page",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "appointment_detail_total_label": "Total",
+  "@appointment_detail_total_label": {},
+  "appointment_detail_service_requested": "Services Requested",
+  "@appointment_detail_service_requested": {
+    "description": "Label for the service requested in the appointment detail page"
+  },
+  "appointment_summary": "Summary:",
+  "@appointment_summary": {
+    "description": "Label for the appointment summary section"
+  },
+  "appointment_update_success_message": "Appointment updated successfully",
+  "@appointment_update_success_message": {
+    "description": "Message displayed when an appointment is updated successfully"
+  },
+  "appointment_accept_success_message": "Appointment accepted successfully",
+  "@appointment_accept_success_message": {},
+  "appointment_decline_success_message": "Appointment declined successfully",
+  "@appointment_decline_success_message": {},
+  "appointment_complete_success_message": "Appointment completed successfully",
+  "@appointment_complete_success_message": {},
+  "appointment_confirm_sample_success_message": "Sample collection confirmed successfully",
+  "@appointment_confirm_sample_success_message": {},
+  "appointment_mark_report_ready_success_message": "Report marked as ready",
+  "@appointment_mark_report_ready_success_message": {},
+
+  "appointment_cancel_dialog_content": "Are you sure to cancel this appointment?",
+  "@appointment_cancel_dialog_content": {},
+  "appointment_cancel_dialog_subtitle": "You can rebook it later from the canceled appointment menu.",
+  "@appointment_cancel_dialog_subtitle": {},
+  "appointment_complete_dialog_title": "Complete Appointment",
+  "@appointment_complete_dialog_title": {},
+  "appointment_complete_dialog_content": "Mark this appointment as completed?",
+  "@appointment_complete_dialog_content": {},
+  "appointment_accept_dialog_title": "Accept Appointment",
+  "@appointment_accept_dialog_title": {},
+  "appointment_accept_dialog_content": "Are you sure you want to accept this appointment?",
+  "@appointment_accept_dialog_content": {},
+  "appointment_decline_dialog_title": "Are you sure you want to decline this appointment?",
+  "@appointment_decline_dialog_title": {},
+  "appointment_decline_dialog_subtitle": "This action cannot be undone.",
+  "@appointment_decline_dialog_subtitle": {},
+
+  "screening_report_upload_title": "Upload Lab Reports",
+  "@screening_report_upload_title": {},
+  "screening_report_upload_instruction": "Please upload all necessary lab reports before marking them as ready.",
+  "@screening_report_upload_instruction": {},
+  "screening_report_uploaded_section": "Uploaded Reports ({count})",
+  "@screening_report_uploaded_section": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "screening_report_empty": "No reports uploaded yet",
+  "@screening_report_empty": {},
+  "screening_report_upload_btn": "Upload New Report",
+  "@screening_report_upload_btn": {},
+  "screening_report_mark_ready_btn": "Mark Reports as Ready",
+  "@screening_report_mark_ready_btn": {},
+  "screening_report_finalize_dialog_title": "Finalize Reports?",
+  "@screening_report_finalize_dialog_title": {},
+  "screening_report_finalize_dialog_content": "Once marked as ready, reports will be sent to the patient and you cannot modify them anymore.",
+  "@screening_report_finalize_dialog_content": {},
+  "screening_report_finalized_message": "Reports Finalized",
+  "@screening_report_finalized_message": {},
+  "screening_report_delete_dialog_title": "Delete Report?",
+  "@screening_report_delete_dialog_title": {},
+  "screening_report_delete_dialog_content": "Are you sure you want to delete this report?",
+  "@screening_report_delete_dialog_content": {},
+  "screening_report_upload_success": "Report uploaded successfully",
+  "@screening_report_upload_success": {},
+  "screening_report_delete_success": "Report deleted successfully",
+  "@screening_report_delete_success": {},
+  "screening_report_finalize_success": "Reports marked as ready",
+  "@screening_report_finalize_success": {},
+
+  "full_name": "Full Name",
+  "@full_name": {
+    "description": "Full name"
+  },
+  "age": "Age",
+  "@age": {
+    "description": "Age"
+  },
+  "age_years_old": "{age} years old",
+  "@age_years_old": {
+    "description": "Age",
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "gender": "Gender",
+  "@gender": {
+    "description": "Gender"
+  },
+  "address": "Address",
+  "@address": {
+    "description": "Person's Address"
+  },
+  "weight": "Weight",
+  "@weight": {
+    "description": "Weight"
+  },
+  "height": "Height",
+  "@height": {
+    "description": "Height"
+  },
+  "none": "None",
+  "@none": {
+    "description": "None"
+  },
+  "created_on": "Created on: {date}",
+  "@created_on": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
   }
 }

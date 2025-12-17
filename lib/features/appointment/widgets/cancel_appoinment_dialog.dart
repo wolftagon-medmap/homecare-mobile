@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 
 class CancelAppoinmentDialog extends StatelessWidget {
   final Function onPressYes;
@@ -12,9 +13,7 @@ class CancelAppoinmentDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       contentPadding: const EdgeInsets.all(16.0),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -23,25 +22,23 @@ class CancelAppoinmentDialog extends StatelessWidget {
             alignment: Alignment.topRight,
             child: IconButton(
               icon: const Icon(Icons.close),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: () => Navigator.of(context).pop(),
             ),
           ),
           Icon(Icons.warning_amber_rounded,
               size: 50, color: Colors.red.shade600),
           const SizedBox(height: 16),
-          const Text(
-            'Are you sure to cancel this appointment?',
-            style: TextStyle(
+          Text(
+            context.l10n.appointment_cancel_dialog_content,
+            style: const TextStyle(
                 color: Const.aqua, fontWeight: FontWeight.w600, fontSize: 16),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
-          const Text(
-            'You can rebook it later from the canceled appointment menu.',
+          Text(
+            context.l10n.appointment_cancel_dialog_subtitle,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12),
+            style: const TextStyle(fontSize: 12),
           ),
           const SizedBox(height: 60),
           Row(
@@ -52,9 +49,7 @@ class CancelAppoinmentDialog extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
-                    if (onPressNo != null) {
-                      onPressNo!();
-                    }
+                    if (onPressNo != null) onPressNo!();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Const.aqua,
@@ -62,10 +57,9 @@ class CancelAppoinmentDialog extends StatelessWidget {
                     textStyle: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 16),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
+                        borderRadius: BorderRadius.circular(15)),
                   ),
-                  child: const Text('No'),
+                  child: Text(context.l10n.common_no),
                 ),
               ),
               Expanded(
@@ -80,10 +74,9 @@ class CancelAppoinmentDialog extends StatelessWidget {
                     textStyle: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 16),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
+                        borderRadius: BorderRadius.circular(15)),
                   ),
-                  child: const Text('Yes, Cancel'),
+                  child: Text(context.l10n.common_yes),
                 ),
               ),
             ],

@@ -4,7 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
+import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
 import 'package:m2health/features/appointment/bloc/appointment_cubit.dart';
 import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
@@ -66,9 +68,9 @@ class _AppointmentPageState extends State<AppointmentPage>
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text(
-          'My Appointment',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          context.l10n.appointment_list_title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: false,
         actionsPadding: const EdgeInsets.only(right: 10),
@@ -97,39 +99,13 @@ class _AppointmentPageState extends State<AppointmentPage>
           tabAlignment: TabAlignment.start,
           isScrollable: true,
           labelStyle: const TextStyle(fontSize: 16),
-          tabs: _tabs
-              .map((status) => Tab(text: status.name.toTitleCase()))
-              .toList(),
+          tabs: _tabs.map((status) {
+            String label = _getStatusLabel(status.name, context);
+            return Tab(text: label);
+          }).toList(),
         ),
       ),
-      body: BlocConsumer<AppointmentCubit, AppointmentState>(
-        listener: (context, state) {
-          if (state.isAuthError) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (BuildContext dialogContext) {
-                  return AlertDialog(
-                    title: const Text('Authentication Required'),
-                    content: const Text(
-                      'Your session has expired or you are not logged in. Please sign in to continue.',
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('Sign In'),
-                        onPressed: () {
-                          Navigator.of(dialogContext).pop();
-                          GoRouter.of(context).go(AppRoutes.signIn);
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            });
-          }
-        },
+      body: BlocBuilder<AppointmentCubit, AppointmentState>(
         builder: (context, state) {
           return TabBarView(
             controller: _tabController,
@@ -147,6 +123,25 @@ class _AppointmentPageState extends State<AppointmentPage>
         },
       ),
     );
+  }
+}
+
+String _getStatusLabel(String status, BuildContext context) {
+  switch (status) {
+    case 'upcoming':
+      return context.l10n.appointment_status_upcoming;
+    case 'accepted':
+      return context.l10n.appointment_status_accepted;
+    case 'pending':
+      return context.l10n.appointment_status_pending;
+    case 'completed':
+      return context.l10n.appointment_status_completed;
+    case 'cancelled':
+      return context.l10n.appointment_status_cancelled;
+    case 'missed':
+      return context.l10n.appointment_status_missed;
+    default:
+      return status;
   }
 }
 
@@ -258,9 +253,7 @@ class _AppointmentListViewState extends State<AppointmentListView> {
   }
 
   Widget _buildEmptyState(AppointmentStatus status) {
-    final message = status == AppointmentStatus.upcoming
-        ? 'No upcoming appointments found'
-        : 'No ${status.name} appointments found';
+    final statusString = _getStatusLabel(status.name, context);
 
     return Center(
       child: Column(
@@ -269,7 +262,7 @@ class _AppointmentListViewState extends State<AppointmentListView> {
           Icon(Icons.event_busy, size: 64, color: Colors.grey[400]),
           const SizedBox(height: 16),
           Text(
-            message,
+            context.l10n.appointment_list_empty(statusString),
             style: TextStyle(fontSize: 16, color: Colors.grey[600]),
           ),
         ],
@@ -304,20 +297,10 @@ class _AppointmentListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appointmentStatus = appointment.status.toTitleCase();
-    final appointmentStatusLower = appointmentStatus.toLowerCase();
+    final appointmentStatusLower = appointment.status.toLowerCase();
     final statusColor = _getStatusColor(appointmentStatusLower);
     final providerName = appointment.provider?.name ?? 'Unknown Provider';
     final avatarUrl = appointment.provider?.avatar;
-
-    final localStartTime = appointment.startDatetime.toLocal();
-    // final localEndTime = appointment.endDatetime?.toLocal();
-    final date = DateFormat('MMM dd, yyyy').format(localStartTime);
-    final startHour = DateFormat('hh:mm a').format(localStartTime);
-    // final endHour = localEndTime != null
-    //     ? DateFormat('hh:mm a').format(localEndTime)
-    //     : null;
-    final hour = startHour;
 
     final cancelButton = OutlinedButton(
       onPressed: () {
@@ -338,13 +321,14 @@ class _AppointmentListItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-      child: const Text(
-        'Cancel Booking',
-        style: TextStyle(
+      child: Text(
+        context.l10n.appointment_cancel_booking_btn,
+        style: const TextStyle(
           color: Colors.red,
           fontWeight: FontWeight.bold,
           fontSize: 13,
         ),
+        textAlign: TextAlign.center,
       ),
     );
 
@@ -378,9 +362,11 @@ class _AppointmentListItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        child: const Text(
-          'Reschedule',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        child: Text(
+          context.l10n.appointment_reschedule_btn,
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
         ),
       ),
     );
@@ -409,9 +395,9 @@ class _AppointmentListItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        child: const Text(
-          'Book Again',
-          style: TextStyle(color: Colors.white),
+        child: Text(
+          context.l10n.appointment_book_again_btn,
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
@@ -426,9 +412,9 @@ class _AppointmentListItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
       ),
-      child: const Text(
-        'Rating',
-        style: TextStyle(
+      child: Text(
+        context.l10n.appointment_rating_btn,
+        style: const TextStyle(
           color: Const.tosca,
           fontWeight: FontWeight.bold,
         ),
@@ -496,14 +482,24 @@ class _AppointmentListItem extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: Text(
-                                  appointmentStatus,
+                                  _getStatusLabel(appointment.status, context),
                                   style: TextStyle(color: statusColor),
                                 ),
                               ),
                             ],
                           ),
-                          Text(
-                            '$date | $hour',
+                          BlocBuilder<LocaleCubit, Locale>(
+                            builder: (context, locale) {
+                              final localStartTime =
+                                  appointment.startDatetime.toLocal();
+                              final date = DateFormat.yMMMd(locale.languageCode)
+                                  .format(localStartTime);
+                              final hour = DateFormat.jm(locale.languageCode)
+                                  .format(localStartTime);
+                              return Text(
+                                '$date | $hour',
+                              );
+                            },
                           ),
                         ],
                       ),

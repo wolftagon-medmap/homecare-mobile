@@ -9,6 +9,7 @@ import 'package:m2health/features/appointment/bloc/provider_appointment_cubit.da
 import 'package:m2health/const.dart';
 import 'package:m2health/features/appointment/widgets/provider_appointment_action_dialog.dart';
 import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 
 class ProviderAppointmentPage extends StatefulWidget {
   const ProviderAppointmentPage({super.key});
@@ -39,9 +40,9 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'My Appointment',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          context.l10n.appointment_list_title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: false,
         actionsPadding: const EdgeInsets.only(right: 10),
@@ -65,11 +66,11 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
           labelColor: Const.aqua,
           isScrollable: true,
           tabAlignment: TabAlignment.start,
-          tabs: const [
-            Tab(text: 'Pending'),
-            Tab(text: 'Accepted'),
-            Tab(text: 'Completed'),
-            Tab(text: 'Cancelled'),
+          tabs: [
+            Tab(text: context.l10n.appointment_status_pending),
+            Tab(text: context.l10n.appointment_status_accepted),
+            Tab(text: context.l10n.appointment_status_completed),
+            Tab(text: context.l10n.appointment_status_cancelled),
           ],
         ),
       ),
@@ -85,7 +86,8 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                   children: [
                     const Icon(Icons.check, color: Colors.white),
                     const SizedBox(width: 8),
-                    Text(state.message ?? 'Appointment updated successfully'),
+                    Text(state.message ??
+                        context.l10n.appointment_update_success_message),
                   ],
                 ),
                 backgroundColor: Colors.green,
@@ -106,7 +108,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                 backgroundColor: Colors.red,
                 duration: const Duration(seconds: 5),
                 action: SnackBarAction(
-                  label: 'Retry',
+                  label: context.l10n.common_retry,
                   textColor: Colors.white,
                   onPressed: () {
                     context
@@ -142,7 +144,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                     const Icon(Icons.error_outline,
                         size: 64, color: Colors.red),
                     const SizedBox(height: 16),
-                    Text('Error: ${state.message}'),
+                    Text(context.l10n.common_error(state.message)),
                     const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
@@ -150,13 +152,13 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                             .read<ProviderAppointmentCubit>()
                             .fetchProviderAppointments();
                       },
-                      child: const Text('Retry'),
+                      child: Text(context.l10n.common_retry),
                     ),
                   ],
                 ),
               );
             }
-            return const Center(child: Text('No appointments found'));
+            return Center(child: Text(context.l10n.common_no_data));
           },
         ),
       ),
@@ -178,7 +180,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
             Icon(Icons.event_busy, size: 64, color: Colors.grey[400]),
             const SizedBox(height: 16),
             Text(
-              'No ${status.toLowerCase()} appointments found',
+              context.l10n.appointment_list_empty(status.toLowerCase()),
               style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
           ],
@@ -232,15 +234,30 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
     String getStatusDescription(String status) {
       switch (status.toLowerCase()) {
         case 'pending':
-          return 'Waiting Approval';
+          return context.l10n.appointment_status_waiting_approval;
         case 'accepted':
-          return 'Accepted';
+          return context.l10n.appointment_status_accepted;
         case 'completed':
-          return 'Completed';
+          return context.l10n.appointment_status_completed;
         case 'cancelled':
-          return 'Cancelled';
+          return context.l10n.appointment_status_cancelled;
         default:
-          return 'Unknown Status';
+          return context.l10n.common_status;
+      }
+    }
+
+    String getLocalizedStatus(String status) {
+      switch (status.toLowerCase()) {
+        case 'pending':
+          return context.l10n.appointment_status_pending;
+        case 'accepted':
+          return context.l10n.appointment_status_accepted;
+        case 'completed':
+          return context.l10n.appointment_status_completed;
+        case 'cancelled':
+          return context.l10n.appointment_status_cancelled;
+        default:
+          return status.toUpperCase();
       }
     }
 
@@ -306,7 +323,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                appointment.status.toUpperCase(),
+                                getLocalizedStatus(appointment.status),
                                 style: TextStyle(
                                   color: _getStatusColor(appointment.status),
                                   fontSize: 12,
@@ -365,9 +382,9 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Summary:',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.appointment_summary,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
                         ),
@@ -386,7 +403,8 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Total: \$${appointment.payTotal.toStringAsFixed(2)}',
+                    context.l10n.appointment_detail_total_amount(
+                        appointment.payTotal.toStringAsFixed(2)),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -404,7 +422,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                             foregroundColor: Colors.white,
                             minimumSize: const Size(80, 36),
                           ),
-                          child: const Text('Decline'),
+                          child: Text(context.l10n.appointment_decline_btn),
                         ),
                         const SizedBox(width: 8),
                         ElevatedButton(
@@ -428,7 +446,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                             foregroundColor: Colors.white,
                             minimumSize: const Size(80, 36),
                           ),
-                          child: const Text('Accept'),
+                          child: Text(context.l10n.appointment_accept_btn),
                         ),
                       ],
                     ),
@@ -454,8 +472,9 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                         foregroundColor: Colors.white,
                       ),
                       child: Text(appointment.type == 'screening'
-                          ? 'Confirm Sample'
-                          : 'Mark Complete'),
+                          ? context
+                              .l10n.appointment_screening_confirm_sample_btn
+                          : context.l10n.appointment_mark_complete_btn),
                     ),
                   if (status.toLowerCase() == 'completed' &&
                       appointment.type == 'screening' &&
@@ -473,7 +492,8 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                         backgroundColor: Colors.blue,
                         foregroundColor: Colors.white,
                       ),
-                      child: const Text('Upload Report'),
+                      child: Text(
+                          context.l10n.appointment_screening_upload_report_btn),
                     ),
                 ],
               ),

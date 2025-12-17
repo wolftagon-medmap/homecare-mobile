@@ -93,6 +93,7 @@ class GradientButton extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
+          textAlign: TextAlign.center,
         ),
       ),
     );
