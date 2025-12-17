@@ -59,6 +59,9 @@ class AppRoutes {
   static const String nursing = '/nursing';
   static const String submenu = '/submenu';
 
+  // Settings
+  static const String appLanguageSetting = '/app-language-setting';
+
   // Precision Nutrition Module
   static const String precisionNutritionAssessmentForm =
       '$precisionNutrition/assessment/form';

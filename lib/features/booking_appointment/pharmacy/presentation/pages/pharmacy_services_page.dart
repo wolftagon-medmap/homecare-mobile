@@ -50,7 +50,8 @@ class PharmacyServicesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            AppLocalizations.of(context)!.translate('pharmacist_services2'),
+            // AppLocalizations.of(context)!.translate('pharmacist_services2'),
+            "iRX Pharmacist Service",
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       ),
       body: Container(

@@ -106,6 +106,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           const _AppointmentSection(),
                           const SizedBox(height: 16),
                         ],
+                        const _SettingSection(),
+                        const SizedBox(height: 16),
                         const _LogoutButton(),
                         const SizedBox(height: 80)
                       ],
@@ -137,6 +139,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         _ProfessionalProfileSection(profile: profile),
                         const SizedBox(height: 16),
                         const _AppointmentSection(),
+                        const SizedBox(height: 16),
+                        const _SettingSection(),
                         const SizedBox(height: 16),
                         const _LogoutButton(),
                         const SizedBox(height: 80)
@@ -272,35 +276,35 @@ class _ProfileInformationSection extends StatelessWidget {
               'Profile Information',
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
-            _ProfileListTile(
+            _CustomListTile(
               title: 'Basic Information',
               svgAsset: 'assets/icons/lab_profile.svg',
               onTap: () {
                 context.push(AppRoutes.profileBasicInfo);
               },
             ),
-            _ProfileListTile(
+            _CustomListTile(
               title: 'Medical History & Risk Factors',
               svgAsset: 'assets/icons/medical_report.svg',
               onTap: () {
                 context.push(AppRoutes.profileMedicalHistory);
               },
             ),
-            _ProfileListTile(
+            _CustomListTile(
               title: 'Lifestyle & Selfcare',
               svgAsset: 'assets/icons/muscle.svg',
               onTap: () {
                 context.push(AppRoutes.profileLifestyle);
               },
             ),
-            _ProfileListTile(
+            _CustomListTile(
               title: 'Physical Sign',
               svgAsset: 'assets/icons/physical_sign.svg',
               onTap: () {
                 context.push(AppRoutes.profilePhysicalSigns);
               },
             ),
-            _ProfileListTile(
+            _CustomListTile(
               title: 'Mental State',
               svgAsset: 'assets/icons/mental_health.svg',
               onTap: () {
@@ -331,21 +335,21 @@ class _HealthRecordsSection extends StatelessWidget {
               'Health Records',
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
-            _ProfileListTile(
+            _CustomListTile(
               title: 'Medical Records',
               svgAsset: 'assets/icons/capsule_n_pill.svg',
               onTap: () {
                 context.push(AppRoutes.medicalRecord);
               },
             ),
-            _ProfileListTile(
+            _CustomListTile(
               title: 'Pharmagenomics Profile',
               svgAsset: 'assets/icons/DNA.svg',
               onTap: () {
                 context.push(AppRoutes.pharmagenomics);
               },
             ),
-            _ProfileListTile(
+            _CustomListTile(
               title: 'Wellness Genomics Profile',
               svgAsset: 'assets/icons/DNA.svg',
               onTap: () {
@@ -556,6 +560,43 @@ class _AdminSection extends StatelessWidget {
   }
 }
 
+class _SettingSection extends StatelessWidget {
+  const _SettingSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      shadowColor: Colors.grey.withOpacity(0.2),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Settings',
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            ),
+            ListTile(
+              leading: const Icon(Icons.language, color: Color(0xFF35C5CF)),
+              title: const Text('Language Settings'),
+              titleTextStyle: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () {
+                context.push(AppRoutes.appLanguageSetting);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _LogoutButton extends StatelessWidget {
   const _LogoutButton();
 
@@ -583,12 +624,12 @@ class _LogoutButton extends StatelessWidget {
   }
 }
 
-class _ProfileListTile extends StatelessWidget {
+class _CustomListTile extends StatelessWidget {
   final String title;
   final String svgAsset;
   final VoidCallback onTap;
 
-  const _ProfileListTile({
+  const _CustomListTile({
     required this.title,
     required this.svgAsset,
     required this.onTap,

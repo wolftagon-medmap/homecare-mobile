@@ -127,8 +127,11 @@ class _PharmaState extends State<HomeHealth> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.translate('home_health'),
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: Text(
+          // AppLocalizations.of(context)!.translate('home_health'),
+          "Home Health Screening",
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
       ),
       body: Container(
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 60.0),

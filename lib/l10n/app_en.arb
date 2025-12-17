@@ -1,0 +1,75 @@
+{
+  "@@locale": "en",
+  "tab_home": "Home",
+  "@tab_home": {
+    "description": "Label for the home tab"
+  },
+
+  "services": "Services",
+  "allied_services": "Allied Health",
+
+  "pharmacist_services": "iRX Pharmacist Service",
+  "@pharmacist_services": {
+    "description": "Label for the iRX Pharmacist Service"
+  },
+  "nursing_service": "Home Nursing",
+  "@nursing_service": {
+    "description": "Label for the Home Nursing service"
+  },
+  "diabetic_care_service": "Diabetic Care",
+  "@diabetic_care_service": {
+    "description": "Label for the Diabetic Care service"
+  },
+  "home_screening_service": "Home Health Screening",
+  "@home_screening_service": {
+    "description": "Label for the Home Health Screening service"
+  },
+  "precision_nutrition_service": "Precision Nutrition",
+  "@precision_nutrition_service": {
+    "description": "Label for the Precision Nutrition service"
+  },
+  "homecare_for_elderly_service": "Home Care for Elderly",
+  "@homecare_for_elderly_service": {
+    "description": "Label for the Home Care for Elderly service"
+  },
+  "physiotherapy_service": "Physiotherapy",
+  "@physiotherapy_service": {
+    "description": "Label for the Physiotherapy service"
+  },
+  "remote_patient_monitoring_service": "Remote Patient Monitoring",
+  "@remote_patient_monitoring_service": {
+    "description": "Label for the Remote Patient Monitoring service"
+  },
+  "second_opinion_service": "2nd Opinion for Medical Image",
+  "@second_opinion_service": {
+    "description": "Label for the 2nd Opinion for Medical Image service"
+  },
+  "health_risk_assessment_service": "Health Risk Assessment",
+  "@health_risk_assessment_service": {
+    "description": "Label for the Health Risk Assessment service"
+  },
+  "dietitian_service": "Dietitian Service",
+  "@dietitian_service": {
+    "description": "Label for the Dietitian Service"
+  },
+  "sleep_and_mental_health_service": "Sleep & Mental Health",
+  "@sleep_and_mental_health_service": {
+    "description": "Label for the Sleep & Mental Health service"
+  },
+
+
+  "dashboard_greeting": "Live Longer & Live Healthier, {displayName}!",
+  "@dashboard_greeting": {
+    "description": "Greeting message on the dashboard",
+    "placeholders": {
+      "displayName": {
+        "type": "String",
+        "example": "Anna"
+      }
+    }
+  },
+  "dashboard_chat_ai_placeholder": "Chat With AI doctor for all your health questions",
+  "@dashboard_chat_ai_placeholder": {
+    "description": "Placeholder text for the AI chat feature on the dashboard"
+  }
+}

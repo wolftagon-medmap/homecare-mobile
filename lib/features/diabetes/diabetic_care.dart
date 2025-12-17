@@ -33,8 +33,11 @@ class DiabeticCare extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.translate('diabetic_care2'),
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: Text(
+          "Diabetic Care",
+          // AppLocalizations.of(context)!.translate('diabetic_care2'),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
       ),
       body: Container(
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 60.0),

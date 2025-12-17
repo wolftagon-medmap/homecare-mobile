@@ -30,8 +30,10 @@ class _HomecareElderlyServicePageState
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            AppLocalizations.of(context)!.translate('homecare_for_elderly'),
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          // AppLocalizations.of(context)!.translate('homecare_for_elderly'),
+          "Home Care for Elderly",
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
       ),
       body: SingleChildScrollView(
         child: Container(
