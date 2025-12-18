@@ -24,6 +24,7 @@ class AppRoutes {
   static const String secondOpinionMedical = '/second-opinion-medical';
   static const String precisionNutrition = '/precision-nutrition';
   static const String homecareForElderly = '/homecare-for-elderly';
+  static const String physiotherapy = '/physiotherapy';
 
   // Appointment
   static const String appointmentDetail = '/appointment/detail';

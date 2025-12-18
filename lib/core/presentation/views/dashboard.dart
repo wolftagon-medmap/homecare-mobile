@@ -406,7 +406,8 @@ class _DashboardState extends State<Dashboard> {
                               child: AlliedHealthMenuItem(
                                 imagePath: 'assets/icons/ilu_physio.webp',
                                 label: 'Physiotherapy',
-                                onTap: showComingSoonDialog,
+                                onTap: () => GoRouter.of(context)
+                                    .pushNamed(AppRoutes.physiotherapy),
                               ),
                             ),
                             Expanded(
