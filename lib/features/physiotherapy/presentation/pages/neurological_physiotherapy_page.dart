@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/features/physiotherapy/presentation/bloc/physiotherapy_appointment_flow_bloc.dart';
+import 'package:m2health/features/physiotherapy/const.dart';
+import 'package:m2health/features/physiotherapy/presentation/pages/physiotherapy_appointment_flow_page.dart';
 import 'package:m2health/features/diabetes/widgets/diabetes_form_widget.dart';
+import 'package:m2health/service_locator.dart';
 
 class NeurologicalPhysiotherapyPage extends StatelessWidget {
   const NeurologicalPhysiotherapyPage({super.key});
@@ -32,7 +37,20 @@ class NeurologicalPhysiotherapyPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
         child: PrimaryButton(
           text: 'Book Appointment',
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => BlocProvider(
+                  create: (context) => PhysiotherapyAppointmentFlowBloc(
+                    createPhysiotherapyAppointment: sl(),
+                    type: PhysiotherapyType.neurological,
+                  ),
+                  child: const PhysiotherapyAppointmentFlowPage(),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

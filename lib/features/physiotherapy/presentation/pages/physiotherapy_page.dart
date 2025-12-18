@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:m2health/features/physiotherapy/pages/musculoskeletal_physiotherapy_page.dart';
-import 'package:m2health/features/physiotherapy/pages/neurological_physiotherapy_page.dart';
+import 'package:m2health/features/physiotherapy/presentation/pages/musculoskeletal_physiotherapy_page.dart';
+import 'package:m2health/features/physiotherapy/presentation/pages/neurological_physiotherapy_page.dart';
 
 class PhysiotherapyPage extends StatelessWidget {
   const PhysiotherapyPage({super.key});

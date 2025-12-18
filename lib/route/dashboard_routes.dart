@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:m2health/features/diabetes/diabetic_care_routes.dart';
 import 'package:m2health/features/booking_appointment/nursing/presentation/pages/nursing_services_page.dart';
 import 'package:m2health/features/homecare_elderly/presentation/pages/homecare_elderly_service_page.dart';
-import 'package:m2health/features/physiotherapy/pages/physiotherapy_page.dart';
+import 'package:m2health/features/physiotherapy/presentation/pages/physiotherapy_page.dart';
 import 'package:m2health/features/precision/precision_nutrition_routes.dart';
 import 'package:m2health/route/navigator_keys.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_services_page.dart';

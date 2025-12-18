@@ -238,6 +238,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         UserRole.pharmacist,
                         UserRole.radiologist,
                         UserRole.caregiver,
+                        UserRole.physiotherapist,
                       ].map<DropdownMenuItem<UserRole>>((UserRole value) {
                         return DropdownMenuItem<UserRole>(
                           value: value,
