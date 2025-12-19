@@ -97,10 +97,44 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
             _buildScreeningInfo(appointment)
           else if (appointment.type == 'homecare')
             _buildHomecareTaskInfo(appointment)
+          else if (appointment.type == 'physiotherapy')
+            _buildPhysiotherapyInfo(appointment)
           else
             _buildConcernInfo(appointment),
           const SizedBox(height: 16),
           _buildPaymentSummary(appointment),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPhysiotherapyInfo(AppointmentEntity appointment) {
+    final physiotherapyData = appointment.physiotherapyRequestData;
+    if (physiotherapyData == null) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Service Detail',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          const SizedBox(height: 8),
+          _InfoRow(
+            label: 'Service Name',
+            text: physiotherapyData.service.name,
+            isFlexible: true,
+          ),
+          const SizedBox(height: 8),
+          _InfoRow(
+            label: 'Duration',
+            text: '${physiotherapyData.duration} Minutes',
+          ),
         ],
       ),
     );
@@ -518,6 +552,11 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
       final screeningRequest = appointment.screeningRequestData;
       if (screeningRequest != null && screeningRequest.services.isNotEmpty) {
         services = screeningRequest.services;
+      }
+    } else if (appointment.type == 'physiotherapy') {
+      final physiotherapyData = appointment.physiotherapyRequestData;
+      if (physiotherapyData != null) {
+        services = [physiotherapyData.service];
       }
     }
 

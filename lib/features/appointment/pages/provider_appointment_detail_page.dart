@@ -436,6 +436,11 @@ class _PersonalCaseInfo extends StatelessWidget {
     } else if (appointment.type == 'homecare') {
       final personalCase = appointment.homecareRequestData;
       servicesList = personalCase?.services;
+    } else if (appointment.type == 'physiotherapy') {
+      final physiotherapyData = appointment.physiotherapyRequestData;
+      if (physiotherapyData != null) {
+        servicesList = [physiotherapyData.service.name];
+      }
     }
 
     // sort issues by updatedAt descending
