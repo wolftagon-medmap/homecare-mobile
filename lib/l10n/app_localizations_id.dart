@@ -891,4 +891,187 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get language_id => 'Bahasa Indonesia (id)';
+
+  @override
+  String get auth_sign_in_title => 'Login';
+
+  @override
+  String get auth_welcome_back => 'Selamat Datang Kembali!';
+
+  @override
+  String get auth_email_hint => 'Email';
+
+  @override
+  String get auth_password_hint => 'Kata Sandi';
+
+  @override
+  String get auth_forgot_password_btn => 'Lupa Kata Sandi?';
+
+  @override
+  String get auth_sign_in_btn => 'Masuk';
+
+  @override
+  String get auth_create_account => 'Buat akun baru';
+
+  @override
+  String get auth_continue_with => 'atau lanjutkan dengan';
+
+  @override
+  String get auth_error_title => 'Kesalahan';
+
+  @override
+  String get auth_fill_email_password_error =>
+      'Harap isi Email dan Kata Sandi.';
+
+  @override
+  String get auth_fill_all_fields_error =>
+      'Harap isi semua bidang dengan benar.';
+
+  @override
+  String get auth_select_role_error => 'Harap pilih tipe pengguna';
+
+  @override
+  String get auth_select_role_first_error =>
+      'Harap pilih tipe pengguna terlebih dahulu';
+
+  @override
+  String get auth_passwords_do_not_match => 'Kata sandi tidak cocok';
+
+  @override
+  String get auth_enter_valid_email => 'Harap masukkan email yang valid';
+
+  @override
+  String get auth_enter_email => 'Harap masukkan email Anda';
+
+  @override
+  String get auth_enter_password => 'Harap masukkan kata sandi';
+
+  @override
+  String get auth_password_length_error =>
+      'Kata sandi harus minimal 6 karakter';
+
+  @override
+  String get auth_enter_username => 'Harap masukkan nama pengguna';
+
+  @override
+  String get auth_confirm_password_hint => 'Konfirmasi Kata Sandi';
+
+  @override
+  String get auth_username_hint => 'Nama Pengguna';
+
+  @override
+  String get auth_select_user_type_hint => 'Pilih Tipe Pengguna';
+
+  @override
+  String get auth_role_patient => 'Pasien';
+
+  @override
+  String get auth_role_nurse => 'Perawat';
+
+  @override
+  String get auth_role_pharmacist => 'Apoteker';
+
+  @override
+  String get auth_role_radiologist => 'Radiolog';
+
+  @override
+  String get auth_role_caregiver => 'Pengasuh/Pendamping';
+
+  @override
+  String get auth_sign_up_title => 'Buat Akun';
+
+  @override
+  String get auth_sign_up_subtitle =>
+      'Buat akun agar Anda dapat menjelajahi semua\npekerjaan yang ada';
+
+  @override
+  String get auth_sign_up_btn => 'Daftar';
+
+  @override
+  String get auth_already_have_account => 'Sudah punya akun';
+
+  @override
+  String get auth_registration_successful_title => 'Pendaftaran Berhasil';
+
+  @override
+  String get auth_registration_successful_content =>
+      'Silakan periksa email Anda untuk verifikasi.';
+
+  @override
+  String get auth_complete_registration_title => 'Selesaikan Pendaftaran';
+
+  @override
+  String get auth_complete_registration_content =>
+      'Selamat Datang!\nSilakan pilih tipe akun Anda untuk melanjutkan.';
+
+  @override
+  String get auth_forgot_password_title => 'Lupa Kata Sandi?';
+
+  @override
+  String get auth_forgot_password_subtitle =>
+      'Jangan khawatir! Silakan masukkan alamat email yang terhubung dengan akun Anda.';
+
+  @override
+  String get auth_enter_email_hint => 'Masukkan email Anda';
+
+  @override
+  String get auth_send_code_btn => 'Kirim Kode';
+
+  @override
+  String get auth_otp_sent_success => 'OTP berhasil dikirim';
+
+  @override
+  String get auth_otp_verification_title => 'Masukkan Kode Verifikasi';
+
+  @override
+  String auth_otp_verification_subtitle(String email) {
+    return 'Masukkan kode yang telah kami kirim ke email Anda $email';
+  }
+
+  @override
+  String get auth_verify_btn => 'Verifikasi';
+
+  @override
+  String get auth_resend_code => 'Tidak menerima kode? Kirim Ulang';
+
+  @override
+  String auth_resend_in_seconds(int seconds) {
+    return 'Kirim ulang dalam $seconds detik';
+  }
+
+  @override
+  String get auth_code_resent => 'Kode dikirim ulang!';
+
+  @override
+  String get auth_pin_incorrect => 'Pin salah';
+
+  @override
+  String get auth_reset_password_title => 'Atur Ulang Kata Sandi';
+
+  @override
+  String get auth_reset_password_subtitle =>
+      'Silakan masukkan kata sandi baru Anda';
+
+  @override
+  String get auth_new_password_hint => 'Kata Sandi Baru';
+
+  @override
+  String get auth_confirm_password_error => 'Harap konfirmasi kata sandi Anda';
+
+  @override
+  String get auth_reset_password_btn => 'Atur Ulang Kata Sandi';
+
+  @override
+  String get auth_reset_password_success_title =>
+      'Atur Ulang Kata Sandi Berhasil!';
+
+  @override
+  String get auth_reset_password_success_content =>
+      'Anda telah berhasil mengatur ulang kata sandi Anda. Silakan gunakan kata sandi baru Anda saat masuk.';
+
+  @override
+  String get auth_back_to_login_btn => 'Kembali ke Login';
+
+  @override
+  String get common_ok => 'OK';
 }

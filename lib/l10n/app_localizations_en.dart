@@ -890,4 +890,184 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get language_id => 'Indonesian (id)';
+
+  @override
+  String get auth_sign_in_title => 'Login Here';
+
+  @override
+  String get auth_welcome_back => 'Welcome Back you\'ve\nbeen missed';
+
+  @override
+  String get auth_email_hint => 'Email';
+
+  @override
+  String get auth_password_hint => 'Password';
+
+  @override
+  String get auth_forgot_password_btn => 'Forgot Password?';
+
+  @override
+  String get auth_sign_in_btn => 'Sign In';
+
+  @override
+  String get auth_create_account => 'Create new account';
+
+  @override
+  String get auth_continue_with => 'Or continue with';
+
+  @override
+  String get auth_error_title => 'Error';
+
+  @override
+  String get auth_fill_email_password_error =>
+      'Please fill in both Email and Password.';
+
+  @override
+  String get auth_fill_all_fields_error =>
+      'Please fill in all fields correctly.';
+
+  @override
+  String get auth_select_role_error => 'Please select a user type';
+
+  @override
+  String get auth_select_role_first_error => 'Please select a user type first';
+
+  @override
+  String get auth_passwords_do_not_match => 'Passwords do not match';
+
+  @override
+  String get auth_enter_valid_email => 'Please enter a valid email';
+
+  @override
+  String get auth_enter_email => 'Please enter your email';
+
+  @override
+  String get auth_enter_password => 'Please enter a password';
+
+  @override
+  String get auth_password_length_error =>
+      'Password must be at least 6 characters';
+
+  @override
+  String get auth_enter_username => 'Please enter a username';
+
+  @override
+  String get auth_confirm_password_hint => 'Confirm Password';
+
+  @override
+  String get auth_username_hint => 'Username';
+
+  @override
+  String get auth_select_user_type_hint => 'Select User Type';
+
+  @override
+  String get auth_role_patient => 'Patient';
+
+  @override
+  String get auth_role_nurse => 'Nurse';
+
+  @override
+  String get auth_role_pharmacist => 'Pharmacist';
+
+  @override
+  String get auth_role_radiologist => 'Radiologist';
+
+  @override
+  String get auth_role_caregiver => 'Caregiver/Helper';
+
+  @override
+  String get auth_sign_up_title => 'Create Account';
+
+  @override
+  String get auth_sign_up_subtitle =>
+      'Create an account so you can explore all the\nexisting jobs';
+
+  @override
+  String get auth_sign_up_btn => 'Sign Up';
+
+  @override
+  String get auth_already_have_account => 'Already have an account';
+
+  @override
+  String get auth_registration_successful_title => 'Registration Successful';
+
+  @override
+  String get auth_registration_successful_content =>
+      'Please check your email for verification.';
+
+  @override
+  String get auth_complete_registration_title => 'Complete Registration';
+
+  @override
+  String get auth_complete_registration_content =>
+      'Welcome!\nPlease select your account type to continue.';
+
+  @override
+  String get auth_forgot_password_title => 'Forgot Password?';
+
+  @override
+  String get auth_forgot_password_subtitle =>
+      'Don\'t worry! Please enter the email address linked with your account.';
+
+  @override
+  String get auth_enter_email_hint => 'Enter your email';
+
+  @override
+  String get auth_send_code_btn => 'Send Code';
+
+  @override
+  String get auth_otp_sent_success => 'OTP sent successfully';
+
+  @override
+  String get auth_otp_verification_title => 'Enter Verification Code';
+
+  @override
+  String auth_otp_verification_subtitle(String email) {
+    return 'Enter the code that we have sent to your email $email';
+  }
+
+  @override
+  String get auth_verify_btn => 'Verify';
+
+  @override
+  String get auth_resend_code => 'Didn\'t receive the code? Resend';
+
+  @override
+  String auth_resend_in_seconds(int seconds) {
+    return 'Resend in $seconds seconds';
+  }
+
+  @override
+  String get auth_code_resent => 'Code resent!';
+
+  @override
+  String get auth_pin_incorrect => 'Pin is incorrect';
+
+  @override
+  String get auth_reset_password_title => 'Reset Password';
+
+  @override
+  String get auth_reset_password_subtitle => 'Please enter your new password';
+
+  @override
+  String get auth_new_password_hint => 'New Password';
+
+  @override
+  String get auth_confirm_password_error => 'Please confirm your password';
+
+  @override
+  String get auth_reset_password_btn => 'Reset Password';
+
+  @override
+  String get auth_reset_password_success_title => 'Password Reset Successful!';
+
+  @override
+  String get auth_reset_password_success_content =>
+      'You have successfully reset your password. Please use your new password when logging in.';
+
+  @override
+  String get auth_back_to_login_btn => 'Back to Login';
+
+  @override
+  String get common_ok => 'OK';
 }

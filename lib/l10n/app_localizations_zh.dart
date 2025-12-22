@@ -861,4 +861,176 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get language_id => '印尼语 (id)';
+
+  @override
+  String get auth_sign_in_title => '在此登录';
+
+  @override
+  String get auth_welcome_back => '欢迎回来\n好久不见';
+
+  @override
+  String get auth_email_hint => '电子邮箱';
+
+  @override
+  String get auth_password_hint => '密码';
+
+  @override
+  String get auth_forgot_password_btn => '忘记密码？';
+
+  @override
+  String get auth_sign_in_btn => '登录';
+
+  @override
+  String get auth_create_account => '创建新账户';
+
+  @override
+  String get auth_continue_with => '或继续使用';
+
+  @override
+  String get auth_error_title => '错误';
+
+  @override
+  String get auth_fill_email_password_error => '请填写电子邮箱和密码。';
+
+  @override
+  String get auth_fill_all_fields_error => '请正确填写所有字段。';
+
+  @override
+  String get auth_select_role_error => '请选择用户类型';
+
+  @override
+  String get auth_select_role_first_error => '请先选择用户类型';
+
+  @override
+  String get auth_passwords_do_not_match => '密码不匹配';
+
+  @override
+  String get auth_enter_valid_email => '请输入有效的电子邮箱';
+
+  @override
+  String get auth_enter_email => '请输入您的电子邮箱';
+
+  @override
+  String get auth_enter_password => '请输入密码';
+
+  @override
+  String get auth_password_length_error => '密码必须至少 6 个字符';
+
+  @override
+  String get auth_enter_username => '请输入用户名';
+
+  @override
+  String get auth_confirm_password_hint => '确认密码';
+
+  @override
+  String get auth_username_hint => '用户名';
+
+  @override
+  String get auth_select_user_type_hint => '选择用户类型';
+
+  @override
+  String get auth_role_patient => '患者';
+
+  @override
+  String get auth_role_nurse => '护士';
+
+  @override
+  String get auth_role_pharmacist => '药剂师';
+
+  @override
+  String get auth_role_radiologist => '放射科医生';
+
+  @override
+  String get auth_role_caregiver => '护理员/帮手';
+
+  @override
+  String get auth_sign_up_title => '创建账户';
+
+  @override
+  String get auth_sign_up_subtitle => '创建一个账户，以便您可以探索所有\n现有工作';
+
+  @override
+  String get auth_sign_up_btn => '注册';
+
+  @override
+  String get auth_already_have_account => '已有账户';
+
+  @override
+  String get auth_registration_successful_title => '注册成功';
+
+  @override
+  String get auth_registration_successful_content => '请检查您的电子邮箱进行验证。';
+
+  @override
+  String get auth_complete_registration_title => '完成注册';
+
+  @override
+  String get auth_complete_registration_content => '欢迎！\n请选择您的账户类型以继续。';
+
+  @override
+  String get auth_forgot_password_title => '忘记密码？';
+
+  @override
+  String get auth_forgot_password_subtitle => '别担心！请输入与您的账户关联的电子邮件地址。';
+
+  @override
+  String get auth_enter_email_hint => '请输入您的电子邮箱';
+
+  @override
+  String get auth_send_code_btn => '发送代码';
+
+  @override
+  String get auth_otp_sent_success => 'OTP 发送成功';
+
+  @override
+  String get auth_otp_verification_title => '输入验证码';
+
+  @override
+  String auth_otp_verification_subtitle(String email) {
+    return '请输入我们发送到您邮箱 $email 的代码';
+  }
+
+  @override
+  String get auth_verify_btn => '验证';
+
+  @override
+  String get auth_resend_code => '没有收到代码？重新发送';
+
+  @override
+  String auth_resend_in_seconds(int seconds) {
+    return '$seconds 秒后重新发送';
+  }
+
+  @override
+  String get auth_code_resent => '代码已重新发送！';
+
+  @override
+  String get auth_pin_incorrect => 'Pin 码不正确';
+
+  @override
+  String get auth_reset_password_title => '重置密码';
+
+  @override
+  String get auth_reset_password_subtitle => '请输入您的新密码';
+
+  @override
+  String get auth_new_password_hint => '新密码';
+
+  @override
+  String get auth_confirm_password_error => '请确认您的密码';
+
+  @override
+  String get auth_reset_password_btn => '重置密码';
+
+  @override
+  String get auth_reset_password_success_title => '密码重置成功！';
+
+  @override
+  String get auth_reset_password_success_content => '您已成功重置密码。登录时请使用您的新密码。';
+
+  @override
+  String get auth_back_to_login_btn => '返回登录';
+
+  @override
+  String get common_ok => '确定';
 }

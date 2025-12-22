@@ -1749,6 +1749,342 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Indonesian (id)'**
   String get language_id;
+
+  /// No description provided for @auth_sign_in_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Login Here'**
+  String get auth_sign_in_title;
+
+  /// No description provided for @auth_welcome_back.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Back you\'ve\nbeen missed'**
+  String get auth_welcome_back;
+
+  /// No description provided for @auth_email_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get auth_email_hint;
+
+  /// No description provided for @auth_password_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get auth_password_hint;
+
+  /// No description provided for @auth_forgot_password_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get auth_forgot_password_btn;
+
+  /// No description provided for @auth_sign_in_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get auth_sign_in_btn;
+
+  /// No description provided for @auth_create_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Create new account'**
+  String get auth_create_account;
+
+  /// No description provided for @auth_continue_with.
+  ///
+  /// In en, this message translates to:
+  /// **'Or continue with'**
+  String get auth_continue_with;
+
+  /// No description provided for @auth_error_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get auth_error_title;
+
+  /// No description provided for @auth_fill_email_password_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill in both Email and Password.'**
+  String get auth_fill_email_password_error;
+
+  /// No description provided for @auth_fill_all_fields_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill in all fields correctly.'**
+  String get auth_fill_all_fields_error;
+
+  /// No description provided for @auth_select_role_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a user type'**
+  String get auth_select_role_error;
+
+  /// No description provided for @auth_select_role_first_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a user type first'**
+  String get auth_select_role_first_error;
+
+  /// No description provided for @auth_passwords_do_not_match.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get auth_passwords_do_not_match;
+
+  /// No description provided for @auth_enter_valid_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email'**
+  String get auth_enter_valid_email;
+
+  /// No description provided for @auth_enter_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email'**
+  String get auth_enter_email;
+
+  /// No description provided for @auth_enter_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a password'**
+  String get auth_enter_password;
+
+  /// No description provided for @auth_password_length_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters'**
+  String get auth_password_length_error;
+
+  /// No description provided for @auth_enter_username.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a username'**
+  String get auth_enter_username;
+
+  /// No description provided for @auth_confirm_password_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get auth_confirm_password_hint;
+
+  /// No description provided for @auth_username_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get auth_username_hint;
+
+  /// No description provided for @auth_select_user_type_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Select User Type'**
+  String get auth_select_user_type_hint;
+
+  /// No description provided for @auth_role_patient.
+  ///
+  /// In en, this message translates to:
+  /// **'Patient'**
+  String get auth_role_patient;
+
+  /// No description provided for @auth_role_nurse.
+  ///
+  /// In en, this message translates to:
+  /// **'Nurse'**
+  String get auth_role_nurse;
+
+  /// No description provided for @auth_role_pharmacist.
+  ///
+  /// In en, this message translates to:
+  /// **'Pharmacist'**
+  String get auth_role_pharmacist;
+
+  /// No description provided for @auth_role_radiologist.
+  ///
+  /// In en, this message translates to:
+  /// **'Radiologist'**
+  String get auth_role_radiologist;
+
+  /// No description provided for @auth_role_caregiver.
+  ///
+  /// In en, this message translates to:
+  /// **'Caregiver/Helper'**
+  String get auth_role_caregiver;
+
+  /// No description provided for @auth_sign_up_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get auth_sign_up_title;
+
+  /// No description provided for @auth_sign_up_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create an account so you can explore all the\nexisting jobs'**
+  String get auth_sign_up_subtitle;
+
+  /// No description provided for @auth_sign_up_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get auth_sign_up_btn;
+
+  /// No description provided for @auth_already_have_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account'**
+  String get auth_already_have_account;
+
+  /// No description provided for @auth_registration_successful_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration Successful'**
+  String get auth_registration_successful_title;
+
+  /// No description provided for @auth_registration_successful_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your email for verification.'**
+  String get auth_registration_successful_content;
+
+  /// No description provided for @auth_complete_registration_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Registration'**
+  String get auth_complete_registration_title;
+
+  /// No description provided for @auth_complete_registration_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome!\nPlease select your account type to continue.'**
+  String get auth_complete_registration_content;
+
+  /// No description provided for @auth_forgot_password_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get auth_forgot_password_title;
+
+  /// No description provided for @auth_forgot_password_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t worry! Please enter the email address linked with your account.'**
+  String get auth_forgot_password_subtitle;
+
+  /// No description provided for @auth_enter_email_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email'**
+  String get auth_enter_email_hint;
+
+  /// No description provided for @auth_send_code_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Code'**
+  String get auth_send_code_btn;
+
+  /// No description provided for @auth_otp_sent_success.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP sent successfully'**
+  String get auth_otp_sent_success;
+
+  /// No description provided for @auth_otp_verification_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Verification Code'**
+  String get auth_otp_verification_title;
+
+  /// No description provided for @auth_otp_verification_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the code that we have sent to your email {email}'**
+  String auth_otp_verification_subtitle(String email);
+
+  /// No description provided for @auth_verify_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get auth_verify_btn;
+
+  /// No description provided for @auth_resend_code.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t receive the code? Resend'**
+  String get auth_resend_code;
+
+  /// No description provided for @auth_resend_in_seconds.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend in {seconds} seconds'**
+  String auth_resend_in_seconds(int seconds);
+
+  /// No description provided for @auth_code_resent.
+  ///
+  /// In en, this message translates to:
+  /// **'Code resent!'**
+  String get auth_code_resent;
+
+  /// No description provided for @auth_pin_incorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Pin is incorrect'**
+  String get auth_pin_incorrect;
+
+  /// No description provided for @auth_reset_password_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get auth_reset_password_title;
+
+  /// No description provided for @auth_reset_password_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your new password'**
+  String get auth_reset_password_subtitle;
+
+  /// No description provided for @auth_new_password_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get auth_new_password_hint;
+
+  /// No description provided for @auth_confirm_password_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please confirm your password'**
+  String get auth_confirm_password_error;
+
+  /// No description provided for @auth_reset_password_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get auth_reset_password_btn;
+
+  /// No description provided for @auth_reset_password_success_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Password Reset Successful!'**
+  String get auth_reset_password_success_title;
+
+  /// No description provided for @auth_reset_password_success_content.
+  ///
+  /// In en, this message translates to:
+  /// **'You have successfully reset your password. Please use your new password when logging in.'**
+  String get auth_reset_password_success_content;
+
+  /// No description provided for @auth_back_to_login_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Login'**
+  String get auth_back_to_login_btn;
+
+  /// No description provided for @common_ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get common_ok;
 }
 
 class _AppLocalizationsDelegate
