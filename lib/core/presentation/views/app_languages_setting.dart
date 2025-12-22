@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
 
 class AppLanguagesSetting extends StatelessWidget {
@@ -11,9 +10,9 @@ class AppLanguagesSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'App Languages Setting',
-          style: TextStyle(
+        title: Text(
+          context.l10n.settings_language_title,
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -30,19 +29,31 @@ class AppLanguagesSetting extends StatelessWidget {
                     context.read<LocaleCubit>().changeLocale(value);
                   }
                 },
-                child: const Column(
+                child: Column(
                   children: [
                     RadioListTile<Locale>(
-                      title: Text('English (en)'),
-                      value: Locale('en'),
+                      title: const Text(
+                        "English",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      subtitle: Text(context.l10n.language_en),
+                      value: const Locale('en'),
                     ),
                     RadioListTile<Locale>(
-                      title: Text('Chinese (zh)'),
-                      value: Locale('zh'),
+                      title: const Text(
+                        "中文",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      subtitle: Text(context.l10n.language_zh),
+                      value: const Locale('zh'),
                     ),
                     RadioListTile<Locale>(
-                      title: Text('Indonesian (id)'),
-                      value: Locale('id'),
+                      title: const Text(
+                        "Bahasa Indonesia",
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      subtitle: Text(context.l10n.language_id),
+                      value: const Locale('id'),
                     ),
                   ],
                 ),

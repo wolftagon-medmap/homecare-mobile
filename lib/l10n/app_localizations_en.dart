@@ -44,6 +44,64 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_complete => 'Complete';
 
   @override
+  String get common_save => 'Save';
+
+  @override
+  String get common_saving => 'Saving...';
+
+  @override
+  String get common_modify => 'Modify';
+
+  @override
+  String get common_remove => 'Remove';
+
+  @override
+  String get common_updated_success => 'Updated successfully';
+
+  @override
+  String get common_delete_success => 'Deleted successfully';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get full_name => 'Full Name';
+
+  @override
+  String get age => 'Age';
+
+  @override
+  String age_years_old(int age) {
+    return '$age years old';
+  }
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get contact_number => 'Contact Number';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get weight => 'Weight';
+
+  @override
+  String get height => 'Height';
+
+  @override
+  String get none => 'None';
+
+  @override
+  String created_on(String date) {
+    return 'Created on: $date';
+  }
+
+  @override
+  String get last_updated => 'Last updated';
+
+  @override
   String get tab_home => 'Home';
 
   @override
@@ -98,7 +156,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Chat With AI doctor for all your health questions';
 
   @override
-  String get appointment_title => 'Appointments';
+  String get appointment => 'Appointment';
 
   @override
   String get appointment_list_title => 'My Appointment';
@@ -337,33 +395,499 @@ class AppLocalizationsEn extends AppLocalizations {
   String get screening_report_finalize_success => 'Reports marked as ready';
 
   @override
-  String get full_name => 'Full Name';
+  String get profile_patient_title => 'My Health Profile';
 
   @override
-  String get age => 'Age';
+  String get profile_professional_title => 'My Profile';
 
   @override
-  String age_years_old(int age) {
-    return '$age years old';
+  String get profile_not_found => 'No profile data found';
+
+  @override
+  String get profile_professional_verified_label => 'Verified';
+
+  @override
+  String get profile_professional_unverified_label => 'Unverified';
+
+  @override
+  String profile_verified_since_date(String date) {
+    return 'Since: $date';
   }
 
   @override
-  String get gender => 'Gender';
+  String get profile_patient_info_section => 'Profile Information';
 
   @override
-  String get address => 'Address';
+  String get profile_patient_basic_info => 'Basic Information';
 
   @override
-  String get weight => 'Weight';
+  String get profile_patient_medical_history_n_risk_factor =>
+      'Medical History & Risk Factors';
 
   @override
-  String get height => 'Height';
+  String get profile_patient_lifestyle_n_selfcare => 'Lifestyle & Self Care';
 
   @override
-  String get none => 'None';
+  String get profile_patient_physical_sign => 'Physical Sign';
 
   @override
-  String created_on(String date) {
-    return 'Created on: $date';
-  }
+  String get profile_patient_mental_state => 'Mental State';
+
+  @override
+  String get profile_patient_health_record_section => 'Health Records';
+
+  @override
+  String get profile_patient_medical_record => 'Medical Records';
+
+  @override
+  String get profile_patient_pharmacogenomics => 'Pharmacogenomics Profile';
+
+  @override
+  String get profile_patient_wellness_genomics => 'Wellness Genomics Profile';
+
+  @override
+  String get profile_all_my_appointments => 'All My Appointments';
+
+  @override
+  String get profile_professional_panel_section => 'Professional Panel';
+
+  @override
+  String get profile_professional_edit_profile => 'Edit Professional Profile';
+
+  @override
+  String get profile_professional_my_services => 'My Services';
+
+  @override
+  String get profile_professional_my_schedule => 'My Schedule';
+
+  @override
+  String get profile_admin_panel_section => 'Admin Panel';
+
+  @override
+  String get profile_admin_manage_services => 'Manage Services';
+
+  @override
+  String get profile_admin_manage_health_screening_services =>
+      'Manage Health Screening Services';
+
+  @override
+  String get profile_admin_verify_professional => 'Verify Professionals';
+
+  @override
+  String get profile_admin_homecare_config => 'Homecare Configuration';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get settings_app_language => 'App Language';
+
+  @override
+  String get auth_logout => 'Logout';
+
+  @override
+  String get profile_info_title => 'Profile Information';
+
+  @override
+  String get profile_info_profile_image => 'Profile Image';
+
+  @override
+  String get profile_info_remove_image => 'Remove Image';
+
+  @override
+  String get profile_info_home_address => 'Home Address';
+
+  @override
+  String get profile_info_select_map_location_hint =>
+      'Tap to select location on map';
+
+  @override
+  String get profile_info_drug_allergies => 'Drug Allergies';
+
+  @override
+  String get risk_factor_title => 'Medical History & Risk Factors';
+
+  @override
+  String get medical_record_title => 'Medical Records';
+
+  @override
+  String get medical_record_empty => 'No medical records found.';
+
+  @override
+  String get medical_record_confirm_delete_dialog_title =>
+      'Delete Medical Record?';
+
+  @override
+  String get medical_record_confirm_delete_dialog_content =>
+      'Are you sure you want to delete this medical record?';
+
+  @override
+  String get medical_record_patient_status => 'Patient Status';
+
+  @override
+  String get medical_record_disease_name => 'Disease Name';
+
+  @override
+  String get medical_record_disease_history => 'Disease History';
+
+  @override
+  String get medical_record_special_consideration => 'Special Consideration';
+
+  @override
+  String get medical_record_records_file => 'Records File';
+
+  @override
+  String get medical_record_download_file_btn => 'Download File';
+
+  @override
+  String get medical_record_view_file_btn => 'View File';
+
+  @override
+  String get diabetic_retinal_photography =>
+      'Diabetic Retinal\nPhotography (DRP)';
+
+  @override
+  String get diabetic_retinal_photography_desc =>
+      'A common eye disease among diabetic\npatients. Blood capillaries may bleed\nand damage the retina, potentially\nleading to blindness. Regular\ndiabetic retinal photography\ncan detect and monitor your eyes.';
+
+  @override
+  String get diabetic_foot_screening => 'Diabetic Foot Screening\n (DFS)';
+
+  @override
+  String get diabetic_foot_screening_desc =>
+      'Conducted by trained nurses, who will\nalso educate on proper footcare and\ngood sugar control. Referrals to\nfootcare specialists will be made\nwhere appropriate.';
+
+  @override
+  String get diabetic_care_title => 'Diabetic Care';
+
+  @override
+  String get common_book_now => 'Book Now';
+
+  @override
+  String get diabetes_form_submit_failed => 'Failed to submit form.';
+
+  @override
+  String get common_error_title => 'Error';
+
+  @override
+  String get diabetes_form_load_failed => 'Failed to load form data.';
+
+  @override
+  String get common_next => 'Next';
+
+  @override
+  String get common_submit => 'Submit';
+
+  @override
+  String get diabetes_form_title => 'Diabetes Form';
+
+  @override
+  String get diabetes_history_title => 'Diabetes History';
+
+  @override
+  String get diabetes_type_label => 'Type of Diabetes';
+
+  @override
+  String get common_not_specified => 'Not specified';
+
+  @override
+  String get year_of_diagnosis_label => 'Year of Diagnosis';
+
+  @override
+  String get last_hba1c_label => 'Last HbA1c';
+
+  @override
+  String get current_treatment_label => 'Current Treatment';
+
+  @override
+  String get risk_factors_title => 'Medical History & Risk Factors';
+
+  @override
+  String get hypertension_label => 'Hypertension';
+
+  @override
+  String get dyslipidemia_label => 'Dyslipidemia';
+
+  @override
+  String get cardiovascular_disease_label => 'Cardiovascular Disease';
+
+  @override
+  String get eye_disease_label => 'Eye Disease (Retinopathy)';
+
+  @override
+  String get neuropathy_label => 'Neuropathy';
+
+  @override
+  String get kidney_disease_label => 'Kidney Disease';
+
+  @override
+  String get family_history_label => 'Family History';
+
+  @override
+  String get smoking_label => 'Smoking';
+
+  @override
+  String get lifestyle_self_care_title => 'Lifestyle & Self-Care';
+
+  @override
+  String get recent_hypoglycemia_label => 'Recent Hypoglycemia';
+
+  @override
+  String get physical_activity_label => 'Physical Activity';
+
+  @override
+  String get diet_quality_label => 'Diet Quality';
+
+  @override
+  String get physical_signs_title => 'Physical Signs';
+
+  @override
+  String get physical_signs_if_have_title => 'Physical Signs (If Have)';
+
+  @override
+  String get eyes_last_exam_label => 'Eyes (Last Exam)';
+
+  @override
+  String get eyes_findings_label => 'Eyes (Findings)';
+
+  @override
+  String get kidneys_egfr_label => 'Kidneys (eGFR)';
+
+  @override
+  String get kidneys_urine_acr_label => 'Kidneys (Urine ACR)';
+
+  @override
+  String get feet_skin_label => 'Feet (Skin)';
+
+  @override
+  String get feet_deformity_label => 'Feet (Deformity)';
+
+  @override
+  String get common_edit_information => 'Edit Information';
+
+  @override
+  String get diabetes_type_question => 'Type of Diabetes:';
+
+  @override
+  String get diabetes_type_1 => 'Type 1';
+
+  @override
+  String get diabetes_type_2 => 'Type 2';
+
+  @override
+  String get diabetes_type_gestational => 'Gestational';
+
+  @override
+  String get common_other => 'Other';
+
+  @override
+  String get enter_diabetes_type_hint => 'Please enter your type of diabetes';
+
+  @override
+  String get specify_diabetes_type_error =>
+      'Please specify your type of diabetes.';
+
+  @override
+  String get year_of_diagnosis_question => 'Year of Diagnosis:';
+
+  @override
+  String get year_hint => 'e.g 2021';
+
+  @override
+  String get invalid_year_error => 'Invalid year.';
+
+  @override
+  String get last_hba1c_question => 'Last HbA1c:';
+
+  @override
+  String get invalid_value_error => 'Invalid value.';
+
+  @override
+  String get current_treatment_question => 'Current Treatment:';
+
+  @override
+  String get treatment_diet_exercise => 'Diet & Exercise';
+
+  @override
+  String get treatment_oral_medications => 'Oral Medications';
+
+  @override
+  String get list_medications_hint => 'List medications...';
+
+  @override
+  String get list_medications_error => 'Please list your oral medications.';
+
+  @override
+  String get treatment_insulin => 'Insulin';
+
+  @override
+  String get insulin_type_dose_hint => 'Type & dose';
+
+  @override
+  String get insulin_type_dose_error =>
+      'Please specify your insulin type & dose.';
+
+  @override
+  String get answer_all_questions_error =>
+      'Please answer all questions on this page.';
+
+  @override
+  String get recent_hypoglycemia_question => 'Recent Hypoglycemia:';
+
+  @override
+  String get hypoglycemia_none => 'None';
+
+  @override
+  String get hypoglycemia_mild => 'Mild';
+
+  @override
+  String get hypoglycemia_severe => 'Severe';
+
+  @override
+  String get physical_activity_question => 'Physical Activity:';
+
+  @override
+  String get activity_regular => 'Regular';
+
+  @override
+  String get activity_occasional => 'Occasional';
+
+  @override
+  String get activity_sedentary => 'Sedentary';
+
+  @override
+  String get diet_quality_question => 'Diet Quality:';
+
+  @override
+  String get diet_healthy => 'Healthy';
+
+  @override
+  String get diet_needs_improvement => 'Needs Improvement';
+
+  @override
+  String get eyes_label => 'Eyes:';
+
+  @override
+  String get last_exam_date_label => 'Last Exam Date';
+
+  @override
+  String get invalid_date_format_error => 'Invalid format (Use YYYY-MM-DD)';
+
+  @override
+  String get invalid_date_error => 'Invalid date.';
+
+  @override
+  String get findings_label => 'Findings';
+
+  @override
+  String get kidneys_label => 'Kidneys:';
+
+  @override
+  String get feet_label => 'Feet:';
+
+  @override
+  String get skin_label => 'Skin:';
+
+  @override
+  String get skin_normal => 'Normal';
+
+  @override
+  String get skin_dry => 'Dry';
+
+  @override
+  String get skin_ulcer => 'Ulcer';
+
+  @override
+  String get skin_infection => 'Infection';
+
+  @override
+  String get deformity_label => 'Deformity:';
+
+  @override
+  String get deformity_none => 'None';
+
+  @override
+  String get deformity_bunions => 'Bunions';
+
+  @override
+  String get deformity_claw_toes => 'Claw toes';
+
+  @override
+  String get smoking_current => 'Current';
+
+  @override
+  String get smoking_former => 'Former';
+
+  @override
+  String get smoking_never => 'Never';
+
+  @override
+  String get family_history_diabetes_label => 'Family History of Diabetes';
+
+  @override
+  String get common_none => 'None';
+
+  @override
+  String get common_upload_tap => 'Tap to upload your report';
+
+  @override
+  String get common_ready => 'Ready';
+
+  @override
+  String get common_full_report_file => 'Full Report File';
+
+  @override
+  String get mental_state_title => 'Mental State';
+
+  @override
+  String get mental_state_current_section => 'Mental State (Current)';
+
+  @override
+  String get mental_state_overall_mood => 'Overall Mood:';
+
+  @override
+  String get mental_state_anxiety_level => 'Anxiety Level:';
+
+  @override
+  String get mental_state_stress_level => 'Stress Level:';
+
+  @override
+  String get mental_state_energy_level => 'Energy Level:';
+
+  @override
+  String get mental_state_focus_level => 'Focus Level:';
+
+  @override
+  String get mental_state_sleep_quality => 'Sleep Quality:';
+
+  @override
+  String get mental_state_notes_label => 'Notes/Events affecting your mood:';
+
+  @override
+  String get mental_state_notes_hint => 'Additional notes';
+
+  @override
+  String get pharmacogenomics_profile_title => 'Pharmagenomic Profile';
+
+  @override
+  String get pharmacogenomics_delete_report_title => 'Delete Report';
+
+  @override
+  String get pharmacogenomics_delete_report_content =>
+      'Are you sure you want to delete this report file?';
+
+  @override
+  String get wellness_genomics_profile_title => 'Wellness Genomics Profile';
+
+  @override
+  String get settings_language_title => 'App Languages Setting';
+
+  @override
+  String get language_en => 'English (en)';
+
+  @override
+  String get language_zh => 'Chinese (zh)';
+
+  @override
+  String get language_id => 'Indonesian (id)';
 }

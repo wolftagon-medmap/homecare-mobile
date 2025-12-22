@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_state.dart';
+import 'package:m2health/features/diabetes/models/diabetes_options.dart';
 import 'package:m2health/features/diabetes/widgets/diabetes_form_widget.dart';
 
 class DiabetesHistoryFormPage extends StatefulWidget {
@@ -31,11 +33,6 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
   final _oralMedicationsController = TextEditingController();
   final _insulinTypeDoseController = TextEditingController();
 
-  static const List<String> _predefinedDiabetesTypes = [
-    'Type 1',
-    'Type 2',
-    'Gestational'
-  ];
   String? _selectedRadioOption;
   late DiabetesHistory _currentData;
 
@@ -58,10 +55,12 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
     _insulinTypeDoseController.text = _currentData.insulinTypeDose ?? '';
 
     if (_currentData.diabetesType != null) {
-      if (_predefinedDiabetesTypes.contains(_currentData.diabetesType)) {
-        _selectedRadioOption = _currentData.diabetesType;
-      } else {
-        _selectedRadioOption = 'Other';
+      final knownOption = DiabetesTypeOption.fromValue(_currentData.diabetesType);
+      if (knownOption != null && knownOption != DiabetesTypeOption.other) {
+        _selectedRadioOption = knownOption.value;
+      }
+      else {
+        _selectedRadioOption = DiabetesTypeOption.other.value;
         _otherDiabetesTypeController.text = _currentData.diabetesType!;
       }
     }
@@ -79,7 +78,7 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
 
   void _updateStateAndNotify() {
     String? newDiabetesType;
-    if (_selectedRadioOption == 'Other') {
+    if (_selectedRadioOption == DiabetesTypeOption.other.value) {
       newDiabetesType = _otherDiabetesTypeController.text;
     } else {
       newDiabetesType = _selectedRadioOption;
@@ -97,13 +96,11 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    const diabetesRadioOptions = [..._predefinedDiabetesTypes, 'Other'];
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Diabetes History",
-          style: TextStyle(
+        title: Text(
+          context.l10n.diabetes_history_title,
+          style: const TextStyle(
             color: Colors.black87,
             fontWeight: FontWeight.bold,
             fontSize: 18,
@@ -121,8 +118,8 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const FormSectionHeader('Diabetes History'),
-              const FormSubHeader('Type of Diabetes:',
+              FormSectionHeader(context.l10n.diabetes_history_title),
+              FormSubHeader(context.l10n.diabetes_type_question,
                   iconPath: "assets/icons/ic_diabetes_type.png"),
               FormField<String>(
                 builder: (FormFieldState<String> field) {
@@ -132,26 +129,26 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
                       Wrap(
                         spacing: 10.0,
                         runSpacing: -4.0,
-                        children: diabetesRadioOptions.map((type) {
+                        children: DiabetesTypeOption.values.map((option) {
                           return Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Radio<String>(
-                                value: type,
+                                value: option.value,
                                 activeColor: primaryColor,
                                 groupValue: _selectedRadioOption,
                                 onChanged: (v) {
                                   setState(() {
                                     _selectedRadioOption = v;
                                   });
-                                  if (v != 'Other') {
+                                  if (v != DiabetesTypeOption.other.value) {
                                     _otherDiabetesTypeController.clear();
                                   }
                                   _updateStateAndNotify();
                                   field.didChange(v);
                                 },
                               ),
-                              Text(type),
+                              Text(option.label(context)),
                             ],
                           );
                         }).toList(),
@@ -176,7 +173,7 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
                   return null;
                 },
               ),
-              if (_selectedRadioOption == 'Other') ...[
+              if (_selectedRadioOption == DiabetesTypeOption.other.value) ...[
                 const SizedBox(height: 8),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0),
@@ -184,11 +181,11 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
                     controller: _otherDiabetesTypeController,
                     onChanged: (_) => _updateStateAndNotify(),
                     decoration: const FormInputDecoration().copyWith(
-                        hintText: 'Please enter your type of diabetes'),
+                        hintText: context.l10n.enter_diabetes_type_hint),
                     validator: (value) {
-                      if (_selectedRadioOption != 'Other') return null;
+                      if (_selectedRadioOption != DiabetesTypeOption.other.value) return null;
                       if (_otherDiabetesTypeController.text.trim().isEmpty) {
-                        return 'Please specify your type of diabetes.';
+                        return context.l10n.specify_diabetes_type_error;
                       }
                       return null;
                     },
@@ -203,14 +200,14 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const FormSubHeader('Year of Diagnosis:',
+                        FormSubHeader(context.l10n.year_of_diagnosis_question,
                             iconPath: "assets/icons/ic_calendar.png"),
                         const SizedBox(height: 8),
                         TextFormField(
                           controller: _yearDiagnosisController,
                           onChanged: (_) => _updateStateAndNotify(),
                           decoration: const FormInputDecoration()
-                              .copyWith(hintText: 'e.g 2021'),
+                              .copyWith(hintText: context.l10n.year_hint),
                           keyboardType: TextInputType.number,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
@@ -223,7 +220,7 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
                             if (value.length != 4 ||
                                 int.tryParse(value) == null ||
                                 int.parse(value) > DateTime.now().year) {
-                              return 'Invalid year.';
+                              return context.l10n.invalid_year_error;
                             }
                             return null;
                           },
@@ -236,7 +233,7 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const FormSubHeader('Last HbA1c:',
+                        FormSubHeader(context.l10n.last_hba1c_question,
                             iconPath: "assets/icons/ic_blood_measurement.png"),
                         const SizedBox(height: 8),
                         TextFormField(
@@ -252,7 +249,7 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
                             }
                             final hba1c = double.tryParse(value);
                             if (hba1c == null || hba1c < 0 || hba1c > 100) {
-                              return 'Invalid value.';
+                              return context.l10n.invalid_value_error;
                             }
                             return null;
                           },
@@ -263,10 +260,10 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
                 ],
               ),
               const SizedBox(height: 24),
-              const FormSubHeader('Current Treatment:',
+              FormSubHeader(context.l10n.current_treatment_question,
                   iconPath: "assets/icons/ic_medical_checklist.png"),
               FormCheckbox(
-                title: 'Diet & Exercise',
+                title: context.l10n.treatment_diet_exercise,
                 value: _currentData.hasTreatmentDiet,
                 onChanged: (v) {
                   setState(() {
@@ -276,7 +273,7 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
                 },
               ),
               FormCheckbox(
-                title: 'Oral Medications',
+                title: context.l10n.treatment_oral_medications,
                 value: _currentData.hasTreatmentOral,
                 onChanged: (v) {
                   setState(() {
@@ -295,18 +292,18 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
                     controller: _oralMedicationsController,
                     onChanged: (_) => _updateStateAndNotify(),
                     decoration: const FormInputDecoration()
-                        .copyWith(hintText: 'List medications...'),
+                        .copyWith(hintText: context.l10n.list_medications_hint),
                     validator: (value) {
                       if (!_currentData.hasTreatmentOral) return null;
                       if (value == null || value.isEmpty) {
-                        return 'Please list your oral medications.';
+                        return context.l10n.list_medications_error;
                       }
                       return null;
                     },
                   ),
                 ),
               FormCheckbox(
-                title: 'Insulin',
+                title: context.l10n.treatment_insulin,
                 value: _currentData.hasTreatmentInsulin,
                 onChanged: (v) {
                   setState(() {
@@ -326,11 +323,11 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
                     maxLines: null,
                     onChanged: (_) => _updateStateAndNotify(),
                     decoration: const FormInputDecoration()
-                        .copyWith(hintText: 'Type & dose'),
+                        .copyWith(hintText: context.l10n.insulin_type_dose_hint),
                     validator: (value) {
                       if (!_currentData.hasTreatmentInsulin) return null;
                       if (value == null || value.isEmpty) {
-                        return 'Please specify your insulin type & dose.';
+                        return context.l10n.insulin_type_dose_error;
                       }
                       return null;
                     },

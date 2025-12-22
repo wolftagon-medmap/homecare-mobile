@@ -28,7 +28,75 @@
   "@common_yes": {},
   "common_complete": "Complete",
   "@common_complete": {},
-
+  "common_save": "Save",
+  "@common_save": {},
+  "common_saving": "Saving...",
+  "@common_saving": {},
+  "common_modify": "Modify",
+  "@common_modify": {},
+  "common_remove": "Remove",
+  "@common_remove": {},
+  "common_updated_success": "Updated successfully",
+  "@common_updated_success": {},
+  "common_delete_success": "Deleted successfully",
+  "@common_delete_success": {},
+  "name": "Name",
+  "@name": {
+    "description": "Person's Name"
+  },
+  "full_name": "Full Name",
+  "@full_name": {
+    "description": "Full name"
+  },
+  "age": "Age",
+  "@age": {
+    "description": "Age"
+  },
+  "age_years_old": "{age} years old",
+  "@age_years_old": {
+    "description": "Age",
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "gender": "Gender",
+  "@gender": {
+    "description": "Gender"
+  },
+  "contact_number": "Contact Number",
+  "@contact_number": {
+    "description": "Contact Number"
+  },
+  "address": "Address",
+  "@address": {
+    "description": "Person's Address"
+  },
+  "weight": "Weight",
+  "@weight": {
+    "description": "Weight"
+  },
+  "height": "Height",
+  "@height": {
+    "description": "Height"
+  },
+  "none": "None",
+  "@none": {
+    "description": "None"
+  },
+  "created_on": "Created on: {date}",
+  "@created_on": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "last_updated": "Last updated",
+  "@last_updated": {
+    "description": "Label for the last updated timestamp"
+  },
   "tab_home": "Home",
   "@tab_home": {
     "description": "Label for the home tab"
@@ -103,9 +171,8 @@
   "@dashboard_chat_ai_placeholder": {
     "description": "Placeholder text for the AI chat feature on the dashboard"
   },
-
-  "appointment_title": "Appointments",
-  "@appointment_title": {},
+  "appointment": "Appointment",
+  "@appointment": {},
   "appointment_list_title": "My Appointment",
   "@appointment_list_title": {
     "description": "Title for the appointment list section"
@@ -186,7 +253,6 @@
   "@appointment_arrange_video_consultation": {},
   "appointment_pay_btn": "Pay",
   "@appointment_pay_btn": {},
-
   "appointment_detail_title": "Appointment Detail",
   "@appointment_detail_title": {
     "description": "Title for the appointment detail page"
@@ -284,7 +350,6 @@
   "@appointment_confirm_sample_success_message": {},
   "appointment_mark_report_ready_success_message": "Report marked as ready",
   "@appointment_mark_report_ready_success_message": {},
-
   "appointment_cancel_dialog_content": "Are you sure to cancel this appointment?",
   "@appointment_cancel_dialog_content": {},
   "appointment_cancel_dialog_subtitle": "You can rebook it later from the canceled appointment menu.",
@@ -301,7 +366,6 @@
   "@appointment_decline_dialog_title": {},
   "appointment_decline_dialog_subtitle": "This action cannot be undone.",
   "@appointment_decline_dialog_subtitle": {},
-
   "screening_report_upload_title": "Upload Lab Reports",
   "@screening_report_upload_title": {},
   "screening_report_upload_instruction": "Please upload all necessary lab reports before marking them as ready.",
@@ -336,50 +400,420 @@
   "@screening_report_delete_success": {},
   "screening_report_finalize_success": "Reports marked as ready",
   "@screening_report_finalize_success": {},
-
-  "full_name": "Full Name",
-  "@full_name": {
-    "description": "Full name"
+  
+  "profile_patient_title": "My Health Profile",
+  "@profile_patient_title": {
+    "description": "Title for the patient's profile page"
   },
-  "age": "Age",
-  "@age": {
-    "description": "Age"
+  "profile_professional_title": "My Profile",
+  "@profile_professional_title": {
+    "description": "Title for the professional's profile page"
   },
-  "age_years_old": "{age} years old",
-  "@age_years_old": {
-    "description": "Age",
-    "placeholders": {
-      "age": {
-        "type": "int"
-      }
-    }
+  "profile_not_found": "No profile data found",
+  "@profile_not_found": {
+    "description": "Message displayed when no profile data is found"
   },
-  "gender": "Gender",
-  "@gender": {
-    "description": "Gender"
+  "profile_professional_verified_label": "Verified",
+  "@profile_professional_verified_label": {
+    "description": "Label indicating the professional profile is verified"
   },
-  "address": "Address",
-  "@address": {
-    "description": "Person's Address"
+  "profile_professional_unverified_label": "Unverified",
+  "@profile_professional_unverified_label": {
+    "description": "Label indicating the professional profile is unverified"
   },
-  "weight": "Weight",
-  "@weight": {
-    "description": "Weight"
-  },
-  "height": "Height",
-  "@height": {
-    "description": "Height"
-  },
-  "none": "None",
-  "@none": {
-    "description": "None"
-  },
-  "created_on": "Created on: {date}",
-  "@created_on": {
+  "profile_verified_since_date": "Since: {date}",
+  "@profile_verified_since_date": {
+    "description": "Label indicating the date since the profile is active",
     "placeholders": {
       "date": {
         "type": "String"
       }
     }
-  }
+  },
+  "profile_patient_info_section": "Profile Information",
+  "@profile_patient_info_section": {
+    "description": "Title for the patient's profile information section"
+  },
+  "profile_patient_basic_info": "Basic Information",
+  "@profile_patient_basic_info": {
+    "description": "Title for the patient's basic information menu"
+  },
+  "profile_patient_medical_history_n_risk_factor": "Medical History & Risk Factors",
+  "@profile_patient_medical_history_n_risk_factor": {
+    "description": "Title for the patient's medical information menu"
+  },
+  "profile_patient_lifestyle_n_selfcare": "Lifestyle & Self Care",
+  "@profile_patient_lifestyle_n_selfcare": {
+    "description": "Title for the patient's lifestyle and self care menu"
+  },
+  "profile_patient_physical_sign": "Physical Sign",
+  "@profile_patient_physical_sign": {
+    "description": "Title for the patient's physical sign menu"
+  },
+  "profile_patient_mental_state": "Mental State",
+  "@profile_patient_mental_state": {
+    "description": "Title for the patient's mental state menu"
+  },
+  "profile_patient_health_record_section": "Health Records",
+  "@profile_patient_health_record_section": {
+    "description": "Title for the patient's health records section"
+  },
+  "profile_patient_medical_record": "Medical Records",
+  "@profile_patient_medical_record": {
+    "description": "Title for the patient's medical records menu"
+  },
+  "profile_patient_pharmacogenomics": "Pharmacogenomics Profile",
+  "@profile_patient_pharmacogenomics": {
+    "description": "Title for the patient's pharmacogenomics profile menu"
+  },
+  "profile_patient_wellness_genomics": "Wellness Genomics Profile",
+  "@profile_patient_wellness_genomics": {
+    "description": "Title for the patient's wellness genomics profile menu"
+  },
+  "profile_all_my_appointments": "All My Appointments",
+  "@profile_all_my_appointments": {
+    "description": "Label for the button to view all appointments"
+  },
+  "profile_professional_panel_section": "Professional Panel",
+  "@profile_professional_panel_section": {
+    "description": "Title for the professional's panel section"
+  },
+  "profile_professional_edit_profile": "Edit Professional Profile",
+  "@profile_professional_edit_profile": {
+    "description": "Label for the button to edit professional profile"
+  },
+  "profile_professional_my_services": "My Services",
+  "@profile_professional_my_services": {
+    "description": "Label for the button to view professional services"
+  },
+  "profile_professional_my_schedule": "My Schedule",
+  "@profile_professional_my_schedule": {
+    "description": "Label for the button to view professional schedule"
+  },
+  "profile_admin_panel_section": "Admin Panel",
+  "@profile_admin_panel_section": {
+    "description": "Title for the admin panel section"
+  },
+  "profile_admin_manage_services": "Manage Services",
+  "@profile_admin_manage_services": {
+    "description": "Label for the button to manage services"
+  },
+  "profile_admin_manage_health_screening_services": "Manage Health Screening Services",
+  "@profile_admin_manage_health_screening_services": {
+    "description": "Label for the button to manage health screening services"
+  },
+  "profile_admin_verify_professional": "Verify Professionals",
+  "@profile_admin_verify_professional": {
+    "description": "Label for the button to verify professionals"
+  },
+  "profile_admin_homecare_config": "Homecare Configuration",
+  "@profile_admin_homecare_config": {
+    "description": "Label for the button to access homecare configuration"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings"
+  },
+  "settings_app_language": "App Language",
+  "@settings_app_language": {
+    "description": "Label for the app language setting"
+  },
+  "auth_logout": "Logout",
+  "@auth_logout": {
+    "description": "Label for the logout button"
+  },
+
+  "profile_info_title": "Profile Information",
+  "@profile_info_title": {
+    "description": "Title for the profile information page"
+  },
+  "profile_info_profile_image": "Profile Image",
+  "@profile_info_profile_image": {
+    "description": "Label for the profile image field"
+  },
+  "profile_info_remove_image": "Remove Image",
+  "@profile_info_remove_image": {
+    "description": "Label for the button to remove profile image"
+  },
+  "profile_info_home_address": "Home Address",
+  "@profile_info_home_address": {
+    "description": "Label for the home address field"
+  },
+  "profile_info_select_map_location_hint": "Tap to select location on map",
+  "@profile_info_select_map_location_hint": {
+    "description": "Instruction to tap to select location on map"
+  },
+  "profile_info_drug_allergies": "Drug Allergies",
+  "@profile_info_drug_allergies": {
+    "description": "Label for the drug allergies field"
+  },
+
+  "risk_factor_title": "Medical History & Risk Factors",
+  "@risk_factor_title": {
+    "description": "Title for the medical history and risk factors section"
+  },
+
+  "medical_record_title": "Medical Records",
+  "@medical_record_title": {},
+  "medical_record_empty": "No medical records found.",
+  "@medical_record_empty": {
+    "description": "Message displayed when there are no medical records found"
+  },
+  "medical_record_confirm_delete_dialog_title": "Delete Medical Record?",
+  "@medical_record_confirm_delete_dialog_title": {
+    "description": "Title for the dialog to confirm deletion of a medical record"
+  },
+  "medical_record_confirm_delete_dialog_content": "Are you sure you want to delete this medical record?",
+  "@medical_record_confirm_delete_dialog_content": {
+    "description": "Content for the dialog to confirm deletion of a medical record"
+  },
+  "medical_record_patient_status": "Patient Status",
+  "@medical_record_patient_status": {},
+  "medical_record_disease_name": "Disease Name",
+  "@medical_record_disease_name": {},
+  "medical_record_disease_history": "Disease History",
+  "@medical_record_disease_history": {},
+  "medical_record_special_consideration": "Special Consideration",
+  "@medical_record_special_consideration": {},
+  "medical_record_records_file": "Records File",
+  "@medical_record_records_file": {
+    "description": "Label for the records file section in the medical record detail page"
+  },
+  "medical_record_download_file_btn": "Download File",
+  "@medical_record_download_file_btn": {},
+  "medical_record_view_file_btn": "View File",
+  "@medical_record_view_file_btn": {},
+
+  "diabetic_retinal_photography": "Diabetic Retinal\nPhotography (DRP)",
+  "@diabetic_retinal_photography": {},
+  "diabetic_retinal_photography_desc": "A common eye disease among diabetic\npatients. Blood capillaries may bleed\nand damage the retina, potentially\nleading to blindness. Regular\ndiabetic retinal photography\ncan detect and monitor your eyes.",
+  "@diabetic_retinal_photography_desc": {},
+  "diabetic_foot_screening": "Diabetic Foot Screening\n (DFS)",
+  "@diabetic_foot_screening": {},
+  "diabetic_foot_screening_desc": "Conducted by trained nurses, who will\nalso educate on proper footcare and\ngood sugar control. Referrals to\nfootcare specialists will be made\nwhere appropriate.",
+  "@diabetic_foot_screening_desc": {},
+  "diabetic_care_title": "Diabetic Care",
+  "@diabetic_care_title": {},
+  "common_book_now": "Book Now",
+  "@common_book_now": {},
+  "diabetes_form_submit_failed": "Failed to submit form.",
+  "@diabetes_form_submit_failed": {},
+  "common_error_title": "Error",
+  "@common_error_title": {},
+  "diabetes_form_load_failed": "Failed to load form data.",
+  "@diabetes_form_load_failed": {},
+  "common_next": "Next",
+  "@common_next": {},
+  "common_submit": "Submit",
+  "@common_submit": {},
+  "diabetes_form_title": "Diabetes Form",
+  "@diabetes_form_title": {},
+  "diabetes_history_title": "Diabetes History",
+  "@diabetes_history_title": {},
+  "diabetes_type_label": "Type of Diabetes",
+  "@diabetes_type_label": {},
+  "common_not_specified": "Not specified",
+  "@common_not_specified": {},
+  "year_of_diagnosis_label": "Year of Diagnosis",
+  "@year_of_diagnosis_label": {},
+  "last_hba1c_label": "Last HbA1c",
+  "@last_hba1c_label": {},
+  "current_treatment_label": "Current Treatment",
+  "@current_treatment_label": {},
+  "risk_factors_title": "Medical History & Risk Factors",
+  "@risk_factors_title": {},
+  "hypertension_label": "Hypertension",
+  "@hypertension_label": {},
+  "dyslipidemia_label": "Dyslipidemia",
+  "@dyslipidemia_label": {},
+  "cardiovascular_disease_label": "Cardiovascular Disease",
+  "@cardiovascular_disease_label": {},
+  "eye_disease_label": "Eye Disease (Retinopathy)",
+  "@eye_disease_label": {},
+  "neuropathy_label": "Neuropathy",
+  "@neuropathy_label": {},
+  "kidney_disease_label": "Kidney Disease",
+  "@kidney_disease_label": {},
+  "family_history_label": "Family History",
+  "@family_history_label": {},
+  "smoking_label": "Smoking",
+  "@smoking_label": {},
+  "lifestyle_self_care_title": "Lifestyle & Self-Care",
+  "@lifestyle_self_care_title": {},
+  "recent_hypoglycemia_label": "Recent Hypoglycemia",
+  "@recent_hypoglycemia_label": {},
+  "physical_activity_label": "Physical Activity",
+  "@physical_activity_label": {},
+  "diet_quality_label": "Diet Quality",
+  "@diet_quality_label": {},
+  "physical_signs_title": "Physical Signs",
+  "@physical_signs_title": {},
+  "physical_signs_if_have_title": "Physical Signs (If Have)",
+  "@physical_signs_if_have_title": {},
+  "eyes_last_exam_label": "Eyes (Last Exam)",
+  "@eyes_last_exam_label": {},
+  "eyes_findings_label": "Eyes (Findings)",
+  "@eyes_findings_label": {},
+  "kidneys_egfr_label": "Kidneys (eGFR)",
+  "@kidneys_egfr_label": {},
+  "kidneys_urine_acr_label": "Kidneys (Urine ACR)",
+  "@kidneys_urine_acr_label": {},
+  "feet_skin_label": "Feet (Skin)",
+  "@feet_skin_label": {},
+  "feet_deformity_label": "Feet (Deformity)",
+  "@feet_deformity_label": {},
+  "common_edit_information": "Edit Information",
+  "@common_edit_information": {},
+  "diabetes_type_question": "Type of Diabetes:",
+  "@diabetes_type_question": {},
+  "diabetes_type_1": "Type 1",
+  "@diabetes_type_1": {},
+  "diabetes_type_2": "Type 2",
+  "@diabetes_type_2": {},
+  "diabetes_type_gestational": "Gestational",
+  "@diabetes_type_gestational": {},
+  "common_other": "Other",
+  "@common_other": {},
+  "enter_diabetes_type_hint": "Please enter your type of diabetes",
+  "@enter_diabetes_type_hint": {},
+  "specify_diabetes_type_error": "Please specify your type of diabetes.",
+  "@specify_diabetes_type_error": {},
+  "year_of_diagnosis_question": "Year of Diagnosis:",
+  "@year_of_diagnosis_question": {},
+  "year_hint": "e.g 2021",
+  "@year_hint": {},
+  "invalid_year_error": "Invalid year.",
+  "@invalid_year_error": {},
+  "last_hba1c_question": "Last HbA1c:",
+  "@last_hba1c_question": {},
+  "invalid_value_error": "Invalid value.",
+  "@invalid_value_error": {},
+  "current_treatment_question": "Current Treatment:",
+  "@current_treatment_question": {},
+  "treatment_diet_exercise": "Diet & Exercise",
+  "@treatment_diet_exercise": {},
+  "treatment_oral_medications": "Oral Medications",
+  "@treatment_oral_medications": {},
+  "list_medications_hint": "List medications...",
+  "@list_medications_hint": {},
+  "list_medications_error": "Please list your oral medications.",
+  "@list_medications_error": {},
+  "treatment_insulin": "Insulin",
+  "@treatment_insulin": {},
+  "insulin_type_dose_hint": "Type & dose",
+  "@insulin_type_dose_hint": {},
+  "insulin_type_dose_error": "Please specify your insulin type & dose.",
+  "@insulin_type_dose_error": {},
+  "answer_all_questions_error": "Please answer all questions on this page.",
+  "@answer_all_questions_error": {},
+  "recent_hypoglycemia_question": "Recent Hypoglycemia:",
+  "@recent_hypoglycemia_question": {},
+  "hypoglycemia_none": "None",
+  "@hypoglycemia_none": {},
+  "hypoglycemia_mild": "Mild",
+  "@hypoglycemia_mild": {},
+  "hypoglycemia_severe": "Severe",
+  "@hypoglycemia_severe": {},
+  "physical_activity_question": "Physical Activity:",
+  "@physical_activity_question": {},
+  "activity_regular": "Regular",
+  "@activity_regular": {},
+  "activity_occasional": "Occasional",
+  "@activity_occasional": {},
+  "activity_sedentary": "Sedentary",
+  "@activity_sedentary": {},
+  "diet_quality_question": "Diet Quality:",
+  "@diet_quality_question": {},
+  "diet_healthy": "Healthy",
+  "@diet_healthy": {},
+  "diet_needs_improvement": "Needs Improvement",
+  "@diet_needs_improvement": {},
+  "eyes_label": "Eyes:",
+  "@eyes_label": {},
+  "last_exam_date_label": "Last Exam Date",
+  "@last_exam_date_label": {},
+  "invalid_date_format_error": "Invalid format (Use YYYY-MM-DD)",
+  "@invalid_date_format_error": {},
+  "invalid_date_error": "Invalid date.",
+  "@invalid_date_error": {},
+  "findings_label": "Findings",
+  "@findings_label": {},
+  "kidneys_label": "Kidneys:",
+  "@kidneys_label": {},
+  "feet_label": "Feet:",
+  "@feet_label": {},
+  "skin_label": "Skin:",
+  "@skin_label": {},
+  "skin_normal": "Normal",
+  "@skin_normal": {},
+  "skin_dry": "Dry",
+  "@skin_dry": {},
+  "skin_ulcer": "Ulcer",
+  "@skin_ulcer": {},
+  "skin_infection": "Infection",
+  "@skin_infection": {},
+  "deformity_label": "Deformity:",
+  "@deformity_label": {},
+  "deformity_none": "None",
+  "@deformity_none": {},
+  "deformity_bunions": "Bunions",
+  "@deformity_bunions": {},
+  "deformity_claw_toes": "Claw toes",
+  "@deformity_claw_toes": {},
+  "smoking_current": "Current",
+  "@smoking_current": {},
+  "smoking_former": "Former",
+  "@smoking_former": {},
+  "smoking_never": "Never",
+  "@smoking_never": {},
+  "family_history_diabetes_label": "Family History of Diabetes",
+  "@family_history_diabetes_label": {},
+  "common_none": "None",
+  "@common_none": {},
+  "common_upload_tap": "Tap to upload your report",
+  "@common_upload_tap": {},
+  "common_ready": "Ready",
+  "@common_ready": {},
+  "common_full_report_file": "Full Report File",
+  "@common_full_report_file": {},
+
+  "mental_state_title": "Mental State",
+  "@mental_state_title": {},
+  "mental_state_current_section": "Mental State (Current)",
+  "@mental_state_current_section": {},
+  "mental_state_overall_mood": "Overall Mood:",
+  "@mental_state_overall_mood": {},
+  "mental_state_anxiety_level": "Anxiety Level:",
+  "@mental_state_anxiety_level": {},
+  "mental_state_stress_level": "Stress Level:",
+  "@mental_state_stress_level": {},
+  "mental_state_energy_level": "Energy Level:",
+  "@mental_state_energy_level": {},
+  "mental_state_focus_level": "Focus Level:",
+  "@mental_state_focus_level": {},
+  "mental_state_sleep_quality": "Sleep Quality:",
+  "@mental_state_sleep_quality": {},
+  "mental_state_notes_label": "Notes/Events affecting your mood:",
+  "@mental_state_notes_label": {},
+  "mental_state_notes_hint": "Additional notes",
+  "@mental_state_notes_hint": {},
+
+  "pharmacogenomics_profile_title": "Pharmagenomic Profile",
+  "@pharmacogenomics_profile_title": {},
+  "pharmacogenomics_delete_report_title": "Delete Report",
+  "@pharmacogenomics_delete_report_title": {},
+  "pharmacogenomics_delete_report_content": "Are you sure you want to delete this report file?",
+  "@pharmacogenomics_delete_report_content": {},
+
+  "wellness_genomics_profile_title": "Wellness Genomics Profile",
+  "@wellness_genomics_profile_title": {},
+
+  "settings_language_title": "App Languages Setting",
+  "@settings_language_title": {},
+  "language_en": "English (en)",
+  "@language_en": {},
+  "language_zh": "Chinese (zh)",
+  "@language_zh": {},
+  "language_id": "Indonesian (id)",
+  "@language_id": {}
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
@@ -24,12 +25,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String formatDateTime(DateTime? dateTime) {
-    if (dateTime == null) return 'N/A';
-    try {
-      return DateFormat('MMM dd, yyyy • HH:mm').format(dateTime);
-    } catch (e) {
-      return 'Invalid Date';
-    }
+    if (dateTime == null) return context.l10n.none;
+    return DateFormat('MMM dd, yyyy • HH:mm').format(dateTime);
   }
 
   @override
@@ -61,7 +58,9 @@ class _ProfilePageState extends State<ProfilePage> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             title: Text(
-              isPatient ? 'My Health Profile' : 'My Profile',
+              isPatient
+                  ? context.l10n.profile_patient_title
+                  : context.l10n.profile_professional_title,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
@@ -74,10 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
             builder: (context, state) {
               if (state is ProfileLoading) {
                 return const Center(child: CircularProgressIndicator());
-              }
-
-              //  --- Patient Profile ---
-              else if (state is PatientProfileLoaded) {
+              } else if (state is PatientProfileLoaded) {
                 final Profile profile = state.profile;
                 return RefreshIndicator(
                   onRefresh: () async {
@@ -114,10 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 );
-              }
-
-              // --- Professional Profile ---
-              else if (state is ProfessionalProfileLoaded) {
+              } else if (state is ProfessionalProfileLoaded) {
                 final ProfessionalProfile profile = state.profile;
                 return RefreshIndicator(
                   onRefresh: () async {
@@ -129,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Column(
                       children: [
                         _ProfileHeader(
-                          name: profile.name ?? 'N/A',
+                          name: profile.name ?? context.l10n.none,
                           avatarUrl: profile.avatar,
                           lastUpdated: formatDateTime(profile.updatedAt),
                           isVerified: profile.isVerified,
@@ -151,7 +144,7 @@ class _ProfilePageState extends State<ProfilePage> {
               } else if (state is ProfileError) {
                 return Center(child: Text(state.message));
               } else {
-                return const Center(child: Text('No profile data found'));
+                return Center(child: Text(context.l10n.profile_not_found));
               }
             },
           ),
@@ -196,8 +189,6 @@ class _ProfileHeader extends StatelessWidget {
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
-
-              // --- Verification Badge ---
               if (isVerified != null) ...[
                 Container(
                   padding:
@@ -222,7 +213,10 @@ class _ProfileHeader extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        isVerified! ? 'Verified' : 'Unverified',
+                        isVerified!
+                            ? context.l10n.profile_professional_verified_label
+                            : context
+                                .l10n.profile_professional_unverified_label,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -235,17 +229,16 @@ class _ProfileHeader extends StatelessWidget {
                 if (isVerified! && verifiedAt != null) ...[
                   const SizedBox(height: 4),
                   Text(
-                    'Since: ${DateFormat('MMM dd, yyyy').format(verifiedAt!)}',
+                    context.l10n.profile_verified_since_date(
+                        DateFormat('MMM dd, yyyy').format(verifiedAt!)),
                     style: TextStyle(color: Colors.grey.shade600, fontSize: 11),
                   ),
                 ],
                 const SizedBox(height: 8),
               ],
-              // -------------------------------
-
-              const Text(
-                'Last updated:',
-                style: TextStyle(color: Colors.grey, fontSize: 12),
+              Text(
+                '${context.l10n.last_updated}:',
+                style: const TextStyle(color: Colors.grey, fontSize: 12),
               ),
               Text(
                 lastUpdated,
@@ -272,40 +265,40 @@ class _ProfileInformationSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Profile Information',
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            Text(
+              context.l10n.profile_patient_info_section,
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
             _CustomListTile(
-              title: 'Basic Information',
+              title: context.l10n.profile_patient_basic_info,
               svgAsset: 'assets/icons/lab_profile.svg',
               onTap: () {
                 context.push(AppRoutes.profileBasicInfo);
               },
             ),
             _CustomListTile(
-              title: 'Medical History & Risk Factors',
+              title: context.l10n.profile_patient_medical_history_n_risk_factor,
               svgAsset: 'assets/icons/medical_report.svg',
               onTap: () {
                 context.push(AppRoutes.profileMedicalHistory);
               },
             ),
             _CustomListTile(
-              title: 'Lifestyle & Selfcare',
+              title: context.l10n.profile_patient_lifestyle_n_selfcare,
               svgAsset: 'assets/icons/muscle.svg',
               onTap: () {
                 context.push(AppRoutes.profileLifestyle);
               },
             ),
             _CustomListTile(
-              title: 'Physical Sign',
+              title: context.l10n.profile_patient_physical_sign,
               svgAsset: 'assets/icons/physical_sign.svg',
               onTap: () {
                 context.push(AppRoutes.profilePhysicalSigns);
               },
             ),
             _CustomListTile(
-              title: 'Mental State',
+              title: context.l10n.profile_patient_mental_state,
               svgAsset: 'assets/icons/mental_health.svg',
               onTap: () {
                 context.push(AppRoutes.profileMentalState);
@@ -331,26 +324,26 @@ class _HealthRecordsSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Health Records',
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            Text(
+              context.l10n.profile_patient_health_record_section,
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
             _CustomListTile(
-              title: 'Medical Records',
+              title: context.l10n.profile_patient_medical_record,
               svgAsset: 'assets/icons/capsule_n_pill.svg',
               onTap: () {
                 context.push(AppRoutes.medicalRecord);
               },
             ),
             _CustomListTile(
-              title: 'Pharmagenomics Profile',
+              title: context.l10n.profile_patient_pharmacogenomics,
               svgAsset: 'assets/icons/DNA.svg',
               onTap: () {
                 context.push(AppRoutes.pharmagenomics);
               },
             ),
             _CustomListTile(
-              title: 'Wellness Genomics Profile',
+              title: context.l10n.profile_patient_wellness_genomics,
               svgAsset: 'assets/icons/DNA.svg',
               onTap: () {
                 context.push(AppRoutes.wellnessGenomics);
@@ -376,14 +369,14 @@ class _AppointmentSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Appointment',
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            Text(
+              context.l10n.appointment,
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
             ListTile(
               leading:
                   const Icon(Icons.calendar_today, color: Color(0xFF35C5CF)),
-              title: const Text('All My Appointments'),
+              title: Text(context.l10n.profile_all_my_appointments),
               titleTextStyle: const TextStyle(
                 fontSize: 16,
                 color: Colors.black,
@@ -415,16 +408,16 @@ class _ProfessionalProfileSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Professional Panel',
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            Text(
+              context.l10n.profile_professional_panel_section,
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
             ListTile(
               leading: const Icon(
                 Icons.assignment_ind,
                 color: Color(0xFF35C5CF),
               ),
-              title: const Text('Edit Professional Profile'),
+              title: Text(context.l10n.profile_professional_edit_profile),
               trailing: const Icon(
                 Icons.arrow_forward_ios,
                 size: 16,
@@ -438,7 +431,7 @@ class _ProfessionalProfileSection extends StatelessWidget {
                 Icons.list_alt,
                 color: Color(0xFF35C5CF),
               ),
-              title: const Text('My Services'),
+              title: Text(context.l10n.profile_professional_my_services),
               trailing: const Icon(
                 Icons.arrow_forward_ios,
                 size: 16,
@@ -465,7 +458,7 @@ class _ProfessionalProfileSection extends StatelessWidget {
                 Icons.calendar_month,
                 color: Color(0xFF35C5CF),
               ),
-              title: const Text('My Schedule'),
+              title: Text(context.l10n.profile_professional_my_schedule),
               trailing: const Icon(
                 Icons.arrow_forward_ios,
                 size: 16,
@@ -494,13 +487,13 @@ class _AdminSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Admin Panel',
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            Text(
+              context.l10n.profile_admin_panel_section,
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
             ListTile(
               leading: const Icon(Icons.edit_note, color: Color(0xFF35C5CF)),
-              title: const Text('Manage Services'),
+              title: Text(context.l10n.profile_admin_manage_services),
               titleTextStyle: const TextStyle(
                 fontSize: 16,
                 color: Colors.black,
@@ -514,7 +507,8 @@ class _AdminSection extends StatelessWidget {
             ListTile(
               leading:
                   const Icon(Icons.health_and_safety, color: Color(0xFF35C5CF)),
-              title: const Text('Manage Health Screening'),
+              title: Text(
+                  context.l10n.profile_admin_manage_health_screening_services),
               titleTextStyle: const TextStyle(
                 fontSize: 16,
                 color: Colors.black,
@@ -528,7 +522,7 @@ class _AdminSection extends StatelessWidget {
             ListTile(
               leading:
                   const Icon(Icons.verified_user, color: Color(0xFF35C5CF)),
-              title: const Text('Verify Professionals'),
+              title: Text(context.l10n.profile_admin_verify_professional),
               titleTextStyle: const TextStyle(
                 fontSize: 16,
                 color: Colors.black,
@@ -542,7 +536,7 @@ class _AdminSection extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.settings_accessibility,
                   color: Color(0xFF35C5CF)),
-              title: const Text('Homecare Configuration'),
+              title: Text(context.l10n.profile_admin_homecare_config),
               titleTextStyle: const TextStyle(
                 fontSize: 16,
                 color: Colors.black,
@@ -573,13 +567,13 @@ class _SettingSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Settings',
-              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            Text(
+              context.l10n.settings,
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
             ListTile(
               leading: const Icon(Icons.language, color: Color(0xFF35C5CF)),
-              title: const Text('Language Settings'),
+              title: Text(context.l10n.settings_app_language),
               titleTextStyle: const TextStyle(
                 fontSize: 16,
                 color: Colors.black,
@@ -612,7 +606,8 @@ class _LogoutButton extends StatelessWidget {
           }
         },
         icon: const Icon(Icons.logout, color: Colors.red),
-        label: const Text('Logout', style: TextStyle(color: Colors.red)),
+        label: Text(context.l10n.auth_logout,
+            style: const TextStyle(color: Colors.red)),
         style: OutlinedButton.styleFrom(
           side: const BorderSide(color: Colors.red),
           shape: RoundedRectangleBorder(
