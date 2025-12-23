@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/health_status.dart';
 import 'package:m2health/features/medical_record/domain/entities/medical_record.dart';
 import 'package:m2health/features/medical_record/presentation/bloc/medical_record_bloc.dart';
@@ -39,9 +40,9 @@ class HealthStatusPageState extends State<HealthStatusPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Personal Case Detail',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        title: Text(
+          context.l10n.booking_health_status_title,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
       body: Padding(
@@ -49,11 +50,11 @@ class HealthStatusPageState extends State<HealthStatusPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Select your mobility status',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text(context.l10n.booking_health_status_mobility_label,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ...MobilityStatus.values.map((status) {
               return RadioListTile<MobilityStatus>(
-                title: Text(status.displayName),
+                title: Text(status.label(context)),
                 value: status,
                 groupValue: healthStatus.mobilityStatus,
                 onChanged: (value) {
@@ -68,8 +69,8 @@ class HealthStatusPageState extends State<HealthStatusPage> {
               );
             }),
             const SizedBox(height: 20),
-            const Text('Select a related health record',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text(context.l10n.booking_health_status_record_label,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10.0),
             BlocBuilder<MedicalRecordBloc, MedicalRecordState>(
               builder: (context, medicalState) {
@@ -79,11 +80,11 @@ class HealthStatusPageState extends State<HealthStatusPage> {
                 if (medicalState.listStatus == ListStatus.failure) {
                   return Center(
                       child: Text(
-                          medicalState.listError ?? 'Error loading records'));
+                          medicalState.listError ?? context.l10n.common_error('Error loading records')));
                 }
                 if (medicalState.listStatus == ListStatus.success) {
                   if (medicalState.medicalRecords.isEmpty) {
-                    return const Text('No medical records available.');
+                    return Text(context.l10n.booking_health_status_no_records);
                   }
                   return Container(
                     decoration: BoxDecoration(
@@ -94,11 +95,11 @@ class HealthStatusPageState extends State<HealthStatusPage> {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<int?>(
                         value: healthStatus.relatedHealthRecordId,
-                        hint: const Text('Please select a record'),
+                        hint: Text(context.l10n.booking_health_status_record_hint),
                         items: [
-                          const DropdownMenuItem<int?>(
+                          DropdownMenuItem<int?>(
                             value: null,
-                            child: Text('None'),
+                            child: Text(context.l10n.common_none),
                           ),
                           ...medicalState.medicalRecords
                               .map((MedicalRecord record) {
@@ -119,7 +120,7 @@ class HealthStatusPageState extends State<HealthStatusPage> {
                     ),
                   );
                 }
-                return const Text('Select a status');
+                return const Text('Select a status'); // Fallback, usually covered by loading
               },
             ),
             const Spacer(),
@@ -134,8 +135,8 @@ class HealthStatusPageState extends State<HealthStatusPage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: const Text('Next',
-                    style: TextStyle(color: Colors.white, fontSize: 20)),
+                child: Text(context.l10n.booking_next_btn,
+                    style: const TextStyle(color: Colors.white, fontSize: 20)),
               ),
             ),
           ],

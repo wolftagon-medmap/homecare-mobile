@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/app_localzations.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/bloc/pharmacy_appointment_flow_bloc.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_appointment_flow_page.dart';
 import 'package:m2health/route/app_routes.dart';
@@ -8,50 +8,48 @@ import 'package:m2health/core/presentation/views/health_coaching.dart';
 import 'package:m2health/service_locator.dart';
 
 class PharmacyServicesPage extends StatelessWidget {
-  PharmacyServicesPage({super.key});
+  const PharmacyServicesPage({super.key});
 
-  final List<Map<String, String>> pharmacyMenu = [
-    {
-      'title': 'Medication Counseling\nand Education',
-      'description':
-          'Medication counseling and education guide\npatients on proper use, side effects, and\nadherence to prescriptions,\nenhancing safety and\nimproving health outcomes.',
-      'imagePath': 'assets/icons/ilu_pharmacist.png',
-      'color': 'F79E1B',
-      'opacity': '0.1',
-    },
-    {
-      'title': 'Comprehensive Therapy\nReview',
-      'description':
-          'Comprehensive review of your medication\nand lifestyle to optimize treatment\noutcomes and minimize potential side\neffects',
-      'imagePath': 'assets/icons/ilu_therapy.png',
-      'color': 'B28CFF',
-      'opacity': '0.2',
-    },
-    {
-      'title': 'Health Coaching',
-      'description':
-          'Personalized guidance and support to help\nindividuals achieve their health goals, manage\nchronic conditions, and improve overall well-\nbeing, with specialized programs for weight\nmanagement, diabetes management, high\nblood pressure management, and high\ncholesterol management',
-      'imagePath': 'assets/icons/ilu_coach.png',
-      'color': '9AE1FF',
-      'opacity': '0.33',
-    },
-    {
-      'title': 'Smoking Cessation',
-      'description':
-          'Smoking cessation involves quitting\nsmoking through strategies like\ncounseling, medications, and support\nprograms to improve health and\nreduce the risk of smoking-related\ndiseases.',
-      'imagePath': 'assets/icons/ilu_lung.png',
-      'color': 'FF9A9A',
-      'opacity': '0.19',
-    },
-  ];
+  List<Map<String, String>> _getPharmacyServices(BuildContext context) {
+    return [
+      {
+        'title': context.l10n.booking_pharmacy_medication_counseling_title,
+        'description': context.l10n.booking_pharmacy_medication_counseling_desc,
+        'imagePath': 'assets/icons/ilu_pharmacist.png',
+        'color': 'F79E1B',
+        'opacity': '0.1',
+      },
+      {
+        'title': context.l10n.booking_pharmacy_therapy_review_title,
+        'description': context.l10n.booking_pharmacy_therapy_review_desc,
+        'imagePath': 'assets/icons/ilu_therapy.png',
+        'color': 'B28CFF',
+        'opacity': '0.2',
+      },
+      {
+        'title': context.l10n.booking_pharmacy_health_coaching_title,
+        'description': context.l10n.booking_pharmacy_health_coaching_desc,
+        'imagePath': 'assets/icons/ilu_coach.png',
+        'color': '9AE1FF',
+        'opacity': '0.33',
+      },
+      {
+        'title': context.l10n.booking_pharmacy_smoking_cessation_title,
+        'description': context.l10n.booking_pharmacy_smoking_cessation_desc,
+        'imagePath': 'assets/icons/ilu_lung.png',
+        'color': 'FF9A9A',
+        'opacity': '0.19',
+      },
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
+    final pharmacyMenu = _getPharmacyServices(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            // AppLocalizations.of(context)!.translate('pharmacist_services2'),
-            "iRX Pharmacist Service",
+            context.l10n.booking_pharmacy_page_title,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       ),
       body: Container(
@@ -165,9 +163,9 @@ class PharmaCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const SizedBox(width: 5),
-                      const Text(
-                        'Book Now',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.common_book_now,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                           color: Color(0xFF35C5CF),

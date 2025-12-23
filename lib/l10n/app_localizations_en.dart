@@ -837,6 +837,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_full_report_file => 'Full Report File';
 
   @override
+  String get common_ok => 'OK';
+
+  @override
   String get mental_state_title => 'Mental State';
 
   @override
@@ -1069,5 +1072,323 @@ class AppLocalizationsEn extends AppLocalizations {
   String get auth_back_to_login_btn => 'Back to Login';
 
   @override
-  String get common_ok => 'OK';
+  String get booking_nursing_primary_title => 'Primary Nursing';
+
+  @override
+  String get booking_nursing_primary_desc =>
+      'Monitor and administer\nnursing procedures from\nbody checking, Medication,\ntube feed and suctioning to\ninjections and wound care.';
+
+  @override
+  String get booking_nursing_specialized_title =>
+      'Specialized Nursing Services';
+
+  @override
+  String get booking_nursing_specialized_desc =>
+      'Focus on recovery and leave\nthe complex nursing care in\nthe hands of our experienced\nnurse Care Pros';
+
+  @override
+  String get booking_nursing_page_title => 'Home Nursing';
+
+  @override
+  String get booking_pharmacy_page_title => 'iRX Pharmacist Service';
+
+  @override
+  String get booking_pharmacy_medication_counseling_title =>
+      'Medication Counseling\nand Education';
+
+  @override
+  String get booking_pharmacy_medication_counseling_desc =>
+      'Medication counseling and education guide\npatients on proper use, side effects, and\nadherence to prescriptions,\nenhancing safety and\nimproving health outcomes.';
+
+  @override
+  String get booking_pharmacy_therapy_review_title =>
+      'Comprehensive Therapy\nReview';
+
+  @override
+  String get booking_pharmacy_therapy_review_desc =>
+      'Comprehensive review of your medication\nand lifestyle to optimize treatment\noutcomes and minimize potential side\neffects';
+
+  @override
+  String get booking_pharmacy_health_coaching_title => 'Health Coaching';
+
+  @override
+  String get booking_pharmacy_health_coaching_desc =>
+      'Personalized guidance and support to help\nindividuals achieve their health goals, manage\nchronic conditions, and improve overall well-\nbeing, with specialized programs for weight\nmanagement, diabetes management, high\nblood pressure management, and high\ncholesterol management';
+
+  @override
+  String get booking_pharmacy_smoking_cessation_title => 'Smoking Cessation';
+
+  @override
+  String get booking_pharmacy_smoking_cessation_desc =>
+      'Smoking cessation involves quitting\nsmoking through strategies like\ncounseling, medications, and support\nprograms to improve health and\nreduce the risk of smoking-related\ndiseases.';
+
+  @override
+  String get booking_issue_list_title_nursing => 'Nurse Services Case';
+
+  @override
+  String get booking_issue_list_title_pharmacy => 'Pharmacist Services Case';
+
+  @override
+  String get booking_issue_list_title_radiology => 'Radiologist Services Case';
+
+  @override
+  String get booking_issue_list_title_default => 'Service Case';
+
+  @override
+  String get booking_tell_us_concern => 'Tell Us Your Concern';
+
+  @override
+  String get booking_issue_empty =>
+      'There are no issues added yet.\n Please add one or more issues so\nyou can proceed to the next step.';
+
+  @override
+  String get booking_add_issue_btn => 'Add an Issue';
+
+  @override
+  String get booking_next_btn => 'Next';
+
+  @override
+  String get booking_issue_delete_dialog_title => 'Delete Issue';
+
+  @override
+  String get booking_issue_delete_dialog_content =>
+      'Are you sure you want to delete this issue?';
+
+  @override
+  String get booking_issue_form_add_title => 'Add an Issue';
+
+  @override
+  String get booking_issue_form_edit_title => 'Edit Issue';
+
+  @override
+  String get booking_issue_form_instruction => 'Tell us your concerns';
+
+  @override
+  String get booking_issue_form_title_hint => 'Issue Title';
+
+  @override
+  String get booking_issue_form_desc_hint =>
+      'Please enter questions, concerns, relevant symptoms related to your case along with related keywords.';
+
+  @override
+  String get booking_issue_form_images_label => 'Images';
+
+  @override
+  String get booking_issue_form_update_btn => 'Update';
+
+  @override
+  String get booking_issue_form_add_btn => 'Add';
+
+  @override
+  String get booking_issue_form_required_error =>
+      'Issue title and description are required.';
+
+  @override
+  String get booking_issue_form_success_update => 'Issue updated successfully';
+
+  @override
+  String get booking_issue_form_success_add => 'Issue added successfully';
+
+  @override
+  String get booking_health_status_title => 'Personal Case Detail';
+
+  @override
+  String get booking_health_status_mobility_label =>
+      'Select your mobility status';
+
+  @override
+  String get booking_health_status_record_label =>
+      'Select a related health record';
+
+  @override
+  String get booking_health_status_record_hint => 'Please select a record';
+
+  @override
+  String get booking_health_status_no_records =>
+      'No medical records available.';
+
+  @override
+  String get booking_addon_nursing_title => 'Nursing Procedures';
+
+  @override
+  String get booking_addon_specialized_nursing_title =>
+      'Specialized Nursing Procedures';
+
+  @override
+  String get booking_addon_pharmacy_title => 'Pharmacy Services';
+
+  @override
+  String get booking_addon_radiology_title => 'Radiology Services';
+
+  @override
+  String get booking_addon_default_title => 'Add On Services';
+
+  @override
+  String get booking_addon_empty => 'No add-on services available.';
+
+  @override
+  String get booking_estimated_budget => 'Estimated Budget';
+
+  @override
+  String get booking_book_appointment_btn => 'Book Appointment';
+
+  @override
+  String get booking_professional_search_nurse => 'Search Nurse';
+
+  @override
+  String get booking_professional_search_pharmacist => 'Search Pharmacist';
+
+  @override
+  String get booking_professional_search_radiologist => 'Search Radiologist';
+
+  @override
+  String get booking_professional_search_caregiver =>
+      'Search Caregiver/Helper/Worker';
+
+  @override
+  String get booking_professional_search_default => 'Search Professional';
+
+  @override
+  String booking_professional_filter_text(int count) {
+    return 'Filtering by $count selected services';
+  }
+
+  @override
+  String get booking_professional_empty =>
+      'No professionals found matching your criteria.';
+
+  @override
+  String get booking_professional_appointment_btn => 'Appointment';
+
+  @override
+  String get booking_professional_detail_nurse => 'Nurse Details';
+
+  @override
+  String get booking_professional_detail_pharmacist => 'Pharmacist Details';
+
+  @override
+  String get booking_professional_detail_radiologist => 'Radiologist Details';
+
+  @override
+  String get booking_professional_detail_default => 'Professional Details';
+
+  @override
+  String get booking_professional_patients_label => 'Patients';
+
+  @override
+  String get booking_professional_experience_label => 'Experience';
+
+  @override
+  String get booking_professional_rating_label => 'Rating';
+
+  @override
+  String get booking_professional_about_me => 'About Me';
+
+  @override
+  String get booking_professional_working_info => 'Working Information';
+
+  @override
+  String get booking_professional_certificate => 'Professional Certificate';
+
+  @override
+  String get booking_professional_no_certificate => 'No certificate available.';
+
+  @override
+  String booking_professional_id_number(String number) {
+    return 'ID Number: $number';
+  }
+
+  @override
+  String booking_professional_issued_on(String date) {
+    return 'Issued: $date';
+  }
+
+  @override
+  String get booking_professional_reviews => 'Reviews';
+
+  @override
+  String get booking_professional_see_all => 'See All';
+
+  @override
+  String get booking_professional_no_reviews => 'No reviews available yet.';
+
+  @override
+  String get booking_professional_schedule_btn => 'Schedule Appointment';
+
+  @override
+  String get booking_schedule_title => 'Select Schedule';
+
+  @override
+  String get booking_schedule_select_date => 'Select Date';
+
+  @override
+  String get booking_schedule_select_hour => 'Select Hour';
+
+  @override
+  String get booking_schedule_no_slots => 'No available slots for this day.';
+
+  @override
+  String get booking_schedule_submit_btn => 'Submit';
+
+  @override
+  String get booking_schedule_submitting => 'Submitting...';
+
+  @override
+  String get booking_schedule_reschedule_success =>
+      'Appointment rescheduled successfully';
+
+  @override
+  String get booking_schedule_reschedule_failed => 'Rescheduling failed.';
+
+  @override
+  String get booking_appointment_created_success =>
+      'Appointment created successfully';
+
+  @override
+  String get booking_appointment_created_failed =>
+      'Failed to create appointment';
+
+  @override
+  String get chat_pharma_title => 'AI Pharmacist';
+
+  @override
+  String get chat_pharma_online => 'Online';
+
+  @override
+  String get chat_pharma_privacy => '(HIPAA Privacy)';
+
+  @override
+  String get chat_pharma_need_help => 'Need Help? ';
+
+  @override
+  String get chat_pharma_request_help => 'Request help from the Pharmacist';
+
+  @override
+  String get chat_pharma_input_hint => 'Write your message';
+
+  @override
+  String get common_unknown_location => 'Unknown Location';
+
+  @override
+  String get booking_personal_issue_concern => 'Concern / Question';
+
+  @override
+  String booking_personal_issue_updated_on(String date) {
+    return 'Updated on: $date';
+  }
+
+  @override
+  String get booking_personal_issue_images => 'Images';
+
+  @override
+  String get booking_mobility_bedbound => 'Bedbound';
+
+  @override
+  String get booking_mobility_wheelchair_bound => 'Wheelchair Bound';
+
+  @override
+  String get booking_mobility_walking_aid => 'Walking Aid';
+
+  @override
+  String get booking_mobility_mobile_without_aid => 'Mobile Without Aid';
 }

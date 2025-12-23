@@ -1642,6 +1642,12 @@ abstract class AppLocalizations {
   /// **'Full Report File'**
   String get common_full_report_file;
 
+  /// No description provided for @common_ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get common_ok;
+
   /// No description provided for @mental_state_title.
   ///
   /// In en, this message translates to:
@@ -2080,11 +2086,587 @@ abstract class AppLocalizations {
   /// **'Back to Login'**
   String get auth_back_to_login_btn;
 
-  /// No description provided for @common_ok.
+  /// No description provided for @booking_nursing_primary_title.
   ///
   /// In en, this message translates to:
-  /// **'OK'**
-  String get common_ok;
+  /// **'Primary Nursing'**
+  String get booking_nursing_primary_title;
+
+  /// No description provided for @booking_nursing_primary_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Monitor and administer\nnursing procedures from\nbody checking, Medication,\ntube feed and suctioning to\ninjections and wound care.'**
+  String get booking_nursing_primary_desc;
+
+  /// No description provided for @booking_nursing_specialized_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Specialized Nursing Services'**
+  String get booking_nursing_specialized_title;
+
+  /// No description provided for @booking_nursing_specialized_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus on recovery and leave\nthe complex nursing care in\nthe hands of our experienced\nnurse Care Pros'**
+  String get booking_nursing_specialized_desc;
+
+  /// No description provided for @booking_nursing_page_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Nursing'**
+  String get booking_nursing_page_title;
+
+  /// No description provided for @booking_pharmacy_page_title.
+  ///
+  /// In en, this message translates to:
+  /// **'iRX Pharmacist Service'**
+  String get booking_pharmacy_page_title;
+
+  /// No description provided for @booking_pharmacy_medication_counseling_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Medication Counseling\nand Education'**
+  String get booking_pharmacy_medication_counseling_title;
+
+  /// No description provided for @booking_pharmacy_medication_counseling_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Medication counseling and education guide\npatients on proper use, side effects, and\nadherence to prescriptions,\nenhancing safety and\nimproving health outcomes.'**
+  String get booking_pharmacy_medication_counseling_desc;
+
+  /// No description provided for @booking_pharmacy_therapy_review_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Comprehensive Therapy\nReview'**
+  String get booking_pharmacy_therapy_review_title;
+
+  /// No description provided for @booking_pharmacy_therapy_review_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Comprehensive review of your medication\nand lifestyle to optimize treatment\noutcomes and minimize potential side\neffects'**
+  String get booking_pharmacy_therapy_review_desc;
+
+  /// No description provided for @booking_pharmacy_health_coaching_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Coaching'**
+  String get booking_pharmacy_health_coaching_title;
+
+  /// No description provided for @booking_pharmacy_health_coaching_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalized guidance and support to help\nindividuals achieve their health goals, manage\nchronic conditions, and improve overall well-\nbeing, with specialized programs for weight\nmanagement, diabetes management, high\nblood pressure management, and high\ncholesterol management'**
+  String get booking_pharmacy_health_coaching_desc;
+
+  /// No description provided for @booking_pharmacy_smoking_cessation_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Smoking Cessation'**
+  String get booking_pharmacy_smoking_cessation_title;
+
+  /// No description provided for @booking_pharmacy_smoking_cessation_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Smoking cessation involves quitting\nsmoking through strategies like\ncounseling, medications, and support\nprograms to improve health and\nreduce the risk of smoking-related\ndiseases.'**
+  String get booking_pharmacy_smoking_cessation_desc;
+
+  /// No description provided for @booking_issue_list_title_nursing.
+  ///
+  /// In en, this message translates to:
+  /// **'Nurse Services Case'**
+  String get booking_issue_list_title_nursing;
+
+  /// No description provided for @booking_issue_list_title_pharmacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Pharmacist Services Case'**
+  String get booking_issue_list_title_pharmacy;
+
+  /// No description provided for @booking_issue_list_title_radiology.
+  ///
+  /// In en, this message translates to:
+  /// **'Radiologist Services Case'**
+  String get booking_issue_list_title_radiology;
+
+  /// No description provided for @booking_issue_list_title_default.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Case'**
+  String get booking_issue_list_title_default;
+
+  /// No description provided for @booking_tell_us_concern.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell Us Your Concern'**
+  String get booking_tell_us_concern;
+
+  /// No description provided for @booking_issue_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'There are no issues added yet.\n Please add one or more issues so\nyou can proceed to the next step.'**
+  String get booking_issue_empty;
+
+  /// No description provided for @booking_add_issue_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an Issue'**
+  String get booking_add_issue_btn;
+
+  /// No description provided for @booking_next_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get booking_next_btn;
+
+  /// No description provided for @booking_issue_delete_dialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Issue'**
+  String get booking_issue_delete_dialog_title;
+
+  /// No description provided for @booking_issue_delete_dialog_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this issue?'**
+  String get booking_issue_delete_dialog_content;
+
+  /// No description provided for @booking_issue_form_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an Issue'**
+  String get booking_issue_form_add_title;
+
+  /// No description provided for @booking_issue_form_edit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Issue'**
+  String get booking_issue_form_edit_title;
+
+  /// No description provided for @booking_issue_form_instruction.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us your concerns'**
+  String get booking_issue_form_instruction;
+
+  /// No description provided for @booking_issue_form_title_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Issue Title'**
+  String get booking_issue_form_title_hint;
+
+  /// No description provided for @booking_issue_form_desc_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter questions, concerns, relevant symptoms related to your case along with related keywords.'**
+  String get booking_issue_form_desc_hint;
+
+  /// No description provided for @booking_issue_form_images_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Images'**
+  String get booking_issue_form_images_label;
+
+  /// No description provided for @booking_issue_form_update_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get booking_issue_form_update_btn;
+
+  /// No description provided for @booking_issue_form_add_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get booking_issue_form_add_btn;
+
+  /// No description provided for @booking_issue_form_required_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Issue title and description are required.'**
+  String get booking_issue_form_required_error;
+
+  /// No description provided for @booking_issue_form_success_update.
+  ///
+  /// In en, this message translates to:
+  /// **'Issue updated successfully'**
+  String get booking_issue_form_success_update;
+
+  /// No description provided for @booking_issue_form_success_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Issue added successfully'**
+  String get booking_issue_form_success_add;
+
+  /// No description provided for @booking_health_status_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Case Detail'**
+  String get booking_health_status_title;
+
+  /// No description provided for @booking_health_status_mobility_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your mobility status'**
+  String get booking_health_status_mobility_label;
+
+  /// No description provided for @booking_health_status_record_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a related health record'**
+  String get booking_health_status_record_label;
+
+  /// No description provided for @booking_health_status_record_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a record'**
+  String get booking_health_status_record_hint;
+
+  /// No description provided for @booking_health_status_no_records.
+  ///
+  /// In en, this message translates to:
+  /// **'No medical records available.'**
+  String get booking_health_status_no_records;
+
+  /// No description provided for @booking_addon_nursing_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Nursing Procedures'**
+  String get booking_addon_nursing_title;
+
+  /// No description provided for @booking_addon_specialized_nursing_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Specialized Nursing Procedures'**
+  String get booking_addon_specialized_nursing_title;
+
+  /// No description provided for @booking_addon_pharmacy_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Pharmacy Services'**
+  String get booking_addon_pharmacy_title;
+
+  /// No description provided for @booking_addon_radiology_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Radiology Services'**
+  String get booking_addon_radiology_title;
+
+  /// No description provided for @booking_addon_default_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add On Services'**
+  String get booking_addon_default_title;
+
+  /// No description provided for @booking_addon_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No add-on services available.'**
+  String get booking_addon_empty;
+
+  /// No description provided for @booking_estimated_budget.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated Budget'**
+  String get booking_estimated_budget;
+
+  /// No description provided for @booking_book_appointment_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Book Appointment'**
+  String get booking_book_appointment_btn;
+
+  /// No description provided for @booking_professional_search_nurse.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Nurse'**
+  String get booking_professional_search_nurse;
+
+  /// No description provided for @booking_professional_search_pharmacist.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Pharmacist'**
+  String get booking_professional_search_pharmacist;
+
+  /// No description provided for @booking_professional_search_radiologist.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Radiologist'**
+  String get booking_professional_search_radiologist;
+
+  /// No description provided for @booking_professional_search_caregiver.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Caregiver/Helper/Worker'**
+  String get booking_professional_search_caregiver;
+
+  /// No description provided for @booking_professional_search_default.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Professional'**
+  String get booking_professional_search_default;
+
+  /// No description provided for @booking_professional_filter_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Filtering by {count} selected services'**
+  String booking_professional_filter_text(int count);
+
+  /// No description provided for @booking_professional_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No professionals found matching your criteria.'**
+  String get booking_professional_empty;
+
+  /// No description provided for @booking_professional_appointment_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Appointment'**
+  String get booking_professional_appointment_btn;
+
+  /// No description provided for @booking_professional_detail_nurse.
+  ///
+  /// In en, this message translates to:
+  /// **'Nurse Details'**
+  String get booking_professional_detail_nurse;
+
+  /// No description provided for @booking_professional_detail_pharmacist.
+  ///
+  /// In en, this message translates to:
+  /// **'Pharmacist Details'**
+  String get booking_professional_detail_pharmacist;
+
+  /// No description provided for @booking_professional_detail_radiologist.
+  ///
+  /// In en, this message translates to:
+  /// **'Radiologist Details'**
+  String get booking_professional_detail_radiologist;
+
+  /// No description provided for @booking_professional_detail_default.
+  ///
+  /// In en, this message translates to:
+  /// **'Professional Details'**
+  String get booking_professional_detail_default;
+
+  /// No description provided for @booking_professional_patients_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Patients'**
+  String get booking_professional_patients_label;
+
+  /// No description provided for @booking_professional_experience_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Experience'**
+  String get booking_professional_experience_label;
+
+  /// No description provided for @booking_professional_rating_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Rating'**
+  String get booking_professional_rating_label;
+
+  /// No description provided for @booking_professional_about_me.
+  ///
+  /// In en, this message translates to:
+  /// **'About Me'**
+  String get booking_professional_about_me;
+
+  /// No description provided for @booking_professional_working_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Working Information'**
+  String get booking_professional_working_info;
+
+  /// No description provided for @booking_professional_certificate.
+  ///
+  /// In en, this message translates to:
+  /// **'Professional Certificate'**
+  String get booking_professional_certificate;
+
+  /// No description provided for @booking_professional_no_certificate.
+  ///
+  /// In en, this message translates to:
+  /// **'No certificate available.'**
+  String get booking_professional_no_certificate;
+
+  /// No description provided for @booking_professional_id_number.
+  ///
+  /// In en, this message translates to:
+  /// **'ID Number: {number}'**
+  String booking_professional_id_number(String number);
+
+  /// No description provided for @booking_professional_issued_on.
+  ///
+  /// In en, this message translates to:
+  /// **'Issued: {date}'**
+  String booking_professional_issued_on(String date);
+
+  /// No description provided for @booking_professional_reviews.
+  ///
+  /// In en, this message translates to:
+  /// **'Reviews'**
+  String get booking_professional_reviews;
+
+  /// No description provided for @booking_professional_see_all.
+  ///
+  /// In en, this message translates to:
+  /// **'See All'**
+  String get booking_professional_see_all;
+
+  /// No description provided for @booking_professional_no_reviews.
+  ///
+  /// In en, this message translates to:
+  /// **'No reviews available yet.'**
+  String get booking_professional_no_reviews;
+
+  /// No description provided for @booking_professional_schedule_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule Appointment'**
+  String get booking_professional_schedule_btn;
+
+  /// No description provided for @booking_schedule_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Schedule'**
+  String get booking_schedule_title;
+
+  /// No description provided for @booking_schedule_select_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date'**
+  String get booking_schedule_select_date;
+
+  /// No description provided for @booking_schedule_select_hour.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Hour'**
+  String get booking_schedule_select_hour;
+
+  /// No description provided for @booking_schedule_no_slots.
+  ///
+  /// In en, this message translates to:
+  /// **'No available slots for this day.'**
+  String get booking_schedule_no_slots;
+
+  /// No description provided for @booking_schedule_submit_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get booking_schedule_submit_btn;
+
+  /// No description provided for @booking_schedule_submitting.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitting...'**
+  String get booking_schedule_submitting;
+
+  /// No description provided for @booking_schedule_reschedule_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Appointment rescheduled successfully'**
+  String get booking_schedule_reschedule_success;
+
+  /// No description provided for @booking_schedule_reschedule_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Rescheduling failed.'**
+  String get booking_schedule_reschedule_failed;
+
+  /// No description provided for @booking_appointment_created_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Appointment created successfully'**
+  String get booking_appointment_created_success;
+
+  /// No description provided for @booking_appointment_created_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create appointment'**
+  String get booking_appointment_created_failed;
+
+  /// No description provided for @chat_pharma_title.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Pharmacist'**
+  String get chat_pharma_title;
+
+  /// No description provided for @chat_pharma_online.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get chat_pharma_online;
+
+  /// No description provided for @chat_pharma_privacy.
+  ///
+  /// In en, this message translates to:
+  /// **'(HIPAA Privacy)'**
+  String get chat_pharma_privacy;
+
+  /// No description provided for @chat_pharma_need_help.
+  ///
+  /// In en, this message translates to:
+  /// **'Need Help? '**
+  String get chat_pharma_need_help;
+
+  /// No description provided for @chat_pharma_request_help.
+  ///
+  /// In en, this message translates to:
+  /// **'Request help from the Pharmacist'**
+  String get chat_pharma_request_help;
+
+  /// No description provided for @chat_pharma_input_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your message'**
+  String get chat_pharma_input_hint;
+
+  /// No description provided for @common_unknown_location.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown Location'**
+  String get common_unknown_location;
+
+  /// No description provided for @booking_personal_issue_concern.
+  ///
+  /// In en, this message translates to:
+  /// **'Concern / Question'**
+  String get booking_personal_issue_concern;
+
+  /// No description provided for @booking_personal_issue_updated_on.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated on: {date}'**
+  String booking_personal_issue_updated_on(String date);
+
+  /// No description provided for @booking_personal_issue_images.
+  ///
+  /// In en, this message translates to:
+  /// **'Images'**
+  String get booking_personal_issue_images;
+
+  /// No description provided for @booking_mobility_bedbound.
+  ///
+  /// In en, this message translates to:
+  /// **'Bedbound'**
+  String get booking_mobility_bedbound;
+
+  /// No description provided for @booking_mobility_wheelchair_bound.
+  ///
+  /// In en, this message translates to:
+  /// **'Wheelchair Bound'**
+  String get booking_mobility_wheelchair_bound;
+
+  /// No description provided for @booking_mobility_walking_aid.
+  ///
+  /// In en, this message translates to:
+  /// **'Walking Aid'**
+  String get booking_mobility_walking_aid;
+
+  /// No description provided for @booking_mobility_mobile_without_aid.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Without Aid'**
+  String get booking_mobility_mobile_without_aid;
 }
 
 class _AppLocalizationsDelegate

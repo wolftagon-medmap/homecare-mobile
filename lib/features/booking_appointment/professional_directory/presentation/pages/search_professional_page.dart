@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/star_rating.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional/professional_bloc.dart';
@@ -61,18 +62,18 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
     });
   }
 
-  String getTitle(String role) {
+  String getTitle(BuildContext context, String role) {
     switch (role) {
       case 'nurse':
-        return 'Search Nurse';
+        return context.l10n.booking_professional_search_nurse;
       case 'pharmacist':
-        return 'Search Pharmacist';
+        return context.l10n.booking_professional_search_pharmacist;
       case 'radiologist':
-        return 'Search Radiologist';
+        return context.l10n.booking_professional_search_radiologist;
       case 'caregiver':
-        return 'Search Caregiver/Helper/Worker';
+        return context.l10n.booking_professional_search_caregiver;
       default:
-        return 'Search Professional';
+        return context.l10n.booking_professional_search_default;
     }
   }
 
@@ -81,7 +82,7 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          getTitle(widget.role),
+          getTitle(context, widget.role),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
@@ -93,7 +94,7 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
               controller: _searchController,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.search),
-                hintText: getTitle(widget.role),
+                hintText: getTitle(context, widget.role),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
                 ),
@@ -109,7 +110,8 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
                     Icon(Icons.filter_list, size: 16, color: Colors.grey[600]),
                     const SizedBox(width: 8),
                     Text(
-                      "Filtering by ${widget.serviceIds.length} selected services",
+                      context.l10n
+                          .booking_professional_filter_text(widget.serviceIds.length),
                       style: TextStyle(color: Colors.grey[600], fontSize: 12),
                     ),
                   ],
@@ -123,9 +125,9 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
                   } else if (state is ProfessionalLoaded) {
                     final professionals = state.professionals;
                     if (professionals.isEmpty) {
-                      return const Center(
+                      return Center(
                           child: Text(
-                              'No professionals found matching your criteria.'));
+                              context.l10n.booking_professional_empty));
                     }
                     return ListView.builder(
                       itemCount: professionals.length,
@@ -239,9 +241,9 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
                                                     BorderRadius.circular(8.0),
                                               ),
                                             ),
-                                            child: const Text(
-                                              'Appointment',
-                                              style: TextStyle(
+                                            child: Text(
+                                              context.l10n.booking_professional_appointment_btn,
+                                              style: const TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.black,
                                               ),
@@ -279,7 +281,7 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
                   } else if (state is ProfessionalError) {
                     return Center(
                         child: Text(
-                            'Failed to load professionals: ${state.message}'));
+                            '${context.l10n.common_error(state.message)}'));
                   } else {
                     return const Center(
                         child: Text('Failed to load professionals'));

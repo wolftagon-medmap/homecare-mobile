@@ -114,7 +114,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get pharmacist_services => 'Layanan Apoteker iRX';
 
   @override
-  String get nursing_service => 'Perawat ke Rumah';
+  String get nursing_service => 'Layanan Keperawatan di Rumah';
 
   @override
   String get diabetic_care_service => 'Perawatan Diabetes';
@@ -255,11 +255,11 @@ class AppLocalizationsId extends AppLocalizations {
       'Tidak ada tugas homecare khusus yang diminta.';
 
   @override
-  String get appointment_detail_patient_problem_title => 'Masalah Pasien';
+  String get appointment_detail_patient_problem_title => 'Keluhan Pasien';
 
   @override
   String get appointment_detail_patient_problem_empty =>
-      'Tidak ada detail masalah khusus yang diberikan.';
+      'Tidak ada detail keluhan khusus yang diberikan.';
 
   @override
   String get appointment_detail_payment_title => 'Informasi Pembayaran';
@@ -837,6 +837,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get common_full_report_file => 'File Laporan Lengkap';
 
   @override
+  String get common_ok => 'OK';
+
+  @override
   String get mental_state_title => 'Kesehatan Mental';
 
   @override
@@ -1073,5 +1076,322 @@ class AppLocalizationsId extends AppLocalizations {
   String get auth_back_to_login_btn => 'Kembali ke Login';
 
   @override
-  String get common_ok => 'OK';
+  String get booking_nursing_primary_title => 'Perawatan Primer';
+
+  @override
+  String get booking_nursing_primary_desc =>
+      'Memantau dan memberikan\nprosedur keperawatan mulai dari\npemeriksaan tubuh, pengobatan,\nselang makan dan penyedotan hingga\nsuntikan dan perawatan luka.';
+
+  @override
+  String get booking_nursing_specialized_title => 'Layanan Keperawatan Khusus';
+
+  @override
+  String get booking_nursing_specialized_desc =>
+      'Fokus pada pemulihan dan serahkan perawatan keperawatan yang kompleks di tangan perawat profesional kami yang berpengalaman';
+
+  @override
+  String get booking_nursing_page_title => 'Layanan Keperawatan di Rumah';
+
+  @override
+  String get booking_pharmacy_page_title => 'Layanan Apoteker iRX';
+
+  @override
+  String get booking_pharmacy_medication_counseling_title =>
+      'Konseling dan Edukasi\nObat';
+
+  @override
+  String get booking_pharmacy_medication_counseling_desc =>
+      'Konseling dan edukasi obat memandu\npasien tentang penggunaan yang tepat, efek samping, dan\nkepatuhan terhadap resep,\nmeningkatkan keamanan dan\nmeningkatkan hasil kesehatan.';
+
+  @override
+  String get booking_pharmacy_therapy_review_title =>
+      'Tinjauan Terapi\nKomprehensif';
+
+  @override
+  String get booking_pharmacy_therapy_review_desc =>
+      'Tinjauan komprehensif terhadap obat\ndan gaya hidup Anda untuk mengoptimalkan hasil\npengobatan dan meminimalkan potensi efek\nsamping';
+
+  @override
+  String get booking_pharmacy_health_coaching_title => 'Pelatihan Kesehatan';
+
+  @override
+  String get booking_pharmacy_health_coaching_desc =>
+      'Panduan dan dukungan yang dipersonalisasi untuk membantu\nindividu mencapai tujuan kesehatan mereka, mengelola\nkondisi kronis, dan meningkatkan kesejahteraan secara keseluruhan\n, dengan program khusus untuk manajemen\nberat badan, manajemen diabetes, manajemen\ntekanan darah tinggi, dan manajemen\nkolesterol tinggi';
+
+  @override
+  String get booking_pharmacy_smoking_cessation_title => 'Berhenti Merokok';
+
+  @override
+  String get booking_pharmacy_smoking_cessation_desc =>
+      'Berhenti merokok melibatkan menghentikan\nkebiasaan merokok melalui strategi seperti\nkonseling, obat-obatan, dan program\ndukungan untuk meningkatkan kesehatan dan\nmengurangi risiko penyakit terkait\nmerokok.';
+
+  @override
+  String get booking_issue_list_title_nursing => 'Kasus Layanan Perawat';
+
+  @override
+  String get booking_issue_list_title_pharmacy => 'Kasus Layanan Apoteker';
+
+  @override
+  String get booking_issue_list_title_radiology => 'Kasus Layanan Radiolog';
+
+  @override
+  String get booking_issue_list_title_default => 'Kasus Layanan';
+
+  @override
+  String get booking_tell_us_concern => 'Beritahu kami keluhan Anda';
+
+  @override
+  String get booking_issue_empty =>
+      'Belum ada keluhan yang ditambahkan.\n Harap tambahkan keluhan agar\nAnda dapat melanjutkan ke langkah berikutnya.';
+
+  @override
+  String get booking_add_issue_btn => 'Tambah Keluhan';
+
+  @override
+  String get booking_next_btn => 'Lanjut';
+
+  @override
+  String get booking_issue_delete_dialog_title => 'Hapus Keluhan';
+
+  @override
+  String get booking_issue_delete_dialog_content =>
+      'Apakah Anda yakin ingin menghapus keluhan ini?';
+
+  @override
+  String get booking_issue_form_add_title => 'Tambah Keluhan';
+
+  @override
+  String get booking_issue_form_edit_title => 'Ubah Keluhan';
+
+  @override
+  String get booking_issue_form_instruction => 'Ceritakan kekhawatiran Anda';
+
+  @override
+  String get booking_issue_form_title_hint => 'Judul Keluhan';
+
+  @override
+  String get booking_issue_form_desc_hint =>
+      'Silakan masukkan pertanyaan, kekhawatiran, gejala relevan yang terkait dengan kasus Anda beserta kata kunci terkait.';
+
+  @override
+  String get booking_issue_form_images_label => 'Gambar';
+
+  @override
+  String get booking_issue_form_update_btn => 'Perbarui';
+
+  @override
+  String get booking_issue_form_add_btn => 'Tambah';
+
+  @override
+  String get booking_issue_form_required_error =>
+      'Judul dan deskripsi keluhan wajib diisi.';
+
+  @override
+  String get booking_issue_form_success_update => 'Keluhan berhasil diperbarui';
+
+  @override
+  String get booking_issue_form_success_add => 'Keluhan berhasil ditambahkan';
+
+  @override
+  String get booking_health_status_title => 'Detail Kasus Pribadi';
+
+  @override
+  String get booking_health_status_mobility_label =>
+      'Pilih status mobilitas Anda';
+
+  @override
+  String get booking_health_status_record_label => 'Pilih rekam medis terkait';
+
+  @override
+  String get booking_health_status_record_hint => 'Silakan pilih rekam medis';
+
+  @override
+  String get booking_health_status_no_records =>
+      'Tidak ada rekam medis yang tersedia.';
+
+  @override
+  String get booking_addon_nursing_title => 'Prosedur Keperawatan';
+
+  @override
+  String get booking_addon_specialized_nursing_title =>
+      'Prosedur Keperawatan Khusus';
+
+  @override
+  String get booking_addon_pharmacy_title => 'Layanan Farmasi';
+
+  @override
+  String get booking_addon_radiology_title => 'Layanan Radiologi';
+
+  @override
+  String get booking_addon_default_title => 'Layanan Tambahan';
+
+  @override
+  String get booking_addon_empty => 'Tidak ada layanan tambahan yang tersedia.';
+
+  @override
+  String get booking_estimated_budget => 'Perkiraan Biaya';
+
+  @override
+  String get booking_book_appointment_btn => 'Buat Janji Temu';
+
+  @override
+  String get booking_professional_search_nurse => 'Cari Perawat';
+
+  @override
+  String get booking_professional_search_pharmacist => 'Cari Apoteker';
+
+  @override
+  String get booking_professional_search_radiologist => 'Cari Radiolog';
+
+  @override
+  String get booking_professional_search_caregiver =>
+      'Cari Pengasuh/Pendamping/Pekerja';
+
+  @override
+  String get booking_professional_search_default => 'Cari Profesional';
+
+  @override
+  String booking_professional_filter_text(int count) {
+    return 'Difilter berdasarkan $count layanan terpilih';
+  }
+
+  @override
+  String get booking_professional_empty =>
+      'Tidak ditemukan profesional yang cocok dengan kriteria Anda.';
+
+  @override
+  String get booking_professional_appointment_btn => 'Buat Janji Temu';
+
+  @override
+  String get booking_professional_detail_nurse => 'Detail Perawat';
+
+  @override
+  String get booking_professional_detail_pharmacist => 'Detail Apoteker';
+
+  @override
+  String get booking_professional_detail_radiologist => 'Detail Radiolog';
+
+  @override
+  String get booking_professional_detail_default => 'Detail Profesional';
+
+  @override
+  String get booking_professional_patients_label => 'Pasien';
+
+  @override
+  String get booking_professional_experience_label => 'Pengalaman';
+
+  @override
+  String get booking_professional_rating_label => 'Penilaian';
+
+  @override
+  String get booking_professional_about_me => 'Tentang Saya';
+
+  @override
+  String get booking_professional_working_info => 'Informasi Kerja';
+
+  @override
+  String get booking_professional_certificate => 'Sertifikat Profesional';
+
+  @override
+  String get booking_professional_no_certificate =>
+      'Sertifikat tidak tersedia.';
+
+  @override
+  String booking_professional_id_number(String number) {
+    return 'Nomor ID: $number';
+  }
+
+  @override
+  String booking_professional_issued_on(String date) {
+    return 'Diterbitkan: $date';
+  }
+
+  @override
+  String get booking_professional_reviews => 'Ulasan';
+
+  @override
+  String get booking_professional_see_all => 'Lihat Semua';
+
+  @override
+  String get booking_professional_no_reviews => 'Belum ada ulasan.';
+
+  @override
+  String get booking_professional_schedule_btn => 'Jadwalkan Janji Temu';
+
+  @override
+  String get booking_schedule_title => 'Pilih Jadwal';
+
+  @override
+  String get booking_schedule_select_date => 'Pilih Tanggal';
+
+  @override
+  String get booking_schedule_select_hour => 'Pilih Jam';
+
+  @override
+  String get booking_schedule_no_slots =>
+      'Tidak ada slot tersedia untuk hari ini.';
+
+  @override
+  String get booking_schedule_submit_btn => 'Kirim';
+
+  @override
+  String get booking_schedule_submitting => 'Mengirim...';
+
+  @override
+  String get booking_schedule_reschedule_success =>
+      'Janji temu berhasil dijadwalkan ulang';
+
+  @override
+  String get booking_schedule_reschedule_failed => 'Penjadwalan ulang gagal.';
+
+  @override
+  String get booking_appointment_created_success =>
+      'Janji temu berhasil dibuat';
+
+  @override
+  String get booking_appointment_created_failed => 'Gagal membuat janji temu';
+
+  @override
+  String get chat_pharma_title => 'Apoteker AI';
+
+  @override
+  String get chat_pharma_online => 'Online';
+
+  @override
+  String get chat_pharma_privacy => '(Privasi HIPAA)';
+
+  @override
+  String get chat_pharma_need_help => 'Butuh Bantuan? ';
+
+  @override
+  String get chat_pharma_request_help => 'Minta bantuan dari Apoteker';
+
+  @override
+  String get chat_pharma_input_hint => 'Tulis pesan Anda';
+
+  @override
+  String get common_unknown_location => 'Lokasi Tidak Diketahui';
+
+  @override
+  String get booking_personal_issue_concern => 'Kekhawatiran / Pertanyaan';
+
+  @override
+  String booking_personal_issue_updated_on(String date) {
+    return 'Diperbarui pada: $date';
+  }
+
+  @override
+  String get booking_personal_issue_images => 'Gambar';
+
+  @override
+  String get booking_mobility_bedbound => 'Terbaring di Tempat Tidur';
+
+  @override
+  String get booking_mobility_wheelchair_bound => 'Menggunakan Kursi Roda';
+
+  @override
+  String get booking_mobility_walking_aid => 'Alat Bantu Jalan';
+
+  @override
+  String get booking_mobility_mobile_without_aid => 'Bergerak Tanpa Alat Bantu';
 }

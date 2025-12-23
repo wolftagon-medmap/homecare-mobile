@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 
 class ChatPharma extends StatelessWidget {
   final List<Map<String, dynamic>> chatHistory;
@@ -25,27 +26,27 @@ class ChatPharma extends StatelessWidget {
               height: 24,
             ),
             const SizedBox(width: 8),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "AI Pharmacist",
-                  style: TextStyle(
+                  context.l10n.chat_pharma_title,
+                  style: const TextStyle(
                     color: Color(0xFF35C5CF),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.circle,
                       color: Colors.green,
                       size: 12,
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     Text(
-                      "Online",
-                      style: TextStyle(
+                      context.l10n.chat_pharma_online,
+                      style: const TextStyle(
                         color: Colors.green,
                         fontSize: 12,
                       ),
@@ -72,15 +73,15 @@ class ChatPharma extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (index == 0)
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 130.0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 130.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(Icons.lock, color: Color(0xFF5782F1)),
+                            const Icon(Icons.lock, color: Color(0xFF5782F1)),
                             Text(
-                              "(HIPAA Privacy)",
-                              style: TextStyle(
+                              context.l10n.chat_pharma_privacy,
+                              style: const TextStyle(
                                 color: Color(0xFF5782F1),
                                 fontSize: 12,
                               ),
@@ -164,8 +165,8 @@ class ChatPharma extends StatelessWidget {
                         const Icon(Icons.info_outline_rounded,
                             color: Colors.grey),
                         const SizedBox(width: 5),
-                        const Text(
-                          "Need Help? ",
+                        Text(
+                          context.l10n.chat_pharma_need_help,
                           style: const TextStyle(
                             color: Colors.grey,
                             fontSize: 12,
@@ -179,9 +180,9 @@ class ChatPharma extends StatelessWidget {
                             //       builder: (context) => PersonalPage()),
                             // );
                           },
-                          child: const Text(
-                            "Request help from the Pharmacist",
-                            style: TextStyle(
+                          child: Text(
+                            context.l10n.chat_pharma_request_help,
+                            style: const TextStyle(
                               color: Color(0xFF35C5CF),
                               fontSize: 12,
                             ),
@@ -210,13 +211,13 @@ class ChatPharma extends StatelessWidget {
                             children: [
                               Expanded(
                                 child: TextField(
-                                  decoration: const InputDecoration(
-                                    hintText: 'Write your message',
-                                    hintStyle: TextStyle(
+                                  decoration: InputDecoration(
+                                    hintText: context.l10n.chat_pharma_input_hint,
+                                    hintStyle: const TextStyle(
                                       color: Color(0xFFA1A1A1),
                                     ),
                                     border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
+                                    contentPadding: const EdgeInsets.symmetric(
                                         vertical: 10.0, horizontal: 20.0),
                                   ),
                                   controller: chatController,

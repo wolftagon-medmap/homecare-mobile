@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
 import 'package:m2health/features/booking_appointment/add_on_services/presentation/bloc/add_on_service_cubit.dart';
 import 'package:m2health/features/booking_appointment/add_on_services/presentation/bloc/add_on_service_state.dart';
@@ -55,25 +56,25 @@ class AddOnServiceViewState extends State<AddOnServiceView> {
 
   @override
   Widget build(BuildContext context) {
-    String getTitle(String serviceType) {
+    String getTitle(BuildContext context, String serviceType) {
       switch (serviceType) {
         case 'nursing':
-          return 'Nursing Procedures';
+          return context.l10n.booking_addon_nursing_title;
         case 'specialized_nursing':
-          return 'Specialized Nursing Procedures';
+          return context.l10n.booking_addon_specialized_nursing_title;
         case 'pharmacy':
-          return 'Pharmacy Services';
+          return context.l10n.booking_addon_pharmacy_title;
         case 'radiology':
-          return 'Radiology Services';
+          return context.l10n.booking_addon_radiology_title;
         default:
-          return 'Add On Services';
+          return context.l10n.booking_addon_default_title;
       }
     }
 
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            getTitle(widget.serviceType),
+            getTitle(context, widget.serviceType),
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
@@ -109,12 +110,12 @@ class AddOnServiceViewState extends State<AddOnServiceView> {
           if (state.status == AddOnServiceStateStatus.error) {
             return Center(
                 child: Text(
-                    state.errorMessage ?? 'Error loading add-on services.'));
+                    state.errorMessage ?? context.l10n.common_error('Error loading add-on services.')));
           }
 
           if (state.status == AddOnServiceStateStatus.loaded) {
             if (state.addOnServices.isEmpty) {
-              return const Center(child: Text('No add-on services available.'));
+              return Center(child: Text(context.l10n.booking_addon_empty));
             }
 
             final availableServices = state.addOnServices;
@@ -170,9 +171,9 @@ class AddOnServiceViewState extends State<AddOnServiceView> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
-          'Estimated Budget',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        Text(
+          context.l10n.booking_estimated_budget,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         Text(
           '\$${estimatedBudget.toStringAsFixed(2)}',
@@ -202,9 +203,9 @@ class AddOnServiceViewState extends State<AddOnServiceView> {
             borderRadius: BorderRadius.circular(15),
           ),
         ),
-        child: const Text(
-          'Book Appointment',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        child: Text(
+          context.l10n.booking_book_appointment_btn,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
     );
