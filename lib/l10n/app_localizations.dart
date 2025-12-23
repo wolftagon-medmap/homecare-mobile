@@ -2667,6 +2667,1200 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mobile Without Aid'**
   String get booking_mobility_mobile_without_aid;
+
+  /// No description provided for @home_health_screening_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Health Screening'**
+  String get home_health_screening_title;
+
+  /// No description provided for @home_health_at_home_diagnostic.
+  ///
+  /// In en, this message translates to:
+  /// **'At-home diagnostic tests'**
+  String get home_health_at_home_diagnostic;
+
+  /// No description provided for @home_health_at_home_diagnostic_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Patients collect samples at home using a self-collection kit, which includes materials like swabs, test cards, and collection tubes, and submit them to a CLIA/CAP certified lab (telemedicine lab) for processing. Laboratory technicians process these samples and upload results to an online portal. Primary care doctors, specialists, or other healthcare professionals review results and walk patients through next steps.'**
+  String get home_health_at_home_diagnostic_desc;
+
+  /// No description provided for @home_health_point_of_care.
+  ///
+  /// In en, this message translates to:
+  /// **'Point-of-care tests'**
+  String get home_health_point_of_care;
+
+  /// No description provided for @home_health_point_of_care_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnostics done outside of a lab that patients can take by themselves at home. These tests develop rapidly and produce results without a doctor or lab technician present. With point-of-care tests, patients review results outside a medical setting and determine their own next steps.'**
+  String get home_health_point_of_care_desc;
+
+  /// No description provided for @home_health_screening_booked_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Screening appointment booked successfully!'**
+  String get home_health_screening_booked_success;
+
+  /// No description provided for @home_health_screening_booking_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking failed'**
+  String get home_health_screening_booking_failed;
+
+  /// No description provided for @homecare_elderly_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Home Care for Elderly'**
+  String get homecare_elderly_title;
+
+  /// No description provided for @homecare_house_bedding_cleaning.
+  ///
+  /// In en, this message translates to:
+  /// **'House & Bedding Cleaning'**
+  String get homecare_house_bedding_cleaning;
+
+  /// No description provided for @homecare_house_bedding_cleaning_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Regular cleaning services to maintain a hygienic, comfortable, and safe living environment for the elderly.'**
+  String get homecare_house_bedding_cleaning_desc;
+
+  /// No description provided for @homecare_living_security_safety.
+  ///
+  /// In en, this message translates to:
+  /// **'Living Security & Safety'**
+  String get homecare_living_security_safety;
+
+  /// No description provided for @homecare_living_security_safety_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety checks and organization to reduce risks and create a secure living environment.'**
+  String get homecare_living_security_safety_desc;
+
+  /// No description provided for @homecare_kitchen_bathroom_repair.
+  ///
+  /// In en, this message translates to:
+  /// **'Kitchen & Bathroom Repair'**
+  String get homecare_kitchen_bathroom_repair;
+
+  /// No description provided for @homecare_kitchen_bathroom_repair_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'On-demand minor repairs to maintain functionality and safety in key home areas.'**
+  String get homecare_kitchen_bathroom_repair_desc;
+
+  /// No description provided for @homecare_plus_active.
+  ///
+  /// In en, this message translates to:
+  /// **'Homecare Plus Active'**
+  String get homecare_plus_active;
+
+  /// No description provided for @homecare_get_plus.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Homecare Plus'**
+  String get homecare_get_plus;
+
+  /// No description provided for @homecare_balance.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance: {balance} Hours'**
+  String homecare_balance(int balance);
+
+  /// No description provided for @homecare_subscription_offer.
+  ///
+  /// In en, this message translates to:
+  /// **'{quota} Hours for {price}'**
+  String homecare_subscription_offer(int quota, String price);
+
+  /// No description provided for @homecare_request_services_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Services'**
+  String get homecare_request_services_btn;
+
+  /// No description provided for @homecare_select_at_least_one_task.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one task.'**
+  String get homecare_select_at_least_one_task;
+
+  /// No description provided for @homecare_task_list_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Task List'**
+  String get homecare_task_list_title;
+
+  /// No description provided for @homecare_feature_name.
+  ///
+  /// In en, this message translates to:
+  /// **'FEATURE NAME'**
+  String get homecare_feature_name;
+
+  /// No description provided for @homecare_frequency.
+  ///
+  /// In en, this message translates to:
+  /// **'FREQUENCY'**
+  String get homecare_frequency;
+
+  /// No description provided for @homecare_weekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get homecare_weekly;
+
+  /// No description provided for @homecare_monthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get homecare_monthly;
+
+  /// No description provided for @homecare_as_needed.
+  ///
+  /// In en, this message translates to:
+  /// **'As Needed'**
+  String get homecare_as_needed;
+
+  /// No description provided for @homecare_review_checkout_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Review & Checkout'**
+  String get homecare_review_checkout_title;
+
+  /// No description provided for @homecare_requested_tasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Requested Tasks'**
+  String get homecare_requested_tasks;
+
+  /// No description provided for @homecare_billing_option.
+  ///
+  /// In en, this message translates to:
+  /// **'Billing Option'**
+  String get homecare_billing_option;
+
+  /// No description provided for @homecare_hourly_rate.
+  ///
+  /// In en, this message translates to:
+  /// **'Hourly Rate'**
+  String get homecare_hourly_rate;
+
+  /// No description provided for @homecare_use_subscription_balance.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Subscription Balance'**
+  String get homecare_use_subscription_balance;
+
+  /// No description provided for @homecare_deduct_hours.
+  ///
+  /// In en, this message translates to:
+  /// **'Deduct {hours} Hours (Balance: {balance} h)'**
+  String homecare_deduct_hours(int hours, int balance);
+
+  /// No description provided for @homecare_insufficient_balance.
+  ///
+  /// In en, this message translates to:
+  /// **'Insufficient Balance ({balance} h)'**
+  String homecare_insufficient_balance(int balance);
+
+  /// No description provided for @homecare_confirm_booking_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Booking'**
+  String get homecare_confirm_booking_btn;
+
+  /// No description provided for @homecare_subscription_plans_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Plans'**
+  String get homecare_subscription_plans_title;
+
+  /// No description provided for @homecare_care_hours.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} Hours of Care'**
+  String homecare_care_hours(int hours);
+
+  /// No description provided for @homecare_valid_for_days.
+  ///
+  /// In en, this message translates to:
+  /// **'Valid for {days} Days'**
+  String homecare_valid_for_days(int days);
+
+  /// No description provided for @homecare_experienced_caregivers.
+  ///
+  /// In en, this message translates to:
+  /// **'Experienced Caregivers'**
+  String get homecare_experienced_caregivers;
+
+  /// No description provided for @homecare_active_subscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Subscription'**
+  String get homecare_active_subscription;
+
+  /// No description provided for @homecare_expires_on.
+  ///
+  /// In en, this message translates to:
+  /// **'Expires on {date}'**
+  String homecare_expires_on(String date);
+
+  /// No description provided for @homecare_purchase_now.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Now - {price}'**
+  String homecare_purchase_now(String price);
+
+  /// No description provided for @precision_nutrition_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Precision Nutrition'**
+  String get precision_nutrition_title;
+
+  /// No description provided for @precision_assessment_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Precision Nutrition Assessment'**
+  String get precision_assessment_title;
+
+  /// No description provided for @precision_assessment_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Start your journey with a deep analysis of your genes, metabolism and lifestyle to understand your body\'s unique needs.'**
+  String get precision_assessment_desc;
+
+  /// No description provided for @precision_plan_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Precision Nutrition Plan'**
+  String get precision_plan_title;
+
+  /// No description provided for @precision_plan_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive a personalized nutrition strategy crafted by experts to address your specific health goals and conditions.'**
+  String get precision_plan_desc;
+
+  /// No description provided for @precision_implementation_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Precision Nutrition Implementation'**
+  String get precision_implementation_title;
+
+  /// No description provided for @precision_implementation_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Track progress and adapt your plan through continuous support, biomarker monitoring, and smart digital tools.'**
+  String get precision_implementation_desc;
+
+  /// No description provided for @precision_start_now.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Now'**
+  String get precision_start_now;
+
+  /// No description provided for @precision_book_now.
+  ///
+  /// In en, this message translates to:
+  /// **'Book Now'**
+  String get precision_book_now;
+
+  /// No description provided for @precision_main_concern_question.
+  ///
+  /// In en, this message translates to:
+  /// **'What is your main concern?'**
+  String get precision_main_concern_question;
+
+  /// No description provided for @precision_main_concern_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the area that best describes your primary health goal'**
+  String get precision_main_concern_subtitle;
+
+  /// No description provided for @precision_sub_health.
+  ///
+  /// In en, this message translates to:
+  /// **'Sub-Health'**
+  String get precision_sub_health;
+
+  /// No description provided for @precision_sub_health_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Improve overall wellness and energy levels'**
+  String get precision_sub_health_desc;
+
+  /// No description provided for @precision_chronic_disease.
+  ///
+  /// In en, this message translates to:
+  /// **'Chronic Disease'**
+  String get precision_chronic_disease;
+
+  /// No description provided for @precision_chronic_disease_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage and improve chronic health conditions'**
+  String get precision_chronic_disease_desc;
+
+  /// No description provided for @precision_anti_aging.
+  ///
+  /// In en, this message translates to:
+  /// **'Anti-aging'**
+  String get precision_anti_aging;
+
+  /// No description provided for @precision_anti_aging_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Optimize health and vitality as you age'**
+  String get precision_anti_aging_desc;
+
+  /// No description provided for @precision_basic_info_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Info & Health History'**
+  String get precision_basic_info_title;
+
+  /// No description provided for @precision_age_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Age'**
+  String get precision_age_label;
+
+  /// No description provided for @precision_age_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g 34 years old'**
+  String get precision_age_hint;
+
+  /// No description provided for @precision_age_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your age'**
+  String get precision_age_error;
+
+  /// No description provided for @precision_age_valid_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid age'**
+  String get precision_age_valid_error;
+
+  /// No description provided for @precision_gender_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get precision_gender_label;
+
+  /// No description provided for @precision_gender_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select your gender'**
+  String get precision_gender_error;
+
+  /// No description provided for @precision_known_condition_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Known Condition (Optional)'**
+  String get precision_known_condition_label;
+
+  /// No description provided for @precision_known_condition_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your condition history here'**
+  String get precision_known_condition_hint;
+
+  /// No description provided for @precision_special_consideration_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Patient with Special Consideration'**
+  String get precision_special_consideration_title;
+
+  /// No description provided for @precision_medication_history_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Medication & supplement history'**
+  String get precision_medication_history_label;
+
+  /// No description provided for @precision_medication_history_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g: Avoid Clopidogrel, Ondansetron, etc'**
+  String get precision_medication_history_hint;
+
+  /// No description provided for @precision_family_history_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Family health history'**
+  String get precision_family_history_label;
+
+  /// No description provided for @precision_family_history_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write other biomarkers here (minimum 10 characters)'**
+  String get precision_family_history_hint;
+
+  /// No description provided for @precision_family_history_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter at least 10 characters'**
+  String get precision_family_history_error;
+
+  /// No description provided for @precision_self_rated_health_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-Rated Health'**
+  String get precision_self_rated_health_title;
+
+  /// No description provided for @precision_terrible.
+  ///
+  /// In en, this message translates to:
+  /// **'Terrible'**
+  String get precision_terrible;
+
+  /// No description provided for @precision_bad.
+  ///
+  /// In en, this message translates to:
+  /// **'Bad'**
+  String get precision_bad;
+
+  /// No description provided for @precision_neutral.
+  ///
+  /// In en, this message translates to:
+  /// **'Neutral'**
+  String get precision_neutral;
+
+  /// No description provided for @precision_good.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get precision_good;
+
+  /// No description provided for @precision_excellent.
+  ///
+  /// In en, this message translates to:
+  /// **'Excellent'**
+  String get precision_excellent;
+
+  /// No description provided for @precision_its_terrible.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s terrible'**
+  String get precision_its_terrible;
+
+  /// No description provided for @precision_its_bad.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s bad'**
+  String get precision_its_bad;
+
+  /// No description provided for @precision_its_good.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s good'**
+  String get precision_its_good;
+
+  /// No description provided for @precision_its_very_good.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s very good'**
+  String get precision_its_very_good;
+
+  /// No description provided for @precision_lifestyle_habits_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifestyle & Habits'**
+  String get precision_lifestyle_habits_title;
+
+  /// No description provided for @precision_sleep_hours_question.
+  ///
+  /// In en, this message translates to:
+  /// **'How many hours of sleep do you get per night?'**
+  String get precision_sleep_hours_question;
+
+  /// No description provided for @precision_hours_per_day.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} hours per day'**
+  String precision_hours_per_day(String hours);
+
+  /// No description provided for @precision_activity_level_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe your typical daily activity level'**
+  String get precision_activity_level_label;
+
+  /// No description provided for @precision_activity_level_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g Working behind the desk 8 hours per day'**
+  String get precision_activity_level_hint;
+
+  /// No description provided for @precision_activity_level_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please describe your activity level'**
+  String get precision_activity_level_error;
+
+  /// No description provided for @precision_exercise_frequency_label.
+  ///
+  /// In en, this message translates to:
+  /// **'How often do you exercise per week?'**
+  String get precision_exercise_frequency_label;
+
+  /// No description provided for @precision_exercise_frequency_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g: Around 30 minutes per day'**
+  String get precision_exercise_frequency_hint;
+
+  /// No description provided for @precision_exercise_frequency_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please describe your exercise frequency'**
+  String get precision_exercise_frequency_error;
+
+  /// No description provided for @precision_stress_level_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Stress levels'**
+  String get precision_stress_level_label;
+
+  /// No description provided for @precision_stress_level_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g: Intermediate stress level'**
+  String get precision_stress_level_hint;
+
+  /// No description provided for @precision_stress_level_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please describe your stress level'**
+  String get precision_stress_level_error;
+
+  /// No description provided for @precision_smoking_alcohol_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Smoking or alcohol habits?'**
+  String get precision_smoking_alcohol_label;
+
+  /// No description provided for @precision_smoking_alcohol_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g: Heavy smoking'**
+  String get precision_smoking_alcohol_hint;
+
+  /// No description provided for @precision_smoking_alcohol_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please describe your smoking/alcohol habits'**
+  String get precision_smoking_alcohol_error;
+
+  /// No description provided for @precision_nutrition_habits_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition Habits'**
+  String get precision_nutrition_habits_title;
+
+  /// No description provided for @precision_meal_frequency_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe your daily meal frequency'**
+  String get precision_meal_frequency_label;
+
+  /// No description provided for @precision_meal_frequency_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g Twice a day'**
+  String get precision_meal_frequency_hint;
+
+  /// No description provided for @precision_meal_frequency_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please describe your meal frequency'**
+  String get precision_meal_frequency_error;
+
+  /// No description provided for @precision_food_sensitivities_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Known food sensitivities or allergies'**
+  String get precision_food_sensitivities_label;
+
+  /// No description provided for @precision_food_sensitivities_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g: Seafoods such as shrimp'**
+  String get precision_food_sensitivities_hint;
+
+  /// No description provided for @precision_food_sensitivities_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please describe your food sensitivities'**
+  String get precision_food_sensitivities_error;
+
+  /// No description provided for @precision_favorite_foods_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorite food types'**
+  String get precision_favorite_foods_label;
+
+  /// No description provided for @precision_favorite_foods_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g: Chicken, Healthy Soup, Meatball'**
+  String get precision_favorite_foods_hint;
+
+  /// No description provided for @precision_favorite_foods_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please describe your favorite foods'**
+  String get precision_favorite_foods_error;
+
+  /// No description provided for @precision_avoided_foods_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Avoided food types'**
+  String get precision_avoided_foods_label;
+
+  /// No description provided for @precision_avoided_foods_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g: Seafood'**
+  String get precision_avoided_foods_hint;
+
+  /// No description provided for @precision_avoided_foods_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please describe foods you avoid'**
+  String get precision_avoided_foods_error;
+
+  /// No description provided for @precision_water_intake_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Water intake'**
+  String get precision_water_intake_label;
+
+  /// No description provided for @precision_water_intake_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g: 7 glass per day'**
+  String get precision_water_intake_hint;
+
+  /// No description provided for @precision_water_intake_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please describe your water intake'**
+  String get precision_water_intake_error;
+
+  /// No description provided for @precision_past_diets_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Past diets'**
+  String get precision_past_diets_label;
+
+  /// No description provided for @precision_past_diets_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g: Keto, low-carb, plant-based, raw food'**
+  String get precision_past_diets_hint;
+
+  /// No description provided for @precision_past_diets_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Please describe your past diets'**
+  String get precision_past_diets_error;
+
+  /// No description provided for @precision_biomarker_upload_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Biomarker Upload'**
+  String get precision_biomarker_upload_title;
+
+  /// No description provided for @precision_upload_header.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload your medical records and connect devices'**
+  String get precision_upload_header;
+
+  /// No description provided for @precision_upload_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This helps us create a more accurate and personalized nutrition plan'**
+  String get precision_upload_subtitle;
+
+  /// No description provided for @precision_upload_medical_records.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload Medical Records'**
+  String get precision_upload_medical_records;
+
+  /// No description provided for @precision_upload_medical_records_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload PDF, images, or other medical documents'**
+  String get precision_upload_medical_records_desc;
+
+  /// No description provided for @precision_choose_file.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose File'**
+  String get precision_choose_file;
+
+  /// No description provided for @precision_connect_wearable.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect Wearable Device'**
+  String get precision_connect_wearable;
+
+  /// No description provided for @precision_connect_wearable_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync data from your smartwatch, fitness tracker, or other devices'**
+  String get precision_connect_wearable_desc;
+
+  /// No description provided for @precision_uploaded_files.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploaded Files'**
+  String get precision_uploaded_files;
+
+  /// No description provided for @precision_submit_assessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Assessment'**
+  String get precision_submit_assessment;
+
+  /// No description provided for @precision_success_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Success!'**
+  String get precision_success_title;
+
+  /// No description provided for @precision_success_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Precision Nutrition Assessment has been submitted successfully. Our experts will review your information and create a personalized plan for you.'**
+  String get precision_success_content;
+
+  /// No description provided for @precision_view_details.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get precision_view_details;
+
+  /// No description provided for @precision_my_assessment_details.
+  ///
+  /// In en, this message translates to:
+  /// **'My Nutrition Assessment Details'**
+  String get precision_my_assessment_details;
+
+  /// No description provided for @precision_edit_information.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Information'**
+  String get precision_edit_information;
+
+  /// No description provided for @precision_download_pdf.
+  ///
+  /// In en, this message translates to:
+  /// **'Download (PDF)'**
+  String get precision_download_pdf;
+
+  /// No description provided for @precision_back_to_page.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Precision Nutrition Page'**
+  String get precision_back_to_page;
+
+  /// No description provided for @precision_plan_my_plan.
+  ///
+  /// In en, this message translates to:
+  /// **'My Precision Nutrition Plan'**
+  String get precision_plan_my_plan;
+
+  /// No description provided for @precision_plan_tab_dietary.
+  ///
+  /// In en, this message translates to:
+  /// **'Dietary Plan'**
+  String get precision_plan_tab_dietary;
+
+  /// No description provided for @precision_plan_tab_supplements.
+  ///
+  /// In en, this message translates to:
+  /// **'Supplements'**
+  String get precision_plan_tab_supplements;
+
+  /// No description provided for @precision_plan_tab_lifestyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lifestyle'**
+  String get precision_plan_tab_lifestyle;
+
+  /// No description provided for @precision_plan_request_update.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Plan Update'**
+  String get precision_plan_request_update;
+
+  /// No description provided for @precision_plan_goal.
+  ///
+  /// In en, this message translates to:
+  /// **'GOAL'**
+  String get precision_plan_goal;
+
+  /// No description provided for @precision_plan_strategy.
+  ///
+  /// In en, this message translates to:
+  /// **'STRATEGY'**
+  String get precision_plan_strategy;
+
+  /// No description provided for @precision_plan_daily_calory.
+  ///
+  /// In en, this message translates to:
+  /// **'DAILY CALORY TARGET'**
+  String get precision_plan_daily_calory;
+
+  /// No description provided for @precision_plan_recommended_foods.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended Foods'**
+  String get precision_plan_recommended_foods;
+
+  /// No description provided for @precision_plan_foods_to_limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Foods to Limit'**
+  String get precision_plan_foods_to_limit;
+
+  /// No description provided for @precision_plan_weekly_meal_plan.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Meal Plan'**
+  String get precision_plan_weekly_meal_plan;
+
+  /// No description provided for @precision_plan_view_all.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get precision_plan_view_all;
+
+  /// No description provided for @precision_weekly_meal_plan_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Meal Plan'**
+  String get precision_weekly_meal_plan_title;
+
+  /// No description provided for @precision_day_meal_plan.
+  ///
+  /// In en, this message translates to:
+  /// **'{day} Meal Plan'**
+  String precision_day_meal_plan(String day);
+
+  /// No description provided for @precision_meal_breakfast.
+  ///
+  /// In en, this message translates to:
+  /// **'Breakfast'**
+  String get precision_meal_breakfast;
+
+  /// No description provided for @precision_meal_lunch.
+  ///
+  /// In en, this message translates to:
+  /// **'Lunch'**
+  String get precision_meal_lunch;
+
+  /// No description provided for @precision_meal_dinner.
+  ///
+  /// In en, this message translates to:
+  /// **'Dinner'**
+  String get precision_meal_dinner;
+
+  /// No description provided for @precision_implementation_journey.
+  ///
+  /// In en, this message translates to:
+  /// **'Implementation Journey'**
+  String get precision_implementation_journey;
+
+  /// No description provided for @precision_implementation_indepth_assessment.
+  ///
+  /// In en, this message translates to:
+  /// **'In-Depth Assessment (2-4 weeks)'**
+  String get precision_implementation_indepth_assessment;
+
+  /// No description provided for @precision_implementation_intervention.
+  ///
+  /// In en, this message translates to:
+  /// **'Intervention (3-6 months)'**
+  String get precision_implementation_intervention;
+
+  /// No description provided for @precision_implementation_maintenance.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance'**
+  String get precision_implementation_maintenance;
+
+  /// No description provided for @precision_sub_health_metabolic.
+  ///
+  /// In en, this message translates to:
+  /// **'Metabolic Function Optimization'**
+  String get precision_sub_health_metabolic;
+
+  /// No description provided for @precision_sub_health_gut_brain.
+  ///
+  /// In en, this message translates to:
+  /// **'Gut-Brain Axis Regulation'**
+  String get precision_sub_health_gut_brain;
+
+  /// No description provided for @precision_sub_health_immune.
+  ///
+  /// In en, this message translates to:
+  /// **'Immune Balance Intervention'**
+  String get precision_sub_health_immune;
+
+  /// No description provided for @precision_chronic_diabetes.
+  ///
+  /// In en, this message translates to:
+  /// **'Diabetes Management'**
+  String get precision_chronic_diabetes;
+
+  /// No description provided for @precision_chronic_cardio.
+  ///
+  /// In en, this message translates to:
+  /// **'Cardiovascular Disease Support'**
+  String get precision_chronic_cardio;
+
+  /// No description provided for @precision_chronic_autoimmune.
+  ///
+  /// In en, this message translates to:
+  /// **'Autoimmune Disease Care'**
+  String get precision_chronic_autoimmune;
+
+  /// No description provided for @precision_chronic_obesity.
+  ///
+  /// In en, this message translates to:
+  /// **'Obesity Management'**
+  String get precision_chronic_obesity;
+
+  /// No description provided for @precision_anti_aging_cellular.
+  ///
+  /// In en, this message translates to:
+  /// **'Cellular Regeneration & Mitochondrial Health'**
+  String get precision_anti_aging_cellular;
+
+  /// No description provided for @precision_anti_aging_cognitive.
+  ///
+  /// In en, this message translates to:
+  /// **'Cognitive Longevity & Neuroprotection'**
+  String get precision_anti_aging_cognitive;
+
+  /// No description provided for @precision_anti_aging_hormonal.
+  ///
+  /// In en, this message translates to:
+  /// **'Hormonal Balance & Vitality optimization'**
+  String get precision_anti_aging_hormonal;
+
+  /// No description provided for @precision_anti_aging_skin.
+  ///
+  /// In en, this message translates to:
+  /// **'Skin & Structural Longevity'**
+  String get precision_anti_aging_skin;
+
+  /// No description provided for @precision_learn_more.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn More'**
+  String get precision_learn_more;
+
+  /// No description provided for @precision_applicable_issues.
+  ///
+  /// In en, this message translates to:
+  /// **'APPLICABLE ISSUES'**
+  String get precision_applicable_issues;
+
+  /// No description provided for @precision_services_include.
+  ///
+  /// In en, this message translates to:
+  /// **'SERVICES INCLUDE'**
+  String get precision_services_include;
+
+  /// No description provided for @precision_interventions_include.
+  ///
+  /// In en, this message translates to:
+  /// **'INTERVENTIONS INCLUDE'**
+  String get precision_interventions_include;
+
+  /// No description provided for @precision_solutions_include.
+  ///
+  /// In en, this message translates to:
+  /// **'SOLUTIONS INCLUDE'**
+  String get precision_solutions_include;
+
+  /// No description provided for @precision_technologies_used.
+  ///
+  /// In en, this message translates to:
+  /// **'TECHNOLOGIES USED'**
+  String get precision_technologies_used;
+
+  /// No description provided for @precision_programs_include.
+  ///
+  /// In en, this message translates to:
+  /// **'PROGRAMS INCLUDE'**
+  String get precision_programs_include;
+
+  /// No description provided for @precision_precision_methods_include.
+  ///
+  /// In en, this message translates to:
+  /// **'PRECISION METHODS INCLUDE'**
+  String get precision_precision_methods_include;
+
+  /// No description provided for @day_monday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get day_monday;
+
+  /// No description provided for @day_tuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get day_tuesday;
+
+  /// No description provided for @day_wednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get day_wednesday;
+
+  /// No description provided for @day_thursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get day_thursday;
+
+  /// No description provided for @day_friday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get day_friday;
+
+  /// No description provided for @day_saturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get day_saturday;
+
+  /// No description provided for @day_sunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get day_sunday;
+
+  /// No description provided for @nutrition_protein.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein'**
+  String get nutrition_protein;
+
+  /// No description provided for @nutrition_carbs.
+  ///
+  /// In en, this message translates to:
+  /// **'Carbs'**
+  String get nutrition_carbs;
+
+  /// No description provided for @nutrition_fat.
+  ///
+  /// In en, this message translates to:
+  /// **'Fat'**
+  String get nutrition_fat;
+
+  /// No description provided for @admin_homecare_service_rates.
+  ///
+  /// In en, this message translates to:
+  /// **'Service Rates'**
+  String get admin_homecare_service_rates;
+
+  /// No description provided for @admin_homecare_subscription_plans.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Plans'**
+  String get admin_homecare_subscription_plans;
+
+  /// No description provided for @admin_homecare_update_successful.
+  ///
+  /// In en, this message translates to:
+  /// **'Update successful'**
+  String get admin_homecare_update_successful;
+
+  /// No description provided for @admin_homecare_update_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Update failed: {error}'**
+  String admin_homecare_update_failed(String error);
+
+  /// No description provided for @admin_homecare_no_service_rates.
+  ///
+  /// In en, this message translates to:
+  /// **'No service rates found.'**
+  String get admin_homecare_no_service_rates;
+
+  /// No description provided for @admin_homecare_no_subscription_plans.
+  ///
+  /// In en, this message translates to:
+  /// **'No subscription plans found.'**
+  String get admin_homecare_no_subscription_plans;
+
+  /// No description provided for @admin_homecare_edit_rate.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Rate: {name}'**
+  String admin_homecare_edit_rate(String name);
+
+  /// No description provided for @admin_homecare_edit_plan.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Plan'**
+  String get admin_homecare_edit_plan;
+
+  /// No description provided for @admin_homecare_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get admin_homecare_price;
+
+  /// No description provided for @admin_homecare_quota_hours.
+  ///
+  /// In en, this message translates to:
+  /// **'Quota (Hours)'**
+  String get admin_homecare_quota_hours;
+
+  /// No description provided for @admin_homecare_validity_days.
+  ///
+  /// In en, this message translates to:
+  /// **'Validity (Days)'**
+  String get admin_homecare_validity_days;
+
+  /// No description provided for @admin_homecare_active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get admin_homecare_active;
+
+  /// No description provided for @admin_homecare_inactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get admin_homecare_inactive;
+
+  /// No description provided for @admin_homecare_save_changes.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get admin_homecare_save_changes;
+
+  /// No description provided for @admin_homecare_plan_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Price: \${price} | Quota: {quota}h | Validity: {days}d'**
+  String admin_homecare_plan_details(String price, int quota, int days);
 }
 
 class _AppLocalizationsDelegate

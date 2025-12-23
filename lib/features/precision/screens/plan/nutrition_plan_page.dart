@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/precision/bloc/nutrition_plan_cubit.dart';
 import 'package:m2health/features/precision/screens/plan/weekly_meal_plan_page.dart';
 import 'package:m2health/features/precision/widgets/precision_widgets.dart';
@@ -16,9 +17,9 @@ class NutritionPlanPage extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'My Precision Nutrition Plan',
-            style: TextStyle(
+          title: Text(
+            context.l10n.precision_plan_my_plan,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Colors.black87,
@@ -29,14 +30,16 @@ class NutritionPlanPage extends StatelessWidget {
             icon: const Icon(Icons.arrow_back),
             onPressed: () => GoRouter.of(context).pop(),
           ),
-          bottom: const TabBar(
+          bottom: TabBar(
             indicatorColor: Const.aqua,
             labelColor: Const.aqua,
-            labelStyle: TextStyle(fontSize: 16),
+            labelStyle: const TextStyle(fontSize: 16),
+            isScrollable: true,
+            tabAlignment: TabAlignment.start,
             tabs: [
-              Tab(text: 'Dietary Plan'),
-              Tab(text: 'Supplements'),
-              Tab(text: 'Lifestyle'),
+              Tab(text: context.l10n.precision_plan_tab_dietary),
+              Tab(text: context.l10n.precision_plan_tab_supplements),
+              Tab(text: context.l10n.precision_plan_tab_lifestyle),
             ],
           ),
         ),
@@ -64,7 +67,7 @@ class NutritionPlanPage extends StatelessWidget {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20.0),
           child: PrimaryButton(
-            text: 'Request Plan Update',
+            text: context.l10n.precision_plan_request_update,
             onPressed: () {},
           ),
         ),
@@ -103,24 +106,24 @@ class _DietaryPlanView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'GOAL',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.precision_plan_goal,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: purple,
                         ),
                       ),
                       Text(plan.goal),
                       const SizedBox(height: 8),
-                      const Text('STRATEGY',
-                          style: TextStyle(
+                      Text(context.l10n.precision_plan_strategy,
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: purple,
                           )),
                       Text(plan.strategy),
                       const SizedBox(height: 8),
-                      const Text('DAILY CALORY TARGET',
-                          style: TextStyle(
+                      Text(context.l10n.precision_plan_daily_calory,
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: purple,
                           )),
@@ -135,21 +138,24 @@ class _DietaryPlanView extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-          const Text('Recommended Foods',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(context.l10n.precision_plan_recommended_foods,
+              style:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ...plan.recommendedFoods
               .map((food) => _InfoCard(text: food, isRecommended: true)),
           const SizedBox(height: 24),
-          const Text('Foods to Limit',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(context.l10n.precision_plan_foods_to_limit,
+              style:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ...plan.foodsToLimit
               .map((food) => _InfoCard(text: food, isRecommended: false)),
           const SizedBox(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Weekly Meal Plan',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(context.l10n.precision_plan_weekly_meal_plan,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold)),
               TextButton(
                   onPressed: () {
                     GoRouter.of(context).pushNamed(AppRoutes.weeklyMealPlan);
@@ -159,7 +165,7 @@ class _DietaryPlanView extends StatelessWidget {
                     textStyle: const TextStyle(
                         fontSize: 14, fontWeight: FontWeight.bold),
                   ),
-                  child: const Text('View All')),
+                  child: Text(context.l10n.precision_plan_view_all)),
             ],
           ),
           SizedBox(
@@ -280,6 +286,27 @@ class _DayCard extends StatelessWidget {
   final int index;
   const _DayCard({required this.day, required this.index});
 
+  String _getLocalDayName(BuildContext context, String day) {
+    switch (day.toLowerCase()) {
+      case 'monday':
+        return context.l10n.day_monday;
+      case 'tuesday':
+        return context.l10n.day_tuesday;
+      case 'wednesday':
+        return context.l10n.day_wednesday;
+      case 'thursday':
+        return context.l10n.day_thursday;
+      case 'friday':
+        return context.l10n.day_friday;
+      case 'saturday':
+        return context.l10n.day_saturday;
+      case 'sunday':
+        return context.l10n.day_sunday;
+      default:
+        return day;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final imagePath = weeklyFoodImagePaths[index];
@@ -300,7 +327,7 @@ class _DayCard extends StatelessWidget {
                     Colors.black.withValues(alpha: 0.4), BlendMode.darken))),
         child: Center(
           child: Text(
-            day.toUpperCase(),
+            _getLocalDayName(context, day).toUpperCase(),
             style: const TextStyle(
                 color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
           ),

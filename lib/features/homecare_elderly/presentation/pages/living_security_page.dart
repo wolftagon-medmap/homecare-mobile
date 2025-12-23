@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/diabetes/widgets/diabetes_form_widget.dart';
 import 'package:m2health/features/homecare_elderly/domain/entities/homecare_task.dart';
 import 'package:m2health/features/homecare_elderly/presentation/pages/homecare_appointment_flow_page.dart';
@@ -24,8 +25,8 @@ class _LivingSecurityPageState extends State<LivingSecurityPage> {
   void _onRequestServices() {
     if (_selectedTasks.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please select at least one task.'),
+        SnackBar(
+          content: Text(context.l10n.homecare_select_at_least_one_task),
           backgroundColor: Colors.red,
         ),
       );
@@ -46,9 +47,9 @@ class _LivingSecurityPageState extends State<LivingSecurityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Living Security & Safety',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        title: Text(
+          context.l10n.homecare_living_security_safety,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
       body: Padding(
@@ -57,20 +58,20 @@ class _LivingSecurityPageState extends State<LivingSecurityPage> {
           children: [
             const _FeatureCard(),
             const SizedBox(height: 24),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Description',
-                  style: TextStyle(
+                  context.l10n.common_description,
+                  style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
-                  'Safety checks and organization to reduce risks and create a secure living environment.',
-                  style: TextStyle(fontSize: 12, height: 1.65),
+                  context.l10n.homecare_living_security_safety_desc,
+                  style: const TextStyle(fontSize: 12, height: 1.65),
                 ),
               ],
             ),
@@ -82,7 +83,7 @@ class _LivingSecurityPageState extends State<LivingSecurityPage> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
         child: PrimaryButton(
-          text: 'Request Services',
+          text: context.l10n.homecare_request_services_btn,
           onPressed: _onRequestServices,
         ),
       ),
@@ -116,35 +117,35 @@ class _FeatureCard extends StatelessWidget {
               alignment: Alignment.bottomRight,
             ),
           ),
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'FEATURE NAME',
-                style: TextStyle(
+                context.l10n.homecare_feature_name,
+                style: const TextStyle(
                   color: _mainColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
-                'Living Security & Safety',
-                style: TextStyle(
+                context.l10n.homecare_living_security_safety,
+                style: const TextStyle(
                   fontWeight: FontWeight.w300,
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
-                'FREQUENCY',
-                style: TextStyle(
+                context.l10n.homecare_frequency,
+                style: const TextStyle(
                   color: _mainColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(
-                'Monthly',
-                style: TextStyle(
+                context.l10n.homecare_monthly,
+                style: const TextStyle(
                   fontWeight: FontWeight.w300,
                 ),
               ),
@@ -196,9 +197,9 @@ class _TaskListState extends State<_TaskList> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Task List',
-          style: TextStyle(
+        Text(
+          context.l10n.homecare_task_list_title,
+          style: const TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 14,
           ),

@@ -1338,4 +1338,633 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get booking_mobility_mobile_without_aid => '无需辅助行动';
+
+  @override
+  String get home_health_screening_title => '居家健康筛查';
+
+  @override
+  String get home_health_at_home_diagnostic => '居家诊断测试';
+
+  @override
+  String get home_health_at_home_diagnostic_desc =>
+      '患者使用包含拭子、测试卡和收集管等材料的自采集套件在家采集样本，并将其提交给经过CLIA/CAP认证的实验室（远程医疗实验室）进行处理。实验室技术人员处理这些样本并将结果上传到在线门户。初级保健医生、专科医生或其他医疗专业人员会审查结果并指导患者进行后续步骤。';
+
+  @override
+  String get home_health_point_of_care => '即时检测 (POCT)';
+
+  @override
+  String get home_health_point_of_care_desc =>
+      '在实验室外进行的诊断，患者可以在家中自行进行。这些测试显影迅速，无需医生或实验室技术人员在场即可产生结果。通过即时检测，患者可以在医疗环境之外查看结果并确定自己的后续步骤。';
+
+  @override
+  String get home_health_screening_booked_success => '筛查预约成功！';
+
+  @override
+  String get home_health_screening_booking_failed => '预约失败';
+
+  @override
+  String get homecare_elderly_title => '长者居家护理';
+
+  @override
+  String get homecare_house_bedding_cleaning => '房屋与寝具清洁';
+
+  @override
+  String get homecare_house_bedding_cleaning_desc =>
+      '定期清洁服务，为长者维护卫生、舒适和安全的居住环境。';
+
+  @override
+  String get homecare_living_security_safety => '居住安全与保障';
+
+  @override
+  String get homecare_living_security_safety_desc => '安全检查和整理，以减少风险并创造安全的居住环境。';
+
+  @override
+  String get homecare_kitchen_bathroom_repair => '厨房与浴室维修';
+
+  @override
+  String get homecare_kitchen_bathroom_repair_desc => '按需进行小修，以维持家庭关键区域的功能和安全。';
+
+  @override
+  String get homecare_plus_active => '居家护理 Plus 已激活';
+
+  @override
+  String get homecare_get_plus => '获取居家护理 Plus';
+
+  @override
+  String homecare_balance(int balance) {
+    return '余额：$balance 小时';
+  }
+
+  @override
+  String homecare_subscription_offer(int quota, String price) {
+    return '$quota 小时 仅需 $price';
+  }
+
+  @override
+  String get homecare_request_services_btn => '请求服务';
+
+  @override
+  String get homecare_select_at_least_one_task => '请至少选择一项任务。';
+
+  @override
+  String get homecare_task_list_title => '任务列表';
+
+  @override
+  String get homecare_feature_name => '功能名称';
+
+  @override
+  String get homecare_frequency => '频率';
+
+  @override
+  String get homecare_weekly => '每周';
+
+  @override
+  String get homecare_monthly => '每月';
+
+  @override
+  String get homecare_as_needed => '按需';
+
+  @override
+  String get homecare_review_checkout_title => '审查与结账';
+
+  @override
+  String get homecare_requested_tasks => '请求的任务';
+
+  @override
+  String get homecare_billing_option => '计费选项';
+
+  @override
+  String get homecare_hourly_rate => '小时费率';
+
+  @override
+  String get homecare_use_subscription_balance => '使用订阅余额';
+
+  @override
+  String homecare_deduct_hours(int hours, int balance) {
+    return '扣除 $hours 小时（余额：$balance 小时）';
+  }
+
+  @override
+  String homecare_insufficient_balance(int balance) {
+    return '余额不足（$balance 小时）';
+  }
+
+  @override
+  String get homecare_confirm_booking_btn => '确认预订';
+
+  @override
+  String get homecare_subscription_plans_title => '订阅计划';
+
+  @override
+  String homecare_care_hours(int hours) {
+    return '$hours 小时护理';
+  }
+
+  @override
+  String homecare_valid_for_days(int days) {
+    return '有效期 $days 天';
+  }
+
+  @override
+  String get homecare_experienced_caregivers => '经验丰富的护理人员';
+
+  @override
+  String get homecare_active_subscription => '当前订阅';
+
+  @override
+  String homecare_expires_on(String date) {
+    return '过期时间 $date';
+  }
+
+  @override
+  String homecare_purchase_now(String price) {
+    return '立即购买 - $price';
+  }
+
+  @override
+  String get precision_nutrition_title => '精准营养';
+
+  @override
+  String get precision_assessment_title => '精准营养评估';
+
+  @override
+  String get precision_assessment_desc =>
+      '通过深入分析您的基因、新陈代谢和生活方式，开启您的旅程，了解您身体的独特需求。';
+
+  @override
+  String get precision_plan_title => '精准营养计划';
+
+  @override
+  String get precision_plan_desc => '获取由专家制定的个性化营养策略，以应对您的特定健康目标和状况。';
+
+  @override
+  String get precision_implementation_title => '精准营养实施';
+
+  @override
+  String get precision_implementation_desc =>
+      '通过持续支持、生物标志物监测和智能数字工具跟踪进度并调整您的计划。';
+
+  @override
+  String get precision_start_now => '立即开始';
+
+  @override
+  String get precision_book_now => '立即预订';
+
+  @override
+  String get precision_main_concern_question => '您的主要关注点是什么？';
+
+  @override
+  String get precision_main_concern_subtitle => '选择最能描述您主要健康目标的领域';
+
+  @override
+  String get precision_sub_health => '亚健康';
+
+  @override
+  String get precision_sub_health_desc => '改善整体健康状况和精力水平';
+
+  @override
+  String get precision_chronic_disease => '慢性病';
+
+  @override
+  String get precision_chronic_disease_desc => '管理和改善慢性健康状况';
+
+  @override
+  String get precision_anti_aging => '抗衰老';
+
+  @override
+  String get precision_anti_aging_desc => '随着年龄增长优化健康和活力';
+
+  @override
+  String get precision_basic_info_title => '基本信息与健康史';
+
+  @override
+  String get precision_age_label => '年龄';
+
+  @override
+  String get precision_age_hint => '例如 34 岁';
+
+  @override
+  String get precision_age_error => '请输入您的年龄';
+
+  @override
+  String get precision_age_valid_error => '请输入有效年龄';
+
+  @override
+  String get precision_gender_label => '性别';
+
+  @override
+  String get precision_gender_error => '请选择您的性别';
+
+  @override
+  String get precision_known_condition_label => '已知状况（可选）';
+
+  @override
+  String get precision_known_condition_hint => '在此填写您的病史';
+
+  @override
+  String get precision_special_consideration_title => '有特殊注意事项的患者';
+
+  @override
+  String get precision_medication_history_label => '药物与补充剂史';
+
+  @override
+  String get precision_medication_history_hint => '例如：避免氯吡格雷、昂丹司琼等';
+
+  @override
+  String get precision_family_history_label => '家族健康史';
+
+  @override
+  String get precision_family_history_hint => '在此填写其他生物标志物（最少10个字符）';
+
+  @override
+  String get precision_family_history_error => '请输入至少10个字符';
+
+  @override
+  String get precision_self_rated_health_title => '自评健康状况';
+
+  @override
+  String get precision_terrible => '糟糕';
+
+  @override
+  String get precision_bad => '差';
+
+  @override
+  String get precision_neutral => '一般';
+
+  @override
+  String get precision_good => '好';
+
+  @override
+  String get precision_excellent => '极好';
+
+  @override
+  String get precision_its_terrible => '很糟糕';
+
+  @override
+  String get precision_its_bad => '比较差';
+
+  @override
+  String get precision_its_good => '还不错';
+
+  @override
+  String get precision_its_very_good => '非常好';
+
+  @override
+  String get precision_lifestyle_habits_title => '生活方式与习惯';
+
+  @override
+  String get precision_sleep_hours_question => '您每晚睡眠多少小时？';
+
+  @override
+  String precision_hours_per_day(String hours) {
+    return '每天 $hours 小时';
+  }
+
+  @override
+  String get precision_activity_level_label => '描述您典型的日常活动水平';
+
+  @override
+  String get precision_activity_level_hint => '例如：每天在办公桌前工作8小时';
+
+  @override
+  String get precision_activity_level_error => '请描述您的活动水平';
+
+  @override
+  String get precision_exercise_frequency_label => '您每周锻炼频率如何？';
+
+  @override
+  String get precision_exercise_frequency_hint => '例如：每天约30分钟';
+
+  @override
+  String get precision_exercise_frequency_error => '请描述您的锻炼频率';
+
+  @override
+  String get precision_stress_level_label => '压力水平';
+
+  @override
+  String get precision_stress_level_hint => '例如：中等压力水平';
+
+  @override
+  String get precision_stress_level_error => '请描述您的压力水平';
+
+  @override
+  String get precision_smoking_alcohol_label => '吸烟或饮酒习惯？';
+
+  @override
+  String get precision_smoking_alcohol_hint => '例如：重度吸烟';
+
+  @override
+  String get precision_smoking_alcohol_error => '请描述您的吸烟/饮酒习惯';
+
+  @override
+  String get precision_nutrition_habits_title => '营养习惯';
+
+  @override
+  String get precision_meal_frequency_label => '描述您的每日进餐频率';
+
+  @override
+  String get precision_meal_frequency_hint => '例如：一天两次';
+
+  @override
+  String get precision_meal_frequency_error => '请描述您的进餐频率';
+
+  @override
+  String get precision_food_sensitivities_label => '已知食物敏感或过敏';
+
+  @override
+  String get precision_food_sensitivities_hint => '例如：海鲜（如虾）';
+
+  @override
+  String get precision_food_sensitivities_error => '请描述您的食物敏感情况';
+
+  @override
+  String get precision_favorite_foods_label => '喜欢的食物类型';
+
+  @override
+  String get precision_favorite_foods_hint => '例如：鸡肉、健康汤、肉丸';
+
+  @override
+  String get precision_favorite_foods_error => '请描述您喜欢的食物';
+
+  @override
+  String get precision_avoided_foods_label => '避免的食物类型';
+
+  @override
+  String get precision_avoided_foods_hint => '例如：海鲜';
+
+  @override
+  String get precision_avoided_foods_error => '请描述您避免的食物';
+
+  @override
+  String get precision_water_intake_label => '饮水量';
+
+  @override
+  String get precision_water_intake_hint => '例如：每天7杯';
+
+  @override
+  String get precision_water_intake_error => '请描述您的饮水量';
+
+  @override
+  String get precision_past_diets_label => '过去的饮食经历';
+
+  @override
+  String get precision_past_diets_hint => '例如：生酮、低碳水、植物基、生食';
+
+  @override
+  String get precision_past_diets_error => '请描述您过去的饮食经历';
+
+  @override
+  String get precision_biomarker_upload_title => '生物标志物上传';
+
+  @override
+  String get precision_upload_header => '上传您的医疗记录并连接设备';
+
+  @override
+  String get precision_upload_subtitle => '这有助于我们制定更准确和个性化的营养计划';
+
+  @override
+  String get precision_upload_medical_records => '上传医疗记录';
+
+  @override
+  String get precision_upload_medical_records_desc => '上传 PDF、图片或其他医疗文件';
+
+  @override
+  String get precision_choose_file => '选择文件';
+
+  @override
+  String get precision_connect_wearable => '连接可穿戴设备';
+
+  @override
+  String get precision_connect_wearable_desc => '同步来自您的智能手表、健身追踪器或其他设备的数据';
+
+  @override
+  String get precision_uploaded_files => '已上传文件';
+
+  @override
+  String get precision_submit_assessment => '提交评估';
+
+  @override
+  String get precision_success_title => '成功！';
+
+  @override
+  String get precision_success_content =>
+      '您的精准营养评估已成功提交。我们的专家将审查您的信息并为您制定个性化计划。';
+
+  @override
+  String get precision_view_details => '查看详情';
+
+  @override
+  String get precision_my_assessment_details => '我的营养评估详情';
+
+  @override
+  String get precision_edit_information => '编辑信息';
+
+  @override
+  String get precision_download_pdf => '下载 (PDF)';
+
+  @override
+  String get precision_back_to_page => '返回精准营养页面';
+
+  @override
+  String get precision_plan_my_plan => '我的精准营养计划';
+
+  @override
+  String get precision_plan_tab_dietary => '饮食计划';
+
+  @override
+  String get precision_plan_tab_supplements => '补充剂';
+
+  @override
+  String get precision_plan_tab_lifestyle => '生活方式';
+
+  @override
+  String get precision_plan_request_update => '请求更新计划';
+
+  @override
+  String get precision_plan_goal => '目标';
+
+  @override
+  String get precision_plan_strategy => '策略';
+
+  @override
+  String get precision_plan_daily_calory => '每日热量目标';
+
+  @override
+  String get precision_plan_recommended_foods => '推荐食物';
+
+  @override
+  String get precision_plan_foods_to_limit => '需限制食物';
+
+  @override
+  String get precision_plan_weekly_meal_plan => '每周膳食计划';
+
+  @override
+  String get precision_plan_view_all => '查看全部';
+
+  @override
+  String get precision_weekly_meal_plan_title => '每周膳食计划';
+
+  @override
+  String precision_day_meal_plan(String day) {
+    return '$day 膳食计划';
+  }
+
+  @override
+  String get precision_meal_breakfast => '早餐';
+
+  @override
+  String get precision_meal_lunch => '午餐';
+
+  @override
+  String get precision_meal_dinner => '晚餐';
+
+  @override
+  String get precision_implementation_journey => '实施旅程';
+
+  @override
+  String get precision_implementation_indepth_assessment => '深度评估（2-4周）';
+
+  @override
+  String get precision_implementation_intervention => '干预（3-6个月）';
+
+  @override
+  String get precision_implementation_maintenance => '维护';
+
+  @override
+  String get precision_sub_health_metabolic => '代谢功能优化';
+
+  @override
+  String get precision_sub_health_gut_brain => '肠脑轴调节';
+
+  @override
+  String get precision_sub_health_immune => '免疫平衡干预';
+
+  @override
+  String get precision_chronic_diabetes => '糖尿病管理';
+
+  @override
+  String get precision_chronic_cardio => '心血管疾病支持';
+
+  @override
+  String get precision_chronic_autoimmune => '自身免疫性疾病护理';
+
+  @override
+  String get precision_chronic_obesity => '肥胖管理';
+
+  @override
+  String get precision_anti_aging_cellular => '细胞再生与线粒体健康';
+
+  @override
+  String get precision_anti_aging_cognitive => '认知长寿与神经保护';
+
+  @override
+  String get precision_anti_aging_hormonal => '荷尔蒙平衡与活力优化';
+
+  @override
+  String get precision_anti_aging_skin => '皮肤与结构长寿';
+
+  @override
+  String get precision_learn_more => '了解更多';
+
+  @override
+  String get precision_applicable_issues => '适用问题';
+
+  @override
+  String get precision_services_include => '服务包括';
+
+  @override
+  String get precision_interventions_include => '干预包括';
+
+  @override
+  String get precision_solutions_include => '解决方案包括';
+
+  @override
+  String get precision_technologies_used => '使用的技术';
+
+  @override
+  String get precision_programs_include => '计划包括';
+
+  @override
+  String get precision_precision_methods_include => '精准方法包括';
+
+  @override
+  String get day_monday => '星期一';
+
+  @override
+  String get day_tuesday => '星期二';
+
+  @override
+  String get day_wednesday => '星期三';
+
+  @override
+  String get day_thursday => '星期四';
+
+  @override
+  String get day_friday => '星期五';
+
+  @override
+  String get day_saturday => '星期六';
+
+  @override
+  String get day_sunday => '星期日';
+
+  @override
+  String get nutrition_protein => '蛋白质';
+
+  @override
+  String get nutrition_carbs => '碳水化合物';
+
+  @override
+  String get nutrition_fat => '脂肪';
+
+  @override
+  String get admin_homecare_service_rates => '服务费率';
+
+  @override
+  String get admin_homecare_subscription_plans => '订阅计划';
+
+  @override
+  String get admin_homecare_update_successful => '更新成功';
+
+  @override
+  String admin_homecare_update_failed(String error) {
+    return '更新失败：$error';
+  }
+
+  @override
+  String get admin_homecare_no_service_rates => '未找到服务费率。';
+
+  @override
+  String get admin_homecare_no_subscription_plans => '未找到订阅计划。';
+
+  @override
+  String admin_homecare_edit_rate(String name) {
+    return '编辑费率：$name';
+  }
+
+  @override
+  String get admin_homecare_edit_plan => '编辑计划';
+
+  @override
+  String get admin_homecare_price => '价格';
+
+  @override
+  String get admin_homecare_quota_hours => '配额（小时）';
+
+  @override
+  String get admin_homecare_validity_days => '有效期（天）';
+
+  @override
+  String get admin_homecare_active => '已激活';
+
+  @override
+  String get admin_homecare_inactive => '未激活';
+
+  @override
+  String get admin_homecare_save_changes => '保存更改';
+
+  @override
+  String admin_homecare_plan_details(String price, int quota, int days) {
+    return '价格：\$$price | 配额：$quota小时 | 有效期：$days天';
+  }
 }

@@ -1391,4 +1391,679 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get booking_mobility_mobile_without_aid => 'Mobile Without Aid';
+
+  @override
+  String get home_health_screening_title => 'Home Health Screening';
+
+  @override
+  String get home_health_at_home_diagnostic => 'At-home diagnostic tests';
+
+  @override
+  String get home_health_at_home_diagnostic_desc =>
+      'Patients collect samples at home using a self-collection kit, which includes materials like swabs, test cards, and collection tubes, and submit them to a CLIA/CAP certified lab (telemedicine lab) for processing. Laboratory technicians process these samples and upload results to an online portal. Primary care doctors, specialists, or other healthcare professionals review results and walk patients through next steps.';
+
+  @override
+  String get home_health_point_of_care => 'Point-of-care tests';
+
+  @override
+  String get home_health_point_of_care_desc =>
+      'Diagnostics done outside of a lab that patients can take by themselves at home. These tests develop rapidly and produce results without a doctor or lab technician present. With point-of-care tests, patients review results outside a medical setting and determine their own next steps.';
+
+  @override
+  String get home_health_screening_booked_success =>
+      'Screening appointment booked successfully!';
+
+  @override
+  String get home_health_screening_booking_failed => 'Booking failed';
+
+  @override
+  String get homecare_elderly_title => 'Home Care for Elderly';
+
+  @override
+  String get homecare_house_bedding_cleaning => 'House & Bedding Cleaning';
+
+  @override
+  String get homecare_house_bedding_cleaning_desc =>
+      'Regular cleaning services to maintain a hygienic, comfortable, and safe living environment for the elderly.';
+
+  @override
+  String get homecare_living_security_safety => 'Living Security & Safety';
+
+  @override
+  String get homecare_living_security_safety_desc =>
+      'Safety checks and organization to reduce risks and create a secure living environment.';
+
+  @override
+  String get homecare_kitchen_bathroom_repair => 'Kitchen & Bathroom Repair';
+
+  @override
+  String get homecare_kitchen_bathroom_repair_desc =>
+      'On-demand minor repairs to maintain functionality and safety in key home areas.';
+
+  @override
+  String get homecare_plus_active => 'Homecare Plus Active';
+
+  @override
+  String get homecare_get_plus => 'Get Homecare Plus';
+
+  @override
+  String homecare_balance(int balance) {
+    return 'Balance: $balance Hours';
+  }
+
+  @override
+  String homecare_subscription_offer(int quota, String price) {
+    return '$quota Hours for $price';
+  }
+
+  @override
+  String get homecare_request_services_btn => 'Request Services';
+
+  @override
+  String get homecare_select_at_least_one_task =>
+      'Please select at least one task.';
+
+  @override
+  String get homecare_task_list_title => 'Task List';
+
+  @override
+  String get homecare_feature_name => 'FEATURE NAME';
+
+  @override
+  String get homecare_frequency => 'FREQUENCY';
+
+  @override
+  String get homecare_weekly => 'Weekly';
+
+  @override
+  String get homecare_monthly => 'Monthly';
+
+  @override
+  String get homecare_as_needed => 'As Needed';
+
+  @override
+  String get homecare_review_checkout_title => 'Review & Checkout';
+
+  @override
+  String get homecare_requested_tasks => 'Requested Tasks';
+
+  @override
+  String get homecare_billing_option => 'Billing Option';
+
+  @override
+  String get homecare_hourly_rate => 'Hourly Rate';
+
+  @override
+  String get homecare_use_subscription_balance => 'Use Subscription Balance';
+
+  @override
+  String homecare_deduct_hours(int hours, int balance) {
+    return 'Deduct $hours Hours (Balance: $balance h)';
+  }
+
+  @override
+  String homecare_insufficient_balance(int balance) {
+    return 'Insufficient Balance ($balance h)';
+  }
+
+  @override
+  String get homecare_confirm_booking_btn => 'Confirm Booking';
+
+  @override
+  String get homecare_subscription_plans_title => 'Subscription Plans';
+
+  @override
+  String homecare_care_hours(int hours) {
+    return '$hours Hours of Care';
+  }
+
+  @override
+  String homecare_valid_for_days(int days) {
+    return 'Valid for $days Days';
+  }
+
+  @override
+  String get homecare_experienced_caregivers => 'Experienced Caregivers';
+
+  @override
+  String get homecare_active_subscription => 'Active Subscription';
+
+  @override
+  String homecare_expires_on(String date) {
+    return 'Expires on $date';
+  }
+
+  @override
+  String homecare_purchase_now(String price) {
+    return 'Purchase Now - $price';
+  }
+
+  @override
+  String get precision_nutrition_title => 'Precision Nutrition';
+
+  @override
+  String get precision_assessment_title => 'Precision Nutrition Assessment';
+
+  @override
+  String get precision_assessment_desc =>
+      'Start your journey with a deep analysis of your genes, metabolism and lifestyle to understand your body\'s unique needs.';
+
+  @override
+  String get precision_plan_title => 'Precision Nutrition Plan';
+
+  @override
+  String get precision_plan_desc =>
+      'Receive a personalized nutrition strategy crafted by experts to address your specific health goals and conditions.';
+
+  @override
+  String get precision_implementation_title =>
+      'Precision Nutrition Implementation';
+
+  @override
+  String get precision_implementation_desc =>
+      'Track progress and adapt your plan through continuous support, biomarker monitoring, and smart digital tools.';
+
+  @override
+  String get precision_start_now => 'Start Now';
+
+  @override
+  String get precision_book_now => 'Book Now';
+
+  @override
+  String get precision_main_concern_question => 'What is your main concern?';
+
+  @override
+  String get precision_main_concern_subtitle =>
+      'Choose the area that best describes your primary health goal';
+
+  @override
+  String get precision_sub_health => 'Sub-Health';
+
+  @override
+  String get precision_sub_health_desc =>
+      'Improve overall wellness and energy levels';
+
+  @override
+  String get precision_chronic_disease => 'Chronic Disease';
+
+  @override
+  String get precision_chronic_disease_desc =>
+      'Manage and improve chronic health conditions';
+
+  @override
+  String get precision_anti_aging => 'Anti-aging';
+
+  @override
+  String get precision_anti_aging_desc =>
+      'Optimize health and vitality as you age';
+
+  @override
+  String get precision_basic_info_title => 'Basic Info & Health History';
+
+  @override
+  String get precision_age_label => 'Age';
+
+  @override
+  String get precision_age_hint => 'E.g 34 years old';
+
+  @override
+  String get precision_age_error => 'Please enter your age';
+
+  @override
+  String get precision_age_valid_error => 'Please enter a valid age';
+
+  @override
+  String get precision_gender_label => 'Gender';
+
+  @override
+  String get precision_gender_error => 'Please select your gender';
+
+  @override
+  String get precision_known_condition_label => 'Known Condition (Optional)';
+
+  @override
+  String get precision_known_condition_hint =>
+      'Write your condition history here';
+
+  @override
+  String get precision_special_consideration_title =>
+      'Patient with Special Consideration';
+
+  @override
+  String get precision_medication_history_label =>
+      'Medication & supplement history';
+
+  @override
+  String get precision_medication_history_hint =>
+      'E.g: Avoid Clopidogrel, Ondansetron, etc';
+
+  @override
+  String get precision_family_history_label => 'Family health history';
+
+  @override
+  String get precision_family_history_hint =>
+      'Write other biomarkers here (minimum 10 characters)';
+
+  @override
+  String get precision_family_history_error =>
+      'Please enter at least 10 characters';
+
+  @override
+  String get precision_self_rated_health_title => 'Self-Rated Health';
+
+  @override
+  String get precision_terrible => 'Terrible';
+
+  @override
+  String get precision_bad => 'Bad';
+
+  @override
+  String get precision_neutral => 'Neutral';
+
+  @override
+  String get precision_good => 'Good';
+
+  @override
+  String get precision_excellent => 'Excellent';
+
+  @override
+  String get precision_its_terrible => 'It\'s terrible';
+
+  @override
+  String get precision_its_bad => 'It\'s bad';
+
+  @override
+  String get precision_its_good => 'It\'s good';
+
+  @override
+  String get precision_its_very_good => 'It\'s very good';
+
+  @override
+  String get precision_lifestyle_habits_title => 'Lifestyle & Habits';
+
+  @override
+  String get precision_sleep_hours_question =>
+      'How many hours of sleep do you get per night?';
+
+  @override
+  String precision_hours_per_day(String hours) {
+    return '$hours hours per day';
+  }
+
+  @override
+  String get precision_activity_level_label =>
+      'Describe your typical daily activity level';
+
+  @override
+  String get precision_activity_level_hint =>
+      'E.g Working behind the desk 8 hours per day';
+
+  @override
+  String get precision_activity_level_error =>
+      'Please describe your activity level';
+
+  @override
+  String get precision_exercise_frequency_label =>
+      'How often do you exercise per week?';
+
+  @override
+  String get precision_exercise_frequency_hint =>
+      'E.g: Around 30 minutes per day';
+
+  @override
+  String get precision_exercise_frequency_error =>
+      'Please describe your exercise frequency';
+
+  @override
+  String get precision_stress_level_label => 'Stress levels';
+
+  @override
+  String get precision_stress_level_hint => 'E.g: Intermediate stress level';
+
+  @override
+  String get precision_stress_level_error =>
+      'Please describe your stress level';
+
+  @override
+  String get precision_smoking_alcohol_label => 'Smoking or alcohol habits?';
+
+  @override
+  String get precision_smoking_alcohol_hint => 'E.g: Heavy smoking';
+
+  @override
+  String get precision_smoking_alcohol_error =>
+      'Please describe your smoking/alcohol habits';
+
+  @override
+  String get precision_nutrition_habits_title => 'Nutrition Habits';
+
+  @override
+  String get precision_meal_frequency_label =>
+      'Describe your daily meal frequency';
+
+  @override
+  String get precision_meal_frequency_hint => 'E.g Twice a day';
+
+  @override
+  String get precision_meal_frequency_error =>
+      'Please describe your meal frequency';
+
+  @override
+  String get precision_food_sensitivities_label =>
+      'Known food sensitivities or allergies';
+
+  @override
+  String get precision_food_sensitivities_hint =>
+      'E.g: Seafoods such as shrimp';
+
+  @override
+  String get precision_food_sensitivities_error =>
+      'Please describe your food sensitivities';
+
+  @override
+  String get precision_favorite_foods_label => 'Favorite food types';
+
+  @override
+  String get precision_favorite_foods_hint =>
+      'E.g: Chicken, Healthy Soup, Meatball';
+
+  @override
+  String get precision_favorite_foods_error =>
+      'Please describe your favorite foods';
+
+  @override
+  String get precision_avoided_foods_label => 'Avoided food types';
+
+  @override
+  String get precision_avoided_foods_hint => 'E.g: Seafood';
+
+  @override
+  String get precision_avoided_foods_error => 'Please describe foods you avoid';
+
+  @override
+  String get precision_water_intake_label => 'Water intake';
+
+  @override
+  String get precision_water_intake_hint => 'E.g: 7 glass per day';
+
+  @override
+  String get precision_water_intake_error =>
+      'Please describe your water intake';
+
+  @override
+  String get precision_past_diets_label => 'Past diets';
+
+  @override
+  String get precision_past_diets_hint =>
+      'E.g: Keto, low-carb, plant-based, raw food';
+
+  @override
+  String get precision_past_diets_error => 'Please describe your past diets';
+
+  @override
+  String get precision_biomarker_upload_title => 'Biomarker Upload';
+
+  @override
+  String get precision_upload_header =>
+      'Upload your medical records and connect devices';
+
+  @override
+  String get precision_upload_subtitle =>
+      'This helps us create a more accurate and personalized nutrition plan';
+
+  @override
+  String get precision_upload_medical_records => 'Upload Medical Records';
+
+  @override
+  String get precision_upload_medical_records_desc =>
+      'Upload PDF, images, or other medical documents';
+
+  @override
+  String get precision_choose_file => 'Choose File';
+
+  @override
+  String get precision_connect_wearable => 'Connect Wearable Device';
+
+  @override
+  String get precision_connect_wearable_desc =>
+      'Sync data from your smartwatch, fitness tracker, or other devices';
+
+  @override
+  String get precision_uploaded_files => 'Uploaded Files';
+
+  @override
+  String get precision_submit_assessment => 'Submit Assessment';
+
+  @override
+  String get precision_success_title => 'Success!';
+
+  @override
+  String get precision_success_content =>
+      'Your Precision Nutrition Assessment has been submitted successfully. Our experts will review your information and create a personalized plan for you.';
+
+  @override
+  String get precision_view_details => 'View Details';
+
+  @override
+  String get precision_my_assessment_details =>
+      'My Nutrition Assessment Details';
+
+  @override
+  String get precision_edit_information => 'Edit Information';
+
+  @override
+  String get precision_download_pdf => 'Download (PDF)';
+
+  @override
+  String get precision_back_to_page => 'Back to Precision Nutrition Page';
+
+  @override
+  String get precision_plan_my_plan => 'My Precision Nutrition Plan';
+
+  @override
+  String get precision_plan_tab_dietary => 'Dietary Plan';
+
+  @override
+  String get precision_plan_tab_supplements => 'Supplements';
+
+  @override
+  String get precision_plan_tab_lifestyle => 'Lifestyle';
+
+  @override
+  String get precision_plan_request_update => 'Request Plan Update';
+
+  @override
+  String get precision_plan_goal => 'GOAL';
+
+  @override
+  String get precision_plan_strategy => 'STRATEGY';
+
+  @override
+  String get precision_plan_daily_calory => 'DAILY CALORY TARGET';
+
+  @override
+  String get precision_plan_recommended_foods => 'Recommended Foods';
+
+  @override
+  String get precision_plan_foods_to_limit => 'Foods to Limit';
+
+  @override
+  String get precision_plan_weekly_meal_plan => 'Weekly Meal Plan';
+
+  @override
+  String get precision_plan_view_all => 'View All';
+
+  @override
+  String get precision_weekly_meal_plan_title => 'Weekly Meal Plan';
+
+  @override
+  String precision_day_meal_plan(String day) {
+    return '$day Meal Plan';
+  }
+
+  @override
+  String get precision_meal_breakfast => 'Breakfast';
+
+  @override
+  String get precision_meal_lunch => 'Lunch';
+
+  @override
+  String get precision_meal_dinner => 'Dinner';
+
+  @override
+  String get precision_implementation_journey => 'Implementation Journey';
+
+  @override
+  String get precision_implementation_indepth_assessment =>
+      'In-Depth Assessment (2-4 weeks)';
+
+  @override
+  String get precision_implementation_intervention =>
+      'Intervention (3-6 months)';
+
+  @override
+  String get precision_implementation_maintenance => 'Maintenance';
+
+  @override
+  String get precision_sub_health_metabolic =>
+      'Metabolic Function Optimization';
+
+  @override
+  String get precision_sub_health_gut_brain => 'Gut-Brain Axis Regulation';
+
+  @override
+  String get precision_sub_health_immune => 'Immune Balance Intervention';
+
+  @override
+  String get precision_chronic_diabetes => 'Diabetes Management';
+
+  @override
+  String get precision_chronic_cardio => 'Cardiovascular Disease Support';
+
+  @override
+  String get precision_chronic_autoimmune => 'Autoimmune Disease Care';
+
+  @override
+  String get precision_chronic_obesity => 'Obesity Management';
+
+  @override
+  String get precision_anti_aging_cellular =>
+      'Cellular Regeneration & Mitochondrial Health';
+
+  @override
+  String get precision_anti_aging_cognitive =>
+      'Cognitive Longevity & Neuroprotection';
+
+  @override
+  String get precision_anti_aging_hormonal =>
+      'Hormonal Balance & Vitality optimization';
+
+  @override
+  String get precision_anti_aging_skin => 'Skin & Structural Longevity';
+
+  @override
+  String get precision_learn_more => 'Learn More';
+
+  @override
+  String get precision_applicable_issues => 'APPLICABLE ISSUES';
+
+  @override
+  String get precision_services_include => 'SERVICES INCLUDE';
+
+  @override
+  String get precision_interventions_include => 'INTERVENTIONS INCLUDE';
+
+  @override
+  String get precision_solutions_include => 'SOLUTIONS INCLUDE';
+
+  @override
+  String get precision_technologies_used => 'TECHNOLOGIES USED';
+
+  @override
+  String get precision_programs_include => 'PROGRAMS INCLUDE';
+
+  @override
+  String get precision_precision_methods_include => 'PRECISION METHODS INCLUDE';
+
+  @override
+  String get day_monday => 'Monday';
+
+  @override
+  String get day_tuesday => 'Tuesday';
+
+  @override
+  String get day_wednesday => 'Wednesday';
+
+  @override
+  String get day_thursday => 'Thursday';
+
+  @override
+  String get day_friday => 'Friday';
+
+  @override
+  String get day_saturday => 'Saturday';
+
+  @override
+  String get day_sunday => 'Sunday';
+
+  @override
+  String get nutrition_protein => 'Protein';
+
+  @override
+  String get nutrition_carbs => 'Carbs';
+
+  @override
+  String get nutrition_fat => 'Fat';
+
+  @override
+  String get admin_homecare_service_rates => 'Service Rates';
+
+  @override
+  String get admin_homecare_subscription_plans => 'Subscription Plans';
+
+  @override
+  String get admin_homecare_update_successful => 'Update successful';
+
+  @override
+  String admin_homecare_update_failed(String error) {
+    return 'Update failed: $error';
+  }
+
+  @override
+  String get admin_homecare_no_service_rates => 'No service rates found.';
+
+  @override
+  String get admin_homecare_no_subscription_plans =>
+      'No subscription plans found.';
+
+  @override
+  String admin_homecare_edit_rate(String name) {
+    return 'Edit Rate: $name';
+  }
+
+  @override
+  String get admin_homecare_edit_plan => 'Edit Plan';
+
+  @override
+  String get admin_homecare_price => 'Price';
+
+  @override
+  String get admin_homecare_quota_hours => 'Quota (Hours)';
+
+  @override
+  String get admin_homecare_validity_days => 'Validity (Days)';
+
+  @override
+  String get admin_homecare_active => 'Active';
+
+  @override
+  String get admin_homecare_inactive => 'Inactive';
+
+  @override
+  String get admin_homecare_save_changes => 'Save Changes';
+
+  @override
+  String admin_homecare_plan_details(String price, int quota, int days) {
+    return 'Price: \$$price | Quota: ${quota}h | Validity: ${days}d';
+  }
 }

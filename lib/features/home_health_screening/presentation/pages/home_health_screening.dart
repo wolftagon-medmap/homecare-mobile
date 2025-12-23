@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/app_localzations.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/home_health_screening/presentation/bloc/home_health_screening_flow_bloc.dart';
 import 'package:m2health/features/home_health_screening/presentation/pages/home_health_screening_flow_page.dart';
 
@@ -104,32 +105,29 @@ class PharmaCard extends StatelessWidget {
 }
 
 class _PharmaState extends State<HomeHealth> {
-  final List<Map<String, String>> dummyTenders = [
-    {
-      'title': 'At-home diagnostic tests',
-      'description':
-          'Patients collect samples at home using a self-\ncollection kit, which includes materials like swabs\n, test cards, and collection tubes, and submit them\nto a CLIA/CAP certified lab (telemedicine lab) for\nprocessing. Laboratory technicians process these samples and upload results to an online portal.\nPrimary care doctors, specialists, or other\nhealthcare professionals review results and walk patients through next steps.',
-      'imagePath': 'assets/images/ilu_diagnostic.png',
-      'color': '9AE1FF',
-      'opacity': '0.33',
-    },
-    {
-      'title': 'Point-of-care tests',
-      'description':
-          'Diagnostics done outside of a lab that patients\ncan take by themselves at home. These tests\ndevelop rapidly and produce results without a\ndoctor or lab technician present. With point-of-\ncare tests, patients review results outside a\nmedical setting and determine their own next\nsteps.',
-      'imagePath': 'assets/images/ilu_pointofcare.png',
-      'color': 'B28CFF',
-      'opacity': '0.2',
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> dummyTenders = [
+      {
+        'title': context.l10n.home_health_at_home_diagnostic,
+        'description': context.l10n.home_health_at_home_diagnostic_desc,
+        'imagePath': 'assets/images/ilu_diagnostic.png',
+        'color': '9AE1FF',
+        'opacity': '0.33',
+      },
+      {
+        'title': context.l10n.home_health_point_of_care,
+        'description': context.l10n.home_health_point_of_care_desc,
+        'imagePath': 'assets/images/ilu_pointofcare.png',
+        'color': 'B28CFF',
+        'opacity': '0.2',
+      },
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          // AppLocalizations.of(context)!.translate('home_health'),
-          "Home Health Screening",
+          context.l10n.home_health_screening_title,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),

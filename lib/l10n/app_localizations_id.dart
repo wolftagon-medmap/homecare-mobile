@@ -1394,4 +1394,679 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get booking_mobility_mobile_without_aid => 'Bergerak Tanpa Alat Bantu';
+
+  @override
+  String get home_health_screening_title => 'Skrining Kesehatan di Rumah';
+
+  @override
+  String get home_health_at_home_diagnostic => 'Tes diagnostik di rumah';
+
+  @override
+  String get home_health_at_home_diagnostic_desc =>
+      'Pasien mengumpulkan sampel di rumah menggunakan alat pengumpulan mandiri, yang mencakup bahan seperti penyeka, kartu tes, dan tabung pengumpul, dan menyerahkannya ke laboratorium bersertifikat CLIA/CAP (laboratorium telemedis) untuk diproses. Teknisi laboratorium memproses sampel ini dan mengunggah hasilnya ke portal online. Dokter perawatan primer, spesialis, atau profesional kesehatan lainnya meninjau hasil dan memandu pasien melalui langkah selanjutnya.';
+
+  @override
+  String get home_health_point_of_care => 'Tes di tempat perawatan (POCT)';
+
+  @override
+  String get home_health_point_of_care_desc =>
+      'Diagnostik dilakukan di luar laboratorium yang dapat dilakukan pasien sendiri di rumah. Tes ini berkembang dengan cepat dan menghasilkan hasil tanpa kehadiran dokter atau teknisi laboratorium. Dengan tes di tempat perawatan, pasien meninjau hasil di luar pengaturan medis dan menentukan langkah selanjutnya sendiri.';
+
+  @override
+  String get home_health_screening_booked_success =>
+      'Janji temu skrining berhasil dipesan!';
+
+  @override
+  String get home_health_screening_booking_failed => 'Pemesanan gagal';
+
+  @override
+  String get homecare_elderly_title => 'Perawatan Lansia di Rumah';
+
+  @override
+  String get homecare_house_bedding_cleaning =>
+      'Pembersihan Rumah & Tempat Tidur';
+
+  @override
+  String get homecare_house_bedding_cleaning_desc =>
+      'Layanan kebersihan rutin untuk menjaga lingkungan hidup yang higienis, nyaman, dan aman bagi lansia.';
+
+  @override
+  String get homecare_living_security_safety =>
+      'Keamanan & Keselamatan Tempat Tinggal';
+
+  @override
+  String get homecare_living_security_safety_desc =>
+      'Pemeriksaan keamanan dan penataan untuk mengurangi risiko dan menciptakan lingkungan hidup yang aman.';
+
+  @override
+  String get homecare_kitchen_bathroom_repair =>
+      'Perbaikan Dapur & Kamar Mandi';
+
+  @override
+  String get homecare_kitchen_bathroom_repair_desc =>
+      'Perbaikan kecil sesuai permintaan untuk menjaga fungsionalitas dan keamanan di area utama rumah.';
+
+  @override
+  String get homecare_plus_active => 'Homecare Plus Aktif';
+
+  @override
+  String get homecare_get_plus => 'Dapatkan Homecare Plus';
+
+  @override
+  String homecare_balance(int balance) {
+    return 'Saldo: $balance Jam';
+  }
+
+  @override
+  String homecare_subscription_offer(int quota, String price) {
+    return '$quota Jam seharga $price';
+  }
+
+  @override
+  String get homecare_request_services_btn => 'Minta Layanan';
+
+  @override
+  String get homecare_select_at_least_one_task =>
+      'Harap pilih setidaknya satu tugas.';
+
+  @override
+  String get homecare_task_list_title => 'Daftar Tugas';
+
+  @override
+  String get homecare_feature_name => 'NAMA FITUR';
+
+  @override
+  String get homecare_frequency => 'FREKUENSI';
+
+  @override
+  String get homecare_weekly => 'Mingguan';
+
+  @override
+  String get homecare_monthly => 'Bulanan';
+
+  @override
+  String get homecare_as_needed => 'Sesuai Kebutuhan';
+
+  @override
+  String get homecare_review_checkout_title => 'Tinjau & Pembayaran';
+
+  @override
+  String get homecare_requested_tasks => 'Tugas yang Diminta';
+
+  @override
+  String get homecare_billing_option => 'Opsi Penagihan';
+
+  @override
+  String get homecare_hourly_rate => 'Tarif Per Jam';
+
+  @override
+  String get homecare_use_subscription_balance => 'Gunakan Saldo Langganan';
+
+  @override
+  String homecare_deduct_hours(int hours, int balance) {
+    return 'Potong $hours Jam (Saldo: $balance j)';
+  }
+
+  @override
+  String homecare_insufficient_balance(int balance) {
+    return 'Saldo Tidak Cukup ($balance j)';
+  }
+
+  @override
+  String get homecare_confirm_booking_btn => 'Konfirmasi Pesanan';
+
+  @override
+  String get homecare_subscription_plans_title => 'Paket Langganan';
+
+  @override
+  String homecare_care_hours(int hours) {
+    return '$hours Jam Perawatan';
+  }
+
+  @override
+  String homecare_valid_for_days(int days) {
+    return 'Berlaku selama $days Hari';
+  }
+
+  @override
+  String get homecare_experienced_caregivers => 'Perawat Berpengalaman';
+
+  @override
+  String get homecare_active_subscription => 'Langganan Aktif';
+
+  @override
+  String homecare_expires_on(String date) {
+    return 'Berakhir pada $date';
+  }
+
+  @override
+  String homecare_purchase_now(String price) {
+    return 'Beli Sekarang - $price';
+  }
+
+  @override
+  String get precision_nutrition_title => 'Nutrisi Presisi';
+
+  @override
+  String get precision_assessment_title => 'Penilaian Nutrisi Presisi';
+
+  @override
+  String get precision_assessment_desc =>
+      'Mulai perjalanan Anda dengan analisis mendalam tentang gen, metabolisme, dan gaya hidup Anda untuk memahami kebutuhan unik tubuh Anda.';
+
+  @override
+  String get precision_plan_title => 'Rencana Nutrisi Presisi';
+
+  @override
+  String get precision_plan_desc =>
+      'Dapatkan strategi nutrisi yang dipersonalisasi yang dibuat oleh para ahli untuk mengatasi tujuan dan kondisi kesehatan spesifik Anda.';
+
+  @override
+  String get precision_implementation_title => 'Implementasi Nutrisi Presisi';
+
+  @override
+  String get precision_implementation_desc =>
+      'Lacak kemajuan dan sesuaikan rencana Anda melalui dukungan berkelanjutan, pemantauan biomarker, dan alat digital cerdas.';
+
+  @override
+  String get precision_start_now => 'Mulai Sekarang';
+
+  @override
+  String get precision_book_now => 'Pesan Sekarang';
+
+  @override
+  String get precision_main_concern_question => 'Apa kekhawatiran utama Anda?';
+
+  @override
+  String get precision_main_concern_subtitle =>
+      'Pilih area yang paling menggambarkan tujuan kesehatan utama Anda';
+
+  @override
+  String get precision_sub_health => 'Sub-Sehat';
+
+  @override
+  String get precision_sub_health_desc =>
+      'Tingkatkan kesehatan dan tingkat energi secara keseluruhan';
+
+  @override
+  String get precision_chronic_disease => 'Penyakit Kronis';
+
+  @override
+  String get precision_chronic_disease_desc =>
+      'Kelola dan tingkatkan kondisi kesehatan kronis';
+
+  @override
+  String get precision_anti_aging => 'Anti-penuaan';
+
+  @override
+  String get precision_anti_aging_desc =>
+      'Optimalkan kesehatan dan vitalitas seiring bertambahnya usia';
+
+  @override
+  String get precision_basic_info_title => 'Info Dasar & Riwayat Kesehatan';
+
+  @override
+  String get precision_age_label => 'Usia';
+
+  @override
+  String get precision_age_hint => 'Cth 34 tahun';
+
+  @override
+  String get precision_age_error => 'Harap masukkan usia Anda';
+
+  @override
+  String get precision_age_valid_error => 'Harap masukkan usia yang valid';
+
+  @override
+  String get precision_gender_label => 'Jenis Kelamin';
+
+  @override
+  String get precision_gender_error => 'Harap pilih jenis kelamin Anda';
+
+  @override
+  String get precision_known_condition_label => 'Kondisi Diketahui (Opsional)';
+
+  @override
+  String get precision_known_condition_hint =>
+      'Tulis riwayat kondisi Anda di sini';
+
+  @override
+  String get precision_special_consideration_title =>
+      'Pasien dengan Pertimbangan Khusus';
+
+  @override
+  String get precision_medication_history_label => 'Riwayat obat & suplemen';
+
+  @override
+  String get precision_medication_history_hint =>
+      'Cth: Hindari Clopidogrel, Ondansetron, dll';
+
+  @override
+  String get precision_family_history_label => 'Riwayat kesehatan keluarga';
+
+  @override
+  String get precision_family_history_hint =>
+      'Tulis biomarker lain di sini (minimal 10 karakter)';
+
+  @override
+  String get precision_family_history_error =>
+      'Harap masukkan setidaknya 10 karakter';
+
+  @override
+  String get precision_self_rated_health_title => 'Penilaian Kesehatan Mandiri';
+
+  @override
+  String get precision_terrible => 'Sangat Buruk';
+
+  @override
+  String get precision_bad => 'Buruk';
+
+  @override
+  String get precision_neutral => 'Netral';
+
+  @override
+  String get precision_good => 'Baik';
+
+  @override
+  String get precision_excellent => 'Sangat Baik';
+
+  @override
+  String get precision_its_terrible => 'Sangat buruk';
+
+  @override
+  String get precision_its_bad => 'Buruk';
+
+  @override
+  String get precision_its_good => 'Baik';
+
+  @override
+  String get precision_its_very_good => 'Sangat baik';
+
+  @override
+  String get precision_lifestyle_habits_title => 'Gaya Hidup & Kebiasaan';
+
+  @override
+  String get precision_sleep_hours_question =>
+      'Berapa jam Anda tidur per malam?';
+
+  @override
+  String precision_hours_per_day(String hours) {
+    return '$hours jam per hari';
+  }
+
+  @override
+  String get precision_activity_level_label =>
+      'Jelaskan tingkat aktivitas harian Anda';
+
+  @override
+  String get precision_activity_level_hint =>
+      'Cth Bekerja di balik meja 8 jam per hari';
+
+  @override
+  String get precision_activity_level_error =>
+      'Harap jelaskan tingkat aktivitas Anda';
+
+  @override
+  String get precision_exercise_frequency_label =>
+      'Seberapa sering Anda berolahraga per minggu?';
+
+  @override
+  String get precision_exercise_frequency_hint =>
+      'Cth: Sekitar 30 menit per hari';
+
+  @override
+  String get precision_exercise_frequency_error =>
+      'Harap jelaskan frekuensi olahraga Anda';
+
+  @override
+  String get precision_stress_level_label => 'Tingkat stres';
+
+  @override
+  String get precision_stress_level_hint => 'Cth: Tingkat stres menengah';
+
+  @override
+  String get precision_stress_level_error =>
+      'Harap jelaskan tingkat stres Anda';
+
+  @override
+  String get precision_smoking_alcohol_label =>
+      'Kebiasaan merokok atau alkohol?';
+
+  @override
+  String get precision_smoking_alcohol_hint => 'Cth: Perokok berat';
+
+  @override
+  String get precision_smoking_alcohol_error =>
+      'Harap jelaskan kebiasaan merokok/alkohol Anda';
+
+  @override
+  String get precision_nutrition_habits_title => 'Kebiasaan Nutrisi';
+
+  @override
+  String get precision_meal_frequency_label =>
+      'Jelaskan frekuensi makan harian Anda';
+
+  @override
+  String get precision_meal_frequency_hint => 'Cth Dua kali sehari';
+
+  @override
+  String get precision_meal_frequency_error =>
+      'Harap jelaskan frekuensi makan Anda';
+
+  @override
+  String get precision_food_sensitivities_label =>
+      'Sensitivitas atau alergi makanan yang diketahui';
+
+  @override
+  String get precision_food_sensitivities_hint =>
+      'Cth: Makanan laut seperti udang';
+
+  @override
+  String get precision_food_sensitivities_error =>
+      'Harap jelaskan sensitivitas makanan Anda';
+
+  @override
+  String get precision_favorite_foods_label => 'Jenis makanan favorit';
+
+  @override
+  String get precision_favorite_foods_hint => 'Cth: Ayam, Sup Sehat, Bakso';
+
+  @override
+  String get precision_favorite_foods_error =>
+      'Harap jelaskan makanan favorit Anda';
+
+  @override
+  String get precision_avoided_foods_label => 'Jenis makanan yang dihindari';
+
+  @override
+  String get precision_avoided_foods_hint => 'Cth: Makanan laut';
+
+  @override
+  String get precision_avoided_foods_error =>
+      'Harap jelaskan makanan yang Anda hindari';
+
+  @override
+  String get precision_water_intake_label => 'Asupan air';
+
+  @override
+  String get precision_water_intake_hint => 'Cth: 7 gelas per hari';
+
+  @override
+  String get precision_water_intake_error => 'Harap jelaskan asupan air Anda';
+
+  @override
+  String get precision_past_diets_label => 'Diet masa lalu';
+
+  @override
+  String get precision_past_diets_hint =>
+      'Cth: Keto, rendah karbohidrat, nabati, makanan mentah';
+
+  @override
+  String get precision_past_diets_error => 'Harap jelaskan diet masa lalu Anda';
+
+  @override
+  String get precision_biomarker_upload_title => 'Unggah Biomarker';
+
+  @override
+  String get precision_upload_header =>
+      'Unggah rekam medis Anda dan hubungkan perangkat';
+
+  @override
+  String get precision_upload_subtitle =>
+      'Ini membantu kami membuat rencana nutrisi yang lebih akurat dan personal';
+
+  @override
+  String get precision_upload_medical_records => 'Unggah Rekam Medis';
+
+  @override
+  String get precision_upload_medical_records_desc =>
+      'Unggah PDF, gambar, atau dokumen medis lainnya';
+
+  @override
+  String get precision_choose_file => 'Pilih File';
+
+  @override
+  String get precision_connect_wearable => 'Hubungkan Perangkat Wearable';
+
+  @override
+  String get precision_connect_wearable_desc =>
+      'Sinkronkan data dari jam tangan pintar, pelacak kebugaran, atau perangkat lainnya';
+
+  @override
+  String get precision_uploaded_files => 'File Terunggah';
+
+  @override
+  String get precision_submit_assessment => 'Kirim Penilaian';
+
+  @override
+  String get precision_success_title => 'Berhasil!';
+
+  @override
+  String get precision_success_content =>
+      'Penilaian Nutrisi Presisi Anda telah berhasil dikirim. Para ahli kami akan meninjau informasi Anda dan membuat rencana yang dipersonalisasi untuk Anda.';
+
+  @override
+  String get precision_view_details => 'Lihat Detail';
+
+  @override
+  String get precision_my_assessment_details => 'Detail Penilaian Nutrisi Saya';
+
+  @override
+  String get precision_edit_information => 'Ubah Informasi';
+
+  @override
+  String get precision_download_pdf => 'Unduh (PDF)';
+
+  @override
+  String get precision_back_to_page => 'Kembali ke Halaman Nutrisi Presisi';
+
+  @override
+  String get precision_plan_my_plan => 'Rencana Nutrisi Presisi Saya';
+
+  @override
+  String get precision_plan_tab_dietary => 'Rencana Diet';
+
+  @override
+  String get precision_plan_tab_supplements => 'Suplemen';
+
+  @override
+  String get precision_plan_tab_lifestyle => 'Gaya Hidup';
+
+  @override
+  String get precision_plan_request_update => 'Minta Pembaruan Rencana';
+
+  @override
+  String get precision_plan_goal => 'TUJUAN';
+
+  @override
+  String get precision_plan_strategy => 'STRATEGI';
+
+  @override
+  String get precision_plan_daily_calory => 'TARGET KALORI HARIAN';
+
+  @override
+  String get precision_plan_recommended_foods =>
+      'Makanan yang Direkomendasikan';
+
+  @override
+  String get precision_plan_foods_to_limit => 'Makanan untuk Dibatasi';
+
+  @override
+  String get precision_plan_weekly_meal_plan => 'Rencana Makan Mingguan';
+
+  @override
+  String get precision_plan_view_all => 'Lihat Semua';
+
+  @override
+  String get precision_weekly_meal_plan_title => 'Rencana Makan Mingguan';
+
+  @override
+  String precision_day_meal_plan(String day) {
+    return 'Rencana Makan $day';
+  }
+
+  @override
+  String get precision_meal_breakfast => 'Sarapan';
+
+  @override
+  String get precision_meal_lunch => 'Makan Siang';
+
+  @override
+  String get precision_meal_dinner => 'Makan Malam';
+
+  @override
+  String get precision_implementation_journey => 'Perjalanan Implementasi';
+
+  @override
+  String get precision_implementation_indepth_assessment =>
+      'Penilaian Mendalam (2-4 minggu)';
+
+  @override
+  String get precision_implementation_intervention => 'Intervensi (3-6 bulan)';
+
+  @override
+  String get precision_implementation_maintenance => 'Pemeliharaan';
+
+  @override
+  String get precision_sub_health_metabolic => 'Optimalisasi Fungsi Metabolik';
+
+  @override
+  String get precision_sub_health_gut_brain => 'Regulasi Poros Usus-Otak';
+
+  @override
+  String get precision_sub_health_immune => 'Intervensi Keseimbangan Imun';
+
+  @override
+  String get precision_chronic_diabetes => 'Manajemen Diabetes';
+
+  @override
+  String get precision_chronic_cardio => 'Dukungan Penyakit Kardiovaskular';
+
+  @override
+  String get precision_chronic_autoimmune => 'Perawatan Penyakit Autoimun';
+
+  @override
+  String get precision_chronic_obesity => 'Manajemen Obesitas';
+
+  @override
+  String get precision_anti_aging_cellular =>
+      'Regenerasi Sel & Kesehatan Mitokondria';
+
+  @override
+  String get precision_anti_aging_cognitive =>
+      'Umur Panjang Kognitif & Neuroproteksi';
+
+  @override
+  String get precision_anti_aging_hormonal =>
+      'Keseimbangan Hormon & Optimalisasi Vitalitas';
+
+  @override
+  String get precision_anti_aging_skin => 'Kesehatan Kulit & Struktur';
+
+  @override
+  String get precision_learn_more => 'Pelajari Lebih Lanjut';
+
+  @override
+  String get precision_applicable_issues => 'MASALAH YANG BERLAKU';
+
+  @override
+  String get precision_services_include => 'LAYANAN TERMASUK';
+
+  @override
+  String get precision_interventions_include => 'INTERVENSI TERMASUK';
+
+  @override
+  String get precision_solutions_include => 'SOLUSI TERMASUK';
+
+  @override
+  String get precision_technologies_used => 'TEKNOLOGI YANG DIGUNAKAN';
+
+  @override
+  String get precision_programs_include => 'PROGRAM TERMASUK';
+
+  @override
+  String get precision_precision_methods_include => 'METODE PRESISI TERMASUK';
+
+  @override
+  String get day_monday => 'Senin';
+
+  @override
+  String get day_tuesday => 'Selasa';
+
+  @override
+  String get day_wednesday => 'Rabu';
+
+  @override
+  String get day_thursday => 'Kamis';
+
+  @override
+  String get day_friday => 'Jumat';
+
+  @override
+  String get day_saturday => 'Sabtu';
+
+  @override
+  String get day_sunday => 'Minggu';
+
+  @override
+  String get nutrition_protein => 'Protein';
+
+  @override
+  String get nutrition_carbs => 'Karbohidrat';
+
+  @override
+  String get nutrition_fat => 'Lemak';
+
+  @override
+  String get admin_homecare_service_rates => 'Tarif Layanan';
+
+  @override
+  String get admin_homecare_subscription_plans => 'Paket Langganan';
+
+  @override
+  String get admin_homecare_update_successful => 'Pembaruan berhasil';
+
+  @override
+  String admin_homecare_update_failed(String error) {
+    return 'Pembaruan gagal: $error';
+  }
+
+  @override
+  String get admin_homecare_no_service_rates =>
+      'Tidak ada tarif layanan ditemukan.';
+
+  @override
+  String get admin_homecare_no_subscription_plans =>
+      'Tidak ada paket langganan ditemukan.';
+
+  @override
+  String admin_homecare_edit_rate(String name) {
+    return 'Ubah Tarif: $name';
+  }
+
+  @override
+  String get admin_homecare_edit_plan => 'Ubah Paket';
+
+  @override
+  String get admin_homecare_price => 'Harga';
+
+  @override
+  String get admin_homecare_quota_hours => 'Kuota (Jam)';
+
+  @override
+  String get admin_homecare_validity_days => 'Masa Berlaku (Hari)';
+
+  @override
+  String get admin_homecare_active => 'Aktif';
+
+  @override
+  String get admin_homecare_inactive => 'Tidak Aktif';
+
+  @override
+  String get admin_homecare_save_changes => 'Simpan Perubahan';
+
+  @override
+  String admin_homecare_plan_details(String price, int quota, int days) {
+    return 'Harga: \$$price | Kuota: ${quota}j | Berlaku: ${days}h';
+  }
 }

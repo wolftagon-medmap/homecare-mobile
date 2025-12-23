@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/precision/screens/assessment/forms/health_history_screen.dart';
 import 'package:m2health/features/precision/widgets/precision_widgets.dart';
 
@@ -9,36 +10,36 @@ class AntiAgingLongevityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     const color = Color(0xFF10B981);
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Anti-Aging & Longevity'),
+      appBar: CustomAppBar(title: context.l10n.precision_anti_aging),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            const Expanded(
+            Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   spacing: 16,
                   children: [
                     FeatureDetailCard(
                       iconData: Icons.autorenew_outlined,
-                      title: 'Cellular Regeneration & Mitochondrial Health',
+                      title: context.l10n.precision_anti_aging_cellular,
                       color: color,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                               'Improve cellular energy and delay biological aging.'),
                           CardSection(
-                            title: 'APPLICABLE ISSUES',
-                            items: [
+                            title: context.l10n.precision_applicable_issues,
+                            items: const [
                               'Low energy and fatigue',
                               'Brain fog issues',
                               'Poor digital medium',
                             ],
                           ),
                           CardSection(
-                            title: 'INTERVENTION INCLUDE',
-                            items: [
+                            title: context.l10n.precision_interventions_include,
+                            items: const [
                               'NAD+ and mitochondria function testing',
                               'Autophagy and cellular rejuvenation plan',
                               'Personalized oxidative stress reduction',
@@ -49,23 +50,23 @@ class AntiAgingLongevityPage extends StatelessWidget {
                     ),
                     FeatureDetailCard(
                       iconData: Icons.psychology_outlined,
-                      title: 'Cognitive Longevity & Neuroprotection',
+                      title: context.l10n.precision_anti_aging_cognitive,
                       color: color, // Blue
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                               'Enhance mental clarity, focus, and brain plasticity.'),
                           CardSection(
-                            title: 'APPLICABLE ISSUES',
-                            items: [
+                            title: context.l10n.precision_applicable_issues,
+                            items: const [
                               'Brain fog, memory issues, mental fatigue',
                               'APOE4-related cognitive risk',
                             ],
                           ),
                           CardSection(
-                            title: 'INTERVENTION INCLUDE',
-                            items: [
+                            title: context.l10n.precision_interventions_include,
+                            items: const [
                               'Omega-3 Index and BDNF-related genotyping',
                               'Personalized MIND diet and nootropic nutrition plan',
                               'Gut-brain axis modulation',
@@ -76,24 +77,24 @@ class AntiAgingLongevityPage extends StatelessWidget {
                     ),
                     FeatureDetailCard(
                       iconData: Icons.balance_outlined,
-                      title: 'Hormonal Balance & Vitality optimization',
+                      title: context.l10n.precision_anti_aging_hormonal,
                       color: color,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                               'Achieve optimal hormone levels and maintain youthful function.'),
                           CardSection(
-                            title: 'APPLICABLE ISSUES',
-                            items: [
+                            title: context.l10n.precision_applicable_issues,
+                            items: const [
                               'Hormonal decline (DHEA, estrogen, testosterone)',
                               'Subpar IGF-1 (blood biomarker)',
                               'Decline in strength',
                             ],
                           ),
                           CardSection(
-                            title: 'INTERVENTION INCLUDE',
-                            items: [
+                            title: context.l10n.precision_interventions_include,
+                            items: const [
                               'Hormone-related genomic testing',
                               'Adaptogen and herbal support (ashwagandha, maca, etc)',
                               'Circadian rhythm and sleep optimization',
@@ -104,22 +105,22 @@ class AntiAgingLongevityPage extends StatelessWidget {
                     ),
                     FeatureDetailCard(
                       iconData: Icons.face_retouching_natural,
-                      title: 'Skin & Structural Longevity',
+                      title: context.l10n.precision_anti_aging_skin,
                       color: color,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                               'Maintain youthful skin and connective tissue health.'),
                           CardSection(
-                            title: 'APPLICABLE ISSUES',
-                            items: [
+                            title: context.l10n.precision_applicable_issues,
+                            items: const [
                               'Skin health, elasticity, wrinkles, joint stiffness',
                             ],
                           ),
                           CardSection(
-                            title: 'INTERVENTION INCLUDE',
-                            items: [
+                            title: context.l10n.precision_interventions_include,
+                            items: const [
                               'Collagen-related genomic testing',
                               'Antioxidant-rich micronutrient protocol',
                               'Skin microbiome and hydration optimization program',
@@ -134,7 +135,7 @@ class AntiAgingLongevityPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             PrimaryButton(
-              text: 'Next',
+              text: context.l10n.common_next,
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(

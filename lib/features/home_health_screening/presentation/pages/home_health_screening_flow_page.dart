@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/home_health_screening/presentation/bloc/home_health_screening_flow_bloc.dart';
 import 'package:m2health/features/home_health_screening/presentation/bloc/services_list/screening_services_cubit.dart';
 import 'package:m2health/features/home_health_screening/presentation/pages/screening_services_selection_page.dart';
@@ -66,8 +67,8 @@ class _HomeHealthScreeningFlowPageState
       listener: (context, state) {
         if (state.submissionStatus == ScreeningSubmissionStatus.success &&
             state.createdAppointment != null) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Screening appointment booked successfully!'),
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(context.l10n.home_health_screening_booked_success),
             backgroundColor: Colors.green,
           ));
           GoRouter.of(context).goNamed(AppRoutes.appointmentDetail,
@@ -76,7 +77,8 @@ class _HomeHealthScreeningFlowPageState
 
         if (state.submissionStatus == ScreeningSubmissionStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(state.errorMessage ?? 'Booking failed'),
+            content: Text(state.errorMessage ??
+                context.l10n.home_health_screening_booking_failed),
             backgroundColor: Colors.red,
           ));
         }
