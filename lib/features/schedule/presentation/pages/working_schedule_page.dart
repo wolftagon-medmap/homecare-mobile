@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/schedule/presentation/bloc/schedule_cubit.dart';
 import 'package:m2health/features/schedule/presentation/bloc/schedule_state.dart';
 import 'package:m2health/features/schedule/presentation/widgets/date_specific_hours_tab.dart';
@@ -48,18 +49,19 @@ class _WorkingSchedulePageState extends State<WorkingSchedulePage>
         ..loadSchedules(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Working Schedule',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          title: Text(context.l10n.schedule_working_schedule_title,
+              style:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           bottom: TabBar(
             controller: _tabController,
             labelColor: Const.aqua,
             indicatorColor: Const.aqua,
             isScrollable: true,
             tabAlignment: TabAlignment.start,
-            tabs: const [
-              Tab(text: 'Weekly Hours'),
-              Tab(text: 'Date-specific Hours'),
-              Tab(text: 'Preview'),
+            tabs: [
+              Tab(text: context.l10n.schedule_weekly_hours_tab),
+              Tab(text: context.l10n.schedule_date_specific_hours_tab),
+              Tab(text: context.l10n.schedule_preview_tab),
             ],
           ),
         ),

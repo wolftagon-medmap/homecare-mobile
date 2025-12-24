@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:m2health/const.dart';
 import 'package:m2health/features/schedule/domain/entities/provider_availability.dart';
@@ -120,7 +121,7 @@ class _AvailabilitFormyDialogState extends State<AvailabilityFormDialog> {
   void _onSave() async {
     if (_startTime == null || _endTime == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select both start and end time.')),
+        SnackBar(content: Text(context.l10n.schedule_please_select_time)),
       );
       return;
     }
@@ -129,7 +130,7 @@ class _AvailabilitFormyDialogState extends State<AvailabilityFormDialog> {
         (_startTime!.hour == _endTime!.hour &&
             _startTime!.minute >= _endTime!.minute)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('End time must be after start time.')),
+        SnackBar(content: Text(context.l10n.schedule_end_time_error)),
       );
       return;
     }
@@ -162,7 +163,9 @@ class _AvailabilitFormyDialogState extends State<AvailabilityFormDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.isEditing ? 'Edit Hours' : 'Add Hours'),
+      title: Text(widget.isEditing
+          ? context.l10n.schedule_edit_hours
+          : context.l10n.schedule_add_hours),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -170,13 +173,13 @@ class _AvailabilitFormyDialogState extends State<AvailabilityFormDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _TimePickerChip(
-                label: 'Start',
+                label: context.l10n.schedule_start,
                 time: _startTime,
                 onTap: () => _selectTime(context, true),
               ),
               const Text('-'),
               _TimePickerChip(
-                label: 'End',
+                label: context.l10n.schedule_end,
                 time: _endTime,
                 onTap: () => _selectTime(context, false),
               ),
@@ -187,12 +190,13 @@ class _AvailabilitFormyDialogState extends State<AvailabilityFormDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(context.l10n.common_cancel),
         ),
         ElevatedButton(
           onPressed: _onSave,
           style: ElevatedButton.styleFrom(backgroundColor: Const.aqua),
-          child: const Text('Save', style: TextStyle(color: Colors.white)),
+          child: Text(context.l10n.common_save,
+              style: const TextStyle(color: Colors.white)),
         ),
       ],
     );

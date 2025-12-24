@@ -840,6 +840,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get common_ok => 'OK';
 
   @override
+  String get common_coming_soon => 'Coming Soon';
+
+  @override
+  String get common_feature_available_soon =>
+      'This feature will be available soon!';
+
+  @override
   String get mental_state_title => 'Mental State';
 
   @override
@@ -2066,4 +2073,248 @@ class AppLocalizationsEn extends AppLocalizations {
   String admin_homecare_plan_details(String price, int quota, int days) {
     return 'Price: \$$price | Quota: ${quota}h | Validity: ${days}d';
   }
+
+  @override
+  String get favourite_title => 'Favourites';
+
+  @override
+  String get favourite_no_favorites =>
+      'You have no favorite professionals yet.';
+
+  @override
+  String favourite_error_fetching(String error) {
+    return 'Error fetching data: $error';
+  }
+
+  @override
+  String favourite_error_toggle(String error) {
+    return 'Error: $error';
+  }
+
+  @override
+  String get medical_store_title => 'Medical Store';
+
+  @override
+  String get medical_store_sort => 'Sort';
+
+  @override
+  String get medical_store_consumable_tab => 'Homecare Consumable';
+
+  @override
+  String get medical_store_poct_tab => 'Point of Care Testing';
+
+  @override
+  String get medical_store_no_products => 'No products available';
+
+  @override
+  String get medical_store_load_failed => 'Failed to load products';
+
+  @override
+  String get payment_title => 'Payment';
+
+  @override
+  String get payment_order_summary => 'Order Summary';
+
+  @override
+  String get payment_charge => 'Charge';
+
+  @override
+  String get payment_total => 'Total';
+
+  @override
+  String get payment_select_method => 'Select Payment Method';
+
+  @override
+  String get payment_confirm_btn => 'Confirm';
+
+  @override
+  String payment_pay_btn(String amount) {
+    return 'Pay $amount';
+  }
+
+  @override
+  String get payment_success_title => 'Payment Success';
+
+  @override
+  String payment_success_content(String name) {
+    return 'Your money has been successfully sent to $name.';
+  }
+
+  @override
+  String get payment_amount => 'Amount';
+
+  @override
+  String get payment_how_is_experience => 'How is your experience?';
+
+  @override
+  String get payment_feedback_help =>
+      'Your feedback will help us to improve your\nexperience better';
+
+  @override
+  String get payment_please_feedback_btn => 'Please Feedback';
+
+  @override
+  String get payment_return_home_btn => 'Return to Home';
+
+  @override
+  String get payment_feedback_thank_you => 'Thank you for your feedback!';
+
+  @override
+  String get payment_feedback_success_content =>
+      'This appointment has been completed and can be viewed in the completed orders menu';
+
+  @override
+  String get payment_view_detail_btn => 'View Detail';
+
+  @override
+  String get payment_excellent => 'Excellent';
+
+  @override
+  String payment_rated_text(String name, int stars) {
+    return 'You rated $name $stars stars';
+  }
+
+  @override
+  String get payment_write_text_hint => 'Write your text';
+
+  @override
+  String payment_give_tips(String name) {
+    return 'Give some tips to $name';
+  }
+
+  @override
+  String get payment_enter_other_amount => 'Enter other amount';
+
+  @override
+  String get payment_enter_amount_hint => 'Enter amount';
+
+  @override
+  String get payment_submit_btn => 'Submit';
+
+  @override
+  String payment_failed(String message) {
+    return 'Payment Failed: $message';
+  }
+
+  @override
+  String payment_feedback_failed(String message) {
+    return 'Feedback Failed: $message';
+  }
+
+  @override
+  String payment_purchase_failed(String message) {
+    return 'Purchase Failed: $message';
+  }
+
+  @override
+  String get payment_subscription_success_title => 'Payment Successful';
+
+  @override
+  String payment_subscription_success_content(String plan) {
+    return 'You have successfully subscribed to $plan';
+  }
+
+  @override
+  String get schedule_working_schedule_title => 'Working Schedule';
+
+  @override
+  String get schedule_weekly_hours_tab => 'Weekly Hours';
+
+  @override
+  String get schedule_date_specific_hours_tab => 'Date-specific Hours';
+
+  @override
+  String get schedule_preview_tab => 'Preview';
+
+  @override
+  String get schedule_unavailable => 'Unavailable';
+
+  @override
+  String get schedule_edit_hours => 'Edit Hours';
+
+  @override
+  String get schedule_add_hours => 'Add Hours';
+
+  @override
+  String get schedule_start => 'Start';
+
+  @override
+  String get schedule_end => 'End';
+
+  @override
+  String get schedule_please_select_time =>
+      'Please select both start and end time.';
+
+  @override
+  String get schedule_end_time_error => 'End time must be after start time.';
+
+  @override
+  String get schedule_delete_time_block_title => 'Delete Time Block?';
+
+  @override
+  String schedule_delete_time_block_content(String start, String end) {
+    return 'Are you sure you want to delete $start - $end?';
+  }
+
+  @override
+  String get schedule_add_time_slot_title => 'Add Time Slot';
+
+  @override
+  String get schedule_add_btn => 'Add';
+
+  @override
+  String get schedule_revert_to_weekly => 'Revert to Weekly';
+
+  @override
+  String get schedule_i_am_unavailable => 'I am unavailable';
+
+  @override
+  String get schedule_mark_day_off => 'Mark this specific date as a Day Off';
+
+  @override
+  String get schedule_specific_hours => 'Specific Hours';
+
+  @override
+  String get schedule_no_slots_added =>
+      'No slots added yet. You appear unavailable.';
+
+  @override
+  String get schedule_using_weekly => 'Using Weekly Schedule';
+
+  @override
+  String get schedule_customize_hours => 'Customize Hours for this Date';
+
+  @override
+  String get schedule_reset_default_title => 'Reset to Default?';
+
+  @override
+  String get schedule_reset_default_content =>
+      'This will remove your custom settings for this day. The schedule will revert to your recurring weekly rules.';
+
+  @override
+  String get schedule_reset_btn => 'Reset';
+
+  @override
+  String get schedule_select_date => 'Select Date';
+
+  @override
+  String get schedule_available_hours => 'Available Hours';
+
+  @override
+  String get schedule_no_available_slots => 'No available slots for this day.';
+
+  @override
+  String get schedule_availability_added => 'Availability added!';
+
+  @override
+  String get schedule_availability_updated => 'Availability updated!';
+
+  @override
+  String get schedule_availability_removed => 'Availability removed!';
+
+  @override
+  String get schedule_reverted_success => 'Reverted to weekly schedule';
+
+  @override
+  String get schedule_updated_success => 'Schedule updated successfully';
 }

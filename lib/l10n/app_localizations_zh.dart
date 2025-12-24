@@ -812,6 +812,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get common_ok => '确定';
 
   @override
+  String get common_coming_soon => '敬请期待';
+
+  @override
+  String get common_feature_available_soon => '此功能即将推出！';
+
+  @override
   String get mental_state_title => '心理状态';
 
   @override
@@ -1967,4 +1973,243 @@ class AppLocalizationsZh extends AppLocalizations {
   String admin_homecare_plan_details(String price, int quota, int days) {
     return '价格：\$$price | 配额：$quota小时 | 有效期：$days天';
   }
+
+  @override
+  String get favourite_title => '收藏夹';
+
+  @override
+  String get favourite_no_favorites => '您还没有收藏的专业人员。';
+
+  @override
+  String favourite_error_fetching(String error) {
+    return '获取数据错误：$error';
+  }
+
+  @override
+  String favourite_error_toggle(String error) {
+    return '错误：$error';
+  }
+
+  @override
+  String get medical_store_title => '医疗商店';
+
+  @override
+  String get medical_store_sort => '排序';
+
+  @override
+  String get medical_store_consumable_tab => '医疗耗材';
+
+  @override
+  String get medical_store_poct_tab => '屁哦西提';
+
+  @override
+  String get medical_store_no_products => '暂无产品';
+
+  @override
+  String get medical_store_load_failed => '加载产品失败';
+
+  @override
+  String get payment_title => '支付';
+
+  @override
+  String get payment_order_summary => '订单摘要';
+
+  @override
+  String get payment_charge => '费用';
+
+  @override
+  String get payment_total => '总计';
+
+  @override
+  String get payment_select_method => '选择支付方式';
+
+  @override
+  String get payment_confirm_btn => '确认';
+
+  @override
+  String payment_pay_btn(String amount) {
+    return '支付 $amount';
+  }
+
+  @override
+  String get payment_success_title => '支付成功';
+
+  @override
+  String payment_success_content(String name) {
+    return '您的款项已成功发送给 $name。';
+  }
+
+  @override
+  String get payment_amount => '金额';
+
+  @override
+  String get payment_how_is_experience => '您的体验如何？';
+
+  @override
+  String get payment_feedback_help => '您的反馈将帮助我们更好地\n改善您的体验';
+
+  @override
+  String get payment_please_feedback_btn => '请反馈';
+
+  @override
+  String get payment_return_home_btn => '返回首页';
+
+  @override
+  String get payment_feedback_thank_you => '感谢您的反馈！';
+
+  @override
+  String get payment_feedback_success_content => '此预约已完成，可以在已完成订单菜单中查看';
+
+  @override
+  String get payment_view_detail_btn => '查看详情';
+
+  @override
+  String get payment_excellent => '极好';
+
+  @override
+  String payment_rated_text(String name, int stars) {
+    return '您给 $name 打了 $stars 星';
+  }
+
+  @override
+  String get payment_write_text_hint => '写下您的文字';
+
+  @override
+  String payment_give_tips(String name) {
+    return '给 $name 一些小费';
+  }
+
+  @override
+  String get payment_enter_other_amount => '输入其他金额';
+
+  @override
+  String get payment_enter_amount_hint => '输入金额';
+
+  @override
+  String get payment_submit_btn => '提交';
+
+  @override
+  String payment_failed(String message) {
+    return '支付失败：$message';
+  }
+
+  @override
+  String payment_feedback_failed(String message) {
+    return '反馈失败：$message';
+  }
+
+  @override
+  String payment_purchase_failed(String message) {
+    return '购买失败：$message';
+  }
+
+  @override
+  String get payment_subscription_success_title => '支付成功';
+
+  @override
+  String payment_subscription_success_content(String plan) {
+    return '您已成功订阅 $plan';
+  }
+
+  @override
+  String get schedule_working_schedule_title => '工作时间表';
+
+  @override
+  String get schedule_weekly_hours_tab => '每周时间';
+
+  @override
+  String get schedule_date_specific_hours_tab => '特定日期时间';
+
+  @override
+  String get schedule_preview_tab => '预览';
+
+  @override
+  String get schedule_unavailable => '不可用';
+
+  @override
+  String get schedule_edit_hours => '编辑时间';
+
+  @override
+  String get schedule_add_hours => '添加时间';
+
+  @override
+  String get schedule_start => '开始';
+
+  @override
+  String get schedule_end => '结束';
+
+  @override
+  String get schedule_please_select_time => '请选择开始和结束时间。';
+
+  @override
+  String get schedule_end_time_error => '结束时间必须晚于开始时间。';
+
+  @override
+  String get schedule_delete_time_block_title => '删除时间块？';
+
+  @override
+  String schedule_delete_time_block_content(String start, String end) {
+    return '您确定要删除 $start - $end 吗？';
+  }
+
+  @override
+  String get schedule_add_time_slot_title => '添加时间段';
+
+  @override
+  String get schedule_add_btn => '添加';
+
+  @override
+  String get schedule_revert_to_weekly => '恢复为每周';
+
+  @override
+  String get schedule_i_am_unavailable => '我不可用';
+
+  @override
+  String get schedule_mark_day_off => '将此特定日期标记为休息日';
+
+  @override
+  String get schedule_specific_hours => '特定时间';
+
+  @override
+  String get schedule_no_slots_added => '尚未添加时间段。您显示为不可用。';
+
+  @override
+  String get schedule_using_weekly => '使用每周时间表';
+
+  @override
+  String get schedule_customize_hours => '为此日期自定义时间';
+
+  @override
+  String get schedule_reset_default_title => '重置为默认？';
+
+  @override
+  String get schedule_reset_default_content =>
+      '这将删除您为此日期的自定义设置。时间表将恢复为您每周的重复规则。';
+
+  @override
+  String get schedule_reset_btn => '重置';
+
+  @override
+  String get schedule_select_date => '选择日期';
+
+  @override
+  String get schedule_available_hours => '可用时间';
+
+  @override
+  String get schedule_no_available_slots => '此日期没有可用的时段。';
+
+  @override
+  String get schedule_availability_added => '可用性已添加！';
+
+  @override
+  String get schedule_availability_updated => '可用性已更新！';
+
+  @override
+  String get schedule_availability_removed => '可用性已移除！';
+
+  @override
+  String get schedule_reverted_success => '已恢复为每周时间表';
+
+  @override
+  String get schedule_updated_success => '时间表更新成功';
 }

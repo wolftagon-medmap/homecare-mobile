@@ -464,12 +464,13 @@ class _DashboardState extends State<Dashboard> {
             borderRadius: BorderRadius.circular(15),
           ),
           backgroundColor: Colors.white,
-          title: const Text('Coming Soon'),
-          content: const Text('This feature will be available soon!'),
+          title: Text(context.l10n.common_coming_soon),
+          content: Text(context.l10n.common_feature_available_soon),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('OK', style: TextStyle(color: Const.aqua)),
+              child: Text(context.l10n.common_ok,
+                  style: const TextStyle(color: Const.aqua)),
             ),
           ],
         );

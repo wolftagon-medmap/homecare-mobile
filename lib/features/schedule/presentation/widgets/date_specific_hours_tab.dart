@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/schedule/domain/entities/provider_availability_override.dart';
 import 'package:m2health/features/schedule/domain/entities/time_slot.dart';
 import 'package:m2health/features/schedule/presentation/bloc/schedule_cubit.dart';
@@ -116,14 +117,14 @@ class _DateSpecificHoursTabState extends State<DateSpecificHoursTab> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              DateFormat('EEEE, MMM d').format(_selectedDay),
+              DateFormat('EEEE, MMM d', Localizations.localeOf(context).toString()).format(_selectedDay),
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             if (isRealOverride)
               TextButton.icon(
                 onPressed: () => _confirmRevert(context),
                 icon: const Icon(Icons.undo, size: 18),
-                label: const Text('Revert to Weekly'),
+                label: Text(context.l10n.schedule_revert_to_weekly),
                 style: TextButton.styleFrom(
                   foregroundColor: Colors.red,
                   visualDensity: VisualDensity.compact,
@@ -142,9 +143,9 @@ class _DateSpecificHoursTabState extends State<DateSpecificHoursTab> {
           ),
           child: SwitchListTile(
             title:
-                const Text('I am unavailable', style: TextStyle(fontSize: 14)),
-            subtitle: const Text('Mark this specific date as a Day Off',
-                style: TextStyle(fontSize: 12)),
+                Text(context.l10n.schedule_i_am_unavailable, style: const TextStyle(fontSize: 14)),
+            subtitle: Text(context.l10n.schedule_mark_day_off,
+                style: const TextStyle(fontSize: 12)),
             value: override.isUnavailble,
             activeColor: Colors.red,
             onChanged: (bool value) {
@@ -171,9 +172,9 @@ class _DateSpecificHoursTabState extends State<DateSpecificHoursTab> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Specific Hours',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              Text(
+                context.l10n.schedule_specific_hours,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               IconButton(
                 onPressed: () => _showAddSlotDialog(context),
@@ -182,10 +183,10 @@ class _DateSpecificHoursTabState extends State<DateSpecificHoursTab> {
             ],
           ),
           if (override.slots.isEmpty && isRealOverride)
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text("No slots added yet. You appear unavailable.",
-                  style: TextStyle(color: Colors.orange)),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(context.l10n.schedule_no_slots_added,
+                  style: const TextStyle(color: Colors.orange)),
             ),
           if (!isRealOverride)
             Padding(
@@ -196,14 +197,14 @@ class _DateSpecificHoursTabState extends State<DateSpecificHoursTab> {
                     const Icon(Icons.calendar_today,
                         size: 40, color: Colors.grey),
                     const SizedBox(height: 10),
-                    const Text(
-                      'Using Weekly Schedule',
-                      style: TextStyle(color: Colors.grey, fontSize: 16),
+                    Text(
+                      context.l10n.schedule_using_weekly,
+                      style: const TextStyle(color: Colors.grey, fontSize: 16),
                     ),
                     const SizedBox(height: 10),
                     OutlinedButton(
                         onPressed: () => _showAddSlotDialog(context),
-                        child: const Text("Customize Hours for this Date"))
+                        child: Text(context.l10n.schedule_customize_hours))
                   ],
                 ),
               ),
@@ -264,18 +265,18 @@ class _DateSpecificHoursTabState extends State<DateSpecificHoursTab> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text("Reset to Default?"),
-        content: const Text(
-            "This will remove your custom settings for this day. The schedule will revert to your recurring weekly rules."),
+        title: Text(context.l10n.schedule_reset_default_title),
+        content: Text(
+            context.l10n.schedule_reset_default_content),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(ctx), child: const Text("Cancel")),
+              onPressed: () => Navigator.pop(ctx), child: Text(context.l10n.common_cancel)),
           TextButton(
               onPressed: () {
                 Navigator.pop(ctx);
                 context.read<ScheduleCubit>().revertToWeekly(_selectedDay);
               },
-              child: const Text("Reset", style: TextStyle(color: Colors.red))),
+              child: Text(context.l10n.schedule_reset_btn, style: const TextStyle(color: Colors.red))),
         ],
       ),
     );

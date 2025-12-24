@@ -5,23 +5,35 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/schedule/domain/entities/provider_availability.dart';
 import 'package:m2health/features/schedule/presentation/bloc/schedule_cubit.dart';
 import 'package:m2health/features/schedule/presentation/bloc/schedule_state.dart';
 import 'package:m2health/features/schedule/presentation/widgets/availability_form_dialog.dart';
 
 class WeeklyHoursTab extends StatelessWidget {
-  WeeklyHoursTab({super.key});
+  const WeeklyHoursTab({super.key});
 
-  final List<String> daysOfWeek = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday'
-  ];
+  String _getLocalizedDayName(BuildContext context, int index) {
+    switch (index) {
+      case 0:
+        return context.l10n.day_sunday;
+      case 1:
+        return context.l10n.day_monday;
+      case 2:
+        return context.l10n.day_tuesday;
+      case 3:
+        return context.l10n.day_wednesday;
+      case 4:
+        return context.l10n.day_thursday;
+      case 5:
+        return context.l10n.day_friday;
+      case 6:
+        return context.l10n.day_saturday;
+      default:
+        return '';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +45,9 @@ class WeeklyHoursTab extends StatelessWidget {
 
         return ListView.builder(
           padding: const EdgeInsets.all(16),
-          itemCount: daysOfWeek.length,
+          itemCount: 7, // 7 days in a week
           itemBuilder: (context, index) {
-            final dayName = daysOfWeek[index];
+            final dayName = _getLocalizedDayName(context, index);
             final dayAvailabilities = state.availabilities
                 .where((a) => a.dayOfWeek == index)
                 .toList();
@@ -111,10 +123,10 @@ class _DayAvailabilityCard extends StatelessWidget {
             const SizedBox(height: 12),
             // Show time blocks or "Unavailable"
             if (availabilities.isEmpty)
-              const Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child:
-                    Text('Unavailable', style: TextStyle(color: Colors.grey)),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(context.l10n.schedule_unavailable,
+                    style: const TextStyle(color: Colors.grey)),
               )
             else
               Column(
@@ -196,19 +208,20 @@ class _TimeBlockChip extends StatelessWidget {
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        title: const Text('Delete Time Block?'),
-        content: Text(
-            'Are you sure you want to delete ${availability.startTime} - ${availability.endTime}?'),
+        title: Text(context.l10n.schedule_delete_time_block_title),
+        content: Text(context.l10n.schedule_delete_time_block_content(
+            availability.startTime, availability.endTime)),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(dialogContext),
-              child: const Text('Cancel')),
+              child: Text(context.l10n.common_cancel)),
           TextButton(
             onPressed: () {
               context.read<ScheduleCubit>().deleteWeeklyRule(availability.id);
               Navigator.pop(dialogContext);
             },
-            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+            child: Text(context.l10n.common_delete,
+                style: const TextStyle(color: Colors.red)),
           ),
         ],
       ),

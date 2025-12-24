@@ -136,7 +136,7 @@ class AppLocalizationsId extends AppLocalizations {
       'Pemantauan Kesehatan Jarak Jauh';
 
   @override
-  String get second_opinion_service => 'Pendapat Kedua Citra Medis';
+  String get second_opinion_service => 'Second Opinion Citra Medis';
 
   @override
   String get health_risk_assessment_service => 'Penilaian Risiko Kesehatan';
@@ -840,6 +840,12 @@ class AppLocalizationsId extends AppLocalizations {
   String get common_ok => 'OK';
 
   @override
+  String get common_coming_soon => 'Segera Hadir';
+
+  @override
+  String get common_feature_available_soon => 'Fitur ini akan segera tersedia!';
+
+  @override
   String get mental_state_title => 'Kesehatan Mental';
 
   @override
@@ -1406,11 +1412,11 @@ class AppLocalizationsId extends AppLocalizations {
       'Pasien mengumpulkan sampel di rumah menggunakan alat pengumpulan mandiri, yang mencakup bahan seperti penyeka, kartu tes, dan tabung pengumpul, dan menyerahkannya ke laboratorium bersertifikat CLIA/CAP (laboratorium telemedis) untuk diproses. Teknisi laboratorium memproses sampel ini dan mengunggah hasilnya ke portal online. Dokter perawatan primer, spesialis, atau profesional kesehatan lainnya meninjau hasil dan memandu pasien melalui langkah selanjutnya.';
 
   @override
-  String get home_health_point_of_care => 'Tes di tempat perawatan (POCT)';
+  String get home_health_point_of_care => 'Point of Care Testing (POCT)';
 
   @override
   String get home_health_point_of_care_desc =>
-      'Diagnostik dilakukan di luar laboratorium yang dapat dilakukan pasien sendiri di rumah. Tes ini berkembang dengan cepat dan menghasilkan hasil tanpa kehadiran dokter atau teknisi laboratorium. Dengan tes di tempat perawatan, pasien meninjau hasil di luar pengaturan medis dan menentukan langkah selanjutnya sendiri.';
+      'Diagnostik dilakukan di luar laboratorium yang dapat dilakukan pasien sendiri di rumah. Tes ini berkembang dengan cepat dan menghasilkan hasil tanpa kehadiran dokter atau teknisi laboratorium. Dengan Point of Care Testing, pasien meninjau hasil di luar pengaturan medis dan menentukan langkah selanjutnya sendiri.';
 
   @override
   String get home_health_screening_booked_success =>
@@ -2069,4 +2075,251 @@ class AppLocalizationsId extends AppLocalizations {
   String admin_homecare_plan_details(String price, int quota, int days) {
     return 'Harga: \$$price | Kuota: ${quota}j | Berlaku: ${days}h';
   }
+
+  @override
+  String get favourite_title => 'Favorit';
+
+  @override
+  String get favourite_no_favorites =>
+      'Anda belum memiliki profesional favorit.';
+
+  @override
+  String favourite_error_fetching(String error) {
+    return 'Kesalahan mengambil data: $error';
+  }
+
+  @override
+  String favourite_error_toggle(String error) {
+    return 'Kesalahan: $error';
+  }
+
+  @override
+  String get medical_store_title => 'Toko Medis';
+
+  @override
+  String get medical_store_sort => 'Urutkan';
+
+  @override
+  String get medical_store_consumable_tab => 'Barang Habis Pakai';
+
+  @override
+  String get medical_store_poct_tab => 'Point of Care Testing';
+
+  @override
+  String get medical_store_no_products => 'Tidak ada produk tersedia';
+
+  @override
+  String get medical_store_load_failed => 'Gagal memuat produk';
+
+  @override
+  String get payment_title => 'Pembayaran';
+
+  @override
+  String get payment_order_summary => 'Ringkasan Pesanan';
+
+  @override
+  String get payment_charge => 'Biaya';
+
+  @override
+  String get payment_total => 'Total';
+
+  @override
+  String get payment_select_method => 'Pilih Metode Pembayaran';
+
+  @override
+  String get payment_confirm_btn => 'Konfirmasi';
+
+  @override
+  String payment_pay_btn(String amount) {
+    return 'Bayar $amount';
+  }
+
+  @override
+  String get payment_success_title => 'Pembayaran Berhasil';
+
+  @override
+  String payment_success_content(String name) {
+    return 'Uang Anda telah berhasil dikirim ke $name.';
+  }
+
+  @override
+  String get payment_amount => 'Jumlah';
+
+  @override
+  String get payment_how_is_experience => 'Bagaimana pengalaman Anda?';
+
+  @override
+  String get payment_feedback_help =>
+      'Umpan balik Anda akan membantu kami meningkatkan\npengalaman Anda menjadi lebih baik';
+
+  @override
+  String get payment_please_feedback_btn => 'Berikan Umpan Balik';
+
+  @override
+  String get payment_return_home_btn => 'Kembali ke Beranda';
+
+  @override
+  String get payment_feedback_thank_you =>
+      'Terima kasih atas umpan balik Anda!';
+
+  @override
+  String get payment_feedback_success_content =>
+      'Janji temu ini telah selesai dan dapat dilihat di menu pesanan selesai';
+
+  @override
+  String get payment_view_detail_btn => 'Lihat Detail';
+
+  @override
+  String get payment_excellent => 'Luar Biasa';
+
+  @override
+  String payment_rated_text(String name, int stars) {
+    return 'Anda memberi $name $stars bintang';
+  }
+
+  @override
+  String get payment_write_text_hint => 'Tulis teks Anda';
+
+  @override
+  String payment_give_tips(String name) {
+    return 'Berikan tip kepada $name';
+  }
+
+  @override
+  String get payment_enter_other_amount => 'Masukkan jumlah lain';
+
+  @override
+  String get payment_enter_amount_hint => 'Masukkan jumlah';
+
+  @override
+  String get payment_submit_btn => 'Kirim';
+
+  @override
+  String payment_failed(String message) {
+    return 'Pembayaran Gagal: $message';
+  }
+
+  @override
+  String payment_feedback_failed(String message) {
+    return 'Umpan Balik Gagal: $message';
+  }
+
+  @override
+  String payment_purchase_failed(String message) {
+    return 'Pembelian Gagal: $message';
+  }
+
+  @override
+  String get payment_subscription_success_title => 'Pembayaran Berhasil';
+
+  @override
+  String payment_subscription_success_content(String plan) {
+    return 'Anda telah berhasil berlangganan $plan';
+  }
+
+  @override
+  String get schedule_working_schedule_title => 'Jadwal Kerja';
+
+  @override
+  String get schedule_weekly_hours_tab => 'Jam Mingguan';
+
+  @override
+  String get schedule_date_specific_hours_tab => 'Jam Spesifik Tanggal';
+
+  @override
+  String get schedule_preview_tab => 'Pratinjau';
+
+  @override
+  String get schedule_unavailable => 'Tidak Tersedia';
+
+  @override
+  String get schedule_edit_hours => 'Edit Jam';
+
+  @override
+  String get schedule_add_hours => 'Tambah Jam';
+
+  @override
+  String get schedule_start => 'Mulai';
+
+  @override
+  String get schedule_end => 'Selesai';
+
+  @override
+  String get schedule_please_select_time =>
+      'Harap pilih waktu mulai dan selesai.';
+
+  @override
+  String get schedule_end_time_error =>
+      'Waktu selesai harus setelah waktu mulai.';
+
+  @override
+  String get schedule_delete_time_block_title => 'Hapus Blok Waktu?';
+
+  @override
+  String schedule_delete_time_block_content(String start, String end) {
+    return 'Apakah Anda yakin ingin menghapus $start - $end?';
+  }
+
+  @override
+  String get schedule_add_time_slot_title => 'Tambah Slot Waktu';
+
+  @override
+  String get schedule_add_btn => 'Tambah';
+
+  @override
+  String get schedule_revert_to_weekly => 'Kembali ke Mingguan';
+
+  @override
+  String get schedule_i_am_unavailable => 'Saya tidak tersedia';
+
+  @override
+  String get schedule_mark_day_off => 'Tandai tanggal ini sebagai Hari Libur';
+
+  @override
+  String get schedule_specific_hours => 'Jam Khusus';
+
+  @override
+  String get schedule_no_slots_added =>
+      'Belum ada slot ditambahkan. Anda tampak tidak tersedia.';
+
+  @override
+  String get schedule_using_weekly => 'Menggunakan Jadwal Mingguan';
+
+  @override
+  String get schedule_customize_hours => 'Sesuaikan Jam untuk Tanggal ini';
+
+  @override
+  String get schedule_reset_default_title => 'Reset ke Default?';
+
+  @override
+  String get schedule_reset_default_content =>
+      'Ini akan menghapus pengaturan khusus Anda untuk hari ini. Jadwal akan kembali ke aturan mingguan berulang Anda.';
+
+  @override
+  String get schedule_reset_btn => 'Reset';
+
+  @override
+  String get schedule_select_date => 'Pilih Tanggal';
+
+  @override
+  String get schedule_available_hours => 'Jam Tersedia';
+
+  @override
+  String get schedule_no_available_slots =>
+      'Tidak ada slot tersedia untuk hari ini.';
+
+  @override
+  String get schedule_availability_added => 'Ketersediaan ditambahkan!';
+
+  @override
+  String get schedule_availability_updated => 'Ketersediaan diperbarui!';
+
+  @override
+  String get schedule_availability_removed => 'Ketersediaan dihapus!';
+
+  @override
+  String get schedule_reverted_success => 'Dikembalikan ke jadwal mingguan';
+
+  @override
+  String get schedule_updated_success => 'Jadwal berhasil diperbarui';
 }

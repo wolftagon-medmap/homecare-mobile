@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
 import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
@@ -132,7 +133,8 @@ class _PaymentPageState extends State<PaymentPage> {
         } else if (state is PaymentFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Payment Failed: ${state.message}'),
+              content:
+                  Text(context.l10n.payment_failed(state.message)),
               backgroundColor: Colors.red,
             ),
           );
@@ -140,9 +142,9 @@ class _PaymentPageState extends State<PaymentPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Payment',
-            style: TextStyle(fontWeight: FontWeight.bold),
+          title: Text(
+            context.l10n.payment_title,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
         body: SingleChildScrollView(
@@ -203,9 +205,9 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
-                'Charge',
-                style: TextStyle(
+              Text(
+                context.l10n.payment_charge,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
@@ -230,9 +232,9 @@ class _PaymentPageState extends State<PaymentPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Total',
-                    style: TextStyle(
+                  Text(
+                    context.l10n.payment_total,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
@@ -247,9 +249,9 @@ class _PaymentPageState extends State<PaymentPage> {
                 ],
               ),
               const SizedBox(height: 24),
-              const Text(
-                'Select Payment Method',
-                style: TextStyle(
+              Text(
+                context.l10n.payment_select_method,
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
                 ),
@@ -287,9 +289,9 @@ class _PaymentPageState extends State<PaymentPage> {
                         height: 24,
                         child: CircularProgressIndicator(color: Colors.white),
                       )
-                    : const Text(
-                        'Confirm',
-                        style: TextStyle(
+                    : Text(
+                        context.l10n.payment_confirm_btn,
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.w600),

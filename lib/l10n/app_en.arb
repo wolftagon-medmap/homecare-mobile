@@ -778,6 +778,10 @@
   "@common_full_report_file": {},
   "common_ok": "OK",
   "@common_ok": {},
+  "common_coming_soon": "Coming Soon",
+  "@common_coming_soon": {},
+  "common_feature_available_soon": "This feature will be available soon!",
+  "@common_feature_available_soon": {},
 
   "mental_state_title": "Mental State",
   "@mental_state_title": {},
@@ -1653,19 +1657,239 @@
     "@admin_homecare_inactive": {},
     "admin_homecare_save_changes": "Save Changes",
     "@admin_homecare_save_changes": {},
-    "admin_homecare_plan_details": "Price: ${price} | Quota: {quota}h | Validity: {days}d",
-    "@admin_homecare_plan_details": {
-      "placeholders": {
-        "price": {
-          "type": "String"
-        },
-        "quota": {
-          "type": "int"
-        },
-        "days": {
-          "type": "int"
+      "admin_homecare_plan_details": "Price: ${price} | Quota: {quota}h | Validity: {days}d",
+      "@admin_homecare_plan_details": {
+        "placeholders": {
+          "price": {
+            "type": "String"
+          },
+          "quota": {
+            "type": "int"
+          },
+          "days": {
+            "type": "int"
+          }
         }
-      }
+      },
+    
+      "favourite_title": "Favourites",
+      "@favourite_title": {},
+      "favourite_no_favorites": "You have no favorite professionals yet.",
+      "@favourite_no_favorites": {},
+      "favourite_error_fetching": "Error fetching data: {error}",
+      "@favourite_error_fetching": {
+        "placeholders": {
+          "error": {
+            "type": "String"
+          }
+        }
+      },
+      "favourite_error_toggle": "Error: {error}",
+      "@favourite_error_toggle": {
+        "placeholders": {
+          "error": {
+            "type": "String"
+          }
+        }
+      },
+    
+      "medical_store_title": "Medical Store",
+      "@medical_store_title": {},
+      "medical_store_sort": "Sort",
+      "@medical_store_sort": {},
+      "medical_store_consumable_tab": "Homecare Consumable",
+      "@medical_store_consumable_tab": {},
+      "medical_store_poct_tab": "Point of Care Testing",
+      "@medical_store_poct_tab": {},
+      "medical_store_no_products": "No products available",
+      "@medical_store_no_products": {},
+      "medical_store_load_failed": "Failed to load products",
+      "@medical_store_load_failed": {},
+    
+      "payment_title": "Payment",
+      "@payment_title": {},
+      "payment_order_summary": "Order Summary",
+      "@payment_order_summary": {},
+      "payment_charge": "Charge",
+      "@payment_charge": {},
+      "payment_total": "Total",
+      "@payment_total": {},
+      "payment_select_method": "Select Payment Method",
+      "@payment_select_method": {},
+      "payment_confirm_btn": "Confirm",
+      "@payment_confirm_btn": {},
+      "payment_pay_btn": "Pay {amount}",
+      "@payment_pay_btn": {
+        "placeholders": {
+          "amount": {
+            "type": "String"
+          }
+        }
+      },
+      "payment_success_title": "Payment Success",
+      "@payment_success_title": {},
+      "payment_success_content": "Your money has been successfully sent to {name}.",
+      "@payment_success_content": {
+        "placeholders": {
+          "name": {
+            "type": "String"
+          }
+        }
+      },
+      "payment_amount": "Amount",
+      "@payment_amount": {},
+      "payment_how_is_experience": "How is your experience?",
+      "@payment_how_is_experience": {},
+      "payment_feedback_help": "Your feedback will help us to improve your\nexperience better",
+      "@payment_feedback_help": {},
+      "payment_please_feedback_btn": "Please Feedback",
+      "@payment_please_feedback_btn": {},
+      "payment_return_home_btn": "Return to Home",
+      "@payment_return_home_btn": {},
+      "payment_feedback_thank_you": "Thank you for your feedback!",
+      "@payment_feedback_thank_you": {},
+      "payment_feedback_success_content": "This appointment has been completed and can be viewed in the completed orders menu",
+      "@payment_feedback_success_content": {},
+      "payment_view_detail_btn": "View Detail",
+      "@payment_view_detail_btn": {},
+      "payment_excellent": "Excellent",
+      "@payment_excellent": {},
+      "payment_rated_text": "You rated {name} {stars} stars",
+      "@payment_rated_text": {
+        "placeholders": {
+          "name": {
+            "type": "String"
+          },
+          "stars": {
+            "type": "int"
+          }
+        }
+      },
+      "payment_write_text_hint": "Write your text",
+      "@payment_write_text_hint": {},
+      "payment_give_tips": "Give some tips to {name}",
+      "@payment_give_tips": {
+        "placeholders": {
+          "name": {
+            "type": "String"
+          }
+        }
+      },
+      "payment_enter_other_amount": "Enter other amount",
+      "@payment_enter_other_amount": {},
+      "payment_enter_amount_hint": "Enter amount",
+      "@payment_enter_amount_hint": {},
+      "payment_submit_btn": "Submit",
+      "@payment_submit_btn": {},
+      "payment_failed": "Payment Failed: {message}",
+      "@payment_failed": {
+        "placeholders": {
+          "message": {
+            "type": "String"
+          }
+        }
+      },
+      "payment_feedback_failed": "Feedback Failed: {message}",
+      "@payment_feedback_failed": {
+        "placeholders": {
+          "message": {
+            "type": "String"
+          }
+        }
+      },
+      "payment_purchase_failed": "Purchase Failed: {message}",
+      "@payment_purchase_failed": {
+        "placeholders": {
+          "message": {
+            "type": "String"
+          }
+        }
+      },
+      "payment_subscription_success_title": "Payment Successful",
+      "@payment_subscription_success_title": {},
+      "payment_subscription_success_content": "You have successfully subscribed to {plan}",
+      "@payment_subscription_success_content": {
+        "placeholders": {
+          "plan": {
+            "type": "String"
+          }
+        }
+      },
+    
+      "schedule_working_schedule_title": "Working Schedule",
+      "@schedule_working_schedule_title": {},
+      "schedule_weekly_hours_tab": "Weekly Hours",
+      "@schedule_weekly_hours_tab": {},
+      "schedule_date_specific_hours_tab": "Date-specific Hours",
+      "@schedule_date_specific_hours_tab": {},
+      "schedule_preview_tab": "Preview",
+      "@schedule_preview_tab": {},
+      "schedule_unavailable": "Unavailable",
+      "@schedule_unavailable": {},
+      "schedule_edit_hours": "Edit Hours",
+      "@schedule_edit_hours": {},
+      "schedule_add_hours": "Add Hours",
+      "@schedule_add_hours": {},
+      "schedule_start": "Start",
+      "@schedule_start": {},
+      "schedule_end": "End",
+      "@schedule_end": {},
+      "schedule_please_select_time": "Please select both start and end time.",
+      "@schedule_please_select_time": {},
+      "schedule_end_time_error": "End time must be after start time.",
+      "@schedule_end_time_error": {},
+      "schedule_delete_time_block_title": "Delete Time Block?",
+      "@schedule_delete_time_block_title": {},
+      "schedule_delete_time_block_content": "Are you sure you want to delete {start} - {end}?",
+      "@schedule_delete_time_block_content": {
+        "placeholders": {
+          "start": {
+            "type": "String"
+          },
+          "end": {
+            "type": "String"
+          }
+        }
+      },
+      "schedule_add_time_slot_title": "Add Time Slot",
+      "@schedule_add_time_slot_title": {},
+      "schedule_add_btn": "Add",
+      "@schedule_add_btn": {},
+      "schedule_revert_to_weekly": "Revert to Weekly",
+      "@schedule_revert_to_weekly": {},
+      "schedule_i_am_unavailable": "I am unavailable",
+      "@schedule_i_am_unavailable": {},
+      "schedule_mark_day_off": "Mark this specific date as a Day Off",
+      "@schedule_mark_day_off": {},
+      "schedule_specific_hours": "Specific Hours",
+      "@schedule_specific_hours": {},
+      "schedule_no_slots_added": "No slots added yet. You appear unavailable.",
+      "@schedule_no_slots_added": {},
+      "schedule_using_weekly": "Using Weekly Schedule",
+      "@schedule_using_weekly": {},
+      "schedule_customize_hours": "Customize Hours for this Date",
+      "@schedule_customize_hours": {},
+      "schedule_reset_default_title": "Reset to Default?",
+      "@schedule_reset_default_title": {},
+      "schedule_reset_default_content": "This will remove your custom settings for this day. The schedule will revert to your recurring weekly rules.",
+      "@schedule_reset_default_content": {},
+      "schedule_reset_btn": "Reset",
+      "@schedule_reset_btn": {},
+      "schedule_select_date": "Select Date",
+      "@schedule_select_date": {},
+      "schedule_available_hours": "Available Hours",
+      "@schedule_available_hours": {},
+      "schedule_no_available_slots": "No available slots for this day.",
+      "@schedule_no_available_slots": {},
+      "schedule_availability_added": "Availability added!",
+      "@schedule_availability_added": {},
+      "schedule_availability_updated": "Availability updated!",
+      "@schedule_availability_updated": {},
+      "schedule_availability_removed": "Availability removed!",
+      "@schedule_availability_removed": {},
+      "schedule_reverted_success": "Reverted to weekly schedule",
+      "@schedule_reverted_success": {},
+      "schedule_updated_success": "Schedule updated successfully",
+      "@schedule_updated_success": {}
     }
-  }
-  
+    

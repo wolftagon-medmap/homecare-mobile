@@ -107,21 +107,6 @@ class PrecisionNutritionPage extends StatelessWidget {
     });
   }
 
-  void _showComingSoonDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Coming Soon'),
-        content: const Text('This feature will be available soon!'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 class PrecisionNutritionCard extends StatelessWidget {

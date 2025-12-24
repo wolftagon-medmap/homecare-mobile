@@ -1648,6 +1648,18 @@ abstract class AppLocalizations {
   /// **'OK'**
   String get common_ok;
 
+  /// No description provided for @common_coming_soon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming Soon'**
+  String get common_coming_soon;
+
+  /// No description provided for @common_feature_available_soon.
+  ///
+  /// In en, this message translates to:
+  /// **'This feature will be available soon!'**
+  String get common_feature_available_soon;
+
   /// No description provided for @mental_state_title.
   ///
   /// In en, this message translates to:
@@ -3861,6 +3873,438 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Price: \${price} | Quota: {quota}h | Validity: {days}d'**
   String admin_homecare_plan_details(String price, int quota, int days);
+
+  /// No description provided for @favourite_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Favourites'**
+  String get favourite_title;
+
+  /// No description provided for @favourite_no_favorites.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no favorite professionals yet.'**
+  String get favourite_no_favorites;
+
+  /// No description provided for @favourite_error_fetching.
+  ///
+  /// In en, this message translates to:
+  /// **'Error fetching data: {error}'**
+  String favourite_error_fetching(String error);
+
+  /// No description provided for @favourite_error_toggle.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {error}'**
+  String favourite_error_toggle(String error);
+
+  /// No description provided for @medical_store_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical Store'**
+  String get medical_store_title;
+
+  /// No description provided for @medical_store_sort.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort'**
+  String get medical_store_sort;
+
+  /// No description provided for @medical_store_consumable_tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Homecare Consumable'**
+  String get medical_store_consumable_tab;
+
+  /// No description provided for @medical_store_poct_tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Point of Care Testing'**
+  String get medical_store_poct_tab;
+
+  /// No description provided for @medical_store_no_products.
+  ///
+  /// In en, this message translates to:
+  /// **'No products available'**
+  String get medical_store_no_products;
+
+  /// No description provided for @medical_store_load_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load products'**
+  String get medical_store_load_failed;
+
+  /// No description provided for @payment_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment'**
+  String get payment_title;
+
+  /// No description provided for @payment_order_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Order Summary'**
+  String get payment_order_summary;
+
+  /// No description provided for @payment_charge.
+  ///
+  /// In en, this message translates to:
+  /// **'Charge'**
+  String get payment_charge;
+
+  /// No description provided for @payment_total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get payment_total;
+
+  /// No description provided for @payment_select_method.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Payment Method'**
+  String get payment_select_method;
+
+  /// No description provided for @payment_confirm_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get payment_confirm_btn;
+
+  /// No description provided for @payment_pay_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay {amount}'**
+  String payment_pay_btn(String amount);
+
+  /// No description provided for @payment_success_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Success'**
+  String get payment_success_title;
+
+  /// No description provided for @payment_success_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Your money has been successfully sent to {name}.'**
+  String payment_success_content(String name);
+
+  /// No description provided for @payment_amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get payment_amount;
+
+  /// No description provided for @payment_how_is_experience.
+  ///
+  /// In en, this message translates to:
+  /// **'How is your experience?'**
+  String get payment_how_is_experience;
+
+  /// No description provided for @payment_feedback_help.
+  ///
+  /// In en, this message translates to:
+  /// **'Your feedback will help us to improve your\nexperience better'**
+  String get payment_feedback_help;
+
+  /// No description provided for @payment_please_feedback_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Please Feedback'**
+  String get payment_please_feedback_btn;
+
+  /// No description provided for @payment_return_home_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Return to Home'**
+  String get payment_return_home_btn;
+
+  /// No description provided for @payment_feedback_thank_you.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for your feedback!'**
+  String get payment_feedback_thank_you;
+
+  /// No description provided for @payment_feedback_success_content.
+  ///
+  /// In en, this message translates to:
+  /// **'This appointment has been completed and can be viewed in the completed orders menu'**
+  String get payment_feedback_success_content;
+
+  /// No description provided for @payment_view_detail_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'View Detail'**
+  String get payment_view_detail_btn;
+
+  /// No description provided for @payment_excellent.
+  ///
+  /// In en, this message translates to:
+  /// **'Excellent'**
+  String get payment_excellent;
+
+  /// No description provided for @payment_rated_text.
+  ///
+  /// In en, this message translates to:
+  /// **'You rated {name} {stars} stars'**
+  String payment_rated_text(String name, int stars);
+
+  /// No description provided for @payment_write_text_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your text'**
+  String get payment_write_text_hint;
+
+  /// No description provided for @payment_give_tips.
+  ///
+  /// In en, this message translates to:
+  /// **'Give some tips to {name}'**
+  String payment_give_tips(String name);
+
+  /// No description provided for @payment_enter_other_amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter other amount'**
+  String get payment_enter_other_amount;
+
+  /// No description provided for @payment_enter_amount_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter amount'**
+  String get payment_enter_amount_hint;
+
+  /// No description provided for @payment_submit_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get payment_submit_btn;
+
+  /// No description provided for @payment_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Failed: {message}'**
+  String payment_failed(String message);
+
+  /// No description provided for @payment_feedback_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback Failed: {message}'**
+  String payment_feedback_failed(String message);
+
+  /// No description provided for @payment_purchase_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase Failed: {message}'**
+  String payment_purchase_failed(String message);
+
+  /// No description provided for @payment_subscription_success_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Successful'**
+  String get payment_subscription_success_title;
+
+  /// No description provided for @payment_subscription_success_content.
+  ///
+  /// In en, this message translates to:
+  /// **'You have successfully subscribed to {plan}'**
+  String payment_subscription_success_content(String plan);
+
+  /// No description provided for @schedule_working_schedule_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Working Schedule'**
+  String get schedule_working_schedule_title;
+
+  /// No description provided for @schedule_weekly_hours_tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Hours'**
+  String get schedule_weekly_hours_tab;
+
+  /// No description provided for @schedule_date_specific_hours_tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Date-specific Hours'**
+  String get schedule_date_specific_hours_tab;
+
+  /// No description provided for @schedule_preview_tab.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get schedule_preview_tab;
+
+  /// No description provided for @schedule_unavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable'**
+  String get schedule_unavailable;
+
+  /// No description provided for @schedule_edit_hours.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Hours'**
+  String get schedule_edit_hours;
+
+  /// No description provided for @schedule_add_hours.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Hours'**
+  String get schedule_add_hours;
+
+  /// No description provided for @schedule_start.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get schedule_start;
+
+  /// No description provided for @schedule_end.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get schedule_end;
+
+  /// No description provided for @schedule_please_select_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select both start and end time.'**
+  String get schedule_please_select_time;
+
+  /// No description provided for @schedule_end_time_error.
+  ///
+  /// In en, this message translates to:
+  /// **'End time must be after start time.'**
+  String get schedule_end_time_error;
+
+  /// No description provided for @schedule_delete_time_block_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Time Block?'**
+  String get schedule_delete_time_block_title;
+
+  /// No description provided for @schedule_delete_time_block_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {start} - {end}?'**
+  String schedule_delete_time_block_content(String start, String end);
+
+  /// No description provided for @schedule_add_time_slot_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Time Slot'**
+  String get schedule_add_time_slot_title;
+
+  /// No description provided for @schedule_add_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get schedule_add_btn;
+
+  /// No description provided for @schedule_revert_to_weekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Revert to Weekly'**
+  String get schedule_revert_to_weekly;
+
+  /// No description provided for @schedule_i_am_unavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'I am unavailable'**
+  String get schedule_i_am_unavailable;
+
+  /// No description provided for @schedule_mark_day_off.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark this specific date as a Day Off'**
+  String get schedule_mark_day_off;
+
+  /// No description provided for @schedule_specific_hours.
+  ///
+  /// In en, this message translates to:
+  /// **'Specific Hours'**
+  String get schedule_specific_hours;
+
+  /// No description provided for @schedule_no_slots_added.
+  ///
+  /// In en, this message translates to:
+  /// **'No slots added yet. You appear unavailable.'**
+  String get schedule_no_slots_added;
+
+  /// No description provided for @schedule_using_weekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Using Weekly Schedule'**
+  String get schedule_using_weekly;
+
+  /// No description provided for @schedule_customize_hours.
+  ///
+  /// In en, this message translates to:
+  /// **'Customize Hours for this Date'**
+  String get schedule_customize_hours;
+
+  /// No description provided for @schedule_reset_default_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset to Default?'**
+  String get schedule_reset_default_title;
+
+  /// No description provided for @schedule_reset_default_content.
+  ///
+  /// In en, this message translates to:
+  /// **'This will remove your custom settings for this day. The schedule will revert to your recurring weekly rules.'**
+  String get schedule_reset_default_content;
+
+  /// No description provided for @schedule_reset_btn.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get schedule_reset_btn;
+
+  /// No description provided for @schedule_select_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date'**
+  String get schedule_select_date;
+
+  /// No description provided for @schedule_available_hours.
+  ///
+  /// In en, this message translates to:
+  /// **'Available Hours'**
+  String get schedule_available_hours;
+
+  /// No description provided for @schedule_no_available_slots.
+  ///
+  /// In en, this message translates to:
+  /// **'No available slots for this day.'**
+  String get schedule_no_available_slots;
+
+  /// No description provided for @schedule_availability_added.
+  ///
+  /// In en, this message translates to:
+  /// **'Availability added!'**
+  String get schedule_availability_added;
+
+  /// No description provided for @schedule_availability_updated.
+  ///
+  /// In en, this message translates to:
+  /// **'Availability updated!'**
+  String get schedule_availability_updated;
+
+  /// No description provided for @schedule_availability_removed.
+  ///
+  /// In en, this message translates to:
+  /// **'Availability removed!'**
+  String get schedule_availability_removed;
+
+  /// No description provided for @schedule_reverted_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Reverted to weekly schedule'**
+  String get schedule_reverted_success;
+
+  /// No description provided for @schedule_updated_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule updated successfully'**
+  String get schedule_updated_success;
 }
 
 class _AppLocalizationsDelegate
