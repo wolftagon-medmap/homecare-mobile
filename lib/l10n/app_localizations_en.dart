@@ -2320,4 +2320,273 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get schedule_updated_success => 'Schedule updated successfully';
+
+  @override
+  String get rpm_title => 'Monitor My Vitals';
+
+  @override
+  String get rpm_heart_performance => 'Heart\nPerformance';
+
+  @override
+  String get rpm_blood_oxygen => 'Blood Oxygen\nSaturation (SpO2)';
+
+  @override
+  String get rpm_blood_glucose => 'Blood\nGlucose';
+
+  @override
+  String get rpm_blood_pressure => 'Blood\nPressure';
+
+  @override
+  String get rpm_add_new_vital => '+ Add New Vital';
+
+  @override
+  String get rpm_link_device => 'Link Device';
+
+  @override
+  String get rpm_add_record => 'Add Record';
+
+  @override
+  String get second_opinion_title => 'Second Opinion';
+
+  @override
+  String get second_opinion_teleradiology_title => 'Teleradiology';
+
+  @override
+  String get second_opinion_teleradiology_desc =>
+      'Discover expert second opinions on medical imaging from our specialized radiologists, guiding your healthcare decisions with focused knowledge in cardiovascular, musculoskeletal, head & neck, and neuro-imaging';
+
+  @override
+  String get second_opinion_telepathology_title => 'Telepathology';
+
+  @override
+  String get second_opinion_telepathology_desc =>
+      'Our specialists leverage cutting-edge telemedicine tech for remote pathology image reviews and consultations with medical teams globally';
+
+  @override
+  String get teleradiology_title => 'Teleradiology';
+
+  @override
+  String get teleradiology_disease_name => 'Disease Name';
+
+  @override
+  String get teleradiology_disease_history => 'Disease History Description';
+
+  @override
+  String get teleradiology_disease_hint => 'E.g Diptheria, Pneumonia';
+
+  @override
+  String get teleradiology_other_biomarkers => 'Other Biomakers';
+
+  @override
+  String get teleradiology_history_hint =>
+      'Enter disease history description here...';
+
+  @override
+  String get teleradiology_patient_info => 'Patient Information';
+
+  @override
+  String get teleradiology_biomarker_hint =>
+      'Enter other biomarker information here...';
+
+  @override
+  String get teleradiology_radiology_images => 'Radiology Images';
+
+  @override
+  String get teleradiology_ct_scan => 'CT Scan';
+
+  @override
+  String get teleradiology_mri_scan => 'MRI Scan';
+
+  @override
+  String get teleradiology_mammogram => 'Mammogram';
+
+  @override
+  String get teleradiology_medical_opinion => 'Medical Opinion';
+
+  @override
+  String get teleradiology_professional_only_info =>
+      '** Information below will be provided by Medical Professionals only';
+
+  @override
+  String get teleradiology_diagnostic_opinion => 'Diagnostic opinion';
+
+  @override
+  String get teleradiology_recommendation_opinion => 'Recommendation Opinion';
+
+  @override
+  String get physiotherapy_title => 'Physiotherapy';
+
+  @override
+  String get physiotherapy_musculoskeletal_title =>
+      'Musculoskeletal Physiotherapy';
+
+  @override
+  String get physiotherapy_musculoskeletal_desc =>
+      'Musculoskeletal physiotherapy treats injuries involving muscles, joints, bones, ligaments, tendons, and nerves.';
+
+  @override
+  String get physiotherapy_neurological_title => 'Neurological Physiotherapy';
+
+  @override
+  String get physiotherapy_neurological_desc =>
+      'Neurological physiotherapy treats conditions affecting the nervous system, including the brain, spinal cord, and nerves.';
+
+  @override
+  String get physiotherapy_book_appointment => 'Book Appointment';
+
+  @override
+  String get physiotherapy_duration_label => 'DURATION';
+
+  @override
+  String get physiotherapy_duration_value => '45–60 minutes per session';
+
+  @override
+  String get physiotherapy_treatment_type_label => 'TREATMENT TYPE';
+
+  @override
+  String get physiotherapy_suitable_for_title =>
+      'This Service is suitable for:';
+
+  @override
+  String get physiotherapy_what_you_get_title => 'What you’ll get';
+
+  @override
+  String get physiotherapy_ms_item_1 => 'Posture & movement correction';
+
+  @override
+  String get physiotherapy_ms_item_2 => 'Stretching & strengthening';
+
+  @override
+  String get physiotherapy_ms_item_3 => 'Exercise therapy';
+
+  @override
+  String get physiotherapy_ms_item_4 => 'Manual therapy';
+
+  @override
+  String get physiotherapy_ms_reason_1 => 'Overuse tendon injuries';
+
+  @override
+  String get physiotherapy_ms_reason_2 =>
+      'Joint wear and tear (e.g. arthritis)';
+
+  @override
+  String get physiotherapy_ms_reason_3 => 'Muscle strain';
+
+  @override
+  String get physiotherapy_ms_reason_4 => 'Ligament sprain';
+
+  @override
+  String get physiotherapy_ms_reason_5 => 'Joint pain & stiffness';
+
+  @override
+  String get physiotherapy_ms_reason_6 => 'Movement-related pain';
+
+  @override
+  String get physiotherapy_ms_benefit_1 => 'Pain reduction';
+
+  @override
+  String get physiotherapy_ms_benefit_2 => 'Improved mobility';
+
+  @override
+  String get physiotherapy_ms_benefit_3 => 'Better joint function';
+
+  @override
+  String get physiotherapy_ms_benefit_4 => 'Easier daily activities';
+
+  @override
+  String get physiotherapy_ms_benefit_5 => 'Faster recovery';
+
+  @override
+  String get physiotherapy_neuro_item_1 => 'Strength & coordination exercises';
+
+  @override
+  String get physiotherapy_neuro_item_2 => 'Functional movement training';
+
+  @override
+  String get physiotherapy_neuro_item_3 => 'Balance & gait training';
+
+  @override
+  String get physiotherapy_neuro_item_4 => 'Neuro-motor training';
+
+  @override
+  String get physiotherapy_neuro_reason_1 => 'Stroke recovery';
+
+  @override
+  String get physiotherapy_neuro_reason_2 => 'Parkinson’s disease';
+
+  @override
+  String get physiotherapy_neuro_reason_3 => 'Multiple sclerosis';
+
+  @override
+  String get physiotherapy_neuro_reason_4 => 'Spinal cord injury';
+
+  @override
+  String get physiotherapy_neuro_reason_5 => 'Traumatic brain injury';
+
+  @override
+  String get physiotherapy_neuro_reason_6 => 'Nerve damage';
+
+  @override
+  String get physiotherapy_neuro_reason_7 => 'Balance & coordination disorders';
+
+  @override
+  String get physiotherapy_neuro_benefit_1 => 'Better movement control';
+
+  @override
+  String get physiotherapy_neuro_benefit_2 => 'Improved balance & coordination';
+
+  @override
+  String get physiotherapy_neuro_benefit_3 =>
+      'Increased independence in daily activities';
+
+  @override
+  String get physiotherapy_neuro_benefit_4 => 'Reduced physical limitations';
+
+  @override
+  String get physiotherapy_neuro_benefit_5 =>
+      'Improved confidence & well-being';
+
+  @override
+  String get physiotherapy_scheduling_duration => 'Duration';
+
+  @override
+  String physiotherapy_scheduling_minutes(int minutes) {
+    return '$minutes minutes';
+  }
+
+  @override
+  String get physiotherapy_scheduling_select_date => 'Select Date';
+
+  @override
+  String get physiotherapy_scheduling_select_hour => 'Select Hour';
+
+  @override
+  String get physiotherapy_scheduling_no_slots =>
+      'No available slots for this day.';
+
+  @override
+  String get physiotherapy_scheduling_failed_load_slots =>
+      'Failed to load slots';
+
+  @override
+  String get physiotherapy_scheduling_submitting => 'Submitting...';
+
+  @override
+  String get physiotherapy_scheduling_submit => 'Submit';
+
+  @override
+  String get physiotherapy_flow_success => 'Appointment created successfully';
+
+  @override
+  String get physiotherapy_flow_failure => 'Failed to create appointment';
+
+  @override
+  String physiotherapy_flow_failure_with_reason(String reason) {
+    return 'Failed to create appointment:\n$reason';
+  }
+
+  @override
+  String physiotherapy_summary(int duration) {
+    return 'Physiotherapy Session ($duration mins)';
+  }
 }

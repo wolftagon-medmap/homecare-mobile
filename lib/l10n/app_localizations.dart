@@ -4311,6 +4311,504 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Schedule updated successfully'**
   String get schedule_updated_success;
+
+  /// No description provided for @rpm_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Monitor My Vitals'**
+  String get rpm_title;
+
+  /// No description provided for @rpm_heart_performance.
+  ///
+  /// In en, this message translates to:
+  /// **'Heart\nPerformance'**
+  String get rpm_heart_performance;
+
+  /// No description provided for @rpm_blood_oxygen.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood Oxygen\nSaturation (SpO2)'**
+  String get rpm_blood_oxygen;
+
+  /// No description provided for @rpm_blood_glucose.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood\nGlucose'**
+  String get rpm_blood_glucose;
+
+  /// No description provided for @rpm_blood_pressure.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood\nPressure'**
+  String get rpm_blood_pressure;
+
+  /// No description provided for @rpm_add_new_vital.
+  ///
+  /// In en, this message translates to:
+  /// **'+ Add New Vital'**
+  String get rpm_add_new_vital;
+
+  /// No description provided for @rpm_link_device.
+  ///
+  /// In en, this message translates to:
+  /// **'Link Device'**
+  String get rpm_link_device;
+
+  /// No description provided for @rpm_add_record.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Record'**
+  String get rpm_add_record;
+
+  /// No description provided for @second_opinion_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Second Opinion'**
+  String get second_opinion_title;
+
+  /// No description provided for @second_opinion_teleradiology_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Teleradiology'**
+  String get second_opinion_teleradiology_title;
+
+  /// No description provided for @second_opinion_teleradiology_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover expert second opinions on medical imaging from our specialized radiologists, guiding your healthcare decisions with focused knowledge in cardiovascular, musculoskeletal, head & neck, and neuro-imaging'**
+  String get second_opinion_teleradiology_desc;
+
+  /// No description provided for @second_opinion_telepathology_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Telepathology'**
+  String get second_opinion_telepathology_title;
+
+  /// No description provided for @second_opinion_telepathology_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Our specialists leverage cutting-edge telemedicine tech for remote pathology image reviews and consultations with medical teams globally'**
+  String get second_opinion_telepathology_desc;
+
+  /// No description provided for @teleradiology_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Teleradiology'**
+  String get teleradiology_title;
+
+  /// No description provided for @teleradiology_disease_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Disease Name'**
+  String get teleradiology_disease_name;
+
+  /// No description provided for @teleradiology_disease_history.
+  ///
+  /// In en, this message translates to:
+  /// **'Disease History Description'**
+  String get teleradiology_disease_history;
+
+  /// No description provided for @teleradiology_disease_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g Diptheria, Pneumonia'**
+  String get teleradiology_disease_hint;
+
+  /// No description provided for @teleradiology_other_biomarkers.
+  ///
+  /// In en, this message translates to:
+  /// **'Other Biomakers'**
+  String get teleradiology_other_biomarkers;
+
+  /// No description provided for @teleradiology_history_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter disease history description here...'**
+  String get teleradiology_history_hint;
+
+  /// No description provided for @teleradiology_patient_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Patient Information'**
+  String get teleradiology_patient_info;
+
+  /// No description provided for @teleradiology_biomarker_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter other biomarker information here...'**
+  String get teleradiology_biomarker_hint;
+
+  /// No description provided for @teleradiology_radiology_images.
+  ///
+  /// In en, this message translates to:
+  /// **'Radiology Images'**
+  String get teleradiology_radiology_images;
+
+  /// No description provided for @teleradiology_ct_scan.
+  ///
+  /// In en, this message translates to:
+  /// **'CT Scan'**
+  String get teleradiology_ct_scan;
+
+  /// No description provided for @teleradiology_mri_scan.
+  ///
+  /// In en, this message translates to:
+  /// **'MRI Scan'**
+  String get teleradiology_mri_scan;
+
+  /// No description provided for @teleradiology_mammogram.
+  ///
+  /// In en, this message translates to:
+  /// **'Mammogram'**
+  String get teleradiology_mammogram;
+
+  /// No description provided for @teleradiology_medical_opinion.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical Opinion'**
+  String get teleradiology_medical_opinion;
+
+  /// No description provided for @teleradiology_professional_only_info.
+  ///
+  /// In en, this message translates to:
+  /// **'** Information below will be provided by Medical Professionals only'**
+  String get teleradiology_professional_only_info;
+
+  /// No description provided for @teleradiology_diagnostic_opinion.
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnostic opinion'**
+  String get teleradiology_diagnostic_opinion;
+
+  /// No description provided for @teleradiology_recommendation_opinion.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommendation Opinion'**
+  String get teleradiology_recommendation_opinion;
+
+  /// No description provided for @physiotherapy_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Physiotherapy'**
+  String get physiotherapy_title;
+
+  /// No description provided for @physiotherapy_musculoskeletal_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Musculoskeletal Physiotherapy'**
+  String get physiotherapy_musculoskeletal_title;
+
+  /// No description provided for @physiotherapy_musculoskeletal_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Musculoskeletal physiotherapy treats injuries involving muscles, joints, bones, ligaments, tendons, and nerves.'**
+  String get physiotherapy_musculoskeletal_desc;
+
+  /// No description provided for @physiotherapy_neurological_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Neurological Physiotherapy'**
+  String get physiotherapy_neurological_title;
+
+  /// No description provided for @physiotherapy_neurological_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Neurological physiotherapy treats conditions affecting the nervous system, including the brain, spinal cord, and nerves.'**
+  String get physiotherapy_neurological_desc;
+
+  /// No description provided for @physiotherapy_book_appointment.
+  ///
+  /// In en, this message translates to:
+  /// **'Book Appointment'**
+  String get physiotherapy_book_appointment;
+
+  /// No description provided for @physiotherapy_duration_label.
+  ///
+  /// In en, this message translates to:
+  /// **'DURATION'**
+  String get physiotherapy_duration_label;
+
+  /// No description provided for @physiotherapy_duration_value.
+  ///
+  /// In en, this message translates to:
+  /// **'45–60 minutes per session'**
+  String get physiotherapy_duration_value;
+
+  /// No description provided for @physiotherapy_treatment_type_label.
+  ///
+  /// In en, this message translates to:
+  /// **'TREATMENT TYPE'**
+  String get physiotherapy_treatment_type_label;
+
+  /// No description provided for @physiotherapy_suitable_for_title.
+  ///
+  /// In en, this message translates to:
+  /// **'This Service is suitable for:'**
+  String get physiotherapy_suitable_for_title;
+
+  /// No description provided for @physiotherapy_what_you_get_title.
+  ///
+  /// In en, this message translates to:
+  /// **'What you’ll get'**
+  String get physiotherapy_what_you_get_title;
+
+  /// No description provided for @physiotherapy_ms_item_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture & movement correction'**
+  String get physiotherapy_ms_item_1;
+
+  /// No description provided for @physiotherapy_ms_item_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Stretching & strengthening'**
+  String get physiotherapy_ms_item_2;
+
+  /// No description provided for @physiotherapy_ms_item_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise therapy'**
+  String get physiotherapy_ms_item_3;
+
+  /// No description provided for @physiotherapy_ms_item_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual therapy'**
+  String get physiotherapy_ms_item_4;
+
+  /// No description provided for @physiotherapy_ms_reason_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Overuse tendon injuries'**
+  String get physiotherapy_ms_reason_1;
+
+  /// No description provided for @physiotherapy_ms_reason_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Joint wear and tear (e.g. arthritis)'**
+  String get physiotherapy_ms_reason_2;
+
+  /// No description provided for @physiotherapy_ms_reason_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Muscle strain'**
+  String get physiotherapy_ms_reason_3;
+
+  /// No description provided for @physiotherapy_ms_reason_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Ligament sprain'**
+  String get physiotherapy_ms_reason_4;
+
+  /// No description provided for @physiotherapy_ms_reason_5.
+  ///
+  /// In en, this message translates to:
+  /// **'Joint pain & stiffness'**
+  String get physiotherapy_ms_reason_5;
+
+  /// No description provided for @physiotherapy_ms_reason_6.
+  ///
+  /// In en, this message translates to:
+  /// **'Movement-related pain'**
+  String get physiotherapy_ms_reason_6;
+
+  /// No description provided for @physiotherapy_ms_benefit_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Pain reduction'**
+  String get physiotherapy_ms_benefit_1;
+
+  /// No description provided for @physiotherapy_ms_benefit_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Improved mobility'**
+  String get physiotherapy_ms_benefit_2;
+
+  /// No description provided for @physiotherapy_ms_benefit_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Better joint function'**
+  String get physiotherapy_ms_benefit_3;
+
+  /// No description provided for @physiotherapy_ms_benefit_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Easier daily activities'**
+  String get physiotherapy_ms_benefit_4;
+
+  /// No description provided for @physiotherapy_ms_benefit_5.
+  ///
+  /// In en, this message translates to:
+  /// **'Faster recovery'**
+  String get physiotherapy_ms_benefit_5;
+
+  /// No description provided for @physiotherapy_neuro_item_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Strength & coordination exercises'**
+  String get physiotherapy_neuro_item_1;
+
+  /// No description provided for @physiotherapy_neuro_item_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Functional movement training'**
+  String get physiotherapy_neuro_item_2;
+
+  /// No description provided for @physiotherapy_neuro_item_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance & gait training'**
+  String get physiotherapy_neuro_item_3;
+
+  /// No description provided for @physiotherapy_neuro_item_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Neuro-motor training'**
+  String get physiotherapy_neuro_item_4;
+
+  /// No description provided for @physiotherapy_neuro_reason_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Stroke recovery'**
+  String get physiotherapy_neuro_reason_1;
+
+  /// No description provided for @physiotherapy_neuro_reason_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Parkinson’s disease'**
+  String get physiotherapy_neuro_reason_2;
+
+  /// No description provided for @physiotherapy_neuro_reason_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Multiple sclerosis'**
+  String get physiotherapy_neuro_reason_3;
+
+  /// No description provided for @physiotherapy_neuro_reason_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Spinal cord injury'**
+  String get physiotherapy_neuro_reason_4;
+
+  /// No description provided for @physiotherapy_neuro_reason_5.
+  ///
+  /// In en, this message translates to:
+  /// **'Traumatic brain injury'**
+  String get physiotherapy_neuro_reason_5;
+
+  /// No description provided for @physiotherapy_neuro_reason_6.
+  ///
+  /// In en, this message translates to:
+  /// **'Nerve damage'**
+  String get physiotherapy_neuro_reason_6;
+
+  /// No description provided for @physiotherapy_neuro_reason_7.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance & coordination disorders'**
+  String get physiotherapy_neuro_reason_7;
+
+  /// No description provided for @physiotherapy_neuro_benefit_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Better movement control'**
+  String get physiotherapy_neuro_benefit_1;
+
+  /// No description provided for @physiotherapy_neuro_benefit_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Improved balance & coordination'**
+  String get physiotherapy_neuro_benefit_2;
+
+  /// No description provided for @physiotherapy_neuro_benefit_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Increased independence in daily activities'**
+  String get physiotherapy_neuro_benefit_3;
+
+  /// No description provided for @physiotherapy_neuro_benefit_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Reduced physical limitations'**
+  String get physiotherapy_neuro_benefit_4;
+
+  /// No description provided for @physiotherapy_neuro_benefit_5.
+  ///
+  /// In en, this message translates to:
+  /// **'Improved confidence & well-being'**
+  String get physiotherapy_neuro_benefit_5;
+
+  /// No description provided for @physiotherapy_scheduling_duration.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get physiotherapy_scheduling_duration;
+
+  /// No description provided for @physiotherapy_scheduling_minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes'**
+  String physiotherapy_scheduling_minutes(int minutes);
+
+  /// No description provided for @physiotherapy_scheduling_select_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date'**
+  String get physiotherapy_scheduling_select_date;
+
+  /// No description provided for @physiotherapy_scheduling_select_hour.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Hour'**
+  String get physiotherapy_scheduling_select_hour;
+
+  /// No description provided for @physiotherapy_scheduling_no_slots.
+  ///
+  /// In en, this message translates to:
+  /// **'No available slots for this day.'**
+  String get physiotherapy_scheduling_no_slots;
+
+  /// No description provided for @physiotherapy_scheduling_failed_load_slots.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load slots'**
+  String get physiotherapy_scheduling_failed_load_slots;
+
+  /// No description provided for @physiotherapy_scheduling_submitting.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitting...'**
+  String get physiotherapy_scheduling_submitting;
+
+  /// No description provided for @physiotherapy_scheduling_submit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get physiotherapy_scheduling_submit;
+
+  /// No description provided for @physiotherapy_flow_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Appointment created successfully'**
+  String get physiotherapy_flow_success;
+
+  /// No description provided for @physiotherapy_flow_failure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create appointment'**
+  String get physiotherapy_flow_failure;
+
+  /// No description provided for @physiotherapy_flow_failure_with_reason.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create appointment:\n{reason}'**
+  String physiotherapy_flow_failure_with_reason(String reason);
+
+  /// No description provided for @physiotherapy_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Physiotherapy Session ({duration} mins)'**
+  String physiotherapy_summary(int duration);
 }
 
 class _AppLocalizationsDelegate

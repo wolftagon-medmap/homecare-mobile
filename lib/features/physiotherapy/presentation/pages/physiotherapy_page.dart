@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/physiotherapy/presentation/pages/musculoskeletal_physiotherapy_page.dart';
 import 'package:m2health/features/physiotherapy/presentation/pages/neurological_physiotherapy_page.dart';
 
@@ -9,9 +10,9 @@ class PhysiotherapyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Physiotherapy',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        title: Text(
+          context.l10n.physiotherapy_title,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
       body: SingleChildScrollView(
@@ -20,9 +21,8 @@ class PhysiotherapyPage extends StatelessWidget {
             child: Column(
               children: [
                 MenuCard(
-                  title: "Musculoskeletal Physiotherapy",
-                  description:
-                      "Musculoskeletal physiotherapy treats injuries involving muscles, joints, bones, ligaments, tendons, and nerves.",
+                  title: context.l10n.physiotherapy_musculoskeletal_title,
+                  description: context.l10n.physiotherapy_musculoskeletal_desc,
                   imagePath:
                       'assets/illustration/physiotherapy_musculoskeletal.png',
                   backgroundColor: const Color.fromRGBO(247, 158, 27, 0.1),
@@ -36,9 +36,8 @@ class PhysiotherapyPage extends StatelessWidget {
                   },
                 ),
                 MenuCard(
-                  title: "Neurological Physiotherapy",
-                  description:
-                      "Neurological physiotherapy treats conditions affecting the nervous system, including the brain, spinal cord, and nerves.",
+                  title: context.l10n.physiotherapy_neurological_title,
+                  description: context.l10n.physiotherapy_neurological_desc,
                   imagePath:
                       'assets/illustration/physiotherapy_neurological.png',
                   backgroundColor: const Color.fromRGBO(178, 140, 255, 0.2),
@@ -131,9 +130,9 @@ class MenuCard extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
-                          'Book Now',
-                          style: TextStyle(
+                        Text(
+                          context.l10n.common_book_now,
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                             color: Color(0xFF35C5CF),

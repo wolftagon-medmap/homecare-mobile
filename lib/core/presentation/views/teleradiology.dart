@@ -2,11 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/image_preview.dart';
 
 class TeleradiologyDetail extends StatefulWidget {
+  const TeleradiologyDetail({super.key});
+
   @override
-  _TeleradiologyDetailState createState() => _TeleradiologyDetailState();
+  State<TeleradiologyDetail> createState() => _TeleradiologyDetailState();
 }
 
 class _TeleradiologyDetailState extends State<TeleradiologyDetail> {
@@ -26,9 +29,9 @@ class _TeleradiologyDetailState extends State<TeleradiologyDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Teleradiology',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          context.l10n.teleradiology_title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),
@@ -37,32 +40,32 @@ class _TeleradiologyDetailState extends State<TeleradiologyDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Disease Name',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              context.l10n.teleradiology_disease_name,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const Divider(color: Colors.grey),
-            const Text(
-              'Disease History Description',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              context.l10n.teleradiology_disease_history,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             TextField(
               decoration: InputDecoration(
-                hintText: 'E.g Diptheria, Pneumonia',
+                hintText: context.l10n.teleradiology_disease_hint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Other Biomakers',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              context.l10n.teleradiology_other_biomarkers,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             TextField(
               maxLines: 2,
               decoration: InputDecoration(
-                hintText: 'Enter disease history description here...',
+                hintText: context.l10n.teleradiology_history_hint,
                 hintStyle: const TextStyle(color: Colors.grey),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -70,14 +73,14 @@ class _TeleradiologyDetailState extends State<TeleradiologyDetail> {
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Patient Information',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              context.l10n.teleradiology_patient_info,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             TextField(
               maxLines: 2,
               decoration: InputDecoration(
-                hintText: 'Enter other biomarker information here...',
+                hintText: context.l10n.teleradiology_biomarker_hint,
                 hintStyle: const TextStyle(color: Colors.grey),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
@@ -85,8 +88,8 @@ class _TeleradiologyDetailState extends State<TeleradiologyDetail> {
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Radiology Images',
+            Text(
+              context.l10n.teleradiology_radiology_images,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             const Divider(color: Colors.grey),
@@ -106,9 +109,9 @@ class _TeleradiologyDetailState extends State<TeleradiologyDetail> {
                       activeColor: Const.tosca,
                     ),
                     const SizedBox(width: 10),
-                    const Text(
-                      'CT Scan',
-                      style: TextStyle(fontSize: 18),
+                    Text(
+                      context.l10n.teleradiology_ct_scan,
+                      style: const TextStyle(fontSize: 18),
                     ),
                     const Spacer(),
                     const Icon(Icons.info_outline, color: Colors.grey),
@@ -139,9 +142,9 @@ class _TeleradiologyDetailState extends State<TeleradiologyDetail> {
                       activeColor: Const.tosca,
                     ),
                     const SizedBox(width: 10),
-                    const Text(
-                      'MRI Scan',
-                      style: TextStyle(fontSize: 18),
+                    Text(
+                      context.l10n.teleradiology_mri_scan,
+                      style: const TextStyle(fontSize: 18),
                     ),
                     const Spacer(),
                     const Icon(Icons.info_outline, color: Colors.grey),
@@ -172,9 +175,9 @@ class _TeleradiologyDetailState extends State<TeleradiologyDetail> {
                       activeColor: Const.tosca,
                     ),
                     const SizedBox(width: 10),
-                    const Text(
-                      'Mammogram',
-                      style: TextStyle(fontSize: 18),
+                    Text(
+                      context.l10n.teleradiology_mammogram,
+                      style: const TextStyle(fontSize: 18),
                     ),
                     const Spacer(),
                     const Icon(Icons.info_outline, color: Colors.grey),
@@ -189,52 +192,26 @@ class _TeleradiologyDetailState extends State<TeleradiologyDetail> {
               imageFile: _images[2],
               onChooseImage: (image) => setImageAt(2, image),
             ),
-            Card(
-              margin: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Row(
-                  children: [
-                    Checkbox(
-                      value: mammogramScanChecked,
-                      onChanged: (value) {
-                        setState(() {
-                          mammogramScanChecked = value!;
-                        });
-                      },
-                      activeColor: Const.tosca,
-                    ),
-                    const SizedBox(width: 10),
-                    const Text(
-                      'Mammogram',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    const Spacer(),
-                    const Icon(Icons.info_outline, color: Colors.grey),
-                  ],
-                ),
-              ),
-            ),
             const SizedBox(
               height: 10,
             ),
-            const Text(
-              'Medical Opinion',
+            Text(
+              context.l10n.teleradiology_medical_opinion,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             const Divider(),
-            const Text(
-              '** Information below will be provided by Medical Professionals only',
+            Text(
+              context.l10n.teleradiology_professional_only_info,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Diagnostic opinion',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              context.l10n.teleradiology_diagnostic_opinion,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             TextField(
               decoration: InputDecoration(
-                hintText: 'E.g Diptheria, Pneumonia',
+                hintText: context.l10n.teleradiology_disease_hint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -243,13 +220,13 @@ class _TeleradiologyDetailState extends State<TeleradiologyDetail> {
             const SizedBox(
               height: 10,
             ),
-            const Text(
-              'Recommendation Opinion',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              context.l10n.teleradiology_recommendation_opinion,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             TextField(
               decoration: InputDecoration(
-                hintText: 'E.g Diptheria, Pneumonia',
+                hintText: context.l10n.teleradiology_disease_hint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -273,9 +250,9 @@ class _TeleradiologyDetailState extends State<TeleradiologyDetail> {
                   padding: const EdgeInsets.symmetric(
                       vertical: 16.0, horizontal: 24.0),
                 ),
-                child: const Text(
-                  'Submit',
-                  style: TextStyle(
+                child: Text(
+                  context.l10n.common_submit,
+                  style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),

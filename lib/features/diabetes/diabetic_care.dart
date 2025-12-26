@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:m2health/app_localzations.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
