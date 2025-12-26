@@ -4312,6 +4312,180 @@ abstract class AppLocalizations {
   /// **'Schedule updated successfully'**
   String get schedule_updated_success;
 
+  /// No description provided for @rpm_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Monitor My Vitals'**
+  String get rpm_title;
+
+  /// No description provided for @rpm_heart_performance.
+  ///
+  /// In en, this message translates to:
+  /// **'Heart\nPerformance'**
+  String get rpm_heart_performance;
+
+  /// No description provided for @rpm_blood_oxygen.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood Oxygen\nSaturation (SpO2)'**
+  String get rpm_blood_oxygen;
+
+  /// No description provided for @rpm_blood_glucose.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood\nGlucose'**
+  String get rpm_blood_glucose;
+
+  /// No description provided for @rpm_blood_pressure.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood\nPressure'**
+  String get rpm_blood_pressure;
+
+  /// No description provided for @rpm_add_new_vital.
+  ///
+  /// In en, this message translates to:
+  /// **'+ Add New Vital'**
+  String get rpm_add_new_vital;
+
+  /// No description provided for @rpm_link_device.
+  ///
+  /// In en, this message translates to:
+  /// **'Link Device'**
+  String get rpm_link_device;
+
+  /// No description provided for @rpm_add_record.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Record'**
+  String get rpm_add_record;
+
+  /// No description provided for @second_opinion_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Second Opinion'**
+  String get second_opinion_title;
+
+  /// No description provided for @second_opinion_teleradiology_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Teleradiology'**
+  String get second_opinion_teleradiology_title;
+
+  /// No description provided for @second_opinion_teleradiology_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover expert second opinions on medical imaging from our specialized radiologists, guiding your healthcare decisions with focused knowledge in cardiovascular, musculoskeletal, head & neck, and neuro-imaging'**
+  String get second_opinion_teleradiology_desc;
+
+  /// No description provided for @second_opinion_telepathology_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Telepathology'**
+  String get second_opinion_telepathology_title;
+
+  /// No description provided for @second_opinion_telepathology_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Our specialists leverage cutting-edge telemedicine tech for remote pathology image reviews and consultations with medical teams globally'**
+  String get second_opinion_telepathology_desc;
+
+  /// No description provided for @teleradiology_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Teleradiology'**
+  String get teleradiology_title;
+
+  /// No description provided for @teleradiology_disease_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Disease Name'**
+  String get teleradiology_disease_name;
+
+  /// No description provided for @teleradiology_disease_history.
+  ///
+  /// In en, this message translates to:
+  /// **'Disease History Description'**
+  String get teleradiology_disease_history;
+
+  /// No description provided for @teleradiology_disease_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g Diptheria, Pneumonia'**
+  String get teleradiology_disease_hint;
+
+  /// No description provided for @teleradiology_other_biomarkers.
+  ///
+  /// In en, this message translates to:
+  /// **'Other Biomakers'**
+  String get teleradiology_other_biomarkers;
+
+  /// No description provided for @teleradiology_history_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter disease history description here...'**
+  String get teleradiology_history_hint;
+
+  /// No description provided for @teleradiology_patient_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Patient Information'**
+  String get teleradiology_patient_info;
+
+  /// No description provided for @teleradiology_biomarker_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter other biomarker information here...'**
+  String get teleradiology_biomarker_hint;
+
+  /// No description provided for @teleradiology_radiology_images.
+  ///
+  /// In en, this message translates to:
+  /// **'Radiology Images'**
+  String get teleradiology_radiology_images;
+
+  /// No description provided for @teleradiology_ct_scan.
+  ///
+  /// In en, this message translates to:
+  /// **'CT Scan'**
+  String get teleradiology_ct_scan;
+
+  /// No description provided for @teleradiology_mri_scan.
+  ///
+  /// In en, this message translates to:
+  /// **'MRI Scan'**
+  String get teleradiology_mri_scan;
+
+  /// No description provided for @teleradiology_mammogram.
+  ///
+  /// In en, this message translates to:
+  /// **'Mammogram'**
+  String get teleradiology_mammogram;
+
+  /// No description provided for @teleradiology_medical_opinion.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical Opinion'**
+  String get teleradiology_medical_opinion;
+
+  /// No description provided for @teleradiology_professional_only_info.
+  ///
+  /// In en, this message translates to:
+  /// **'** Information below will be provided by Medical Professionals only'**
+  String get teleradiology_professional_only_info;
+
+  /// No description provided for @teleradiology_diagnostic_opinion.
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnostic opinion'**
+  String get teleradiology_diagnostic_opinion;
+
+  /// No description provided for @teleradiology_recommendation_opinion.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommendation Opinion'**
+  String get teleradiology_recommendation_opinion;
+
   /// No description provided for @physiotherapy_title.
   ///
   /// In en, this message translates to:

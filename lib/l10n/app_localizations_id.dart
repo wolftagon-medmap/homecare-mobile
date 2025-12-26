@@ -2327,6 +2327,98 @@ class AppLocalizationsId extends AppLocalizations {
   String get schedule_updated_success => 'Jadwal berhasil diperbarui';
 
   @override
+  String get rpm_title => 'Monitor Vital Saya';
+
+  @override
+  String get rpm_heart_performance => 'Performa\nJantung';
+
+  @override
+  String get rpm_blood_oxygen => 'Saturasi Oksigen\nDarah (SpO2)';
+
+  @override
+  String get rpm_blood_glucose => 'Glukosa\nDarah';
+
+  @override
+  String get rpm_blood_pressure => 'Tekanan\nDarah';
+
+  @override
+  String get rpm_add_new_vital => '+ Tambah Vital Baru';
+
+  @override
+  String get rpm_link_device => 'Hubungkan Perangkat';
+
+  @override
+  String get rpm_add_record => 'Tambah Catatan';
+
+  @override
+  String get second_opinion_title => 'Opini Kedua';
+
+  @override
+  String get second_opinion_teleradiology_title => 'Teleradiologi';
+
+  @override
+  String get second_opinion_teleradiology_desc =>
+      'Temukan opini kedua ahli pada pencitraan medis dari radiolog khusus kami, membimbing keputusan perawatan kesehatan Anda dengan pengetahuan terfokus pada kardiovaskular, muskuloskeletal, kepala & leher, dan neuro-imaging';
+
+  @override
+  String get second_opinion_telepathology_title => 'Telepatologi';
+
+  @override
+  String get second_opinion_telepathology_desc =>
+      'Spesialis kami memanfaatkan teknologi telemedis mutakhir untuk tinjauan citra patologi jarak jauh dan konsultasi dengan tim medis secara global';
+
+  @override
+  String get teleradiology_title => 'Teleradiologi';
+
+  @override
+  String get teleradiology_disease_name => 'Nama Penyakit';
+
+  @override
+  String get teleradiology_disease_history => 'Deskripsi Riwayat Penyakit';
+
+  @override
+  String get teleradiology_disease_hint => 'Misal: Difteri, Pneumonia';
+
+  @override
+  String get teleradiology_other_biomarkers => 'Biomarker Lainnya';
+
+  @override
+  String get teleradiology_history_hint =>
+      'Masukkan deskripsi riwayat penyakit di sini...';
+
+  @override
+  String get teleradiology_patient_info => 'Informasi Pasien';
+
+  @override
+  String get teleradiology_biomarker_hint =>
+      'Masukkan informasi biomarker lainnya di sini...';
+
+  @override
+  String get teleradiology_radiology_images => 'Gambar Radiologi';
+
+  @override
+  String get teleradiology_ct_scan => 'CT Scan';
+
+  @override
+  String get teleradiology_mri_scan => 'MRI Scan';
+
+  @override
+  String get teleradiology_mammogram => 'Mamografi';
+
+  @override
+  String get teleradiology_medical_opinion => 'Opini Medis';
+
+  @override
+  String get teleradiology_professional_only_info =>
+      '** Informasi di bawah ini hanya akan disediakan oleh Tenaga Medis Profesional';
+
+  @override
+  String get teleradiology_diagnostic_opinion => 'Opini Diagnostik';
+
+  @override
+  String get teleradiology_recommendation_opinion => 'Opini Rekomendasi';
+
+  @override
   String get physiotherapy_title => 'Fisioterapi';
 
   @override

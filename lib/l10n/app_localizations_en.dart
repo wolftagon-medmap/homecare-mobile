@@ -2322,6 +2322,98 @@ class AppLocalizationsEn extends AppLocalizations {
   String get schedule_updated_success => 'Schedule updated successfully';
 
   @override
+  String get rpm_title => 'Monitor My Vitals';
+
+  @override
+  String get rpm_heart_performance => 'Heart\nPerformance';
+
+  @override
+  String get rpm_blood_oxygen => 'Blood Oxygen\nSaturation (SpO2)';
+
+  @override
+  String get rpm_blood_glucose => 'Blood\nGlucose';
+
+  @override
+  String get rpm_blood_pressure => 'Blood\nPressure';
+
+  @override
+  String get rpm_add_new_vital => '+ Add New Vital';
+
+  @override
+  String get rpm_link_device => 'Link Device';
+
+  @override
+  String get rpm_add_record => 'Add Record';
+
+  @override
+  String get second_opinion_title => 'Second Opinion';
+
+  @override
+  String get second_opinion_teleradiology_title => 'Teleradiology';
+
+  @override
+  String get second_opinion_teleradiology_desc =>
+      'Discover expert second opinions on medical imaging from our specialized radiologists, guiding your healthcare decisions with focused knowledge in cardiovascular, musculoskeletal, head & neck, and neuro-imaging';
+
+  @override
+  String get second_opinion_telepathology_title => 'Telepathology';
+
+  @override
+  String get second_opinion_telepathology_desc =>
+      'Our specialists leverage cutting-edge telemedicine tech for remote pathology image reviews and consultations with medical teams globally';
+
+  @override
+  String get teleradiology_title => 'Teleradiology';
+
+  @override
+  String get teleradiology_disease_name => 'Disease Name';
+
+  @override
+  String get teleradiology_disease_history => 'Disease History Description';
+
+  @override
+  String get teleradiology_disease_hint => 'E.g Diptheria, Pneumonia';
+
+  @override
+  String get teleradiology_other_biomarkers => 'Other Biomakers';
+
+  @override
+  String get teleradiology_history_hint =>
+      'Enter disease history description here...';
+
+  @override
+  String get teleradiology_patient_info => 'Patient Information';
+
+  @override
+  String get teleradiology_biomarker_hint =>
+      'Enter other biomarker information here...';
+
+  @override
+  String get teleradiology_radiology_images => 'Radiology Images';
+
+  @override
+  String get teleradiology_ct_scan => 'CT Scan';
+
+  @override
+  String get teleradiology_mri_scan => 'MRI Scan';
+
+  @override
+  String get teleradiology_mammogram => 'Mammogram';
+
+  @override
+  String get teleradiology_medical_opinion => 'Medical Opinion';
+
+  @override
+  String get teleradiology_professional_only_info =>
+      '** Information below will be provided by Medical Professionals only';
+
+  @override
+  String get teleradiology_diagnostic_opinion => 'Diagnostic opinion';
+
+  @override
+  String get teleradiology_recommendation_opinion => 'Recommendation Opinion';
+
+  @override
   String get physiotherapy_title => 'Physiotherapy';
 
   @override

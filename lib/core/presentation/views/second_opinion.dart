@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/core/presentation/views/teleradiology.dart';
 
@@ -10,32 +11,29 @@ class OpinionMedical extends StatefulWidget {
 }
 
 class _OpinionMedicalState extends State<OpinionMedical> {
-  final List<Map<String, String>> dummyTenders = [
-    {
-      'title': 'Teleradiology',
-      'description':
-          'Discover expert second opinions on medical imaging from our specialized radiologists, guiding your healthcare decisions with focused knowledge in cardiovascular, musculoskeletal, head & neck, and neuro-imaging',
-      'imagePath': 'assets/images/ilu_teleradiology.png',
-      'color': '9AE1FF',
-      'opacity': '0.33',
-    },
-    {
-      'title': 'Telepathology',
-      'description':
-          'Our specialists leverage cutting-edge telemedicine tech for remote pathology image reviews and consultations with medical teams globally',
-      'imagePath': 'assets/images/ilu_telepathology.png',
-      'color': 'B28CFF',
-      'opacity': '0.2',
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> dummyTenders = [
+      {
+        'title': context.l10n.second_opinion_teleradiology_title,
+        'description': context.l10n.second_opinion_teleradiology_desc,
+        'imagePath': 'assets/images/ilu_teleradiology.png',
+        'color': '9AE1FF',
+        'opacity': '0.33',
+      },
+      {
+        'title': context.l10n.second_opinion_telepathology_title,
+        'description': context.l10n.second_opinion_telepathology_desc,
+        'imagePath': 'assets/images/ilu_telepathology.png',
+        'color': 'B28CFF',
+        'opacity': '0.2',
+      },
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          // AppLocalizations.of(context)!.translate('teleradiology'),
-          "Teleradiology",
+          context.l10n.second_opinion_title,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
@@ -156,9 +154,9 @@ class PharmaCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const SizedBox(width: 5),
-                      const Text(
-                        'Book Now',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.common_book_now,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                           color: Color(0xFF35C5CF),

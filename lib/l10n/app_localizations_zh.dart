@@ -2217,6 +2217,95 @@ class AppLocalizationsZh extends AppLocalizations {
   String get schedule_updated_success => '时间表更新成功';
 
   @override
+  String get rpm_title => '监测我的生命体征';
+
+  @override
+  String get rpm_heart_performance => '心脏\n性能';
+
+  @override
+  String get rpm_blood_oxygen => '血氧\n饱和度 (SpO2)';
+
+  @override
+  String get rpm_blood_glucose => '血糖';
+
+  @override
+  String get rpm_blood_pressure => '血压';
+
+  @override
+  String get rpm_add_new_vital => '+ 添加新体征';
+
+  @override
+  String get rpm_link_device => '连接设备';
+
+  @override
+  String get rpm_add_record => '添加记录';
+
+  @override
+  String get second_opinion_title => '第二意见';
+
+  @override
+  String get second_opinion_teleradiology_title => '远程放射学';
+
+  @override
+  String get second_opinion_teleradiology_desc =>
+      '从我们的专业放射科医生那里发现关于医学影像的专家第二意见，通过在心血管、肌肉骨骼、头颈和神经影像方面的专注知识指导您的医疗决策';
+
+  @override
+  String get second_opinion_telepathology_title => '远程病理学';
+
+  @override
+  String get second_opinion_telepathology_desc =>
+      '我们的专家利用尖端的远程医疗技术进行远程病理图像审查，并与全球医疗团队进行咨询';
+
+  @override
+  String get teleradiology_title => '远程放射学';
+
+  @override
+  String get teleradiology_disease_name => '疾病名称';
+
+  @override
+  String get teleradiology_disease_history => '疾病史描述';
+
+  @override
+  String get teleradiology_disease_hint => '例如：白喉、肺炎';
+
+  @override
+  String get teleradiology_other_biomarkers => '其他生物标志物';
+
+  @override
+  String get teleradiology_history_hint => '在此输入疾病史描述...';
+
+  @override
+  String get teleradiology_patient_info => '患者信息';
+
+  @override
+  String get teleradiology_biomarker_hint => '在此输入其他生物标志物信息...';
+
+  @override
+  String get teleradiology_radiology_images => '放射学图像';
+
+  @override
+  String get teleradiology_ct_scan => 'CT 扫描';
+
+  @override
+  String get teleradiology_mri_scan => 'MRI 扫描';
+
+  @override
+  String get teleradiology_mammogram => '乳腺 X 线摄影';
+
+  @override
+  String get teleradiology_medical_opinion => '医学意见';
+
+  @override
+  String get teleradiology_professional_only_info => '** 以下信息仅由医疗专业人员提供';
+
+  @override
+  String get teleradiology_diagnostic_opinion => '诊断意见';
+
+  @override
+  String get teleradiology_recommendation_opinion => '建议意见';
+
+  @override
   String get physiotherapy_title => '物理治疗';
 
   @override
