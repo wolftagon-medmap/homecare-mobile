@@ -321,6 +321,7 @@
   "auth_role_pharmacist": "药剂师",
   "auth_role_radiologist": "放射科医生",
   "auth_role_caregiver": "护理员/帮手",
+  "auth_role_physiotherapist": "物理治疗师",
   "auth_sign_up_title": "创建账户",
   "auth_sign_up_subtitle": "创建一个账户，以便您可以探索所有\n现有工作",
   "auth_sign_up_btn": "注册",

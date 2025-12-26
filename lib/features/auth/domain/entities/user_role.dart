@@ -6,7 +6,8 @@ enum UserRole {
   nurse,
   pharmacist,
   radiologist,
-  caregiver;
+  caregiver,
+  physiotherapist;
 
   String get value {
     switch (this) {
@@ -20,6 +21,8 @@ enum UserRole {
         return 'radiologist';
       case UserRole.caregiver:
         return 'caregiver';
+      case UserRole.physiotherapist:
+        return 'physiotherapist';
     }
   }
 
@@ -35,6 +38,8 @@ enum UserRole {
         return context.l10n.auth_role_radiologist;
       case UserRole.caregiver:
         return context.l10n.auth_role_caregiver;
+      case UserRole.physiotherapist:
+        return context.l10n.auth_role_physiotherapist;
     }
   }
 }

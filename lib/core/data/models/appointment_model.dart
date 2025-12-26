@@ -6,6 +6,7 @@ import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/data/models/pharmacy_personal_case.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/data/models/professional_model.dart';
 import 'package:m2health/features/profiles/data/models/profile_model.dart';
+import 'package:m2health/features/physiotherapy/data/models/physiotherapy_request_data_model.dart';
 
 class AppointmentModel extends AppointmentEntity {
   const AppointmentModel({
@@ -25,6 +26,7 @@ class AppointmentModel extends AppointmentEntity {
     super.pharmacyCase,
     super.screeningRequestData,
     super.homecareRequestData,
+    super.physiotherapyRequestData,
     super.patientProfile,
     super.payment,
   });
@@ -54,6 +56,9 @@ class AppointmentModel extends AppointmentEntity {
     final homecareRequest = appointmentJson['homecare_request_data'] != null
         ? HomecareRequestDataModel.fromJson(appointmentJson['homecare_request_data'])
         : null;
+    final physiotherapyRequest = appointmentJson['physiotherapy_request_data'] != null
+        ? PhysiotherapyRequestDataModel.fromJson(appointmentJson['physiotherapy_request_data'])
+        : null;
 
     return AppointmentModel(
       id: appointmentJson['id'],
@@ -72,6 +77,7 @@ class AppointmentModel extends AppointmentEntity {
       pharmacyCase: pharmacyCase,
       screeningRequestData: screeningRequest,
       homecareRequestData: homecareRequest,
+      physiotherapyRequestData: physiotherapyRequest,
       patientProfile: patient,
       payment: payment,
     );

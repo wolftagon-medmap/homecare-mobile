@@ -321,6 +321,7 @@
   "auth_role_pharmacist": "Apoteker",
   "auth_role_radiologist": "Radiolog",
   "auth_role_caregiver": "Pengasuh/Pendamping",
+  "auth_role_physiotherapist": "Fisioterapis",
   "auth_sign_up_title": "Buat Akun",
   "auth_sign_up_subtitle": "Buat akun agar Anda dapat menjelajahi semua\npekerjaan yang ada",
   "auth_sign_up_btn": "Daftar",

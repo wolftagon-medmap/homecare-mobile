@@ -986,6 +986,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get auth_role_caregiver => 'Caregiver/Helper';
 
   @override
+  String get auth_role_physiotherapist => 'Physiotherapist';
+
+  @override
   String get auth_sign_up_title => 'Create Account';
 
   @override

@@ -394,7 +394,9 @@ class _DashboardState extends State<Dashboard> {
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_physio.webp',
                             label: context.l10n.physiotherapy_service,
-                            onTap: showComingSoonDialog,
+                            onTap: () {
+                              context.push(AppRoutes.physiotherapy);
+                            },
                           ),
                         ),
                         Expanded(

@@ -876,6 +876,8 @@
   "@auth_role_radiologist": {},
   "auth_role_caregiver": "Caregiver/Helper",
   "@auth_role_caregiver": {},
+  "auth_role_physiotherapist": "Physiotherapist",
+  "@auth_role_physiotherapist": {},
   "auth_sign_up_title": "Create Account",
   "@auth_sign_up_title": {},
   "auth_sign_up_subtitle": "Create an account so you can explore all the\nexisting jobs",
