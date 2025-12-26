@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/app_localzations.dart';
-import 'package:m2health/core/extensions/string_extensions.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/homecare_elderly/presentation/pages/homecare_package_details_page.dart';
 import 'package:m2health/features/homecare_elderly/presentation/pages/house_cleaning_page.dart';
 import 'package:m2health/features/homecare_elderly/presentation/pages/kitchen_bathroom_repair_page.dart';
@@ -30,8 +29,9 @@ class _HomecareElderlyServicePageState
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            AppLocalizations.of(context)!.translate('homecare_for_elderly'),
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          context.l10n.homecare_elderly_title,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -41,9 +41,8 @@ class _HomecareElderlyServicePageState
             children: [
               _buildSubscriptionHeader(context),
               MenuCard(
-                title: "House & Bedding Cleaning",
-                description:
-                    "Regular cleaning services to maintain a hygienic, comfortable, and safe living environment for the elderly.",
+                title: context.l10n.homecare_house_bedding_cleaning,
+                description: context.l10n.homecare_house_bedding_cleaning_desc,
                 imagePath: 'assets/illustration/house_n_bedding_cleaning.png',
                 backgroundColor: const Color.fromRGBO(247, 158, 27, 0.1),
                 onTap: () {
@@ -56,9 +55,8 @@ class _HomecareElderlyServicePageState
                 },
               ),
               MenuCard(
-                title: "Living Security & Safety",
-                description:
-                    "Safety checks and organization to reduce risks and create a secure living environment.",
+                title: context.l10n.homecare_living_security_safety,
+                description: context.l10n.homecare_living_security_safety_desc,
                 imagePath: 'assets/illustration/living_security_n_safety.png',
                 backgroundColor: const Color.fromRGBO(178, 140, 255, 0.2),
                 onTap: () {
@@ -71,9 +69,8 @@ class _HomecareElderlyServicePageState
                 },
               ),
               MenuCard(
-                title: "Kitchen & Bathroom Repair",
-                description:
-                    "On-demand minor repairs to maintain functionality and safety in key home areas.",
+                title: context.l10n.homecare_kitchen_bathroom_repair,
+                description: context.l10n.homecare_kitchen_bathroom_repair_desc,
                 imagePath: 'assets/illustration/kitchen_n_bathroom_repair.png',
                 backgroundColor: const Color.fromRGBO(154, 225, 255, 0.33),
                 onTap: () {
@@ -100,8 +97,10 @@ class _HomecareElderlyServicePageState
         final plans = state.plans;
         final defaultPlan = plans.isNotEmpty ? plans.first : null;
         final offerText = defaultPlan != null
-            ? '${defaultPlan.quotaAmount} ${defaultPlan.quotaUnit.toTitleCase()}s for \$${defaultPlan.price.toStringAsFixed(2)}'
-            : '12 Hours for \$300.00';
+            ? context.l10n.homecare_subscription_offer(
+                defaultPlan.quotaAmount,
+                '\$${defaultPlan.price.toStringAsFixed(2)}')
+            : context.l10n.homecare_subscription_offer(12, '\$300.00');
 
         return GestureDetector(
           onTap: () {
@@ -148,8 +147,8 @@ class _HomecareElderlyServicePageState
                     children: [
                       Text(
                         hasSubscription
-                            ? 'Homecare Plus Active'
-                            : 'Get Homecare Plus',
+                            ? context.l10n.homecare_plus_active
+                            : context.l10n.homecare_get_plus,
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -158,7 +157,9 @@ class _HomecareElderlyServicePageState
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        hasSubscription ? 'Balance: $balance Hours' : offerText,
+                        hasSubscription
+                            ? context.l10n.homecare_balance(balance)
+                            : offerText,
                         style: TextStyle(
                           color: Colors.white.withValues(alpha: 0.9),
                           fontSize: 14,
@@ -251,9 +252,9 @@ class MenuCard extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
-                          'Book Now',
-                          style: TextStyle(
+                        Text(
+                          context.l10n.common_book_now,
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
                             color: Color(0xFF35C5CF),

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional/professional_bloc.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional_detail/professional_detail_cubit.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/pages/professional_details_page.dart';
@@ -91,8 +92,9 @@ class _HomecareAppointmentFlowPageState
         listener: (context, state) {
           if (state.submissionStatus == AppointmentSubmissionStatus.success) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Appointment created successfully'),
+              SnackBar(
+                content:
+                    Text(context.l10n.booking_appointment_created_success),
                 backgroundColor: Colors.green,
               ),
             );
@@ -111,7 +113,8 @@ class _HomecareAppointmentFlowPageState
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  state.errorMessage ?? 'Failed to create appointment',
+                  state.errorMessage ??
+                      context.l10n.booking_appointment_created_failed,
                 ),
                 backgroundColor: Colors.red,
               ),
@@ -210,9 +213,9 @@ class _HomecareReviewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Review & Checkout',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          context.l10n.homecare_review_checkout_title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       body: SingleChildScrollView(
@@ -220,9 +223,9 @@ class _HomecareReviewPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSummaryCard(),
+            _buildSummaryCard(context),
             const SizedBox(height: 24),
-            _buildTaskList(),
+            _buildTaskList(context),
             const SizedBox(height: 24),
             _buildBillingSection(context),
           ],
@@ -232,11 +235,12 @@ class _HomecareReviewPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSummaryCard() {
+  Widget _buildSummaryCard(BuildContext context) {
     final provider = state.selectedProvider;
     final slot = state.selectedTimeSlot!;
     final localStartTime = slot.startTime.toLocal();
     final localEndTime = slot.endTime.toLocal();
+    final locale = Localizations.localeOf(context).toString();
 
     return Card(
       elevation: 2,
@@ -293,7 +297,8 @@ class _HomecareReviewPage extends StatelessWidget {
                 const Icon(Icons.calendar_month, color: Const.aqua),
                 const SizedBox(width: 8),
                 Text(
-                  DateFormat('EEEE, d MMMM y').format(localStartTime),
+                  // DateFormat('EEEE, d MMMM y', locale).format(localStartTime),
+                  DateFormat.yMMMMEEEEd(locale).format(localStartTime),
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
               ],
@@ -304,7 +309,7 @@ class _HomecareReviewPage extends StatelessWidget {
                 const Icon(Icons.access_time, color: Const.aqua),
                 const SizedBox(width: 8),
                 Text(
-                  ' ${DateFormat('HH:mm aa').format(localStartTime)} - ${DateFormat('HH:mm aa').format(localEndTime)}',
+                  ' ${DateFormat('HH:mm', locale).format(localStartTime)} - ${DateFormat('HH:mm', locale).format(localEndTime)}',
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
               ],
@@ -315,17 +320,17 @@ class _HomecareReviewPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTaskList() {
+  Widget _buildTaskList(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Requested Tasks',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        Text(
+          context.l10n.homecare_requested_tasks,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         const SizedBox(height: 12),
         state.selectedTasks.isEmpty
-            ? const Text('No tasks selected.')
+            ? Text(context.l10n.common_no_data)
             : Column(
                 children: state.selectedTasks
                     .map((task) => ListTile(
@@ -355,9 +360,9 @@ class _HomecareReviewPage extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Billing Option',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Text(
+              context.l10n.homecare_billing_option,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
             Card(
@@ -378,8 +383,8 @@ class _HomecareReviewPage extends StatelessWidget {
                 child: Column(
                   children: [
                     RadioListTile<BillingType>(
-                      title: const Text('Hourly Rate',
-                          style: TextStyle(
+                      title: Text(context.l10n.homecare_hourly_rate,
+                          style: const TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
                           )),
@@ -401,15 +406,17 @@ class _HomecareReviewPage extends StatelessWidget {
                     ),
                     const Divider(height: 1),
                     RadioListTile<BillingType>(
-                      title: const Text('Use Subscription Balance',
-                          style: TextStyle(
+                      title: Text(context.l10n.homecare_use_subscription_balance,
+                          style: const TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
                           )),
                       subtitle: Text(
                         canUseSubscription
-                            ? 'Deduct 2 Hours (Balance: $subscriptionBalance h)'
-                            : 'Insufficient Balance ($subscriptionBalance h)',
+                            ? context.l10n.homecare_deduct_hours(
+                                HOMECARE_DURATION_HOURS, subscriptionBalance)
+                            : context.l10n.homecare_insufficient_balance(
+                                subscriptionBalance),
                         style: TextStyle(
                           color: canUseSubscription ? null : Colors.red,
                           fontSize: 12,
@@ -457,9 +464,9 @@ class _HomecareReviewPage extends StatelessWidget {
                 width: 20,
                 child: CircularProgressIndicator(color: Colors.white),
               )
-            : const Text(
-                'Confirm Booking',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            : Text(
+                context.l10n.homecare_confirm_booking_btn,
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
       ),
     );

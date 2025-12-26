@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/precision/bloc/nutrition_plan_cubit.dart';
 import 'package:m2health/features/precision/widgets/precision_widgets.dart';
 import 'package:m2health/route/app_routes.dart';
@@ -18,20 +19,42 @@ const weeklyFoodImagePaths = [
 class WeeklyMealPlanPage extends StatelessWidget {
   const WeeklyMealPlanPage({super.key});
 
+  String _getLocalDayName(BuildContext context, String day) {
+    switch (day.toLowerCase()) {
+      case 'monday':
+        return context.l10n.day_monday;
+      case 'tuesday':
+        return context.l10n.day_tuesday;
+      case 'wednesday':
+        return context.l10n.day_wednesday;
+      case 'thursday':
+        return context.l10n.day_thursday;
+      case 'friday':
+        return context.l10n.day_friday;
+      case 'saturday':
+        return context.l10n.day_saturday;
+      case 'sunday':
+        return context.l10n.day_sunday;
+      default:
+        return day;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final weeklyPlan = context.read<NutritionPlanCubit>().state.weeklyMealPlan;
     final days = weeklyPlan.keys.toList();
+    final description =
+        '${context.l10n.precision_meal_breakfast} • ${context.l10n.precision_meal_lunch} • ${context.l10n.precision_meal_dinner}';
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Weekly Meal Plan'),
+      appBar: CustomAppBar(title: context.l10n.precision_weekly_meal_plan_title),
       body: ListView.builder(
         padding: const EdgeInsets.all(20),
         itemCount: days.length,
         itemBuilder: (context, index) {
           final day = days[index];
           final imagePath = weeklyFoodImagePaths[index];
-          const description = 'Breakfast • Lunch • Dinner';
 
           return GestureDetector(
             onTap: () => GoRouter.of(context).pushNamed(
@@ -58,7 +81,7 @@ class WeeklyMealPlanPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    day.toUpperCase(),
+                    _getLocalDayName(context, day).toUpperCase(),
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 32,

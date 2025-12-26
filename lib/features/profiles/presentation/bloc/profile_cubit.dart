@@ -33,7 +33,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       return;
     }
 
-    if (['nurse', 'pharmacist', 'radiologist', 'caregiver'].contains(role)) {
+    if (['nurse', 'pharmacist', 'radiologist', 'caregiver', 'physiotherapist']
+        .contains(role)) {
       final result = await getProfessionalProfileUseCase();
       result.fold(
         (failure) {

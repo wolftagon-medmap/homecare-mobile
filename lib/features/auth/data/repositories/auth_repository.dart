@@ -122,10 +122,12 @@ class AuthRepository {
       };
 
       late String endpoint;
-      if (['nurse', 'pharmacist', 'radiologist', 'caregiver'].contains(role)) {
+      if (['nurse', 'pharmacist', 'radiologist', 'caregiver', 'physiotherapist']
+          .contains(role)) {
         endpoint = '${Const.API_REGISTER}/professional';
         payload['role'] = role;
       } else {
+        // Default to patient
         endpoint = '${Const.API_REGISTER}/$role';
       }
       final response = await dio.post(

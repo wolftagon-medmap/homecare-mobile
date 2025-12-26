@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import '../../../widgets/precision_widgets.dart';
 import '../../../bloc/nutrition_assessment_cubit.dart';
 import 'biomarker_upload_screen.dart';
@@ -73,7 +74,7 @@ class _NutritionHabitsScreenState extends State<NutritionHabitsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Nutrition Habits'),
+      appBar: CustomAppBar(title: context.l10n.precision_nutrition_habits_title),
       body: Form(
         key: _formKey,
         child: Padding(
@@ -88,13 +89,13 @@ class _NutritionHabitsScreenState extends State<NutritionHabitsScreen> {
                     children: [
                       // Meal Frequency Section
                       CustomTextField(
-                        label: 'Describe your daily meal frequency',
-                        hintText: 'E.g Twice a day',
+                        label: context.l10n.precision_meal_frequency_label,
+                        hintText: context.l10n.precision_meal_frequency_hint,
                         controller: _mealFrequencyController,
                         maxLines: 2,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please describe your meal frequency';
+                            return context.l10n.precision_meal_frequency_error;
                           }
                           return null;
                         },
@@ -102,13 +103,13 @@ class _NutritionHabitsScreenState extends State<NutritionHabitsScreen> {
 
                       // Food Sensitivities Section
                       CustomTextField(
-                        label: 'Known food sensitivities or allergies',
-                        hintText: 'E.g: Seafoods such as shrimp',
+                        label: context.l10n.precision_food_sensitivities_label,
+                        hintText: context.l10n.precision_food_sensitivities_hint,
                         controller: _foodSensitivitiesController,
                         maxLines: 2,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please describe your food sensitivities';
+                            return context.l10n.precision_food_sensitivities_error;
                           }
                           return null;
                         },
@@ -116,13 +117,13 @@ class _NutritionHabitsScreenState extends State<NutritionHabitsScreen> {
 
                       // Favorite Foods Section
                       CustomTextField(
-                        label: 'Favorite food types',
-                        hintText: 'E.g: Chicken, Healthy Soup, Meatball',
+                        label: context.l10n.precision_favorite_foods_label,
+                        hintText: context.l10n.precision_favorite_foods_hint,
                         controller: _favoriteFoodsController,
                         maxLines: 2,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please describe your favorite foods';
+                            return context.l10n.precision_favorite_foods_error;
                           }
                           return null;
                         },
@@ -130,13 +131,13 @@ class _NutritionHabitsScreenState extends State<NutritionHabitsScreen> {
 
                       // Avoided Foods Section
                       CustomTextField(
-                        label: 'Avoided food types',
-                        hintText: 'E.g: Seafood',
+                        label: context.l10n.precision_avoided_foods_label,
+                        hintText: context.l10n.precision_avoided_foods_hint,
                         controller: _avoidedFoodsController,
                         maxLines: 2,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please describe foods you avoid';
+                            return context.l10n.precision_avoided_foods_error;
                           }
                           return null;
                         },
@@ -144,13 +145,13 @@ class _NutritionHabitsScreenState extends State<NutritionHabitsScreen> {
 
                       // Water Intake Section
                       CustomTextField(
-                        label: 'Water intake',
-                        hintText: 'E.g: 7 glass per day',
+                        label: context.l10n.precision_water_intake_label,
+                        hintText: context.l10n.precision_water_intake_hint,
                         controller: _waterIntakeController,
                         maxLines: 2,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please describe your water intake';
+                            return context.l10n.precision_water_intake_error;
                           }
                           return null;
                         },
@@ -158,13 +159,13 @@ class _NutritionHabitsScreenState extends State<NutritionHabitsScreen> {
 
                       // Past Diets Section
                       CustomTextField(
-                        label: 'Past diets',
-                        hintText: 'E.g: Keto, low-carb, plant-based, raw food',
+                        label: context.l10n.precision_past_diets_label,
+                        hintText: context.l10n.precision_past_diets_hint,
                         controller: _pastDietsController,
                         maxLines: 2,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please describe your past diets';
+                            return context.l10n.precision_past_diets_error;
                           }
                           return null;
                         },
@@ -176,7 +177,7 @@ class _NutritionHabitsScreenState extends State<NutritionHabitsScreen> {
 
               // Next Button
               PrimaryButton(
-                text: 'Next',
+                text: context.l10n.common_next,
                 onPressed: _onNextPressed,
               ),
             ],

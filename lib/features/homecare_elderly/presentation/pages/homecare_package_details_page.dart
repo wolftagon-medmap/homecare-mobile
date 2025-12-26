@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/extensions/string_extensions.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/payment/presentation/pages/subscription_payment_page.dart';
 import 'package:m2health/features/subscription/domain/entities/subscription_plan_entity.dart';
 import 'package:m2health/features/subscription/domain/entities/user_subscription_entity.dart';
@@ -29,9 +29,9 @@ class _HomecarePackageDetailsPageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Subscription Plans',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          context.l10n.homecare_subscription_plans_title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       body: BlocConsumer<SubscriptionCubit, SubscriptionState>(
@@ -54,8 +54,7 @@ class _HomecarePackageDetailsPageState
               return Center(
                   child: Text(state.errorMessage ?? 'Error loading plans'));
             }
-            return const Center(
-                child: Text('No subscription plans available.'));
+            return Center(child: Text(context.l10n.common_no_data));
           }
 
           // Find active subscription if any
@@ -89,6 +88,7 @@ class _HomecarePackageDetailsPageState
   Widget _buildPlanCard(BuildContext context, SubscriptionPlanEntity plan,
       bool isSubmitting, UserSubscriptionEntity? activeSub) {
     final bool hasActiveSub = activeSub != null;
+    final locale = Localizations.localeOf(context).toString();
     // Assuming we only block purchase if *any* subscription is active,
     // or specifically this plan. Prompt says "when there is an active subscription".
     // We'll block if any is active for simplicity as per requirement.
@@ -113,16 +113,17 @@ class _HomecarePackageDetailsPageState
             ),
             const SizedBox(height: 8),
             Text(
-              '${plan.quotaAmount} ${plan.quotaUnit.toTitleCase()}s of Care',
+              context.l10n.homecare_care_hours(plan.quotaAmount),
               style: TextStyle(fontSize: 18, color: Colors.grey[700]),
             ),
             const SizedBox(height: 12),
             const Divider(),
             const SizedBox(height: 12),
-            _buildFeatureRow(
-                Icons.check_circle, 'Valid for ${plan.validityDays} Days'),
+            _buildFeatureRow(Icons.check_circle,
+                context.l10n.homecare_valid_for_days(plan.validityDays)),
             const SizedBox(height: 12),
-            _buildFeatureRow(Icons.check_circle, 'Experienced Caregivers'),
+            _buildFeatureRow(Icons.check_circle,
+                context.l10n.homecare_experienced_caregivers),
             const SizedBox(height: 24),
             SizedBox(
               width: double.infinity,
@@ -136,9 +137,9 @@ class _HomecarePackageDetailsPageState
                       ),
                       child: Column(
                         children: [
-                          const Text(
-                            'Active Subscription',
-                            style: TextStyle(
+                          Text(
+                            context.l10n.homecare_active_subscription,
+                            style: const TextStyle(
                               color: Colors.green,
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -146,7 +147,9 @@ class _HomecarePackageDetailsPageState
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            'Expires on ${DateFormat('dd MMM yyyy').format(activeSub!.expiresAt)}',
+                            context.l10n.homecare_expires_on(
+                                DateFormat.yMMMd(locale)
+                                    .format(activeSub.expiresAt)),
                             style: TextStyle(
                               color: Colors.green[700],
                               fontSize: 14,
@@ -176,7 +179,8 @@ class _HomecarePackageDetailsPageState
                         ),
                       ),
                       child: Text(
-                        'Purchase Now - \$${plan.price.toStringAsFixed(2)}',
+                        context.l10n.homecare_purchase_now(
+                            '\$${plan.price.toStringAsFixed(2)}'),
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),

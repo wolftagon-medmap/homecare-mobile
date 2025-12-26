@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/home_health_screening/domain/entities/screening_service.dart';
 import 'package:m2health/features/home_health_screening/presentation/bloc/services_list/screening_services_cubit.dart';
 
@@ -47,8 +48,8 @@ class _ScreeningServicesSelectionPageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Health Screening',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: Text(context.l10n.home_health_screening_title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       ),
       body: BlocBuilder<ScreeningServicesCubit, ScreeningServicesState>(
         builder: (context, state) {
@@ -146,9 +147,9 @@ class _ScreeningServicesSelectionPageState
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                "Estimated Budget",
-                style: TextStyle(
+              Text(
+                context.l10n.booking_estimated_budget,
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -171,8 +172,8 @@ class _ScreeningServicesSelectionPageState
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text("Book Appointment",
-                  style: TextStyle(
+              child: Text(context.l10n.booking_book_appointment_btn,
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold)),

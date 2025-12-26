@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 
 // Custom AppBar dengan tombol kembali dan judul di tengah
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -455,7 +456,7 @@ class FeatureDetailCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Learn More',
+                    context.l10n.precision_learn_more,
                     style: TextStyle(
                       color: color,
                       fontWeight: FontWeight.bold,

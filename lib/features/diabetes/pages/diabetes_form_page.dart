@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_state.dart';
 import 'package:m2health/features/diabetes/pages/form/diabetes_history_page.dart';
@@ -25,6 +26,16 @@ class _DiabetesFormPageState extends State<DiabetesFormPage> {
     super.dispose();
   }
 
+  String _getErrorMessage(BuildContext context, String? errorCode) {
+    if (errorCode == 'error_profile_load') {
+      return context.l10n.diabetes_form_load_failed;
+    }
+    if (errorCode == 'error_submit') {
+      return context.l10n.diabetes_form_submit_failed;
+    }
+    return context.l10n.common_error(errorCode ?? 'Unknown error');
+  }
+
   Future<void> _submitForm() async {
     final cubit = context.read<DiabetesFormCubit>();
     final success = await cubit.submitForm();
@@ -33,7 +44,8 @@ class _DiabetesFormPageState extends State<DiabetesFormPage> {
     if (!success) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(cubit.state.errorMessage ?? 'Failed to submit form.'),
+          content:
+              Text(_getErrorMessage(context, cubit.state.errorMessage)),
           backgroundColor: Colors.red,
         ),
       );
@@ -53,11 +65,12 @@ class _DiabetesFormPageState extends State<DiabetesFormPage> {
           );
         }
 
-        if (state.errorMessage != null && !state.isSubmitted) {
+        if (state.errorMessage != null && !state.isSubmitted && state.errorMessage == 'error_profile_load') {
           return Scaffold(
-            appBar: AppBar(title: const Text('Error')),
+            appBar: AppBar(title: Text(context.l10n.common_error_title)),
             body: Center(
-              child: Text(state.errorMessage ?? 'Failed to load form data.'),
+              child: Text(
+                  _getErrorMessage(context, state.errorMessage)),
             ),
           );
         }
@@ -89,7 +102,7 @@ class _DiabetesFormPageState extends State<DiabetesFormPage> {
           curve: Curves.easeInOut,
         );
       },
-      saveButtonText: 'Next',
+      saveButtonText: context.l10n.common_next,
       onPressBack: () => Navigator.of(context).pop(), // Handle back
     );
   }
@@ -108,7 +121,7 @@ class _DiabetesFormPageState extends State<DiabetesFormPage> {
           curve: Curves.easeInOut,
         );
       },
-      saveButtonText: 'Next',
+      saveButtonText: context.l10n.common_next,
       onPressBack: () => _pageController.previousPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -128,7 +141,7 @@ class _DiabetesFormPageState extends State<DiabetesFormPage> {
           curve: Curves.easeInOut,
         );
       },
-      saveButtonText: 'Next',
+      saveButtonText: context.l10n.common_next,
       onPressBack: () => _pageController.previousPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -144,7 +157,7 @@ class _DiabetesFormPageState extends State<DiabetesFormPage> {
         context.read<DiabetesFormCubit>().updatePhysicalSigns(newData);
       },
       onSave: _submitForm,
-      saveButtonText: 'Submit',
+      saveButtonText: context.l10n.common_submit,
       onPressBack: () => _pageController.previousPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,

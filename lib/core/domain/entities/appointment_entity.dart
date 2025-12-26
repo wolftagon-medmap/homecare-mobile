@@ -5,6 +5,7 @@ import 'package:m2health/features/payment/domain/entities/payment.dart';
 import 'package:m2health/features/booking_appointment/nursing/domain/entities/nursing_case.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/domain/entities/pharmacy_case.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
+import 'package:m2health/features/physiotherapy/domain/entities/physiotherapy_request_data.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 
 class AppointmentEntity extends Equatable {
@@ -25,6 +26,7 @@ class AppointmentEntity extends Equatable {
   final PharmacyCase? pharmacyCase;
   final ScreeningRequestData? screeningRequestData;
   final HomecareRequestData? homecareRequestData;
+  final PhysiotherapyRequestData? physiotherapyRequestData;
   final Profile? patientProfile;
   final Payment? payment;
 
@@ -45,6 +47,7 @@ class AppointmentEntity extends Equatable {
     this.pharmacyCase,
     this.screeningRequestData,
     this.homecareRequestData,
+    this.physiotherapyRequestData,
     this.patientProfile,
     this.payment,
   });
@@ -67,6 +70,7 @@ class AppointmentEntity extends Equatable {
         pharmacyCase,
         screeningRequestData,
         homecareRequestData,
+        physiotherapyRequestData,
         patientProfile,
         payment,
       ];

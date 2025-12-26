@@ -13,6 +13,8 @@ import 'package:m2health/features/wellness_genomics/injection.dart';
 import 'package:m2health/core/services/appointment_service.dart';
 import 'package:m2health/features/subscription/injection.dart';
 import 'package:m2health/features/homecare_elderly/injection.dart';
+import 'package:m2health/features/physiotherapy/injection.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
 
@@ -23,6 +25,8 @@ Future<void> setupLocator() async {
     dio.interceptors.add(TokenExpirationInterceptor());
     return dio;
   });
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerSingleton<SharedPreferences>(sharedPreferences);
   sl.registerLazySingleton(() => AppointmentService(sl()));
 
   // Feature Module Injectors
@@ -37,4 +41,5 @@ Future<void> setupLocator() async {
   initScheduleModule(sl);
   initSubscriptionModule(sl);
   initHomecareElderlyModule(sl);
+  initPhysiotherapyModule(sl);
 }

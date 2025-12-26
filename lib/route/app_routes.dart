@@ -24,6 +24,7 @@ class AppRoutes {
   static const String secondOpinionMedical = '/second-opinion-medical';
   static const String precisionNutrition = '/precision-nutrition';
   static const String homecareForElderly = '/homecare-for-elderly';
+  static const String physiotherapy = '/physiotherapy';
 
   // Appointment
   static const String appointmentDetail = '/appointment/detail';
@@ -58,6 +59,9 @@ class AppRoutes {
   static const String personal = '/personal';
   static const String nursing = '/nursing';
   static const String submenu = '/submenu';
+
+  // Settings
+  static const String appLanguageSetting = '/app-language-setting';
 
   // Precision Nutrition Module
   static const String precisionNutritionAssessmentForm =

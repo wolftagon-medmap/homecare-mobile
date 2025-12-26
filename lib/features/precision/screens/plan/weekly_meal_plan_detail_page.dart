@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/precision/bloc/nutrition_plan_cubit.dart';
 import 'package:m2health/features/precision/widgets/precision_widgets.dart';
 
@@ -15,7 +16,27 @@ class WeeklyMealPlanDetailPage extends StatefulWidget {
 
 class _WeeklyMealPlanDetailPageState extends State<WeeklyMealPlanDetailPage> {
   int _selectedTabIndex = 0;
-  final List<String> _tabs = ['Breakfast', 'Lunch', 'Dinner'];
+
+  String _getLocalDayName(BuildContext context, String day) {
+    switch (day.toLowerCase()) {
+      case 'monday':
+        return context.l10n.day_monday;
+      case 'tuesday':
+        return context.l10n.day_tuesday;
+      case 'wednesday':
+        return context.l10n.day_wednesday;
+      case 'thursday':
+        return context.l10n.day_thursday;
+      case 'friday':
+        return context.l10n.day_friday;
+      case 'saturday':
+        return context.l10n.day_saturday;
+      case 'sunday':
+        return context.l10n.day_sunday;
+      default:
+        return day;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +44,15 @@ class _WeeklyMealPlanDetailPageState extends State<WeeklyMealPlanDetailPage> {
         context.read<NutritionPlanCubit>().state.weeklyMealPlan[widget.day];
 
     if (dailyPlan == null) {
-      return const Scaffold(
-          body: Center(child: Text('No plan found for this day.')));
+      return Scaffold(
+          body: Center(child: Text(context.l10n.common_no_data)));
     }
+
+    final List<String> tabs = [
+      context.l10n.precision_meal_breakfast,
+      context.l10n.precision_meal_lunch,
+      context.l10n.precision_meal_dinner
+    ];
 
     final List<List<FoodItem>> mealLists = [
       dailyPlan.breakfast,
@@ -34,14 +61,16 @@ class _WeeklyMealPlanDetailPageState extends State<WeeklyMealPlanDetailPage> {
     ];
 
     return Scaffold(
-      appBar: CustomAppBar(title: '${widget.day} Meal Plan'),
+      appBar: CustomAppBar(
+          title: context.l10n
+              .precision_day_meal_plan(_getLocalDayName(context, widget.day))),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: _MealTypeSelector(
               selectedIndex: _selectedTabIndex,
-              tabs: _tabs,
+              tabs: tabs,
               onTabSelected: (index) {
                 setState(() {
                   _selectedTabIndex = index;
@@ -118,7 +147,7 @@ class _MealListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (foods.isEmpty) {
-      return const Center(child: Text("No meals planned for this time."));
+      return Center(child: Text(context.l10n.common_no_data));
     }
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -193,21 +222,21 @@ class _FoodItemCard extends StatelessWidget {
                 value: food.protein,
                 maxValue:
                     45, // Reference amount of very high protein in single meal
-                label: 'Protein',
+                label: context.l10n.nutrition_protein,
                 color: Colors.teal.shade300,
               ),
               _NutrientInfoWithBar(
                 value: food.carbs,
                 maxValue:
                     75, // Reference amount of very high carbs in single meal
-                label: 'Carbs',
+                label: context.l10n.nutrition_carbs,
                 color: Colors.orange.shade300,
               ),
               _NutrientInfoWithBar(
                 value: food.fat,
                 maxValue:
                     50, // Reference amount of very high fat in single meal
-                label: 'Fat',
+                label: context.l10n.nutrition_fat,
                 color: Colors.purple.shade300,
               ),
             ],

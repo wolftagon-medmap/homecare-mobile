@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/diabetes/widgets/diabetes_form_widget.dart';
 import 'package:m2health/features/profiles/domain/entities/mental_health_state.dart';
 import 'package:m2health/features/profiles/presentation/bloc/mental_health_state_cubit.dart';
@@ -26,8 +27,8 @@ class _EditMentalStatePageState extends State<EditMentalStatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Mental State",
-            style: TextStyle(
+        title: Text(context.l10n.mental_state_title,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
             )),
@@ -74,7 +75,7 @@ class _EditMentalStatePageState extends State<EditMentalStatePage> {
                     onPressed: () => context
                         .read<MentalHealthStateCubit>()
                         .loadMentalHealthState(),
-                    child: const Text("Retry"),
+                    child: Text(context.l10n.common_retry),
                   )
                 ],
               ),
@@ -104,13 +105,14 @@ class _EditMentalStatePageState extends State<EditMentalStatePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Mental State (Current)",
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                Text(
+                  context.l10n.mental_state_current_section,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w600, fontSize: 16),
                 ),
                 const Divider(),
                 MentalStateSlider(
-                  label: "Overall Mood:",
+                  label: context.l10n.mental_state_overall_mood,
                   value: _formData!.overallMood,
                   initialValue: _initialData?.overallMood,
                   icon: Image.asset('assets/icons/ic_overall_mood.png'),
@@ -120,7 +122,7 @@ class _EditMentalStatePageState extends State<EditMentalStatePage> {
                   },
                 ),
                 MentalStateSlider(
-                  label: "Anxiety Level:",
+                  label: context.l10n.mental_state_anxiety_level,
                   value: _formData!.anxietyLevel,
                   initialValue: _initialData?.anxietyLevel,
                   icon: Image.asset('assets/icons/ic_anxiety_level.png'),
@@ -130,7 +132,7 @@ class _EditMentalStatePageState extends State<EditMentalStatePage> {
                   },
                 ),
                 MentalStateSlider(
-                  label: "Stress Level:",
+                  label: context.l10n.mental_state_stress_level,
                   value: _formData!.stressLevel,
                   initialValue: _initialData?.stressLevel,
                   icon: Image.asset('assets/icons/ic_stress_level.png'),
@@ -140,7 +142,7 @@ class _EditMentalStatePageState extends State<EditMentalStatePage> {
                   },
                 ),
                 MentalStateSlider(
-                  label: "Energy Level:",
+                  label: context.l10n.mental_state_energy_level,
                   value: _formData!.energyLevel,
                   initialValue: _initialData?.energyLevel,
                   icon: Image.asset('assets/icons/ic_energy_level.png'),
@@ -150,7 +152,7 @@ class _EditMentalStatePageState extends State<EditMentalStatePage> {
                   },
                 ),
                 MentalStateSlider(
-                  label: "Focus Level:",
+                  label: context.l10n.mental_state_focus_level,
                   value: _formData!.focusLevel,
                   initialValue: _initialData?.focusLevel,
                   icon: Image.asset('assets/icons/ic_focus_level.png'),
@@ -160,7 +162,7 @@ class _EditMentalStatePageState extends State<EditMentalStatePage> {
                   },
                 ),
                 MentalStateSlider(
-                  label: "Sleep Quality:",
+                  label: context.l10n.mental_state_sleep_quality,
                   value: _formData!.sleepQuality,
                   initialValue: _initialData?.sleepQuality,
                   icon: Image.asset('assets/icons/ic_sleep_quality.png'),
@@ -175,16 +177,21 @@ class _EditMentalStatePageState extends State<EditMentalStatePage> {
                     Image.asset('assets/icons/ic_mood_notes.png',
                         width: 30, height: 30),
                     const SizedBox(width: 10),
-                    const Text("Notes/Events affecting your mood:",
-                        style: TextStyle(fontWeight: FontWeight.w600)),
+                    Expanded(
+                      child: Text(
+                        context.l10n.mental_state_notes_label,
+                        style: const TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 8),
                 TextFormField(
                   initialValue: _formData!.note,
-                  decoration: const InputDecoration(
-                      hintText: 'Additional notes',
-                      hintStyle: TextStyle(color: Colors.grey, fontSize: 12)),
+                  decoration: InputDecoration(
+                      hintText: context.l10n.mental_state_notes_hint,
+                      hintStyle:
+                          const TextStyle(color: Colors.grey, fontSize: 12)),
                   maxLines: 3,
                   onChanged: (v) {
                     _formData = _formData!.copyWith(note: v);
@@ -192,7 +199,9 @@ class _EditMentalStatePageState extends State<EditMentalStatePage> {
                 ),
                 const SizedBox(height: 24),
                 PrimaryButton(
-                  text: isSaving ? 'Saving...' : 'Save',
+                  text: isSaving
+                      ? context.l10n.common_saving
+                      : context.l10n.common_save,
                   isLoading: isSaving,
                   onPressed: () {
                     if (_formData != null) {

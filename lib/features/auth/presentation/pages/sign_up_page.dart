@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
+import 'package:m2health/core/presentation/views/app_languages_setting.dart';
 import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/route/app_routes.dart';
@@ -30,7 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
   void _validatePasswords() {
     setState(() {
       if (_passwordController.text != _confirmPasswordController.text) {
-        _passwordError = 'Passwords do not match';
+        _passwordError = context.l10n.auth_passwords_do_not_match;
       } else {
         _passwordError = null;
       }
@@ -50,18 +53,54 @@ class _SignUpPageState extends State<SignUpPage> {
           );
     } else if (_selectedRole == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please select a user type'),
+        SnackBar(
+          content: Text(context.l10n.auth_select_role_error),
           backgroundColor: Colors.red,
         ),
       );
     }
   }
 
+  String _getLanguageLabel(Locale locale) {
+    switch (locale.languageCode) {
+      case 'id':
+        return 'Bahasa Indonesia';
+      case 'zh':
+        return '中文';
+      case 'en':
+      default:
+        return 'English';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          BlocBuilder<LocaleCubit, Locale>(
+            builder: (context, locale) {
+              return TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AppLanguagesSetting()),
+                  );
+                },
+                child: Text(
+                  _getLanguageLabel(locale),
+                  style: const TextStyle(
+                    color: Const.aqua,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       backgroundColor: Colors.white,
       body: BlocProvider(
         create: (context) => SignUpCubit(authRepository: sl()),
@@ -72,12 +111,13 @@ class _SignUpPageState extends State<SignUpPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: const Text('Registration Successful'),
+                    title:
+                        Text(context.l10n.auth_registration_successful_title),
                     content:
-                        const Text("Please check your email for verification."),
+                        Text(context.l10n.auth_registration_successful_content),
                     actions: <Widget>[
                       TextButton(
-                        child: const Text('OK'),
+                        child: Text(context.l10n.common_ok),
                         onPressed: () {
                           context.go(AppRoutes.signIn);
                         },
@@ -93,11 +133,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: const Text('Error'),
+                    title: Text(context.l10n.auth_error_title),
                     content: Text(state.error),
                     actions: <Widget>[
                       TextButton(
-                        child: const Text('OK'),
+                        child: Text(context.l10n.common_ok),
                         onPressed: () {
                           context.pop();
                         },
@@ -115,9 +155,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    const Text(
-                      'Create Account',
-                      style: TextStyle(
+                    Text(
+                      context.l10n.auth_sign_up_title,
+                      style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
                         color: Const.aqua,
@@ -125,9 +165,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8.0),
-                    const Text(
-                      "Create an account so you can explore all the\nexisting jobs",
-                      style: TextStyle(
+                    Text(
+                      context.l10n.auth_sign_up_subtitle,
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
                         color: Colors.black,
@@ -139,7 +179,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _usernameController,
                       decoration: InputDecoration(
-                        hintText: 'Username',
+                        hintText: context.l10n.auth_username_hint,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
@@ -148,7 +188,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Please enter a username';
+                          return context.l10n.auth_enter_username;
                         }
                         return null;
                       },
@@ -158,7 +198,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        hintText: 'Email',
+                        hintText: context.l10n.auth_email_hint,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
@@ -167,10 +207,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Please enter an email';
+                          return context.l10n.auth_enter_email;
                         }
                         if (!EmailValidator.validate(value.trim())) {
-                          return 'Please enter a valid email';
+                          return context.l10n.auth_enter_valid_email;
                         }
                         return null;
                       },
@@ -179,7 +219,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _passwordController,
                       decoration: InputDecoration(
-                        hintText: 'Password',
+                        hintText: context.l10n.auth_password_hint,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
@@ -189,10 +229,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter a password';
+                          return context.l10n.auth_enter_password;
                         }
                         if (value.length < 6) {
-                          return 'Password must be at least 6 characters';
+                          return context.l10n.auth_password_length_error;
                         }
                         return null;
                       },
@@ -201,7 +241,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _confirmPasswordController,
                       decoration: InputDecoration(
-                        hintText: 'Confirm Password',
+                        hintText: context.l10n.auth_confirm_password_hint,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
@@ -215,10 +255,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please confirm your password';
+                          return context.l10n.auth_confirm_password_error;
                         }
                         if (value != _passwordController.text) {
-                          return 'Passwords do not match';
+                          return context.l10n.auth_passwords_do_not_match;
                         }
                         return null;
                       },
@@ -226,7 +266,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(height: 20),
                     DropdownButtonFormField<UserRole>(
                       decoration: InputDecoration(
-                        hintText: 'Select User Type',
+                        hintText: context.l10n.auth_select_user_type_hint,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -238,11 +278,12 @@ class _SignUpPageState extends State<SignUpPage> {
                         UserRole.pharmacist,
                         UserRole.radiologist,
                         UserRole.caregiver,
+                        UserRole.physiotherapist,
                       ].map<DropdownMenuItem<UserRole>>((UserRole value) {
                         return DropdownMenuItem<UserRole>(
                           value: value,
                           child: Text(
-                            value.displayName,
+                            value.getDisplayName(context),
                             style: const TextStyle(fontWeight: FontWeight.w400),
                           ),
                         );
@@ -254,7 +295,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                       validator: (value) {
                         if (value == null) {
-                          return 'Please select a user type';
+                          return context.l10n.auth_select_role_error;
                         }
                         return null;
                       },
@@ -276,8 +317,8 @@ class _SignUpPageState extends State<SignUpPage> {
                         onPressed: state is SignUpLoading
                             ? null
                             : () => _submitForm(context),
-                        child: const Text('Sign Up',
-                            style: TextStyle(
+                        child: Text(context.l10n.auth_sign_up_btn,
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                             )),
@@ -290,15 +331,15 @@ class _SignUpPageState extends State<SignUpPage> {
                       onPressed: () {
                         context.go(AppRoutes.signIn);
                       },
-                      child: const Text(
-                        'Already have an account',
-                        style: TextStyle(color: Const.aqua),
+                      child: Text(
+                        context.l10n.auth_already_have_account,
+                        style: const TextStyle(color: Const.aqua),
                       ),
                     ),
                     const SizedBox(height: 20),
-                    const Text(
-                      'Or continue with',
-                      style: TextStyle(
+                    Text(
+                      context.l10n.auth_continue_with,
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
                       ),
@@ -309,25 +350,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // IconButton(
-                          //   icon: Image.asset('assets/icons/ic_fb.png'),
-                          //   iconSize: 40,
-                          //   onPressed: () {
-                          //     if (_selectedRole == null) {
-                          //       ScaffoldMessenger.of(context).showSnackBar(
-                          //         const SnackBar(
-                          //           content:
-                          //               Text('Please select a user type first'),
-                          //           backgroundColor: Colors.orange,
-                          //         ),
-                          //       );
-                          //       return;
-                          //     }
-                          //     // context
-                          //     //     .read<SignUpCubit>()
-                          //     //     .signUpWithFacebook(_selectedRole!);
-                          //   },
-                          // ),
                           const SizedBox(width: 16),
                           IconButton(
                             icon: Image.asset('assets/icons/ic_google.png'),
@@ -335,9 +357,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             onPressed: () {
                               if (_selectedRole == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content:
-                                        Text('Please select a user type first'),
+                                  SnackBar(
+                                    content: Text(context
+                                        .l10n.auth_select_role_first_error),
                                     backgroundColor: Colors.orange,
                                   ),
                                 );
@@ -349,25 +371,6 @@ class _SignUpPageState extends State<SignUpPage> {
                             },
                           ),
                           const SizedBox(width: 16),
-                          // IconButton(
-                          //   icon: Image.asset('assets/icons/ic_wechat.png'),
-                          //   iconSize: 40,
-                          //   onPressed: () {
-                          //     if (_selectedRole == null) {
-                          //       ScaffoldMessenger.of(context).showSnackBar(
-                          //         const SnackBar(
-                          //           content:
-                          //               Text('Please select a user type first'),
-                          //           backgroundColor: Colors.orange,
-                          //         ),
-                          //       );
-                          //       return;
-                          //     }
-                          //     // context
-                          //     //     .read<SignUpCubit>()
-                          //     //     .signUpWithWeChat(_selectedRole!);
-                          //   },
-                          // ),
                         ],
                       ),
                     )

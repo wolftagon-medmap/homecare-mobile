@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/schedule/presentation/bloc/schedule_cubit.dart';
 
 class DateOverrideFormDialog extends StatefulWidget {
@@ -37,7 +38,7 @@ class _DateOverrideFormDialogState extends State<DateOverrideFormDialog> {
   void _onSave() {
     if (_startTime == null || _endTime == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select both start and end time.')),
+        SnackBar(content: Text(context.l10n.schedule_please_select_time)),
       );
       return;
     }
@@ -46,7 +47,7 @@ class _DateOverrideFormDialogState extends State<DateOverrideFormDialog> {
         (_startTime!.hour == _endTime!.hour &&
             _startTime!.minute >= _endTime!.minute)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('End time must be after start time.')),
+        SnackBar(content: Text(context.l10n.schedule_end_time_error)),
       );
       return;
     }
@@ -76,12 +77,13 @@ class _DateOverrideFormDialogState extends State<DateOverrideFormDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.white,
-      title: const Text('Add Time Slot'),
+      title: Text(context.l10n.schedule_add_time_slot_title),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            DateFormat('MMMM d, yyyy').format(widget.selectedDate),
+            DateFormat('MMMM d, yyyy', Localizations.localeOf(context).toString())
+                .format(widget.selectedDate),
             style: TextStyle(color: Colors.grey.shade900),
           ),
           const SizedBox(height: 20),
@@ -89,13 +91,13 @@ class _DateOverrideFormDialogState extends State<DateOverrideFormDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _TimePickerChip(
-                label: 'Start',
+                label: context.l10n.schedule_start,
                 time: _startTime,
                 onTap: () => _selectTime(context, true),
               ),
               const Text('-'),
               _TimePickerChip(
-                label: 'End',
+                label: context.l10n.schedule_end,
                 time: _endTime,
                 onTap: () => _selectTime(context, false),
               ),
@@ -106,12 +108,13 @@ class _DateOverrideFormDialogState extends State<DateOverrideFormDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(context.l10n.common_cancel),
         ),
         ElevatedButton(
           onPressed: _onSave,
           style: ElevatedButton.styleFrom(backgroundColor: Const.aqua),
-          child: const Text('Add', style: TextStyle(color: Colors.white)),
+          child: Text(context.l10n.schedule_add_btn,
+              style: const TextStyle(color: Colors.white)),
         ),
       ],
     );

@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/route/app_routes.dart';
 import '../../../widgets/precision_widgets.dart';
 import '../../../bloc/nutrition_assessment_cubit.dart';
@@ -50,9 +51,8 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
         context: context,
         barrierDismissible: false,
         builder: (dialogContext) => AlertDialog(
-          title: const Text('Success!'),
-          content: const Text(
-              'Your Precision Nutrition Assessment has been submitted successfully. Our experts will review your information and create a personalized plan for you.'),
+          title: Text(context.l10n.precision_success_title),
+          content: Text(context.l10n.precision_success_content),
           actions: [
             TextButton(
               onPressed: () {
@@ -60,7 +60,7 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
                 GoRouter.of(context)
                     .goNamed(AppRoutes.precisionNutritionAssessmentDetail);
               },
-              child: const Text('View Details'),
+              child: Text(context.l10n.precision_view_details),
             ),
           ],
         ),
@@ -71,7 +71,7 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Biomarker Upload'),
+      appBar: CustomAppBar(title: context.l10n.precision_biomarker_upload_title),
       body: BlocBuilder<NutritionAssessmentCubit, NutritionAssessmentState>(
         builder: (context, state) {
           final existingUrls = state.fileUrls;
@@ -87,18 +87,18 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Header
-                        const Text(
-                          'Upload your medical records and connect devices',
-                          style: TextStyle(
+                        Text(
+                          context.l10n.precision_upload_header,
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: Colors.black87,
                           ),
                         ),
                         const SizedBox(height: 8),
-                        const Text(
-                          'This helps us create a more accurate and personalized nutrition plan',
-                          style: TextStyle(
+                        Text(
+                          context.l10n.precision_upload_subtitle,
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Colors.grey,
                           ),
@@ -122,18 +122,19 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
                                 color: Color(0xFF00B4D8),
                               ),
                               const SizedBox(height: 16),
-                              const Text(
-                                'Upload Medical Records',
-                                style: TextStyle(
+                              Text(
+                                context.l10n.precision_upload_medical_records,
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black87,
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              const Text(
-                                'Upload PDF, images, or other medical documents',
-                                style: TextStyle(
+                              Text(
+                                context
+                                    .l10n.precision_upload_medical_records_desc,
+                                style: const TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey,
                                 ),
@@ -141,7 +142,7 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
                               ),
                               const SizedBox(height: 16),
                               SecondaryButton(
-                                text: 'Choose File',
+                                text: context.l10n.precision_choose_file,
                                 icon: Icons.file_upload,
                                 onPressed: _pickFiles,
                               ),
@@ -168,18 +169,18 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
                                 color: Color(0xFF00B4D8),
                               ),
                               const SizedBox(height: 16),
-                              const Text(
-                                'Connect Wearable Device',
-                                style: TextStyle(
+                              Text(
+                                context.l10n.precision_connect_wearable,
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black87,
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              const Text(
-                                'Sync data from your smartwatch, fitness tracker, or other devices',
-                                style: TextStyle(
+                              Text(
+                                context.l10n.precision_connect_wearable_desc,
+                                style: const TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey,
                                 ),
@@ -187,7 +188,7 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
                               ),
                               const SizedBox(height: 16),
                               SecondaryButton(
-                                text: 'Connect Wearable Device',
+                                text: context.l10n.precision_connect_wearable,
                                 icon: Icons.bluetooth,
                                 onPressed: _connectWearableDevice,
                               ),
@@ -199,9 +200,9 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
 
                         // Uploaded Files Section
                         if (existingUrls.isNotEmpty || newFiles.isNotEmpty) ...[
-                          const Text(
-                            'Uploaded Files',
-                            style: TextStyle(
+                          Text(
+                            context.l10n.precision_uploaded_files,
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                               color: Colors.black87,
@@ -264,7 +265,7 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
 
                 // Submit Button
                 PrimaryButton(
-                  text: 'Submit Assessment',
+                  text: context.l10n.precision_submit_assessment,
                   onPressed: state.isLoading ? null : _submitAssessment,
                   isLoading: state.isLoading,
                 ),

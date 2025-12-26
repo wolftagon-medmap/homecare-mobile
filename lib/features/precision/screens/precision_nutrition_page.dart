@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/precision/bloc/nutrition_assessment_cubit.dart';
 import 'package:m2health/route/app_routes.dart';
 
@@ -14,8 +15,8 @@ class PrecisionNutritionPage extends StatelessWidget {
         builder: (context, state) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Precision Nutrition',
-              style: TextStyle(
+          title: Text(context.l10n.precision_nutrition_title,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               )),
@@ -43,10 +44,9 @@ class PrecisionNutritionPage extends StatelessWidget {
                       // Step 1: Assessment Card
                       PrecisionNutritionCard(
                         step: "1",
-                        title: "Precision Nutrition Assessment",
-                        description:
-                            "Start your journey with a deep analysis of your genes, metabolism and lifestyle to understand your body's unique needs.",
-                        buttonText: "Start Now",
+                        title: context.l10n.precision_assessment_title,
+                        description: context.l10n.precision_assessment_desc,
+                        buttonText: context.l10n.precision_start_now,
                         imagePath: "assets/illustration/foodies.png",
                         backgroundColor: const Color(0xFFE8F3FF),
                         isLoading: state.isLoading,
@@ -70,10 +70,9 @@ class PrecisionNutritionPage extends StatelessWidget {
                       // Step 2: Plan Card
                       PrecisionNutritionCard(
                         step: "2",
-                        title: "Precision Nutrition Plan",
-                        description:
-                            "Receive a personalized nutrition strategy crafted by experts to address your specific health goals and conditions.",
-                        buttonText: "Book Now",
+                        title: context.l10n.precision_plan_title,
+                        description: context.l10n.precision_plan_desc,
+                        buttonText: context.l10n.precision_book_now,
                         imagePath: "assets/illustration/planning.png",
                         backgroundColor: const Color(0xFFFFF6E9),
                         onTap: () {
@@ -87,10 +86,10 @@ class PrecisionNutritionPage extends StatelessWidget {
                       // Step 3: Implementation Card
                       PrecisionNutritionCard(
                           step: "3",
-                          title: "Precision Nutrition Implementation",
+                          title: context.l10n.precision_implementation_title,
                           description:
-                              "Track progress and adapt your plan through continuous support, biomarker monitoring, and smart digital tools.",
-                          buttonText: "Start Now",
+                              context.l10n.precision_implementation_desc,
+                          buttonText: context.l10n.precision_start_now,
                           imagePath: "assets/illustration/implement.png",
                           backgroundColor: const Color(0xFFF8F0FF),
                           onTap: () {
@@ -108,21 +107,6 @@ class PrecisionNutritionPage extends StatelessWidget {
     });
   }
 
-  void _showComingSoonDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Coming Soon'),
-        content: const Text('This feature will be available soon!'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 class PrecisionNutritionCard extends StatelessWidget {

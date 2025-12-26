@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/wellness_genomics/presentation/bloc/wellness_genomics_cubit.dart';
 import 'package:m2health/features/wellness_genomics/presentation/bloc/wellness_genomics_state.dart';
 import 'package:m2health/utils.dart';
@@ -29,18 +30,18 @@ class WellnessGenomicsReportForm extends StatelessWidget {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: const Text('Delete Report'),
+          title: Text(context.l10n.pharmacogenomics_delete_report_title),
           content:
-              const Text('Are you sure you want to delete this report file?'),
+              Text(context.l10n.pharmacogenomics_delete_report_content),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cancel'),
+              child: Text(context.l10n.common_cancel),
               onPressed: () {
                 Navigator.of(dialogContext).pop();
               },
             ),
             TextButton(
-              child: const Text('Delete', style: TextStyle(color: Colors.red)),
+              child: Text(context.l10n.common_delete, style: const TextStyle(color: Colors.red)),
               onPressed: () {
                 Navigator.of(dialogContext).pop();
                 context.read<WellnessGenomicsCubit>().delete();
@@ -111,7 +112,7 @@ class WellnessGenomicsReportForm extends StatelessWidget {
                   size: 28, color: Color(0xFF35C5CF)),
               const SizedBox(height: 4),
               Text(
-                'Tap to upload your report',
+                context.l10n.common_upload_tap,
                 style: TextStyle(color: Colors.grey[600]),
               ),
             ],
@@ -200,14 +201,14 @@ class WellnessGenomicsReportForm extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 4),
-                  const Row(
+                  Row(
                     children: [
-                      Icon(Icons.check_circle,
+                      const Icon(Icons.check_circle,
                           color: Color(0xFF35C5CF), size: 16),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text(
-                        'Ready',
-                        style: TextStyle(
+                        context.l10n.common_ready,
+                        style: const TextStyle(
                             color: Color(0xFF35C5CF),
                             fontSize: 12,
                             fontWeight: FontWeight.bold),

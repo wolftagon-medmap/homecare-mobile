@@ -1,16 +1,38 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 
 enum MobilityStatus {
-  bedbound(displayName: 'Bedbound'),
-  wheelchairBound(displayName: 'Wheelchair Bound'),
-  walkingAid(displayName: 'Walking Aid'),
-  mobileWithoutAid(displayName: 'Mobile Without Aid');
+  bedbound,
+  wheelchairBound,
+  walkingAid,
+  mobileWithoutAid;
 
-  final String displayName;
+  String get apiValue {
+    switch (this) {
+      case MobilityStatus.bedbound:
+        return 'bedbound';
+      case MobilityStatus.wheelchairBound:
+        return 'wheelchairBound';
+      case MobilityStatus.walkingAid:
+        return 'walkingAid';
+      case MobilityStatus.mobileWithoutAid:
+        return 'mobileWithoutAid';
+    }
+  }
 
-  const MobilityStatus({required this.displayName});
-
-  String get apiValue => name;
+  String label(BuildContext context) {
+    switch (this) {
+      case MobilityStatus.bedbound:
+        return context.l10n.booking_mobility_bedbound;
+      case MobilityStatus.wheelchairBound:
+        return context.l10n.booking_mobility_wheelchair_bound;
+      case MobilityStatus.walkingAid:
+        return context.l10n.booking_mobility_walking_aid;
+      case MobilityStatus.mobileWithoutAid:
+        return context.l10n.booking_mobility_mobile_without_aid;
+    }
+  }
 
   static MobilityStatus? fromApiValue(String? value) {
     if (value == null) return null;

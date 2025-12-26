@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/app_localzations.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_state.dart';
 import 'package:m2health/route/app_routes.dart';
@@ -10,19 +11,17 @@ import 'package:m2health/route/app_routes.dart';
 class DiabeticCare extends StatelessWidget {
   const DiabeticCare({super.key});
 
-  List<Map<String, String>> get diabeticCareMenus => [
+  List<Map<String, String>> _getDiabeticCareMenus(BuildContext context) => [
         {
-          'title': 'Diabetic Retinal\nPhotography (DRP)',
-          'description':
-              'A common eye disease among diabetic\npatients. Blood capillaries may bleed\nand damage the retina, potentially\nleading to blindness. Regular\ndiabetic retinal photography\ncan detect and monitor your eyes.',
+          'title': context.l10n.diabetic_retinal_photography,
+          'description': context.l10n.diabetic_retinal_photography_desc,
           'imagePath': 'assets/images/ilu_diabet_retina.png',
           'color': '9AE1FF',
           'opacity': '0.33',
         },
         {
-          'title': 'Diabetic Foot Screening\n (DFS)',
-          'description':
-              'Conducted by trained nurses, who will\nalso educate on proper footcare and\ngood sugar control. Referrals to\nfootcare specialists will be made\nwhere appropriate.',
+          'title': context.l10n.diabetic_foot_screening,
+          'description': context.l10n.diabetic_foot_screening_desc,
           'imagePath': 'assets/images/ilu_diabet_foot.png',
           'color': 'B28CFF',
           'opacity': '0.2',
@@ -31,10 +30,13 @@ class DiabeticCare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final diabeticCareMenus = _getDiabeticCareMenus(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.translate('diabetic_care2'),
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: Text(
+          context.l10n.diabetic_care_title,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
       ),
       body: Container(
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 60.0),
@@ -134,9 +136,9 @@ class DiabeticCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const SizedBox(width: 5),
-                      const Text(
-                        'Book Now',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.common_book_now,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                           color: Color(0xFF35C5CF),

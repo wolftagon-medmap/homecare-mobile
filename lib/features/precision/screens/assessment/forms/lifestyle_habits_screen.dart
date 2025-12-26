@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import '../../../widgets/precision_widgets.dart';
 import '../../../bloc/nutrition_assessment_cubit.dart';
 import 'nutrition_habits_screen.dart';
@@ -68,7 +69,7 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Lifestyle & Habits'),
+      appBar: CustomAppBar(title: context.l10n.precision_lifestyle_habits_title),
       body: Form(
         key: _formKey,
         child: Padding(
@@ -82,9 +83,9 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Sleep Hours Section
-                      const Text(
-                        'How many hours of sleep do you get per night?',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.precision_sleep_hours_question,
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                           color: Colors.black87,
@@ -120,7 +121,8 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
                               ),
                             ),
                             Text(
-                              '${_sleepHours.toStringAsFixed(1)} hours per day',
+                              context.l10n.precision_hours_per_day(
+                                  _sleepHours.toStringAsFixed(1)),
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500,
@@ -135,13 +137,13 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
 
                       // Activity Level Section
                       CustomTextField(
-                        label: 'Describe your typical daily activity level',
-                        hintText: 'E.g Working behind the desk 8 hours per day',
+                        label: context.l10n.precision_activity_level_label,
+                        hintText: context.l10n.precision_activity_level_hint,
                         controller: _activityLevelController,
                         maxLines: 2,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please describe your activity level';
+                            return context.l10n.precision_activity_level_error;
                           }
                           return null;
                         },
@@ -149,13 +151,13 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
 
                       // Exercise Frequency Section
                       CustomTextField(
-                        label: 'How often do you exercise per week?',
-                        hintText: 'E.g: Around 30 minutes per day',
+                        label: context.l10n.precision_exercise_frequency_label,
+                        hintText: context.l10n.precision_exercise_frequency_hint,
                         controller: _exerciseFrequencyController,
                         maxLines: 2,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please describe your exercise frequency';
+                            return context.l10n.precision_exercise_frequency_error;
                           }
                           return null;
                         },
@@ -163,13 +165,13 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
 
                       // Stress Level Section
                       CustomTextField(
-                        label: 'Stress levels',
-                        hintText: 'E.g: Intermediate stress level',
+                        label: context.l10n.precision_stress_level_label,
+                        hintText: context.l10n.precision_stress_level_hint,
                         controller: _stressLevelController,
                         maxLines: 2,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please describe your stress level';
+                            return context.l10n.precision_stress_level_error;
                           }
                           return null;
                         },
@@ -177,13 +179,13 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
 
                       // Smoking & Alcohol Section
                       CustomTextField(
-                        label: 'Smoking or alcohol habits?',
-                        hintText: 'E.g: Heavy smoking',
+                        label: context.l10n.precision_smoking_alcohol_label,
+                        hintText: context.l10n.precision_smoking_alcohol_hint,
                         controller: _smokingAlcoholController,
                         maxLines: 2,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please describe your smoking/alcohol habits';
+                            return context.l10n.precision_smoking_alcohol_error;
                           }
                           return null;
                         },
@@ -195,7 +197,7 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
 
               // Next Button
               PrimaryButton(
-                text: 'Next',
+                text: context.l10n.common_next,
                 onPressed: _onNextPressed,
               ),
             ],
