@@ -63,5 +63,11 @@
 
 	<key>NSLocationWhenInUseUsageDescription</key>
   <string>We need your location to find homecare providers near your home.</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>id</string>
+		<string>zh</string>
+	</array>
 </dict>
 </plist>
