@@ -1930,6 +1930,12 @@ abstract class AppLocalizations {
   /// **'Caregiver/Helper'**
   String get auth_role_caregiver;
 
+  /// No description provided for @auth_role_physiotherapist.
+  ///
+  /// In en, this message translates to:
+  /// **'Physiotherapist'**
+  String get auth_role_physiotherapist;
+
   /// No description provided for @auth_sign_up_title.
   ///
   /// In en, this message translates to:

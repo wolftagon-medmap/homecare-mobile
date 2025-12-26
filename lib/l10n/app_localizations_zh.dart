@@ -953,6 +953,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get auth_role_caregiver => '护理员/帮手';
 
   @override
+  String get auth_role_physiotherapist => '物理治疗师';
+
+  @override
   String get auth_sign_up_title => '创建账户';
 
   @override
