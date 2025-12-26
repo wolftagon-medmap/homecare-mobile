@@ -2320,4 +2320,181 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get schedule_updated_success => 'Schedule updated successfully';
+
+  @override
+  String get physiotherapy_title => 'Physiotherapy';
+
+  @override
+  String get physiotherapy_musculoskeletal_title =>
+      'Musculoskeletal Physiotherapy';
+
+  @override
+  String get physiotherapy_musculoskeletal_desc =>
+      'Musculoskeletal physiotherapy treats injuries involving muscles, joints, bones, ligaments, tendons, and nerves.';
+
+  @override
+  String get physiotherapy_neurological_title => 'Neurological Physiotherapy';
+
+  @override
+  String get physiotherapy_neurological_desc =>
+      'Neurological physiotherapy treats conditions affecting the nervous system, including the brain, spinal cord, and nerves.';
+
+  @override
+  String get physiotherapy_book_appointment => 'Book Appointment';
+
+  @override
+  String get physiotherapy_duration_label => 'DURATION';
+
+  @override
+  String get physiotherapy_duration_value => '45–60 minutes per session';
+
+  @override
+  String get physiotherapy_treatment_type_label => 'TREATMENT TYPE';
+
+  @override
+  String get physiotherapy_suitable_for_title =>
+      'This Service is suitable for:';
+
+  @override
+  String get physiotherapy_what_you_get_title => 'What you’ll get';
+
+  @override
+  String get physiotherapy_ms_item_1 => 'Posture & movement correction';
+
+  @override
+  String get physiotherapy_ms_item_2 => 'Stretching & strengthening';
+
+  @override
+  String get physiotherapy_ms_item_3 => 'Exercise therapy';
+
+  @override
+  String get physiotherapy_ms_item_4 => 'Manual therapy';
+
+  @override
+  String get physiotherapy_ms_reason_1 => 'Overuse tendon injuries';
+
+  @override
+  String get physiotherapy_ms_reason_2 =>
+      'Joint wear and tear (e.g. arthritis)';
+
+  @override
+  String get physiotherapy_ms_reason_3 => 'Muscle strain';
+
+  @override
+  String get physiotherapy_ms_reason_4 => 'Ligament sprain';
+
+  @override
+  String get physiotherapy_ms_reason_5 => 'Joint pain & stiffness';
+
+  @override
+  String get physiotherapy_ms_reason_6 => 'Movement-related pain';
+
+  @override
+  String get physiotherapy_ms_benefit_1 => 'Pain reduction';
+
+  @override
+  String get physiotherapy_ms_benefit_2 => 'Improved mobility';
+
+  @override
+  String get physiotherapy_ms_benefit_3 => 'Better joint function';
+
+  @override
+  String get physiotherapy_ms_benefit_4 => 'Easier daily activities';
+
+  @override
+  String get physiotherapy_ms_benefit_5 => 'Faster recovery';
+
+  @override
+  String get physiotherapy_neuro_item_1 => 'Strength & coordination exercises';
+
+  @override
+  String get physiotherapy_neuro_item_2 => 'Functional movement training';
+
+  @override
+  String get physiotherapy_neuro_item_3 => 'Balance & gait training';
+
+  @override
+  String get physiotherapy_neuro_item_4 => 'Neuro-motor training';
+
+  @override
+  String get physiotherapy_neuro_reason_1 => 'Stroke recovery';
+
+  @override
+  String get physiotherapy_neuro_reason_2 => 'Parkinson’s disease';
+
+  @override
+  String get physiotherapy_neuro_reason_3 => 'Multiple sclerosis';
+
+  @override
+  String get physiotherapy_neuro_reason_4 => 'Spinal cord injury';
+
+  @override
+  String get physiotherapy_neuro_reason_5 => 'Traumatic brain injury';
+
+  @override
+  String get physiotherapy_neuro_reason_6 => 'Nerve damage';
+
+  @override
+  String get physiotherapy_neuro_reason_7 => 'Balance & coordination disorders';
+
+  @override
+  String get physiotherapy_neuro_benefit_1 => 'Better movement control';
+
+  @override
+  String get physiotherapy_neuro_benefit_2 => 'Improved balance & coordination';
+
+  @override
+  String get physiotherapy_neuro_benefit_3 =>
+      'Increased independence in daily activities';
+
+  @override
+  String get physiotherapy_neuro_benefit_4 => 'Reduced physical limitations';
+
+  @override
+  String get physiotherapy_neuro_benefit_5 =>
+      'Improved confidence & well-being';
+
+  @override
+  String get physiotherapy_scheduling_duration => 'Duration';
+
+  @override
+  String physiotherapy_scheduling_minutes(int minutes) {
+    return '$minutes minutes';
+  }
+
+  @override
+  String get physiotherapy_scheduling_select_date => 'Select Date';
+
+  @override
+  String get physiotherapy_scheduling_select_hour => 'Select Hour';
+
+  @override
+  String get physiotherapy_scheduling_no_slots =>
+      'No available slots for this day.';
+
+  @override
+  String get physiotherapy_scheduling_failed_load_slots =>
+      'Failed to load slots';
+
+  @override
+  String get physiotherapy_scheduling_submitting => 'Submitting...';
+
+  @override
+  String get physiotherapy_scheduling_submit => 'Submit';
+
+  @override
+  String get physiotherapy_flow_success => 'Appointment created successfully';
+
+  @override
+  String get physiotherapy_flow_failure => 'Failed to create appointment';
+
+  @override
+  String physiotherapy_flow_failure_with_reason(String reason) {
+    return 'Failed to create appointment:\n$reason';
+  }
+
+  @override
+  String physiotherapy_summary(int duration) {
+    return 'Physiotherapy Session ($duration mins)';
+  }
 }

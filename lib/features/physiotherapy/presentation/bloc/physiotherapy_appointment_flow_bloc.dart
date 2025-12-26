@@ -69,7 +69,7 @@ class PhysiotherapyAppointmentFlowBloc extends Bloc<
       (failure) {
         emit(state.copyWith(
           submissionStatus: AppointmentSubmissionStatus.failure,
-          errorMessage: 'Failed to create appointment:\n${failure.message}',
+          errorMessage: failure.message,
         ));
       },
       (appointment) {

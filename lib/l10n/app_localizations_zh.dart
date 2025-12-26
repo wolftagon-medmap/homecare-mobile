@@ -2215,4 +2215,173 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get schedule_updated_success => '时间表更新成功';
+
+  @override
+  String get physiotherapy_title => '物理治疗';
+
+  @override
+  String get physiotherapy_musculoskeletal_title => '肌肉骨骼物理治疗';
+
+  @override
+  String get physiotherapy_musculoskeletal_desc =>
+      '肌肉骨骼物理治疗治疗涉及肌肉、关节、骨骼、韧带、肌腱和神经的损伤。';
+
+  @override
+  String get physiotherapy_neurological_title => '神经物理治疗';
+
+  @override
+  String get physiotherapy_neurological_desc => '神经物理治疗治疗影响神经系统的疾病，包括大脑、脊髓和神经。';
+
+  @override
+  String get physiotherapy_book_appointment => '预约';
+
+  @override
+  String get physiotherapy_duration_label => '持续时间';
+
+  @override
+  String get physiotherapy_duration_value => '每节课 45–60 分钟';
+
+  @override
+  String get physiotherapy_treatment_type_label => '治疗类型';
+
+  @override
+  String get physiotherapy_suitable_for_title => '此服务适用于：';
+
+  @override
+  String get physiotherapy_what_you_get_title => '您将获得';
+
+  @override
+  String get physiotherapy_ms_item_1 => '姿势和动作矫正';
+
+  @override
+  String get physiotherapy_ms_item_2 => '拉伸和加强';
+
+  @override
+  String get physiotherapy_ms_item_3 => '运动疗法';
+
+  @override
+  String get physiotherapy_ms_item_4 => '手法治疗';
+
+  @override
+  String get physiotherapy_ms_reason_1 => '过度使用肌腱损伤';
+
+  @override
+  String get physiotherapy_ms_reason_2 => '关节磨损（例如关节炎）';
+
+  @override
+  String get physiotherapy_ms_reason_3 => '肌肉拉伤';
+
+  @override
+  String get physiotherapy_ms_reason_4 => '韧带扭伤';
+
+  @override
+  String get physiotherapy_ms_reason_5 => '关节疼痛和僵硬';
+
+  @override
+  String get physiotherapy_ms_reason_6 => '与运动相关的疼痛';
+
+  @override
+  String get physiotherapy_ms_benefit_1 => '减轻疼痛';
+
+  @override
+  String get physiotherapy_ms_benefit_2 => '改善灵活性';
+
+  @override
+  String get physiotherapy_ms_benefit_3 => '更好的关节功能';
+
+  @override
+  String get physiotherapy_ms_benefit_4 => '更轻松的日常活动';
+
+  @override
+  String get physiotherapy_ms_benefit_5 => '更快康复';
+
+  @override
+  String get physiotherapy_neuro_item_1 => '力量和协调练习';
+
+  @override
+  String get physiotherapy_neuro_item_2 => '功能性运动训练';
+
+  @override
+  String get physiotherapy_neuro_item_3 => '平衡和步态训练';
+
+  @override
+  String get physiotherapy_neuro_item_4 => '神经运动训练';
+
+  @override
+  String get physiotherapy_neuro_reason_1 => '中风恢复';
+
+  @override
+  String get physiotherapy_neuro_reason_2 => '帕金森病';
+
+  @override
+  String get physiotherapy_neuro_reason_3 => '多发性硬化症';
+
+  @override
+  String get physiotherapy_neuro_reason_4 => '脊髓损伤';
+
+  @override
+  String get physiotherapy_neuro_reason_5 => '创伤性脑损伤';
+
+  @override
+  String get physiotherapy_neuro_reason_6 => '神经损伤';
+
+  @override
+  String get physiotherapy_neuro_reason_7 => '平衡和协调障碍';
+
+  @override
+  String get physiotherapy_neuro_benefit_1 => '更好的运动控制';
+
+  @override
+  String get physiotherapy_neuro_benefit_2 => '改善平衡和协调';
+
+  @override
+  String get physiotherapy_neuro_benefit_3 => '增加日常活动的独立性';
+
+  @override
+  String get physiotherapy_neuro_benefit_4 => '减少身体限制';
+
+  @override
+  String get physiotherapy_neuro_benefit_5 => '提高信心和幸福感';
+
+  @override
+  String get physiotherapy_scheduling_duration => '时长';
+
+  @override
+  String physiotherapy_scheduling_minutes(int minutes) {
+    return '$minutes 分钟';
+  }
+
+  @override
+  String get physiotherapy_scheduling_select_date => '选择日期';
+
+  @override
+  String get physiotherapy_scheduling_select_hour => '选择小时';
+
+  @override
+  String get physiotherapy_scheduling_no_slots => '今天没有可用的时段。';
+
+  @override
+  String get physiotherapy_scheduling_failed_load_slots => '加载时段失败';
+
+  @override
+  String get physiotherapy_scheduling_submitting => '提交中...';
+
+  @override
+  String get physiotherapy_scheduling_submit => '提交';
+
+  @override
+  String get physiotherapy_flow_success => '预约创建成功';
+
+  @override
+  String get physiotherapy_flow_failure => '创建预约失败';
+
+  @override
+  String physiotherapy_flow_failure_with_reason(String reason) {
+    return '创建预约失败：\n$reason';
+  }
+
+  @override
+  String physiotherapy_summary(int duration) {
+    return '物理治疗课 ($duration 分钟)';
+  }
 }

@@ -2325,4 +2325,183 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get schedule_updated_success => 'Jadwal berhasil diperbarui';
+
+  @override
+  String get physiotherapy_title => 'Fisioterapi';
+
+  @override
+  String get physiotherapy_musculoskeletal_title =>
+      'Fisioterapi Muskuloskeletal';
+
+  @override
+  String get physiotherapy_musculoskeletal_desc =>
+      'Fisioterapi muskuloskeletal mengobati cedera yang melibatkan otot, sendi, tulang, ligamen, tendon, dan saraf.';
+
+  @override
+  String get physiotherapy_neurological_title => 'Fisioterapi Neurologis';
+
+  @override
+  String get physiotherapy_neurological_desc =>
+      'Fisioterapi neurologis mengobati kondisi yang mempengaruhi sistem saraf, termasuk otak, sumsum tulang belakang, dan saraf.';
+
+  @override
+  String get physiotherapy_book_appointment => 'Buat Janji Temu';
+
+  @override
+  String get physiotherapy_duration_label => 'DURASI';
+
+  @override
+  String get physiotherapy_duration_value => '45–60 menit per sesi';
+
+  @override
+  String get physiotherapy_treatment_type_label => 'JENIS PERAWATAN';
+
+  @override
+  String get physiotherapy_suitable_for_title => 'Layanan ini cocok untuk:';
+
+  @override
+  String get physiotherapy_what_you_get_title => 'Apa yang akan Anda dapatkan';
+
+  @override
+  String get physiotherapy_ms_item_1 => 'Koreksi postur & gerakan';
+
+  @override
+  String get physiotherapy_ms_item_2 => 'Peregangan & penguatan';
+
+  @override
+  String get physiotherapy_ms_item_3 => 'Terapi latihan';
+
+  @override
+  String get physiotherapy_ms_item_4 => 'Terapi manual';
+
+  @override
+  String get physiotherapy_ms_reason_1 =>
+      'Cedera tendon akibat penggunaan berlebihan';
+
+  @override
+  String get physiotherapy_ms_reason_2 => 'Keausan sendi (misal: radang sendi)';
+
+  @override
+  String get physiotherapy_ms_reason_3 => 'Muscle strain';
+
+  @override
+  String get physiotherapy_ms_reason_4 => 'Keseleo ligamen';
+
+  @override
+  String get physiotherapy_ms_reason_5 => 'Nyeri & kaku sendi';
+
+  @override
+  String get physiotherapy_ms_reason_6 => 'Nyeri terkait gerakan';
+
+  @override
+  String get physiotherapy_ms_benefit_1 => 'Mengurangi rasa sakit';
+
+  @override
+  String get physiotherapy_ms_benefit_2 => 'Peningkatan mobilitas';
+
+  @override
+  String get physiotherapy_ms_benefit_3 => 'Fungsi sendi yang lebih baik';
+
+  @override
+  String get physiotherapy_ms_benefit_4 =>
+      'Aktivitas sehari-hari yang lebih mudah';
+
+  @override
+  String get physiotherapy_ms_benefit_5 => 'Pemulihan lebih cepat';
+
+  @override
+  String get physiotherapy_neuro_item_1 => 'Latihan kekuatan & koordinasi';
+
+  @override
+  String get physiotherapy_neuro_item_2 => 'Pelatihan gerakan fungsional';
+
+  @override
+  String get physiotherapy_neuro_item_3 =>
+      'Pelatihan keseimbangan & gaya berjalan';
+
+  @override
+  String get physiotherapy_neuro_item_4 => 'Pelatihan neuro-motor';
+
+  @override
+  String get physiotherapy_neuro_reason_1 => 'Pemulihan stroke';
+
+  @override
+  String get physiotherapy_neuro_reason_2 => 'Penyakit Parkinson';
+
+  @override
+  String get physiotherapy_neuro_reason_3 => 'Multiple sclerosis';
+
+  @override
+  String get physiotherapy_neuro_reason_4 => 'Cedera sumsum tulang belakang';
+
+  @override
+  String get physiotherapy_neuro_reason_5 => 'Cedera otak traumatis';
+
+  @override
+  String get physiotherapy_neuro_reason_6 => 'Kerusakan saraf';
+
+  @override
+  String get physiotherapy_neuro_reason_7 =>
+      'Gangguan keseimbangan & koordinasi';
+
+  @override
+  String get physiotherapy_neuro_benefit_1 => 'Kontrol gerakan yang lebih baik';
+
+  @override
+  String get physiotherapy_neuro_benefit_2 =>
+      'Keseimbangan & koordinasi yang lebih baik';
+
+  @override
+  String get physiotherapy_neuro_benefit_3 =>
+      'Peningkatan kemandirian dalam aktivitas sehari-hari';
+
+  @override
+  String get physiotherapy_neuro_benefit_4 => 'Pengurangan keterbatasan fisik';
+
+  @override
+  String get physiotherapy_neuro_benefit_5 =>
+      'Peningkatan kepercayaan diri & kesejahteraan';
+
+  @override
+  String get physiotherapy_scheduling_duration => 'Durasi';
+
+  @override
+  String physiotherapy_scheduling_minutes(int minutes) {
+    return '$minutes menit';
+  }
+
+  @override
+  String get physiotherapy_scheduling_select_date => 'Pilih Tanggal';
+
+  @override
+  String get physiotherapy_scheduling_select_hour => 'Pilih Jam';
+
+  @override
+  String get physiotherapy_scheduling_no_slots =>
+      'Tidak ada slot tersedia untuk hari ini.';
+
+  @override
+  String get physiotherapy_scheduling_failed_load_slots => 'Gagal memuat slot';
+
+  @override
+  String get physiotherapy_scheduling_submitting => 'Mengirim...';
+
+  @override
+  String get physiotherapy_scheduling_submit => 'Kirim';
+
+  @override
+  String get physiotherapy_flow_success => 'Janji temu berhasil dibuat';
+
+  @override
+  String get physiotherapy_flow_failure => 'Gagal membuat janji temu';
+
+  @override
+  String physiotherapy_flow_failure_with_reason(String reason) {
+    return 'Gagal membuat janji temu:\n$reason';
+  }
+
+  @override
+  String physiotherapy_summary(int duration) {
+    return 'Sesi Fisioterapi ($duration menit)';
+  }
 }

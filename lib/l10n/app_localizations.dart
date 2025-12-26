@@ -4311,6 +4311,330 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Schedule updated successfully'**
   String get schedule_updated_success;
+
+  /// No description provided for @physiotherapy_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Physiotherapy'**
+  String get physiotherapy_title;
+
+  /// No description provided for @physiotherapy_musculoskeletal_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Musculoskeletal Physiotherapy'**
+  String get physiotherapy_musculoskeletal_title;
+
+  /// No description provided for @physiotherapy_musculoskeletal_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Musculoskeletal physiotherapy treats injuries involving muscles, joints, bones, ligaments, tendons, and nerves.'**
+  String get physiotherapy_musculoskeletal_desc;
+
+  /// No description provided for @physiotherapy_neurological_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Neurological Physiotherapy'**
+  String get physiotherapy_neurological_title;
+
+  /// No description provided for @physiotherapy_neurological_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Neurological physiotherapy treats conditions affecting the nervous system, including the brain, spinal cord, and nerves.'**
+  String get physiotherapy_neurological_desc;
+
+  /// No description provided for @physiotherapy_book_appointment.
+  ///
+  /// In en, this message translates to:
+  /// **'Book Appointment'**
+  String get physiotherapy_book_appointment;
+
+  /// No description provided for @physiotherapy_duration_label.
+  ///
+  /// In en, this message translates to:
+  /// **'DURATION'**
+  String get physiotherapy_duration_label;
+
+  /// No description provided for @physiotherapy_duration_value.
+  ///
+  /// In en, this message translates to:
+  /// **'45–60 minutes per session'**
+  String get physiotherapy_duration_value;
+
+  /// No description provided for @physiotherapy_treatment_type_label.
+  ///
+  /// In en, this message translates to:
+  /// **'TREATMENT TYPE'**
+  String get physiotherapy_treatment_type_label;
+
+  /// No description provided for @physiotherapy_suitable_for_title.
+  ///
+  /// In en, this message translates to:
+  /// **'This Service is suitable for:'**
+  String get physiotherapy_suitable_for_title;
+
+  /// No description provided for @physiotherapy_what_you_get_title.
+  ///
+  /// In en, this message translates to:
+  /// **'What you’ll get'**
+  String get physiotherapy_what_you_get_title;
+
+  /// No description provided for @physiotherapy_ms_item_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture & movement correction'**
+  String get physiotherapy_ms_item_1;
+
+  /// No description provided for @physiotherapy_ms_item_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Stretching & strengthening'**
+  String get physiotherapy_ms_item_2;
+
+  /// No description provided for @physiotherapy_ms_item_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise therapy'**
+  String get physiotherapy_ms_item_3;
+
+  /// No description provided for @physiotherapy_ms_item_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual therapy'**
+  String get physiotherapy_ms_item_4;
+
+  /// No description provided for @physiotherapy_ms_reason_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Overuse tendon injuries'**
+  String get physiotherapy_ms_reason_1;
+
+  /// No description provided for @physiotherapy_ms_reason_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Joint wear and tear (e.g. arthritis)'**
+  String get physiotherapy_ms_reason_2;
+
+  /// No description provided for @physiotherapy_ms_reason_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Muscle strain'**
+  String get physiotherapy_ms_reason_3;
+
+  /// No description provided for @physiotherapy_ms_reason_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Ligament sprain'**
+  String get physiotherapy_ms_reason_4;
+
+  /// No description provided for @physiotherapy_ms_reason_5.
+  ///
+  /// In en, this message translates to:
+  /// **'Joint pain & stiffness'**
+  String get physiotherapy_ms_reason_5;
+
+  /// No description provided for @physiotherapy_ms_reason_6.
+  ///
+  /// In en, this message translates to:
+  /// **'Movement-related pain'**
+  String get physiotherapy_ms_reason_6;
+
+  /// No description provided for @physiotherapy_ms_benefit_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Pain reduction'**
+  String get physiotherapy_ms_benefit_1;
+
+  /// No description provided for @physiotherapy_ms_benefit_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Improved mobility'**
+  String get physiotherapy_ms_benefit_2;
+
+  /// No description provided for @physiotherapy_ms_benefit_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Better joint function'**
+  String get physiotherapy_ms_benefit_3;
+
+  /// No description provided for @physiotherapy_ms_benefit_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Easier daily activities'**
+  String get physiotherapy_ms_benefit_4;
+
+  /// No description provided for @physiotherapy_ms_benefit_5.
+  ///
+  /// In en, this message translates to:
+  /// **'Faster recovery'**
+  String get physiotherapy_ms_benefit_5;
+
+  /// No description provided for @physiotherapy_neuro_item_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Strength & coordination exercises'**
+  String get physiotherapy_neuro_item_1;
+
+  /// No description provided for @physiotherapy_neuro_item_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Functional movement training'**
+  String get physiotherapy_neuro_item_2;
+
+  /// No description provided for @physiotherapy_neuro_item_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance & gait training'**
+  String get physiotherapy_neuro_item_3;
+
+  /// No description provided for @physiotherapy_neuro_item_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Neuro-motor training'**
+  String get physiotherapy_neuro_item_4;
+
+  /// No description provided for @physiotherapy_neuro_reason_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Stroke recovery'**
+  String get physiotherapy_neuro_reason_1;
+
+  /// No description provided for @physiotherapy_neuro_reason_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Parkinson’s disease'**
+  String get physiotherapy_neuro_reason_2;
+
+  /// No description provided for @physiotherapy_neuro_reason_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Multiple sclerosis'**
+  String get physiotherapy_neuro_reason_3;
+
+  /// No description provided for @physiotherapy_neuro_reason_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Spinal cord injury'**
+  String get physiotherapy_neuro_reason_4;
+
+  /// No description provided for @physiotherapy_neuro_reason_5.
+  ///
+  /// In en, this message translates to:
+  /// **'Traumatic brain injury'**
+  String get physiotherapy_neuro_reason_5;
+
+  /// No description provided for @physiotherapy_neuro_reason_6.
+  ///
+  /// In en, this message translates to:
+  /// **'Nerve damage'**
+  String get physiotherapy_neuro_reason_6;
+
+  /// No description provided for @physiotherapy_neuro_reason_7.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance & coordination disorders'**
+  String get physiotherapy_neuro_reason_7;
+
+  /// No description provided for @physiotherapy_neuro_benefit_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Better movement control'**
+  String get physiotherapy_neuro_benefit_1;
+
+  /// No description provided for @physiotherapy_neuro_benefit_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Improved balance & coordination'**
+  String get physiotherapy_neuro_benefit_2;
+
+  /// No description provided for @physiotherapy_neuro_benefit_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Increased independence in daily activities'**
+  String get physiotherapy_neuro_benefit_3;
+
+  /// No description provided for @physiotherapy_neuro_benefit_4.
+  ///
+  /// In en, this message translates to:
+  /// **'Reduced physical limitations'**
+  String get physiotherapy_neuro_benefit_4;
+
+  /// No description provided for @physiotherapy_neuro_benefit_5.
+  ///
+  /// In en, this message translates to:
+  /// **'Improved confidence & well-being'**
+  String get physiotherapy_neuro_benefit_5;
+
+  /// No description provided for @physiotherapy_scheduling_duration.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get physiotherapy_scheduling_duration;
+
+  /// No description provided for @physiotherapy_scheduling_minutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes'**
+  String physiotherapy_scheduling_minutes(int minutes);
+
+  /// No description provided for @physiotherapy_scheduling_select_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date'**
+  String get physiotherapy_scheduling_select_date;
+
+  /// No description provided for @physiotherapy_scheduling_select_hour.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Hour'**
+  String get physiotherapy_scheduling_select_hour;
+
+  /// No description provided for @physiotherapy_scheduling_no_slots.
+  ///
+  /// In en, this message translates to:
+  /// **'No available slots for this day.'**
+  String get physiotherapy_scheduling_no_slots;
+
+  /// No description provided for @physiotherapy_scheduling_failed_load_slots.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load slots'**
+  String get physiotherapy_scheduling_failed_load_slots;
+
+  /// No description provided for @physiotherapy_scheduling_submitting.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitting...'**
+  String get physiotherapy_scheduling_submitting;
+
+  /// No description provided for @physiotherapy_scheduling_submit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get physiotherapy_scheduling_submit;
+
+  /// No description provided for @physiotherapy_flow_success.
+  ///
+  /// In en, this message translates to:
+  /// **'Appointment created successfully'**
+  String get physiotherapy_flow_success;
+
+  /// No description provided for @physiotherapy_flow_failure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create appointment'**
+  String get physiotherapy_flow_failure;
+
+  /// No description provided for @physiotherapy_flow_failure_with_reason.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to create appointment:\n{reason}'**
+  String physiotherapy_flow_failure_with_reason(String reason);
+
+  /// No description provided for @physiotherapy_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Physiotherapy Session ({duration} mins)'**
+  String physiotherapy_summary(int duration);
 }
 
 class _AppLocalizationsDelegate

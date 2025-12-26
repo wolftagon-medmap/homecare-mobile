@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/physiotherapy/presentation/bloc/physiotherapy_appointment_flow_bloc.dart';
 import 'package:m2health/features/physiotherapy/presentation/pages/schedule_physiotherapy_appointment.dart';
 import 'package:m2health/features/physiotherapy/presentation/bloc/schedule_physiotherapy_appointment_cubit.dart';
@@ -61,8 +62,8 @@ class _PhysiotherapyAppointmentFlowPageState
         if (state.submissionStatus == AppointmentSubmissionStatus.success &&
             state.createdAppointment != null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Appointment created successfully'),
+            SnackBar(
+              content: Text(context.l10n.physiotherapy_flow_success),
               backgroundColor: Colors.green,
             ),
           );
@@ -76,7 +77,10 @@ class _PhysiotherapyAppointmentFlowPageState
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                state.errorMessage ?? 'Failed to create appointment',
+                state.errorMessage != null
+                    ? context.l10n
+                        .physiotherapy_flow_failure_with_reason(state.errorMessage!)
+                    : context.l10n.physiotherapy_flow_failure,
               ),
               backgroundColor: Colors.red,
             ),
@@ -141,7 +145,7 @@ class _PhysiotherapyAppointmentFlowPageState
                     child: SchedulePhysiotherapyAppointmentPage(
                         data: SchedulePhysiotherapyAppointmentPageData(
                       professional: state.selectedProfessional!,
-                      title: state.type.label,
+                      title: state.type.getLabel(context),
                       isSubmitting: state.submissionStatus ==
                           AppointmentSubmissionStatus.submitting,
                       onSubmit: ({required timeSlot, required duration}) {

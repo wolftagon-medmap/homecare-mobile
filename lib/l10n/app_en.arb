@@ -1892,6 +1892,141 @@
       "schedule_reverted_success": "Reverted to weekly schedule",
       "@schedule_reverted_success": {},
       "schedule_updated_success": "Schedule updated successfully",
-      "@schedule_updated_success": {}
+      "@schedule_updated_success": {},
+
+      "physiotherapy_title": "Physiotherapy",
+      "@physiotherapy_title": {},
+      "physiotherapy_musculoskeletal_title": "Musculoskeletal Physiotherapy",
+      "@physiotherapy_musculoskeletal_title": {},
+      "physiotherapy_musculoskeletal_desc": "Musculoskeletal physiotherapy treats injuries involving muscles, joints, bones, ligaments, tendons, and nerves.",
+      "@physiotherapy_musculoskeletal_desc": {},
+      "physiotherapy_neurological_title": "Neurological Physiotherapy",
+      "@physiotherapy_neurological_title": {},
+      "physiotherapy_neurological_desc": "Neurological physiotherapy treats conditions affecting the nervous system, including the brain, spinal cord, and nerves.",
+      "@physiotherapy_neurological_desc": {},
+      "physiotherapy_book_appointment": "Book Appointment",
+      "@physiotherapy_book_appointment": {},
+      "physiotherapy_duration_label": "DURATION",
+      "@physiotherapy_duration_label": {},
+      "physiotherapy_duration_value": "45–60 minutes per session",
+      "@physiotherapy_duration_value": {},
+      "physiotherapy_treatment_type_label": "TREATMENT TYPE",
+      "@physiotherapy_treatment_type_label": {},
+      "physiotherapy_suitable_for_title": "This Service is suitable for:",
+      "@physiotherapy_suitable_for_title": {},
+      "physiotherapy_what_you_get_title": "What you’ll get",
+      "@physiotherapy_what_you_get_title": {},
+      
+      "physiotherapy_ms_item_1": "Posture & movement correction",
+      "@physiotherapy_ms_item_1": {},
+      "physiotherapy_ms_item_2": "Stretching & strengthening",
+      "@physiotherapy_ms_item_2": {},
+      "physiotherapy_ms_item_3": "Exercise therapy",
+      "@physiotherapy_ms_item_3": {},
+      "physiotherapy_ms_item_4": "Manual therapy",
+      "@physiotherapy_ms_item_4": {},
+      
+      "physiotherapy_ms_reason_1": "Overuse tendon injuries",
+      "@physiotherapy_ms_reason_1": {},
+      "physiotherapy_ms_reason_2": "Joint wear and tear (e.g. arthritis)",
+      "@physiotherapy_ms_reason_2": {},
+      "physiotherapy_ms_reason_3": "Muscle strain",
+      "@physiotherapy_ms_reason_3": {},
+      "physiotherapy_ms_reason_4": "Ligament sprain",
+      "@physiotherapy_ms_reason_4": {},
+      "physiotherapy_ms_reason_5": "Joint pain & stiffness",
+      "@physiotherapy_ms_reason_5": {},
+      "physiotherapy_ms_reason_6": "Movement-related pain",
+      "@physiotherapy_ms_reason_6": {},
+      
+      "physiotherapy_ms_benefit_1": "Pain reduction",
+      "@physiotherapy_ms_benefit_1": {},
+      "physiotherapy_ms_benefit_2": "Improved mobility",
+      "@physiotherapy_ms_benefit_2": {},
+      "physiotherapy_ms_benefit_3": "Better joint function",
+      "@physiotherapy_ms_benefit_3": {},
+      "physiotherapy_ms_benefit_4": "Easier daily activities",
+      "@physiotherapy_ms_benefit_4": {},
+      "physiotherapy_ms_benefit_5": "Faster recovery",
+      "@physiotherapy_ms_benefit_5": {},
+      
+      "physiotherapy_neuro_item_1": "Strength & coordination exercises",
+      "@physiotherapy_neuro_item_1": {},
+      "physiotherapy_neuro_item_2": "Functional movement training",
+      "@physiotherapy_neuro_item_2": {},
+      "physiotherapy_neuro_item_3": "Balance & gait training",
+      "@physiotherapy_neuro_item_3": {},
+      "physiotherapy_neuro_item_4": "Neuro-motor training",
+      "@physiotherapy_neuro_item_4": {},
+      
+      "physiotherapy_neuro_reason_1": "Stroke recovery",
+      "@physiotherapy_neuro_reason_1": {},
+      "physiotherapy_neuro_reason_2": "Parkinson’s disease",
+      "@physiotherapy_neuro_reason_2": {},
+      "physiotherapy_neuro_reason_3": "Multiple sclerosis",
+      "@physiotherapy_neuro_reason_3": {},
+      "physiotherapy_neuro_reason_4": "Spinal cord injury",
+      "@physiotherapy_neuro_reason_4": {},
+      "physiotherapy_neuro_reason_5": "Traumatic brain injury",
+      "@physiotherapy_neuro_reason_5": {},
+      "physiotherapy_neuro_reason_6": "Nerve damage",
+      "@physiotherapy_neuro_reason_6": {},
+      "physiotherapy_neuro_reason_7": "Balance & coordination disorders",
+      "@physiotherapy_neuro_reason_7": {},
+      
+      "physiotherapy_neuro_benefit_1": "Better movement control",
+      "@physiotherapy_neuro_benefit_1": {},
+      "physiotherapy_neuro_benefit_2": "Improved balance & coordination",
+      "@physiotherapy_neuro_benefit_2": {},
+      "physiotherapy_neuro_benefit_3": "Increased independence in daily activities",
+      "@physiotherapy_neuro_benefit_3": {},
+      "physiotherapy_neuro_benefit_4": "Reduced physical limitations",
+      "@physiotherapy_neuro_benefit_4": {},
+      "physiotherapy_neuro_benefit_5": "Improved confidence & well-being",
+      "@physiotherapy_neuro_benefit_5": {},
+      
+      "physiotherapy_scheduling_duration": "Duration",
+      "@physiotherapy_scheduling_duration": {},
+      "physiotherapy_scheduling_minutes": "{minutes} minutes",
+      "@physiotherapy_scheduling_minutes": {
+        "placeholders": {
+          "minutes": {
+            "type": "int"
+          }
+        }
+      },
+      "physiotherapy_scheduling_select_date": "Select Date",
+      "@physiotherapy_scheduling_select_date": {},
+      "physiotherapy_scheduling_select_hour": "Select Hour",
+      "@physiotherapy_scheduling_select_hour": {},
+      "physiotherapy_scheduling_no_slots": "No available slots for this day.",
+      "@physiotherapy_scheduling_no_slots": {},
+      "physiotherapy_scheduling_failed_load_slots": "Failed to load slots",
+      "@physiotherapy_scheduling_failed_load_slots": {},
+      "physiotherapy_scheduling_submitting": "Submitting...",
+      "@physiotherapy_scheduling_submitting": {},
+      "physiotherapy_scheduling_submit": "Submit",
+      "@physiotherapy_scheduling_submit": {},
+      
+      "physiotherapy_flow_success": "Appointment created successfully",
+      "@physiotherapy_flow_success": {},
+      "physiotherapy_flow_failure": "Failed to create appointment",
+      "@physiotherapy_flow_failure": {},
+      "physiotherapy_flow_failure_with_reason": "Failed to create appointment:\n{reason}",
+      "@physiotherapy_flow_failure_with_reason": {
+        "placeholders": {
+          "reason": {
+            "type": "String"
+          }
+        }
+      },
+      "physiotherapy_summary": "Physiotherapy Session ({duration} mins)",
+      "@physiotherapy_summary": {
+        "placeholders": {
+          "duration": {
+            "type": "int"
+          }
+        }
+      }
     }
     

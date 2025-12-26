@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/bloc/personal_issues_state.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/domain/entities/time_slot.dart';
@@ -97,9 +98,9 @@ class _SchedulePhysiotherapyAppointmentPageState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Duration',
-              style: TextStyle(
+            Text(
+              context.l10n.physiotherapy_scheduling_duration,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -120,9 +121,9 @@ class _SchedulePhysiotherapyAppointmentPageState
               },
             ),
             const SizedBox(height: 24),
-            const Text(
-              'Select Date',
-              style: TextStyle(
+            Text(
+              context.l10n.physiotherapy_scheduling_select_date,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -130,9 +131,9 @@ class _SchedulePhysiotherapyAppointmentPageState
             const SizedBox(height: 12),
             _buildCalendar(),
             const SizedBox(height: 24),
-            const Text(
-              'Select Hour',
-              style: TextStyle(
+            Text(
+              context.l10n.physiotherapy_scheduling_select_hour,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -150,12 +151,12 @@ class _SchedulePhysiotherapyAppointmentPageState
                   }
                   if (state.status == ActionStatus.error) {
                     return Center(
-                        child:
-                            Text(state.errorMessage ?? 'Failed to load slots'));
+                        child: Text(state.errorMessage ??
+                            context.l10n.physiotherapy_scheduling_failed_load_slots));
                   }
                   if (state.slots.isEmpty) {
-                    return const Center(
-                        child: Text('No available slots for this day.'));
+                    return Center(
+                        child: Text(context.l10n.physiotherapy_scheduling_no_slots));
                   }
 
                   return TimeSlotGridView(
@@ -183,7 +184,8 @@ class _SchedulePhysiotherapyAppointmentPageState
     return ChoiceChip(
       label: SizedBox(
         width: double.infinity,
-        child: Center(child: Text('$duration minutes')),
+        child: Center(
+            child: Text(context.l10n.physiotherapy_scheduling_minutes(duration))),
       ),
       selected: isSelected,
       onSelected: (selected) {
@@ -290,10 +292,10 @@ class _SchedulePhysiotherapyAppointmentPageState
               ),
             ),
             child: widget.data.isSubmitting
-                ? const Row(
+                ? Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                         height: 20,
                         child: CircularProgressIndicator(
@@ -302,14 +304,14 @@ class _SchedulePhysiotherapyAppointmentPageState
                               AlwaysStoppedAnimation<Color>(Colors.white),
                         ),
                       ),
-                      SizedBox(width: 12),
-                      Text('Submitting...',
-                          style: TextStyle(color: Colors.white)),
+                      const SizedBox(width: 12),
+                      Text(context.l10n.physiotherapy_scheduling_submitting,
+                          style: const TextStyle(color: Colors.white)),
                     ],
                   )
-                : const Text(
-                    'Submit',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                : Text(
+                    context.l10n.physiotherapy_scheduling_submit,
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
           );
         },

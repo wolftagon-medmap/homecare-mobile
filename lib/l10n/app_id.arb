@@ -741,5 +741,141 @@
   "schedule_availability_updated": "Ketersediaan diperbarui!",
   "schedule_availability_removed": "Ketersediaan dihapus!",
   "schedule_reverted_success": "Dikembalikan ke jadwal mingguan",
-  "schedule_updated_success": "Jadwal berhasil diperbarui"
+  "schedule_updated_success": "Jadwal berhasil diperbarui",
+
+  "physiotherapy_title": "Fisioterapi",
+  "@physiotherapy_title": {},
+  "physiotherapy_musculoskeletal_title": "Fisioterapi Muskuloskeletal",
+  "@physiotherapy_musculoskeletal_title": {},
+  "physiotherapy_musculoskeletal_desc": "Fisioterapi muskuloskeletal mengobati cedera yang melibatkan otot, sendi, tulang, ligamen, tendon, dan saraf.",
+  "@physiotherapy_musculoskeletal_desc": {},
+  "physiotherapy_neurological_title": "Fisioterapi Neurologis",
+  "@physiotherapy_neurological_title": {},
+  "physiotherapy_neurological_desc": "Fisioterapi neurologis mengobati kondisi yang mempengaruhi sistem saraf, termasuk otak, sumsum tulang belakang, dan saraf.",
+  "@physiotherapy_neurological_desc": {},
+  "physiotherapy_book_appointment": "Buat Janji Temu",
+  "@physiotherapy_book_appointment": {},
+  "physiotherapy_duration_label": "DURASI",
+  "@physiotherapy_duration_label": {},
+  "physiotherapy_duration_value": "45–60 menit per sesi",
+  "@physiotherapy_duration_value": {},
+  "physiotherapy_treatment_type_label": "JENIS PERAWATAN",
+  "@physiotherapy_treatment_type_label": {},
+  "physiotherapy_suitable_for_title": "Layanan ini cocok untuk:",
+  "@physiotherapy_suitable_for_title": {},
+  "physiotherapy_what_you_get_title": "Apa yang akan Anda dapatkan",
+  "@physiotherapy_what_you_get_title": {},
+
+  "physiotherapy_ms_item_1": "Koreksi postur & gerakan",
+  "@physiotherapy_ms_item_1": {},
+  "physiotherapy_ms_item_2": "Peregangan & penguatan",
+  "@physiotherapy_ms_item_2": {},
+  "physiotherapy_ms_item_3": "Terapi latihan",
+  "@physiotherapy_ms_item_3": {},
+  "physiotherapy_ms_item_4": "Terapi manual",
+  "@physiotherapy_ms_item_4": {},
+
+  "physiotherapy_ms_reason_1": "Cedera tendon akibat penggunaan berlebihan",
+  "@physiotherapy_ms_reason_1": {},
+  "physiotherapy_ms_reason_2": "Keausan sendi (misal: radang sendi)",
+  "@physiotherapy_ms_reason_2": {},
+  "physiotherapy_ms_reason_3": "Muscle strain",
+  "@physiotherapy_ms_reason_3": {},
+  "physiotherapy_ms_reason_4": "Keseleo ligamen",
+  "@physiotherapy_ms_reason_4": {},
+  "physiotherapy_ms_reason_5": "Nyeri & kaku sendi",
+  "@physiotherapy_ms_reason_5": {},
+  "physiotherapy_ms_reason_6": "Nyeri terkait gerakan",
+  "@physiotherapy_ms_reason_6": {},
+
+  "physiotherapy_ms_benefit_1": "Mengurangi rasa sakit",
+  "@physiotherapy_ms_benefit_1": {},
+  "physiotherapy_ms_benefit_2": "Peningkatan mobilitas",
+  "@physiotherapy_ms_benefit_2": {},
+  "physiotherapy_ms_benefit_3": "Fungsi sendi yang lebih baik",
+  "@physiotherapy_ms_benefit_3": {},
+  "physiotherapy_ms_benefit_4": "Aktivitas sehari-hari yang lebih mudah",
+  "@physiotherapy_ms_benefit_4": {},
+  "physiotherapy_ms_benefit_5": "Pemulihan lebih cepat",
+  "@physiotherapy_ms_benefit_5": {},
+
+  "physiotherapy_neuro_item_1": "Latihan kekuatan & koordinasi",
+  "@physiotherapy_neuro_item_1": {},
+  "physiotherapy_neuro_item_2": "Pelatihan gerakan fungsional",
+  "@physiotherapy_neuro_item_2": {},
+  "physiotherapy_neuro_item_3": "Pelatihan keseimbangan & gaya berjalan",
+  "@physiotherapy_neuro_item_3": {},
+  "physiotherapy_neuro_item_4": "Pelatihan neuro-motor",
+  "@physiotherapy_neuro_item_4": {},
+
+  "physiotherapy_neuro_reason_1": "Pemulihan stroke",
+  "@physiotherapy_neuro_reason_1": {},
+  "physiotherapy_neuro_reason_2": "Penyakit Parkinson",
+  "@physiotherapy_neuro_reason_2": {},
+  "physiotherapy_neuro_reason_3": "Multiple sclerosis",
+  "@physiotherapy_neuro_reason_3": {},
+  "physiotherapy_neuro_reason_4": "Cedera sumsum tulang belakang",
+  "@physiotherapy_neuro_reason_4": {},
+  "physiotherapy_neuro_reason_5": "Cedera otak traumatis",
+  "@physiotherapy_neuro_reason_5": {},
+  "physiotherapy_neuro_reason_6": "Kerusakan saraf",
+  "@physiotherapy_neuro_reason_6": {},
+  "physiotherapy_neuro_reason_7": "Gangguan keseimbangan & koordinasi",
+  "@physiotherapy_neuro_reason_7": {},
+
+  "physiotherapy_neuro_benefit_1": "Kontrol gerakan yang lebih baik",
+  "@physiotherapy_neuro_benefit_1": {},
+  "physiotherapy_neuro_benefit_2": "Keseimbangan & koordinasi yang lebih baik",
+  "@physiotherapy_neuro_benefit_2": {},
+  "physiotherapy_neuro_benefit_3": "Peningkatan kemandirian dalam aktivitas sehari-hari",
+  "@physiotherapy_neuro_benefit_3": {},
+  "physiotherapy_neuro_benefit_4": "Pengurangan keterbatasan fisik",
+  "@physiotherapy_neuro_benefit_4": {},
+  "physiotherapy_neuro_benefit_5": "Peningkatan kepercayaan diri & kesejahteraan",
+  "@physiotherapy_neuro_benefit_5": {},
+
+  "physiotherapy_scheduling_duration": "Durasi",
+  "@physiotherapy_scheduling_duration": {},
+  "physiotherapy_scheduling_minutes": "{minutes} menit",
+  "@physiotherapy_scheduling_minutes": {
+  "placeholders": {
+  "minutes": {
+    "type": "int"
+  }
+  }
+  },
+  "physiotherapy_scheduling_select_date": "Pilih Tanggal",
+  "@physiotherapy_scheduling_select_date": {},
+  "physiotherapy_scheduling_select_hour": "Pilih Jam",
+  "@physiotherapy_scheduling_select_hour": {},
+  "physiotherapy_scheduling_no_slots": "Tidak ada slot tersedia untuk hari ini.",
+  "@physiotherapy_scheduling_no_slots": {},
+  "physiotherapy_scheduling_failed_load_slots": "Gagal memuat slot",
+  "@physiotherapy_scheduling_failed_load_slots": {},
+  "physiotherapy_scheduling_submitting": "Mengirim...",
+  "@physiotherapy_scheduling_submitting": {},
+  "physiotherapy_scheduling_submit": "Kirim",
+  "@physiotherapy_scheduling_submit": {},
+
+  "physiotherapy_flow_success": "Janji temu berhasil dibuat",
+  "@physiotherapy_flow_success": {},
+  "physiotherapy_flow_failure": "Gagal membuat janji temu",
+  "@physiotherapy_flow_failure": {},
+  "physiotherapy_flow_failure_with_reason": "Gagal membuat janji temu:\n{reason}",
+  "@physiotherapy_flow_failure_with_reason": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "physiotherapy_summary": "Sesi Fisioterapi ({duration} menit)",
+  "@physiotherapy_summary": {
+    "placeholders": {
+      "duration": {
+        "type": "int"
+      }
+    }
+  }
 }
+        
