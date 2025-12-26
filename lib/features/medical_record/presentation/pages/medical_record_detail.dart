@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:m2health/features/medical_record/domain/entities/medical_record.dart';
 import 'package:m2health/features/medical_record/presentation/bloc/medical_record_bloc.dart';
@@ -82,18 +83,19 @@ class MedicalRecordDetailPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildModernCard(
-                title: 'Patient Current Status',
+                title: context.l10n.medical_record_patient_status,
                 content: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildDetailRow('Disease Name', record.diseaseName),
+                    _buildDetailRow(context.l10n.medical_record_disease_name,
+                        record.diseaseName),
+                    const SizedBox(height: 24),
+                    _buildDetailRow(context.l10n.medical_record_disease_history,
+                        record.diseaseHistory ?? 'N/A'),
                     const SizedBox(height: 24),
                     _buildDetailRow(
-                        'Disease History', record.diseaseHistory ?? 'N/A'),
-                    const SizedBox(height: 24),
-                    _buildDetailRow(
-                      'Special Consideration',
-                      record.specialConsideration ?? 'None',
+                      context.l10n.medical_record_special_consideration,
+                      record.specialConsideration ?? context.l10n.none,
                       isChip: true,
                     ),
                   ],
@@ -102,7 +104,7 @@ class MedicalRecordDetailPage extends StatelessWidget {
               const SizedBox(height: 16),
               if (record.fileUrl != null && record.fileUrl!.isNotEmpty)
                 _buildModernCard(
-                  title: 'Records File',
+                  title: context.l10n.medical_record_records_file,
                   content: Row(
                     children: [
                       Container(
@@ -144,9 +146,9 @@ class MedicalRecordDetailPage extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 12),
                                 ),
-                                child: const Text(
-                                  'View Only',
-                                  style: TextStyle(
+                                child: Text(
+                                  context.l10n.medical_record_view_file_btn,
+                                  style: const TextStyle(
                                     color: Color(0xFF28A745),
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -169,9 +171,9 @@ class MedicalRecordDetailPage extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 12),
                                 ),
-                                child: const Text(
-                                  'Download',
-                                  style: TextStyle(
+                                child: Text(
+                                  context.l10n.medical_record_download_file_btn,
+                                  style: const TextStyle(
                                     color: Color(0xFF28A745),
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -211,15 +213,17 @@ class MedicalRecordDetailPage extends StatelessWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Confirm Deletion'),
-        content: const Text('Are you sure you want to delete this record?'),
+        title: Text(context.l10n.medical_record_confirm_delete_dialog_title),
+        content:
+            Text(context.l10n.medical_record_confirm_delete_dialog_content),
         actions: [
           TextButton(
-            child: const Text('Cancel'),
+            child: Text(context.l10n.common_cancel),
             onPressed: () => Navigator.of(ctx).pop(),
           ),
           TextButton(
-            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+            child: Text(context.l10n.common_delete,
+                style: const TextStyle(color: Colors.red)),
             onPressed: () {
               context
                   .read<MedicalRecordBloc>()
@@ -287,7 +291,7 @@ class MedicalRecordDetailPage extends StatelessWidget {
 
             if (conditions.isEmpty ||
                 (conditions.length == 1 && conditions[0] == 'None')) {
-              return _buildChip('None');
+              return _buildChip(context.l10n.none);
             }
 
             return Wrap(

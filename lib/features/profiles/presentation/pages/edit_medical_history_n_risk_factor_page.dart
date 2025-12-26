@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_state.dart';
 import 'package:m2health/features/diabetes/pages/form/risk_factor_page.dart';
@@ -42,8 +43,8 @@ class _EditMedicalHistoryNRiskFactorPageState
     });
 
     if (success) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Updated successfully!'),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(context.l10n.common_updated_success),
         backgroundColor: Colors.green,
       ));
       Navigator.of(context).pop();
@@ -67,7 +68,7 @@ class _EditMedicalHistoryNRiskFactorPageState
               name: 'EditMedicalHistoryNRiskFactorPage');
           return Scaffold(
             appBar: AppBar(
-              title: const Text("Medical History & Risk Factors"),
+              title: Text(context.l10n.risk_factor_title),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () => GoRouter.of(context).pop(),
@@ -89,7 +90,8 @@ class _EditMedicalHistoryNRiskFactorPageState
               _onSave(context);
             }
           },
-          saveButtonText: _isSaving ? 'Saving...' : 'Save',
+          saveButtonText:
+              _isSaving ? context.l10n.common_saving : context.l10n.common_save,
           onPressBack: () => GoRouter.of(context).pop(),
         );
       },

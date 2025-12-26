@@ -66,7 +66,8 @@ class Const {
   static const String API_SUBSCRIPTIONS = '$URL_API/subscriptions';
   static const String API_SUBSCRIPTIONS_PLANS = '$API_SUBSCRIPTIONS/plans';
   static const String API_SUBSCRIPTIONS_ME = '$API_SUBSCRIPTIONS/me';
-  static const String API_SUBSCRIPTIONS_PURCHASE = '$API_SUBSCRIPTIONS/purchase';
+  static const String API_SUBSCRIPTIONS_PURCHASE =
+      '$API_SUBSCRIPTIONS/purchase';
   static const String API_ADMIN_SUBSCRIPTIONS = '$URL_API/admin/subscriptions';
 
   static const String ROLE = 'role';

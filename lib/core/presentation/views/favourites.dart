@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/utils.dart';
 import 'package:m2health/const.dart';
@@ -45,7 +44,6 @@ class _FavouritesPageState extends State<FavouritesPage> {
   List<Pharmacist> _pharmacists = [];
   bool _isLoading = true;
   String? _errorMessage;
-  bool _isAuthenticated = true;
 
   @override
   void initState() {
@@ -75,7 +73,6 @@ class _FavouritesPageState extends State<FavouritesPage> {
         setState(() {
           _pharmacists = data.map((item) => Pharmacist.fromJson(item)).toList();
           _isLoading = false;
-          _isAuthenticated = true;
         });
       } else {
         throw Exception('Failed to load favorite pharmacists');
@@ -83,13 +80,13 @@ class _FavouritesPageState extends State<FavouritesPage> {
     } catch (e) {
       if (e is DioException && e.response?.statusCode == 401) {
         setState(() {
-          _isAuthenticated = false;
           _isLoading = false;
         });
       } else {
         setState(() {
           _isLoading = false;
-          _errorMessage = 'Error fetching data: ${e.toString()}';
+          _errorMessage =
+              context.l10n.favourite_error_fetching(e.toString());
         });
       }
     }
@@ -162,7 +159,8 @@ class _FavouritesPageState extends State<FavouritesPage> {
       });
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${e.toString()}')),
+          SnackBar(
+              content: Text(context.l10n.favourite_error_toggle(e.toString()))),
         );
       }
     }
@@ -173,10 +171,10 @@ class _FavouritesPageState extends State<FavouritesPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Center(
+        title: Center(
           child: Text(
-            'Favourites',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            context.l10n.favourite_title,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -189,32 +187,6 @@ class _FavouritesPageState extends State<FavouritesPage> {
     if (_isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
-    if (!_isAuthenticated) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (BuildContext dialogContext) {
-            return AlertDialog(
-              title: const Text('Authentication Required'),
-              content: const Text(
-                'Your session has expired or you are not logged in. Please sign in to continue.',
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('Sign In'),
-                  onPressed: () {
-                    Navigator.of(dialogContext).pop();
-                    context.go(AppRoutes.signIn);
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      });
-      return const SizedBox.shrink();
-    }
 
     if (_errorMessage != null) {
       return Center(
@@ -226,8 +198,8 @@ class _FavouritesPageState extends State<FavouritesPage> {
     }
 
     if (_pharmacists.isEmpty) {
-      return const Center(
-        child: Text('You have no favorite professionals yet.'),
+      return Center(
+        child: Text(context.l10n.favourite_no_favorites),
       );
     }
 
@@ -267,7 +239,7 @@ class _PharmacistCard extends StatelessWidget {
             _buildAvatar(),
             const SizedBox(width: 10),
             Expanded(
-              child: _buildPharmacistInfo(),
+              child: _buildPharmacistInfo(context),
             ),
           ],
         ),
@@ -303,7 +275,7 @@ class _PharmacistCard extends StatelessWidget {
     );
   }
 
-  Widget _buildPharmacistInfo() {
+  Widget _buildPharmacistInfo(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -311,16 +283,16 @@ class _PharmacistCard extends StatelessWidget {
           pharmacist.name,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        const Text('Pharmacist'),
+        Text(context.l10n.auth_role_pharmacist),
         Row(
           children: [
             TextButton(
               onPressed: () {
                 // TODO: Implement navigation to professional profile page.
               },
-              child: const Text(
-                'Appointment',
-                style: TextStyle(color: Colors.black),
+              child: Text(
+                context.l10n.booking_professional_appointment_btn,
+                style: const TextStyle(color: Colors.black),
               ),
             ),
             IconButton(

@@ -1,0 +1,1895 @@
+{
+  "@@locale": "en",
+  "common_cancel": "Cancel",
+  "@common_cancel": {},
+  "common_confirm": "Confirm",
+  "@common_confirm": {},
+  "common_delete": "Delete",
+  "@common_delete": {},
+  "common_error": "Error: {message}",
+  "@common_error": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "common_no": "No",
+  "@common_no": {},
+  "common_no_data": "No data available",
+  "@common_no_data": {},
+  "common_retry": "Retry",
+  "@common_retry": {},
+  "common_status": "Status",
+  "@common_status": {},
+  "common_description": "Description",
+  "@common_description": {},
+  "common_yes": "Yes",
+  "@common_yes": {},
+  "common_complete": "Complete",
+  "@common_complete": {},
+  "common_save": "Save",
+  "@common_save": {},
+  "common_saving": "Saving...",
+  "@common_saving": {},
+  "common_modify": "Modify",
+  "@common_modify": {},
+  "common_remove": "Remove",
+  "@common_remove": {},
+  "common_updated_success": "Updated successfully",
+  "@common_updated_success": {},
+  "common_delete_success": "Deleted successfully",
+  "@common_delete_success": {},
+  "name": "Name",
+  "@name": {
+    "description": "Person's Name"
+  },
+  "full_name": "Full Name",
+  "@full_name": {
+    "description": "Full name"
+  },
+  "age": "Age",
+  "@age": {
+    "description": "Age"
+  },
+  "age_years_old": "{age} years old",
+  "@age_years_old": {
+    "description": "Age",
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "gender": "Gender",
+  "@gender": {
+    "description": "Gender"
+  },
+  "contact_number": "Contact Number",
+  "@contact_number": {
+    "description": "Contact Number"
+  },
+  "address": "Address",
+  "@address": {
+    "description": "Person's Address"
+  },
+  "weight": "Weight",
+  "@weight": {
+    "description": "Weight"
+  },
+  "height": "Height",
+  "@height": {
+    "description": "Height"
+  },
+  "none": "None",
+  "@none": {
+    "description": "None"
+  },
+  "created_on": "Created on: {date}",
+  "@created_on": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "last_updated": "Last updated",
+  "@last_updated": {
+    "description": "Label for the last updated timestamp"
+  },
+  "tab_home": "Home",
+  "@tab_home": {
+    "description": "Label for the home tab"
+  },
+  "services": "Services",
+  "@services": {
+    "description": "Services"
+  },
+  "allied_services": "Allied Health",
+  "@allied_services": {
+    "description": "Label for the Allied Health services"
+  },
+  "pharmacist_services": "iRX Pharmacist Service",
+  "@pharmacist_services": {
+    "description": "Label for the iRX Pharmacist Service"
+  },
+  "nursing_service": "Home Nursing",
+  "@nursing_service": {
+    "description": "Label for the Home Nursing service"
+  },
+  "diabetic_care_service": "Diabetic Care",
+  "@diabetic_care_service": {
+    "description": "Label for the Diabetic Care service"
+  },
+  "home_screening_service": "Home Health Screening",
+  "@home_screening_service": {
+    "description": "Label for the Home Health Screening service"
+  },
+  "precision_nutrition_service": "Precision Nutrition",
+  "@precision_nutrition_service": {
+    "description": "Label for the Precision Nutrition service"
+  },
+  "homecare_for_elderly_service": "Home Care for Elderly",
+  "@homecare_for_elderly_service": {
+    "description": "Label for the Home Care for Elderly service"
+  },
+  "physiotherapy_service": "Physiotherapy",
+  "@physiotherapy_service": {
+    "description": "Label for the Physiotherapy service"
+  },
+  "remote_patient_monitoring_service": "Remote Patient Monitoring",
+  "@remote_patient_monitoring_service": {
+    "description": "Label for the Remote Patient Monitoring service"
+  },
+  "second_opinion_service": "2nd Opinion for Medical Image",
+  "@second_opinion_service": {
+    "description": "Label for the 2nd Opinion for Medical Image service"
+  },
+  "health_risk_assessment_service": "Health Risk Assessment",
+  "@health_risk_assessment_service": {
+    "description": "Label for the Health Risk Assessment service"
+  },
+  "dietitian_service": "Dietitian Service",
+  "@dietitian_service": {
+    "description": "Label for the Dietitian Service"
+  },
+  "sleep_and_mental_health_service": "Sleep & Mental Health",
+  "@sleep_and_mental_health_service": {
+    "description": "Label for the Sleep & Mental Health service"
+  },
+  "dashboard_greeting": "Live Longer & Live Healthier, {displayName}!",
+  "@dashboard_greeting": {
+    "description": "Greeting message on the dashboard",
+    "placeholders": {
+      "displayName": {
+        "type": "String",
+        "example": "Anna"
+      }
+    }
+  },
+  "dashboard_chat_ai_placeholder": "Chat With AI doctor for all your health questions",
+  "@dashboard_chat_ai_placeholder": {
+    "description": "Placeholder text for the AI chat feature on the dashboard"
+  },
+  "appointment": "Appointment",
+  "@appointment": {},
+  "appointment_list_title": "My Appointment",
+  "@appointment_list_title": {
+    "description": "Title for the appointment list section"
+  },
+  "appointment_status_upcoming": "Upcoming",
+  "@appointment_status_upcoming": {
+    "description": "Status appointment is upcoming"
+  },
+  "appointment_status_pending": "Pending",
+  "@appointment_status_pending": {
+    "description": "Status appointment is pending"
+  },
+  "appointment_status_waiting_approval": "Waiting Approval",
+  "@appointment_status_waiting_approval": {
+    "description": "Status appointment is waiting for approval"
+  },
+  "appointment_status_accepted": "Accepted",
+  "@appointment_status_accepted": {},
+  "appointment_status_completed": "Completed",
+  "@appointment_status_completed": {
+    "description": "Status appointment is completed"
+  },
+  "appointment_status_cancelled": "Cancelled",
+  "@appointment_status_cancelled": {
+    "description": "Status appointment is cancelled"
+  },
+  "appointment_status_missed": "Missed",
+  "@appointment_status_missed": {
+    "description": "Status appointment is missed"
+  },
+  "appointment_list_empty": "No {appointment_status} appointments found.",
+  "@appointment_list_empty": {
+    "description": "Message displayed when there are no appointments found for a specific status",
+    "placeholders": {
+      "appointment_status": {
+        "type": "String",
+        "example": "upcoming"
+      }
+    }
+  },
+  "appointment_cancel_booking_btn": "Cancel Booking",
+  "@appointment_cancel_booking_btn": {
+    "description": "Label for the button to cancel an appointment booking"
+  },
+  "appointment_reschedule_btn": "Reschedule",
+  "@appointment_reschedule_btn": {
+    "description": "Label for the button to reschedule an appointment"
+  },
+  "appointment_book_again_btn": "Book Again",
+  "@appointment_book_again_btn": {
+    "description": "Label for the button to book an appointment again"
+  },
+  "appointment_rating_btn": "Rate",
+  "@appointment_rating_btn": {
+    "description": "Label for the button to rate an appointment"
+  },
+  "appointment_decline_btn": "Decline",
+  "@appointment_decline_btn": {
+    "description": "Label for the button to decline an appointment"
+  },
+  "appointment_accept_btn": "Accept",
+  "@appointment_accept_btn": {
+    "description": "Label for the button to accept an appointment"
+  },
+  "appointment_mark_complete_btn": "Mark as Complete",
+  "@appointment_mark_complete_btn": {
+    "description": "Label for the button to mark an appointment as complete"
+  },
+  "appointment_screening_confirm_sample_btn": "Confirm Sample Collected",
+  "@appointment_screening_confirm_sample_btn": {
+    "description": "Label for the button to confirm that a sample has been collected for a screening appointment"
+  },
+  "appointment_screening_upload_report_btn": "Upload Report",
+  "@appointment_screening_upload_report_btn": {
+    "description": "Label for the button to upload a report for a screening appointment"
+  },
+  "appointment_arrange_video_consultation": "Arrange Video Consultation",
+  "@appointment_arrange_video_consultation": {},
+  "appointment_pay_btn": "Pay",
+  "@appointment_pay_btn": {},
+  "appointment_detail_title": "Appointment Detail",
+  "@appointment_detail_title": {
+    "description": "Title for the appointment detail page"
+  },
+  "appointment_detail_schedule_title": "Appointment Schedule",
+  "@appointment_detail_schedule_title": {
+    "description": "Title for the appointment schedule section in the appointment detail page"
+  },
+  "appointment_detail_patient_title": "Patient Information",
+  "@appointment_detail_patient_title": {
+    "description": "Title for the patient information section in the appointment detail page"
+  },
+  "appointment_detail_lab_test_title": "Lab Test Information",
+  "@appointment_detail_lab_test_title": {
+    "description": "Title for the lab test information section in the appointment detail page"
+  },
+  "appointment_detail_report": "{count, plural, =0{No Reports} =1{Report} other{Reports}}",
+  "@appointment_detail_report": {
+    "description": "Label for the report section in the appointment detail page",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "appointment_detail_requested_homecare_task": "Requested Homecare Tasks",
+  "@appointment_detail_requested_homecare_task": {
+    "description": "Label for the requested homecare tasks section in the appointment detail page"
+  },
+  "appointment_detail_requested_homecare_task_empty": "No specific homecare tasks requested.",
+  "@appointment_detail_requested_homecare_task_empty": {
+    "description": "Message displayed when there are no requested homecare tasks in the appointment detail page"
+  },
+  "appointment_detail_patient_problem_title": "Patient Problems",
+  "@appointment_detail_patient_problem_title": {
+    "description": "Title for the patient problems section in the appointment detail page"
+  },
+  "appointment_detail_patient_problem_empty": "No specific problem details provided.",
+  "@appointment_detail_patient_problem_empty": {
+    "description": "Message displayed when there are no patient problems in the appointment detail page"
+  },
+  "appointment_detail_payment_title": "Payment Information",
+  "@appointment_detail_payment_title": {
+    "description": "Title for the payment information section in the appointment detail page"
+  },
+  "appointment_detail_estimated_budget": "Estimated Budget",
+  "@appointment_detail_estimated_budget": {
+    "description": "Label for the estimated budget in the appointment detail page"
+  },
+  "appointment_detail_payment_details": "Payment Details",
+  "@appointment_detail_payment_details": {},
+  "appointment_detail_payment_date": "Payment Date",
+  "@appointment_detail_payment_date": {
+    "description": "Label for the payment date in the appointment detail page"
+  },
+  "appointment_detail_payment_method": "Payment Method",
+  "@appointment_detail_payment_method": {
+    "description": "Label for the payment method in the appointment detail page"
+  },
+  "appointment_detail_order_completed_date": "Order Completed",
+  "@appointment_detail_order_completed_date": {
+    "description": "Label for the order completed date in the appointment detail page"
+  },
+  "appointment_detail_total_amount": "Total: {amount}",
+  "@appointment_detail_total_amount": {
+    "description": "Label for the total amount in the appointment detail page",
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "appointment_detail_total_label": "Total",
+  "@appointment_detail_total_label": {},
+  "appointment_detail_service_requested": "Services Requested",
+  "@appointment_detail_service_requested": {
+    "description": "Label for the service requested in the appointment detail page"
+  },
+  "appointment_summary": "Summary:",
+  "@appointment_summary": {
+    "description": "Label for the appointment summary section"
+  },
+  "appointment_update_success_message": "Appointment updated successfully",
+  "@appointment_update_success_message": {
+    "description": "Message displayed when an appointment is updated successfully"
+  },
+  "appointment_accept_success_message": "Appointment accepted successfully",
+  "@appointment_accept_success_message": {},
+  "appointment_decline_success_message": "Appointment declined successfully",
+  "@appointment_decline_success_message": {},
+  "appointment_complete_success_message": "Appointment completed successfully",
+  "@appointment_complete_success_message": {},
+  "appointment_confirm_sample_success_message": "Sample collection confirmed successfully",
+  "@appointment_confirm_sample_success_message": {},
+  "appointment_mark_report_ready_success_message": "Report marked as ready",
+  "@appointment_mark_report_ready_success_message": {},
+  "appointment_cancel_dialog_content": "Are you sure to cancel this appointment?",
+  "@appointment_cancel_dialog_content": {},
+  "appointment_cancel_dialog_subtitle": "You can rebook it later from the canceled appointment menu.",
+  "@appointment_cancel_dialog_subtitle": {},
+  "appointment_complete_dialog_title": "Complete Appointment",
+  "@appointment_complete_dialog_title": {},
+  "appointment_complete_dialog_content": "Mark this appointment as completed?",
+  "@appointment_complete_dialog_content": {},
+  "appointment_accept_dialog_title": "Accept Appointment",
+  "@appointment_accept_dialog_title": {},
+  "appointment_accept_dialog_content": "Are you sure you want to accept this appointment?",
+  "@appointment_accept_dialog_content": {},
+  "appointment_decline_dialog_title": "Are you sure you want to decline this appointment?",
+  "@appointment_decline_dialog_title": {},
+  "appointment_decline_dialog_subtitle": "This action cannot be undone.",
+  "@appointment_decline_dialog_subtitle": {},
+  "screening_report_upload_title": "Upload Lab Reports",
+  "@screening_report_upload_title": {},
+  "screening_report_upload_instruction": "Please upload all necessary lab reports before marking them as ready.",
+  "@screening_report_upload_instruction": {},
+  "screening_report_uploaded_section": "Uploaded Reports ({count})",
+  "@screening_report_uploaded_section": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "screening_report_empty": "No reports uploaded yet",
+  "@screening_report_empty": {},
+  "screening_report_upload_btn": "Upload New Report",
+  "@screening_report_upload_btn": {},
+  "screening_report_mark_ready_btn": "Mark Reports as Ready",
+  "@screening_report_mark_ready_btn": {},
+  "screening_report_finalize_dialog_title": "Finalize Reports?",
+  "@screening_report_finalize_dialog_title": {},
+  "screening_report_finalize_dialog_content": "Once marked as ready, reports will be sent to the patient and you cannot modify them anymore.",
+  "@screening_report_finalize_dialog_content": {},
+  "screening_report_finalized_message": "Reports Finalized",
+  "@screening_report_finalized_message": {},
+  "screening_report_delete_dialog_title": "Delete Report?",
+  "@screening_report_delete_dialog_title": {},
+  "screening_report_delete_dialog_content": "Are you sure you want to delete this report?",
+  "@screening_report_delete_dialog_content": {},
+  "screening_report_upload_success": "Report uploaded successfully",
+  "@screening_report_upload_success": {},
+  "screening_report_delete_success": "Report deleted successfully",
+  "@screening_report_delete_success": {},
+  "screening_report_finalize_success": "Reports marked as ready",
+  "@screening_report_finalize_success": {},
+  
+  "profile_patient_title": "My Health Profile",
+  "@profile_patient_title": {
+    "description": "Title for the patient's profile page"
+  },
+  "profile_professional_title": "My Profile",
+  "@profile_professional_title": {
+    "description": "Title for the professional's profile page"
+  },
+  "profile_not_found": "No profile data found",
+  "@profile_not_found": {
+    "description": "Message displayed when no profile data is found"
+  },
+  "profile_professional_verified_label": "Verified",
+  "@profile_professional_verified_label": {
+    "description": "Label indicating the professional profile is verified"
+  },
+  "profile_professional_unverified_label": "Unverified",
+  "@profile_professional_unverified_label": {
+    "description": "Label indicating the professional profile is unverified"
+  },
+  "profile_verified_since_date": "Since: {date}",
+  "@profile_verified_since_date": {
+    "description": "Label indicating the date since the profile is active",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "profile_patient_info_section": "Profile Information",
+  "@profile_patient_info_section": {
+    "description": "Title for the patient's profile information section"
+  },
+  "profile_patient_basic_info": "Basic Information",
+  "@profile_patient_basic_info": {
+    "description": "Title for the patient's basic information menu"
+  },
+  "profile_patient_medical_history_n_risk_factor": "Medical History & Risk Factors",
+  "@profile_patient_medical_history_n_risk_factor": {
+    "description": "Title for the patient's medical information menu"
+  },
+  "profile_patient_lifestyle_n_selfcare": "Lifestyle & Self Care",
+  "@profile_patient_lifestyle_n_selfcare": {
+    "description": "Title for the patient's lifestyle and self care menu"
+  },
+  "profile_patient_physical_sign": "Physical Sign",
+  "@profile_patient_physical_sign": {
+    "description": "Title for the patient's physical sign menu"
+  },
+  "profile_patient_mental_state": "Mental State",
+  "@profile_patient_mental_state": {
+    "description": "Title for the patient's mental state menu"
+  },
+  "profile_patient_health_record_section": "Health Records",
+  "@profile_patient_health_record_section": {
+    "description": "Title for the patient's health records section"
+  },
+  "profile_patient_medical_record": "Medical Records",
+  "@profile_patient_medical_record": {
+    "description": "Title for the patient's medical records menu"
+  },
+  "profile_patient_pharmacogenomics": "Pharmacogenomics Profile",
+  "@profile_patient_pharmacogenomics": {
+    "description": "Title for the patient's pharmacogenomics profile menu"
+  },
+  "profile_patient_wellness_genomics": "Wellness Genomics Profile",
+  "@profile_patient_wellness_genomics": {
+    "description": "Title for the patient's wellness genomics profile menu"
+  },
+  "profile_all_my_appointments": "All My Appointments",
+  "@profile_all_my_appointments": {
+    "description": "Label for the button to view all appointments"
+  },
+  "profile_professional_panel_section": "Professional Panel",
+  "@profile_professional_panel_section": {
+    "description": "Title for the professional's panel section"
+  },
+  "profile_professional_edit_profile": "Edit Professional Profile",
+  "@profile_professional_edit_profile": {
+    "description": "Label for the button to edit professional profile"
+  },
+  "profile_professional_my_services": "My Services",
+  "@profile_professional_my_services": {
+    "description": "Label for the button to view professional services"
+  },
+  "profile_professional_my_schedule": "My Schedule",
+  "@profile_professional_my_schedule": {
+    "description": "Label for the button to view professional schedule"
+  },
+  "profile_admin_panel_section": "Admin Panel",
+  "@profile_admin_panel_section": {
+    "description": "Title for the admin panel section"
+  },
+  "profile_admin_manage_services": "Manage Services",
+  "@profile_admin_manage_services": {
+    "description": "Label for the button to manage services"
+  },
+  "profile_admin_manage_health_screening_services": "Manage Health Screening Services",
+  "@profile_admin_manage_health_screening_services": {
+    "description": "Label for the button to manage health screening services"
+  },
+  "profile_admin_verify_professional": "Verify Professionals",
+  "@profile_admin_verify_professional": {
+    "description": "Label for the button to verify professionals"
+  },
+  "profile_admin_homecare_config": "Homecare Configuration",
+  "@profile_admin_homecare_config": {
+    "description": "Label for the button to access homecare configuration"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings"
+  },
+  "settings_app_language": "App Language",
+  "@settings_app_language": {
+    "description": "Label for the app language setting"
+  },
+  "auth_logout": "Logout",
+  "@auth_logout": {
+    "description": "Label for the logout button"
+  },
+
+  "profile_info_title": "Profile Information",
+  "@profile_info_title": {
+    "description": "Title for the profile information page"
+  },
+  "profile_info_profile_image": "Profile Image",
+  "@profile_info_profile_image": {
+    "description": "Label for the profile image field"
+  },
+  "profile_info_remove_image": "Remove Image",
+  "@profile_info_remove_image": {
+    "description": "Label for the button to remove profile image"
+  },
+  "profile_info_home_address": "Home Address",
+  "@profile_info_home_address": {
+    "description": "Label for the home address field"
+  },
+  "profile_info_select_map_location_hint": "Tap to select location on map",
+  "@profile_info_select_map_location_hint": {
+    "description": "Instruction to tap to select location on map"
+  },
+  "profile_info_drug_allergies": "Drug Allergies",
+  "@profile_info_drug_allergies": {
+    "description": "Label for the drug allergies field"
+  },
+
+  "risk_factor_title": "Medical History & Risk Factors",
+  "@risk_factor_title": {
+    "description": "Title for the medical history and risk factors section"
+  },
+
+  "medical_record_title": "Medical Records",
+  "@medical_record_title": {},
+  "medical_record_empty": "No medical records found.",
+  "@medical_record_empty": {
+    "description": "Message displayed when there are no medical records found"
+  },
+  "medical_record_confirm_delete_dialog_title": "Delete Medical Record?",
+  "@medical_record_confirm_delete_dialog_title": {
+    "description": "Title for the dialog to confirm deletion of a medical record"
+  },
+  "medical_record_confirm_delete_dialog_content": "Are you sure you want to delete this medical record?",
+  "@medical_record_confirm_delete_dialog_content": {
+    "description": "Content for the dialog to confirm deletion of a medical record"
+  },
+  "medical_record_patient_status": "Patient Status",
+  "@medical_record_patient_status": {},
+  "medical_record_disease_name": "Disease Name",
+  "@medical_record_disease_name": {},
+  "medical_record_disease_history": "Disease History",
+  "@medical_record_disease_history": {},
+  "medical_record_special_consideration": "Special Consideration",
+  "@medical_record_special_consideration": {},
+  "medical_record_records_file": "Records File",
+  "@medical_record_records_file": {
+    "description": "Label for the records file section in the medical record detail page"
+  },
+  "medical_record_download_file_btn": "Download File",
+  "@medical_record_download_file_btn": {},
+  "medical_record_view_file_btn": "View File",
+  "@medical_record_view_file_btn": {},
+
+  "diabetic_retinal_photography": "Diabetic Retinal\nPhotography (DRP)",
+  "@diabetic_retinal_photography": {},
+  "diabetic_retinal_photography_desc": "A common eye disease among diabetic\npatients. Blood capillaries may bleed\nand damage the retina, potentially\nleading to blindness. Regular\ndiabetic retinal photography\ncan detect and monitor your eyes.",
+  "@diabetic_retinal_photography_desc": {},
+  "diabetic_foot_screening": "Diabetic Foot Screening\n (DFS)",
+  "@diabetic_foot_screening": {},
+  "diabetic_foot_screening_desc": "Conducted by trained nurses, who will\nalso educate on proper footcare and\ngood sugar control. Referrals to\nfootcare specialists will be made\nwhere appropriate.",
+  "@diabetic_foot_screening_desc": {},
+  "diabetic_care_title": "Diabetic Care",
+  "@diabetic_care_title": {},
+  "common_book_now": "Book Now",
+  "@common_book_now": {},
+  "diabetes_form_submit_failed": "Failed to submit form.",
+  "@diabetes_form_submit_failed": {},
+  "common_error_title": "Error",
+  "@common_error_title": {},
+  "diabetes_form_load_failed": "Failed to load form data.",
+  "@diabetes_form_load_failed": {},
+  "common_next": "Next",
+  "@common_next": {},
+  "common_submit": "Submit",
+  "@common_submit": {},
+  "diabetes_form_title": "Diabetes Form",
+  "@diabetes_form_title": {},
+  "diabetes_history_title": "Diabetes History",
+  "@diabetes_history_title": {},
+  "diabetes_type_label": "Type of Diabetes",
+  "@diabetes_type_label": {},
+  "common_not_specified": "Not specified",
+  "@common_not_specified": {},
+  "year_of_diagnosis_label": "Year of Diagnosis",
+  "@year_of_diagnosis_label": {},
+  "last_hba1c_label": "Last HbA1c",
+  "@last_hba1c_label": {},
+  "current_treatment_label": "Current Treatment",
+  "@current_treatment_label": {},
+  "risk_factors_title": "Medical History & Risk Factors",
+  "@risk_factors_title": {},
+  "hypertension_label": "Hypertension",
+  "@hypertension_label": {},
+  "dyslipidemia_label": "Dyslipidemia",
+  "@dyslipidemia_label": {},
+  "cardiovascular_disease_label": "Cardiovascular Disease",
+  "@cardiovascular_disease_label": {},
+  "eye_disease_label": "Eye Disease (Retinopathy)",
+  "@eye_disease_label": {},
+  "neuropathy_label": "Neuropathy",
+  "@neuropathy_label": {},
+  "kidney_disease_label": "Kidney Disease",
+  "@kidney_disease_label": {},
+  "family_history_label": "Family History",
+  "@family_history_label": {},
+  "smoking_label": "Smoking",
+  "@smoking_label": {},
+  "lifestyle_self_care_title": "Lifestyle & Self-Care",
+  "@lifestyle_self_care_title": {},
+  "recent_hypoglycemia_label": "Recent Hypoglycemia",
+  "@recent_hypoglycemia_label": {},
+  "physical_activity_label": "Physical Activity",
+  "@physical_activity_label": {},
+  "diet_quality_label": "Diet Quality",
+  "@diet_quality_label": {},
+  "physical_signs_title": "Physical Signs",
+  "@physical_signs_title": {},
+  "physical_signs_if_have_title": "Physical Signs (If Have)",
+  "@physical_signs_if_have_title": {},
+  "eyes_last_exam_label": "Eyes (Last Exam)",
+  "@eyes_last_exam_label": {},
+  "eyes_findings_label": "Eyes (Findings)",
+  "@eyes_findings_label": {},
+  "kidneys_egfr_label": "Kidneys (eGFR)",
+  "@kidneys_egfr_label": {},
+  "kidneys_urine_acr_label": "Kidneys (Urine ACR)",
+  "@kidneys_urine_acr_label": {},
+  "feet_skin_label": "Feet (Skin)",
+  "@feet_skin_label": {},
+  "feet_deformity_label": "Feet (Deformity)",
+  "@feet_deformity_label": {},
+  "common_edit_information": "Edit Information",
+  "@common_edit_information": {},
+  "diabetes_type_question": "Type of Diabetes:",
+  "@diabetes_type_question": {},
+  "diabetes_type_1": "Type 1",
+  "@diabetes_type_1": {},
+  "diabetes_type_2": "Type 2",
+  "@diabetes_type_2": {},
+  "diabetes_type_gestational": "Gestational",
+  "@diabetes_type_gestational": {},
+  "common_other": "Other",
+  "@common_other": {},
+  "enter_diabetes_type_hint": "Please enter your type of diabetes",
+  "@enter_diabetes_type_hint": {},
+  "specify_diabetes_type_error": "Please specify your type of diabetes.",
+  "@specify_diabetes_type_error": {},
+  "year_of_diagnosis_question": "Year of Diagnosis:",
+  "@year_of_diagnosis_question": {},
+  "year_hint": "e.g 2021",
+  "@year_hint": {},
+  "invalid_year_error": "Invalid year.",
+  "@invalid_year_error": {},
+  "last_hba1c_question": "Last HbA1c:",
+  "@last_hba1c_question": {},
+  "invalid_value_error": "Invalid value.",
+  "@invalid_value_error": {},
+  "current_treatment_question": "Current Treatment:",
+  "@current_treatment_question": {},
+  "treatment_diet_exercise": "Diet & Exercise",
+  "@treatment_diet_exercise": {},
+  "treatment_oral_medications": "Oral Medications",
+  "@treatment_oral_medications": {},
+  "list_medications_hint": "List medications...",
+  "@list_medications_hint": {},
+  "list_medications_error": "Please list your oral medications.",
+  "@list_medications_error": {},
+  "treatment_insulin": "Insulin",
+  "@treatment_insulin": {},
+  "insulin_type_dose_hint": "Type & dose",
+  "@insulin_type_dose_hint": {},
+  "insulin_type_dose_error": "Please specify your insulin type & dose.",
+  "@insulin_type_dose_error": {},
+  "answer_all_questions_error": "Please answer all questions on this page.",
+  "@answer_all_questions_error": {},
+  "recent_hypoglycemia_question": "Recent Hypoglycemia:",
+  "@recent_hypoglycemia_question": {},
+  "hypoglycemia_none": "None",
+  "@hypoglycemia_none": {},
+  "hypoglycemia_mild": "Mild",
+  "@hypoglycemia_mild": {},
+  "hypoglycemia_severe": "Severe",
+  "@hypoglycemia_severe": {},
+  "physical_activity_question": "Physical Activity:",
+  "@physical_activity_question": {},
+  "activity_regular": "Regular",
+  "@activity_regular": {},
+  "activity_occasional": "Occasional",
+  "@activity_occasional": {},
+  "activity_sedentary": "Sedentary",
+  "@activity_sedentary": {},
+  "diet_quality_question": "Diet Quality:",
+  "@diet_quality_question": {},
+  "diet_healthy": "Healthy",
+  "@diet_healthy": {},
+  "diet_needs_improvement": "Needs Improvement",
+  "@diet_needs_improvement": {},
+  "eyes_label": "Eyes:",
+  "@eyes_label": {},
+  "last_exam_date_label": "Last Exam Date",
+  "@last_exam_date_label": {},
+  "invalid_date_format_error": "Invalid format (Use YYYY-MM-DD)",
+  "@invalid_date_format_error": {},
+  "invalid_date_error": "Invalid date.",
+  "@invalid_date_error": {},
+  "findings_label": "Findings",
+  "@findings_label": {},
+  "kidneys_label": "Kidneys:",
+  "@kidneys_label": {},
+  "feet_label": "Feet:",
+  "@feet_label": {},
+  "skin_label": "Skin:",
+  "@skin_label": {},
+  "skin_normal": "Normal",
+  "@skin_normal": {},
+  "skin_dry": "Dry",
+  "@skin_dry": {},
+  "skin_ulcer": "Ulcer",
+  "@skin_ulcer": {},
+  "skin_infection": "Infection",
+  "@skin_infection": {},
+  "deformity_label": "Deformity:",
+  "@deformity_label": {},
+  "deformity_none": "None",
+  "@deformity_none": {},
+  "deformity_bunions": "Bunions",
+  "@deformity_bunions": {},
+  "deformity_claw_toes": "Claw toes",
+  "@deformity_claw_toes": {},
+  "smoking_current": "Current",
+  "@smoking_current": {},
+  "smoking_former": "Former",
+  "@smoking_former": {},
+  "smoking_never": "Never",
+  "@smoking_never": {},
+  "family_history_diabetes_label": "Family History of Diabetes",
+  "@family_history_diabetes_label": {},
+  "common_none": "None",
+  "@common_none": {},
+  "common_upload_tap": "Tap to upload your report",
+  "@common_upload_tap": {},
+  "common_ready": "Ready",
+  "@common_ready": {},
+  "common_full_report_file": "Full Report File",
+  "@common_full_report_file": {},
+  "common_ok": "OK",
+  "@common_ok": {},
+  "common_coming_soon": "Coming Soon",
+  "@common_coming_soon": {},
+  "common_feature_available_soon": "This feature will be available soon!",
+  "@common_feature_available_soon": {},
+
+  "mental_state_title": "Mental State",
+  "@mental_state_title": {},
+  "mental_state_current_section": "Mental State (Current)",
+  "@mental_state_current_section": {},
+  "mental_state_overall_mood": "Overall Mood:",
+  "@mental_state_overall_mood": {},
+  "mental_state_anxiety_level": "Anxiety Level:",
+  "@mental_state_anxiety_level": {},
+  "mental_state_stress_level": "Stress Level:",
+  "@mental_state_stress_level": {},
+  "mental_state_energy_level": "Energy Level:",
+  "@mental_state_energy_level": {},
+  "mental_state_focus_level": "Focus Level:",
+  "@mental_state_focus_level": {},
+  "mental_state_sleep_quality": "Sleep Quality:",
+  "@mental_state_sleep_quality": {},
+  "mental_state_notes_label": "Notes/Events affecting your mood:",
+  "@mental_state_notes_label": {},
+  "mental_state_notes_hint": "Additional notes",
+  "@mental_state_notes_hint": {},
+
+  "pharmacogenomics_profile_title": "Pharmagenomic Profile",
+  "@pharmacogenomics_profile_title": {},
+  "pharmacogenomics_delete_report_title": "Delete Report",
+  "@pharmacogenomics_delete_report_title": {},
+  "pharmacogenomics_delete_report_content": "Are you sure you want to delete this report file?",
+  "@pharmacogenomics_delete_report_content": {},
+
+  "wellness_genomics_profile_title": "Wellness Genomics Profile",
+  "@wellness_genomics_profile_title": {},
+
+  "settings_language_title": "App Languages Setting",
+  "@settings_language_title": {},
+  "language_en": "English (en)",
+  "@language_en": {},
+  "language_zh": "Chinese (zh)",
+  "@language_zh": {},
+  "language_id": "Indonesian (id)",
+  "@language_id": {},
+  "auth_sign_in_title": "Login Here",
+  "@auth_sign_in_title": {},
+  "auth_welcome_back": "Welcome Back you've\nbeen missed",
+  "@auth_welcome_back": {},
+  "auth_email_hint": "Email",
+  "@auth_email_hint": {},
+  "auth_password_hint": "Password",
+  "@auth_password_hint": {},
+  "auth_forgot_password_btn": "Forgot Password?",
+  "@auth_forgot_password_btn": {},
+  "auth_sign_in_btn": "Sign In",
+  "@auth_sign_in_btn": {},
+  "auth_create_account": "Create new account",
+  "@auth_create_account": {},
+  "auth_continue_with": "Or continue with",
+  "@auth_continue_with": {},
+  "auth_error_title": "Error",
+  "@auth_error_title": {},
+  "auth_fill_email_password_error": "Please fill in both Email and Password.",
+  "@auth_fill_email_password_error": {},
+  "auth_fill_all_fields_error": "Please fill in all fields correctly.",
+  "@auth_fill_all_fields_error": {},
+  "auth_select_role_error": "Please select a user type",
+  "@auth_select_role_error": {},
+  "auth_select_role_first_error": "Please select a user type first",
+  "@auth_select_role_first_error": {},
+  "auth_passwords_do_not_match": "Passwords do not match",
+  "@auth_passwords_do_not_match": {},
+  "auth_enter_valid_email": "Please enter a valid email",
+  "@auth_enter_valid_email": {},
+  "auth_enter_email": "Please enter your email",
+  "@auth_enter_email": {},
+  "auth_enter_password": "Please enter a password",
+  "@auth_enter_password": {},
+  "auth_password_length_error": "Password must be at least 6 characters",
+  "@auth_password_length_error": {},
+  "auth_enter_username": "Please enter a username",
+  "@auth_enter_username": {},
+  "auth_confirm_password_hint": "Confirm Password",
+  "@auth_confirm_password_hint": {},
+  "auth_username_hint": "Username",
+  "@auth_username_hint": {},
+  "auth_select_user_type_hint": "Select User Type",
+  "@auth_select_user_type_hint": {},
+  "auth_role_patient": "Patient",
+  "@auth_role_patient": {},
+  "auth_role_nurse": "Nurse",
+  "@auth_role_nurse": {},
+  "auth_role_pharmacist": "Pharmacist",
+  "@auth_role_pharmacist": {},
+  "auth_role_radiologist": "Radiologist",
+  "@auth_role_radiologist": {},
+  "auth_role_caregiver": "Caregiver/Helper",
+  "@auth_role_caregiver": {},
+  "auth_sign_up_title": "Create Account",
+  "@auth_sign_up_title": {},
+  "auth_sign_up_subtitle": "Create an account so you can explore all the\nexisting jobs",
+  "@auth_sign_up_subtitle": {},
+  "auth_sign_up_btn": "Sign Up",
+  "@auth_sign_up_btn": {},
+  "auth_already_have_account": "Already have an account",
+  "@auth_already_have_account": {},
+  "auth_registration_successful_title": "Registration Successful",
+  "@auth_registration_successful_title": {},
+  "auth_registration_successful_content": "Please check your email for verification.",
+  "@auth_registration_successful_content": {},
+  "auth_complete_registration_title": "Complete Registration",
+  "@auth_complete_registration_title": {},
+  "auth_complete_registration_content": "Welcome!\nPlease select your account type to continue.",
+  "@auth_complete_registration_content": {},
+  
+  "auth_forgot_password_title": "Forgot Password?",
+  "@auth_forgot_password_title": {},
+  "auth_forgot_password_subtitle": "Don't worry! Please enter the email address linked with your account.",
+  "@auth_forgot_password_subtitle": {},
+  "auth_enter_email_hint": "Enter your email",
+  "@auth_enter_email_hint": {},
+  "auth_send_code_btn": "Send Code",
+  "@auth_send_code_btn": {},
+  "auth_otp_sent_success": "OTP sent successfully",
+  "@auth_otp_sent_success": {},
+  "auth_otp_verification_title": "Enter Verification Code",
+  "@auth_otp_verification_title": {},
+  "auth_otp_verification_subtitle": "Enter the code that we have sent to your email {email}",
+  "@auth_otp_verification_subtitle": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "auth_verify_btn": "Verify",
+  "@auth_verify_btn": {},
+  "auth_resend_code": "Didn't receive the code? Resend",
+  "@auth_resend_code": {},
+  "auth_resend_in_seconds": "Resend in {seconds} seconds",
+  "@auth_resend_in_seconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "auth_code_resent": "Code resent!",
+  "@auth_code_resent": {},
+  "auth_pin_incorrect": "Pin is incorrect",
+  "@auth_pin_incorrect": {},
+
+  "auth_reset_password_title": "Reset Password",
+  "@auth_reset_password_title": {},
+  "auth_reset_password_subtitle": "Please enter your new password",
+  "@auth_reset_password_subtitle": {},
+  "auth_new_password_hint": "New Password",
+  "@auth_new_password_hint": {},
+  "auth_confirm_password_error": "Please confirm your password",
+  "@auth_confirm_password_error": {},
+  "auth_reset_password_btn": "Reset Password",
+  "@auth_reset_password_btn": {},
+  "auth_reset_password_success_title": "Password Reset Successful!",
+  "@auth_reset_password_success_title": {},
+  "auth_reset_password_success_content": "You have successfully reset your password. Please use your new password when logging in.",
+  "@auth_reset_password_success_content": {},
+  "auth_back_to_login_btn": "Back to Login",
+  "@auth_back_to_login_btn": {},
+  
+  "booking_nursing_primary_title": "Primary Nursing",
+  "@booking_nursing_primary_title": {},
+  "booking_nursing_primary_desc": "Monitor and administer\nnursing procedures from\nbody checking, Medication,\ntube feed and suctioning to\ninjections and wound care.",
+  "@booking_nursing_primary_desc": {},
+  "booking_nursing_specialized_title": "Specialized Nursing Services",
+  "@booking_nursing_specialized_title": {},
+  "booking_nursing_specialized_desc": "Focus on recovery and leave\nthe complex nursing care in\nthe hands of our experienced\nnurse Care Pros",
+  "@booking_nursing_specialized_desc": {},
+  "booking_nursing_page_title": "Home Nursing",
+  "@booking_nursing_page_title": {},
+
+  "booking_pharmacy_page_title": "iRX Pharmacist Service",
+  "@booking_pharmacy_page_title": {},
+  "booking_pharmacy_medication_counseling_title": "Medication Counseling\nand Education",
+  "@booking_pharmacy_medication_counseling_title": {},
+  "booking_pharmacy_medication_counseling_desc": "Medication counseling and education guide\npatients on proper use, side effects, and\nadherence to prescriptions,\nenhancing safety and\nimproving health outcomes.",
+  "@booking_pharmacy_medication_counseling_desc": {},
+  "booking_pharmacy_therapy_review_title": "Comprehensive Therapy\nReview",
+  "@booking_pharmacy_therapy_review_title": {},
+  "booking_pharmacy_therapy_review_desc": "Comprehensive review of your medication\nand lifestyle to optimize treatment\noutcomes and minimize potential side\neffects",
+  "@booking_pharmacy_therapy_review_desc": {},
+  "booking_pharmacy_health_coaching_title": "Health Coaching",
+  "@booking_pharmacy_health_coaching_title": {},
+  "booking_pharmacy_health_coaching_desc": "Personalized guidance and support to help\nindividuals achieve their health goals, manage\nchronic conditions, and improve overall well-\nbeing, with specialized programs for weight\nmanagement, diabetes management, high\nblood pressure management, and high\ncholesterol management",
+  "@booking_pharmacy_health_coaching_desc": {},
+  "booking_pharmacy_smoking_cessation_title": "Smoking Cessation",
+  "@booking_pharmacy_smoking_cessation_title": {},
+  "booking_pharmacy_smoking_cessation_desc": "Smoking cessation involves quitting\nsmoking through strategies like\ncounseling, medications, and support\nprograms to improve health and\nreduce the risk of smoking-related\ndiseases.",
+  "@booking_pharmacy_smoking_cessation_desc": {},
+
+  "booking_issue_list_title_nursing": "Nurse Services Case",
+  "@booking_issue_list_title_nursing": {},
+  "booking_issue_list_title_pharmacy": "Pharmacist Services Case",
+  "@booking_issue_list_title_pharmacy": {},
+  "booking_issue_list_title_radiology": "Radiologist Services Case",
+  "@booking_issue_list_title_radiology": {},
+  "booking_issue_list_title_default": "Service Case",
+  "@booking_issue_list_title_default": {},
+  "booking_tell_us_concern": "Tell Us Your Concern",
+  "@booking_tell_us_concern": {},
+  "booking_issue_empty": "There are no issues added yet.\n Please add one or more issues so\nyou can proceed to the next step.",
+  "@booking_issue_empty": {},
+  "booking_add_issue_btn": "Add an Issue",
+  "@booking_add_issue_btn": {},
+  "booking_next_btn": "Next",
+  "@booking_next_btn": {},
+  "booking_issue_delete_dialog_title": "Delete Issue",
+  "@booking_issue_delete_dialog_title": {},
+  "booking_issue_delete_dialog_content": "Are you sure you want to delete this issue?",
+  "@booking_issue_delete_dialog_content": {},
+
+  "booking_issue_form_add_title": "Add an Issue",
+  "@booking_issue_form_add_title": {},
+  "booking_issue_form_edit_title": "Edit Issue",
+  "@booking_issue_form_edit_title": {},
+  "booking_issue_form_instruction": "Tell us your concerns",
+  "@booking_issue_form_instruction": {},
+  "booking_issue_form_title_hint": "Issue Title",
+  "@booking_issue_form_title_hint": {},
+  "booking_issue_form_desc_hint": "Please enter questions, concerns, relevant symptoms related to your case along with related keywords.",
+  "@booking_issue_form_desc_hint": {},
+  "booking_issue_form_images_label": "Images",
+  "@booking_issue_form_images_label": {},
+  "booking_issue_form_update_btn": "Update",
+  "@booking_issue_form_update_btn": {},
+  "booking_issue_form_add_btn": "Add",
+  "@booking_issue_form_add_btn": {},
+  "booking_issue_form_required_error": "Issue title and description are required.",
+  "@booking_issue_form_required_error": {},
+  "booking_issue_form_success_update": "Issue updated successfully",
+  "@booking_issue_form_success_update": {},
+  "booking_issue_form_success_add": "Issue added successfully",
+  "@booking_issue_form_success_add": {},
+
+  "booking_health_status_title": "Personal Case Detail",
+  "@booking_health_status_title": {},
+  "booking_health_status_mobility_label": "Select your mobility status",
+  "@booking_health_status_mobility_label": {},
+  "booking_health_status_record_label": "Select a related health record",
+  "@booking_health_status_record_label": {},
+  "booking_health_status_record_hint": "Please select a record",
+  "@booking_health_status_record_hint": {},
+  "booking_health_status_no_records": "No medical records available.",
+  "@booking_health_status_no_records": {},
+
+  "booking_addon_nursing_title": "Nursing Procedures",
+  "@booking_addon_nursing_title": {},
+  "booking_addon_specialized_nursing_title": "Specialized Nursing Procedures",
+  "@booking_addon_specialized_nursing_title": {},
+  "booking_addon_pharmacy_title": "Pharmacy Services",
+  "@booking_addon_pharmacy_title": {},
+  "booking_addon_radiology_title": "Radiology Services",
+  "@booking_addon_radiology_title": {},
+  "booking_addon_default_title": "Add On Services",
+  "@booking_addon_default_title": {},
+  "booking_addon_empty": "No add-on services available.",
+  "@booking_addon_empty": {},
+  "booking_estimated_budget": "Estimated Budget",
+  "@booking_estimated_budget": {},
+  "booking_book_appointment_btn": "Book Appointment",
+  "@booking_book_appointment_btn": {},
+
+  "booking_professional_search_nurse": "Search Nurse",
+  "@booking_professional_search_nurse": {},
+  "booking_professional_search_pharmacist": "Search Pharmacist",
+  "@booking_professional_search_pharmacist": {},
+  "booking_professional_search_radiologist": "Search Radiologist",
+  "@booking_professional_search_radiologist": {},
+  "booking_professional_search_caregiver": "Search Caregiver/Helper/Worker",
+  "@booking_professional_search_caregiver": {},
+  "booking_professional_search_default": "Search Professional",
+  "@booking_professional_search_default": {},
+  "booking_professional_filter_text": "Filtering by {count} selected services",
+  "@booking_professional_filter_text": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "booking_professional_empty": "No professionals found matching your criteria.",
+  "@booking_professional_empty": {},
+  "booking_professional_appointment_btn": "Appointment",
+  "@booking_professional_appointment_btn": {},
+
+  "booking_professional_detail_nurse": "Nurse Details",
+  "@booking_professional_detail_nurse": {},
+  "booking_professional_detail_pharmacist": "Pharmacist Details",
+  "@booking_professional_detail_pharmacist": {},
+  "booking_professional_detail_radiologist": "Radiologist Details",
+  "@booking_professional_detail_radiologist": {},
+  "booking_professional_detail_default": "Professional Details",
+  "@booking_professional_detail_default": {},
+  "booking_professional_patients_label": "Patients",
+  "@booking_professional_patients_label": {},
+  "booking_professional_experience_label": "Experience",
+  "@booking_professional_experience_label": {},
+  "booking_professional_rating_label": "Rating",
+  "@booking_professional_rating_label": {},
+  "booking_professional_about_me": "About Me",
+  "@booking_professional_about_me": {},
+  "booking_professional_working_info": "Working Information",
+  "@booking_professional_working_info": {},
+  "booking_professional_certificate": "Professional Certificate",
+  "@booking_professional_certificate": {},
+  "booking_professional_no_certificate": "No certificate available.",
+  "@booking_professional_no_certificate": {},
+  "booking_professional_id_number": "ID Number: {number}",
+  "@booking_professional_id_number": {
+    "placeholders": {
+      "number": {
+        "type": "String"
+      }
+    }
+  },
+  "booking_professional_issued_on": "Issued: {date}",
+  "@booking_professional_issued_on": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "booking_professional_reviews": "Reviews",
+  "@booking_professional_reviews": {},
+  "booking_professional_see_all": "See All",
+  "@booking_professional_see_all": {},
+  "booking_professional_no_reviews": "No reviews available yet.",
+  "@booking_professional_no_reviews": {},
+  "booking_professional_schedule_btn": "Schedule Appointment",
+  "@booking_professional_schedule_btn": {},
+
+  "booking_schedule_title": "Select Schedule",
+  "@booking_schedule_title": {},
+  "booking_schedule_select_date": "Select Date",
+  "@booking_schedule_select_date": {},
+  "booking_schedule_select_hour": "Select Hour",
+  "@booking_schedule_select_hour": {},
+  "booking_schedule_no_slots": "No available slots for this day.",
+  "@booking_schedule_no_slots": {},
+  "booking_schedule_submit_btn": "Submit",
+  "@booking_schedule_submit_btn": {},
+  "booking_schedule_submitting": "Submitting...",
+  "@booking_schedule_submitting": {},
+  "booking_schedule_reschedule_success": "Appointment rescheduled successfully",
+  "@booking_schedule_reschedule_success": {},
+  "booking_schedule_reschedule_failed": "Rescheduling failed.",
+  "@booking_schedule_reschedule_failed": {},
+
+  "booking_appointment_created_success": "Appointment created successfully",
+  "@booking_appointment_created_success": {},
+  "booking_appointment_created_failed": "Failed to create appointment",
+  "@booking_appointment_created_failed": {},
+
+  "chat_pharma_title": "AI Pharmacist",
+  "@chat_pharma_title": {},
+  "chat_pharma_online": "Online",
+  "@chat_pharma_online": {},
+  "chat_pharma_privacy": "(HIPAA Privacy)",
+  "@chat_pharma_privacy": {},
+  "chat_pharma_need_help": "Need Help? ",
+  "@chat_pharma_need_help": {},
+  "chat_pharma_request_help": "Request help from the Pharmacist",
+  "@chat_pharma_request_help": {},
+  "chat_pharma_input_hint": "Write your message",
+  "@chat_pharma_input_hint": {},
+
+  "common_unknown_location": "Unknown Location",
+  "@common_unknown_location": {},
+  "booking_personal_issue_concern": "Concern / Question",
+  "@booking_personal_issue_concern": {},
+  "booking_personal_issue_updated_on": "Updated on: {date}",
+  "@booking_personal_issue_updated_on": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "booking_personal_issue_images": "Images",
+  "@booking_personal_issue_images": {},
+
+  "booking_mobility_bedbound": "Bedbound",
+  "@booking_mobility_bedbound": {},
+  "booking_mobility_wheelchair_bound": "Wheelchair Bound",
+  "@booking_mobility_wheelchair_bound": {},
+  "booking_mobility_walking_aid": "Walking Aid",
+  "@booking_mobility_walking_aid": {},
+  "booking_mobility_mobile_without_aid": "Mobile Without Aid",
+  "@booking_mobility_mobile_without_aid": {},
+
+  "home_health_screening_title": "Home Health Screening",
+  "@home_health_screening_title": {},
+  "home_health_at_home_diagnostic": "At-home diagnostic tests",
+  "@home_health_at_home_diagnostic": {},
+  "home_health_at_home_diagnostic_desc": "Patients collect samples at home using a self-collection kit, which includes materials like swabs, test cards, and collection tubes, and submit them to a CLIA/CAP certified lab (telemedicine lab) for processing. Laboratory technicians process these samples and upload results to an online portal. Primary care doctors, specialists, or other healthcare professionals review results and walk patients through next steps.",
+  "@home_health_at_home_diagnostic_desc": {},
+  "home_health_point_of_care": "Point-of-care tests",
+  "@home_health_point_of_care": {},
+  "home_health_point_of_care_desc": "Diagnostics done outside of a lab that patients can take by themselves at home. These tests develop rapidly and produce results without a doctor or lab technician present. With point-of-care tests, patients review results outside a medical setting and determine their own next steps.",
+  "@home_health_point_of_care_desc": {},
+  "home_health_screening_booked_success": "Screening appointment booked successfully!",
+  "@home_health_screening_booked_success": {},
+  "home_health_screening_booking_failed": "Booking failed",
+  "@home_health_screening_booking_failed": {},
+
+  "homecare_elderly_title": "Home Care for Elderly",
+  "@homecare_elderly_title": {},
+  "homecare_house_bedding_cleaning": "House & Bedding Cleaning",
+  "@homecare_house_bedding_cleaning": {},
+  "homecare_house_bedding_cleaning_desc": "Regular cleaning services to maintain a hygienic, comfortable, and safe living environment for the elderly.",
+  "@homecare_house_bedding_cleaning_desc": {},
+  "homecare_living_security_safety": "Living Security & Safety",
+  "@homecare_living_security_safety": {},
+  "homecare_living_security_safety_desc": "Safety checks and organization to reduce risks and create a secure living environment.",
+  "@homecare_living_security_safety_desc": {},
+  "homecare_kitchen_bathroom_repair": "Kitchen & Bathroom Repair",
+  "@homecare_kitchen_bathroom_repair": {},
+  "homecare_kitchen_bathroom_repair_desc": "On-demand minor repairs to maintain functionality and safety in key home areas.",
+  "@homecare_kitchen_bathroom_repair_desc": {},
+  "homecare_plus_active": "Homecare Plus Active",
+  "@homecare_plus_active": {},
+  "homecare_get_plus": "Get Homecare Plus",
+  "@homecare_get_plus": {},
+  "homecare_balance": "Balance: {balance} Hours",
+  "@homecare_balance": {
+    "placeholders": {
+      "balance": {
+        "type": "int"
+      }
+    }
+  },
+  "homecare_subscription_offer": "{quota} Hours for {price}",
+  "@homecare_subscription_offer": {
+    "placeholders": {
+      "quota": {
+        "type": "int"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "homecare_request_services_btn": "Request Services",
+  "@homecare_request_services_btn": {},
+  "homecare_select_at_least_one_task": "Please select at least one task.",
+  "@homecare_select_at_least_one_task": {},
+  "homecare_task_list_title": "Task List",
+  "@homecare_task_list_title": {},
+  "homecare_feature_name": "FEATURE NAME",
+  "@homecare_feature_name": {},
+  "homecare_frequency": "FREQUENCY",
+  "@homecare_frequency": {},
+  "homecare_weekly": "Weekly",
+  "@homecare_weekly": {},
+  "homecare_monthly": "Monthly",
+  "@homecare_monthly": {},
+  "homecare_as_needed": "As Needed",
+  "@homecare_as_needed": {},
+  "homecare_review_checkout_title": "Review & Checkout",
+  "@homecare_review_checkout_title": {},
+  "homecare_requested_tasks": "Requested Tasks",
+  "@homecare_requested_tasks": {},
+  "homecare_billing_option": "Billing Option",
+  "@homecare_billing_option": {},
+  "homecare_hourly_rate": "Hourly Rate",
+  "@homecare_hourly_rate": {},
+  "homecare_use_subscription_balance": "Use Subscription Balance",
+  "@homecare_use_subscription_balance": {},
+  "homecare_deduct_hours": "Deduct {hours} Hours (Balance: {balance} h)",
+  "@homecare_deduct_hours": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "balance": {
+        "type": "int"
+      }
+    }
+  },
+  "homecare_insufficient_balance": "Insufficient Balance ({balance} h)",
+  "@homecare_insufficient_balance": {
+    "placeholders": {
+      "balance": {
+        "type": "int"
+      }
+    }
+  },
+  "homecare_confirm_booking_btn": "Confirm Booking",
+  "@homecare_confirm_booking_btn": {},
+  "homecare_subscription_plans_title": "Subscription Plans",
+  "@homecare_subscription_plans_title": {},
+  "homecare_care_hours": "{hours} Hours of Care",
+  "@homecare_care_hours": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "homecare_valid_for_days": "Valid for {days} Days",
+  "@homecare_valid_for_days": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "homecare_experienced_caregivers": "Experienced Caregivers",
+  "@homecare_experienced_caregivers": {},
+  "homecare_active_subscription": "Active Subscription",
+  "@homecare_active_subscription": {},
+  "homecare_expires_on": "Expires on {date}",
+  "@homecare_expires_on": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "homecare_purchase_now": "Purchase Now - {price}",
+  "@homecare_purchase_now": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+
+  "precision_nutrition_title": "Precision Nutrition",
+  "@precision_nutrition_title": {},
+  "precision_assessment_title": "Precision Nutrition Assessment",
+  "@precision_assessment_title": {},
+  "precision_assessment_desc": "Start your journey with a deep analysis of your genes, metabolism and lifestyle to understand your body's unique needs.",
+  "@precision_assessment_desc": {},
+  "precision_plan_title": "Precision Nutrition Plan",
+  "@precision_plan_title": {},
+  "precision_plan_desc": "Receive a personalized nutrition strategy crafted by experts to address your specific health goals and conditions.",
+  "@precision_plan_desc": {},
+  "precision_implementation_title": "Precision Nutrition Implementation",
+  "@precision_implementation_title": {},
+  "precision_implementation_desc": "Track progress and adapt your plan through continuous support, biomarker monitoring, and smart digital tools.",
+  "@precision_implementation_desc": {},
+  "precision_start_now": "Start Now",
+  "@precision_start_now": {},
+  "precision_book_now": "Book Now",
+  "@precision_book_now": {},
+  "precision_main_concern_question": "What is your main concern?",
+  "@precision_main_concern_question": {},
+  "precision_main_concern_subtitle": "Choose the area that best describes your primary health goal",
+  "@precision_main_concern_subtitle": {},
+  "precision_sub_health": "Sub-Health",
+  "@precision_sub_health": {},
+  "precision_sub_health_desc": "Improve overall wellness and energy levels",
+  "@precision_sub_health_desc": {},
+  "precision_chronic_disease": "Chronic Disease",
+  "@precision_chronic_disease": {},
+  "precision_chronic_disease_desc": "Manage and improve chronic health conditions",
+  "@precision_chronic_disease_desc": {},
+  "precision_anti_aging": "Anti-aging",
+  "@precision_anti_aging": {},
+  "precision_anti_aging_desc": "Optimize health and vitality as you age",
+  "@precision_anti_aging_desc": {},
+  "precision_basic_info_title": "Basic Info & Health History",
+  "@precision_basic_info_title": {},
+  "precision_age_label": "Age",
+  "@precision_age_label": {},
+  "precision_age_hint": "E.g 34 years old",
+  "@precision_age_hint": {},
+  "precision_age_error": "Please enter your age",
+  "@precision_age_error": {},
+  "precision_age_valid_error": "Please enter a valid age",
+  "@precision_age_valid_error": {},
+  "precision_gender_label": "Gender",
+  "@precision_gender_label": {},
+  "precision_gender_error": "Please select your gender",
+  "@precision_gender_error": {},
+  "precision_known_condition_label": "Known Condition (Optional)",
+  "@precision_known_condition_label": {},
+  "precision_known_condition_hint": "Write your condition history here",
+  "@precision_known_condition_hint": {},
+  "precision_special_consideration_title": "Patient with Special Consideration",
+  "@precision_special_consideration_title": {},
+  "precision_medication_history_label": "Medication & supplement history",
+  "@precision_medication_history_label": {},
+  "precision_medication_history_hint": "E.g: Avoid Clopidogrel, Ondansetron, etc",
+  "@precision_medication_history_hint": {},
+  "precision_family_history_label": "Family health history",
+  "@precision_family_history_label": {},
+  "precision_family_history_hint": "Write other biomarkers here (minimum 10 characters)",
+  "@precision_family_history_hint": {},
+  "precision_family_history_error": "Please enter at least 10 characters",
+  "@precision_family_history_error": {},
+  "precision_self_rated_health_title": "Self-Rated Health",
+  "@precision_self_rated_health_title": {},
+  "precision_terrible": "Terrible",
+  "@precision_terrible": {},
+  "precision_bad": "Bad",
+  "@precision_bad": {},
+  "precision_neutral": "Neutral",
+  "@precision_neutral": {},
+  "precision_good": "Good",
+  "@precision_good": {},
+  "precision_excellent": "Excellent",
+  "@precision_excellent": {},
+  "precision_its_terrible": "It's terrible",
+  "@precision_its_terrible": {},
+  "precision_its_bad": "It's bad",
+  "@precision_its_bad": {},
+  "precision_its_good": "It's good",
+  "@precision_its_good": {},
+  "precision_its_very_good": "It's very good",
+  "@precision_its_very_good": {},
+  "precision_lifestyle_habits_title": "Lifestyle & Habits",
+  "@precision_lifestyle_habits_title": {},
+  "precision_sleep_hours_question": "How many hours of sleep do you get per night?",
+  "@precision_sleep_hours_question": {},
+  "precision_hours_per_day": "{hours} hours per day",
+  "@precision_hours_per_day": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "precision_activity_level_label": "Describe your typical daily activity level",
+  "@precision_activity_level_label": {},
+  "precision_activity_level_hint": "E.g Working behind the desk 8 hours per day",
+  "@precision_activity_level_hint": {},
+  "precision_activity_level_error": "Please describe your activity level",
+  "@precision_activity_level_error": {},
+  "precision_exercise_frequency_label": "How often do you exercise per week?",
+  "@precision_exercise_frequency_label": {},
+  "precision_exercise_frequency_hint": "E.g: Around 30 minutes per day",
+  "@precision_exercise_frequency_hint": {},
+  "precision_exercise_frequency_error": "Please describe your exercise frequency",
+  "@precision_exercise_frequency_error": {},
+  "precision_stress_level_label": "Stress levels",
+  "@precision_stress_level_label": {},
+  "precision_stress_level_hint": "E.g: Intermediate stress level",
+  "@precision_stress_level_hint": {},
+  "precision_stress_level_error": "Please describe your stress level",
+  "@precision_stress_level_error": {},
+  "precision_smoking_alcohol_label": "Smoking or alcohol habits?",
+  "@precision_smoking_alcohol_label": {},
+  "precision_smoking_alcohol_hint": "E.g: Heavy smoking",
+  "@precision_smoking_alcohol_hint": {},
+  "precision_smoking_alcohol_error": "Please describe your smoking/alcohol habits",
+  "@precision_smoking_alcohol_error": {},
+  "precision_nutrition_habits_title": "Nutrition Habits",
+  "@precision_nutrition_habits_title": {},
+  "precision_meal_frequency_label": "Describe your daily meal frequency",
+  "@precision_meal_frequency_label": {},
+  "precision_meal_frequency_hint": "E.g Twice a day",
+  "@precision_meal_frequency_hint": {},
+  "precision_meal_frequency_error": "Please describe your meal frequency",
+  "@precision_meal_frequency_error": {},
+  "precision_food_sensitivities_label": "Known food sensitivities or allergies",
+  "@precision_food_sensitivities_label": {},
+  "precision_food_sensitivities_hint": "E.g: Seafoods such as shrimp",
+  "@precision_food_sensitivities_hint": {},
+  "precision_food_sensitivities_error": "Please describe your food sensitivities",
+  "@precision_food_sensitivities_error": {},
+  "precision_favorite_foods_label": "Favorite food types",
+  "@precision_favorite_foods_label": {},
+  "precision_favorite_foods_hint": "E.g: Chicken, Healthy Soup, Meatball",
+  "@precision_favorite_foods_hint": {},
+  "precision_favorite_foods_error": "Please describe your favorite foods",
+  "@precision_favorite_foods_error": {},
+  "precision_avoided_foods_label": "Avoided food types",
+  "@precision_avoided_foods_label": {},
+  "precision_avoided_foods_hint": "E.g: Seafood",
+  "@precision_avoided_foods_hint": {},
+  "precision_avoided_foods_error": "Please describe foods you avoid",
+  "@precision_avoided_foods_error": {},
+  "precision_water_intake_label": "Water intake",
+  "@precision_water_intake_label": {},
+  "precision_water_intake_hint": "E.g: 7 glass per day",
+  "@precision_water_intake_hint": {},
+  "precision_water_intake_error": "Please describe your water intake",
+  "@precision_water_intake_error": {},
+  "precision_past_diets_label": "Past diets",
+  "@precision_past_diets_label": {},
+  "precision_past_diets_hint": "E.g: Keto, low-carb, plant-based, raw food",
+  "@precision_past_diets_hint": {},
+  "precision_past_diets_error": "Please describe your past diets",
+  "@precision_past_diets_error": {},
+  "precision_biomarker_upload_title": "Biomarker Upload",
+  "@precision_biomarker_upload_title": {},
+  "precision_upload_header": "Upload your medical records and connect devices",
+  "@precision_upload_header": {},
+  "precision_upload_subtitle": "This helps us create a more accurate and personalized nutrition plan",
+  "@precision_upload_subtitle": {},
+  "precision_upload_medical_records": "Upload Medical Records",
+  "@precision_upload_medical_records": {},
+  "precision_upload_medical_records_desc": "Upload PDF, images, or other medical documents",
+  "@precision_upload_medical_records_desc": {},
+  "precision_choose_file": "Choose File",
+  "@precision_choose_file": {},
+  "precision_connect_wearable": "Connect Wearable Device",
+  "@precision_connect_wearable": {},
+  "precision_connect_wearable_desc": "Sync data from your smartwatch, fitness tracker, or other devices",
+  "@precision_connect_wearable_desc": {},
+  "precision_uploaded_files": "Uploaded Files",
+  "@precision_uploaded_files": {},
+  "precision_submit_assessment": "Submit Assessment",
+  "@precision_submit_assessment": {},
+  "precision_success_title": "Success!",
+  "@precision_success_title": {},
+  "precision_success_content": "Your Precision Nutrition Assessment has been submitted successfully. Our experts will review your information and create a personalized plan for you.",
+  "@precision_success_content": {},
+  "precision_view_details": "View Details",
+  "@precision_view_details": {},
+  "precision_my_assessment_details": "My Nutrition Assessment Details",
+  "@precision_my_assessment_details": {},
+  "precision_edit_information": "Edit Information",
+  "@precision_edit_information": {},
+  "precision_download_pdf": "Download (PDF)",
+  "@precision_download_pdf": {},
+  "precision_back_to_page": "Back to Precision Nutrition Page",
+  "@precision_back_to_page": {},
+  "precision_plan_my_plan": "My Precision Nutrition Plan",
+  "@precision_plan_my_plan": {},
+  "precision_plan_tab_dietary": "Dietary Plan",
+  "@precision_plan_tab_dietary": {},
+  "precision_plan_tab_supplements": "Supplements",
+  "@precision_plan_tab_supplements": {},
+  "precision_plan_tab_lifestyle": "Lifestyle",
+  "@precision_plan_tab_lifestyle": {},
+  "precision_plan_request_update": "Request Plan Update",
+  "@precision_plan_request_update": {},
+  "precision_plan_goal": "GOAL",
+  "@precision_plan_goal": {},
+  "precision_plan_strategy": "STRATEGY",
+  "@precision_plan_strategy": {},
+  "precision_plan_daily_calory": "DAILY CALORY TARGET",
+  "@precision_plan_daily_calory": {},
+  "precision_plan_recommended_foods": "Recommended Foods",
+  "@precision_plan_recommended_foods": {},
+  "precision_plan_foods_to_limit": "Foods to Limit",
+  "@precision_plan_foods_to_limit": {},
+  "precision_plan_weekly_meal_plan": "Weekly Meal Plan",
+  "@precision_plan_weekly_meal_plan": {},
+  "precision_plan_view_all": "View All",
+  "@precision_plan_view_all": {},
+  "precision_weekly_meal_plan_title": "Weekly Meal Plan",
+  "@precision_weekly_meal_plan_title": {},
+  "precision_day_meal_plan": "{day} Meal Plan",
+  "@precision_day_meal_plan": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      }
+    }
+  },
+  "precision_meal_breakfast": "Breakfast",
+  "@precision_meal_breakfast": {},
+  "precision_meal_lunch": "Lunch",
+  "@precision_meal_lunch": {},
+  "precision_meal_dinner": "Dinner",
+  "@precision_meal_dinner": {},
+  "precision_implementation_journey": "Implementation Journey",
+  "@precision_implementation_journey": {},
+  "precision_implementation_indepth_assessment": "In-Depth Assessment (2-4 weeks)",
+  "@precision_implementation_indepth_assessment": {},
+  "precision_implementation_intervention": "Intervention (3-6 months)",
+  "@precision_implementation_intervention": {},
+  "precision_implementation_maintenance": "Maintenance",
+  "@precision_implementation_maintenance": {},
+  "precision_sub_health_metabolic": "Metabolic Function Optimization",
+  "@precision_sub_health_metabolic": {},
+  "precision_sub_health_gut_brain": "Gut-Brain Axis Regulation",
+  "@precision_sub_health_gut_brain": {},
+  "precision_sub_health_immune": "Immune Balance Intervention",
+  "@precision_sub_health_immune": {},
+  "precision_chronic_diabetes": "Diabetes Management",
+  "@precision_chronic_diabetes": {},
+  "precision_chronic_cardio": "Cardiovascular Disease Support",
+  "@precision_chronic_cardio": {},
+  "precision_chronic_autoimmune": "Autoimmune Disease Care",
+  "@precision_chronic_autoimmune": {},
+  "precision_chronic_obesity": "Obesity Management",
+  "@precision_chronic_obesity": {},
+  "precision_anti_aging_cellular": "Cellular Regeneration & Mitochondrial Health",
+  "@precision_anti_aging_cellular": {},
+  "precision_anti_aging_cognitive": "Cognitive Longevity & Neuroprotection",
+  "@precision_anti_aging_cognitive": {},
+  "precision_anti_aging_hormonal": "Hormonal Balance & Vitality optimization",
+  "@precision_anti_aging_hormonal": {},
+  "precision_anti_aging_skin": "Skin & Structural Longevity",
+  "@precision_anti_aging_skin": {},
+  "precision_learn_more": "Learn More",
+  "@precision_learn_more": {},
+  "precision_applicable_issues": "APPLICABLE ISSUES",
+  "@precision_applicable_issues": {},
+  "precision_services_include": "SERVICES INCLUDE",
+  "@precision_services_include": {},
+  "precision_interventions_include": "INTERVENTIONS INCLUDE",
+  "@precision_interventions_include": {},
+  "precision_solutions_include": "SOLUTIONS INCLUDE",
+  "@precision_solutions_include": {},
+  "precision_technologies_used": "TECHNOLOGIES USED",
+  "@precision_technologies_used": {},
+  "precision_programs_include": "PROGRAMS INCLUDE",
+  "@precision_programs_include": {},
+  "precision_precision_methods_include": "PRECISION METHODS INCLUDE",
+  "@precision_precision_methods_include": {},
+
+  "day_monday": "Monday",
+  "@day_monday": {},
+  "day_tuesday": "Tuesday",
+  "@day_tuesday": {},
+  "day_wednesday": "Wednesday",
+  "@day_wednesday": {},
+  "day_thursday": "Thursday",
+  "@day_thursday": {},
+  "day_friday": "Friday",
+  "@day_friday": {},
+  "day_saturday": "Saturday",
+  "@day_saturday": {},
+  "day_sunday": "Sunday",
+  "@day_sunday": {},
+
+  "nutrition_protein": "Protein",
+  "@nutrition_protein": {},
+  "nutrition_carbs": "Carbs",
+  "@nutrition_carbs": {},
+    "nutrition_fat": "Fat",
+    "@nutrition_fat": {},
+  
+    "admin_homecare_service_rates": "Service Rates",
+    "@admin_homecare_service_rates": {},
+    "admin_homecare_subscription_plans": "Subscription Plans",
+    "@admin_homecare_subscription_plans": {},
+    "admin_homecare_update_successful": "Update successful",
+    "@admin_homecare_update_successful": {},
+    "admin_homecare_update_failed": "Update failed: {error}",
+    "@admin_homecare_update_failed": {
+      "placeholders": {
+        "error": {
+          "type": "String"
+        }
+      }
+    },
+    "admin_homecare_no_service_rates": "No service rates found.",
+    "@admin_homecare_no_service_rates": {},
+    "admin_homecare_no_subscription_plans": "No subscription plans found.",
+    "@admin_homecare_no_subscription_plans": {},
+    "admin_homecare_edit_rate": "Edit Rate: {name}",
+    "@admin_homecare_edit_rate": {
+      "placeholders": {
+        "name": {
+          "type": "String"
+        }
+      }
+    },
+    "admin_homecare_edit_plan": "Edit Plan",
+    "@admin_homecare_edit_plan": {},
+    "admin_homecare_price": "Price",
+    "@admin_homecare_price": {},
+    "admin_homecare_quota_hours": "Quota (Hours)",
+    "@admin_homecare_quota_hours": {},
+    "admin_homecare_validity_days": "Validity (Days)",
+    "@admin_homecare_validity_days": {},
+    "admin_homecare_active": "Active",
+    "@admin_homecare_active": {},
+    "admin_homecare_inactive": "Inactive",
+    "@admin_homecare_inactive": {},
+    "admin_homecare_save_changes": "Save Changes",
+    "@admin_homecare_save_changes": {},
+      "admin_homecare_plan_details": "Price: ${price} | Quota: {quota}h | Validity: {days}d",
+      "@admin_homecare_plan_details": {
+        "placeholders": {
+          "price": {
+            "type": "String"
+          },
+          "quota": {
+            "type": "int"
+          },
+          "days": {
+            "type": "int"
+          }
+        }
+      },
+    
+      "favourite_title": "Favourites",
+      "@favourite_title": {},
+      "favourite_no_favorites": "You have no favorite professionals yet.",
+      "@favourite_no_favorites": {},
+      "favourite_error_fetching": "Error fetching data: {error}",
+      "@favourite_error_fetching": {
+        "placeholders": {
+          "error": {
+            "type": "String"
+          }
+        }
+      },
+      "favourite_error_toggle": "Error: {error}",
+      "@favourite_error_toggle": {
+        "placeholders": {
+          "error": {
+            "type": "String"
+          }
+        }
+      },
+    
+      "medical_store_title": "Medical Store",
+      "@medical_store_title": {},
+      "medical_store_sort": "Sort",
+      "@medical_store_sort": {},
+      "medical_store_consumable_tab": "Homecare Consumable",
+      "@medical_store_consumable_tab": {},
+      "medical_store_poct_tab": "Point of Care Testing",
+      "@medical_store_poct_tab": {},
+      "medical_store_no_products": "No products available",
+      "@medical_store_no_products": {},
+      "medical_store_load_failed": "Failed to load products",
+      "@medical_store_load_failed": {},
+    
+      "payment_title": "Payment",
+      "@payment_title": {},
+      "payment_order_summary": "Order Summary",
+      "@payment_order_summary": {},
+      "payment_charge": "Charge",
+      "@payment_charge": {},
+      "payment_total": "Total",
+      "@payment_total": {},
+      "payment_select_method": "Select Payment Method",
+      "@payment_select_method": {},
+      "payment_confirm_btn": "Confirm",
+      "@payment_confirm_btn": {},
+      "payment_pay_btn": "Pay {amount}",
+      "@payment_pay_btn": {
+        "placeholders": {
+          "amount": {
+            "type": "String"
+          }
+        }
+      },
+      "payment_success_title": "Payment Success",
+      "@payment_success_title": {},
+      "payment_success_content": "Your money has been successfully sent to {name}.",
+      "@payment_success_content": {
+        "placeholders": {
+          "name": {
+            "type": "String"
+          }
+        }
+      },
+      "payment_amount": "Amount",
+      "@payment_amount": {},
+      "payment_how_is_experience": "How is your experience?",
+      "@payment_how_is_experience": {},
+      "payment_feedback_help": "Your feedback will help us to improve your\nexperience better",
+      "@payment_feedback_help": {},
+      "payment_please_feedback_btn": "Please Feedback",
+      "@payment_please_feedback_btn": {},
+      "payment_return_home_btn": "Return to Home",
+      "@payment_return_home_btn": {},
+      "payment_feedback_thank_you": "Thank you for your feedback!",
+      "@payment_feedback_thank_you": {},
+      "payment_feedback_success_content": "This appointment has been completed and can be viewed in the completed orders menu",
+      "@payment_feedback_success_content": {},
+      "payment_view_detail_btn": "View Detail",
+      "@payment_view_detail_btn": {},
+      "payment_excellent": "Excellent",
+      "@payment_excellent": {},
+      "payment_rated_text": "You rated {name} {stars} stars",
+      "@payment_rated_text": {
+        "placeholders": {
+          "name": {
+            "type": "String"
+          },
+          "stars": {
+            "type": "int"
+          }
+        }
+      },
+      "payment_write_text_hint": "Write your text",
+      "@payment_write_text_hint": {},
+      "payment_give_tips": "Give some tips to {name}",
+      "@payment_give_tips": {
+        "placeholders": {
+          "name": {
+            "type": "String"
+          }
+        }
+      },
+      "payment_enter_other_amount": "Enter other amount",
+      "@payment_enter_other_amount": {},
+      "payment_enter_amount_hint": "Enter amount",
+      "@payment_enter_amount_hint": {},
+      "payment_submit_btn": "Submit",
+      "@payment_submit_btn": {},
+      "payment_failed": "Payment Failed: {message}",
+      "@payment_failed": {
+        "placeholders": {
+          "message": {
+            "type": "String"
+          }
+        }
+      },
+      "payment_feedback_failed": "Feedback Failed: {message}",
+      "@payment_feedback_failed": {
+        "placeholders": {
+          "message": {
+            "type": "String"
+          }
+        }
+      },
+      "payment_purchase_failed": "Purchase Failed: {message}",
+      "@payment_purchase_failed": {
+        "placeholders": {
+          "message": {
+            "type": "String"
+          }
+        }
+      },
+      "payment_subscription_success_title": "Payment Successful",
+      "@payment_subscription_success_title": {},
+      "payment_subscription_success_content": "You have successfully subscribed to {plan}",
+      "@payment_subscription_success_content": {
+        "placeholders": {
+          "plan": {
+            "type": "String"
+          }
+        }
+      },
+    
+      "schedule_working_schedule_title": "Working Schedule",
+      "@schedule_working_schedule_title": {},
+      "schedule_weekly_hours_tab": "Weekly Hours",
+      "@schedule_weekly_hours_tab": {},
+      "schedule_date_specific_hours_tab": "Date-specific Hours",
+      "@schedule_date_specific_hours_tab": {},
+      "schedule_preview_tab": "Preview",
+      "@schedule_preview_tab": {},
+      "schedule_unavailable": "Unavailable",
+      "@schedule_unavailable": {},
+      "schedule_edit_hours": "Edit Hours",
+      "@schedule_edit_hours": {},
+      "schedule_add_hours": "Add Hours",
+      "@schedule_add_hours": {},
+      "schedule_start": "Start",
+      "@schedule_start": {},
+      "schedule_end": "End",
+      "@schedule_end": {},
+      "schedule_please_select_time": "Please select both start and end time.",
+      "@schedule_please_select_time": {},
+      "schedule_end_time_error": "End time must be after start time.",
+      "@schedule_end_time_error": {},
+      "schedule_delete_time_block_title": "Delete Time Block?",
+      "@schedule_delete_time_block_title": {},
+      "schedule_delete_time_block_content": "Are you sure you want to delete {start} - {end}?",
+      "@schedule_delete_time_block_content": {
+        "placeholders": {
+          "start": {
+            "type": "String"
+          },
+          "end": {
+            "type": "String"
+          }
+        }
+      },
+      "schedule_add_time_slot_title": "Add Time Slot",
+      "@schedule_add_time_slot_title": {},
+      "schedule_add_btn": "Add",
+      "@schedule_add_btn": {},
+      "schedule_revert_to_weekly": "Revert to Weekly",
+      "@schedule_revert_to_weekly": {},
+      "schedule_i_am_unavailable": "I am unavailable",
+      "@schedule_i_am_unavailable": {},
+      "schedule_mark_day_off": "Mark this specific date as a Day Off",
+      "@schedule_mark_day_off": {},
+      "schedule_specific_hours": "Specific Hours",
+      "@schedule_specific_hours": {},
+      "schedule_no_slots_added": "No slots added yet. You appear unavailable.",
+      "@schedule_no_slots_added": {},
+      "schedule_using_weekly": "Using Weekly Schedule",
+      "@schedule_using_weekly": {},
+      "schedule_customize_hours": "Customize Hours for this Date",
+      "@schedule_customize_hours": {},
+      "schedule_reset_default_title": "Reset to Default?",
+      "@schedule_reset_default_title": {},
+      "schedule_reset_default_content": "This will remove your custom settings for this day. The schedule will revert to your recurring weekly rules.",
+      "@schedule_reset_default_content": {},
+      "schedule_reset_btn": "Reset",
+      "@schedule_reset_btn": {},
+      "schedule_select_date": "Select Date",
+      "@schedule_select_date": {},
+      "schedule_available_hours": "Available Hours",
+      "@schedule_available_hours": {},
+      "schedule_no_available_slots": "No available slots for this day.",
+      "@schedule_no_available_slots": {},
+      "schedule_availability_added": "Availability added!",
+      "@schedule_availability_added": {},
+      "schedule_availability_updated": "Availability updated!",
+      "@schedule_availability_updated": {},
+      "schedule_availability_removed": "Availability removed!",
+      "@schedule_availability_removed": {},
+      "schedule_reverted_success": "Reverted to weekly schedule",
+      "@schedule_reverted_success": {},
+      "schedule_updated_success": "Schedule updated successfully",
+      "@schedule_updated_success": {}
+    }
+    

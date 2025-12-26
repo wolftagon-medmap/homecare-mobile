@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/auth/presentation/cubit/forgot_password_cubit.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
@@ -42,8 +43,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           listener: (context, state) {
             if (state is ForgotPasswordOtpSent) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('OTP sent successfully'),
+                SnackBar(
+                  content: Text(context.l10n.auth_otp_sent_success),
                   backgroundColor: Colors.green,
                 ),
               );
@@ -68,18 +69,18 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Forgot Password?',
-                      style: TextStyle(
+                    Text(
+                      context.l10n.auth_forgot_password_title,
+                      style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
                         color: Const.aqua,
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      "Don't worry! Please enter the email address linked with your account.",
-                      style: TextStyle(
+                    Text(
+                      context.l10n.auth_forgot_password_subtitle,
+                      style: const TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
                       ),
@@ -89,7 +90,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        hintText: 'Enter your email',
+                        hintText: context.l10n.auth_enter_email_hint,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
@@ -98,10 +99,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
+                          return context.l10n.auth_enter_email;
                         }
                         if (!EmailValidator.validate(value)) {
-                          return 'Please enter a valid email';
+                          return context.l10n.auth_enter_valid_email;
                         }
                         return null;
                       },
@@ -138,9 +139,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                   strokeWidth: 2,
                                 ),
                               )
-                            : const Text(
-                                'Send Code',
-                                style: TextStyle(
+                            : Text(
+                                context.l10n.auth_send_code_btn,
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
                                 ),

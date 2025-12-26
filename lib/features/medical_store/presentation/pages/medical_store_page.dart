@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/medical_store/domain/entity/medical_store.dart';
 import 'package:m2health/features/medical_store/presentation/bloc/medical_store_cubit.dart';
 import 'package:m2health/features/medical_store/presentation/bloc/medical_store_state.dart';
@@ -37,18 +38,19 @@ class _MedicalStorePageState extends State<MedicalStorePage>
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Row(
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Medical Store',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              context.l10n.medical_store_title,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             Row(
               children: [
-                Icon(Icons.sort),
-                SizedBox(width: 5),
-                Text('Sort', style: TextStyle(fontSize: 14)),
+                const Icon(Icons.sort),
+                const SizedBox(width: 5),
+                Text(context.l10n.medical_store_sort,
+                    style: const TextStyle(fontSize: 14)),
               ],
             ),
           ],
@@ -63,9 +65,9 @@ class _MedicalStorePageState extends State<MedicalStorePage>
             fontSize: 14,
             color: Const.aqua,
           ),
-          tabs: const [
-            Tab(text: 'Homecare Consumable'),
-            Tab(text: 'Point of Care Testing'),
+          tabs: [
+            Tab(text: context.l10n.medical_store_consumable_tab),
+            Tab(text: context.l10n.medical_store_poct_tab),
           ],
         ),
       ),
@@ -158,7 +160,7 @@ class _MedicalStoreProductListState extends State<_MedicalStoreProductList> {
           }
 
           if (state.products.isEmpty) {
-            return const Center(child: Text('No products available'));
+            return Center(child: Text(context.l10n.medical_store_no_products));
           }
 
           return CustomScrollView(

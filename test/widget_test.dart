@@ -8,15 +8,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:m2health/AppLanguage.dart';
 import 'package:m2health/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    AppLanguage appLanguage = AppLanguage();
-    await appLanguage.fetchLocale();
-    await tester.pumpWidget(MyApp(appLanguage: appLanguage));
+    await tester.pumpWidget(const MyApp());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

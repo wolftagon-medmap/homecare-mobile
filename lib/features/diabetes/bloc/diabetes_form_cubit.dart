@@ -87,7 +87,7 @@ class DiabetesFormCubit extends Cubit<DiabetesFormState> {
 
       emit(state.copyWith(
         isSubmitted: false,
-        errorMessage: 'Failed to check your profile. Please try again.',
+        errorMessage: 'error_profile_load',
         isLoading: false,
       ));
 
@@ -170,7 +170,7 @@ class DiabetesFormCubit extends Cubit<DiabetesFormState> {
       return true;
     } on DioException catch (dioError, s) {
       final errorMessage =
-          dioError.response?.data['message'] ?? 'An error occurred';
+          dioError.response?.data['message'] ?? 'error_submit';
       log(
         'Dio error submitting form: $errorMessage',
         name: 'DiabetesFormCubit',
@@ -179,7 +179,7 @@ class DiabetesFormCubit extends Cubit<DiabetesFormState> {
       );
       emit(state.copyWith(
         isLoading: false,
-        errorMessage: 'An error occured.',
+        errorMessage: errorMessage,
       ));
       return false;
     } catch (e, s) {
@@ -191,7 +191,7 @@ class DiabetesFormCubit extends Cubit<DiabetesFormState> {
       );
       emit(state.copyWith(
         isLoading: false,
-        errorMessage: 'An error occurred.',
+        errorMessage: 'error_submit',
       ));
       return false;
     }

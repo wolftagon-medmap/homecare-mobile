@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/route/app_routes.dart';
 import '../../bloc/nutrition_assessment_cubit.dart';
 import '../../widgets/precision_widgets.dart';
@@ -16,27 +17,27 @@ class NutritionAssessmentDetailScreen extends StatelessWidget {
     final nutritionHabits = state.nutritionHabits;
 
     return Scaffold(
-      appBar: const CustomAppBar(title: 'My Nutrition Assessment Details'),
+      appBar: CustomAppBar(title: context.l10n.precision_my_assessment_details),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const _SectionTitle('Basic Info & Health History'),
+            _SectionTitle(context.l10n.precision_basic_info_title),
             if (healthProfile != null) _BasicInfoCard(profile: healthProfile),
             const SizedBox(height: 24),
-            const _SectionTitle('Lifestyle & Habits'),
+            _SectionTitle(context.l10n.precision_lifestyle_habits_title),
             if (lifestyleHabits != null)
               _LifestyleHabitsCard(habits: lifestyleHabits),
             const SizedBox(height: 24),
-            const _SectionTitle('Nutrition Habits'),
+            _SectionTitle(context.l10n.precision_nutrition_habits_title),
             if (nutritionHabits != null)
               _NutritionHabitsCard(habits: nutritionHabits),
             const SizedBox(height: 24),
-            const _SectionTitle('Self-Rated Health'),
+            _SectionTitle(context.l10n.precision_self_rated_health_title),
             _SelfRatedHealthCard(rating: state.selfRatedHealth),
             const SizedBox(height: 24),
-            const _SectionTitle('Biomarker Upload'),
+            _SectionTitle(context.l10n.precision_biomarker_upload_title),
             _BiomarkerUploadCard(uploadedFiles: state.fileUrls),
             const SizedBox(height: 32),
             const _ActionButtons(),
@@ -135,14 +136,14 @@ class _BasicInfoCard extends StatelessWidget {
             children: [
               Expanded(
                 child: _DetailItem(
-                  label: 'Age',
-                  value: '${profile.age} years old',
+                  label: context.l10n.precision_age_label,
+                  value: context.l10n.age_years_old(profile.age),
                 ),
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: _DetailItem(
-                  label: 'Gender',
+                  label: context.l10n.precision_gender_label,
                   value: profile.gender,
                 ),
               ),
@@ -163,7 +164,7 @@ class _BasicInfoCard extends StatelessWidget {
               const SizedBox(width: 16),
               Expanded(
                 child: _DetailItem(
-                  label: 'Known Condition',
+                  label: context.l10n.precision_known_condition_label,
                   value: profile.knownCondition ?? '-',
                 ),
               ),
@@ -175,14 +176,14 @@ class _BasicInfoCard extends StatelessWidget {
             children: [
               Expanded(
                 child: _DetailItem(
-                  label: 'Medical History',
+                  label: context.l10n.precision_medication_history_label,
                   value: profile.medicationHistory ?? '-',
                 ),
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: _DetailItem(
-                  label: 'Family History',
+                  label: context.l10n.precision_family_history_label,
                   value: profile.familyHistory ?? '-',
                 ),
               ),
@@ -219,7 +220,8 @@ class _LifestyleHabitsCard extends StatelessWidget {
                   icon: Icons.nightlight_round,
                   iconColor: primaryColor,
                   label: 'Sleep',
-                  value: '${habits.sleepHours.toStringAsFixed(1)} hrs/night',
+                  value: context.l10n
+                      .precision_hours_per_day(habits.sleepHours.toStringAsFixed(1)),
                 ),
               ),
               const SizedBox(width: 16),
@@ -260,7 +262,7 @@ class _LifestyleHabitsCard extends StatelessWidget {
           _DetailItem(
             icon: Icons.smoking_rooms,
             iconColor: primaryColor,
-            label: 'Smoking/Alcohol',
+            label: context.l10n.precision_smoking_alcohol_label,
             value: habits.smokingAlcoholHabits,
           ),
         ],
@@ -374,12 +376,12 @@ class _SelfRatedHealthCard extends StatelessWidget {
     return '😊';
   }
 
-  String _getHealthRatingText(double rating) {
-    if (rating <= 1.5) return "It's terrible";
-    if (rating <= 2.5) return "It's bad";
-    if (rating <= 3.5) return "Neutral";
-    if (rating <= 4.5) return "It's good";
-    return "It's very good";
+  String _getHealthRatingText(BuildContext context, double rating) {
+    if (rating <= 1.5) return context.l10n.precision_its_terrible;
+    if (rating <= 2.5) return context.l10n.precision_its_bad;
+    if (rating <= 3.5) return context.l10n.precision_neutral;
+    if (rating <= 4.5) return context.l10n.precision_its_good;
+    return context.l10n.precision_its_very_good;
   }
 
   @override
@@ -397,8 +399,8 @@ class _SelfRatedHealthCard extends StatelessWidget {
         children: [
           Expanded(
             child: _DetailItem(
-              label: 'Status',
-              value: _getHealthRatingText(rating),
+              label: context.l10n.common_status,
+              value: _getHealthRatingText(context, rating),
             ),
           ),
           Text(
@@ -433,7 +435,7 @@ class _BiomarkerUploadCard extends StatelessWidget {
           _DetailItem(
             icon: Icons.description_outlined,
             iconColor: primaryColor,
-            label: 'Medical Report',
+            label: context.l10n.medical_record_title,
             value: uploadedFiles.isNotEmpty
                 ? 'Uploaded ($fileNames)'
                 : 'Not Uploaded',
@@ -459,7 +461,7 @@ class _ActionButtons extends StatelessWidget {
     return Column(
       children: [
         SecondaryButton(
-          text: 'Edit Information',
+          text: context.l10n.precision_edit_information,
           icon: Icons.edit,
           onPressed: () {
             GoRouter.of(context)
@@ -468,7 +470,7 @@ class _ActionButtons extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         SecondaryButton(
-          text: 'Download (PDF)',
+          text: context.l10n.precision_download_pdf,
           icon: Icons.download,
           onPressed: () {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -478,7 +480,7 @@ class _ActionButtons extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         PrimaryButton(
-          text: 'Back to Precision Nutrition Page',
+          text: context.l10n.precision_back_to_page,
           onPressed: () {
             GoRouter.of(context).go(AppRoutes.precisionNutrition);
           },

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/views/file_viewer_page.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
 
@@ -64,9 +65,9 @@ class PersonalIssueDetailPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Concern / Question",
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                Text(
+                  context.l10n.booking_personal_issue_concern,
+                  style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 4),
                 Text("\"${issue.description}\""),
@@ -79,7 +80,7 @@ class PersonalIssueDetailPage extends StatelessWidget {
                   Icon(Icons.access_time, size: 16, color: Colors.grey[600]),
                   const SizedBox(width: 8),
                   Text(
-                    "Updated on: ${DateFormat('EEEE, MMM d, y, HH:mm').format(issue.updatedAt!)}",
+                    context.l10n.booking_personal_issue_updated_on(DateFormat('EEEE, MMM d, y, HH:mm').format(issue.updatedAt!)),
                     style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                   ),
                 ],
@@ -134,8 +135,8 @@ class PersonalIssueDetailPage extends StatelessWidget {
     }
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const Text("Images",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+      Text(context.l10n.booking_personal_issue_images,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
       const SizedBox(height: 18),
       GridView.builder(
         shrinkWrap: true,

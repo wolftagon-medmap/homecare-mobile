@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/pharmacogenomics/presentation/bloc/pharmacogenomics_cubit.dart';
 import 'package:m2health/features/pharmacogenomics/presentation/widgets/pharmacogenomic_report_form.dart';
 
@@ -25,9 +26,9 @@ class _PharmagenomicsProfilePageState extends State<PharmagenomicsProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Pharmagenomic Profile',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        title: Text(
+          context.l10n.pharmacogenomics_profile_title,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -41,16 +42,16 @@ class _PharmagenomicsProfilePageState extends State<PharmagenomicsProfilePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Full Report File",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    context.l10n.common_full_report_file,
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
-                  SizedBox(height: 8),
-                  PharamacogenomicReportForm(),
+                  const SizedBox(height: 8),
+                  const PharamacogenomicReportForm(),
                 ],
               ),
             ),
@@ -58,7 +59,7 @@ class _PharmagenomicsProfilePageState extends State<PharmagenomicsProfilePage> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                label: const Text('Save'),
+                label: Text(context.l10n.common_save),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF35C5CF),
                   foregroundColor: Colors.white,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/auth/presentation/cubit/forgot_password_cubit.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
@@ -119,7 +120,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
               );
             } else if (state is ForgotPasswordOtpSent) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Code resent!')),
+                SnackBar(content: Text(context.l10n.auth_code_resent)),
               );
               startTimer();
             }
@@ -133,9 +134,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Enter Verification Code',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.auth_otp_verification_title,
+                        style: const TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
                           color: Const.aqua,
@@ -143,7 +144,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        "Enter the code that we have sent to your email ${widget.email}",
+                        context.l10n.auth_otp_verification_subtitle(widget.email),
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
@@ -158,7 +159,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                           focusedPinTheme: focusedPinTheme,
                           submittedPinTheme: submittedPinTheme,
                           validator: (s) {
-                            return s?.length == 6 ? null : 'Pin is incorrect';
+                            return s?.length == 6 ? null : context.l10n.auth_pin_incorrect;
                           },
                           pinputAutovalidateMode:
                               PinputAutovalidateMode.onSubmit,
@@ -200,9 +201,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                                     strokeWidth: 2,
                                   ),
                                 )
-                              : const Text(
-                                  'Verify',
-                                  style: TextStyle(
+                              : Text(
+                                  context.l10n.auth_verify_btn,
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -222,8 +223,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                               : null,
                           child: Text(
                             _isResendEnabled
-                                ? "Didn't receive the code? Resend"
-                                : "Resend in $_start seconds",
+                                ? context.l10n.auth_resend_code
+                                : context.l10n.auth_resend_in_seconds(_start),
                             style: TextStyle(
                               color:
                                   _isResendEnabled ? Const.aqua : Colors.grey,
