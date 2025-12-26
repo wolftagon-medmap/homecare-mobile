@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/precision/screens/assessment/info/anti_aging_longevity_page.dart';
 import 'package:m2health/features/precision/screens/assessment/info/chronic_disease_support_page.dart';
 import 'package:m2health/features/precision/screens/assessment/info/sub_health_page.dart';
@@ -12,7 +13,7 @@ class MainConcernScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Precision Nutrition Assessment'),
+      appBar: CustomAppBar(title: context.l10n.precision_assessment_title),
       body: BlocBuilder<NutritionAssessmentCubit, NutritionAssessmentState>(
         builder: (context, state) {
           return Padding(
@@ -20,18 +21,18 @@ class MainConcernScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'What is your main concern?',
-                  style: TextStyle(
+                Text(
+                  context.l10n.precision_main_concern_question,
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  'Choose the area that best describes your primary health goal',
-                  style: TextStyle(
+                Text(
+                  context.l10n.precision_main_concern_subtitle,
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Colors.grey,
                   ),
@@ -44,9 +45,8 @@ class MainConcernScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         SelectionCard(
-                          title: 'Sub-Health',
-                          description:
-                              'Improve overall wellness and energy levels',
+                          title: context.l10n.precision_sub_health,
+                          description: context.l10n.precision_sub_health_desc,
                           imagePath: 'assets/illustration/foodies.png',
                           isSelected: state.mainConcern == 'Sub-Health',
                           onTap: () => context
@@ -54,9 +54,9 @@ class MainConcernScreen extends StatelessWidget {
                               .setMainConcern('Sub-Health'),
                         ),
                         SelectionCard(
-                          title: 'Chronic Disease',
+                          title: context.l10n.precision_chronic_disease,
                           description:
-                              'Manage and improve chronic health conditions',
+                              context.l10n.precision_chronic_disease_desc,
                           imagePath: 'assets/illustration/planning.png',
                           isSelected: state.mainConcern == 'Chronic Disease',
                           onTap: () => context
@@ -64,9 +64,8 @@ class MainConcernScreen extends StatelessWidget {
                               .setMainConcern('Chronic Disease'),
                         ),
                         SelectionCard(
-                          title: 'Anti-aging',
-                          description:
-                              'Optimize health and vitality as you age',
+                          title: context.l10n.precision_anti_aging,
+                          description: context.l10n.precision_anti_aging_desc,
                           imagePath: 'assets/illustration/implement.png',
                           isSelected: state.mainConcern == 'Anti-aging',
                           onTap: () => context
@@ -80,7 +79,7 @@ class MainConcernScreen extends StatelessWidget {
 
                 // Next Button
                 PrimaryButton(
-                  text: 'Next',
+                  text: context.l10n.common_next,
                   onPressed: state.mainConcern != null
                       ? () {
                           switch (state.mainConcern) {

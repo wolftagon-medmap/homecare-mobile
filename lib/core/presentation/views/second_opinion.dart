@@ -3,14 +3,12 @@ import 'package:m2health/app_localzations.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/core/presentation/views/teleradiology.dart';
 
-
 class OpinionMedical extends StatefulWidget {
   const OpinionMedical({super.key});
 
   @override
   State<OpinionMedical> createState() => _OpinionMedicalState();
 }
-
 
 class _OpinionMedicalState extends State<OpinionMedical> {
   final List<Map<String, String>> dummyTenders = [
@@ -36,8 +34,11 @@ class _OpinionMedicalState extends State<OpinionMedical> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.translate('teleradiology'),
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: Text(
+          // AppLocalizations.of(context)!.translate('teleradiology'),
+          "Teleradiology",
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
       ),
       body: Container(
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 60.0),
@@ -113,7 +114,10 @@ class PharmaCard extends StatelessWidget {
   final Color color;
 
   const PharmaCard(
-      {super.key, required this.pharma, required this.onTap, required this.color});
+      {super.key,
+      required this.pharma,
+      required this.onTap,
+      required this.color});
 
   @override
   Widget build(BuildContext context) {

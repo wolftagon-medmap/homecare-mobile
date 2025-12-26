@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
 import 'package:m2health/features/homecare_elderly/admin/bloc/admin_homecare_cubit.dart';
 import 'package:m2health/features/homecare_elderly/admin/bloc/admin_homecare_state.dart';
@@ -28,14 +29,14 @@ class _AdminHomecareConfigurationView extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Homecare Configuration',
-            style: TextStyle(fontWeight: FontWeight.bold),
+          title: Text(
+            context.l10n.profile_admin_homecare_config,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          bottom: const TabBar(
+          bottom: TabBar(
             tabs: [
-              Tab(text: 'Service Rates'),
-              Tab(text: 'Subscription Plans'),
+              Tab(text: context.l10n.admin_homecare_service_rates),
+              Tab(text: context.l10n.admin_homecare_subscription_plans),
             ],
             indicatorColor: Const.tosca,
             labelColor: Const.tosca,
@@ -48,15 +49,16 @@ class _AdminHomecareConfigurationView extends StatelessWidget {
           listener: (context, state) {
             if (state.actionStatus == AdminActionStatus.success) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Update successful'),
+                SnackBar(
+                  content: Text(context.l10n.admin_homecare_update_successful),
                   backgroundColor: Colors.green,
                 ),
               );
             } else if (state.actionStatus == AdminActionStatus.failure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Update failed: ${state.actionError}'),
+                  content: Text(context.l10n
+                      .admin_homecare_update_failed(state.actionError ?? '')),
                   backgroundColor: Colors.red,
                 ),
               );
@@ -90,19 +92,19 @@ class _ServiceRatesTab extends StatelessWidget {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text('Edit Rate: ${service.name}'),
+        title: Text(context.l10n.admin_homecare_edit_rate(service.name)),
         content: TextField(
           controller: controller,
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
-            labelText: 'Price',
+          decoration: InputDecoration(
+            labelText: context.l10n.admin_homecare_price,
             prefixText: '\$',
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(context.l10n.common_cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -115,7 +117,8 @@ class _ServiceRatesTab extends StatelessWidget {
               }
             },
             style: ElevatedButton.styleFrom(backgroundColor: Const.tosca),
-            child: const Text('Save', style: TextStyle(color: Colors.white)),
+            child: Text(context.l10n.common_save,
+                style: const TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -125,7 +128,7 @@ class _ServiceRatesTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (services.isEmpty) {
-      return const Center(child: Text('No service rates found.'));
+      return Center(child: Text(context.l10n.admin_homecare_no_service_rates));
     }
     return ListView.builder(
       padding: const EdgeInsets.all(16),
@@ -164,7 +167,8 @@ class _SubscriptionPlansTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (plans.isEmpty) {
-      return const Center(child: Text('No subscription plans found.'));
+      return Center(
+          child: Text(context.l10n.admin_homecare_no_subscription_plans));
     }
     return ListView.builder(
       padding: const EdgeInsets.all(16),
@@ -177,10 +181,12 @@ class _SubscriptionPlansTab extends StatelessWidget {
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(context.l10n.admin_homecare_plan_details(
+                    plan.price.toString(), plan.quotaAmount, plan.validityDays)),
                 Text(
-                    'Price: \$${plan.price} | Quota: ${plan.quotaAmount}h | Validity: ${plan.validityDays}d'),
-                Text(
-                  plan.isActive ? 'Active' : 'Inactive',
+                  plan.isActive
+                      ? context.l10n.admin_homecare_active
+                      : context.l10n.admin_homecare_inactive,
                   style: TextStyle(
                     color: plan.isActive ? Colors.green : Colors.red,
                     fontWeight: FontWeight.bold,
@@ -252,19 +258,21 @@ class _EditPlanSheetState extends State<_EditPlanSheet> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('Edit Plan',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(context.l10n.admin_homecare_edit_plan,
+              style:
+                  const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
           TextField(
             controller: _nameController,
-            decoration: const InputDecoration(labelText: 'Plan Name'),
+            decoration: InputDecoration(labelText: context.l10n.name),
           ),
           const SizedBox(height: 12),
           TextField(
             controller: _priceController,
             keyboardType: TextInputType.number,
-            decoration:
-                const InputDecoration(labelText: 'Price', prefixText: '\$'),
+            decoration: InputDecoration(
+                labelText: context.l10n.admin_homecare_price,
+                prefixText: '\$'),
           ),
           const SizedBox(height: 12),
           Row(
@@ -273,7 +281,8 @@ class _EditPlanSheetState extends State<_EditPlanSheet> {
                 child: TextField(
                   controller: _quotaController,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(labelText: 'Quota (Hours)'),
+                  decoration: InputDecoration(
+                      labelText: context.l10n.admin_homecare_quota_hours),
                 ),
               ),
               const SizedBox(width: 16),
@@ -281,8 +290,8 @@ class _EditPlanSheetState extends State<_EditPlanSheet> {
                 child: TextField(
                   controller: _validityController,
                   keyboardType: TextInputType.number,
-                  decoration:
-                      const InputDecoration(labelText: 'Validity (Days)'),
+                  decoration: InputDecoration(
+                      labelText: context.l10n.admin_homecare_validity_days),
                 ),
               ),
             ],
@@ -312,8 +321,8 @@ class _EditPlanSheetState extends State<_EditPlanSheet> {
                 backgroundColor: Const.tosca,
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
-              child: const Text('Save Changes',
-                  style: TextStyle(color: Colors.white)),
+              child: Text(context.l10n.admin_homecare_save_changes,
+                  style: const TextStyle(color: Colors.white)),
             ),
           ),
         ],

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../const.dart';
-import '../../../AppLanguage.dart';
-import '../../../app_localzations.dart';
-import 'package:provider/provider.dart';
+import 'package:m2health/const.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Dashboard extends StatefulWidget {
@@ -57,99 +55,67 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppLanguage>(
-      builder: (context, appLanguage, child) {
-        return Scaffold(
-          appBar: AppBar(
-            toolbarHeight: 180,
-            elevation: 2,
-            automaticallyImplyLeading: false,
-            flexibleSpace: Container(
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [
-                    Color(0xFF8EF4E8),
-                    Color(0xFF35C5CF)
-                  ], // Gradasi warna dari kiri ke kanan
-                  begin: Alignment.centerRight,
-                  end: Alignment.centerLeft,
-                ),
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.circular(
-                      30), // Membuat border radius di bagian bawah
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2), // Warna shadow
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3), // Posisi shadow
-                  ),
-                ],
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 180,
+        elevation: 2,
+        automaticallyImplyLeading: false,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [
+                Color(0xFF8EF4E8),
+                Color(0xFF35C5CF)
+              ], // Gradasi warna dari kiri ke kanan
+              begin: Alignment.centerRight,
+              end: Alignment.centerLeft,
             ),
-            title: Padding(
-              padding: const EdgeInsets.only(bottom: 25.0),
-              child: BlocBuilder<ProfileCubit, ProfileState>(
-                builder: (context, state) {
-                  Widget avatarWidget;
-                  String displayName = userName ?? 'User';
-                  String? avatarUrl;
+            borderRadius: const BorderRadius.vertical(
+              bottom:
+                  Radius.circular(30), // Membuat border radius di bagian bawah
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2), // Warna shadow
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: const Offset(0, 3), // Posisi shadow
+              ),
+            ],
+          ),
+        ),
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 25.0),
+          child: BlocBuilder<ProfileCubit, ProfileState>(
+            builder: (context, state) {
+              Widget avatarWidget;
+              String displayName = userName ?? 'User';
+              String? avatarUrl;
 
-                  if (state is PatientProfileLoaded) {
-                    displayName = state.profile.name.isNotEmpty
-                        ? state.profile.name
-                        : userName ?? 'User';
-                    avatarUrl = state.profile.avatar;
-                  } else if (state is ProfessionalProfileLoaded) {
-                    displayName = state.profile.name != null &&
-                            state.profile.name!.isNotEmpty
+              if (state is PatientProfileLoaded) {
+                displayName = state.profile.name.isNotEmpty
+                    ? state.profile.name
+                    : userName ?? 'User';
+                avatarUrl = state.profile.avatar;
+              } else if (state is ProfessionalProfileLoaded) {
+                displayName =
+                    state.profile.name != null && state.profile.name!.isNotEmpty
                         ? state.profile.name!
                         : userName ?? 'User';
-                    avatarUrl = state.profile.avatar;
-                  } else {
-                    displayName = userName ?? 'User';
-                    avatarUrl = null;
-                  }
+                avatarUrl = state.profile.avatar;
+              } else {
+                displayName = userName ?? 'User';
+                avatarUrl = null;
+              }
 
-                  if (avatarUrl != null && avatarUrl.isNotEmpty) {
-                    avatarWidget = Image.network(
-                      avatarUrl,
-                      width: 56,
-                      height: 56,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          width: 56,
-                          height: 56,
-                          color: Colors.grey.shade200,
-                          child: const Icon(
-                            Icons.person,
-                            size: 40,
-                            color: Colors.grey,
-                          ),
-                        );
-                      },
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return SizedBox(
-                          width: 56,
-                          height: 56,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                  : null,
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  } else {
-                    // Default avatar
-                    avatarWidget = Container(
+              if (avatarUrl != null && avatarUrl.isNotEmpty) {
+                avatarWidget = Image.network(
+                  avatarUrl,
+                  width: 56,
+                  height: 56,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
                       width: 56,
                       height: 56,
                       color: Colors.grey.shade200,
@@ -159,314 +125,333 @@ class _DashboardState extends State<Dashboard> {
                         color: Colors.grey,
                       ),
                     );
-                  }
+                  },
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return SizedBox(
+                      width: 56,
+                      height: 56,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                              : null,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              } else {
+                // Default avatar
+                avatarWidget = Container(
+                  width: 56,
+                  height: 56,
+                  color: Colors.grey.shade200,
+                  child: const Icon(
+                    Icons.person,
+                    size: 40,
+                    color: Colors.grey,
+                  ),
+                );
+              }
 
-                  return Column(
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SvgPicture.asset(
-                            Const.banner,
-                            fit: BoxFit.contain,
-                            height: 36,
-                          ),
-                          const Spacer(),
-                          GestureDetector(
-                            onTap: () {
-                              context.go(AppRoutes.profile);
-                            },
-                            child: Container(
-                              width: 56,
-                              height: 56,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: avatarWidget,
-                              ),
-                            ),
-                          ),
-                        ],
+                      SvgPicture.asset(
+                        Const.banner,
+                        fit: BoxFit.contain,
+                        height: 36,
                       ),
-                      const SizedBox(height: 10),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          children: [
-                            if (state is ProfileLoading) ...[
-                              const SizedBox(
-                                width: 16,
-                                height: 16,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              const Text(
-                                "Loading...",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ] else
-                              Expanded(
-                                child: Text(
-                                  "Live Longer & Live Healthier, $displayName!",
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              'assets/icons/ic_doctor.png',
-                              width: 24,
-                              height: 24,
-                              color: const Color.fromARGB(255, 0, 0, 0),
-                            ),
-                            const SizedBox(width: 10),
-                            const Expanded(
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText:
-                                      "Chat With AI doctor for all your health questions",
-                                  hintStyle: TextStyle(
-                                      color: Color(0xFF8A96BC), fontSize: 11),
-                                  border: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ],
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: () {
+                          context.go(AppRoutes.profile);
+                        },
+                        child: Container(
+                          width: 56,
+                          height: 56,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15),
+                            child: avatarWidget,
+                          ),
                         ),
                       ),
                     ],
-                  );
-                },
-              ),
-            ),
-          ),
-          body: Container(
-            margin: const EdgeInsets.fromLTRB(0, 0, 0, 60),
-            color: Colors.white,
-            child: SingleChildScrollView(
-              controller: _scrollController,
-              child: Column(
-                children: [
-                  // MAIN SERVICES
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 40, right: 24, left: 24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                  const SizedBox(height: 10),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
                       children: [
-                        Text(
-                          AppLocalizations.of(context)!.translate('services'),
-                          textAlign: TextAlign.left,
-                          style: const TextStyle(
-                            color: Color(0xFF232F55),
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                            height: 0,
+                        if (state is ProfileLoading) ...[
+                          const SizedBox(
+                            width: 16,
+                            height: 16,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            MainServiceMenuItem(
-                              onTap: () {
-                                context.push(AppRoutes.pharmaServices);
-                              },
-                              iconPath: 'assets/icons/ic_pharma_service.png',
-                              title: AppLocalizations.of(context)!
-                                  .translate('pharmacist_services2'),
-                              backgroundColor:
-                                  const Color.fromRGBO(142, 244, 220, 0.4),
+                          const SizedBox(width: 8),
+                          const Text(
+                            "Loading...",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
                             ),
-                            MainServiceMenuItem(
-                              onTap: () {
-                                context.push(AppRoutes.nursingServices);
-                              },
-                              iconPath: 'assets/icons/ic_nurse.png',
-                              title: AppLocalizations.of(context)!
-                                  .translate('home_nursing'),
-                              backgroundColor:
-                                  const Color.fromRGBO(154, 225, 255, 0.35),
+                          ),
+                        ] else
+                          Expanded(
+                            child: Text(
+                              context.l10n.dashboard_greeting(displayName),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                            MainServiceMenuItem(
-                              onTap: () {
-                                context.push(AppRoutes.diabeticCare);
-                              },
-                              iconPath: 'assets/icons/ic_diabetic.png',
-                              title: AppLocalizations.of(context)!
-                                  .translate('diabetic_care'),
-                              backgroundColor:
-                                  const Color.fromRGBO(142, 244, 220, 0.4),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            MainServiceMenuItem(
-                              onTap: () {
-                                context.push(AppRoutes.homeHealthScreening);
-                              },
-                              iconPath:
-                                  'assets/icons/ic_home_health_screening.png',
-                              title: AppLocalizations.of(context)!
-                                  .translate('home_screening'),
-                              backgroundColor:
-                                  const Color.fromRGBO(178, 140, 255, 0.2),
-                            ),
-                            MainServiceMenuItem(
-                              onTap: () {
-                                context.push(AppRoutes.precisionNutrition);
-                              },
-                              iconPath:
-                                  'assets/icons/ic_precision_nutrition.webp',
-                              title: AppLocalizations.of(context)!
-                                  .translate('precision_nutrition'),
-                              backgroundColor:
-                                  const Color.fromRGBO(154, 225, 255, 0.33),
-                            ),
-                            MainServiceMenuItem(
-                              onTap: () {
-                                context.push(AppRoutes.homecareForElderly);
-                              },
-                              iconPath: 'assets/icons/ic_homecare_elderly.png',
-                              title: AppLocalizations.of(context)!
-                                  .translate('homecare_for_elderly'),
-                              backgroundColor:
-                                  const Color.fromRGBO(178, 140, 255, 0.2),
-                            ),
-                          ],
-                        ),
+                          ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 30),
-                  const Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Divider(
-                          color: Color.fromRGBO(244, 244, 244, 1),
-                          thickness: 8,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  // ALLIED HEALTH SERVICES
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 40, right: 24, left: 24, bottom: 40),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  const SizedBox(height: 20),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
                       children: [
-                        Text(
-                          AppLocalizations.of(context)!
-                              .translate('allied_services'),
-                          textAlign: TextAlign.left,
-                          style: const TextStyle(
-                            color: Color(0xFF232F55),
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                            height: 0,
+                        Image.asset(
+                          'assets/icons/ic_doctor.png',
+                          width: 24,
+                          height: 24,
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText:
+                                  context.l10n.dashboard_chat_ai_placeholder,
+                              hintStyle: const TextStyle(
+                                  color: Color(0xFF8A96BC), fontSize: 11),
+                              border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 28),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: AlliedHealthMenuItem(
-                                imagePath: 'assets/icons/ilu_physio.webp',
-                                label: 'Physiotherapy',
-                                onTap: showComingSoonDialog,
-                              ),
-                            ),
-                            Expanded(
-                              child: AlliedHealthMenuItem(
-                                imagePath:
-                                    'assets/icons/ilu_remote_monitoring.png',
-                                label: 'Remote Patient Monitoring',
-                                onTap: () {
-                                  context
-                                      .push(AppRoutes.remotePatientMonitoring);
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              child: AlliedHealthMenuItem(
-                                imagePath: 'assets/icons/ilu_2nd_opinion.webp',
-                                label: '2nd Opinion for Medical Image',
-                                onTap: () {
-                                  context.push(AppRoutes.secondOpinionMedical);
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: AlliedHealthMenuItem(
-                                imagePath: 'assets/icons/ilu_health.png',
-                                label: 'Health Risk Assessment',
-                                onTap: showComingSoonDialog,
-                              ),
-                            ),
-                            Expanded(
-                              child: AlliedHealthMenuItem(
-                                imagePath: 'assets/icons/ilu_dietitian.webp',
-                                label: 'Dietitian Services',
-                                onTap: showComingSoonDialog,
-                              ),
-                            ),
-                            Expanded(
-                              child: AlliedHealthMenuItem(
-                                imagePath: 'assets/icons/ilu_sleep.png',
-                                label: 'Sleep & Mental Health',
-                                onTap: showComingSoonDialog,
-                              ),
-                            ),
-                          ],
                         ),
                       ],
                     ),
                   ),
                 ],
-              ),
-            ),
+              );
+            },
           ),
-        );
-      },
+        ),
+      ),
+      body: Container(
+        margin: const EdgeInsets.fromLTRB(0, 0, 0, 60),
+        color: Colors.white,
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Column(
+            children: [
+              // MAIN SERVICES
+              Padding(
+                padding: const EdgeInsets.only(top: 40, right: 24, left: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.l10n.services,
+                      textAlign: TextAlign.left,
+                      style: const TextStyle(
+                        color: Color(0xFF232F55),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        height: 0,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MainServiceMenuItem(
+                          onTap: () {
+                            context.push(AppRoutes.pharmaServices);
+                          },
+                          iconPath: 'assets/icons/ic_pharma_service.png',
+                          title: context.l10n.pharmacist_services,
+                          backgroundColor:
+                              const Color.fromRGBO(142, 244, 220, 0.4),
+                        ),
+                        MainServiceMenuItem(
+                          onTap: () {
+                            context.push(AppRoutes.nursingServices);
+                          },
+                          iconPath: 'assets/icons/ic_nurse.png',
+                          title: context.l10n.nursing_service,
+                          backgroundColor:
+                              const Color.fromRGBO(154, 225, 255, 0.35),
+                        ),
+                        MainServiceMenuItem(
+                          onTap: () {
+                            context.push(AppRoutes.diabeticCare);
+                          },
+                          iconPath: 'assets/icons/ic_diabetic.png',
+                          title: context.l10n.diabetic_care_service,
+                          backgroundColor:
+                              const Color.fromRGBO(142, 244, 220, 0.4),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MainServiceMenuItem(
+                          onTap: () {
+                            context.push(AppRoutes.homeHealthScreening);
+                          },
+                          iconPath: 'assets/icons/ic_home_health_screening.png',
+                          title: context.l10n.home_screening_service,
+                          backgroundColor:
+                              const Color.fromRGBO(178, 140, 255, 0.2),
+                        ),
+                        MainServiceMenuItem(
+                          onTap: () {
+                            context.push(AppRoutes.precisionNutrition);
+                          },
+                          iconPath: 'assets/icons/ic_precision_nutrition.webp',
+                          title: context.l10n.precision_nutrition_service,
+                          backgroundColor:
+                              const Color.fromRGBO(154, 225, 255, 0.33),
+                        ),
+                        MainServiceMenuItem(
+                          onTap: () {
+                            context.push(AppRoutes.homecareForElderly);
+                          },
+                          iconPath: 'assets/icons/ic_homecare_elderly.png',
+                          title: context.l10n.homecare_for_elderly_service,
+                          backgroundColor:
+                              const Color.fromRGBO(178, 140, 255, 0.2),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 30),
+              const Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Divider(
+                      color: Color.fromRGBO(244, 244, 244, 1),
+                      thickness: 8,
+                    ),
+                  ),
+                ],
+              ),
+
+              // ALLIED HEALTH SERVICES
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 40, right: 24, left: 24, bottom: 40),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.l10n.allied_services,
+                      textAlign: TextAlign.left,
+                      style: const TextStyle(
+                        color: Color(0xFF232F55),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        height: 0,
+                      ),
+                    ),
+                    const SizedBox(height: 28),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: AlliedHealthMenuItem(
+                            imagePath: 'assets/icons/ilu_physio.webp',
+                            label: context.l10n.physiotherapy_service,
+                            onTap: showComingSoonDialog,
+                          ),
+                        ),
+                        Expanded(
+                          child: AlliedHealthMenuItem(
+                            imagePath: 'assets/icons/ilu_remote_monitoring.png',
+                            label:
+                                context.l10n.remote_patient_monitoring_service,
+                            onTap: () {
+                              context.push(AppRoutes.remotePatientMonitoring);
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: AlliedHealthMenuItem(
+                            imagePath: 'assets/icons/ilu_2nd_opinion.webp',
+                            label: context.l10n.second_opinion_service,
+                            onTap: () {
+                              context.push(AppRoutes.secondOpinionMedical);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: AlliedHealthMenuItem(
+                            imagePath: 'assets/icons/ilu_health.png',
+                            label: context.l10n.health_risk_assessment_service,
+                            onTap: showComingSoonDialog,
+                          ),
+                        ),
+                        Expanded(
+                          child: AlliedHealthMenuItem(
+                            imagePath: 'assets/icons/ilu_dietitian.webp',
+                            label: context.l10n.dietitian_service,
+                            onTap: showComingSoonDialog,
+                          ),
+                        ),
+                        Expanded(
+                          child: AlliedHealthMenuItem(
+                            imagePath: 'assets/icons/ilu_sleep.png',
+                            label: context.l10n.sleep_and_mental_health_service,
+                            onTap: showComingSoonDialog,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -479,12 +464,13 @@ class _DashboardState extends State<Dashboard> {
             borderRadius: BorderRadius.circular(15),
           ),
           backgroundColor: Colors.white,
-          title: const Text('Coming Soon'),
-          content: const Text('This feature will be available soon!'),
+          title: Text(context.l10n.common_coming_soon),
+          content: Text(context.l10n.common_feature_available_soon),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('OK', style: TextStyle(color: Const.aqua)),
+              child: Text(context.l10n.common_ok,
+                  style: const TextStyle(color: Const.aqua)),
             ),
           ],
         );
@@ -539,7 +525,7 @@ class MainServiceMenuItem extends StatelessWidget {
             child: Text(
               title,
               textAlign: TextAlign.center,
-              maxLines: 2,
+              maxLines: 3,
               softWrap: true,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/schedule/domain/entities/time_slot.dart';
 import 'package:m2health/features/schedule/presentation/bloc/schedule_cubit.dart';
 import 'package:m2health/features/schedule/presentation/bloc/schedule_state.dart';
@@ -52,16 +53,16 @@ class _SchedulePreviewTabState extends State<SchedulePreviewTab> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Select Date',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              Text(
+                context.l10n.schedule_select_date,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               const SizedBox(height: 12),
               _buildCalendar(),
               const SizedBox(height: 24),
-              const Text(
-                'Available Hours',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              Text(
+                context.l10n.schedule_available_hours,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               const SizedBox(height: 12),
               _buildTimeSlotGrid(state.isPreviewLoading, state.availableSlots),
@@ -107,7 +108,7 @@ class _SchedulePreviewTabState extends State<SchedulePreviewTab> {
       return const Center(child: CircularProgressIndicator());
     }
     if (slots.isEmpty) {
-      return const Center(child: Text('No available slots for this day.'));
+      return Center(child: Text(context.l10n.schedule_no_available_slots));
     }
 
     return GridView.builder(

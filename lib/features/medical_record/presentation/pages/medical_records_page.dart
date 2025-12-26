@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
 import 'package:m2health/features/medical_record/domain/entities/medical_record.dart';
 import 'package:m2health/features/medical_record/presentation/bloc/medical_record_bloc.dart';
 import 'package:m2health/features/medical_record/presentation/bloc/medical_record_event.dart';
@@ -32,8 +34,8 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text(
-          'Medical Records',
+        title: Text(
+          context.l10n.medical_record_title,
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -53,8 +55,8 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
           } else if (state.deleteStatus == DeleteStatus.success) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
-              ..showSnackBar(const SnackBar(
-                  content: Text('Record deleted successfully'),
+              ..showSnackBar(SnackBar(
+                  content: Text(context.l10n.common_delete_success),
                   backgroundColor: Colors.green));
           } else if (state.deleteStatus == DeleteStatus.failure) {
             ScaffoldMessenger.of(context)
@@ -80,9 +82,9 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
             }
 
             if (state.medicalRecords.isEmpty) {
-              return const Center(
+              return Center(
                 child: Text(
-                  'No medical records found.',
+                  context.l10n.medical_record_empty,
                   style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               );
@@ -125,15 +127,17 @@ class _MedicalRecordCard extends StatelessWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Confirm Deletion'),
-        content: const Text('Are you sure you want to remove this record?'),
+        title: Text(context.l10n.medical_record_confirm_delete_dialog_title),
+        content:
+            Text(context.l10n.medical_record_confirm_delete_dialog_content),
         actions: [
           TextButton(
-            child: const Text('Cancel'),
+            child: Text(context.l10n.common_cancel),
             onPressed: () => Navigator.of(ctx).pop(),
           ),
           TextButton(
-            child: const Text('Remove', style: TextStyle(color: Colors.red)),
+            child: Text(context.l10n.common_remove,
+                style: const TextStyle(color: Colors.red)),
             onPressed: () {
               context
                   .read<MedicalRecordBloc>()
@@ -165,12 +169,16 @@ class _MedicalRecordCard extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-        subtitle: Text(
-          'Last updated: ${DateFormat('dd-MM-yyyy').format(record.updatedAt)}', //
-          style: const TextStyle(
-            fontSize: 14,
-            color: Colors.grey,
-          ),
+        subtitle: BlocBuilder<LocaleCubit, Locale>(
+          builder: (context, locale) {
+            return Text(
+              '${context.l10n.last_updated}: ${DateFormat.yMd(locale.languageCode).format(record.updatedAt)}', //
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+              ),
+            );
+          },
         ),
         // The three-dot menu
         trailing: PopupMenuButton<String>(
@@ -188,13 +196,13 @@ class _MedicalRecordCard extends StatelessWidget {
             }
           },
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-            const PopupMenuItem<String>(
+            PopupMenuItem<String>(
               value: 'edit',
-              child: Text('Modify'),
+              child: Text(context.l10n.common_modify),
             ),
-            const PopupMenuItem<String>(
+            PopupMenuItem<String>(
               value: 'delete',
-              child: Text('Remove'),
+              child: Text(context.l10n.common_remove),
             ),
           ],
         ),

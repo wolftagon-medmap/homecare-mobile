@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 
 class FeedbackSuccessPage extends StatelessWidget {
   final Function onButtonPressed;
@@ -29,19 +30,19 @@ class FeedbackSuccessPage extends StatelessWidget {
                 height: 142,
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Thank you for your feedback!',
-                style: TextStyle(
+              Text(
+                context.l10n.payment_feedback_thank_you,
+                style: const TextStyle(
                   color: Const.aqua,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 10),
-              const Text(
-                'This appointment has been completed and can be viewed in the completed orders menu',
+              Text(
+                context.l10n.payment_feedback_success_content,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 30),
               Center(
@@ -59,9 +60,9 @@ class FeedbackSuccessPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text(
-                      'View Detail',
-                      style: TextStyle(
+                    child: Text(
+                      context.l10n.payment_view_detail_btn,
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                       ),

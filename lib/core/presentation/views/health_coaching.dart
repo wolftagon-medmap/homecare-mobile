@@ -136,8 +136,11 @@ class _PharmaState extends State<HealthCoaching> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.translate('health_coaching'),
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: Text(
+          // AppLocalizations.of(context)!.translate('health_coaching'),
+          "Health Coaching",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
       ),
       body: Container(
         margin: EdgeInsets.fromLTRB(0, 0, 0, 60.0),

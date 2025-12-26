@@ -6,7 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
+import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
 import 'package:m2health/core/presentation/views/file_viewer_page.dart';
 import 'package:m2health/features/appointment/bloc/appointment_cubit.dart';
 import 'package:m2health/features/appointment/bloc/appointment_detail_cubit.dart';
@@ -37,9 +39,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
         ..fetchAppointmentDetail(widget.appointmentId),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Appointment Detail',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          title: Text(
+            context.l10n.appointment_detail_title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
         body: BlocConsumer<AppointmentDetailCubit, AppointmentDetailState>(
@@ -148,7 +150,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
                 ),
                 Text(provider.jobTitle ?? provider.role),
                 const SizedBox(height: 8),
-                _StatusTag(status: status.toTitleCase()),
+                _StatusTag(status: status),
               ],
             ),
           ),
@@ -158,41 +160,47 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
   }
 
   Widget _buildScheduleCard(AppointmentEntity appointment) {
-    final localStartTime = appointment.startDatetime.toLocal();
-    final localEndTime = appointment.endDatetime?.toLocal();
+    return BlocBuilder<LocaleCubit, Locale>(
+      builder: (context, locale) {
+        final localStartTime = appointment.startDatetime.toLocal();
+        final localEndTime = appointment.endDatetime?.toLocal();
 
-    final date = DateFormat('EEEE, MMMM dd, yyyy').format(localStartTime);
+        final date =
+            DateFormat.yMMMMEEEEd(locale.languageCode).format(localStartTime);
 
-    final startHour = DateFormat('hh:mm a').format(localStartTime);
-    final endHour = localEndTime != null
-        ? DateFormat('hh:mm a').format(localEndTime)
-        : null;
-    final hour = endHour != null ? '$startHour - $endHour' : startHour;
+        final startHour =
+            DateFormat.jm(locale.languageCode).format(localStartTime);
+        final endHour = localEndTime != null
+            ? DateFormat.jm(locale.languageCode).format(localEndTime)
+            : null;
+        final hour = endHour != null ? '$startHour - $endHour' : startHour;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Schedule Appointment',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                context.l10n.appointment_detail_schedule_title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              const SizedBox(height: 16),
+              _InfoRow(
+                icon: Icons.calendar_today,
+                text: date,
+              ),
+              const SizedBox(height: 12),
+              _InfoRow(
+                icon: Icons.access_time,
+                text: hour,
+              ),
+            ],
           ),
-          const SizedBox(height: 16),
-          _InfoRow(
-            icon: Icons.calendar_today,
-            text: date,
-          ),
-          const SizedBox(height: 12),
-          _InfoRow(
-            icon: Icons.access_time,
-            text: hour,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -206,23 +214,25 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Patient Information',
-            style: TextStyle(
+          Text(
+            context.l10n.appointment_detail_patient_title,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
           ),
           const SizedBox(height: 16),
-          _InfoRow(label: 'Full name', text: profile.name),
-          const SizedBox(height: 12),
-          _InfoRow(label: 'Age', text: '${profile.age} years old'),
-          const SizedBox(height: 12),
-          _InfoRow(label: 'Gender', text: gender),
+          _InfoRow(label: context.l10n.full_name, text: profile.name),
           const SizedBox(height: 12),
           _InfoRow(
-            label: 'Address',
-            text: profile.homeAddress ?? 'N/A',
+              label: context.l10n.age,
+              text: context.l10n.age_years_old(profile.age!)),
+          const SizedBox(height: 12),
+          _InfoRow(label: context.l10n.gender, text: gender),
+          const SizedBox(height: 12),
+          _InfoRow(
+            label: context.l10n.address,
+            text: profile.homeAddress ?? context.l10n.none,
             isFlexible: true,
           ),
           if (profile.address != null)
@@ -277,9 +287,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Lab Test Information',
-            style: TextStyle(
+          Text(
+            context.l10n.appointment_detail_lab_test_title,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -287,9 +297,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
           const SizedBox(height: 4),
           Row(
             children: [
-              const Text(
-                'Status',
-                style: TextStyle(
+              Text(
+                context.l10n.common_status,
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 14,
                 ),
@@ -313,9 +323,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
             ],
           ),
           if (reports.isNotEmpty && screeningData.status == 'report_ready') ...[
-            const Text(
-              'Reports',
-              style: TextStyle(
+            Text(
+              context.l10n.appointment_detail_report(reports.length),
+              style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
               ),
@@ -377,9 +387,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Requested Homecare Tasks',
-            style: TextStyle(
+          Text(
+            context.l10n.appointment_detail_requested_homecare_task,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -397,7 +407,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
                   ),
                 ))
           else
-            const Text('No specific homecare tasks requested.'),
+            Text(context.l10n.appointment_detail_requested_homecare_task_empty),
         ],
       ),
     );
@@ -420,9 +430,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Patient Problem',
-            style: TextStyle(
+          Text(
+            context.l10n.appointment_detail_patient_problem_title,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -482,10 +492,17 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
                           Icon(Icons.access_time,
                               size: 16, color: Colors.grey[600]),
                           const SizedBox(width: 8),
-                          Text(
-                            "Created on: ${DateFormat('MMM d, y, HH:mm').format(issue.updatedAt!)}",
-                            style: TextStyle(
-                                fontSize: 12, color: Colors.grey[600]),
+                          BlocBuilder<LocaleCubit, Locale>(
+                            builder: (context, locale) {
+                              return Text(
+                                context.l10n.created_on(
+                                    DateFormat.yMMMd(locale.languageCode)
+                                        .add_jm()
+                                        .format(issue.createdAt!.toLocal())),
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.grey[600]),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -496,7 +513,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
               },
             )
           else
-            const Text('No specific problem details provided.'),
+            Text(context.l10n.appointment_detail_patient_problem_empty),
         ],
       ),
     );
@@ -524,90 +541,98 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
     final total = appointment.payTotal;
     final isPaid = appointment.payment != null;
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            isPaid ? 'Payment Details' : 'Estimated Budget',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          ),
-          const SizedBox(height: 8),
-          if (appointment.payment != null) ...[
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                const Text('Payment Date'),
-                const Spacer(),
-                Text(DateFormat('MMM dd, yyyy, hh:mm a')
-                    .format(appointment.payment!.createdAt.toLocal())),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                const Text('Payment Method'),
-                const Spacer(),
-                Text(appointment.payment!.method),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                const Text('Order Completed'),
-                const Spacer(),
-                Text(DateFormat('MMM dd, yyyy, hh:mm a')
-                    .format(appointment.payment!.updatedAt.toLocal())),
-              ],
-            ),
-            const Divider(height: 20),
-          ],
-          if (services.isNotEmpty) ...[
-            const Text(
-              'Services',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            ...services.map(
-              (addOn) => Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Row(
-                  children: [
-                    Expanded(child: Text(addOn.name)),
-                    const SizedBox(width: 16),
-                    Text('${addOn.price}'),
-                  ],
-                ),
-              ),
-            ),
-            const Divider(height: 16),
-          ],
-          Row(
+    return BlocBuilder<LocaleCubit, Locale>(
+      builder: (context, locale) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Total',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-              const Spacer(),
               Text(
-                '\$$total',
+                isPaid
+                    ? context.l10n.appointment_detail_payment_details
+                    : context.l10n.appointment_detail_estimated_budget,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
-                  color: Const.aqua,
                 ),
+              ),
+              const SizedBox(height: 8),
+              if (appointment.payment != null) ...[
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Text(context.l10n.appointment_detail_payment_date),
+                    const Spacer(),
+                    Text(DateFormat.yMMMd(locale.languageCode)
+                        .add_jm()
+                        .format(appointment.payment!.createdAt.toLocal())),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Text(context.l10n.appointment_detail_payment_method),
+                    const Spacer(),
+                    Text(appointment.payment!.method),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Text(context.l10n.appointment_detail_order_completed_date),
+                    const Spacer(),
+                    Text(DateFormat.yMMMd(locale.languageCode)
+                        .add_jm()
+                        .format(appointment.payment!.updatedAt.toLocal())),
+                  ],
+                ),
+                const Divider(height: 20),
+              ],
+              if (services.isNotEmpty) ...[
+                Text(
+                  context.l10n.services,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                ...services.map(
+                  (addOn) => Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Row(
+                      children: [
+                        Expanded(child: Text(addOn.name)),
+                        const SizedBox(width: 16),
+                        Text('${addOn.price}'),
+                      ],
+                    ),
+                  ),
+                ),
+                const Divider(height: 16),
+              ],
+              Row(
+                children: [
+                  Text(
+                    context.l10n.appointment_detail_total_label,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    '\$$total',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Const.aqua,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
@@ -617,21 +642,24 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
     bool isHorizontalLayout = true;
 
     Widget payButton = ElevatedButton(
-        onPressed: () {
-          GoRouter.of(context).pushNamed(AppRoutes.payment, extra: appointment);
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF35C5CF),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 14),
+      onPressed: () {
+        GoRouter.of(context).pushNamed(AppRoutes.payment, extra: appointment);
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFF35C5CF),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
         ),
-        child: const Text('Pay',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            )));
+        padding: const EdgeInsets.symmetric(vertical: 14),
+      ),
+      child: Text(
+        context.l10n.appointment_pay_btn,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
 
     Widget cancelButton = ElevatedButton(
       onPressed: () {
@@ -657,17 +685,18 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
         ),
         padding: const EdgeInsets.symmetric(vertical: 14),
       ),
-      child: const Text(
-        'Cancel Booking',
-        style: TextStyle(
+      child: Text(
+        context.l10n.appointment_cancel_booking_btn,
+        style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
+        textAlign: TextAlign.center,
       ),
     );
 
     Widget rescheduleButton = GradientButton(
-      text: 'Reschedule',
+      text: context.l10n.appointment_reschedule_btn,
       gradient: const LinearGradient(
         colors: [Color(0xFF35C5CF), Color(0xFF9DCEFF)],
         begin: Alignment.bottomRight,
@@ -688,7 +717,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
     );
 
     Widget bookAgainButton = GradientButton(
-      text: 'Book Again',
+      text: context.l10n.appointment_book_again_btn,
       onPressed: () {
         // TODO: Handle Book Again logic
       },
@@ -705,9 +734,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
         ),
         padding: const EdgeInsets.symmetric(vertical: 14),
       ),
-      child: const Text(
-        'Rating',
-        style: TextStyle(
+      child: Text(
+        context.l10n.appointment_rating_btn,
+        style: const TextStyle(
           color: Const.tosca,
           fontWeight: FontWeight.bold,
         ),
@@ -832,6 +861,25 @@ class _StatusTag extends StatelessWidget {
     }
   }
 
+  String _getStatusLabel(String status, BuildContext context) {
+    switch (status) {
+      case 'upcoming':
+        return context.l10n.appointment_status_upcoming;
+      case 'accepted':
+        return context.l10n.appointment_status_accepted;
+      case 'pending':
+        return context.l10n.appointment_status_pending;
+      case 'completed':
+        return context.l10n.appointment_status_completed;
+      case 'cancelled':
+        return context.l10n.appointment_status_cancelled;
+      case 'missed':
+        return context.l10n.appointment_status_missed;
+      default:
+        return status;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final color = _getStatusColor(status);
@@ -842,7 +890,7 @@ class _StatusTag extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
-        status,
+        _getStatusLabel(status, context),
         style: TextStyle(
           color: color,
           fontWeight: FontWeight.w500,

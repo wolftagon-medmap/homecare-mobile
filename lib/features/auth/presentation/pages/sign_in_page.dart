@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
+import 'package:m2health/core/presentation/views/app_languages_setting.dart';
 import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/auth/presentation/cubit/sign_in_cubit.dart';
@@ -26,10 +29,46 @@ class _SignInPageState extends State<SignInPage> {
     super.dispose();
   }
 
+  String _getLanguageLabel(Locale locale) {
+    switch (locale.languageCode) {
+      case 'id':
+        return 'Bahasa Indonesia';
+      case 'zh':
+        return '中文';
+      case 'en':
+      default:
+        return 'English';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          BlocBuilder<LocaleCubit, Locale>(
+            builder: (context, locale) {
+              return TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AppLanguagesSetting()),
+                  );
+                },
+                child: Text(
+                  _getLanguageLabel(locale),
+                  style: const TextStyle(
+                    color: Const.aqua,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       backgroundColor: Colors.white,
       body: BlocProvider(
         create: (context) => SignInCubit(authRepository: sl()),
@@ -42,11 +81,11 @@ class _SignInPageState extends State<SignInPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: const Text('Error'),
+                    title: Text(context.l10n.auth_error_title),
                     content: Text(state.message),
                     actions: <Widget>[
                       TextButton(
-                        child: const Text('OK'),
+                        child: Text(context.l10n.common_ok),
                         onPressed: () {
                           context.pop();
                         },
@@ -74,7 +113,7 @@ class _SignInPageState extends State<SignInPage> {
               keyboardType: TextInputType.emailAddress,
               autofocus: false,
               decoration: InputDecoration(
-                hintText: 'Email',
+                hintText: context.l10n.auth_email_hint,
                 contentPadding:
                     const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                 border: OutlineInputBorder(
@@ -86,7 +125,7 @@ class _SignInPageState extends State<SignInPage> {
               autofocus: false,
               obscureText: true,
               decoration: InputDecoration(
-                hintText: 'Password',
+                hintText: context.l10n.auth_password_hint,
                 contentPadding:
                     const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                 border: OutlineInputBorder(
@@ -112,8 +151,8 @@ class _SignInPageState extends State<SignInPage> {
                       .read<SignInCubit>()
                       .signIn(emailController.text, passwordController.text);
                 },
-                child: const Text('Sign In',
-                    style: TextStyle(
+                child: Text(context.l10n.auth_sign_in_btn,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     )),
@@ -126,9 +165,9 @@ class _SignInPageState extends State<SignInPage> {
                 onTap: () {
                   context.go(AppRoutes.signUp);
                 },
-                child: const Text(
-                  'Create new account',
-                  style: TextStyle(
+                child: Text(
+                  context.l10n.auth_create_account,
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Const.aqua,
                   ),
@@ -137,11 +176,11 @@ class _SignInPageState extends State<SignInPage> {
               ),
             );
 
-            const continueWithText = Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
+            final continueWithText = Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Text(
-                'Or continue with',
-                style: TextStyle(
+                context.l10n.auth_continue_with,
+                style: const TextStyle(
                   fontSize: 16,
                   color: Colors.grey,
                 ),
@@ -154,13 +193,6 @@ class _SignInPageState extends State<SignInPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // IconButton(
-                  //   icon: Image.asset('assets/icons/ic_fb.png'),
-                  //   iconSize: 40,
-                  //   onPressed: () {
-                  //     // Handle Facebook login
-                  //   },
-                  // ),
                   const SizedBox(width: 16),
                   IconButton(
                     icon: Image.asset('assets/icons/ic_google.png'),
@@ -170,65 +202,33 @@ class _SignInPageState extends State<SignInPage> {
                     },
                   ),
                   const SizedBox(width: 16),
-                  // IconButton(
-                  //   icon: Image.asset('assets/icons/ic_wechat.png'),
-                  //   iconSize: 40,
-                  //   onPressed: () {
-                  //     // Handle WeChat login
-                  //   },
-                  // ),
                 ],
               ),
             );
-
-            // final btnSignUp = Padding(
-            //   padding: EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
-            //   child: ElevatedButton(
-            //     style: ElevatedButton.styleFrom(
-            //       backgroundColor: Colors.white,
-            //       foregroundColor: Colors.blue,
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(30.0),
-            //       ),
-            //       elevation: 5.0,
-            //       side: BorderSide.none,
-            //       padding: EdgeInsets.all(12.0),
-            //     ),
-            //     onPressed: () {
-            //       context.push(AppRoutes.signUp);
-            //     },
-            //     child: Text('Sign Up',
-            //         style: TextStyle(fontSize: 18, color: Colors.blue)),
-            //   ),
-            // );
 
             return Center(
               child: ListView(
                 shrinkWrap: true,
                 padding: const EdgeInsets.only(left: 24.0, right: 24.0),
                 children: <Widget>[
-                  const Text(
-                    'Login Here',
-                    style: TextStyle(
+                  Text(
+                    context.l10n.auth_sign_in_title,
+                    style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Const.aqua, // Turquoise green color
+                      color: Const.aqua,
                     ),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8.0),
-                  const Text(
-                    "Welcome Back you've\nbeen missed",
-                    style: TextStyle(
+                  Text(
+                    context.l10n.auth_welcome_back,
+                    style: const TextStyle(
                       fontSize: 16,
                       color: Colors.grey,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  // if (state is SignInLoading)
-                  //   CircularProgressIndicator()
-                  // else
-                  //   logo,
                   const SizedBox(height: 48.0),
                   email,
                   const SizedBox(height: 8.0),
@@ -239,9 +239,9 @@ class _SignInPageState extends State<SignInPage> {
                       onPressed: () {
                         context.push(AppRoutes.forgotPassword);
                       },
-                      child: const Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.grey),
+                      child: Text(
+                        context.l10n.auth_forgot_password_btn,
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     ),
                   ),
@@ -251,7 +251,6 @@ class _SignInPageState extends State<SignInPage> {
                   createAccountText,
                   continueWithText,
                   socialIcons,
-                  // btnSignUp
                 ],
               ),
             );
@@ -270,20 +269,19 @@ class _SignInPageState extends State<SignInPage> {
       barrierDismissible: false,
       builder: (ctx) => StatefulBuilder(builder: (context, setState) {
         return AlertDialog(
-          title: const Text('Complete Registration',
-              style: TextStyle(
+          title: Text(context.l10n.auth_complete_registration_title,
+              style: const TextStyle(
                 color: Const.aqua,
                 fontWeight: FontWeight.w600,
               )),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
-                  'Welcome!\nPlease select your account type to continue.'),
+              Text(context.l10n.auth_complete_registration_content),
               const SizedBox(height: 24),
               DropdownButtonFormField<UserRole>(
                 decoration: InputDecoration(
-                  labelText: 'Select User Type',
+                  labelText: context.l10n.auth_select_user_type_hint,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -299,7 +297,7 @@ class _SignInPageState extends State<SignInPage> {
                   return DropdownMenuItem<UserRole>(
                     value: value,
                     child: Text(
-                      value.displayName,
+                      value.getDisplayName(context),
                       style: const TextStyle(fontWeight: FontWeight.w400),
                     ),
                   );
@@ -318,7 +316,7 @@ class _SignInPageState extends State<SignInPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text('Cancel'),
+              child: Text(context.l10n.common_cancel),
             ),
             ElevatedButton(
               onPressed: () {
@@ -331,7 +329,7 @@ class _SignInPageState extends State<SignInPage> {
                 backgroundColor: Const.aqua,
                 foregroundColor: Colors.white,
               ),
-              child: const Text('Submit'),
+              child: Text(context.l10n.common_submit),
             ),
           ],
         );

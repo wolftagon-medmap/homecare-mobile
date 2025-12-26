@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
@@ -129,9 +130,10 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Profile Information',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          title: Text(
+            // 'Profile Information',
+            context.l10n.profile_info_title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
         ),
         body: Padding(
@@ -140,9 +142,9 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
             key: _formKey,
             child: ListView(
               children: [
-                const Text(
-                  'Profile Image',
-                  style: TextStyle(
+                Text(
+                  context.l10n.profile_info_profile_image,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -220,9 +222,9 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                   Center(
                     child: TextButton(
                       onPressed: _removeImage,
-                      child: const Text(
-                        'Remove Image',
-                        style: TextStyle(color: Colors.red),
+                      child: Text(
+                        context.l10n.profile_info_remove_image,
+                        style: const TextStyle(color: Colors.red),
                       ),
                     ),
                   ),
@@ -230,7 +232,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                 TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(
-                    labelText: 'Name',
+                    labelText: context.l10n.name,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -240,7 +242,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                 TextFormField(
                   controller: _ageController,
                   decoration: InputDecoration(
-                    labelText: 'Age',
+                    labelText: context.l10n.age,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -250,7 +252,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                 const SizedBox(height: 20),
                 DropdownButtonFormField<String?>(
                   decoration: InputDecoration(
-                    labelText: 'Gender',
+                    labelText: context.l10n.gender,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -276,7 +278,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                 TextFormField(
                   controller: _weightController,
                   decoration: InputDecoration(
-                    labelText: 'Weight (KG)',
+                    labelText: '${context.l10n.weight} (KG)',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -287,7 +289,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                 TextFormField(
                   controller: _heightController,
                   decoration: InputDecoration(
-                    labelText: 'Height (CM)',
+                    labelText: '${context.l10n.height} (CM)',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -298,7 +300,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                 TextFormField(
                   controller: _phoneController,
                   decoration: InputDecoration(
-                    labelText: 'Contact Number',
+                    labelText: context.l10n.contact_number,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -329,8 +331,9 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                     child: TextFormField(
                       controller: _addressController,
                       decoration: InputDecoration(
-                        labelText: 'Home Address',
-                        hintText: 'Tap to select location on map',
+                        labelText: context.l10n.profile_info_home_address,
+                        hintText:
+                            context.l10n.profile_info_select_map_location_hint,
                         suffixIcon: const Icon(Icons.map, color: Const.aqua),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -344,7 +347,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                 TextFormField(
                   controller: _drugAllergyController,
                   decoration: InputDecoration(
-                    labelText: 'Drug Allergies',
+                    labelText: context.l10n.profile_info_drug_allergies,
                     hintText: 'e.g. Penicillin, Aspirin',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -380,9 +383,9 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                         strokeWidth: 3,
                       ),
                     )
-                  : const Text(
-                      'Save',
-                      style: TextStyle(
+                  : Text(
+                      context.l10n.common_save,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

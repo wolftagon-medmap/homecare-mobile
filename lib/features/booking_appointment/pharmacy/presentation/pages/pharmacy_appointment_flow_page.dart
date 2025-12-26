@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/add_on_services/presentation/pages/add_on_service_page.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/bloc/personal_issues_cubit.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/pages/health_status_page.dart';
@@ -78,8 +79,8 @@ class PharmacyAppointmentFlowPageState
         if (state.submissionStatus == AppointmentSubmissionStatus.success &&
             state.createdAppointment != null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Appointment created successfully'),
+            SnackBar(
+              content: Text(context.l10n.booking_appointment_created_success),
               backgroundColor: Colors.green,
             ),
           );
@@ -92,7 +93,7 @@ class PharmacyAppointmentFlowPageState
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                state.errorMessage ?? 'Failed to create appointment',
+                state.errorMessage ?? context.l10n.booking_appointment_created_failed,
               ),
             ),
           );

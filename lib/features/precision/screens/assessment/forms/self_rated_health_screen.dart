@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import '../../../widgets/precision_widgets.dart';
 import '../../../bloc/nutrition_assessment_cubit.dart';
 import 'lifestyle_habits_screen.dart';
@@ -10,7 +11,7 @@ class SelfRatedHealthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Self-Rated Health'),
+      appBar: CustomAppBar(title: context.l10n.precision_self_rated_health_title),
       body: BlocBuilder<NutritionAssessmentCubit, NutritionAssessmentState>(
         builder: (context, state) {
           return Padding(
@@ -39,7 +40,7 @@ class SelfRatedHealthScreen extends StatelessWidget {
 
                 // Health Rating Text
                 Text(
-                  _getHealthRatingText(state.selfRatedHealth),
+                  _getHealthRatingText(context, state.selfRatedHealth),
                   style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -82,19 +83,19 @@ class SelfRatedHealthScreen extends StatelessWidget {
                       ),
 
                       // Slider Labels
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Terrible',
-                            style: TextStyle(
+                            context.l10n.precision_terrible,
+                            style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
                             ),
                           ),
                           Text(
-                            'Excellent',
-                            style: TextStyle(
+                            context.l10n.precision_excellent,
+                            style: const TextStyle(
                               fontSize: 12,
                               color: Colors.grey,
                             ),
@@ -109,7 +110,7 @@ class SelfRatedHealthScreen extends StatelessWidget {
 
                 // Next Button
                 PrimaryButton(
-                  text: 'Next',
+                  text: context.l10n.common_next,
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -133,11 +134,11 @@ class SelfRatedHealthScreen extends StatelessWidget {
     return '😊';
   }
 
-  String _getHealthRatingText(double rating) {
-    if (rating <= 1.5) return "It's terrible";
-    if (rating <= 2.5) return "It's bad";
-    if (rating <= 3.5) return "Neutral";
-    if (rating <= 4.5) return "It's good";
-    return "It's very good";
+  String _getHealthRatingText(BuildContext context, double rating) {
+    if (rating <= 1.5) return context.l10n.precision_its_terrible;
+    if (rating <= 2.5) return context.l10n.precision_its_bad;
+    if (rating <= 3.5) return context.l10n.precision_neutral;
+    if (rating <= 4.5) return context.l10n.precision_its_good;
+    return context.l10n.precision_its_very_good;
   }
 }

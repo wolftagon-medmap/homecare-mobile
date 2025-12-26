@@ -12,6 +12,7 @@ import 'package:m2health/features/appointment/pages/screening_report_submission_
 import 'package:m2health/features/appointment/widgets/provider_appointment_action_dialog.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 
 class ProviderAppointmentDetailPage extends StatelessWidget {
   final int appointmentId;
@@ -34,8 +35,8 @@ class ProviderAppointmentDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Appointment Detail',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: Text(context.l10n.appointment_detail_title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       ),
       body: BlocBuilder<ProviderAppointmentDetailCubit,
           ProviderAppointmentDetailState>(
@@ -44,13 +45,14 @@ class ProviderAppointmentDetailView extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (state is ProviderAppointmentDetailError) {
-            return Center(child: Text('Error: ${state.message}'));
+            return Center(
+                child: Text(context.l10n.common_error(state.message)));
           }
           if (state is ProviderAppointmentDetailLoaded) {
             final appointment = state.appointment;
             return _buildAppointmentDetails(context, appointment);
           }
-          return const Center(child: Text('No appointment details found.'));
+          return Center(child: Text(context.l10n.common_no_data));
         },
       ),
     );
@@ -83,18 +85,21 @@ class ProviderAppointmentDetailView extends StatelessWidget {
               children: [
                 _PatientHeader(appointment: appointment),
                 const SizedBox(height: 24),
-                _buildSectionTitle('Schedule Appointment'),
+                _buildSectionTitle(
+                    context.l10n.appointment_detail_schedule_title),
                 _InfoRow(icon: Icons.calendar_today_outlined, text: date),
                 _InfoRow(icon: Icons.access_time_outlined, text: hour),
                 const SizedBox(height: 24),
-                _buildSectionTitle('Patient Information'),
+                _buildSectionTitle(
+                    context.l10n.appointment_detail_patient_title),
                 _PatientInfoTable(appointment: appointment),
                 if (appointment.type == 'screening')
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 24),
-                        _buildSectionTitle('Lab Test Information'),
+                        _buildSectionTitle(
+                            context.l10n.appointment_detail_lab_test_title),
                         _ScreeningRequestInfo(appointment: appointment),
                       ])
                 else
@@ -142,6 +147,27 @@ class _PatientHeader extends StatelessWidget {
     }
   }
 
+  String _getLocalizedStatus(BuildContext context, String status) {
+    switch (status.toLowerCase()) {
+      case 'upcoming':
+        return context.l10n.appointment_status_upcoming;
+      case 'pending':
+        return context.l10n.appointment_status_pending;
+      case 'waiting_approval':
+        return context.l10n.appointment_status_waiting_approval;
+      case 'accepted':
+        return context.l10n.appointment_status_accepted;
+      case 'completed':
+        return context.l10n.appointment_status_completed;
+      case 'cancelled':
+        return context.l10n.appointment_status_cancelled;
+      case 'missed':
+        return context.l10n.appointment_status_missed;
+      default:
+        return status.toTitleCase();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final statusColor = _getStatusColor(appointment.status);
@@ -174,7 +200,7 @@ class _PatientHeader extends StatelessWidget {
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
-                  appointment.status.toTitleCase(),
+                  _getLocalizedStatus(context, appointment.status),
                   style: TextStyle(
                     color: statusColor,
                     fontWeight: FontWeight.w500,
@@ -233,16 +259,16 @@ class _PatientInfoTable extends StatelessWidget {
     final patient = appointment.patientProfile!;
     final gender = patient.gender != null
         ? patient.gender!.toTitleCase()
-        : 'Not Specified';
+        : context.l10n.none;
 
     return Column(
       children: [
-        _buildInfoRow('Full Name', patient.name),
-        _buildInfoRow('Age', patient.age.toString()),
-        _buildInfoRow('Gender', gender),
-        _buildInfoRow('Weight', '${patient.weight} kg'),
-        _buildInfoRow('Height', '${patient.height} cm'),
-        _buildInfoRow('Address', patient.homeAddress),
+        _buildInfoRow(context.l10n.full_name, patient.name),
+        _buildInfoRow(context.l10n.age, patient.age.toString()),
+        _buildInfoRow(context.l10n.gender, gender),
+        _buildInfoRow(context.l10n.weight, '${patient.weight} kg'),
+        _buildInfoRow(context.l10n.height, '${patient.height} cm'),
+        _buildInfoRow(context.l10n.address, patient.homeAddress),
         if (patient.address != null)
           Container(
             height: 150,
@@ -305,7 +331,7 @@ class _ScreeningRequestInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final screeningData = appointment.screeningRequestData;
     if (screeningData == null) {
-      return const Text('No screening request data available.');
+      return Text(context.l10n.common_no_data);
     }
     final reports = screeningData.reports;
 
@@ -314,9 +340,9 @@ class _ScreeningRequestInfo extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text(
-              'Status',
-              style: TextStyle(
+            Text(
+              context.l10n.common_status,
+              style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
               ),
@@ -339,9 +365,9 @@ class _ScreeningRequestInfo extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 8),
-        const Text(
-          'Services Requested: ',
-          style: TextStyle(fontWeight: FontWeight.w600),
+        Text(
+          '${context.l10n.appointment_detail_service_requested}: ',
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
         ...screeningData.services.asMap().entries.map(
@@ -359,9 +385,9 @@ class _ScreeningRequestInfo extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         if (reports.isNotEmpty && screeningData.status == 'report_ready') ...[
-          const Text(
-            'Reports',
-            style: TextStyle(
+          Text(
+            context.l10n.appointment_detail_report(reports.length),
+            style: const TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 14,
             ),
@@ -444,9 +470,9 @@ class _PersonalCaseInfo extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Services Requested',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        Text(
+          context.l10n.appointment_detail_service_requested,
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         ),
         const SizedBox(height: 8),
         if (servicesList != null && servicesList.isNotEmpty) ...[
@@ -469,9 +495,9 @@ class _PersonalCaseInfo extends StatelessWidget {
           ),
         const SizedBox(height: 24),
         if (issues != null) ...[
-          const Text(
-            'Patient Issues',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+          Text(
+            context.l10n.appointment_detail_patient_problem_title,
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
           const SizedBox(height: 8),
           if (issues.isNotEmpty)
@@ -493,7 +519,10 @@ class _PersonalCaseInfo extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    const Text('Description:'),
+                    Text(
+                      context.l10n.common_description,
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
                     Text(
                       issue.description,
                       style: const TextStyle(height: 1.5),
@@ -527,7 +556,9 @@ class _PersonalCaseInfo extends StatelessWidget {
                             size: 16, color: Colors.grey[600]),
                         const SizedBox(width: 8),
                         Text(
-                          "Created on: ${DateFormat('MMM d, y, HH:mm').format(issue.updatedAt!)}",
+                          context.l10n.created_on(DateFormat.yMMMd()
+                              .add_jm()
+                              .format(issue.createdAt!.toLocal())),
                           style:
                               TextStyle(fontSize: 12, color: Colors.grey[600]),
                         ),
@@ -651,7 +682,8 @@ class _ActionButtons extends StatelessWidget {
                       fontSize: 16,
                     ),
                   ),
-                  child: const Text('Arrange Video Consultation'),
+                  child:
+                      Text(context.l10n.appointment_arrange_video_consultation),
                 ),
                 const SizedBox(height: 12),
                 Row(
@@ -673,7 +705,7 @@ class _ActionButtons extends StatelessWidget {
                             fontSize: 16,
                           ),
                         ),
-                        child: const Text('Decline'),
+                        child: Text(context.l10n.appointment_decline_btn),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -717,7 +749,7 @@ class _ActionButtons extends StatelessWidget {
                               fontSize: 16,
                             ),
                           ),
-                          child: const Text('Accept'),
+                          child: Text(context.l10n.appointment_accept_btn),
                         ),
                       ),
                     ),
@@ -748,7 +780,8 @@ class _ActionButtons extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                child: const Text('Confirm Sample Collected'),
+                child:
+                    Text(context.l10n.appointment_screening_confirm_sample_btn),
               );
             } else {
               return ElevatedButton(
@@ -768,7 +801,7 @@ class _ActionButtons extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                child: const Text('Mark as Completed'),
+                child: Text(context.l10n.appointment_mark_complete_btn),
               );
             }
           } else if (status == 'completed' &&
@@ -799,7 +832,7 @@ class _ActionButtons extends StatelessWidget {
                   fontSize: 16,
                 ),
               ),
-              child: const Text('Upload Reports'),
+              child: Text(context.l10n.screening_report_upload_btn),
             );
           }
           return const SizedBox.shrink();

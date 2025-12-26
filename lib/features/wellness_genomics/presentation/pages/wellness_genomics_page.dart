@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/wellness_genomics/domain/usecases/delete_wellness_genomic.dart';
 import 'package:m2health/features/wellness_genomics/domain/usecases/get_wellness_genomics.dart';
 import 'package:m2health/features/wellness_genomics/domain/usecases/store_wellness_genomics.dart';
@@ -21,9 +22,9 @@ class WellnessGenomicsProfilePage extends StatelessWidget {
       )..fetchWellnessGenomics(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Wellness Genomics Profile',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          title: Text(
+            context.l10n.wellness_genomics_profile_title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
@@ -37,17 +38,17 @@ class WellnessGenomicsProfilePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Full Report File",
+                      context.l10n.common_full_report_file,
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
-                    SizedBox(height: 8),
-                    WellnessGenomicsReportForm(), //
+                    const SizedBox(height: 8),
+                    const WellnessGenomicsReportForm(), //
                   ],
                 ),
               ),
@@ -55,7 +56,7 @@ class WellnessGenomicsProfilePage extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  label: const Text('Save'),
+                  label: Text(context.l10n.common_save),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF35C5CF),
                     foregroundColor: Colors.white,

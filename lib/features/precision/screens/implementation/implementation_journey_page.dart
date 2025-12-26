@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/precision/widgets/precision_widgets.dart';
 
 class ImplementationJourneyPage extends StatelessWidget {
@@ -7,20 +8,20 @@ class ImplementationJourneyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Implementation Journey'),
+      appBar: CustomAppBar(title: context.l10n.precision_implementation_journey),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            const Expanded(
+            Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   spacing: 16,
                   children: [
                     FeatureDetailCard(
                       iconData: Icons.description_outlined,
-                      title: 'In-Depth Assesment (2-4 weeks)',
-                      child: Column(
+                      title: context.l10n.precision_implementation_indepth_assessment,
+                      child: const Column(
                         children: [
                           CardBulletPoint(
                               text:
@@ -31,8 +32,8 @@ class ImplementationJourneyPage extends StatelessWidget {
                     ),
                     FeatureDetailCard(
                       iconData: Icons.groups_outlined,
-                      title: 'Intervention (3-6 months)',
-                      child: Column(
+                      title: context.l10n.precision_implementation_intervention,
+                      child: const Column(
                         children: [
                           CardBulletPoint(text: 'Monthly biomarker retesting'),
                           CardBulletPoint(
@@ -43,8 +44,8 @@ class ImplementationJourneyPage extends StatelessWidget {
                     ),
                     FeatureDetailCard(
                       iconData: Icons.bar_chart_outlined,
-                      title: 'Maintenance',
-                      child: Column(
+                      title: context.l10n.precision_implementation_maintenance,
+                      child: const Column(
                         children: [
                           CardBulletPoint(text: 'Annual genomic re-evaluation'),
                           CardBulletPoint(
@@ -58,7 +59,7 @@ class ImplementationJourneyPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            PrimaryButton(text: 'Book Now', onPressed: () {}),
+            PrimaryButton(text: context.l10n.precision_book_now, onPressed: () {}),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class ResetPasswordSuccessPage extends StatelessWidget {
@@ -33,9 +34,9 @@ class ResetPasswordSuccessPage extends StatelessWidget {
                 height: 142,
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Password Reset Successful!',
-                style: TextStyle(
+              Text(
+                context.l10n.auth_reset_password_success_title,
+                style: const TextStyle(
                   color: Const.aqua,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -43,10 +44,10 @@ class ResetPasswordSuccessPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
-              const Text(
-                'You have successfully reset your password. Please use your new password when logging in.',
+              Text(
+                context.l10n.auth_reset_password_success_content,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+                style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
               const SizedBox(height: 30),
               SizedBox(
@@ -63,9 +64,9 @@ class ResetPasswordSuccessPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text(
-                    'Back to Login',
-                    style: TextStyle(
+                  child: Text(
+                    context.l10n.auth_back_to_login_btn,
+                    style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16,
                     ),

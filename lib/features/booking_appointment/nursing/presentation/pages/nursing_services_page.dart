@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/app_localzations.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/nursing/const.dart';
 import 'package:m2health/features/booking_appointment/nursing/presentation/bloc/nursing_appointment_flow_bloc.dart';
 import 'package:m2health/features/booking_appointment/nursing/presentation/pages/nursing_appointment_flow_page.dart';
@@ -61,9 +61,9 @@ class NursingCard extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const SizedBox(width: 5),
-                      const Text(
-                        'Book Now',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.common_book_now,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                           color: Color(0xFF35C5CF),
@@ -104,24 +104,24 @@ class NursingCard extends StatelessWidget {
 }
 
 class _NursingState extends State<NursingService> {
-  final List<Map<String, String>> dummyTenders = [
-    {
-      'title': 'Primary Nursing',
-      'description':
-          'Monitor and administer\nnursing procedures from\nbody checking, Medication,\ntube feed and suctioning to\ninjections and wound care.',
-      'imagePath': 'assets/icons/ilu_nurse.png',
-      'color': '9AE1FF',
-      'opacity': '0.3',
-    },
-    {
-      'title': 'Specialized Nursing Services',
-      'description':
-          'Focus on recovery and leave\nthe complex nursing care in\nthe hands of our experienced\nnurse Care Pros',
-      'imagePath': 'assets/icons/ilu_nurse_special.png',
-      'color': 'B28CFF',
-      'opacity': '0.2',
-    },
-  ];
+  List<Map<String, String>> _getNursingServices(BuildContext context) {
+    return [
+      {
+        'title': context.l10n.booking_nursing_primary_title,
+        'description': context.l10n.booking_nursing_primary_desc,
+        'imagePath': 'assets/icons/ilu_nurse.png',
+        'color': '9AE1FF',
+        'opacity': '0.3',
+      },
+      {
+        'title': context.l10n.booking_nursing_specialized_title,
+        'description': context.l10n.booking_nursing_specialized_desc,
+        'imagePath': 'assets/icons/ilu_nurse_special.png',
+        'color': 'B28CFF',
+        'opacity': '0.2',
+      },
+    ];
+  }
 
   void _navigateToType(NurseServiceType serviceType) {
     Navigator.push(
@@ -140,10 +140,13 @@ class _NursingState extends State<NursingService> {
 
   @override
   Widget build(BuildContext context) {
+    final services = _getNursingServices(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.translate('nursing'),
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: Text(
+          context.l10n.booking_nursing_page_title,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
       ),
       body: Container(
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 60.0),
@@ -152,9 +155,9 @@ class _NursingState extends State<NursingService> {
           children: [
             Expanded(
               child: ListView.separated(
-                itemCount: dummyTenders.length,
+                itemCount: services.length,
                 itemBuilder: (context, index) {
-                  final tender = dummyTenders[index];
+                  final tender = services[index];
                   return NursingCard(
                     pharma: tender,
                     onTap: () {

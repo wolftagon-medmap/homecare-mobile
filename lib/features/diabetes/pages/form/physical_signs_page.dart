@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_state.dart';
 import 'package:m2health/features/diabetes/widgets/diabetes_form_widget.dart';
 
@@ -94,13 +95,44 @@ class PhysicalSignsPageState extends State<PhysicalSignsFormPage> {
     }
   }
 
+  // --- Mappings ---
+  String? _getSkinUiValue(String? englishValue) {
+    if (englishValue == 'Normal') return context.l10n.skin_normal;
+    if (englishValue == 'Dry') return context.l10n.skin_dry;
+    if (englishValue == 'Ulcer') return context.l10n.skin_ulcer;
+    if (englishValue == 'Infection') return context.l10n.skin_infection;
+    return englishValue;
+  }
+
+  String? _getSkinEnglishValue(String? uiValue) {
+    if (uiValue == context.l10n.skin_normal) return 'Normal';
+    if (uiValue == context.l10n.skin_dry) return 'Dry';
+    if (uiValue == context.l10n.skin_ulcer) return 'Ulcer';
+    if (uiValue == context.l10n.skin_infection) return 'Infection';
+    return uiValue;
+  }
+
+  String? _getDeformityUiValue(String? englishValue) {
+    if (englishValue == 'None') return context.l10n.deformity_none;
+    if (englishValue == 'Bunions') return context.l10n.deformity_bunions;
+    if (englishValue == 'Claw toes') return context.l10n.deformity_claw_toes;
+    return englishValue;
+  }
+
+  String? _getDeformityEnglishValue(String? uiValue) {
+    if (uiValue == context.l10n.deformity_none) return 'None';
+    if (uiValue == context.l10n.deformity_bunions) return 'Bunions';
+    if (uiValue == context.l10n.deformity_claw_toes) return 'Claw toes';
+    return uiValue;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Physical Sign",
-          style: TextStyle(
+        title: Text(
+          context.l10n.physical_signs_title,
+          style: const TextStyle(
             color: Colors.black87,
             fontWeight: FontWeight.bold,
             fontSize: 18,
@@ -118,14 +150,14 @@ class PhysicalSignsPageState extends State<PhysicalSignsFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const FormSectionHeader('Physical Signs (If Have)'),
-              const FormSubHeader('Eyes:',
+              FormSectionHeader(context.l10n.physical_signs_if_have_title),
+              FormSubHeader(context.l10n.eyes_label,
                   iconPath: "assets/icons/ic_eyes.png"),
               TextFormField(
                 controller: _eyesExamDateController,
                 onChanged: (_) => _updateState(),
                 decoration: const FormInputDecoration().copyWith(
-                  labelText: 'Last Exam Date',
+                  labelText: context.l10n.last_exam_date_label,
                   hintText: 'YYYY-MM-DD',
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.calendar_month),
@@ -140,14 +172,14 @@ class PhysicalSignsPageState extends State<PhysicalSignsFormPage> {
                   // Check YYYY-MM-DD format
                   final RegExp dateRegex = RegExp(r'^\d{4}-\d{2}-\d{2}$');
                   if (!dateRegex.hasMatch(value)) {
-                    return 'Invalid format (Use YYYY-MM-DD)';
+                    return context.l10n.invalid_date_format_error;
                   }
 
                   try {
                     DateFormat('yyyy-MM-dd').parseStrict(value);
                     return null;
                   } catch (e) {
-                    return 'Invalid date (e.g., month or day is out of range).';
+                    return context.l10n.invalid_date_error;
                   }
                 },
               ),
@@ -157,11 +189,11 @@ class PhysicalSignsPageState extends State<PhysicalSignsFormPage> {
                 maxLines: null,
                 controller: _eyesFindingsController,
                 onChanged: (_) => _updateState(),
-                decoration:
-                    const FormInputDecoration().copyWith(labelText: 'Findings'),
+                decoration: const FormInputDecoration()
+                    .copyWith(labelText: context.l10n.findings_label),
               ),
               const SizedBox(height: 24),
-              const FormSubHeader('Kidneys:',
+              FormSubHeader(context.l10n.kidneys_label,
                   iconPath: "assets/icons/ic_kidney.png"),
               Row(
                 children: [
@@ -185,19 +217,24 @@ class PhysicalSignsPageState extends State<PhysicalSignsFormPage> {
                 ],
               ),
               const SizedBox(height: 24),
-              const FormSubHeader('Feet:',
+              FormSubHeader(context.l10n.feet_label,
                   iconPath: "assets/icons/ic_feet.png"),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: _FeetSection(
-                      title: 'Skin:',
-                      options: const ['Normal', 'Dry', 'Ulcer', 'Infection'],
-                      groupValue: _currentData.feetSkinStatus,
+                      title: context.l10n.skin_label,
+                      options: [
+                        context.l10n.skin_normal,
+                        context.l10n.skin_dry,
+                        context.l10n.skin_ulcer,
+                        context.l10n.skin_infection
+                      ],
+                      groupValue: _getSkinUiValue(_currentData.feetSkinStatus),
                       onChanged: (v) {
-                        final newData =
-                            _currentData.copyWith(feetSkinStatus: v);
+                        final newData = _currentData.copyWith(
+                            feetSkinStatus: _getSkinEnglishValue(v));
                         setState(() => _currentData = newData);
                         widget.onChange(newData);
                       },
@@ -206,12 +243,17 @@ class PhysicalSignsPageState extends State<PhysicalSignsFormPage> {
                   const SizedBox(width: 16),
                   Expanded(
                     child: _FeetSection(
-                      title: 'Deformity:',
-                      options: const ['None', 'Bunions', 'Claw toes'],
-                      groupValue: _currentData.feetDeformityStatus,
+                      title: context.l10n.deformity_label,
+                      options: [
+                        context.l10n.deformity_none,
+                        context.l10n.deformity_bunions,
+                        context.l10n.deformity_claw_toes
+                      ],
+                      groupValue: _getDeformityUiValue(
+                          _currentData.feetDeformityStatus),
                       onChanged: (v) {
-                        final newData =
-                            _currentData.copyWith(feetDeformityStatus: v);
+                        final newData = _currentData.copyWith(
+                            feetDeformityStatus: _getDeformityEnglishValue(v));
                         setState(() => _currentData = newData);
                         widget.onChange(newData);
                       },

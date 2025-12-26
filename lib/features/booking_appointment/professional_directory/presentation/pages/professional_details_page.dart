@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/reviewer.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional_detail/professional_detail_cubit.dart';
@@ -32,16 +33,16 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
         .fetchProfessionalDetail(widget.professionalId);
   }
 
-  String get title {
+  String getTitle(BuildContext context) {
     switch (widget.role) {
       case 'nursing':
-        return 'Nurse Details';
+        return context.l10n.booking_professional_detail_nurse;
       case 'pharmacist':
-        return 'Pharmacist Details';
+        return context.l10n.booking_professional_detail_pharmacist;
       case 'radiologist':
-        return 'Radiologist Details';
+        return context.l10n.booking_professional_detail_radiologist;
       default:
-        return 'Professional Details';
+        return context.l10n.booking_professional_detail_default;
     }
   }
 
@@ -50,7 +51,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          title,
+          getTitle(context),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
@@ -87,15 +88,15 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
         children: [
           _buildProfileHeader(professional),
           const SizedBox(height: 16),
-          _buildStatsRow(professional),
+          _buildStatsRow(context, professional),
           const SizedBox(height: 32),
-          _buildAboutMe(professional),
+          _buildAboutMe(context, professional),
           const SizedBox(height: 32),
-          _buildWorkingInfo(professional),
+          _buildWorkingInfo(context, professional),
           const SizedBox(height: 32),
-          _buildCertificates(professional),
+          _buildCertificates(context, professional),
           const SizedBox(height: 32),
-          _buildReviews(professional.reviews ?? []),
+          _buildReviews(context, professional.reviews ?? []),
           const SizedBox(height: 80), // Padding for bottom nav bar
         ],
       ),
@@ -154,18 +155,18 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
     );
   }
 
-  Widget _buildStatsRow(ProfessionalEntity professional) {
+  Widget _buildStatsRow(BuildContext context, ProfessionalEntity professional) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        const Expanded(
+        Expanded(
           child: Card(
             elevation: 4,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                     '180+', // Example data
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -173,7 +174,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                       color: Const.tosca,
                     ),
                   ),
-                  Text('Patients'),
+                  Text(context.l10n.booking_professional_patients_label),
                 ],
               ),
             ),
@@ -194,7 +195,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                       color: Const.tosca,
                     ),
                   ),
-                  const Text('Experience'),
+                  Text(context.l10n.booking_professional_experience_label),
                 ],
               ),
             ),
@@ -224,7 +225,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                       ),
                     ],
                   ),
-                  const Text('Rating'),
+                  Text(context.l10n.booking_professional_rating_label),
                 ],
               ),
             ),
@@ -234,15 +235,15 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
     );
   }
 
-  Widget _buildAboutMe(ProfessionalEntity professional) {
+  Widget _buildAboutMe(BuildContext context, ProfessionalEntity professional) {
     return SizedBox(
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'About Me',
-            style: TextStyle(
+          Text(
+            context.l10n.booking_professional_about_me,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
@@ -257,13 +258,14 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
     );
   }
 
-  Widget _buildWorkingInfo(ProfessionalEntity professional) {
+  Widget _buildWorkingInfo(
+      BuildContext context, ProfessionalEntity professional) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Working Information',
-          style: TextStyle(
+        Text(
+          context.l10n.booking_professional_working_info,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
@@ -275,7 +277,8 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
             const Icon(Icons.calendar_today, color: Colors.grey),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(professional.workingHours ?? 'Not specified'),
+              child:
+                  Text(professional.workingHours ?? context.l10n.common_not_specified),
             ),
           ],
         ),
@@ -289,7 +292,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                professional.workplace ?? 'Not specified',
+                professional.workplace ?? context.l10n.common_not_specified,
                 style: const TextStyle(color: Colors.blue),
               ),
             ),
@@ -299,15 +302,16 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
     );
   }
 
-  Widget _buildCertificates(ProfessionalEntity professional) {
+  Widget _buildCertificates(
+      BuildContext context, ProfessionalEntity professional) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Row(
+        Row(
           children: [
             Text(
-              'Professional Certificate',
-              style: TextStyle(
+              context.l10n.booking_professional_certificate,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -316,9 +320,9 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
         ),
         if (professional.certificates == null ||
             professional.certificates!.isEmpty)
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0),
-            child: Text('No certificate available.'),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text(context.l10n.booking_professional_no_certificate),
           )
         else
           Column(
@@ -348,8 +352,10 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                             cert.title,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Text('ID Number: ${cert.registrationNumber}'),
-                          Text('Issued: ${cert.issuedOn}'),
+                          Text(context.l10n
+                              .booking_professional_id_number(cert.registrationNumber)),
+                          Text(context.l10n
+                              .booking_professional_issued_on(cert.issuedOn)),
                         ],
                       ),
                     ),
@@ -362,16 +368,16 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
     );
   }
 
-  Widget _buildReviews(List<ReviewEntity> reviews) {
+  Widget _buildReviews(BuildContext context, List<ReviewEntity> reviews) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Reviews',
-              style: TextStyle(
+            Text(
+              context.l10n.booking_professional_reviews,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -381,14 +387,14 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                 onPressed: () {
                   // Handle See All click
                 },
-                child: const Text('See All'),
+                child: Text(context.l10n.booking_professional_see_all),
               ),
           ],
         ),
         if (reviews.isEmpty)
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0),
-            child: Text('No reviews available yet.'),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text(context.l10n.booking_professional_no_reviews),
           )
         else
           Column(
@@ -467,9 +473,9 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        child: const Text(
-          'Schedule Appointment',
-          style: TextStyle(
+        child: Text(
+          context.l10n.booking_professional_schedule_btn,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
           ),

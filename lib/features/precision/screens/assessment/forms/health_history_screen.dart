@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
 import '../../../widgets/precision_widgets.dart';
 import '../../../bloc/nutrition_assessment_cubit.dart';
 import 'self_rated_health_screen.dart';
@@ -105,7 +106,7 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Basic Info & Health History'),
+      appBar: CustomAppBar(title: context.l10n.precision_basic_info_title),
       body: Form(
         key: _formKey,
         child: Padding(
@@ -119,9 +120,9 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Age & Gender Section
-                      const Text(
-                        'Age & Gender',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.profile_patient_basic_info,
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
@@ -130,23 +131,23 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
                       const SizedBox(height: 16),
 
                       CustomTextField(
-                        label: 'Age',
-                        hintText: 'E.g 34 years old',
+                        label: context.l10n.precision_age_label,
+                        hintText: context.l10n.precision_age_hint,
                         controller: _ageController,
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your age';
+                            return context.l10n.precision_age_error;
                           }
                           if (int.tryParse(value) == null) {
-                            return 'Please enter a valid age';
+                            return context.l10n.precision_age_valid_error;
                           }
                           return null;
                         },
                       ),
 
                       CustomDropdown(
-                        label: 'Gender',
+                        label: context.l10n.precision_gender_label,
                         value: _selectedGender,
                         items: _availableGenders,
                         onChanged: (value) {
@@ -156,7 +157,7 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
                         },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please select your gender';
+                            return context.l10n.precision_gender_error;
                           }
                           return null;
                         },
@@ -165,9 +166,9 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
                       const SizedBox(height: 24),
 
                       // Known Condition Section
-                      const Text(
-                        'Known Condition (Optional)',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.precision_known_condition_label,
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
@@ -176,8 +177,8 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
                       const SizedBox(height: 16),
 
                       CustomTextField(
-                        label: 'Known Condition (Optional)',
-                        hintText: 'Write your condition history here',
+                        label: context.l10n.precision_known_condition_label,
+                        hintText: context.l10n.precision_known_condition_hint,
                         controller: _conditionController,
                         maxLines: 3,
                       ),
@@ -185,9 +186,9 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
                       const SizedBox(height: 24),
 
                       // Special Considerations Section
-                      const Text(
-                        'Patient with Special Consideration',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.precision_special_consideration_title,
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
@@ -225,9 +226,9 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
                       const SizedBox(height: 24),
 
                       // Medication History Section
-                      const Text(
-                        'Medication & supplement history',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.precision_medication_history_label,
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
@@ -236,8 +237,9 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
                       const SizedBox(height: 16),
 
                       CustomTextField(
-                        label: 'Medication & supplement history',
-                        hintText: 'E.g: Avoid Clopidogrel, Ondansetron, etc',
+                        label: context.l10n.precision_medication_history_label,
+                        hintText:
+                            context.l10n.precision_medication_history_hint,
                         controller: _medicationController,
                         maxLines: 3,
                       ),
@@ -245,9 +247,9 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
                       const SizedBox(height: 24),
 
                       // Family Health History Section
-                      const Text(
-                        'Family health history',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.precision_family_history_label,
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
@@ -256,16 +258,15 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
                       const SizedBox(height: 16),
 
                       CustomTextField(
-                        label: 'Family health history',
-                        hintText:
-                            'Write other biomarkers here (minimum 10 characters)',
+                        label: context.l10n.precision_family_history_label,
+                        hintText: context.l10n.precision_family_history_hint,
                         controller: _familyHistoryController,
                         maxLines: 3,
                         validator: (value) {
                           if (value != null &&
                               value.isNotEmpty &&
                               value.length < 10) {
-                            return 'Please enter at least 10 characters';
+                            return context.l10n.precision_family_history_error;
                           }
                           return null;
                         },
@@ -277,7 +278,7 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
 
               // Next Button
               PrimaryButton(
-                text: 'Next',
+                text: context.l10n.common_next,
                 onPressed: _onNextPressed,
               ),
             ],
