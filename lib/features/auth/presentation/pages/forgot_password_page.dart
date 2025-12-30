@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/auth/presentation/cubit/forgot_password_cubit.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
@@ -44,7 +44,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             if (state is ForgotPasswordOtpSent) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(context.l10n.auth_otp_sent_success),
+                  content: Text(context.t.auth.forgot_password.message.otp_sent),
                   backgroundColor: Colors.green,
                 ),
               );
@@ -70,7 +70,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      context.l10n.auth_forgot_password_title,
+                      context.t.auth.forgot_password.title,
                       style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      context.l10n.auth_forgot_password_subtitle,
+                      context.t.auth.forgot_password.subtitle,
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.grey,
@@ -90,7 +90,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        hintText: context.l10n.auth_enter_email_hint,
+                        hintText: context.t.auth.forgot_password.form.label.email,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
@@ -99,10 +99,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return context.l10n.auth_enter_email;
+                          return context.t.auth.form.validation.email_required;
                         }
                         if (!EmailValidator.validate(value)) {
-                          return context.l10n.auth_enter_valid_email;
+                          return context.t.auth.form.validation.invalid_email;
                         }
                         return null;
                       },
@@ -140,7 +140,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 ),
                               )
                             : Text(
-                                context.l10n.auth_send_code_btn,
+                                context.t.auth.forgot_password.send_code_button,
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,

@@ -1,0 +1,103 @@
+{
+  "button": {
+    "logout": "Logout"
+  },
+  "continue_with_alternative_text": "Or continue with",
+  "forgot_password": {
+    "form": {
+      "label": {
+        "email": "Enter your email"
+      }
+    },
+    "message": {
+      "otp_sent": "OTP sent successfully"
+    },
+    "send_code_button": "Send Code",
+    "subtitle": "Don't worry! Please enter the email address linked with your account.",
+    "title": "Forgot Password?"
+  },
+  "form": {
+    "label": {
+      "email": "Email",
+      "new_password": "New Password",
+      "password": "Password",
+      "password_confirm": "Confirm Password",
+      "user_role": "Select User Type",
+      "username": "Username"
+    },
+    "validation": {
+      "email_required": "Please enter your email",
+      "invalid_email": "Please enter a valid email",
+      "invalid_password_length": "Password must be at least 6 characters",
+      "password_confirm_required": "Please confirm your password",
+      "password_mismatch": "Passwords do not match",
+      "password_required": "Please enter a password",
+      "user_role_required": "Please select a user type",
+      "username_required": "Please enter a username"
+    }
+  },
+  "login": {
+    "button": {
+      "create_account_link": "Create new account",
+      "forgot_password_link": "Forgot Password?",
+      "submit": "Sign In"
+    },
+    "form": {
+      "validation": {
+        "email_password_required": "Please fill in both Email and Password."
+      }
+    },
+    "role_selection_dialog": {
+      "body": "Welcome!\nPlease select your account type to continue.",
+      "title": "Complete Registration"
+    },
+    "subtitle": "Welcome Back you've\nbeen missed",
+    "title": "Login Here"
+  },
+  "otp_verification": {
+    "button": {
+      "resend_code": "Didn't receive the code? Resend",
+      "submit": "Verify"
+    },
+    "message": {
+      "code_resent": "Code resent!"
+    },
+    "resend_time_countdown": "Resend in {seconds} seconds",
+    "subtitle": "Enter the code that we have sent to your email {email}",
+    "title": "Enter Verification Code"
+  },
+  "register": {
+    "button": {
+      "login_link": "Already have an account",
+      "submit": "Sign Up"
+    },
+    "registration_success_dialog": {
+      "body": "Please check your email for verification.",
+      "title": "Registration Successful"
+    },
+    "subtitle": "Create an account so you can explore all the\nexisting jobs",
+    "title": "Create Account"
+  },
+  "reset_password": {
+    "button": {
+      "submit": "Reset Password"
+    },
+    "subtitle": "Please enter your new password",
+    "title": "Reset Password"
+  },
+  "reset_password_success": {
+    "body": "You have successfully reset your password. Please use your new password when logging in.",
+    "button": {
+      "login_page_link": "Back to Login"
+    },
+    "title": "Password Reset Successful!"
+  },
+  "user_role": {
+    "caregiver": "Caregiver/Helper",
+    "nurse": "Nurse",
+    "patient": "Patient",
+    "pharmacist": "Pharmacist",
+    "physiotherapist": "Physiotherapist",
+    "radiologist": "Radiologist"
+  }
+}

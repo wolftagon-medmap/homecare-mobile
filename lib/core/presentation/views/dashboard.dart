@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:m2health/const.dart';
@@ -213,7 +214,8 @@ class _DashboardState extends State<Dashboard> {
                         ] else
                           Expanded(
                             child: Text(
-                              context.l10n.dashboard_greeting(displayName),
+                              context.t.dashboard
+                                  .greeting(displayName: displayName),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -244,8 +246,7 @@ class _DashboardState extends State<Dashboard> {
                         Expanded(
                           child: TextField(
                             decoration: InputDecoration(
-                              hintText:
-                                  context.l10n.dashboard_chat_ai_placeholder,
+                              hintText: context.t.dashboard.chat_ai_placeholder,
                               hintStyle: const TextStyle(
                                   color: Color(0xFF8A96BC), fontSize: 11),
                               border: InputBorder.none,
@@ -277,7 +278,7 @@ class _DashboardState extends State<Dashboard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      context.l10n.services,
+                      context.t.global.services,
                       textAlign: TextAlign.left,
                       style: const TextStyle(
                         color: Color(0xFF232F55),
@@ -296,7 +297,7 @@ class _DashboardState extends State<Dashboard> {
                             context.push(AppRoutes.pharmaServices);
                           },
                           iconPath: 'assets/icons/ic_pharma_service.png',
-                          title: context.l10n.pharmacist_services,
+                          title: context.t.dashboard.services.pharmacist,
                           backgroundColor:
                               const Color.fromRGBO(142, 244, 220, 0.4),
                         ),
@@ -305,7 +306,7 @@ class _DashboardState extends State<Dashboard> {
                             context.push(AppRoutes.nursingServices);
                           },
                           iconPath: 'assets/icons/ic_nurse.png',
-                          title: context.l10n.nursing_service,
+                          title: context.t.dashboard.services.nursing,
                           backgroundColor:
                               const Color.fromRGBO(154, 225, 255, 0.35),
                         ),
@@ -314,7 +315,7 @@ class _DashboardState extends State<Dashboard> {
                             context.push(AppRoutes.diabeticCare);
                           },
                           iconPath: 'assets/icons/ic_diabetic.png',
-                          title: context.l10n.diabetic_care_service,
+                          title: context.t.dashboard.services.diabetic_care,
                           backgroundColor:
                               const Color.fromRGBO(142, 244, 220, 0.4),
                         ),
@@ -330,7 +331,7 @@ class _DashboardState extends State<Dashboard> {
                             context.push(AppRoutes.homeHealthScreening);
                           },
                           iconPath: 'assets/icons/ic_home_health_screening.png',
-                          title: context.l10n.home_screening_service,
+                          title: context.t.dashboard.services.home_screening,
                           backgroundColor:
                               const Color.fromRGBO(178, 140, 255, 0.2),
                         ),
@@ -339,7 +340,8 @@ class _DashboardState extends State<Dashboard> {
                             context.push(AppRoutes.precisionNutrition);
                           },
                           iconPath: 'assets/icons/ic_precision_nutrition.webp',
-                          title: context.l10n.precision_nutrition_service,
+                          title:
+                              context.t.dashboard.services.precision_nutrition,
                           backgroundColor:
                               const Color.fromRGBO(154, 225, 255, 0.33),
                         ),
@@ -348,7 +350,8 @@ class _DashboardState extends State<Dashboard> {
                             context.push(AppRoutes.homecareForElderly);
                           },
                           iconPath: 'assets/icons/ic_homecare_elderly.png',
-                          title: context.l10n.homecare_for_elderly_service,
+                          title:
+                              context.t.dashboard.services.homecare_for_elderly,
                           backgroundColor:
                               const Color.fromRGBO(178, 140, 255, 0.2),
                         ),
@@ -377,7 +380,7 @@ class _DashboardState extends State<Dashboard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      context.l10n.allied_services,
+                      context.t.dashboard.allied_services,
                       textAlign: TextAlign.left,
                       style: const TextStyle(
                         color: Color(0xFF232F55),
@@ -393,7 +396,7 @@ class _DashboardState extends State<Dashboard> {
                         Expanded(
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_physio.webp',
-                            label: context.l10n.physiotherapy_service,
+                            label: context.t.dashboard.services.physiotherapy,
                             onTap: () {
                               context.push(AppRoutes.physiotherapy);
                             },
@@ -402,8 +405,8 @@ class _DashboardState extends State<Dashboard> {
                         Expanded(
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_remote_monitoring.png',
-                            label:
-                                context.l10n.remote_patient_monitoring_service,
+                            label: context
+                                .t.dashboard.services.remote_patient_monitoring,
                             onTap: () {
                               context.push(AppRoutes.remotePatientMonitoring);
                             },
@@ -412,7 +415,7 @@ class _DashboardState extends State<Dashboard> {
                         Expanded(
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_2nd_opinion.webp',
-                            label: context.l10n.second_opinion_service,
+                            label: context.t.dashboard.services.second_opinion,
                             onTap: () {
                               context.push(AppRoutes.secondOpinionMedical);
                             },
@@ -427,21 +430,23 @@ class _DashboardState extends State<Dashboard> {
                         Expanded(
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_health.png',
-                            label: context.l10n.health_risk_assessment_service,
+                            label: context
+                                .t.dashboard.services.health_risk_assessment,
                             onTap: showComingSoonDialog,
                           ),
                         ),
                         Expanded(
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_dietitian.webp',
-                            label: context.l10n.dietitian_service,
+                            label: context.t.dashboard.services.dietitian,
                             onTap: showComingSoonDialog,
                           ),
                         ),
                         Expanded(
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_sleep.png',
-                            label: context.l10n.sleep_and_mental_health_service,
+                            label: context
+                                .t.dashboard.services.sleep_and_mental_health,
                             onTap: showComingSoonDialog,
                           ),
                         ),
@@ -466,12 +471,12 @@ class _DashboardState extends State<Dashboard> {
             borderRadius: BorderRadius.circular(15),
           ),
           backgroundColor: Colors.white,
-          title: Text(context.l10n.common_coming_soon),
-          content: Text(context.l10n.common_feature_available_soon),
+          title: Text(context.t.global.dialog.coming_soon),
+          content: Text(context.t.global.dialog.feature_available_soon),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text(context.l10n.common_ok,
+              child: Text(context.t.global.ok,
                   style: const TextStyle(color: Const.aqua)),
             ),
           ],

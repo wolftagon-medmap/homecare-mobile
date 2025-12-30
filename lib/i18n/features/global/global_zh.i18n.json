@@ -1,0 +1,11 @@
+{
+  "cancel": "取消",
+  "dialog": {
+    "coming_soon": "敬请期待",
+    "feature_available_soon": "此功能即将推出！"
+  },
+  "error": "错误",
+  "ok": "确定",
+  "services": "服务",
+  "submit": "提交"
+}

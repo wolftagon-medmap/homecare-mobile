@@ -17,6 +17,7 @@ import 'package:m2health/features/booking_appointment/personal_issue/domain/enti
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/core/services/appointment_service.dart';
@@ -194,7 +195,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
   }
 
   Widget _buildScheduleCard(AppointmentEntity appointment) {
-    return BlocBuilder<LocaleCubit, Locale>(
+    return BlocBuilder<LocaleCubit, AppLocale>(
       builder: (context, locale) {
         final localStartTime = appointment.startDatetime.toLocal();
         final localEndTime = appointment.endDatetime?.toLocal();
@@ -526,11 +527,11 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
                           Icon(Icons.access_time,
                               size: 16, color: Colors.grey[600]),
                           const SizedBox(width: 8),
-                          BlocBuilder<LocaleCubit, Locale>(
+                          BlocBuilder<LocaleCubit, AppLocale>(
                             builder: (context, locale) {
                               return Text(
                                 context.l10n.created_on(
-                                    DateFormat.yMMMd(locale.languageCode)
+                                    DateFormat.yMMMd(locale.flutterLocale.languageCode)
                                         .add_jm()
                                         .format(issue.createdAt!.toLocal())),
                                 style: TextStyle(
@@ -580,7 +581,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
     final total = appointment.payTotal;
     final isPaid = appointment.payment != null;
 
-    return BlocBuilder<LocaleCubit, Locale>(
+    return BlocBuilder<LocaleCubit, AppLocale>(
       builder: (context, locale) {
         return Padding(
           padding: const EdgeInsets.all(8.0),

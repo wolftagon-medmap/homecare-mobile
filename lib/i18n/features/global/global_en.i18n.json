@@ -1,0 +1,11 @@
+{
+  "cancel": "Cancel",
+  "dialog": {
+    "coming_soon": "Coming Soon",
+    "feature_available_soon": "This feature will be available soon!"
+  },
+  "error": "Error",
+  "ok": "OK",
+  "services": "Services",
+  "submit": "Submit"
+}

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
 import 'package:m2health/core/presentation/views/app_languages_setting.dart';
 import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/auth/presentation/cubit/sign_in_cubit.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
@@ -29,7 +29,7 @@ class _SignInPageState extends State<SignInPage> {
     super.dispose();
   }
 
-  String _getLanguageLabel(Locale locale) {
+  String _getLanguageLabel(AppLocale locale) {
     switch (locale.languageCode) {
       case 'id':
         return 'Bahasa Indonesia';
@@ -46,7 +46,7 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          BlocBuilder<LocaleCubit, Locale>(
+          BlocBuilder<LocaleCubit, AppLocale>(
             builder: (context, locale) {
               return TextButton(
                 onPressed: () {
@@ -81,11 +81,11 @@ class _SignInPageState extends State<SignInPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text(context.l10n.auth_error_title),
+                    title: Text(context.t.global.error),
                     content: Text(state.message),
                     actions: <Widget>[
                       TextButton(
-                        child: Text(context.l10n.common_ok),
+                        child: Text(context.t.global.ok),
                         onPressed: () {
                           context.pop();
                         },
@@ -113,7 +113,7 @@ class _SignInPageState extends State<SignInPage> {
               keyboardType: TextInputType.emailAddress,
               autofocus: false,
               decoration: InputDecoration(
-                hintText: context.l10n.auth_email_hint,
+                hintText: context.t.auth.form.label.email,
                 contentPadding:
                     const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                 border: OutlineInputBorder(
@@ -125,7 +125,7 @@ class _SignInPageState extends State<SignInPage> {
               autofocus: false,
               obscureText: true,
               decoration: InputDecoration(
-                hintText: context.l10n.auth_password_hint,
+                hintText: context.t.auth.form.label.password,
                 contentPadding:
                     const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                 border: OutlineInputBorder(
@@ -151,7 +151,7 @@ class _SignInPageState extends State<SignInPage> {
                       .read<SignInCubit>()
                       .signIn(emailController.text, passwordController.text);
                 },
-                child: Text(context.l10n.auth_sign_in_btn,
+                child: Text(context.t.auth.login.button.submit,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -166,7 +166,7 @@ class _SignInPageState extends State<SignInPage> {
                   context.go(AppRoutes.signUp);
                 },
                 child: Text(
-                  context.l10n.auth_create_account,
+                  context.t.auth.login.button.create_account_link,
                   style: const TextStyle(
                     fontSize: 16,
                     color: Const.aqua,
@@ -179,7 +179,7 @@ class _SignInPageState extends State<SignInPage> {
             final continueWithText = Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Text(
-                context.l10n.auth_continue_with,
+                context.t.auth.continue_with_alternative_text,
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.grey,
@@ -212,7 +212,7 @@ class _SignInPageState extends State<SignInPage> {
                 padding: const EdgeInsets.only(left: 24.0, right: 24.0),
                 children: <Widget>[
                   Text(
-                    context.l10n.auth_sign_in_title,
+                    context.t.auth.login.title,
                     style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -222,7 +222,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    context.l10n.auth_welcome_back,
+                    context.t.auth.login.subtitle,
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.grey,
@@ -240,7 +240,7 @@ class _SignInPageState extends State<SignInPage> {
                         context.push(AppRoutes.forgotPassword);
                       },
                       child: Text(
-                        context.l10n.auth_forgot_password_btn,
+                        context.t.auth.login.button.forgot_password_link,
                         style: const TextStyle(color: Colors.grey),
                       ),
                     ),
@@ -269,7 +269,7 @@ class _SignInPageState extends State<SignInPage> {
       barrierDismissible: false,
       builder: (ctx) => StatefulBuilder(builder: (context, setState) {
         return AlertDialog(
-          title: Text(context.l10n.auth_complete_registration_title,
+          title: Text(context.t.auth.login.role_selection_dialog.title,
               style: const TextStyle(
                 color: Const.aqua,
                 fontWeight: FontWeight.w600,
@@ -277,11 +277,11 @@ class _SignInPageState extends State<SignInPage> {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(context.l10n.auth_complete_registration_content),
+              Text(context.t.auth.login.role_selection_dialog.body),
               const SizedBox(height: 24),
               DropdownButtonFormField<UserRole>(
                 decoration: InputDecoration(
-                  labelText: context.l10n.auth_select_user_type_hint,
+                  labelText: context.t.auth.form.label.user_role,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -317,7 +317,7 @@ class _SignInPageState extends State<SignInPage> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: Text(context.l10n.common_cancel),
+              child: Text(context.t.global.cancel),
             ),
             ElevatedButton(
               onPressed: () {
@@ -330,7 +330,7 @@ class _SignInPageState extends State<SignInPage> {
                 backgroundColor: Const.aqua,
                 foregroundColor: Colors.white,
               ),
-              child: Text(context.l10n.common_submit),
+              child: Text(context.t.global.submit),
             ),
           ],
         );

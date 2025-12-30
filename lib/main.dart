@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
 import 'package:m2health/features/auth/data/datasources/google_auth_source.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
@@ -15,6 +16,7 @@ import 'package:m2health/features/profiles/domain/usecases/index.dart';
 import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
 import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/l10n/app_localizations.dart';
 import 'package:m2health/route/app_router.dart';
 import 'package:m2health/route/navigator_keys.dart';
@@ -24,7 +26,6 @@ import 'package:m2health/features/appointment/bloc/provider_appointment_cubit.da
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -45,15 +46,20 @@ void main() async {
   final googleSource = sl<GoogleAuthSource>();
   await googleSource.init();
 
+  final localeCubit = LocaleCubit();
+  await localeCubit.loadSavedLocale();
+
   runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider<LocaleCubit>(
-          // App Language
-          create: (context) => LocaleCubit(sl<SharedPreferences>()),
-        ),
-      ],
-      child: const MyApp(),
+    TranslationProvider(
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<LocaleCubit>.value(
+            // App Language
+            value: localeCubit,
+          ),
+        ],
+        child: const MyApp(),
+      ),
     ),
   );
 }
@@ -103,12 +109,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => DiabetesFormCubit(sl<Dio>())),
         BlocProvider(create: (context) => sl<SubscriptionCubit>()),
       ],
-      child: BlocBuilder<LocaleCubit, Locale>(builder: (context, locale) {
+      child: BlocBuilder<LocaleCubit, AppLocale>(builder: (context, locale) {
         return MaterialApp.router(
           scaffoldMessengerKey: rootScaffoldMessengerKey,
           debugShowCheckedModeBanner: false,
           title: 'm2health',
-          locale: locale,
+          locale: locale.flutterLocale,
           theme: ThemeData(
             fontFamily: 'Poppins', // Set Poppins as the default font
             appBarTheme: const AppBarTheme(
@@ -188,8 +194,9 @@ class MyApp extends StatelessWidget {
               body: child,
             );
           },
+          // localizationsDelegates: GlobalMaterialLocalizations.delegates,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
+          supportedLocales: AppLocaleUtils.supportedLocales,
           routerConfig: router,
         );
       }),

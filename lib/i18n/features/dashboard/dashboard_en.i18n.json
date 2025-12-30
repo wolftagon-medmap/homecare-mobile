@@ -1,0 +1,19 @@
+{
+  "allied_services": "Allied Health",
+  "chat_ai_placeholder": "Chat With AI doctor for all your health questions",
+  "greeting": "Live Longer & Live Healthier, {displayName}!",
+  "services": {
+    "diabetic_care": "Diabetic Care",
+    "dietitian": "Dietitian Service",
+    "health_risk_assessment": "Health Risk Assessment",
+    "home_screening": "Home Health Screening",
+    "homecare_for_elderly": "Home Care for Elderly",
+    "nursing": "Home Nursing",
+    "pharmacist": "iRX Pharmacist Service",
+    "physiotherapy": "Physiotherapy",
+    "precision_nutrition": "Precision Nutrition",
+    "remote_patient_monitoring": "Remote Patient Monitoring",
+    "second_opinion": "2nd Opinion for Medical Image",
+    "sleep_and_mental_health": "Sleep & Mental Health"
+  }
+}

@@ -1,0 +1,11 @@
+targets:
+  $default:
+    builders:
+      slang_build_runner:
+        options:
+          namespaces: true
+          input_directory: lib/i18n/features
+          input_file_pattern: .i18n.json
+          output_directory: lib/i18n
+          output_file_name: translations.g.dart
+          string_interpolation: braces
