@@ -38,7 +38,7 @@ class PaymentPage extends StatefulWidget {
   });
 
   @override
-  _PaymentPageState createState() => _PaymentPageState();
+  State<PaymentPage> createState() => _PaymentPageState();
 }
 
 class _PaymentPageState extends State<PaymentPage> {
@@ -58,43 +58,43 @@ class _PaymentPageState extends State<PaymentPage> {
   double get totalCost => widget.appointment.payTotal;
 
   List<PaymentMethod> paymentMethods = [
-    PaymentMethod(
-      id: '1',
-      type: 'card',
-      code: 'Visa',
-      displayName: 'Visa',
-      iconUrl: 'assets/icons/ic_visa.png',
-      accountNumber: '**** **** **** 1234',
-      expiryDate: '12/26',
-    ),
-    PaymentMethod(
-      id: '2',
-      type: 'card',
-      code: 'MasterCard',
-      displayName: 'MasterCard',
-      iconUrl: 'assets/icons/mastercard.png',
-      accountNumber: '**** **** **** 5678',
-      expiryDate: '11/25',
-    ),
-    PaymentMethod(
-      id: '3',
-      type: 'alipay',
-      code: 'Alipay',
-      displayName: 'Alipay',
-      iconUrl: 'assets/icons/ic_alipay.png',
-    ),
-    PaymentMethod(
-      id: '4',
-      type: 'paynow',
-      code: 'PayNow',
-      displayName: 'PayNow',
-      iconUrl: 'assets/icons/ic_paynow.jpg',
-    ),
+    // PaymentMethod(
+    //   id: '1',
+    //   type: 'card',
+    //   code: 'Visa',
+    //   displayName: 'Visa',
+    //   iconUrl: 'assets/icons/ic_visa.png',
+    //   accountNumber: '**** **** **** 1234',
+    //   expiryDate: '12/26',
+    // ),
+    // PaymentMethod(
+    //   id: '2',
+    //   type: 'card',
+    //   code: 'MasterCard',
+    //   displayName: 'MasterCard',
+    //   iconUrl: 'assets/icons/mastercard.png',
+    //   accountNumber: '**** **** **** 5678',
+    //   expiryDate: '11/25',
+    // ),
+    // PaymentMethod(
+    //   id: '3',
+    //   type: 'alipay',
+    //   code: 'Alipay',
+    //   displayName: 'Alipay',
+    //   iconUrl: 'assets/icons/ic_alipay.png',
+    // ),
+    // PaymentMethod(
+    //   id: '4',
+    //   type: 'paynow',
+    //   code: 'PayNow',
+    //   displayName: 'PayNow',
+    //   iconUrl: 'assets/icons/ic_paynow.jpg',
+    // ),
     PaymentMethod(
       id: '5',
       type: 'cash',
       code: 'Cash',
-      displayName: 'Cash',
+      displayName: 'Cash (Offline Payment)',
       iconUrl: 'assets/icons/cash.png',
     ),
   ];
@@ -133,8 +133,7 @@ class _PaymentPageState extends State<PaymentPage> {
         } else if (state is PaymentFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content:
-                  Text(context.l10n.payment_failed(state.message)),
+              content: Text(context.l10n.payment_failed(state.message)),
               backgroundColor: Colors.red,
             ),
           );
