@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/nursing/const.dart';
 import 'package:m2health/features/booking_appointment/nursing/presentation/bloc/nursing_appointment_flow_bloc.dart';
 import 'package:m2health/features/booking_appointment/nursing/presentation/pages/nursing_appointment_flow_page.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
@@ -62,7 +62,7 @@ class NursingCard extends StatelessWidget {
                     children: [
                       const SizedBox(width: 5),
                       Text(
-                        context.l10n.common_book_now,
+                        context.t.global.book_now,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -107,15 +107,15 @@ class _NursingState extends State<NursingService> {
   List<Map<String, String>> _getNursingServices(BuildContext context) {
     return [
       {
-        'title': context.l10n.booking_nursing_primary_title,
-        'description': context.l10n.booking_nursing_primary_desc,
+        'title': context.t.nursing.services.primary_nursing.title,
+        'description': context.t.nursing.services.primary_nursing.description,
         'imagePath': 'assets/icons/ilu_nurse.png',
         'color': '9AE1FF',
         'opacity': '0.3',
       },
       {
-        'title': context.l10n.booking_nursing_specialized_title,
-        'description': context.l10n.booking_nursing_specialized_desc,
+        'title': context.t.nursing.services.specialized_nursing.title,
+        'description': context.t.nursing.services.specialized_nursing.description,
         'imagePath': 'assets/icons/ilu_nurse_special.png',
         'color': 'B28CFF',
         'opacity': '0.2',
@@ -144,7 +144,7 @@ class _NursingState extends State<NursingService> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          context.l10n.booking_nursing_page_title,
+          context.t.nursing.title,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),

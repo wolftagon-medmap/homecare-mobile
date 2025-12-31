@@ -38,8 +38,11 @@ class TranslationsId with BaseTranslations<AppLocale, Translations> implements T
 
 	// Translations
 	@override late final _TranslationsAuthId auth = _TranslationsAuthId._(_root);
+	@override late final _TranslationsBookingId booking = _TranslationsBookingId._(_root);
 	@override late final _TranslationsDashboardId dashboard = _TranslationsDashboardId._(_root);
 	@override late final _TranslationsGlobalId global = _TranslationsGlobalId._(_root);
+	@override late final _TranslationsNursingId nursing = _TranslationsNursingId._(_root);
+	@override late final _TranslationsPharmacyId pharmacy = _TranslationsPharmacyId._(_root);
 }
 
 // Path: auth
@@ -59,6 +62,22 @@ class _TranslationsAuthId implements TranslationsAuthEn {
 	@override late final _TranslationsAuthResetPasswordId reset_password = _TranslationsAuthResetPasswordId._(_root);
 	@override late final _TranslationsAuthResetPasswordSuccessId reset_password_success = _TranslationsAuthResetPasswordSuccessId._(_root);
 	@override late final _TranslationsAuthUserRoleId user_role = _TranslationsAuthUserRoleId._(_root);
+}
+
+// Path: booking
+class _TranslationsBookingId implements TranslationsBookingEn {
+	_TranslationsBookingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsBookingAddonId addon = _TranslationsBookingAddonId._(_root);
+	@override String get book_appointment => 'Buat Janji Temu';
+	@override late final _TranslationsBookingHealthStatusId health_status = _TranslationsBookingHealthStatusId._(_root);
+	@override late final _TranslationsBookingIssueId issue = _TranslationsBookingIssueId._(_root);
+	@override late final _TranslationsBookingProfessionalDetailId professional_detail = _TranslationsBookingProfessionalDetailId._(_root);
+	@override late final _TranslationsBookingProfessionalSearchId professional_search = _TranslationsBookingProfessionalSearchId._(_root);
+	@override late final _TranslationsBookingScheduleId schedule = _TranslationsBookingScheduleId._(_root);
 }
 
 // Path: dashboard
@@ -81,12 +100,59 @@ class _TranslationsGlobalId implements TranslationsGlobalEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
+	@override String get add => 'Tambah';
+	@override String get book_now => 'Pesan Sekarang';
 	@override String get cancel => 'Batal';
+	@override String get complete => 'Selesai';
+	@override String get confirm => 'Konfirmasi';
+	@override String get delete => 'Hapus';
+	@override String get description => 'Deskripsi';
 	@override late final _TranslationsGlobalDialogId dialog = _TranslationsGlobalDialogId._(_root);
+	@override String get edit_information => 'Ubah Informasi';
 	@override String get error => 'Error';
+	@override String error_message({required Object error}) => 'Error: ${error}';
+	@override late final _TranslationsGlobalMessagesId messages = _TranslationsGlobalMessagesId._(_root);
+	@override String get modify => 'Ubah';
+	@override String get next => 'Lanjut';
+	@override String get no => 'Tidak';
+	@override String get no_data => 'Tidak ada data tersedia';
+	@override String get none => 'Tidak Ada';
+	@override String get not_specified => 'Tidak ditentukan';
 	@override String get ok => 'OK';
+	@override String get other => 'Lainnya';
+	@override String get ready => 'Siap';
+	@override String get remove => 'Hapus';
+	@override String get retry => 'Coba Lagi';
+	@override String get save => 'Simpan';
+	@override String get saving => 'Menyimpan...';
 	@override String get services => 'Layanan';
+	@override String get status => 'Status';
 	@override String get submit => 'Kirim';
+	@override String get unknown_location => 'Lokasi Tidak Diketahui';
+	@override String get update => 'Perbarui';
+	@override String get yes => 'Ya';
+}
+
+// Path: nursing
+class _TranslationsNursingId implements TranslationsNursingEn {
+	_TranslationsNursingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsNursingServicesId services = _TranslationsNursingServicesId._(_root);
+	@override String get title => 'Layanan Keperawatan di Rumah';
+}
+
+// Path: pharmacy
+class _TranslationsPharmacyId implements TranslationsPharmacyEn {
+	_TranslationsPharmacyId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsPharmacyServicesId services = _TranslationsPharmacyServicesId._(_root);
+	@override String get title => 'Layanan Apoteker iRX';
 }
 
 // Path: auth.button
@@ -204,6 +270,107 @@ class _TranslationsAuthUserRoleId implements TranslationsAuthUserRoleEn {
 	@override String get radiologist => 'Radiolog';
 }
 
+// Path: booking.addon
+class _TranslationsBookingAddonId implements TranslationsBookingAddonEn {
+	_TranslationsBookingAddonId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => 'Tidak ada layanan tambahan yang tersedia.';
+	@override String get estimated_budget => 'Perkiraan Biaya';
+	@override late final _TranslationsBookingAddonTitleId title = _TranslationsBookingAddonTitleId._(_root);
+}
+
+// Path: booking.health_status
+class _TranslationsBookingHealthStatusId implements TranslationsBookingHealthStatusEn {
+	_TranslationsBookingHealthStatusId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty_record => 'Tidak ada rekam medis yang tersedia.';
+	@override String get mobility_label => 'Pilih status mobilitas Anda';
+	@override String get record_hint => 'Silakan pilih rekam medis';
+	@override String get record_label => 'Pilih rekam medis terkait';
+	@override String get title => 'Detail Kasus Pribadi';
+}
+
+// Path: booking.issue
+class _TranslationsBookingIssueId implements TranslationsBookingIssueEn {
+	_TranslationsBookingIssueId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get add_issue_button => 'Tambah Keluhan';
+	@override String get add_issue_title => 'Tambah Keluhan';
+	@override String get default_page_title => 'Kasus Layanan';
+	@override late final _TranslationsBookingIssueDeleteDialogId delete_dialog = _TranslationsBookingIssueDeleteDialogId._(_root);
+	@override String get edit_issue_title => 'Ubah Keluhan';
+	@override String get empty_issue => 'Belum ada keluhan yang ditambahkan.\n Harap tambahkan keluhan agar\nAnda dapat melanjutkan ke langkah berikutnya.';
+	@override String get fill_complaint_instruction => 'Ceritakan keluhan Anda';
+	@override late final _TranslationsBookingIssueFormId form = _TranslationsBookingIssueFormId._(_root);
+	@override String get images => 'Gambar';
+	@override late final _TranslationsBookingIssueMessagesId messages = _TranslationsBookingIssueMessagesId._(_root);
+	@override String get nurse_page_title => 'Kasus Layanan Perawat';
+	@override String get pharmacy_page_title => 'Kasus Layanan Apoteker';
+	@override String get radiology_page_title => 'Kasus Layanan Radiolog';
+	@override String updated_on({required Object date}) => 'Diperbarui pada: ${date}';
+}
+
+// Path: booking.professional_detail
+class _TranslationsBookingProfessionalDetailId implements TranslationsBookingProfessionalDetailEn {
+	_TranslationsBookingProfessionalDetailId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get about_me => 'Tentang Saya';
+	@override String get certificates => 'Sertifikat Profesional';
+	@override String get experience_label => 'Pengalaman';
+	@override String id_number({required Object number}) => 'Nomor ID: ${number}';
+	@override String issued_on({required Object date}) => 'Diterbitkan: ${date}';
+	@override String get no_certificate => 'Sertifikat tidak tersedia.';
+	@override String get no_reviews => 'Belum ada ulasan.';
+	@override String get patients_label => 'Pasien';
+	@override String get rating_label => 'Penilaian';
+	@override String get reviews => 'Ulasan';
+	@override String get schedule_button => 'Jadwalkan Janji Temu';
+	@override String get see_all_button => 'Lihat Semua';
+	@override late final _TranslationsBookingProfessionalDetailTitleId title = _TranslationsBookingProfessionalDetailTitleId._(_root);
+	@override String get working_info => 'Informasi Kerja';
+}
+
+// Path: booking.professional_search
+class _TranslationsBookingProfessionalSearchId implements TranslationsBookingProfessionalSearchEn {
+	_TranslationsBookingProfessionalSearchId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get appointment_button => 'Buat Janji Temu';
+	@override String get empty => 'Tidak ditemukan profesional yang cocok dengan kriteria Anda.';
+	@override String filter_text({required Object count}) => 'Difilter berdasarkan ${count} layanan terpilih';
+	@override late final _TranslationsBookingProfessionalSearchTitleId title = _TranslationsBookingProfessionalSearchTitleId._(_root);
+}
+
+// Path: booking.schedule
+class _TranslationsBookingScheduleId implements TranslationsBookingScheduleEn {
+	_TranslationsBookingScheduleId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty_slots => 'Tidak ada slot tersedia untuk hari ini.';
+	@override late final _TranslationsBookingScheduleMessagesId messages = _TranslationsBookingScheduleMessagesId._(_root);
+	@override String get select_date => 'Pilih Tanggal';
+	@override String get select_hour => 'Pilih Jam';
+	@override String get submit_button => 'Kirim';
+	@override String get submitting_button => 'Mengirim...';
+	@override String get title => 'Pilih Jadwal';
+}
+
 // Path: dashboard.services
 class _TranslationsDashboardServicesId implements TranslationsDashboardServicesEn {
 	_TranslationsDashboardServicesId._(this._root);
@@ -234,6 +401,41 @@ class _TranslationsGlobalDialogId implements TranslationsGlobalDialogEn {
 	// Translations
 	@override String get coming_soon => 'Segera Hadir';
 	@override String get feature_available_soon => 'Fitur ini akan segera tersedia!';
+}
+
+// Path: global.messages
+class _TranslationsGlobalMessagesId implements TranslationsGlobalMessagesEn {
+	_TranslationsGlobalMessagesId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get delete_success => 'Berhasil dihapus';
+	@override String get updated_success => 'Berhasil diperbarui';
+}
+
+// Path: nursing.services
+class _TranslationsNursingServicesId implements TranslationsNursingServicesEn {
+	_TranslationsNursingServicesId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsNursingServicesPrimaryNursingId primary_nursing = _TranslationsNursingServicesPrimaryNursingId._(_root);
+	@override late final _TranslationsNursingServicesSpecializedNursingId specialized_nursing = _TranslationsNursingServicesSpecializedNursingId._(_root);
+}
+
+// Path: pharmacy.services
+class _TranslationsPharmacyServicesId implements TranslationsPharmacyServicesEn {
+	_TranslationsPharmacyServicesId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsPharmacyServicesHealthCoachingId health_coaching = _TranslationsPharmacyServicesHealthCoachingId._(_root);
+	@override late final _TranslationsPharmacyServicesMedicationCounselingId medication_counseling = _TranslationsPharmacyServicesMedicationCounselingId._(_root);
+	@override late final _TranslationsPharmacyServicesSmokingCessationId smoking_cessation = _TranslationsPharmacyServicesSmokingCessationId._(_root);
+	@override late final _TranslationsPharmacyServicesTherapyReviewId therapy_review = _TranslationsPharmacyServicesTherapyReviewId._(_root);
 }
 
 // Path: auth.forgot_password.form
@@ -384,6 +586,160 @@ class _TranslationsAuthResetPasswordSuccessButtonId implements TranslationsAuthR
 	@override String get login_page_link => 'Kembali ke Login';
 }
 
+// Path: booking.addon.title
+class _TranslationsBookingAddonTitleId implements TranslationsBookingAddonTitleEn {
+	_TranslationsBookingAddonTitleId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get kDefault => 'Layanan Tambahan';
+	@override String get nursing => 'Prosedur Keperawatan';
+	@override String get pharmacy => 'Layanan Farmasi';
+	@override String get radiology => 'Layanan Radiologi';
+	@override String get specialized_nursing => 'Prosedur Keperawatan Khusus';
+}
+
+// Path: booking.issue.delete_dialog
+class _TranslationsBookingIssueDeleteDialogId implements TranslationsBookingIssueDeleteDialogEn {
+	_TranslationsBookingIssueDeleteDialogId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get content => 'Apakah Anda yakin ingin menghapus keluhan ini?';
+	@override String get title => 'Hapus Keluhan';
+}
+
+// Path: booking.issue.form
+class _TranslationsBookingIssueFormId implements TranslationsBookingIssueFormEn {
+	_TranslationsBookingIssueFormId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get add_button => 'Tambah';
+	@override String get complaint_description_hint => 'Silakan masukkan pertanyaan, kekhawatiran, gejala relevan yang terkait dengan kasus Anda beserta kata kunci terkait.';
+	@override String get complaint_label => 'Keluhan';
+	@override String get complaint_title_hint => 'Beritahu kami keluhan Anda';
+	@override String get title_description_required => 'Judul dan deskripsi keluhan wajib diisi.';
+}
+
+// Path: booking.issue.messages
+class _TranslationsBookingIssueMessagesId implements TranslationsBookingIssueMessagesEn {
+	_TranslationsBookingIssueMessagesId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get add_issue_success => 'Keluhan berhasil ditambahkan';
+	@override String get edit_issue_success => 'Keluhan berhasil diperbarui';
+}
+
+// Path: booking.professional_detail.title
+class _TranslationsBookingProfessionalDetailTitleId implements TranslationsBookingProfessionalDetailTitleEn {
+	_TranslationsBookingProfessionalDetailTitleId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get kDefault => 'Detail Profesional';
+	@override String get nurse => 'Detail Perawat';
+	@override String get pharmacist => 'Detail Apoteker';
+	@override String get radiologist => 'Detail Radiolog';
+}
+
+// Path: booking.professional_search.title
+class _TranslationsBookingProfessionalSearchTitleId implements TranslationsBookingProfessionalSearchTitleEn {
+	_TranslationsBookingProfessionalSearchTitleId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get caregiver => 'Cari Pengasuh/Pendamping/Pekerja';
+	@override String get kDefault => 'Cari Profesional';
+	@override String get nurse => 'Cari Perawat';
+	@override String get pharmacist => 'Cari Apoteker';
+	@override String get radiologist => 'Cari Radiolog';
+}
+
+// Path: booking.schedule.messages
+class _TranslationsBookingScheduleMessagesId implements TranslationsBookingScheduleMessagesEn {
+	_TranslationsBookingScheduleMessagesId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get reschedule_failed => 'Penjadwalan ulang gagal.';
+	@override String get reschedule_success => 'Janji temu berhasil dijadwalkan ulang';
+}
+
+// Path: nursing.services.primary_nursing
+class _TranslationsNursingServicesPrimaryNursingId implements TranslationsNursingServicesPrimaryNursingEn {
+	_TranslationsNursingServicesPrimaryNursingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Memantau dan memberikan\nprosedur keperawatan mulai dari\npemeriksaan tubuh, pengobatan,\nselang makan dan penyedotan hingga\nsuntikan dan perawatan luka.';
+	@override String get title => 'Perawatan Primer';
+}
+
+// Path: nursing.services.specialized_nursing
+class _TranslationsNursingServicesSpecializedNursingId implements TranslationsNursingServicesSpecializedNursingEn {
+	_TranslationsNursingServicesSpecializedNursingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Fokus pada pemulihan dan serahkan perawatan keperawatan yang kompleks di tangan perawat profesional kami yang berpengalaman';
+	@override String get title => 'Layanan Keperawatan Khusus';
+}
+
+// Path: pharmacy.services.health_coaching
+class _TranslationsPharmacyServicesHealthCoachingId implements TranslationsPharmacyServicesHealthCoachingEn {
+	_TranslationsPharmacyServicesHealthCoachingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Panduan dan dukungan yang dipersonalisasi untuk membantu\nindividu mencapai tujuan kesehatan mereka, mengelola\nkondisi kronis, dan meningkatkan kesejahteraan secara keseluruhan\n, dengan program khusus untuk manajemen\nberat badan, manajemen diabetes, manajemen\ntekanan darah tinggi, dan manajemen\nkolesterol tinggi';
+	@override String get title => 'Pelatihan Kesehatan';
+}
+
+// Path: pharmacy.services.medication_counseling
+class _TranslationsPharmacyServicesMedicationCounselingId implements TranslationsPharmacyServicesMedicationCounselingEn {
+	_TranslationsPharmacyServicesMedicationCounselingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Konseling dan edukasi obat memandu\npasien tentang penggunaan yang tepat, efek samping, dan\nkepatuhan terhadap resep,\nmeningkatkan keamanan dan\nmeningkatkan hasil kesehatan.';
+	@override String get title => 'Konseling dan Edukasi\nObat';
+}
+
+// Path: pharmacy.services.smoking_cessation
+class _TranslationsPharmacyServicesSmokingCessationId implements TranslationsPharmacyServicesSmokingCessationEn {
+	_TranslationsPharmacyServicesSmokingCessationId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Berhenti merokok melibatkan menghentikan\nkebiasaan merokok melalui strategi seperti\nkonseling, obat-obatan, dan program\ndukungan untuk meningkatkan kesehatan dan\nmengurangi risiko penyakit terkait\nmerokok.';
+	@override String get title => 'Berhenti Merokok';
+}
+
+// Path: pharmacy.services.therapy_review
+class _TranslationsPharmacyServicesTherapyReviewId implements TranslationsPharmacyServicesTherapyReviewEn {
+	_TranslationsPharmacyServicesTherapyReviewId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => 'Tinjauan komprehensif terhadap obat\ndan gaya hidup Anda untuk mengoptimalkan hasil\npengobatan dan meminimalkan potensi efek\nsamping';
+	@override String get title => 'Tinjauan Terapi\nKomprehensif';
+}
+
 // Path: auth.forgot_password.form.label
 class _TranslationsAuthForgotPasswordFormLabelId implements TranslationsAuthForgotPasswordFormLabelEn {
 	_TranslationsAuthForgotPasswordFormLabelId._(this._root);
@@ -465,6 +821,72 @@ extension on TranslationsId {
 			'auth.user_role.pharmacist' => 'Apoteker',
 			'auth.user_role.physiotherapist' => 'Fisioterapis',
 			'auth.user_role.radiologist' => 'Radiolog',
+			'booking.addon.empty' => 'Tidak ada layanan tambahan yang tersedia.',
+			'booking.addon.estimated_budget' => 'Perkiraan Biaya',
+			'booking.addon.title.kDefault' => 'Layanan Tambahan',
+			'booking.addon.title.nursing' => 'Prosedur Keperawatan',
+			'booking.addon.title.pharmacy' => 'Layanan Farmasi',
+			'booking.addon.title.radiology' => 'Layanan Radiologi',
+			'booking.addon.title.specialized_nursing' => 'Prosedur Keperawatan Khusus',
+			'booking.book_appointment' => 'Buat Janji Temu',
+			'booking.health_status.empty_record' => 'Tidak ada rekam medis yang tersedia.',
+			'booking.health_status.mobility_label' => 'Pilih status mobilitas Anda',
+			'booking.health_status.record_hint' => 'Silakan pilih rekam medis',
+			'booking.health_status.record_label' => 'Pilih rekam medis terkait',
+			'booking.health_status.title' => 'Detail Kasus Pribadi',
+			'booking.issue.add_issue_button' => 'Tambah Keluhan',
+			'booking.issue.add_issue_title' => 'Tambah Keluhan',
+			'booking.issue.default_page_title' => 'Kasus Layanan',
+			'booking.issue.delete_dialog.content' => 'Apakah Anda yakin ingin menghapus keluhan ini?',
+			'booking.issue.delete_dialog.title' => 'Hapus Keluhan',
+			'booking.issue.edit_issue_title' => 'Ubah Keluhan',
+			'booking.issue.empty_issue' => 'Belum ada keluhan yang ditambahkan.\n Harap tambahkan keluhan agar\nAnda dapat melanjutkan ke langkah berikutnya.',
+			'booking.issue.fill_complaint_instruction' => 'Ceritakan keluhan Anda',
+			'booking.issue.form.add_button' => 'Tambah',
+			'booking.issue.form.complaint_description_hint' => 'Silakan masukkan pertanyaan, kekhawatiran, gejala relevan yang terkait dengan kasus Anda beserta kata kunci terkait.',
+			'booking.issue.form.complaint_label' => 'Keluhan',
+			'booking.issue.form.complaint_title_hint' => 'Beritahu kami keluhan Anda',
+			'booking.issue.form.title_description_required' => 'Judul dan deskripsi keluhan wajib diisi.',
+			'booking.issue.images' => 'Gambar',
+			'booking.issue.messages.add_issue_success' => 'Keluhan berhasil ditambahkan',
+			'booking.issue.messages.edit_issue_success' => 'Keluhan berhasil diperbarui',
+			'booking.issue.nurse_page_title' => 'Kasus Layanan Perawat',
+			'booking.issue.pharmacy_page_title' => 'Kasus Layanan Apoteker',
+			'booking.issue.radiology_page_title' => 'Kasus Layanan Radiolog',
+			'booking.issue.updated_on' => ({required Object date}) => 'Diperbarui pada: ${date}',
+			'booking.professional_detail.about_me' => 'Tentang Saya',
+			'booking.professional_detail.certificates' => 'Sertifikat Profesional',
+			'booking.professional_detail.experience_label' => 'Pengalaman',
+			'booking.professional_detail.id_number' => ({required Object number}) => 'Nomor ID: ${number}',
+			'booking.professional_detail.issued_on' => ({required Object date}) => 'Diterbitkan: ${date}',
+			'booking.professional_detail.no_certificate' => 'Sertifikat tidak tersedia.',
+			'booking.professional_detail.no_reviews' => 'Belum ada ulasan.',
+			'booking.professional_detail.patients_label' => 'Pasien',
+			'booking.professional_detail.rating_label' => 'Penilaian',
+			'booking.professional_detail.reviews' => 'Ulasan',
+			'booking.professional_detail.schedule_button' => 'Jadwalkan Janji Temu',
+			'booking.professional_detail.see_all_button' => 'Lihat Semua',
+			'booking.professional_detail.title.kDefault' => 'Detail Profesional',
+			'booking.professional_detail.title.nurse' => 'Detail Perawat',
+			'booking.professional_detail.title.pharmacist' => 'Detail Apoteker',
+			'booking.professional_detail.title.radiologist' => 'Detail Radiolog',
+			'booking.professional_detail.working_info' => 'Informasi Kerja',
+			'booking.professional_search.appointment_button' => 'Buat Janji Temu',
+			'booking.professional_search.empty' => 'Tidak ditemukan profesional yang cocok dengan kriteria Anda.',
+			'booking.professional_search.filter_text' => ({required Object count}) => 'Difilter berdasarkan ${count} layanan terpilih',
+			'booking.professional_search.title.caregiver' => 'Cari Pengasuh/Pendamping/Pekerja',
+			'booking.professional_search.title.kDefault' => 'Cari Profesional',
+			'booking.professional_search.title.nurse' => 'Cari Perawat',
+			'booking.professional_search.title.pharmacist' => 'Cari Apoteker',
+			'booking.professional_search.title.radiologist' => 'Cari Radiolog',
+			'booking.schedule.empty_slots' => 'Tidak ada slot tersedia untuk hari ini.',
+			'booking.schedule.messages.reschedule_failed' => 'Penjadwalan ulang gagal.',
+			'booking.schedule.messages.reschedule_success' => 'Janji temu berhasil dijadwalkan ulang',
+			'booking.schedule.select_date' => 'Pilih Tanggal',
+			'booking.schedule.select_hour' => 'Pilih Jam',
+			'booking.schedule.submit_button' => 'Kirim',
+			'booking.schedule.submitting_button' => 'Mengirim...',
+			'booking.schedule.title' => 'Pilih Jadwal',
 			'dashboard.allied_services' => 'Layanan Kesehatan Penunjang',
 			'dashboard.chat_ai_placeholder' => 'Tanya dokter AI seputar kesehatan Anda',
 			'dashboard.greeting' => ({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!',
@@ -480,13 +902,53 @@ extension on TranslationsId {
 			'dashboard.services.remote_patient_monitoring' => 'Pemantauan Kesehatan Jarak Jauh',
 			'dashboard.services.second_opinion' => 'Second Opinion Citra Medis',
 			'dashboard.services.sleep_and_mental_health' => 'Tidur & Kesehatan Mental',
+			'global.add' => 'Tambah',
+			'global.book_now' => 'Pesan Sekarang',
 			'global.cancel' => 'Batal',
+			'global.complete' => 'Selesai',
+			'global.confirm' => 'Konfirmasi',
+			'global.delete' => 'Hapus',
+			'global.description' => 'Deskripsi',
 			'global.dialog.coming_soon' => 'Segera Hadir',
 			'global.dialog.feature_available_soon' => 'Fitur ini akan segera tersedia!',
+			'global.edit_information' => 'Ubah Informasi',
 			'global.error' => 'Error',
+			'global.error_message' => ({required Object error}) => 'Error: ${error}',
+			'global.messages.delete_success' => 'Berhasil dihapus',
+			'global.messages.updated_success' => 'Berhasil diperbarui',
+			'global.modify' => 'Ubah',
+			'global.next' => 'Lanjut',
+			'global.no' => 'Tidak',
+			'global.no_data' => 'Tidak ada data tersedia',
+			'global.none' => 'Tidak Ada',
+			'global.not_specified' => 'Tidak ditentukan',
 			'global.ok' => 'OK',
+			'global.other' => 'Lainnya',
+			'global.ready' => 'Siap',
+			'global.remove' => 'Hapus',
+			'global.retry' => 'Coba Lagi',
+			'global.save' => 'Simpan',
+			'global.saving' => 'Menyimpan...',
 			'global.services' => 'Layanan',
+			'global.status' => 'Status',
 			'global.submit' => 'Kirim',
+			'global.unknown_location' => 'Lokasi Tidak Diketahui',
+			'global.update' => 'Perbarui',
+			'global.yes' => 'Ya',
+			'nursing.services.primary_nursing.description' => 'Memantau dan memberikan\nprosedur keperawatan mulai dari\npemeriksaan tubuh, pengobatan,\nselang makan dan penyedotan hingga\nsuntikan dan perawatan luka.',
+			'nursing.services.primary_nursing.title' => 'Perawatan Primer',
+			'nursing.services.specialized_nursing.description' => 'Fokus pada pemulihan dan serahkan perawatan keperawatan yang kompleks di tangan perawat profesional kami yang berpengalaman',
+			'nursing.services.specialized_nursing.title' => 'Layanan Keperawatan Khusus',
+			'nursing.title' => 'Layanan Keperawatan di Rumah',
+			'pharmacy.services.health_coaching.description' => 'Panduan dan dukungan yang dipersonalisasi untuk membantu\nindividu mencapai tujuan kesehatan mereka, mengelola\nkondisi kronis, dan meningkatkan kesejahteraan secara keseluruhan\n, dengan program khusus untuk manajemen\nberat badan, manajemen diabetes, manajemen\ntekanan darah tinggi, dan manajemen\nkolesterol tinggi',
+			'pharmacy.services.health_coaching.title' => 'Pelatihan Kesehatan',
+			'pharmacy.services.medication_counseling.description' => 'Konseling dan edukasi obat memandu\npasien tentang penggunaan yang tepat, efek samping, dan\nkepatuhan terhadap resep,\nmeningkatkan keamanan dan\nmeningkatkan hasil kesehatan.',
+			'pharmacy.services.medication_counseling.title' => 'Konseling dan Edukasi\nObat',
+			'pharmacy.services.smoking_cessation.description' => 'Berhenti merokok melibatkan menghentikan\nkebiasaan merokok melalui strategi seperti\nkonseling, obat-obatan, dan program\ndukungan untuk meningkatkan kesehatan dan\nmengurangi risiko penyakit terkait\nmerokok.',
+			'pharmacy.services.smoking_cessation.title' => 'Berhenti Merokok',
+			'pharmacy.services.therapy_review.description' => 'Tinjauan komprehensif terhadap obat\ndan gaya hidup Anda untuk mengoptimalkan hasil\npengobatan dan meminimalkan potensi efek\nsamping',
+			'pharmacy.services.therapy_review.title' => 'Tinjauan Terapi\nKomprehensif',
+			'pharmacy.title' => 'Layanan Apoteker iRX',
 			_ => null,
 		};
 	}

@@ -1,0 +1,21 @@
+{
+  "services": {
+    "health_coaching": {
+      "description": "个性化指导和支持，帮助\n个人实现健康目标，管理\n慢性病，并改善整体福祉\n，设有体重\n管理、糖尿病管理、高\n血压管理和高\n胆固醇管理的专门计划",
+      "title": "健康指导"
+    },
+    "medication_counseling": {
+      "description": "药物咨询和教育指导\n患者正确使用、副作用和\n处方依从性，\n提高安全性并\n改善健康结果。",
+      "title": "药物咨询\n与教育"
+    },
+    "smoking_cessation": {
+      "description": "戒烟涉及通过\n咨询、药物和支持\n计划等策略戒除\n吸烟习惯，以改善健康并\n降低吸烟相关\n疾病的风险。",
+      "title": "戒烟"
+    },
+    "therapy_review": {
+      "description": "全面审查您的药物\n和生活方式，以优化治疗\n结果并最大程度地减少潜在的副\n作用",
+      "title": "综合治疗\n审查"
+    }
+  },
+  "title": "iRX 药师服务"
+}

@@ -1,0 +1,13 @@
+{
+  "services": {
+    "primary_nursing": {
+      "description": "Memantau dan memberikan\nprosedur keperawatan mulai dari\npemeriksaan tubuh, pengobatan,\nselang makan dan penyedotan hingga\nsuntikan dan perawatan luka.",
+      "title": "Perawatan Primer"
+    },
+    "specialized_nursing": {
+      "description": "Fokus pada pemulihan dan serahkan perawatan keperawatan yang kompleks di tangan perawat profesional kami yang berpengalaman",
+      "title": "Layanan Keperawatan Khusus"
+    }
+  },
+  "title": "Layanan Keperawatan di Rumah"
+}

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/bloc/pharmacy_appointment_flow_bloc.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_appointment_flow_page.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/core/presentation/views/health_coaching.dart';
 import 'package:m2health/service_locator.dart';
@@ -13,29 +13,31 @@ class PharmacyServicesPage extends StatelessWidget {
   List<Map<String, String>> _getPharmacyServices(BuildContext context) {
     return [
       {
-        'title': context.l10n.booking_pharmacy_medication_counseling_title,
-        'description': context.l10n.booking_pharmacy_medication_counseling_desc,
+        'title': context.t.pharmacy.services.medication_counseling.title,
+        'description':
+            context.t.pharmacy.services.medication_counseling.description,
         'imagePath': 'assets/icons/ilu_pharmacist.png',
         'color': 'F79E1B',
         'opacity': '0.1',
       },
       {
-        'title': context.l10n.booking_pharmacy_therapy_review_title,
-        'description': context.l10n.booking_pharmacy_therapy_review_desc,
+        'title': context.t.pharmacy.services.therapy_review.title,
+        'description': context.t.pharmacy.services.therapy_review.description,
         'imagePath': 'assets/icons/ilu_therapy.png',
         'color': 'B28CFF',
         'opacity': '0.2',
       },
       {
-        'title': context.l10n.booking_pharmacy_health_coaching_title,
-        'description': context.l10n.booking_pharmacy_health_coaching_desc,
+        'title': context.t.pharmacy.services.health_coaching.title,
+        'description': context.t.pharmacy.services.health_coaching.description,
         'imagePath': 'assets/icons/ilu_coach.png',
         'color': '9AE1FF',
         'opacity': '0.33',
       },
       {
-        'title': context.l10n.booking_pharmacy_smoking_cessation_title,
-        'description': context.l10n.booking_pharmacy_smoking_cessation_desc,
+        'title': context.t.pharmacy.services.smoking_cessation.title,
+        'description':
+            context.t.pharmacy.services.smoking_cessation.description,
         'imagePath': 'assets/icons/ilu_lung.png',
         'color': 'FF9A9A',
         'opacity': '0.19',
@@ -49,8 +51,12 @@ class PharmacyServicesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            context.l10n.booking_pharmacy_page_title,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          context.t.pharmacy.title,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
       ),
       body: Container(
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 60.0),
@@ -164,7 +170,7 @@ class PharmaCard extends StatelessWidget {
                     children: [
                       const SizedBox(width: 5),
                       Text(
-                        context.l10n.common_book_now,
+                        context.t.global.book_now,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,

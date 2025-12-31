@@ -1,11 +1,39 @@
 {
+  "add": "Tambah",
+  "book_now": "Pesan Sekarang",
   "cancel": "Batal",
+  "complete": "Selesai",
+  "confirm": "Konfirmasi",
+  "delete": "Hapus",
+  "description": "Deskripsi",
   "dialog": {
     "coming_soon": "Segera Hadir",
     "feature_available_soon": "Fitur ini akan segera tersedia!"
   },
+  "edit_information": "Ubah Informasi",
   "error": "Error",
+  "error_message": "Error: {error}",
+  "messages": {
+    "delete_success": "Berhasil dihapus",
+    "updated_success": "Berhasil diperbarui"
+  },
+  "modify": "Ubah",
+  "next": "Lanjut",
+  "no": "Tidak",
+  "no_data": "Tidak ada data tersedia",
+  "none": "Tidak Ada",
+  "not_specified": "Tidak ditentukan",
   "ok": "OK",
+  "other": "Lainnya",
+  "ready": "Siap",
+  "remove": "Hapus",
+  "retry": "Coba Lagi",
+  "save": "Simpan",
+  "saving": "Menyimpan...",
   "services": "Layanan",
-  "submit": "Kirim"
+  "status": "Status",
+  "submit": "Kirim",
+  "unknown_location": "Lokasi Tidak Diketahui",
+  "update": "Perbarui",
+  "yes": "Ya"
 }

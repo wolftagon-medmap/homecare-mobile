@@ -38,8 +38,11 @@ class TranslationsZh with BaseTranslations<AppLocale, Translations> implements T
 
 	// Translations
 	@override late final _TranslationsAuthZh auth = _TranslationsAuthZh._(_root);
+	@override late final _TranslationsBookingZh booking = _TranslationsBookingZh._(_root);
 	@override late final _TranslationsDashboardZh dashboard = _TranslationsDashboardZh._(_root);
 	@override late final _TranslationsGlobalZh global = _TranslationsGlobalZh._(_root);
+	@override late final _TranslationsNursingZh nursing = _TranslationsNursingZh._(_root);
+	@override late final _TranslationsPharmacyZh pharmacy = _TranslationsPharmacyZh._(_root);
 }
 
 // Path: auth
@@ -59,6 +62,22 @@ class _TranslationsAuthZh implements TranslationsAuthEn {
 	@override late final _TranslationsAuthResetPasswordZh reset_password = _TranslationsAuthResetPasswordZh._(_root);
 	@override late final _TranslationsAuthResetPasswordSuccessZh reset_password_success = _TranslationsAuthResetPasswordSuccessZh._(_root);
 	@override late final _TranslationsAuthUserRoleZh user_role = _TranslationsAuthUserRoleZh._(_root);
+}
+
+// Path: booking
+class _TranslationsBookingZh implements TranslationsBookingEn {
+	_TranslationsBookingZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsBookingAddonZh addon = _TranslationsBookingAddonZh._(_root);
+	@override String get book_appointment => '预约';
+	@override late final _TranslationsBookingHealthStatusZh health_status = _TranslationsBookingHealthStatusZh._(_root);
+	@override late final _TranslationsBookingIssueZh issue = _TranslationsBookingIssueZh._(_root);
+	@override late final _TranslationsBookingProfessionalDetailZh professional_detail = _TranslationsBookingProfessionalDetailZh._(_root);
+	@override late final _TranslationsBookingProfessionalSearchZh professional_search = _TranslationsBookingProfessionalSearchZh._(_root);
+	@override late final _TranslationsBookingScheduleZh schedule = _TranslationsBookingScheduleZh._(_root);
 }
 
 // Path: dashboard
@@ -81,12 +100,59 @@ class _TranslationsGlobalZh implements TranslationsGlobalEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
+	@override String get add => '添加';
+	@override String get book_now => '立即预订';
 	@override String get cancel => '取消';
+	@override String get complete => '完成';
+	@override String get confirm => '确认';
+	@override String get delete => '删除';
+	@override String get description => '描述';
 	@override late final _TranslationsGlobalDialogZh dialog = _TranslationsGlobalDialogZh._(_root);
+	@override String get edit_information => '编辑信息';
 	@override String get error => '错误';
+	@override String error_message({required Object error}) => '错误：${error}';
+	@override late final _TranslationsGlobalMessagesZh messages = _TranslationsGlobalMessagesZh._(_root);
+	@override String get modify => '修改';
+	@override String get next => '下一步';
+	@override String get no => '否';
+	@override String get no_data => '暂无数据';
+	@override String get none => '无';
+	@override String get not_specified => '未指定';
 	@override String get ok => '确定';
+	@override String get other => '其他';
+	@override String get ready => '准备就绪';
+	@override String get remove => '移除';
+	@override String get retry => '重试';
+	@override String get save => '保存';
+	@override String get saving => '正在保存...';
 	@override String get services => '服务';
+	@override String get status => '状态';
 	@override String get submit => '提交';
+	@override String get unknown_location => '未知位置';
+	@override String get update => '更新';
+	@override String get yes => '是';
+}
+
+// Path: nursing
+class _TranslationsNursingZh implements TranslationsNursingEn {
+	_TranslationsNursingZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsNursingServicesZh services = _TranslationsNursingServicesZh._(_root);
+	@override String get title => '居家护理';
+}
+
+// Path: pharmacy
+class _TranslationsPharmacyZh implements TranslationsPharmacyEn {
+	_TranslationsPharmacyZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsPharmacyServicesZh services = _TranslationsPharmacyServicesZh._(_root);
+	@override String get title => 'iRX 药师服务';
 }
 
 // Path: auth.button
@@ -204,6 +270,107 @@ class _TranslationsAuthUserRoleZh implements TranslationsAuthUserRoleEn {
 	@override String get radiologist => '放射科医生';
 }
 
+// Path: booking.addon
+class _TranslationsBookingAddonZh implements TranslationsBookingAddonEn {
+	_TranslationsBookingAddonZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty => '没有可用的附加服务。';
+	@override String get estimated_budget => '预计预算';
+	@override late final _TranslationsBookingAddonTitleZh title = _TranslationsBookingAddonTitleZh._(_root);
+}
+
+// Path: booking.health_status
+class _TranslationsBookingHealthStatusZh implements TranslationsBookingHealthStatusEn {
+	_TranslationsBookingHealthStatusZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty_record => '没有可用的医疗记录。';
+	@override String get mobility_label => '选择您的行动状态';
+	@override String get record_hint => '请选择记录';
+	@override String get record_label => '选择相关的健康记录';
+	@override String get title => '个人案例详情';
+}
+
+// Path: booking.issue
+class _TranslationsBookingIssueZh implements TranslationsBookingIssueEn {
+	_TranslationsBookingIssueZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get add_issue_button => '添加问题';
+	@override String get add_issue_title => '添加问题';
+	@override String get default_page_title => '服务案例';
+	@override late final _TranslationsBookingIssueDeleteDialogZh delete_dialog = _TranslationsBookingIssueDeleteDialogZh._(_root);
+	@override String get edit_issue_title => '编辑问题';
+	@override String get empty_issue => '尚未添加任何问题。\n 请添加一个或多个问题，以便\n您可以继续下一步。';
+	@override String get fill_complaint_instruction => '请告知您的投诉详情。';
+	@override late final _TranslationsBookingIssueFormZh form = _TranslationsBookingIssueFormZh._(_root);
+	@override String get images => '图片';
+	@override late final _TranslationsBookingIssueMessagesZh messages = _TranslationsBookingIssueMessagesZh._(_root);
+	@override String get nurse_page_title => '护士服务案例';
+	@override String get pharmacy_page_title => '药师服务案例';
+	@override String get radiology_page_title => '放射科医生服务案例';
+	@override String updated_on({required Object date}) => '更新于：${date}';
+}
+
+// Path: booking.professional_detail
+class _TranslationsBookingProfessionalDetailZh implements TranslationsBookingProfessionalDetailEn {
+	_TranslationsBookingProfessionalDetailZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get about_me => '关于我';
+	@override String get certificates => '专业证书';
+	@override String get experience_label => '经验';
+	@override String id_number({required Object number}) => 'ID 号码：${number}';
+	@override String issued_on({required Object date}) => '签发日期：${date}';
+	@override String get no_certificate => '暂无证书。';
+	@override String get no_reviews => '暂无评论。';
+	@override String get patients_label => '患者';
+	@override String get rating_label => '评分';
+	@override String get reviews => '评论';
+	@override String get schedule_button => '安排预约';
+	@override String get see_all_button => '查看全部';
+	@override late final _TranslationsBookingProfessionalDetailTitleZh title = _TranslationsBookingProfessionalDetailTitleZh._(_root);
+	@override String get working_info => '工作信息';
+}
+
+// Path: booking.professional_search
+class _TranslationsBookingProfessionalSearchZh implements TranslationsBookingProfessionalSearchEn {
+	_TranslationsBookingProfessionalSearchZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get appointment_button => '预约';
+	@override String get empty => '未找到符合您标准的专业人员。';
+	@override String filter_text({required Object count}) => '按 ${count} 个选定服务过滤';
+	@override late final _TranslationsBookingProfessionalSearchTitleZh title = _TranslationsBookingProfessionalSearchTitleZh._(_root);
+}
+
+// Path: booking.schedule
+class _TranslationsBookingScheduleZh implements TranslationsBookingScheduleEn {
+	_TranslationsBookingScheduleZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get empty_slots => '该日没有可用的时段。';
+	@override late final _TranslationsBookingScheduleMessagesZh messages = _TranslationsBookingScheduleMessagesZh._(_root);
+	@override String get select_date => '选择日期';
+	@override String get select_hour => '选择时间';
+	@override String get submit_button => '提交';
+	@override String get submitting_button => '正在提交...';
+	@override String get title => '选择时间表';
+}
+
 // Path: dashboard.services
 class _TranslationsDashboardServicesZh implements TranslationsDashboardServicesEn {
 	_TranslationsDashboardServicesZh._(this._root);
@@ -234,6 +401,41 @@ class _TranslationsGlobalDialogZh implements TranslationsGlobalDialogEn {
 	// Translations
 	@override String get coming_soon => '敬请期待';
 	@override String get feature_available_soon => '此功能即将推出！';
+}
+
+// Path: global.messages
+class _TranslationsGlobalMessagesZh implements TranslationsGlobalMessagesEn {
+	_TranslationsGlobalMessagesZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get delete_success => '删除成功';
+	@override String get updated_success => '更新成功';
+}
+
+// Path: nursing.services
+class _TranslationsNursingServicesZh implements TranslationsNursingServicesEn {
+	_TranslationsNursingServicesZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsNursingServicesPrimaryNursingZh primary_nursing = _TranslationsNursingServicesPrimaryNursingZh._(_root);
+	@override late final _TranslationsNursingServicesSpecializedNursingZh specialized_nursing = _TranslationsNursingServicesSpecializedNursingZh._(_root);
+}
+
+// Path: pharmacy.services
+class _TranslationsPharmacyServicesZh implements TranslationsPharmacyServicesEn {
+	_TranslationsPharmacyServicesZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsPharmacyServicesHealthCoachingZh health_coaching = _TranslationsPharmacyServicesHealthCoachingZh._(_root);
+	@override late final _TranslationsPharmacyServicesMedicationCounselingZh medication_counseling = _TranslationsPharmacyServicesMedicationCounselingZh._(_root);
+	@override late final _TranslationsPharmacyServicesSmokingCessationZh smoking_cessation = _TranslationsPharmacyServicesSmokingCessationZh._(_root);
+	@override late final _TranslationsPharmacyServicesTherapyReviewZh therapy_review = _TranslationsPharmacyServicesTherapyReviewZh._(_root);
 }
 
 // Path: auth.forgot_password.form
@@ -384,6 +586,160 @@ class _TranslationsAuthResetPasswordSuccessButtonZh implements TranslationsAuthR
 	@override String get login_page_link => '返回登录';
 }
 
+// Path: booking.addon.title
+class _TranslationsBookingAddonTitleZh implements TranslationsBookingAddonTitleEn {
+	_TranslationsBookingAddonTitleZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get kDefault => '附加服务';
+	@override String get nursing => '护理程序';
+	@override String get pharmacy => '药房服务';
+	@override String get radiology => '放射科服务';
+	@override String get specialized_nursing => '专业护理程序';
+}
+
+// Path: booking.issue.delete_dialog
+class _TranslationsBookingIssueDeleteDialogZh implements TranslationsBookingIssueDeleteDialogEn {
+	_TranslationsBookingIssueDeleteDialogZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get content => '您确定要删除此问题吗？';
+	@override String get title => '删除问题';
+}
+
+// Path: booking.issue.form
+class _TranslationsBookingIssueFormZh implements TranslationsBookingIssueFormEn {
+	_TranslationsBookingIssueFormZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get add_button => '添加';
+	@override String get complaint_description_hint => '请输入与您的案例相关的问题、疑虑、相关症状以及相关关键字。';
+	@override String get complaint_label => '主诉';
+	@override String get complaint_title_hint => '告诉我们要咨询的问题';
+	@override String get title_description_required => '问题标题和描述为必填项。';
+}
+
+// Path: booking.issue.messages
+class _TranslationsBookingIssueMessagesZh implements TranslationsBookingIssueMessagesEn {
+	_TranslationsBookingIssueMessagesZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get add_issue_success => '问题添加成功';
+	@override String get edit_issue_success => '问题更新成功';
+}
+
+// Path: booking.professional_detail.title
+class _TranslationsBookingProfessionalDetailTitleZh implements TranslationsBookingProfessionalDetailTitleEn {
+	_TranslationsBookingProfessionalDetailTitleZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get kDefault => '专业人员详情';
+	@override String get nurse => '护士详情';
+	@override String get pharmacist => '药剂师详情';
+	@override String get radiologist => '放射科医生详情';
+}
+
+// Path: booking.professional_search.title
+class _TranslationsBookingProfessionalSearchTitleZh implements TranslationsBookingProfessionalSearchTitleEn {
+	_TranslationsBookingProfessionalSearchTitleZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get caregiver => '搜索护理员/帮手/工人';
+	@override String get kDefault => '搜索专业人员';
+	@override String get nurse => '搜索护士';
+	@override String get pharmacist => '搜索药剂师';
+	@override String get radiologist => '搜索放射科医生';
+}
+
+// Path: booking.schedule.messages
+class _TranslationsBookingScheduleMessagesZh implements TranslationsBookingScheduleMessagesEn {
+	_TranslationsBookingScheduleMessagesZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get reschedule_failed => '重新安排失败。';
+	@override String get reschedule_success => '预约重新安排成功';
+}
+
+// Path: nursing.services.primary_nursing
+class _TranslationsNursingServicesPrimaryNursingZh implements TranslationsNursingServicesPrimaryNursingEn {
+	_TranslationsNursingServicesPrimaryNursingZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '监测并执行\n护理程序，从\n身体检查、给药、\n管饲和吸痰到\n注射和伤口护理。';
+	@override String get title => '基础护理';
+}
+
+// Path: nursing.services.specialized_nursing
+class _TranslationsNursingServicesSpecializedNursingZh implements TranslationsNursingServicesSpecializedNursingEn {
+	_TranslationsNursingServicesSpecializedNursingZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '专注于康复，并将\n复杂的护理工作交给我们经验丰富的\n护士护理专家';
+	@override String get title => '专业护理服务';
+}
+
+// Path: pharmacy.services.health_coaching
+class _TranslationsPharmacyServicesHealthCoachingZh implements TranslationsPharmacyServicesHealthCoachingEn {
+	_TranslationsPharmacyServicesHealthCoachingZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '个性化指导和支持，帮助\n个人实现健康目标，管理\n慢性病，并改善整体福祉\n，设有体重\n管理、糖尿病管理、高\n血压管理和高\n胆固醇管理的专门计划';
+	@override String get title => '健康指导';
+}
+
+// Path: pharmacy.services.medication_counseling
+class _TranslationsPharmacyServicesMedicationCounselingZh implements TranslationsPharmacyServicesMedicationCounselingEn {
+	_TranslationsPharmacyServicesMedicationCounselingZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '药物咨询和教育指导\n患者正确使用、副作用和\n处方依从性，\n提高安全性并\n改善健康结果。';
+	@override String get title => '药物咨询\n与教育';
+}
+
+// Path: pharmacy.services.smoking_cessation
+class _TranslationsPharmacyServicesSmokingCessationZh implements TranslationsPharmacyServicesSmokingCessationEn {
+	_TranslationsPharmacyServicesSmokingCessationZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '戒烟涉及通过\n咨询、药物和支持\n计划等策略戒除\n吸烟习惯，以改善健康并\n降低吸烟相关\n疾病的风险。';
+	@override String get title => '戒烟';
+}
+
+// Path: pharmacy.services.therapy_review
+class _TranslationsPharmacyServicesTherapyReviewZh implements TranslationsPharmacyServicesTherapyReviewEn {
+	_TranslationsPharmacyServicesTherapyReviewZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get description => '全面审查您的药物\n和生活方式，以优化治疗\n结果并最大程度地减少潜在的副\n作用';
+	@override String get title => '综合治疗\n审查';
+}
+
 // Path: auth.forgot_password.form.label
 class _TranslationsAuthForgotPasswordFormLabelZh implements TranslationsAuthForgotPasswordFormLabelEn {
 	_TranslationsAuthForgotPasswordFormLabelZh._(this._root);
@@ -465,6 +821,72 @@ extension on TranslationsZh {
 			'auth.user_role.pharmacist' => '药剂师',
 			'auth.user_role.physiotherapist' => '物理治疗师',
 			'auth.user_role.radiologist' => '放射科医生',
+			'booking.addon.empty' => '没有可用的附加服务。',
+			'booking.addon.estimated_budget' => '预计预算',
+			'booking.addon.title.kDefault' => '附加服务',
+			'booking.addon.title.nursing' => '护理程序',
+			'booking.addon.title.pharmacy' => '药房服务',
+			'booking.addon.title.radiology' => '放射科服务',
+			'booking.addon.title.specialized_nursing' => '专业护理程序',
+			'booking.book_appointment' => '预约',
+			'booking.health_status.empty_record' => '没有可用的医疗记录。',
+			'booking.health_status.mobility_label' => '选择您的行动状态',
+			'booking.health_status.record_hint' => '请选择记录',
+			'booking.health_status.record_label' => '选择相关的健康记录',
+			'booking.health_status.title' => '个人案例详情',
+			'booking.issue.add_issue_button' => '添加问题',
+			'booking.issue.add_issue_title' => '添加问题',
+			'booking.issue.default_page_title' => '服务案例',
+			'booking.issue.delete_dialog.content' => '您确定要删除此问题吗？',
+			'booking.issue.delete_dialog.title' => '删除问题',
+			'booking.issue.edit_issue_title' => '编辑问题',
+			'booking.issue.empty_issue' => '尚未添加任何问题。\n 请添加一个或多个问题，以便\n您可以继续下一步。',
+			'booking.issue.fill_complaint_instruction' => '请告知您的投诉详情。',
+			'booking.issue.form.add_button' => '添加',
+			'booking.issue.form.complaint_description_hint' => '请输入与您的案例相关的问题、疑虑、相关症状以及相关关键字。',
+			'booking.issue.form.complaint_label' => '主诉',
+			'booking.issue.form.complaint_title_hint' => '告诉我们要咨询的问题',
+			'booking.issue.form.title_description_required' => '问题标题和描述为必填项。',
+			'booking.issue.images' => '图片',
+			'booking.issue.messages.add_issue_success' => '问题添加成功',
+			'booking.issue.messages.edit_issue_success' => '问题更新成功',
+			'booking.issue.nurse_page_title' => '护士服务案例',
+			'booking.issue.pharmacy_page_title' => '药师服务案例',
+			'booking.issue.radiology_page_title' => '放射科医生服务案例',
+			'booking.issue.updated_on' => ({required Object date}) => '更新于：${date}',
+			'booking.professional_detail.about_me' => '关于我',
+			'booking.professional_detail.certificates' => '专业证书',
+			'booking.professional_detail.experience_label' => '经验',
+			'booking.professional_detail.id_number' => ({required Object number}) => 'ID 号码：${number}',
+			'booking.professional_detail.issued_on' => ({required Object date}) => '签发日期：${date}',
+			'booking.professional_detail.no_certificate' => '暂无证书。',
+			'booking.professional_detail.no_reviews' => '暂无评论。',
+			'booking.professional_detail.patients_label' => '患者',
+			'booking.professional_detail.rating_label' => '评分',
+			'booking.professional_detail.reviews' => '评论',
+			'booking.professional_detail.schedule_button' => '安排预约',
+			'booking.professional_detail.see_all_button' => '查看全部',
+			'booking.professional_detail.title.kDefault' => '专业人员详情',
+			'booking.professional_detail.title.nurse' => '护士详情',
+			'booking.professional_detail.title.pharmacist' => '药剂师详情',
+			'booking.professional_detail.title.radiologist' => '放射科医生详情',
+			'booking.professional_detail.working_info' => '工作信息',
+			'booking.professional_search.appointment_button' => '预约',
+			'booking.professional_search.empty' => '未找到符合您标准的专业人员。',
+			'booking.professional_search.filter_text' => ({required Object count}) => '按 ${count} 个选定服务过滤',
+			'booking.professional_search.title.caregiver' => '搜索护理员/帮手/工人',
+			'booking.professional_search.title.kDefault' => '搜索专业人员',
+			'booking.professional_search.title.nurse' => '搜索护士',
+			'booking.professional_search.title.pharmacist' => '搜索药剂师',
+			'booking.professional_search.title.radiologist' => '搜索放射科医生',
+			'booking.schedule.empty_slots' => '该日没有可用的时段。',
+			'booking.schedule.messages.reschedule_failed' => '重新安排失败。',
+			'booking.schedule.messages.reschedule_success' => '预约重新安排成功',
+			'booking.schedule.select_date' => '选择日期',
+			'booking.schedule.select_hour' => '选择时间',
+			'booking.schedule.submit_button' => '提交',
+			'booking.schedule.submitting_button' => '正在提交...',
+			'booking.schedule.title' => '选择时间表',
 			'dashboard.allied_services' => '辅助医疗',
 			'dashboard.chat_ai_placeholder' => '咨询AI医生，解答您的健康疑问',
 			'dashboard.greeting' => ({required Object displayName}) => '更长寿，更健康，${displayName}！',
@@ -480,13 +902,53 @@ extension on TranslationsZh {
 			'dashboard.services.remote_patient_monitoring' => '远程健康监测',
 			'dashboard.services.second_opinion' => '医学影像第二意见',
 			'dashboard.services.sleep_and_mental_health' => '睡眠与心理健康',
+			'global.add' => '添加',
+			'global.book_now' => '立即预订',
 			'global.cancel' => '取消',
+			'global.complete' => '完成',
+			'global.confirm' => '确认',
+			'global.delete' => '删除',
+			'global.description' => '描述',
 			'global.dialog.coming_soon' => '敬请期待',
 			'global.dialog.feature_available_soon' => '此功能即将推出！',
+			'global.edit_information' => '编辑信息',
 			'global.error' => '错误',
+			'global.error_message' => ({required Object error}) => '错误：${error}',
+			'global.messages.delete_success' => '删除成功',
+			'global.messages.updated_success' => '更新成功',
+			'global.modify' => '修改',
+			'global.next' => '下一步',
+			'global.no' => '否',
+			'global.no_data' => '暂无数据',
+			'global.none' => '无',
+			'global.not_specified' => '未指定',
 			'global.ok' => '确定',
+			'global.other' => '其他',
+			'global.ready' => '准备就绪',
+			'global.remove' => '移除',
+			'global.retry' => '重试',
+			'global.save' => '保存',
+			'global.saving' => '正在保存...',
 			'global.services' => '服务',
+			'global.status' => '状态',
 			'global.submit' => '提交',
+			'global.unknown_location' => '未知位置',
+			'global.update' => '更新',
+			'global.yes' => '是',
+			'nursing.services.primary_nursing.description' => '监测并执行\n护理程序，从\n身体检查、给药、\n管饲和吸痰到\n注射和伤口护理。',
+			'nursing.services.primary_nursing.title' => '基础护理',
+			'nursing.services.specialized_nursing.description' => '专注于康复，并将\n复杂的护理工作交给我们经验丰富的\n护士护理专家',
+			'nursing.services.specialized_nursing.title' => '专业护理服务',
+			'nursing.title' => '居家护理',
+			'pharmacy.services.health_coaching.description' => '个性化指导和支持，帮助\n个人实现健康目标，管理\n慢性病，并改善整体福祉\n，设有体重\n管理、糖尿病管理、高\n血压管理和高\n胆固醇管理的专门计划',
+			'pharmacy.services.health_coaching.title' => '健康指导',
+			'pharmacy.services.medication_counseling.description' => '药物咨询和教育指导\n患者正确使用、副作用和\n处方依从性，\n提高安全性并\n改善健康结果。',
+			'pharmacy.services.medication_counseling.title' => '药物咨询\n与教育',
+			'pharmacy.services.smoking_cessation.description' => '戒烟涉及通过\n咨询、药物和支持\n计划等策略戒除\n吸烟习惯，以改善健康并\n降低吸烟相关\n疾病的风险。',
+			'pharmacy.services.smoking_cessation.title' => '戒烟',
+			'pharmacy.services.therapy_review.description' => '全面审查您的药物\n和生活方式，以优化治疗\n结果并最大程度地减少潜在的副\n作用',
+			'pharmacy.services.therapy_review.title' => '综合治疗\n审查',
+			'pharmacy.title' => 'iRX 药师服务',
 			_ => null,
 		};
 	}

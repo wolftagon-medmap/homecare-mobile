@@ -1,0 +1,13 @@
+{
+  "services": {
+    "primary_nursing": {
+      "description": "Monitor and administer\nnursing procedures from\nbody checking, Medication,\ntube feed and suctioning to\ninjections and wound care.",
+      "title": "Primary Nursing"
+    },
+    "specialized_nursing": {
+      "description": "Focus on recovery and leave\nthe complex nursing care in\nthe hands of our experienced\nnurse Care Pros",
+      "title": "Specialized Nursing Services"
+    }
+  },
+  "title": "Home Nursing"
+}

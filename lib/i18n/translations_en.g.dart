@@ -41,8 +41,11 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final TranslationsAuthEn auth = TranslationsAuthEn._(_root);
+	late final TranslationsBookingEn booking = TranslationsBookingEn._(_root);
 	late final TranslationsDashboardEn dashboard = TranslationsDashboardEn._(_root);
 	late final TranslationsGlobalEn global = TranslationsGlobalEn._(_root);
+	late final TranslationsNursingEn nursing = TranslationsNursingEn._(_root);
+	late final TranslationsPharmacyEn pharmacy = TranslationsPharmacyEn._(_root);
 }
 
 // Path: auth
@@ -65,6 +68,25 @@ class TranslationsAuthEn {
 	late final TranslationsAuthResetPasswordEn reset_password = TranslationsAuthResetPasswordEn._(_root);
 	late final TranslationsAuthResetPasswordSuccessEn reset_password_success = TranslationsAuthResetPasswordSuccessEn._(_root);
 	late final TranslationsAuthUserRoleEn user_role = TranslationsAuthUserRoleEn._(_root);
+}
+
+// Path: booking
+class TranslationsBookingEn {
+	TranslationsBookingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsBookingAddonEn addon = TranslationsBookingAddonEn._(_root);
+
+	/// en: 'Book Appointment'
+	String get book_appointment => 'Book Appointment';
+
+	late final TranslationsBookingHealthStatusEn health_status = TranslationsBookingHealthStatusEn._(_root);
+	late final TranslationsBookingIssueEn issue = TranslationsBookingIssueEn._(_root);
+	late final TranslationsBookingProfessionalDetailEn professional_detail = TranslationsBookingProfessionalDetailEn._(_root);
+	late final TranslationsBookingProfessionalSearchEn professional_search = TranslationsBookingProfessionalSearchEn._(_root);
+	late final TranslationsBookingScheduleEn schedule = TranslationsBookingScheduleEn._(_root);
 }
 
 // Path: dashboard
@@ -95,22 +117,122 @@ class TranslationsGlobalEn {
 
 	// Translations
 
+	/// en: 'Add'
+	String get add => 'Add';
+
+	/// en: 'Book Now'
+	String get book_now => 'Book Now';
+
 	/// en: 'Cancel'
 	String get cancel => 'Cancel';
 
+	/// en: 'Complete'
+	String get complete => 'Complete';
+
+	/// en: 'Confirm'
+	String get confirm => 'Confirm';
+
+	/// en: 'Delete'
+	String get delete => 'Delete';
+
+	/// en: 'Description'
+	String get description => 'Description';
+
 	late final TranslationsGlobalDialogEn dialog = TranslationsGlobalDialogEn._(_root);
+
+	/// en: 'Edit Information'
+	String get edit_information => 'Edit Information';
 
 	/// en: 'Error'
 	String get error => 'Error';
 
+	/// en: 'Error: {error}'
+	String error_message({required Object error}) => 'Error: ${error}';
+
+	late final TranslationsGlobalMessagesEn messages = TranslationsGlobalMessagesEn._(_root);
+
+	/// en: 'Modify'
+	String get modify => 'Modify';
+
+	/// en: 'Next'
+	String get next => 'Next';
+
+	/// en: 'No'
+	String get no => 'No';
+
+	/// en: 'No data available'
+	String get no_data => 'No data available';
+
+	/// en: 'None'
+	String get none => 'None';
+
+	/// en: 'Not specified'
+	String get not_specified => 'Not specified';
+
 	/// en: 'OK'
 	String get ok => 'OK';
+
+	/// en: 'Other'
+	String get other => 'Other';
+
+	/// en: 'Ready'
+	String get ready => 'Ready';
+
+	/// en: 'Remove'
+	String get remove => 'Remove';
+
+	/// en: 'Retry'
+	String get retry => 'Retry';
+
+	/// en: 'Save'
+	String get save => 'Save';
+
+	/// en: 'Saving...'
+	String get saving => 'Saving...';
 
 	/// en: 'Services'
 	String get services => 'Services';
 
+	/// en: 'Status'
+	String get status => 'Status';
+
 	/// en: 'Submit'
 	String get submit => 'Submit';
+
+	/// en: 'Unknown Location'
+	String get unknown_location => 'Unknown Location';
+
+	/// en: 'Update'
+	String get update => 'Update';
+
+	/// en: 'Yes'
+	String get yes => 'Yes';
+}
+
+// Path: nursing
+class TranslationsNursingEn {
+	TranslationsNursingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsNursingServicesEn services = TranslationsNursingServicesEn._(_root);
+
+	/// en: 'Home Nursing'
+	String get title => 'Home Nursing';
+}
+
+// Path: pharmacy
+class TranslationsPharmacyEn {
+	TranslationsPharmacyEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsPharmacyServicesEn services = TranslationsPharmacyServicesEn._(_root);
+
+	/// en: 'iRX Pharmacist Service'
+	String get title => 'iRX Pharmacist Service';
 }
 
 // Path: auth.button
@@ -271,6 +393,194 @@ class TranslationsAuthUserRoleEn {
 	String get radiologist => 'Radiologist';
 }
 
+// Path: booking.addon
+class TranslationsBookingAddonEn {
+	TranslationsBookingAddonEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'No add-on services available.'
+	String get empty => 'No add-on services available.';
+
+	/// en: 'Estimated Budget'
+	String get estimated_budget => 'Estimated Budget';
+
+	late final TranslationsBookingAddonTitleEn title = TranslationsBookingAddonTitleEn._(_root);
+}
+
+// Path: booking.health_status
+class TranslationsBookingHealthStatusEn {
+	TranslationsBookingHealthStatusEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'No medical records available.'
+	String get empty_record => 'No medical records available.';
+
+	/// en: 'Select your mobility status'
+	String get mobility_label => 'Select your mobility status';
+
+	/// en: 'Please select a record'
+	String get record_hint => 'Please select a record';
+
+	/// en: 'Select a related health record'
+	String get record_label => 'Select a related health record';
+
+	/// en: 'Personal Case Detail'
+	String get title => 'Personal Case Detail';
+}
+
+// Path: booking.issue
+class TranslationsBookingIssueEn {
+	TranslationsBookingIssueEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Add an Issue'
+	String get add_issue_button => 'Add an Issue';
+
+	/// en: 'Add an Issue'
+	String get add_issue_title => 'Add an Issue';
+
+	/// en: 'Service Case'
+	String get default_page_title => 'Service Case';
+
+	late final TranslationsBookingIssueDeleteDialogEn delete_dialog = TranslationsBookingIssueDeleteDialogEn._(_root);
+
+	/// en: 'Edit Issue'
+	String get edit_issue_title => 'Edit Issue';
+
+	/// en: 'There are no issues added yet. Please add one or more issues so you can proceed to the next step.'
+	String get empty_issue => 'There are no issues added yet.\n Please add one or more issues so\nyou can proceed to the next step.';
+
+	/// en: 'Tell us your concerns'
+	String get fill_complaint_instruction => 'Tell us your concerns';
+
+	late final TranslationsBookingIssueFormEn form = TranslationsBookingIssueFormEn._(_root);
+
+	/// en: 'Images'
+	String get images => 'Images';
+
+	late final TranslationsBookingIssueMessagesEn messages = TranslationsBookingIssueMessagesEn._(_root);
+
+	/// en: 'Nurse Services Case'
+	String get nurse_page_title => 'Nurse Services Case';
+
+	/// en: 'Pharmacist Services Case'
+	String get pharmacy_page_title => 'Pharmacist Services Case';
+
+	/// en: 'Radiologist Services Case'
+	String get radiology_page_title => 'Radiologist Services Case';
+
+	/// en: 'Updated on: {date}'
+	String updated_on({required Object date}) => 'Updated on: ${date}';
+}
+
+// Path: booking.professional_detail
+class TranslationsBookingProfessionalDetailEn {
+	TranslationsBookingProfessionalDetailEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'About Me'
+	String get about_me => 'About Me';
+
+	/// en: 'Professional Certificate'
+	String get certificates => 'Professional Certificate';
+
+	/// en: 'Experience'
+	String get experience_label => 'Experience';
+
+	/// en: 'ID Number: {number}'
+	String id_number({required Object number}) => 'ID Number: ${number}';
+
+	/// en: 'Issued: {date}'
+	String issued_on({required Object date}) => 'Issued: ${date}';
+
+	/// en: 'No certificate available.'
+	String get no_certificate => 'No certificate available.';
+
+	/// en: 'No reviews available yet.'
+	String get no_reviews => 'No reviews available yet.';
+
+	/// en: 'Patients'
+	String get patients_label => 'Patients';
+
+	/// en: 'Rating'
+	String get rating_label => 'Rating';
+
+	/// en: 'Reviews'
+	String get reviews => 'Reviews';
+
+	/// en: 'Schedule Appointment'
+	String get schedule_button => 'Schedule Appointment';
+
+	/// en: 'See All'
+	String get see_all_button => 'See All';
+
+	late final TranslationsBookingProfessionalDetailTitleEn title = TranslationsBookingProfessionalDetailTitleEn._(_root);
+
+	/// en: 'Working Information'
+	String get working_info => 'Working Information';
+}
+
+// Path: booking.professional_search
+class TranslationsBookingProfessionalSearchEn {
+	TranslationsBookingProfessionalSearchEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Appointment'
+	String get appointment_button => 'Appointment';
+
+	/// en: 'No professionals found matching your criteria.'
+	String get empty => 'No professionals found matching your criteria.';
+
+	/// en: 'Filtering by {count} selected services'
+	String filter_text({required Object count}) => 'Filtering by ${count} selected services';
+
+	late final TranslationsBookingProfessionalSearchTitleEn title = TranslationsBookingProfessionalSearchTitleEn._(_root);
+}
+
+// Path: booking.schedule
+class TranslationsBookingScheduleEn {
+	TranslationsBookingScheduleEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'No available slots for this day.'
+	String get empty_slots => 'No available slots for this day.';
+
+	late final TranslationsBookingScheduleMessagesEn messages = TranslationsBookingScheduleMessagesEn._(_root);
+
+	/// en: 'Select Date'
+	String get select_date => 'Select Date';
+
+	/// en: 'Select Hour'
+	String get select_hour => 'Select Hour';
+
+	/// en: 'Submit'
+	String get submit_button => 'Submit';
+
+	/// en: 'Submitting...'
+	String get submitting_button => 'Submitting...';
+
+	/// en: 'Select Schedule'
+	String get title => 'Select Schedule';
+}
+
 // Path: dashboard.services
 class TranslationsDashboardServicesEn {
 	TranslationsDashboardServicesEn._(this._root);
@@ -329,6 +639,45 @@ class TranslationsGlobalDialogEn {
 
 	/// en: 'This feature will be available soon!'
 	String get feature_available_soon => 'This feature will be available soon!';
+}
+
+// Path: global.messages
+class TranslationsGlobalMessagesEn {
+	TranslationsGlobalMessagesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Deleted successfully'
+	String get delete_success => 'Deleted successfully';
+
+	/// en: 'Updated successfully'
+	String get updated_success => 'Updated successfully';
+}
+
+// Path: nursing.services
+class TranslationsNursingServicesEn {
+	TranslationsNursingServicesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsNursingServicesPrimaryNursingEn primary_nursing = TranslationsNursingServicesPrimaryNursingEn._(_root);
+	late final TranslationsNursingServicesSpecializedNursingEn specialized_nursing = TranslationsNursingServicesSpecializedNursingEn._(_root);
+}
+
+// Path: pharmacy.services
+class TranslationsPharmacyServicesEn {
+	TranslationsPharmacyServicesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsPharmacyServicesHealthCoachingEn health_coaching = TranslationsPharmacyServicesHealthCoachingEn._(_root);
+	late final TranslationsPharmacyServicesMedicationCounselingEn medication_counseling = TranslationsPharmacyServicesMedicationCounselingEn._(_root);
+	late final TranslationsPharmacyServicesSmokingCessationEn smoking_cessation = TranslationsPharmacyServicesSmokingCessationEn._(_root);
+	late final TranslationsPharmacyServicesTherapyReviewEn therapy_review = TranslationsPharmacyServicesTherapyReviewEn._(_root);
 }
 
 // Path: auth.forgot_password.form
@@ -537,6 +886,234 @@ class TranslationsAuthResetPasswordSuccessButtonEn {
 	String get login_page_link => 'Back to Login';
 }
 
+// Path: booking.addon.title
+class TranslationsBookingAddonTitleEn {
+	TranslationsBookingAddonTitleEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Add On Services'
+	String get kDefault => 'Add On Services';
+
+	/// en: 'Nursing Procedures'
+	String get nursing => 'Nursing Procedures';
+
+	/// en: 'Pharmacy Services'
+	String get pharmacy => 'Pharmacy Services';
+
+	/// en: 'Radiology Services'
+	String get radiology => 'Radiology Services';
+
+	/// en: 'Specialized Nursing Procedures'
+	String get specialized_nursing => 'Specialized Nursing Procedures';
+}
+
+// Path: booking.issue.delete_dialog
+class TranslationsBookingIssueDeleteDialogEn {
+	TranslationsBookingIssueDeleteDialogEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Are you sure you want to delete this issue?'
+	String get content => 'Are you sure you want to delete this issue?';
+
+	/// en: 'Delete Issue'
+	String get title => 'Delete Issue';
+}
+
+// Path: booking.issue.form
+class TranslationsBookingIssueFormEn {
+	TranslationsBookingIssueFormEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Add'
+	String get add_button => 'Add';
+
+	/// en: 'Please enter questions, concerns, relevant symptoms related to your case along with related keywords.'
+	String get complaint_description_hint => 'Please enter questions, concerns, relevant symptoms related to your case along with related keywords.';
+
+	/// en: 'Chief complaint'
+	String get complaint_label => 'Chief complaint';
+
+	/// en: '[main symptom] in the [specific body part]'
+	String get complaint_title_hint => '[main symptom] in the [specific body part]';
+
+	/// en: 'Issue title and description are required.'
+	String get title_description_required => 'Issue title and description are required.';
+}
+
+// Path: booking.issue.messages
+class TranslationsBookingIssueMessagesEn {
+	TranslationsBookingIssueMessagesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Issue added successfully'
+	String get add_issue_success => 'Issue added successfully';
+
+	/// en: 'Issue updated successfully'
+	String get edit_issue_success => 'Issue updated successfully';
+}
+
+// Path: booking.professional_detail.title
+class TranslationsBookingProfessionalDetailTitleEn {
+	TranslationsBookingProfessionalDetailTitleEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Professional Details'
+	String get kDefault => 'Professional Details';
+
+	/// en: 'Nurse Details'
+	String get nurse => 'Nurse Details';
+
+	/// en: 'Pharmacist Details'
+	String get pharmacist => 'Pharmacist Details';
+
+	/// en: 'Radiologist Details'
+	String get radiologist => 'Radiologist Details';
+}
+
+// Path: booking.professional_search.title
+class TranslationsBookingProfessionalSearchTitleEn {
+	TranslationsBookingProfessionalSearchTitleEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Search Caregiver/Helper/Worker'
+	String get caregiver => 'Search Caregiver/Helper/Worker';
+
+	/// en: 'Search Professional'
+	String get kDefault => 'Search Professional';
+
+	/// en: 'Search Nurse'
+	String get nurse => 'Search Nurse';
+
+	/// en: 'Search Pharmacist'
+	String get pharmacist => 'Search Pharmacist';
+
+	/// en: 'Search Radiologist'
+	String get radiologist => 'Search Radiologist';
+}
+
+// Path: booking.schedule.messages
+class TranslationsBookingScheduleMessagesEn {
+	TranslationsBookingScheduleMessagesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Rescheduling failed.'
+	String get reschedule_failed => 'Rescheduling failed.';
+
+	/// en: 'Appointment rescheduled successfully'
+	String get reschedule_success => 'Appointment rescheduled successfully';
+}
+
+// Path: nursing.services.primary_nursing
+class TranslationsNursingServicesPrimaryNursingEn {
+	TranslationsNursingServicesPrimaryNursingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Monitor and administer nursing procedures from body checking, Medication, tube feed and suctioning to injections and wound care.'
+	String get description => 'Monitor and administer\nnursing procedures from\nbody checking, Medication,\ntube feed and suctioning to\ninjections and wound care.';
+
+	/// en: 'Primary Nursing'
+	String get title => 'Primary Nursing';
+}
+
+// Path: nursing.services.specialized_nursing
+class TranslationsNursingServicesSpecializedNursingEn {
+	TranslationsNursingServicesSpecializedNursingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros'
+	String get description => 'Focus on recovery and leave\nthe complex nursing care in\nthe hands of our experienced\nnurse Care Pros';
+
+	/// en: 'Specialized Nursing Services'
+	String get title => 'Specialized Nursing Services';
+}
+
+// Path: pharmacy.services.health_coaching
+class TranslationsPharmacyServicesHealthCoachingEn {
+	TranslationsPharmacyServicesHealthCoachingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well- being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management'
+	String get description => 'Personalized guidance and support to help\nindividuals achieve their health goals, manage\nchronic conditions, and improve overall well-\nbeing, with specialized programs for weight\nmanagement, diabetes management, high\nblood pressure management, and high\ncholesterol management';
+
+	/// en: 'Health Coaching'
+	String get title => 'Health Coaching';
+}
+
+// Path: pharmacy.services.medication_counseling
+class TranslationsPharmacyServicesMedicationCounselingEn {
+	TranslationsPharmacyServicesMedicationCounselingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Medication counseling and education guide patients on proper use, side effects, and adherence to prescriptions, enhancing safety and improving health outcomes.'
+	String get description => 'Medication counseling and education guide\npatients on proper use, side effects, and\nadherence to prescriptions,\nenhancing safety and\nimproving health outcomes.';
+
+	/// en: 'Medication Counseling and Education'
+	String get title => 'Medication Counseling\nand Education';
+}
+
+// Path: pharmacy.services.smoking_cessation
+class TranslationsPharmacyServicesSmokingCessationEn {
+	TranslationsPharmacyServicesSmokingCessationEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.'
+	String get description => 'Smoking cessation involves quitting\nsmoking through strategies like\ncounseling, medications, and support\nprograms to improve health and\nreduce the risk of smoking-related\ndiseases.';
+
+	/// en: 'Smoking Cessation'
+	String get title => 'Smoking Cessation';
+}
+
+// Path: pharmacy.services.therapy_review
+class TranslationsPharmacyServicesTherapyReviewEn {
+	TranslationsPharmacyServicesTherapyReviewEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects'
+	String get description => 'Comprehensive review of your medication\nand lifestyle to optimize treatment\noutcomes and minimize potential side\neffects';
+
+	/// en: 'Comprehensive Therapy Review'
+	String get title => 'Comprehensive Therapy\nReview';
+}
+
 // Path: auth.forgot_password.form.label
 class TranslationsAuthForgotPasswordFormLabelEn {
 	TranslationsAuthForgotPasswordFormLabelEn._(this._root);
@@ -622,6 +1199,72 @@ extension on Translations {
 			'auth.user_role.pharmacist' => 'Pharmacist',
 			'auth.user_role.physiotherapist' => 'Physiotherapist',
 			'auth.user_role.radiologist' => 'Radiologist',
+			'booking.addon.empty' => 'No add-on services available.',
+			'booking.addon.estimated_budget' => 'Estimated Budget',
+			'booking.addon.title.kDefault' => 'Add On Services',
+			'booking.addon.title.nursing' => 'Nursing Procedures',
+			'booking.addon.title.pharmacy' => 'Pharmacy Services',
+			'booking.addon.title.radiology' => 'Radiology Services',
+			'booking.addon.title.specialized_nursing' => 'Specialized Nursing Procedures',
+			'booking.book_appointment' => 'Book Appointment',
+			'booking.health_status.empty_record' => 'No medical records available.',
+			'booking.health_status.mobility_label' => 'Select your mobility status',
+			'booking.health_status.record_hint' => 'Please select a record',
+			'booking.health_status.record_label' => 'Select a related health record',
+			'booking.health_status.title' => 'Personal Case Detail',
+			'booking.issue.add_issue_button' => 'Add an Issue',
+			'booking.issue.add_issue_title' => 'Add an Issue',
+			'booking.issue.default_page_title' => 'Service Case',
+			'booking.issue.delete_dialog.content' => 'Are you sure you want to delete this issue?',
+			'booking.issue.delete_dialog.title' => 'Delete Issue',
+			'booking.issue.edit_issue_title' => 'Edit Issue',
+			'booking.issue.empty_issue' => 'There are no issues added yet.\n Please add one or more issues so\nyou can proceed to the next step.',
+			'booking.issue.fill_complaint_instruction' => 'Tell us your concerns',
+			'booking.issue.form.add_button' => 'Add',
+			'booking.issue.form.complaint_description_hint' => 'Please enter questions, concerns, relevant symptoms related to your case along with related keywords.',
+			'booking.issue.form.complaint_label' => 'Chief complaint',
+			'booking.issue.form.complaint_title_hint' => '[main symptom] in the [specific body part]',
+			'booking.issue.form.title_description_required' => 'Issue title and description are required.',
+			'booking.issue.images' => 'Images',
+			'booking.issue.messages.add_issue_success' => 'Issue added successfully',
+			'booking.issue.messages.edit_issue_success' => 'Issue updated successfully',
+			'booking.issue.nurse_page_title' => 'Nurse Services Case',
+			'booking.issue.pharmacy_page_title' => 'Pharmacist Services Case',
+			'booking.issue.radiology_page_title' => 'Radiologist Services Case',
+			'booking.issue.updated_on' => ({required Object date}) => 'Updated on: ${date}',
+			'booking.professional_detail.about_me' => 'About Me',
+			'booking.professional_detail.certificates' => 'Professional Certificate',
+			'booking.professional_detail.experience_label' => 'Experience',
+			'booking.professional_detail.id_number' => ({required Object number}) => 'ID Number: ${number}',
+			'booking.professional_detail.issued_on' => ({required Object date}) => 'Issued: ${date}',
+			'booking.professional_detail.no_certificate' => 'No certificate available.',
+			'booking.professional_detail.no_reviews' => 'No reviews available yet.',
+			'booking.professional_detail.patients_label' => 'Patients',
+			'booking.professional_detail.rating_label' => 'Rating',
+			'booking.professional_detail.reviews' => 'Reviews',
+			'booking.professional_detail.schedule_button' => 'Schedule Appointment',
+			'booking.professional_detail.see_all_button' => 'See All',
+			'booking.professional_detail.title.kDefault' => 'Professional Details',
+			'booking.professional_detail.title.nurse' => 'Nurse Details',
+			'booking.professional_detail.title.pharmacist' => 'Pharmacist Details',
+			'booking.professional_detail.title.radiologist' => 'Radiologist Details',
+			'booking.professional_detail.working_info' => 'Working Information',
+			'booking.professional_search.appointment_button' => 'Appointment',
+			'booking.professional_search.empty' => 'No professionals found matching your criteria.',
+			'booking.professional_search.filter_text' => ({required Object count}) => 'Filtering by ${count} selected services',
+			'booking.professional_search.title.caregiver' => 'Search Caregiver/Helper/Worker',
+			'booking.professional_search.title.kDefault' => 'Search Professional',
+			'booking.professional_search.title.nurse' => 'Search Nurse',
+			'booking.professional_search.title.pharmacist' => 'Search Pharmacist',
+			'booking.professional_search.title.radiologist' => 'Search Radiologist',
+			'booking.schedule.empty_slots' => 'No available slots for this day.',
+			'booking.schedule.messages.reschedule_failed' => 'Rescheduling failed.',
+			'booking.schedule.messages.reschedule_success' => 'Appointment rescheduled successfully',
+			'booking.schedule.select_date' => 'Select Date',
+			'booking.schedule.select_hour' => 'Select Hour',
+			'booking.schedule.submit_button' => 'Submit',
+			'booking.schedule.submitting_button' => 'Submitting...',
+			'booking.schedule.title' => 'Select Schedule',
 			'dashboard.allied_services' => 'Allied Health',
 			'dashboard.chat_ai_placeholder' => 'Chat With AI doctor for all your health questions',
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
@@ -637,13 +1280,53 @@ extension on Translations {
 			'dashboard.services.remote_patient_monitoring' => 'Remote Patient Monitoring',
 			'dashboard.services.second_opinion' => '2nd Opinion for Medical Image',
 			'dashboard.services.sleep_and_mental_health' => 'Sleep & Mental Health',
+			'global.add' => 'Add',
+			'global.book_now' => 'Book Now',
 			'global.cancel' => 'Cancel',
+			'global.complete' => 'Complete',
+			'global.confirm' => 'Confirm',
+			'global.delete' => 'Delete',
+			'global.description' => 'Description',
 			'global.dialog.coming_soon' => 'Coming Soon',
 			'global.dialog.feature_available_soon' => 'This feature will be available soon!',
+			'global.edit_information' => 'Edit Information',
 			'global.error' => 'Error',
+			'global.error_message' => ({required Object error}) => 'Error: ${error}',
+			'global.messages.delete_success' => 'Deleted successfully',
+			'global.messages.updated_success' => 'Updated successfully',
+			'global.modify' => 'Modify',
+			'global.next' => 'Next',
+			'global.no' => 'No',
+			'global.no_data' => 'No data available',
+			'global.none' => 'None',
+			'global.not_specified' => 'Not specified',
 			'global.ok' => 'OK',
+			'global.other' => 'Other',
+			'global.ready' => 'Ready',
+			'global.remove' => 'Remove',
+			'global.retry' => 'Retry',
+			'global.save' => 'Save',
+			'global.saving' => 'Saving...',
 			'global.services' => 'Services',
+			'global.status' => 'Status',
 			'global.submit' => 'Submit',
+			'global.unknown_location' => 'Unknown Location',
+			'global.update' => 'Update',
+			'global.yes' => 'Yes',
+			'nursing.services.primary_nursing.description' => 'Monitor and administer\nnursing procedures from\nbody checking, Medication,\ntube feed and suctioning to\ninjections and wound care.',
+			'nursing.services.primary_nursing.title' => 'Primary Nursing',
+			'nursing.services.specialized_nursing.description' => 'Focus on recovery and leave\nthe complex nursing care in\nthe hands of our experienced\nnurse Care Pros',
+			'nursing.services.specialized_nursing.title' => 'Specialized Nursing Services',
+			'nursing.title' => 'Home Nursing',
+			'pharmacy.services.health_coaching.description' => 'Personalized guidance and support to help\nindividuals achieve their health goals, manage\nchronic conditions, and improve overall well-\nbeing, with specialized programs for weight\nmanagement, diabetes management, high\nblood pressure management, and high\ncholesterol management',
+			'pharmacy.services.health_coaching.title' => 'Health Coaching',
+			'pharmacy.services.medication_counseling.description' => 'Medication counseling and education guide\npatients on proper use, side effects, and\nadherence to prescriptions,\nenhancing safety and\nimproving health outcomes.',
+			'pharmacy.services.medication_counseling.title' => 'Medication Counseling\nand Education',
+			'pharmacy.services.smoking_cessation.description' => 'Smoking cessation involves quitting\nsmoking through strategies like\ncounseling, medications, and support\nprograms to improve health and\nreduce the risk of smoking-related\ndiseases.',
+			'pharmacy.services.smoking_cessation.title' => 'Smoking Cessation',
+			'pharmacy.services.therapy_review.description' => 'Comprehensive review of your medication\nand lifestyle to optimize treatment\noutcomes and minimize potential side\neffects',
+			'pharmacy.services.therapy_review.title' => 'Comprehensive Therapy\nReview',
+			'pharmacy.title' => 'iRX Pharmacist Service',
 			_ => null,
 		};
 	}
