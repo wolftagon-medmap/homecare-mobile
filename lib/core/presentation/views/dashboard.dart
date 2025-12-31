@@ -424,34 +424,34 @@ class _DashboardState extends State<Dashboard> {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: AlliedHealthMenuItem(
-                            imagePath: 'assets/icons/ilu_health.png',
-                            label: context
-                                .t.dashboard.services.health_risk_assessment,
-                            onTap: showComingSoonDialog,
-                          ),
-                        ),
-                        Expanded(
-                          child: AlliedHealthMenuItem(
-                            imagePath: 'assets/icons/ilu_dietitian.webp',
-                            label: context.t.dashboard.services.dietitian,
-                            onTap: showComingSoonDialog,
-                          ),
-                        ),
-                        Expanded(
-                          child: AlliedHealthMenuItem(
-                            imagePath: 'assets/icons/ilu_sleep.png',
-                            label: context
-                                .t.dashboard.services.sleep_and_mental_health,
-                            onTap: showComingSoonDialog,
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Expanded(
+                    //       child: AlliedHealthMenuItem(
+                    //         imagePath: 'assets/icons/ilu_health.png',
+                    //         label: context
+                    //             .t.dashboard.services.health_risk_assessment,
+                    //         onTap: showComingSoonDialog,
+                    //       ),
+                    //     ),
+                    //     Expanded(
+                    //       child: AlliedHealthMenuItem(
+                    //         imagePath: 'assets/icons/ilu_dietitian.webp',
+                    //         label: context.t.dashboard.services.dietitian,
+                    //         onTap: showComingSoonDialog,
+                    //       ),
+                    //     ),
+                    //     Expanded(
+                    //       child: AlliedHealthMenuItem(
+                    //         imagePath: 'assets/icons/ilu_sleep.png',
+                    //         label: context
+                    //             .t.dashboard.services.sleep_and_mental_health,
+                    //         onTap: showComingSoonDialog,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),
