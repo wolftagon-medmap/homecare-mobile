@@ -681,8 +681,8 @@ class _TranslationsNursingServicesPrimaryNursingId implements TranslationsNursin
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Memantau dan memberikan\nprosedur keperawatan mulai dari\npemeriksaan tubuh, pengobatan,\nselang makan dan penyedotan hingga\nsuntikan dan perawatan luka.';
-	@override String get title => 'Perawatan Primer';
+	@override String get description => 'Memantau dan melakukan prosedur keperawatan mulai dari pemeriksaan fisik, pemberian obat, tube feed (selang makan), dan suction (penyedotan lendir), hingga suntikan dan perawatan luka.';
+	@override String get title => 'Layanan Keperawatan Primer';
 }
 
 // Path: nursing.services.specialized_nursing
@@ -692,7 +692,7 @@ class _TranslationsNursingServicesSpecializedNursingId implements TranslationsNu
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Fokus pada pemulihan dan serahkan perawatan keperawatan yang kompleks di tangan perawat profesional kami yang berpengalaman';
+	@override String get description => 'Fokus pada pemulihan Anda, dan percayakan perawatan medis yang kompleks kepada perawat profesional kami yang berpengalaman.';
 	@override String get title => 'Layanan Keperawatan Khusus';
 }
 
@@ -703,7 +703,7 @@ class _TranslationsPharmacyServicesHealthCoachingId implements TranslationsPharm
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Panduan dan dukungan yang dipersonalisasi untuk membantu\nindividu mencapai tujuan kesehatan mereka, mengelola\nkondisi kronis, dan meningkatkan kesejahteraan secara keseluruhan\n, dengan program khusus untuk manajemen\nberat badan, manajemen diabetes, manajemen\ntekanan darah tinggi, dan manajemen\nkolesterol tinggi';
+	@override String get description => 'Panduan dan dukungan yang dipersonalisasi untuk membantu individu mencapai target kesehatan, mengelola kondisi kronis, dan meningkatkan kesejahteraan secara keseluruhan, dengan program khusus untuk manajemen berat badan, diabetes, tekanan darah tinggi, serta kolesterol tinggi.';
 	@override String get title => 'Pelatihan Kesehatan';
 }
 
@@ -714,7 +714,7 @@ class _TranslationsPharmacyServicesMedicationCounselingId implements Translation
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Konseling dan edukasi obat memandu\npasien tentang penggunaan yang tepat, efek samping, dan\nkepatuhan terhadap resep,\nmeningkatkan keamanan dan\nmeningkatkan hasil kesehatan.';
+	@override String get description => 'Konseling dan edukasi obat memandu pasien tentang penggunaan yang benar, efek samping, dan kepatuhan terhadap resep, guna meningkatkan keamanan dan hasil kesehatan.';
 	@override String get title => 'Konseling dan Edukasi\nObat';
 }
 
@@ -725,7 +725,7 @@ class _TranslationsPharmacyServicesSmokingCessationId implements TranslationsPha
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Berhenti merokok melibatkan menghentikan\nkebiasaan merokok melalui strategi seperti\nkonseling, obat-obatan, dan program\ndukungan untuk meningkatkan kesehatan dan\nmengurangi risiko penyakit terkait\nmerokok.';
+	@override String get description => 'Program berhenti merokok melibatkan penghentian kebiasaan merokok melalui strategi seperti konseling, pengobatan, dan program dukungan untuk meningkatkan kesehatan serta mengurangi risiko penyakit terkait rokok.';
 	@override String get title => 'Berhenti Merokok';
 }
 
@@ -736,8 +736,8 @@ class _TranslationsPharmacyServicesTherapyReviewId implements TranslationsPharma
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Tinjauan komprehensif terhadap obat\ndan gaya hidup Anda untuk mengoptimalkan hasil\npengobatan dan meminimalkan potensi efek\nsamping';
-	@override String get title => 'Tinjauan Terapi\nKomprehensif';
+	@override String get description => 'Tinjauan komprehensif terhadap obat-obatan dan gaya hidup Anda untuk mengoptimalkan hasil perawatan serta meminimalkan potensi efek samping.';
+	@override String get title => 'Evaluasi Terapi Menyeluruh';
 }
 
 // Path: auth.forgot_password.form.label
@@ -935,19 +935,19 @@ extension on TranslationsId {
 			'global.unknown_location' => 'Lokasi Tidak Diketahui',
 			'global.update' => 'Perbarui',
 			'global.yes' => 'Ya',
-			'nursing.services.primary_nursing.description' => 'Memantau dan memberikan\nprosedur keperawatan mulai dari\npemeriksaan tubuh, pengobatan,\nselang makan dan penyedotan hingga\nsuntikan dan perawatan luka.',
-			'nursing.services.primary_nursing.title' => 'Perawatan Primer',
-			'nursing.services.specialized_nursing.description' => 'Fokus pada pemulihan dan serahkan perawatan keperawatan yang kompleks di tangan perawat profesional kami yang berpengalaman',
+			'nursing.services.primary_nursing.description' => 'Memantau dan melakukan prosedur keperawatan mulai dari pemeriksaan fisik, pemberian obat, tube feed (selang makan), dan suction (penyedotan lendir), hingga suntikan dan perawatan luka.',
+			'nursing.services.primary_nursing.title' => 'Layanan Keperawatan Primer',
+			'nursing.services.specialized_nursing.description' => 'Fokus pada pemulihan Anda, dan percayakan perawatan medis yang kompleks kepada perawat profesional kami yang berpengalaman.',
 			'nursing.services.specialized_nursing.title' => 'Layanan Keperawatan Khusus',
 			'nursing.title' => 'Layanan Keperawatan di Rumah',
-			'pharmacy.services.health_coaching.description' => 'Panduan dan dukungan yang dipersonalisasi untuk membantu\nindividu mencapai tujuan kesehatan mereka, mengelola\nkondisi kronis, dan meningkatkan kesejahteraan secara keseluruhan\n, dengan program khusus untuk manajemen\nberat badan, manajemen diabetes, manajemen\ntekanan darah tinggi, dan manajemen\nkolesterol tinggi',
+			'pharmacy.services.health_coaching.description' => 'Panduan dan dukungan yang dipersonalisasi untuk membantu individu mencapai target kesehatan, mengelola kondisi kronis, dan meningkatkan kesejahteraan secara keseluruhan, dengan program khusus untuk manajemen berat badan, diabetes, tekanan darah tinggi, serta kolesterol tinggi.',
 			'pharmacy.services.health_coaching.title' => 'Pelatihan Kesehatan',
-			'pharmacy.services.medication_counseling.description' => 'Konseling dan edukasi obat memandu\npasien tentang penggunaan yang tepat, efek samping, dan\nkepatuhan terhadap resep,\nmeningkatkan keamanan dan\nmeningkatkan hasil kesehatan.',
+			'pharmacy.services.medication_counseling.description' => 'Konseling dan edukasi obat memandu pasien tentang penggunaan yang benar, efek samping, dan kepatuhan terhadap resep, guna meningkatkan keamanan dan hasil kesehatan.',
 			'pharmacy.services.medication_counseling.title' => 'Konseling dan Edukasi\nObat',
-			'pharmacy.services.smoking_cessation.description' => 'Berhenti merokok melibatkan menghentikan\nkebiasaan merokok melalui strategi seperti\nkonseling, obat-obatan, dan program\ndukungan untuk meningkatkan kesehatan dan\nmengurangi risiko penyakit terkait\nmerokok.',
+			'pharmacy.services.smoking_cessation.description' => 'Program berhenti merokok melibatkan penghentian kebiasaan merokok melalui strategi seperti konseling, pengobatan, dan program dukungan untuk meningkatkan kesehatan serta mengurangi risiko penyakit terkait rokok.',
 			'pharmacy.services.smoking_cessation.title' => 'Berhenti Merokok',
-			'pharmacy.services.therapy_review.description' => 'Tinjauan komprehensif terhadap obat\ndan gaya hidup Anda untuk mengoptimalkan hasil\npengobatan dan meminimalkan potensi efek\nsamping',
-			'pharmacy.services.therapy_review.title' => 'Tinjauan Terapi\nKomprehensif',
+			'pharmacy.services.therapy_review.description' => 'Tinjauan komprehensif terhadap obat-obatan dan gaya hidup Anda untuk mengoptimalkan hasil perawatan serta meminimalkan potensi efek samping.',
+			'pharmacy.services.therapy_review.title' => 'Evaluasi Terapi Menyeluruh',
 			'pharmacy.title' => 'Layanan Apoteker iRX',
 			_ => null,
 		};

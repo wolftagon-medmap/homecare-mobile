@@ -1,12 +1,12 @@
 {
   "services": {
     "primary_nursing": {
-      "description": "监测并执行\n护理程序，从\n身体检查、给药、\n管饲和吸痰到\n注射和伤口护理。",
+      "description": "监测并执行从身体检查、给药、管饲和吸痰到注射及伤口护理的各项护理程序。",
       "title": "基础护理"
     },
     "specialized_nursing": {
-      "description": "专注于康复，并将\n复杂的护理工作交给我们经验丰富的\n护士护理专家",
-      "title": "专业护理服务"
+      "description": "您只需专注于康复，将复杂的护理工作交给经验丰富的专业护理人员 。",
+      "title": "专科护理服务"
     }
   },
   "title": "居家护理"

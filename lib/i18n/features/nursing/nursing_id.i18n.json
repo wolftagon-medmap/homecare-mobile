@@ -1,11 +1,11 @@
 {
   "services": {
     "primary_nursing": {
-      "description": "Memantau dan memberikan\nprosedur keperawatan mulai dari\npemeriksaan tubuh, pengobatan,\nselang makan dan penyedotan hingga\nsuntikan dan perawatan luka.",
-      "title": "Perawatan Primer"
+      "description": "Memantau dan melakukan prosedur keperawatan mulai dari pemeriksaan fisik, pemberian obat, tube feed (selang makan), dan suction (penyedotan lendir), hingga suntikan dan perawatan luka.",
+      "title": "Layanan Keperawatan Primer"
     },
     "specialized_nursing": {
-      "description": "Fokus pada pemulihan dan serahkan perawatan keperawatan yang kompleks di tangan perawat profesional kami yang berpengalaman",
+      "description": "Fokus pada pemulihan Anda, dan percayakan perawatan medis yang kompleks kepada perawat profesional kami yang berpengalaman.",
       "title": "Layanan Keperawatan Khusus"
     }
   },

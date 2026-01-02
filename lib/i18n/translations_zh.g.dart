@@ -681,7 +681,7 @@ class _TranslationsNursingServicesPrimaryNursingZh implements TranslationsNursin
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => '监测并执行\n护理程序，从\n身体检查、给药、\n管饲和吸痰到\n注射和伤口护理。';
+	@override String get description => '监测并执行从身体检查、给药、管饲和吸痰到注射及伤口护理的各项护理程序。';
 	@override String get title => '基础护理';
 }
 
@@ -692,8 +692,8 @@ class _TranslationsNursingServicesSpecializedNursingZh implements TranslationsNu
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => '专注于康复，并将\n复杂的护理工作交给我们经验丰富的\n护士护理专家';
-	@override String get title => '专业护理服务';
+	@override String get description => '您只需专注于康复，将复杂的护理工作交给经验丰富的专业护理人员 。';
+	@override String get title => '专科护理服务';
 }
 
 // Path: pharmacy.services.health_coaching
@@ -703,7 +703,7 @@ class _TranslationsPharmacyServicesHealthCoachingZh implements TranslationsPharm
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => '个性化指导和支持，帮助\n个人实现健康目标，管理\n慢性病，并改善整体福祉\n，设有体重\n管理、糖尿病管理、高\n血压管理和高\n胆固醇管理的专门计划';
+	@override String get description => '提供个性化的指导与支持，助力实现健康目标、管理慢性疾病并提升整体健康水平。我们设有针对体重管理、糖尿病管理、高血压管理及高胆固醇管理的专项计划。';
 	@override String get title => '健康指导';
 }
 
@@ -714,7 +714,7 @@ class _TranslationsPharmacyServicesMedicationCounselingZh implements Translation
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => '药物咨询和教育指导\n患者正确使用、副作用和\n处方依从性，\n提高安全性并\n改善健康结果。';
+	@override String get description => '药物咨询与教育旨在指导患者正确使用药物、了解副作用并提高用药依从性，从而增强用药安全性并改善健康成效。';
 	@override String get title => '药物咨询\n与教育';
 }
 
@@ -725,7 +725,7 @@ class _TranslationsPharmacyServicesSmokingCessationZh implements TranslationsPha
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => '戒烟涉及通过\n咨询、药物和支持\n计划等策略戒除\n吸烟习惯，以改善健康并\n降低吸烟相关\n疾病的风险。';
+	@override String get description => '戒烟是指通过咨询、药物治疗和支持计划等策略停止吸烟，以改善健康状况并降低患吸烟相关疾病的风险。';
 	@override String get title => '戒烟';
 }
 
@@ -736,8 +736,8 @@ class _TranslationsPharmacyServicesTherapyReviewZh implements TranslationsPharma
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => '全面审查您的药物\n和生活方式，以优化治疗\n结果并最大程度地减少潜在的副\n作用';
-	@override String get title => '综合治疗\n审查';
+	@override String get description => '全面审查您的药物使用及生活方式，旨在优化治疗效果并最大限度地减少潜在的副作用。';
+	@override String get title => '综合治疗审查';
 }
 
 // Path: auth.forgot_password.form.label
@@ -935,19 +935,19 @@ extension on TranslationsZh {
 			'global.unknown_location' => '未知位置',
 			'global.update' => '更新',
 			'global.yes' => '是',
-			'nursing.services.primary_nursing.description' => '监测并执行\n护理程序，从\n身体检查、给药、\n管饲和吸痰到\n注射和伤口护理。',
+			'nursing.services.primary_nursing.description' => '监测并执行从身体检查、给药、管饲和吸痰到注射及伤口护理的各项护理程序。',
 			'nursing.services.primary_nursing.title' => '基础护理',
-			'nursing.services.specialized_nursing.description' => '专注于康复，并将\n复杂的护理工作交给我们经验丰富的\n护士护理专家',
-			'nursing.services.specialized_nursing.title' => '专业护理服务',
+			'nursing.services.specialized_nursing.description' => '您只需专注于康复，将复杂的护理工作交给经验丰富的专业护理人员 。',
+			'nursing.services.specialized_nursing.title' => '专科护理服务',
 			'nursing.title' => '居家护理',
-			'pharmacy.services.health_coaching.description' => '个性化指导和支持，帮助\n个人实现健康目标，管理\n慢性病，并改善整体福祉\n，设有体重\n管理、糖尿病管理、高\n血压管理和高\n胆固醇管理的专门计划',
+			'pharmacy.services.health_coaching.description' => '提供个性化的指导与支持，助力实现健康目标、管理慢性疾病并提升整体健康水平。我们设有针对体重管理、糖尿病管理、高血压管理及高胆固醇管理的专项计划。',
 			'pharmacy.services.health_coaching.title' => '健康指导',
-			'pharmacy.services.medication_counseling.description' => '药物咨询和教育指导\n患者正确使用、副作用和\n处方依从性，\n提高安全性并\n改善健康结果。',
+			'pharmacy.services.medication_counseling.description' => '药物咨询与教育旨在指导患者正确使用药物、了解副作用并提高用药依从性，从而增强用药安全性并改善健康成效。',
 			'pharmacy.services.medication_counseling.title' => '药物咨询\n与教育',
-			'pharmacy.services.smoking_cessation.description' => '戒烟涉及通过\n咨询、药物和支持\n计划等策略戒除\n吸烟习惯，以改善健康并\n降低吸烟相关\n疾病的风险。',
+			'pharmacy.services.smoking_cessation.description' => '戒烟是指通过咨询、药物治疗和支持计划等策略停止吸烟，以改善健康状况并降低患吸烟相关疾病的风险。',
 			'pharmacy.services.smoking_cessation.title' => '戒烟',
-			'pharmacy.services.therapy_review.description' => '全面审查您的药物\n和生活方式，以优化治疗\n结果并最大程度地减少潜在的副\n作用',
-			'pharmacy.services.therapy_review.title' => '综合治疗\n审查',
+			'pharmacy.services.therapy_review.description' => '全面审查您的药物使用及生活方式，旨在优化治疗效果并最大限度地减少潜在的副作用。',
+			'pharmacy.services.therapy_review.title' => '综合治疗审查',
 			'pharmacy.title' => 'iRX 药师服务',
 			_ => null,
 		};

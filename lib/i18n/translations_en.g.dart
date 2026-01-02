@@ -1032,8 +1032,8 @@ class TranslationsNursingServicesPrimaryNursingEn {
 
 	// Translations
 
-	/// en: 'Monitor and administer nursing procedures from body checking, Medication, tube feed and suctioning to injections and wound care.'
-	String get description => 'Monitor and administer\nnursing procedures from\nbody checking, Medication,\ntube feed and suctioning to\ninjections and wound care.';
+	/// en: 'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.'
+	String get description => 'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.';
 
 	/// en: 'Primary Nursing'
 	String get title => 'Primary Nursing';
@@ -1048,7 +1048,7 @@ class TranslationsNursingServicesSpecializedNursingEn {
 	// Translations
 
 	/// en: 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros'
-	String get description => 'Focus on recovery and leave\nthe complex nursing care in\nthe hands of our experienced\nnurse Care Pros';
+	String get description => 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros';
 
 	/// en: 'Specialized Nursing Services'
 	String get title => 'Specialized Nursing Services';
@@ -1062,8 +1062,8 @@ class TranslationsPharmacyServicesHealthCoachingEn {
 
 	// Translations
 
-	/// en: 'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well- being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management'
-	String get description => 'Personalized guidance and support to help\nindividuals achieve their health goals, manage\nchronic conditions, and improve overall well-\nbeing, with specialized programs for weight\nmanagement, diabetes management, high\nblood pressure management, and high\ncholesterol management';
+	/// en: 'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well-being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management.'
+	String get description => 'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well-being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management.';
 
 	/// en: 'Health Coaching'
 	String get title => 'Health Coaching';
@@ -1078,7 +1078,7 @@ class TranslationsPharmacyServicesMedicationCounselingEn {
 	// Translations
 
 	/// en: 'Medication counseling and education guide patients on proper use, side effects, and adherence to prescriptions, enhancing safety and improving health outcomes.'
-	String get description => 'Medication counseling and education guide\npatients on proper use, side effects, and\nadherence to prescriptions,\nenhancing safety and\nimproving health outcomes.';
+	String get description => 'Medication counseling and education guide patients on proper use, side effects, and adherence to prescriptions, enhancing safety and improving health outcomes.';
 
 	/// en: 'Medication Counseling and Education'
 	String get title => 'Medication Counseling\nand Education';
@@ -1093,7 +1093,7 @@ class TranslationsPharmacyServicesSmokingCessationEn {
 	// Translations
 
 	/// en: 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.'
-	String get description => 'Smoking cessation involves quitting\nsmoking through strategies like\ncounseling, medications, and support\nprograms to improve health and\nreduce the risk of smoking-related\ndiseases.';
+	String get description => 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.';
 
 	/// en: 'Smoking Cessation'
 	String get title => 'Smoking Cessation';
@@ -1107,11 +1107,11 @@ class TranslationsPharmacyServicesTherapyReviewEn {
 
 	// Translations
 
-	/// en: 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects'
-	String get description => 'Comprehensive review of your medication\nand lifestyle to optimize treatment\noutcomes and minimize potential side\neffects';
+	/// en: 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.'
+	String get description => 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.';
 
 	/// en: 'Comprehensive Therapy Review'
-	String get title => 'Comprehensive Therapy\nReview';
+	String get title => 'Comprehensive Therapy Review';
 }
 
 // Path: auth.forgot_password.form.label
@@ -1313,19 +1313,19 @@ extension on Translations {
 			'global.unknown_location' => 'Unknown Location',
 			'global.update' => 'Update',
 			'global.yes' => 'Yes',
-			'nursing.services.primary_nursing.description' => 'Monitor and administer\nnursing procedures from\nbody checking, Medication,\ntube feed and suctioning to\ninjections and wound care.',
+			'nursing.services.primary_nursing.description' => 'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.',
 			'nursing.services.primary_nursing.title' => 'Primary Nursing',
-			'nursing.services.specialized_nursing.description' => 'Focus on recovery and leave\nthe complex nursing care in\nthe hands of our experienced\nnurse Care Pros',
+			'nursing.services.specialized_nursing.description' => 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros',
 			'nursing.services.specialized_nursing.title' => 'Specialized Nursing Services',
 			'nursing.title' => 'Home Nursing',
-			'pharmacy.services.health_coaching.description' => 'Personalized guidance and support to help\nindividuals achieve their health goals, manage\nchronic conditions, and improve overall well-\nbeing, with specialized programs for weight\nmanagement, diabetes management, high\nblood pressure management, and high\ncholesterol management',
+			'pharmacy.services.health_coaching.description' => 'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well-being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management.',
 			'pharmacy.services.health_coaching.title' => 'Health Coaching',
-			'pharmacy.services.medication_counseling.description' => 'Medication counseling and education guide\npatients on proper use, side effects, and\nadherence to prescriptions,\nenhancing safety and\nimproving health outcomes.',
+			'pharmacy.services.medication_counseling.description' => 'Medication counseling and education guide patients on proper use, side effects, and adherence to prescriptions, enhancing safety and improving health outcomes.',
 			'pharmacy.services.medication_counseling.title' => 'Medication Counseling\nand Education',
-			'pharmacy.services.smoking_cessation.description' => 'Smoking cessation involves quitting\nsmoking through strategies like\ncounseling, medications, and support\nprograms to improve health and\nreduce the risk of smoking-related\ndiseases.',
+			'pharmacy.services.smoking_cessation.description' => 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.',
 			'pharmacy.services.smoking_cessation.title' => 'Smoking Cessation',
-			'pharmacy.services.therapy_review.description' => 'Comprehensive review of your medication\nand lifestyle to optimize treatment\noutcomes and minimize potential side\neffects',
-			'pharmacy.services.therapy_review.title' => 'Comprehensive Therapy\nReview',
+			'pharmacy.services.therapy_review.description' => 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.',
+			'pharmacy.services.therapy_review.title' => 'Comprehensive Therapy Review',
 			'pharmacy.title' => 'iRX Pharmacist Service',
 			_ => null,
 		};
