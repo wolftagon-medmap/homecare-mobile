@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:m2health/const.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 class ServiceSelectionCard extends StatelessWidget {
@@ -7,6 +8,7 @@ class ServiceSelectionCard extends StatelessWidget {
   final String imagePath;
   final Color backgroundColor;
   final VoidCallback onTap;
+  final bool isLoading;
 
   const ServiceSelectionCard({
     super.key,
@@ -15,6 +17,7 @@ class ServiceSelectionCard extends StatelessWidget {
     required this.imagePath,
     required this.backgroundColor,
     required this.onTap,
+    this.isLoading = false,
   });
 
   @override
@@ -83,11 +86,20 @@ class ServiceSelectionCard extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 5),
-                        Image.asset(
-                          'assets/icons/ic_play.png',
-                          width: 20,
-                          height: 20,
-                        ),
+                        isLoading
+                            ? const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Const.aqua,
+                                ),
+                              )
+                            : Image.asset(
+                                'assets/icons/ic_play.png',
+                                width: 20,
+                                height: 20,
+                              ),
                       ],
                     ),
                   )
