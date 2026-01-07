@@ -1,0 +1,103 @@
+{
+  "button": {
+    "logout": "退出登录"
+  },
+  "continue_with_alternative_text": "或继续使用",
+  "forgot_password": {
+    "form": {
+      "label": {
+        "email": "请输入您的电子邮箱"
+      }
+    },
+    "message": {
+      "otp_sent": "OTP 发送成功"
+    },
+    "send_code_button": "发送代码",
+    "subtitle": "别担心！请输入与您的账户关联的电子邮件地址。",
+    "title": "忘记密码？"
+  },
+  "form": {
+    "label": {
+      "email": "电子邮箱",
+      "new_password": "新密码",
+      "password": "密码",
+      "password_confirm": "确认密码",
+      "user_role": "选择用户类型",
+      "username": "用户名"
+    },
+    "validation": {
+      "email_required": "请输入您的电子邮箱",
+      "invalid_email": "请输入有效的电子邮箱",
+      "invalid_password_length": "密码必须至少 6 个字符",
+      "password_confirm_required": "请确认您的密码",
+      "password_mismatch": "密码不匹配",
+      "password_required": "请输入密码",
+      "user_role_required": "请选择用户类型",
+      "username_required": "请输入用户名"
+    }
+  },
+  "login": {
+    "button": {
+      "create_account_link": "创建新账户",
+      "forgot_password_link": "忘记密码？",
+      "submit": "登录"
+    },
+    "form": {
+      "validation": {
+        "email_password_required": "请填写电子邮箱和密码。"
+      }
+    },
+    "role_selection_dialog": {
+      "body": "欢迎！\n请选择您的账户类型以继续。",
+      "title": "完成注册"
+    },
+    "subtitle": "欢迎回来\n好久不见",
+    "title": "在此登录"
+  },
+  "otp_verification": {
+    "button": {
+      "resend_code": "没有收到代码？重新发送",
+      "submit": "验证"
+    },
+    "message": {
+      "code_resent": "代码已重新发送！"
+    },
+    "resend_time_countdown": "{seconds} 秒后重新发送",
+    "subtitle": "请输入我们发送到您邮箱 {email} 的代码",
+    "title": "输入验证码"
+  },
+  "register": {
+    "button": {
+      "login_link": "已有账户",
+      "submit": "注册"
+    },
+    "registration_success_dialog": {
+      "body": "请检查您的电子邮箱进行验证。",
+      "title": "注册成功"
+    },
+    "subtitle": "创建一个账户，以便您可以探索所有\n现有工作",
+    "title": "创建账户"
+  },
+  "reset_password": {
+    "button": {
+      "submit": "重置密码"
+    },
+    "subtitle": "请输入您的新密码",
+    "title": "重置密码"
+  },
+  "reset_password_success": {
+    "body": "您已成功重置密码。登录时请使用您的新密码。",
+    "button": {
+      "login_page_link": "返回登录"
+    },
+    "title": "密码重置成功！"
+  },
+  "user_role": {
+    "caregiver": "护理员/帮手",
+    "nurse": "护士",
+    "patient": "患者",
+    "pharmacist": "药剂师",
+    "physiotherapist": "物理治疗师",
+    "radiologist": "放射科医生"
+  }
+}

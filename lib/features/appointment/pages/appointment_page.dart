@@ -10,6 +10,7 @@ import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
 import 'package:m2health/features/appointment/bloc/appointment_cubit.dart';
 import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:intl/intl.dart';
 
@@ -488,7 +489,7 @@ class _AppointmentListItem extends StatelessWidget {
                               ),
                             ],
                           ),
-                          BlocBuilder<LocaleCubit, Locale>(
+                          BlocBuilder<LocaleCubit, AppLocale>(
                             builder: (context, locale) {
                               final localStartTime =
                                   appointment.startDatetime.toLocal();

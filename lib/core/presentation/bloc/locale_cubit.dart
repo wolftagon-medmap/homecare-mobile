@@ -1,24 +1,31 @@
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/l10n/app_localizations.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LocaleCubit extends Cubit<Locale> {
-  final SharedPreferences prefs;
+class LocaleCubit extends Cubit<AppLocale> {
   static const String _key = 'language_code';
 
-  // Load saved language or default to 'en'
-  LocaleCubit(this.prefs) : super(Locale(prefs.getString(_key) ?? 'en'));
+  LocaleCubit() : super(LocaleSettings.currentLocale);
 
-  Future<void> changeLocale(Locale locale) async {
-    if (!AppLocalizations.supportedLocales.contains(locale)) {
-      log('Unsupported locale: ${locale.languageCode}',
-          name: 'LocaleCubit', level: 900);
-      return;
+  Future<void> loadSavedLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    final rawLocale = prefs.getString(_key);
+
+    if (rawLocale != null) {
+      final locale = AppLocale.values.firstWhere(
+        (l) => l.languageCode == rawLocale,
+        orElse: () => AppLocale.en,
+      );
+      changeLocale(locale);
     }
+  }
+
+  Future<void> changeLocale(AppLocale locale) async {
+    LocaleSettings.setLocale(locale);
+
+    final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_key, locale.languageCode);
+
     emit(locale);
   }
 }

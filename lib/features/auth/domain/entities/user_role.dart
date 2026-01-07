@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/i18n/translations.g.dart';
 
 enum UserRole {
   patient,
@@ -29,17 +30,17 @@ enum UserRole {
   String getDisplayName(BuildContext context) {
     switch (this) {
       case UserRole.patient:
-        return context.l10n.auth_role_patient;
+        return t.auth.user_role.patient;
       case UserRole.nurse:
-        return context.l10n.auth_role_nurse;
+        return t.auth.user_role.nurse;
       case UserRole.pharmacist:
-        return context.l10n.auth_role_pharmacist;
+        return t.auth.user_role.pharmacist;
       case UserRole.radiologist:
-        return context.l10n.auth_role_radiologist;
+        return t.auth.user_role.radiologist;
       case UserRole.caregiver:
-        return context.l10n.auth_role_caregiver;
+        return t.auth.user_role.caregiver;
       case UserRole.physiotherapist:
-        return context.l10n.auth_role_physiotherapist;
+        return t.auth.user_role.physiotherapist;
     }
   }
 }

@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/bloc/personal_issues_cubit.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/bloc/personal_issues_state.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/pages/issue_form_page.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/pages/personal_issue_detail_page.dart';
+import 'package:m2health/i18n/translations.g.dart';
 
 class PersonalIssuesPage extends StatefulWidget {
   final Function(List<PersonalIssue>) onIssuesSelected;
@@ -49,13 +49,13 @@ class _PersonalIssuesPageState extends State<PersonalIssuesPage> {
     final serviceType = context.read<PersonalIssuesCubit>().state.serviceType;
     switch (serviceType) {
       case 'nursing':
-        return context.l10n.booking_issue_list_title_nursing;
+        return context.t.booking.issue.nurse_page_title;
       case 'pharmacy':
-        return context.l10n.booking_issue_list_title_pharmacy;
+        return context.t.booking.issue.pharmacy_page_title;
       case 'radiology':
-        return context.l10n.booking_issue_list_title_radiology;
+        return context.t.booking.issue.radiology_page_title;
       default:
-        return context.l10n.booking_issue_list_title_default;
+        return context.t.booking.issue.default_page_title;
     }
   }
 
@@ -66,17 +66,18 @@ class _PersonalIssuesPageState extends State<PersonalIssuesPage> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text(context.l10n.booking_issue_delete_dialog_title),
-          content: Text(context.l10n.booking_issue_delete_dialog_content),
+          title: Text(context.t.booking.issue.delete_dialog.title),
+          content: Text(context.t.booking.issue.delete_dialog.content),
           actions: <Widget>[
             TextButton(
-              child: Text(context.l10n.common_cancel),
+              child: Text(context.t.global.cancel),
               onPressed: () {
                 Navigator.of(dialogContext).pop();
               },
             ),
             TextButton(
-              child: Text(context.l10n.common_delete, style: const TextStyle(color: Colors.red)),
+              child: Text(context.t.global.delete,
+                  style: const TextStyle(color: Colors.red)),
               onPressed: () {
                 Navigator.of(dialogContext).pop();
                 cubit.deleteIssue(issueId);
@@ -110,7 +111,7 @@ class _PersonalIssuesPageState extends State<PersonalIssuesPage> {
               children: [
                 Center(
                   child: Text(
-                    context.l10n.booking_tell_us_concern,
+                    context.t.booking.issue.fill_complaint_instruction,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -132,7 +133,7 @@ class _PersonalIssuesPageState extends State<PersonalIssuesPage> {
                   if (state.loadStatus == ActionStatus.error) {
                     return Center(
                         child: Text(
-                            '${context.l10n.common_error(state.loadErrorMessage ?? '')}'));
+                            '${context.t.global.error}: ${state.loadErrorMessage ?? ''}'));
                   }
 
                   if (state.loadStatus == ActionStatus.success) {
@@ -147,7 +148,7 @@ class _PersonalIssuesPageState extends State<PersonalIssuesPage> {
                       child: issues.isEmpty
                           ? Center(
                               child: Text(
-                                context.l10n.booking_issue_empty,
+                                context.t.booking.issue.empty_issue,
                                 style: const TextStyle(fontSize: 16),
                                 textAlign: TextAlign.center,
                               ),
@@ -252,15 +253,19 @@ class _PersonalIssuesPageState extends State<PersonalIssuesPage> {
                                                               context) =>
                                                           <PopupMenuEntry<
                                                               String>>[
-                                                        PopupMenuItem<
-                                                            String>(
+                                                        PopupMenuItem<String>(
                                                           value: 'edit',
-                                                          child: Text(context.l10n.common_modify),
+                                                          child: Text(
+                                                            context.t.global
+                                                                .modify,
+                                                          ),
                                                         ),
-                                                        PopupMenuItem<
-                                                            String>(
+                                                        PopupMenuItem<String>(
                                                           value: 'delete',
-                                                          child: Text(context.l10n.common_delete),
+                                                          child: Text(
+                                                            context.t.global
+                                                                .delete,
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
@@ -274,7 +279,12 @@ class _PersonalIssuesPageState extends State<PersonalIssuesPage> {
                                                             Colors.grey[600]),
                                                     const SizedBox(width: 8),
                                                     Text(
-                                                      context.l10n.booking_personal_issue_updated_on(DateFormat('MMM d, y, HH:mm').format(issue.updatedAt!)),
+                                                      context.t.booking.issue
+                                                          .updated_on(
+                                                              date: DateFormat(
+                                                                      'MMM d, y, HH:mm')
+                                                                  .format(issue
+                                                                      .updatedAt!)),
                                                       style: TextStyle(
                                                           fontSize: 12,
                                                           color:
@@ -323,7 +333,7 @@ class _PersonalIssuesPageState extends State<PersonalIssuesPage> {
                     );
                   }
                   // Fallback
-                  return Center(child: Text(context.l10n.common_error('Unknown error')));
+                  return const Center(child: Text('Error: Unknown error'));
                 },
               ),
             ),
@@ -357,8 +367,9 @@ class _PersonalIssuesPageState extends State<PersonalIssuesPage> {
                           ),
                         ),
                         child: Text(
-                          context.l10n.booking_add_issue_btn,
-                          style: const TextStyle(color: Const.aqua, fontSize: 20),
+                          context.t.booking.issue.add_issue_button,
+                          style:
+                              const TextStyle(color: Const.aqua, fontSize: 20),
                         ),
                       ),
                     ),
@@ -385,8 +396,9 @@ class _PersonalIssuesPageState extends State<PersonalIssuesPage> {
                           ),
                         ),
                         child: Text(
-                          context.l10n.booking_next_btn,
-                          style: const TextStyle(color: Colors.white, fontSize: 20),
+                          context.t.global.next,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 20),
                         ),
                       ),
                     ),

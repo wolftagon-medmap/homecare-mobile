@@ -1,0 +1,94 @@
+{
+  "addon": {
+    "empty": "没有可用的附加服务。",
+    "estimated_budget": "预计预算",
+    "title": {
+      "default": "附加服务",
+      "nursing": "护理程序",
+      "pharmacy": "药房服务",
+      "radiology": "放射科服务",
+      "specialized_nursing": "专业护理程序"
+    }
+  },
+  "book_appointment": "预约",
+  "health_status": {
+    "empty_record": "没有可用的医疗记录。",
+    "mobility_label": "选择您的行动状态",
+    "record_hint": "请选择记录",
+    "record_label": "选择相关的健康记录",
+    "title": "个人案例详情"
+  },
+  "issue": {
+    "add_issue_button": "添加问题",
+    "add_issue_title": "添加问题",
+    "default_page_title": "服务案例",
+    "delete_dialog": {
+      "content": "您确定要删除此问题吗？",
+      "title": "删除问题"
+    },
+    "edit_issue_title": "编辑问题",
+    "empty_issue": "尚未添加任何问题。\n 请添加一个或多个问题，以便\n您可以继续下一步。",
+    "fill_complaint_instruction": "请告知您的投诉详情。",
+    "form": {
+      "add_button": "添加",
+      "complaint_description_hint": "请输入与您的案例相关的问题、疑虑、相关症状以及相关关键字。",
+      "complaint_label": "主诉",
+      "complaint_title_hint": "告诉我们要咨询的问题",
+      "title_description_required": "问题标题和描述为必填项。"
+    },
+    "images": "图片",
+    "messages": {
+      "add_issue_success": "问题添加成功",
+      "edit_issue_success": "问题更新成功"
+    },
+    "nurse_page_title": "护士服务案例",
+    "pharmacy_page_title": "药师服务案例",
+    "radiology_page_title": "放射科医生服务案例",
+    "updated_on": "更新于：{date}"
+  },
+  "professional_detail": {
+    "about_me": "关于我",
+    "certificates": "专业证书",
+    "experience_label": "经验",
+    "id_number": "ID 号码：{number}",
+    "issued_on": "签发日期：{date}",
+    "no_certificate": "暂无证书。",
+    "no_reviews": "暂无评论。",
+    "patients_label": "患者",
+    "rating_label": "评分",
+    "reviews": "评论",
+    "schedule_button": "安排预约",
+    "see_all_button": "查看全部",
+    "title": {
+      "default": "专业人员详情",
+      "nurse": "护士详情",
+      "pharmacist": "药剂师详情",
+      "radiologist": "放射科医生详情"
+    },
+    "working_info": "工作信息"
+  },
+  "professional_search": {
+    "appointment_button": "预约",
+    "empty": "未找到符合您标准的专业人员。",
+    "filter_text": "按 {count} 个选定服务过滤",
+    "title": {
+      "caregiver": "搜索护理员/帮手/工人",
+      "default": "搜索专业人员",
+      "nurse": "搜索护士",
+      "pharmacist": "搜索药剂师",
+      "radiologist": "搜索放射科医生"
+    }
+  },
+  "schedule": {
+    "empty_slots": "该日没有可用的时段。",
+    "messages": {
+      "reschedule_failed": "重新安排失败。",
+      "reschedule_success": "预约重新安排成功"
+    },
+    "select_date": "选择日期",
+    "select_hour": "选择时间",
+    "submit_button": "提交",
+    "submitting_button": "正在提交...",
+    "title": "选择时间表"
+  }
+}

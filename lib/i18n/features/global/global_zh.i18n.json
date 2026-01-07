@@ -1,0 +1,39 @@
+{
+  "add": "添加",
+  "book_now": "立即预订",
+  "cancel": "取消",
+  "complete": "完成",
+  "confirm": "确认",
+  "delete": "删除",
+  "description": "描述",
+  "dialog": {
+    "coming_soon": "敬请期待",
+    "feature_available_soon": "此功能即将推出！"
+  },
+  "edit_information": "编辑信息",
+  "error": "错误",
+  "error_message": "错误：{error}",
+  "messages": {
+    "delete_success": "删除成功",
+    "updated_success": "更新成功"
+  },
+  "modify": "修改",
+  "next": "下一步",
+  "no": "否",
+  "no_data": "暂无数据",
+  "none": "无",
+  "not_specified": "未指定",
+  "ok": "确定",
+  "other": "其他",
+  "ready": "准备就绪",
+  "remove": "移除",
+  "retry": "重试",
+  "save": "保存",
+  "saving": "正在保存...",
+  "services": "服务",
+  "status": "状态",
+  "submit": "提交",
+  "unknown_location": "未知位置",
+  "update": "更新",
+  "yes": "是"
+}

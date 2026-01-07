@@ -1,0 +1,103 @@
+{
+  "button": {
+    "logout": "Keluar"
+  },
+  "continue_with_alternative_text": "atau lanjutkan dengan",
+  "forgot_password": {
+    "form": {
+      "label": {
+        "email": "Masukkan email Anda"
+      }
+    },
+    "message": {
+      "otp_sent": "OTP berhasil dikirim"
+    },
+    "send_code_button": "Kirim Kode",
+    "subtitle": "Jangan khawatir! Silakan masukkan alamat email yang terhubung dengan akun Anda.",
+    "title": "Lupa Kata Sandi?"
+  },
+  "form": {
+    "label": {
+      "email": "Email",
+      "new_password": "Kata Sandi Baru",
+      "password": "Kata Sandi",
+      "password_confirm": "Konfirmasi Kata Sandi",
+      "user_role": "Pilih Tipe Pengguna",
+      "username": "Nama Pengguna"
+    },
+    "validation": {
+      "email_required": "Harap masukkan email Anda",
+      "invalid_email": "Harap masukkan email yang valid",
+      "invalid_password_length": "Kata sandi harus minimal 6 karakter",
+      "password_confirm_required": "Harap konfirmasi kata sandi Anda",
+      "password_mismatch": "Kata sandi tidak cocok",
+      "password_required": "Harap masukkan kata sandi",
+      "user_role_required": "Harap pilih tipe pengguna",
+      "username_required": "Harap masukkan nama pengguna"
+    }
+  },
+  "login": {
+    "button": {
+      "create_account_link": "Buat akun baru",
+      "forgot_password_link": "Lupa Kata Sandi?",
+      "submit": "Masuk"
+    },
+    "form": {
+      "validation": {
+        "email_password_required": "Harap isi Email dan Kata Sandi."
+      }
+    },
+    "role_selection_dialog": {
+      "body": "Selamat Datang!\nSilakan pilih tipe akun Anda untuk melanjutkan.",
+      "title": "Selesaikan Pendaftaran"
+    },
+    "subtitle": "Selamat Datang Kembali!",
+    "title": "Login"
+  },
+  "otp_verification": {
+    "button": {
+      "resend_code": "Tidak menerima kode? Kirim Ulang",
+      "submit": "Verifikasi"
+    },
+    "message": {
+      "code_resent": "Kode dikirim ulang!"
+    },
+    "resend_time_countdown": "Kirim ulang dalam {seconds} detik",
+    "subtitle": "Masukkan kode yang telah kami kirim ke email Anda {email}",
+    "title": "Masukkan Kode Verifikasi"
+  },
+  "register": {
+    "button": {
+      "login_link": "Sudah punya akun",
+      "submit": "Daftar"
+    },
+    "registration_success_dialog": {
+      "body": "Silakan periksa email Anda untuk verifikasi.",
+      "title": "Pendaftaran Berhasil"
+    },
+    "subtitle": "Buat akun agar Anda dapat menjelajahi semua\npekerjaan yang ada",
+    "title": "Buat Akun"
+  },
+  "reset_password": {
+    "button": {
+      "submit": "Atur Ulang Kata Sandi"
+    },
+    "subtitle": "Silakan masukkan kata sandi baru Anda",
+    "title": "Atur Ulang Kata Sandi"
+  },
+  "reset_password_success": {
+    "body": "Anda telah berhasil mengatur ulang kata sandi Anda. Silakan gunakan kata sandi baru Anda saat masuk.",
+    "button": {
+      "login_page_link": "Kembali ke Login"
+    },
+    "title": "Atur Ulang Kata Sandi Berhasil!"
+  },
+  "user_role": {
+    "caregiver": "Pengasuh/Pendamping",
+    "nurse": "Perawat",
+    "patient": "Pasien",
+    "pharmacist": "Apoteker",
+    "physiotherapist": "Fisioterapis",
+    "radiologist": "Radiolog"
+  }
+}

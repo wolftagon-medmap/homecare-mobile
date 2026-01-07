@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/auth/presentation/cubit/forgot_password_cubit.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
@@ -69,7 +69,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        context.l10n.auth_reset_password_title,
+                        context.t.auth.reset_password.title,
                         style: const TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
@@ -78,7 +78,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        context.l10n.auth_reset_password_subtitle,
+                        context.t.auth.reset_password.subtitle,
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
@@ -89,7 +89,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         controller: _passwordController,
                         obscureText: !_isPasswordVisible,
                         decoration: InputDecoration(
-                          hintText: context.l10n.auth_new_password_hint,
+                          hintText: context.t.auth.form.label.new_password,
                           contentPadding:
                               const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                           border: OutlineInputBorder(
@@ -111,10 +111,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return context.l10n.auth_enter_password;
+                            return context.t.auth.form.validation.password_required;
                           }
                           if (value.length < 6) {
-                            return context.l10n.auth_password_length_error;
+                            return context.t.auth.form.validation.invalid_password_length;
                           }
                           return null;
                         },
@@ -124,7 +124,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         controller: _confirmPasswordController,
                         obscureText: !_isConfirmPasswordVisible,
                         decoration: InputDecoration(
-                          hintText: context.l10n.auth_confirm_password_hint,
+                          hintText: context.t.auth.form.label.password_confirm,
                           contentPadding:
                               const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                           border: OutlineInputBorder(
@@ -147,7 +147,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         ),
                         validator: (value) {
                           if (value != _passwordController.text) {
-                            return context.l10n.auth_passwords_do_not_match;
+                            return context.t.auth.form.validation.password_mismatch;
                           }
                           return null;
                         },
@@ -189,7 +189,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                   ),
                                 )
                               : Text(
-                                  context.l10n.auth_reset_password_btn,
+                                  context.t.auth.reset_password.button.submit,
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,

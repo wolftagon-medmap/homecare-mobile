@@ -8,6 +8,7 @@ import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
 import 'package:m2health/core/presentation/views/app_languages_setting.dart';
 import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 import '../cubit/sign_up_cubit.dart';
@@ -33,7 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
   void _validatePasswords() {
     setState(() {
       if (_passwordController.text != _confirmPasswordController.text) {
-        _passwordError = context.l10n.auth_passwords_do_not_match;
+        _passwordError = context.t.auth.form.validation.password_mismatch;
       } else {
         _passwordError = null;
       }
@@ -54,14 +55,14 @@ class _SignUpPageState extends State<SignUpPage> {
     } else if (_selectedRole == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(context.l10n.auth_select_role_error),
+          content: Text(context.t.auth.form.validation.user_role_required),
           backgroundColor: Colors.red,
         ),
       );
     }
   }
 
-  String _getLanguageLabel(Locale locale) {
+  String _getLanguageLabel(AppLocale locale) {
     switch (locale.languageCode) {
       case 'id':
         return 'Bahasa Indonesia';
@@ -78,7 +79,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          BlocBuilder<LocaleCubit, Locale>(
+          BlocBuilder<LocaleCubit, AppLocale>(
             builder: (context, locale) {
               return TextButton(
                 onPressed: () {
@@ -111,13 +112,13 @@ class _SignUpPageState extends State<SignUpPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title:
-                        Text(context.l10n.auth_registration_successful_title),
-                    content:
-                        Text(context.l10n.auth_registration_successful_content),
+                    title: Text(context
+                        .t.auth.register.registration_success_dialog.title),
+                    content: Text(context
+                        .t.auth.register.registration_success_dialog.body),
                     actions: <Widget>[
                       TextButton(
-                        child: Text(context.l10n.common_ok),
+                        child: Text(context.t.global.ok),
                         onPressed: () {
                           context.go(AppRoutes.signIn);
                         },
@@ -133,11 +134,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text(context.l10n.auth_error_title),
+                    title: Text(context.t.global.error),
                     content: Text(state.error),
                     actions: <Widget>[
                       TextButton(
-                        child: Text(context.l10n.common_ok),
+                        child: Text(context.t.global.ok),
                         onPressed: () {
                           context.pop();
                         },
@@ -156,7 +157,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: Column(
                   children: [
                     Text(
-                      context.l10n.auth_sign_up_title,
+                      context.t.auth.register.title,
                       style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -166,7 +167,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     const SizedBox(height: 8.0),
                     Text(
-                      context.l10n.auth_sign_up_subtitle,
+                      context.t.auth.register.subtitle,
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 12,
@@ -179,7 +180,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _usernameController,
                       decoration: InputDecoration(
-                        hintText: context.l10n.auth_username_hint,
+                        hintText: context.t.auth.form.label.username,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
@@ -188,7 +189,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return context.l10n.auth_enter_username;
+                          return context
+                              .t.auth.form.validation.username_required;
                         }
                         return null;
                       },
@@ -198,7 +200,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        hintText: context.l10n.auth_email_hint,
+                        hintText: context.t.auth.form.label.email,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
@@ -207,10 +209,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return context.l10n.auth_enter_email;
+                          return context.t.auth.form.validation.email_required;
                         }
                         if (!EmailValidator.validate(value.trim())) {
-                          return context.l10n.auth_enter_valid_email;
+                          return context.t.auth.form.validation.invalid_email;
                         }
                         return null;
                       },
@@ -219,7 +221,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _passwordController,
                       decoration: InputDecoration(
-                        hintText: context.l10n.auth_password_hint,
+                        hintText: context.t.auth.form.label.password,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
@@ -229,10 +231,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return context.l10n.auth_enter_password;
+                          return context
+                              .t.auth.form.validation.password_required;
                         }
                         if (value.length < 6) {
-                          return context.l10n.auth_password_length_error;
+                          return context
+                              .t.auth.form.validation.invalid_password_length;
                         }
                         return null;
                       },
@@ -241,7 +245,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _confirmPasswordController,
                       decoration: InputDecoration(
-                        hintText: context.l10n.auth_confirm_password_hint,
+                        hintText: context.t.auth.form.label.password_confirm,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
@@ -255,10 +259,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return context.l10n.auth_confirm_password_error;
+                          return t
+                              .auth.form.validation.password_confirm_required;
                         }
                         if (value != _passwordController.text) {
-                          return context.l10n.auth_passwords_do_not_match;
+                          return context
+                              .t.auth.form.validation.password_mismatch;
                         }
                         return null;
                       },
@@ -266,7 +272,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(height: 20),
                     DropdownButtonFormField<UserRole>(
                       decoration: InputDecoration(
-                        hintText: context.l10n.auth_select_user_type_hint,
+                        hintText: context.t.auth.form.label.user_role,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -295,7 +301,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                       validator: (value) {
                         if (value == null) {
-                          return context.l10n.auth_select_role_error;
+                          return context
+                              .t.auth.form.validation.user_role_required;
                         }
                         return null;
                       },
@@ -317,7 +324,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         onPressed: state is SignUpLoading
                             ? null
                             : () => _submitForm(context),
-                        child: Text(context.l10n.auth_sign_up_btn,
+                        child: Text(context.t.auth.register.button.submit,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
@@ -332,13 +339,13 @@ class _SignUpPageState extends State<SignUpPage> {
                         context.go(AppRoutes.signIn);
                       },
                       child: Text(
-                        context.l10n.auth_already_have_account,
+                        context.t.auth.register.button.login_link,
                         style: const TextStyle(color: Const.aqua),
                       ),
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      context.l10n.auth_continue_with,
+                      context.t.auth.continue_with_alternative_text,
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.grey,

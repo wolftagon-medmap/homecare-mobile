@@ -1,35 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
-import 'package:m2health/features/diabetes/bloc/diabetes_form_state.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class DiabeticCare extends StatelessWidget {
   const DiabeticCare({super.key});
 
-  List<Map<String, String>> _getDiabeticCareMenus(BuildContext context) => [
-        {
-          'title': context.l10n.diabetic_retinal_photography,
-          'description': context.l10n.diabetic_retinal_photography_desc,
-          'imagePath': 'assets/images/ilu_diabet_retina.png',
-          'color': '9AE1FF',
-          'opacity': '0.33',
-        },
-        {
-          'title': context.l10n.diabetic_foot_screening,
-          'description': context.l10n.diabetic_foot_screening_desc,
-          'imagePath': 'assets/images/ilu_diabet_foot.png',
-          'color': 'B28CFF',
-          'opacity': '0.2',
-        },
-      ];
+  void _onDiabeticCareMenuTap(BuildContext context) async {
+    final bool hasForm = await context.read<DiabetesFormCubit>().loadForm();
+    if (!context.mounted) return;
+    if (hasForm) {
+      GoRouter.of(context).goNamed(AppRoutes.diabeticProfileSummary);
+    } else {
+      GoRouter.of(context).goNamed(AppRoutes.diabeticProfileForm);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final diabeticCareMenus = _getDiabeticCareMenus(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -39,145 +30,25 @@ class DiabeticCare extends StatelessWidget {
       ),
       body: Container(
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 60.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: diabeticCareMenus.length,
-                itemBuilder: (context, index) {
-                  final menu = diabeticCareMenus[index];
-                  return BlocBuilder<DiabetesFormCubit, DiabetesFormState>(
-                    builder: (context, state) {
-                      return DiabeticCard(
-                        pharma: menu,
-                        isLoading: state.isLoading,
-                        onTap: () async {
-                          final bool hasForm = await context
-                              .read<DiabetesFormCubit>()
-                              .loadForm();
-                          if (!context.mounted) return;
-                          if (hasForm) {
-                            GoRouter.of(context)
-                                .goNamed(AppRoutes.diabeticProfileSummary);
-                          } else {
-                            GoRouter.of(context)
-                                .goNamed(AppRoutes.diabeticProfileForm);
-                          }
-                        },
-                        color: Color(int.parse('0xFF${menu['color']}'))
-                            .withValues(
-                                alpha: menu['opacity'] != null
-                                    ? double.parse(menu['opacity']!)
-                                    : 1.0),
-                      );
-                    },
-                  );
-                },
-              ),
+            ServiceSelectionCard(
+              title: context.l10n.diabetic_retinal_photography,
+              description: context.l10n.diabetic_retinal_photography_desc,
+              imagePath: 'assets/images/ilu_diabet_retina.png',
+              backgroundColor: const Color(0xFF9AE1FF).withValues(alpha: 0.33),
+              onTap: () async {
+                _onDiabeticCareMenuTap(context);
+              },
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class DiabeticCard extends StatelessWidget {
-  final Map<String, String> pharma;
-  final VoidCallback? onTap;
-  final Color color;
-  final bool isLoading;
-
-  const DiabeticCard({
-    super.key,
-    required this.pharma,
-    required this.onTap,
-    required this.color,
-    this.isLoading = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      child: Container(
-        width: 360,
-        height: 260,
-        padding: const EdgeInsets.all(16.0),
-        color: color.withValues(
-            alpha: 0.1), // Set the background color with 10% opacity
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${pharma['title']}',
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  '${pharma['description']}',
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400, // Light font weight
-                  ),
-                ),
-                const SizedBox(height: 10),
-                TextButton(
-                  onPressed: isLoading ? null : onTap,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const SizedBox(width: 5),
-                      Text(
-                        context.l10n.common_book_now,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Color(0xFF35C5CF),
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      isLoading
-                          ? const SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Const.aqua,
-                              ),
-                            )
-                          : Image.asset(
-                              'assets/icons/ic_play.png',
-                              width: 20,
-                              height: 20,
-                            ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            Positioned(
-              bottom: -25,
-              right: -20,
-              child: ClipRect(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 10.0), // Adjust the padding as needed
-                  child: Image.asset(
-                    pharma['imagePath']!,
-                    width: 185,
-                    height: 139,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
+            ServiceSelectionCard(
+              title: context.l10n.diabetic_foot_screening,
+              description: context.l10n.diabetic_foot_screening_desc,
+              imagePath: 'assets/images/ilu_diabet_foot.png',
+              backgroundColor: const Color(0xFFB28CFF).withValues(alpha: 0.2),
+              onTap: () async {
+                _onDiabeticCareMenuTap(context);
+              },
             ),
           ],
         ),
