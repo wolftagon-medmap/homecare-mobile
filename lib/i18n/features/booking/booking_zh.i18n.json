@@ -5,8 +5,8 @@
     "title": {
       "default": "附加服务",
       "nursing": "护理程序",
-      "pharmacy": "药房服务",
-      "radiology": "放射科服务",
+      "pharmacy": "Pharmacist Services",
+      "radiology": "Radiologist Services",
       "specialized_nursing": "专业护理程序"
     }
   },
@@ -19,7 +19,7 @@
     "title": "个人案例详情"
   },
   "issue": {
-    "add_issue_button": "添加问题",
+    "add_issue_button": "添加主诉",
     "add_issue_title": "添加问题",
     "default_page_title": "服务案例",
     "delete_dialog": {
@@ -28,7 +28,7 @@
     },
     "edit_issue_title": "编辑问题",
     "empty_issue": "尚未添加任何问题。\n 请添加一个或多个问题，以便\n您可以继续下一步。",
-    "fill_complaint_instruction": "请告知您的投诉详情。",
+    "fill_complaint_instruction": "请选择本服务的主诉问题",
     "form": {
       "add_button": "添加",
       "complaint_description_hint": "请输入与您的案例相关的问题、疑虑、相关症状以及相关关键字。",

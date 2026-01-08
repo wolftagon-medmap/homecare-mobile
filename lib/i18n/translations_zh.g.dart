@@ -303,13 +303,13 @@ class _TranslationsBookingIssueZh implements TranslationsBookingIssueEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get add_issue_button => '添加问题';
+	@override String get add_issue_button => '添加主诉';
 	@override String get add_issue_title => '添加问题';
 	@override String get default_page_title => '服务案例';
 	@override late final _TranslationsBookingIssueDeleteDialogZh delete_dialog = _TranslationsBookingIssueDeleteDialogZh._(_root);
 	@override String get edit_issue_title => '编辑问题';
 	@override String get empty_issue => '尚未添加任何问题。\n 请添加一个或多个问题，以便\n您可以继续下一步。';
-	@override String get fill_complaint_instruction => '请告知您的投诉详情。';
+	@override String get fill_complaint_instruction => '请选择本服务的主诉问题';
 	@override late final _TranslationsBookingIssueFormZh form = _TranslationsBookingIssueFormZh._(_root);
 	@override String get images => '图片';
 	@override late final _TranslationsBookingIssueMessagesZh messages = _TranslationsBookingIssueMessagesZh._(_root);
@@ -378,12 +378,12 @@ class _TranslationsDashboardServicesZh implements TranslationsDashboardServicesE
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get diabetic_care => 'iRX糖尿病护理。';
+	@override String get diabetic_care => 'iRX糖尿病护理';
 	@override String get dietitian => '营养师服务';
 	@override String get health_risk_assessment => '健康风险评估';
 	@override String get home_screening => '居家健康筛查';
 	@override String get homecare_for_elderly => '家政维修';
-	@override String get nursing => ' 上门护士。';
+	@override String get nursing => ' 上门护士';
 	@override String get pharmacist => 'iRX 药师服务';
 	@override String get physiotherapy => '物理治疗';
 	@override String get precision_nutrition => '精准营养';
@@ -595,8 +595,8 @@ class _TranslationsBookingAddonTitleZh implements TranslationsBookingAddonTitleE
 	// Translations
 	@override String get kDefault => '附加服务';
 	@override String get nursing => '护理程序';
-	@override String get pharmacy => '药房服务';
-	@override String get radiology => '放射科服务';
+	@override String get pharmacy => 'Pharmacist Services';
+	@override String get radiology => 'Radiologist Services';
 	@override String get specialized_nursing => '专业护理程序';
 }
 
@@ -825,8 +825,8 @@ extension on TranslationsZh {
 			'booking.addon.estimated_budget' => '预计预算',
 			'booking.addon.title.kDefault' => '附加服务',
 			'booking.addon.title.nursing' => '护理程序',
-			'booking.addon.title.pharmacy' => '药房服务',
-			'booking.addon.title.radiology' => '放射科服务',
+			'booking.addon.title.pharmacy' => 'Pharmacist Services',
+			'booking.addon.title.radiology' => 'Radiologist Services',
 			'booking.addon.title.specialized_nursing' => '专业护理程序',
 			'booking.book_appointment' => '预约',
 			'booking.health_status.empty_record' => '没有可用的医疗记录。',
@@ -834,14 +834,14 @@ extension on TranslationsZh {
 			'booking.health_status.record_hint' => '请选择记录',
 			'booking.health_status.record_label' => '选择相关的健康记录',
 			'booking.health_status.title' => '个人案例详情',
-			'booking.issue.add_issue_button' => '添加问题',
+			'booking.issue.add_issue_button' => '添加主诉',
 			'booking.issue.add_issue_title' => '添加问题',
 			'booking.issue.default_page_title' => '服务案例',
 			'booking.issue.delete_dialog.content' => '您确定要删除此问题吗？',
 			'booking.issue.delete_dialog.title' => '删除问题',
 			'booking.issue.edit_issue_title' => '编辑问题',
 			'booking.issue.empty_issue' => '尚未添加任何问题。\n 请添加一个或多个问题，以便\n您可以继续下一步。',
-			'booking.issue.fill_complaint_instruction' => '请告知您的投诉详情。',
+			'booking.issue.fill_complaint_instruction' => '请选择本服务的主诉问题',
 			'booking.issue.form.add_button' => '添加',
 			'booking.issue.form.complaint_description_hint' => '请输入与您的案例相关的问题、疑虑、相关症状以及相关关键字。',
 			'booking.issue.form.complaint_label' => '主诉',
@@ -890,12 +890,12 @@ extension on TranslationsZh {
 			'dashboard.allied_services' => '辅助医疗',
 			'dashboard.chat_ai_placeholder' => '咨询AI医生，解答您的健康疑问',
 			'dashboard.greeting' => ({required Object displayName}) => '更长寿，更健康，${displayName}！',
-			'dashboard.services.diabetic_care' => 'iRX糖尿病护理。',
+			'dashboard.services.diabetic_care' => 'iRX糖尿病护理',
 			'dashboard.services.dietitian' => '营养师服务',
 			'dashboard.services.health_risk_assessment' => '健康风险评估',
 			'dashboard.services.home_screening' => '居家健康筛查',
 			'dashboard.services.homecare_for_elderly' => '家政维修',
-			'dashboard.services.nursing' => ' 上门护士。',
+			'dashboard.services.nursing' => ' 上门护士',
 			'dashboard.services.pharmacist' => 'iRX 药师服务',
 			'dashboard.services.physiotherapy' => '物理治疗',
 			'dashboard.services.precision_nutrition' => '精准营养',
