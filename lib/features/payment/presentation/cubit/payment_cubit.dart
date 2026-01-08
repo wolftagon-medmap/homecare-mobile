@@ -25,7 +25,13 @@ class PaymentCubit extends Cubit<PaymentState> {
 
     failureOrPayment.fold(
       (failure) => emit(PaymentFailure(failure.message)),
-      (payment) => emit(PaymentSuccess(payment)),
+      (payment) {
+        if (payment.method == 'CASH_OFFLINE') {
+          emit(OfflinePaymentSuccess(payment));
+        } else {
+          emit(PaymentSuccess(payment));
+        }
+      },
     );
   }
 }

@@ -20,6 +20,15 @@ class PaymentSuccess extends PaymentState {
   List<Object> get props => [payment];
 }
 
+class OfflinePaymentSuccess extends PaymentState {
+  final Payment payment;
+
+  const OfflinePaymentSuccess(this.payment);
+
+  @override
+  List<Object> get props => [payment];
+}
+
 class PaymentFailure extends PaymentState {
   final String message;
 

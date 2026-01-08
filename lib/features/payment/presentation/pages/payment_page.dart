@@ -6,6 +6,7 @@ import 'package:m2health/features/booking_appointment/add_on_services/domain/ent
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/payment/presentation/cubit/payment_cubit.dart';
+import 'package:m2health/features/payment/presentation/widgets/offline_payment_success_dialog.dart';
 import 'package:m2health/features/payment/presentation/widgets/payment_success_dialog.dart';
 
 class PaymentMethod {
@@ -93,7 +94,7 @@ class _PaymentPageState extends State<PaymentPage> {
     PaymentMethod(
       id: '5',
       type: 'cash',
-      code: 'Cash',
+      code: 'CASH_OFFLINE',
       displayName: 'Cash (Offline Payment)',
       iconUrl: 'assets/icons/cash.png',
     ),
@@ -126,6 +127,15 @@ class _PaymentPageState extends State<PaymentPage> {
             context: context,
             barrierDismissible: false,
             builder: (context) => PaymentSuccessDialog(
+              appointment: widget.appointment,
+              payment: state.payment,
+            ),
+          );
+        } else if (state is OfflinePaymentSuccess) {
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => OfflinePaymentSuccessDialog(
               appointment: widget.appointment,
               payment: state.payment,
             ),
