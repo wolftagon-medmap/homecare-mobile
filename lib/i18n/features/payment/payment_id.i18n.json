@@ -1,0 +1,53 @@
+{
+  "error": {
+    "appointment_id_missing": "Error: ID Janji Temu hilang."
+  },
+  "feedback": {
+    "enter_amount_hint": "Masukkan jumlah",
+    "enter_other_amount": "Masukkan jumlah lain",
+    "excellent": "Luar Biasa",
+    "give_tips": "Berikan tip kepada {name}",
+    "rated_text": "Anda memberi {name} {stars} bintang",
+    "submit_btn": "Kirim Ulasan",
+    "write_text_hint": "Tulis ulasan Anda di sini..."
+  },
+  "feedback_success": {
+    "content": "Ulasan Anda telah berhasil dikirim.",
+    "thank_you": "Terima Kasih!",
+    "view_detail_btn": "Lihat Detail Janji Temu"
+  },
+  "messages": {
+    "failed": "Pembayaran Gagal: {error}",
+    "feedback_failed": "Gagal Mengirim Ulasan: {error}",
+    "purchase_failed": "Pembelian Gagal: {error}"
+  },
+  "methods": {
+    "cash_offline": "Tunai (Pembayaran Offline)"
+  },
+  "offline_success": {
+    "content": "Permintaan Anda telah berhasil dikirim.\nSilakan bayar langsung ke profesional saat janji temu.",
+    "estimated_total": "Perkiraan Total",
+    "title": "Permintaan Dikirim"
+  },
+  "order_summary": "Ringkasan Pesanan",
+  "pay_btn": "Bayar {amount}",
+  "price_label": "Harga",
+  "return_home_btn": "Kembali ke Beranda",
+  "select_method": "Pilih Metode Pembayaran",
+  "service_charge": "Biaya Layanan",
+  "subscription_success": {
+    "content": "Anda telah berhasil membeli {planName}",
+    "title": "Pembayaran Berhasil"
+  },
+  "success": {
+    "amount": "Jumlah",
+    "content": "Uang Anda telah berhasil dikirim ke {name}.",
+    "experience_subtitle": "Ulasan Anda akan membantu kami meningkatkan\npengalaman Anda menjadi lebih baik",
+    "experience_title": "Bagaimana pengalaman Anda?",
+    "feedback_btn": "Berikan Ulasan",
+    "title": "Pembayaran Berhasil"
+  },
+  "title": "Pembayaran",
+  "total_label": "Total",
+  "validity_label": "Masa Berlaku"
+}

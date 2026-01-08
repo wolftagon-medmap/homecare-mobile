@@ -5,25 +5,18 @@ import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/appointment/appointment_module.dart';
 import 'package:m2health/features/payment/domain/entities/payment.dart';
-import 'package:m2health/features/payment/presentation/cubit/feedback_cubit.dart';
-import 'package:m2health/features/payment/presentation/pages/feedback_form_page.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
-import 'package:m2health/service_locator.dart';
 
-class PaymentSuccessDialog extends StatelessWidget {
+class OfflinePaymentSuccessDialog extends StatelessWidget {
   final Payment payment;
   final AppointmentEntity appointment;
 
-  const PaymentSuccessDialog({
+  const OfflinePaymentSuccessDialog({
     super.key,
     required this.payment,
     required this.appointment,
   });
-
-  String get professionalName => appointment.provider != null
-      ? appointment.provider!.name
-      : 'the professional';
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +29,7 @@ class PaymentSuccessDialog extends StatelessWidget {
       content: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(
-                top: 16.0), // Add padding for the close button
+            padding: const EdgeInsets.only(top: 16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -48,7 +40,7 @@ class PaymentSuccessDialog extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  context.t.payment.success.title,
+                  context.t.payment.offline_success.title,
                   style: const TextStyle(
                     color: Const.aqua,
                     fontWeight: FontWeight.bold,
@@ -58,7 +50,7 @@ class PaymentSuccessDialog extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  context.t.payment.success.content(name: professionalName),
+                  context.t.payment.offline_success.content,
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 14),
                 ),
@@ -66,7 +58,7 @@ class PaymentSuccessDialog extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(context.t.payment.success.amount),
+                    Text(context.t.payment.offline_success.estimated_total),
                     Text(
                       '\$${payment.amount.toStringAsFixed(2)}',
                       style: const TextStyle(
@@ -74,43 +66,13 @@ class PaymentSuccessDialog extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Divider(
-                  color: Colors.grey,
-                  thickness: 1,
-                  height: 32,
-                ),
-                Text(
-                  context.t.payment.success.experience_title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  context.t.payment.success.experience_subtitle,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 32),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.white,
-                        builder: (BuildContext context) {
-                          return BlocProvider(
-                            create: (context) =>
-                                FeedbackCubit(submitFeedbackUseCase: sl()),
-                            child: FeedbackFormPage(
-                              appointment: appointment,
-                            ),
-                          );
-                        },
-                      );
+                      context.read<AppointmentCubit>().refreshAllTabs();
+                      context.go(AppRoutes.appointment);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Const.aqua,
@@ -120,37 +82,9 @@ class PaymentSuccessDialog extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      context.t.payment.success.feedback_btn,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                    onPressed: () {
-                      context.read<AppointmentCubit>().refreshAllTabs();
-                      context.go(AppRoutes.appointment);
-                    },
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      side: const BorderSide(
-                        color: Const.aqua,
-                        width: 1,
-                      ),
-                    ),
-                    child: Text(
                       context.t.payment.return_home_btn,
                       style: const TextStyle(
-                        color: Const.aqua,
+                        color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
@@ -166,7 +100,7 @@ class PaymentSuccessDialog extends StatelessWidget {
             child: IconButton(
               icon: const Icon(Icons.close),
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
               },
             ),
           ),

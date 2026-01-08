@@ -1,0 +1,10 @@
+{
+  "consumable": "Barang Habis Pakai",
+  "messages": {
+    "load_failed": "Gagal memuat produk"
+  },
+  "no_products": "Tidak ada produk tersedia",
+  "poct": "Point of Care Testing",
+  "sort": "Urutkan",
+  "title": "Toko Medis"
+}

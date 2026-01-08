@@ -42,7 +42,9 @@ class TranslationsId with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDashboardId dashboard = _TranslationsDashboardId._(_root);
 	@override late final _TranslationsGlobalId global = _TranslationsGlobalId._(_root);
 	@override late final _TranslationsNursingId nursing = _TranslationsNursingId._(_root);
+	@override late final _TranslationsPaymentId payment = _TranslationsPaymentId._(_root);
 	@override late final _TranslationsPharmacyId pharmacy = _TranslationsPharmacyId._(_root);
+	@override late final _TranslationsStoreId store = _TranslationsStoreId._(_root);
 }
 
 // Path: auth
@@ -144,6 +146,32 @@ class _TranslationsNursingId implements TranslationsNursingEn {
 	@override String get title => 'Layanan Keperawatan di Rumah';
 }
 
+// Path: payment
+class _TranslationsPaymentId implements TranslationsPaymentEn {
+	_TranslationsPaymentId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsPaymentErrorId error = _TranslationsPaymentErrorId._(_root);
+	@override late final _TranslationsPaymentFeedbackId feedback = _TranslationsPaymentFeedbackId._(_root);
+	@override late final _TranslationsPaymentFeedbackSuccessId feedback_success = _TranslationsPaymentFeedbackSuccessId._(_root);
+	@override late final _TranslationsPaymentMessagesId messages = _TranslationsPaymentMessagesId._(_root);
+	@override late final _TranslationsPaymentMethodsId methods = _TranslationsPaymentMethodsId._(_root);
+	@override late final _TranslationsPaymentOfflineSuccessId offline_success = _TranslationsPaymentOfflineSuccessId._(_root);
+	@override String get order_summary => 'Ringkasan Pesanan';
+	@override String pay_btn({required Object amount}) => 'Bayar ${amount}';
+	@override String get price_label => 'Harga';
+	@override String get return_home_btn => 'Kembali ke Beranda';
+	@override String get select_method => 'Pilih Metode Pembayaran';
+	@override String get service_charge => 'Biaya Layanan';
+	@override late final _TranslationsPaymentSubscriptionSuccessId subscription_success = _TranslationsPaymentSubscriptionSuccessId._(_root);
+	@override late final _TranslationsPaymentSuccessId success = _TranslationsPaymentSuccessId._(_root);
+	@override String get title => 'Pembayaran';
+	@override String get total_label => 'Total';
+	@override String get validity_label => 'Masa Berlaku';
+}
+
 // Path: pharmacy
 class _TranslationsPharmacyId implements TranslationsPharmacyEn {
 	_TranslationsPharmacyId._(this._root);
@@ -153,6 +181,21 @@ class _TranslationsPharmacyId implements TranslationsPharmacyEn {
 	// Translations
 	@override late final _TranslationsPharmacyServicesId services = _TranslationsPharmacyServicesId._(_root);
 	@override String get title => 'Layanan Apoteker iRX';
+}
+
+// Path: store
+class _TranslationsStoreId implements TranslationsStoreEn {
+	_TranslationsStoreId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get consumable => 'Barang Habis Pakai';
+	@override late final _TranslationsStoreMessagesId messages = _TranslationsStoreMessagesId._(_root);
+	@override String get no_products => 'Tidak ada produk tersedia';
+	@override String get poct => 'Point of Care Testing';
+	@override String get sort => 'Urutkan';
+	@override String get title => 'Toko Medis';
 }
 
 // Path: auth.button
@@ -425,6 +468,104 @@ class _TranslationsNursingServicesId implements TranslationsNursingServicesEn {
 	@override late final _TranslationsNursingServicesSpecializedNursingId specialized_nursing = _TranslationsNursingServicesSpecializedNursingId._(_root);
 }
 
+// Path: payment.error
+class _TranslationsPaymentErrorId implements TranslationsPaymentErrorEn {
+	_TranslationsPaymentErrorId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get appointment_id_missing => 'Error: ID Janji Temu hilang.';
+}
+
+// Path: payment.feedback
+class _TranslationsPaymentFeedbackId implements TranslationsPaymentFeedbackEn {
+	_TranslationsPaymentFeedbackId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get enter_amount_hint => 'Masukkan jumlah';
+	@override String get enter_other_amount => 'Masukkan jumlah lain';
+	@override String get excellent => 'Luar Biasa';
+	@override String give_tips({required Object name}) => 'Berikan tip kepada ${name}';
+	@override String rated_text({required Object name, required Object stars}) => 'Anda memberi ${name} ${stars} bintang';
+	@override String get submit_btn => 'Kirim Ulasan';
+	@override String get write_text_hint => 'Tulis ulasan Anda di sini...';
+}
+
+// Path: payment.feedback_success
+class _TranslationsPaymentFeedbackSuccessId implements TranslationsPaymentFeedbackSuccessEn {
+	_TranslationsPaymentFeedbackSuccessId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get content => 'Ulasan Anda telah berhasil dikirim.';
+	@override String get thank_you => 'Terima Kasih!';
+	@override String get view_detail_btn => 'Lihat Detail Janji Temu';
+}
+
+// Path: payment.messages
+class _TranslationsPaymentMessagesId implements TranslationsPaymentMessagesEn {
+	_TranslationsPaymentMessagesId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String failed({required Object error}) => 'Pembayaran Gagal: ${error}';
+	@override String feedback_failed({required Object error}) => 'Gagal Mengirim Ulasan: ${error}';
+	@override String purchase_failed({required Object error}) => 'Pembelian Gagal: ${error}';
+}
+
+// Path: payment.methods
+class _TranslationsPaymentMethodsId implements TranslationsPaymentMethodsEn {
+	_TranslationsPaymentMethodsId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get cash_offline => 'Tunai (Pembayaran Offline)';
+}
+
+// Path: payment.offline_success
+class _TranslationsPaymentOfflineSuccessId implements TranslationsPaymentOfflineSuccessEn {
+	_TranslationsPaymentOfflineSuccessId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get content => 'Permintaan Anda telah berhasil dikirim.\nSilakan bayar langsung ke profesional saat janji temu.';
+	@override String get estimated_total => 'Perkiraan Total';
+	@override String get title => 'Permintaan Dikirim';
+}
+
+// Path: payment.subscription_success
+class _TranslationsPaymentSubscriptionSuccessId implements TranslationsPaymentSubscriptionSuccessEn {
+	_TranslationsPaymentSubscriptionSuccessId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String content({required Object planName}) => 'Anda telah berhasil membeli ${planName}';
+	@override String get title => 'Pembayaran Berhasil';
+}
+
+// Path: payment.success
+class _TranslationsPaymentSuccessId implements TranslationsPaymentSuccessEn {
+	_TranslationsPaymentSuccessId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get amount => 'Jumlah';
+	@override String content({required Object name}) => 'Uang Anda telah berhasil dikirim ke ${name}.';
+	@override String get experience_subtitle => 'Ulasan Anda akan membantu kami meningkatkan\npengalaman Anda menjadi lebih baik';
+	@override String get experience_title => 'Bagaimana pengalaman Anda?';
+	@override String get feedback_btn => 'Berikan Ulasan';
+	@override String get title => 'Pembayaran Berhasil';
+}
+
 // Path: pharmacy.services
 class _TranslationsPharmacyServicesId implements TranslationsPharmacyServicesEn {
 	_TranslationsPharmacyServicesId._(this._root);
@@ -436,6 +577,16 @@ class _TranslationsPharmacyServicesId implements TranslationsPharmacyServicesEn 
 	@override late final _TranslationsPharmacyServicesMedicationCounselingId medication_counseling = _TranslationsPharmacyServicesMedicationCounselingId._(_root);
 	@override late final _TranslationsPharmacyServicesSmokingCessationId smoking_cessation = _TranslationsPharmacyServicesSmokingCessationId._(_root);
 	@override late final _TranslationsPharmacyServicesTherapyReviewId therapy_review = _TranslationsPharmacyServicesTherapyReviewId._(_root);
+}
+
+// Path: store.messages
+class _TranslationsStoreMessagesId implements TranslationsStoreMessagesEn {
+	_TranslationsStoreMessagesId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get load_failed => 'Gagal memuat produk';
 }
 
 // Path: auth.forgot_password.form
@@ -940,6 +1091,41 @@ extension on TranslationsId {
 			'nursing.services.specialized_nursing.description' => 'Fokus pada pemulihan Anda, dan percayakan perawatan medis yang kompleks kepada perawat profesional kami yang berpengalaman.',
 			'nursing.services.specialized_nursing.title' => 'Layanan Keperawatan Khusus',
 			'nursing.title' => 'Layanan Keperawatan di Rumah',
+			'payment.error.appointment_id_missing' => 'Error: ID Janji Temu hilang.',
+			'payment.feedback.enter_amount_hint' => 'Masukkan jumlah',
+			'payment.feedback.enter_other_amount' => 'Masukkan jumlah lain',
+			'payment.feedback.excellent' => 'Luar Biasa',
+			'payment.feedback.give_tips' => ({required Object name}) => 'Berikan tip kepada ${name}',
+			'payment.feedback.rated_text' => ({required Object name, required Object stars}) => 'Anda memberi ${name} ${stars} bintang',
+			'payment.feedback.submit_btn' => 'Kirim Ulasan',
+			'payment.feedback.write_text_hint' => 'Tulis ulasan Anda di sini...',
+			'payment.feedback_success.content' => 'Ulasan Anda telah berhasil dikirim.',
+			'payment.feedback_success.thank_you' => 'Terima Kasih!',
+			'payment.feedback_success.view_detail_btn' => 'Lihat Detail Janji Temu',
+			'payment.messages.failed' => ({required Object error}) => 'Pembayaran Gagal: ${error}',
+			'payment.messages.feedback_failed' => ({required Object error}) => 'Gagal Mengirim Ulasan: ${error}',
+			'payment.messages.purchase_failed' => ({required Object error}) => 'Pembelian Gagal: ${error}',
+			'payment.methods.cash_offline' => 'Tunai (Pembayaran Offline)',
+			'payment.offline_success.content' => 'Permintaan Anda telah berhasil dikirim.\nSilakan bayar langsung ke profesional saat janji temu.',
+			'payment.offline_success.estimated_total' => 'Perkiraan Total',
+			'payment.offline_success.title' => 'Permintaan Dikirim',
+			'payment.order_summary' => 'Ringkasan Pesanan',
+			'payment.pay_btn' => ({required Object amount}) => 'Bayar ${amount}',
+			'payment.price_label' => 'Harga',
+			'payment.return_home_btn' => 'Kembali ke Beranda',
+			'payment.select_method' => 'Pilih Metode Pembayaran',
+			'payment.service_charge' => 'Biaya Layanan',
+			'payment.subscription_success.content' => ({required Object planName}) => 'Anda telah berhasil membeli ${planName}',
+			'payment.subscription_success.title' => 'Pembayaran Berhasil',
+			'payment.success.amount' => 'Jumlah',
+			'payment.success.content' => ({required Object name}) => 'Uang Anda telah berhasil dikirim ke ${name}.',
+			'payment.success.experience_subtitle' => 'Ulasan Anda akan membantu kami meningkatkan\npengalaman Anda menjadi lebih baik',
+			'payment.success.experience_title' => 'Bagaimana pengalaman Anda?',
+			'payment.success.feedback_btn' => 'Berikan Ulasan',
+			'payment.success.title' => 'Pembayaran Berhasil',
+			'payment.title' => 'Pembayaran',
+			'payment.total_label' => 'Total',
+			'payment.validity_label' => 'Masa Berlaku',
 			'pharmacy.services.health_coaching.description' => 'Panduan dan dukungan yang dipersonalisasi untuk membantu individu mencapai target kesehatan, mengelola kondisi kronis, dan meningkatkan kesejahteraan secara keseluruhan, dengan program khusus untuk manajemen berat badan, diabetes, tekanan darah tinggi, serta kolesterol tinggi.',
 			'pharmacy.services.health_coaching.title' => 'Pelatihan Kesehatan',
 			'pharmacy.services.medication_counseling.description' => 'Konseling dan edukasi obat memandu pasien tentang penggunaan yang benar, efek samping, dan kepatuhan terhadap resep, guna meningkatkan keamanan dan hasil kesehatan.',
@@ -949,6 +1135,12 @@ extension on TranslationsId {
 			'pharmacy.services.therapy_review.description' => 'Tinjauan komprehensif terhadap obat-obatan dan gaya hidup Anda untuk mengoptimalkan hasil perawatan serta meminimalkan potensi efek samping.',
 			'pharmacy.services.therapy_review.title' => 'Evaluasi Terapi Menyeluruh',
 			'pharmacy.title' => 'Layanan Apoteker iRX',
+			'store.consumable' => 'Barang Habis Pakai',
+			'store.messages.load_failed' => 'Gagal memuat produk',
+			'store.no_products' => 'Tidak ada produk tersedia',
+			'store.poct' => 'Point of Care Testing',
+			'store.sort' => 'Urutkan',
+			'store.title' => 'Toko Medis',
 			_ => null,
 		};
 	}

@@ -1,0 +1,53 @@
+{
+  "error": {
+    "appointment_id_missing": "Error: Appointment ID is missing."
+  },
+  "feedback": {
+    "enter_amount_hint": "Enter amount",
+    "enter_other_amount": "Enter other amount",
+    "excellent": "Excellent",
+    "give_tips": "Give some tips to {name}",
+    "rated_text": "You rated {name} {stars} stars",
+    "submit_btn": "Submit Feedback",
+    "write_text_hint": "Write your feedback here..."
+  },
+  "feedback_success": {
+    "content": "Your feedback has been submitted successfully.",
+    "thank_you": "Thank You!",
+    "view_detail_btn": "View Appointment Detail"
+  },
+  "messages": {
+    "failed": "Payment Failed: {error}",
+    "feedback_failed": "Feedback Failed: {error}",
+    "purchase_failed": "Purchase Failed: {error}"
+  },
+  "methods": {
+    "cash_offline": "Cash (Offline Payment)"
+  },
+  "offline_success": {
+    "content": "Your request has been submitted successfully.\nPlease pay directly to the professional during the appointment.",
+    "estimated_total": "Estimated Total",
+    "title": "Request Submitted"
+  },
+  "order_summary": "Order Summary",
+  "pay_btn": "Pay {amount}",
+  "price_label": "Price",
+  "return_home_btn": "Return to Home",
+  "select_method": "Select Payment Method",
+  "service_charge": "Service Charge",
+  "subscription_success": {
+    "content": "You have successfully purchased {planName}",
+    "title": "Payment Success"
+  },
+  "success": {
+    "amount": "Amount",
+    "content": "Your money has been successfully sent to {name}.",
+    "experience_subtitle": "Your feedback will help us to improve your\nexperience better",
+    "experience_title": "How is your experience?",
+    "feedback_btn": "Please Feedback",
+    "title": "Payment Success"
+  },
+  "title": "Payment",
+  "total_label": "Total",
+  "validity_label": "Validity"
+}

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/features/payment/presentation/cubit/feedback_cubit.dart';
 import 'package:m2health/features/payment/presentation/pages/feedback_success_page.dart';
 import 'package:m2health/route/app_routes.dart';
@@ -42,9 +42,7 @@ class _FeedbackFormPageState extends State<FeedbackFormPage> {
 
     if (widget.appointment.id == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text(
-                context.l10n.common_error('Appointment ID is missing.'))),
+        SnackBar(content: Text(context.t.payment.error.appointment_id_missing)),
       );
       return;
     }
@@ -77,8 +75,8 @@ class _FeedbackFormPageState extends State<FeedbackFormPage> {
         } else if (state is FeedbackFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(
-                  context.l10n.payment_feedback_failed(state.message)),
+              content: Text(context.t.payment.messages
+                  .feedback_failed(error: state.message)),
               backgroundColor: Colors.red,
             ),
           );
@@ -120,7 +118,7 @@ class _FeedbackFormPageState extends State<FeedbackFormPage> {
               const SizedBox(height: 8),
               Center(
                 child: Text(
-                  context.l10n.payment_excellent,
+                  context.t.payment.feedback.excellent,
                   style: const TextStyle(
                     color: Const.aqua,
                     fontWeight: FontWeight.bold,
@@ -131,7 +129,8 @@ class _FeedbackFormPageState extends State<FeedbackFormPage> {
               const SizedBox(height: 8),
               Center(
                 child: Text(
-                  context.l10n.payment_rated_text(professionalName, selectedStar),
+                  context.t.payment.feedback
+                      .rated_text(name: professionalName, stars: selectedStar),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -139,7 +138,7 @@ class _FeedbackFormPageState extends State<FeedbackFormPage> {
               TextField(
                 controller: _textController,
                 decoration: InputDecoration(
-                  hintText: context.l10n.payment_write_text_hint,
+                  hintText: context.t.payment.feedback.write_text_hint,
                   border: const OutlineInputBorder(),
                 ),
                 minLines: 5,
@@ -148,7 +147,7 @@ class _FeedbackFormPageState extends State<FeedbackFormPage> {
               const SizedBox(height: 24),
               Center(
                 child: Text(
-                  context.l10n.payment_give_tips(professionalName),
+                  context.t.payment.feedback.give_tips(name: professionalName),
                   style: const TextStyle(
                     fontSize: 16,
                   ),
@@ -174,7 +173,7 @@ class _FeedbackFormPageState extends State<FeedbackFormPage> {
                     });
                   },
                   child: Text(
-                    context.l10n.payment_enter_other_amount,
+                    context.t.payment.feedback.enter_other_amount,
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -189,7 +188,7 @@ class _FeedbackFormPageState extends State<FeedbackFormPage> {
                   controller: _otherAmountController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    hintText: context.l10n.payment_enter_amount_hint,
+                    hintText: context.t.payment.feedback.enter_amount_hint,
                     border: const OutlineInputBorder(),
                     prefixText: '\$',
                   ),
@@ -219,7 +218,7 @@ class _FeedbackFormPageState extends State<FeedbackFormPage> {
                                     color: Colors.white),
                               )
                             : Text(
-                                context.l10n.payment_submit_btn,
+                                context.t.payment.feedback.submit_btn,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
