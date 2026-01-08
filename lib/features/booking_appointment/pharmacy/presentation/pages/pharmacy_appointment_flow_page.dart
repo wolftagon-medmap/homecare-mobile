@@ -93,7 +93,8 @@ class PharmacyAppointmentFlowPageState
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                state.errorMessage ?? context.l10n.booking_appointment_created_failed,
+                state.errorMessage ??
+                    context.l10n.booking_appointment_created_failed,
               ),
             ),
           );
