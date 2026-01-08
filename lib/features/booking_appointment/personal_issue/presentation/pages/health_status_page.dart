@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/health_status.dart';
 import 'package:m2health/features/medical_record/domain/entities/medical_record.dart';
 import 'package:m2health/features/medical_record/presentation/bloc/medical_record_bloc.dart';
 import 'package:m2health/features/medical_record/presentation/bloc/medical_record_event.dart';
 import 'package:m2health/features/medical_record/presentation/bloc/medical_record_state.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/mobility_status.dart';
+import 'package:m2health/i18n/translations.g.dart';
 
 class HealthStatusPage extends StatefulWidget {
   final Function(HealthStatus) onSubmit;
@@ -41,7 +41,7 @@ class HealthStatusPageState extends State<HealthStatusPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          context.l10n.booking_health_status_title,
+          context.t.booking.health_status.title,
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
@@ -50,7 +50,7 @@ class HealthStatusPageState extends State<HealthStatusPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(context.l10n.booking_health_status_mobility_label,
+            Text(context.t.booking.health_status.mobility_label,
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ...MobilityStatus.values.map((status) {
               return RadioListTile<MobilityStatus>(
@@ -69,7 +69,7 @@ class HealthStatusPageState extends State<HealthStatusPage> {
               );
             }),
             const SizedBox(height: 20),
-            Text(context.l10n.booking_health_status_record_label,
+            Text(context.t.booking.health_status.record_label,
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10.0),
             BlocBuilder<MedicalRecordBloc, MedicalRecordState>(
@@ -80,11 +80,11 @@ class HealthStatusPageState extends State<HealthStatusPage> {
                 if (medicalState.listStatus == ListStatus.failure) {
                   return Center(
                       child: Text(
-                          medicalState.listError ?? context.l10n.common_error('Error loading records')));
+                          medicalState.listError ?? 'Failed to load medical records.'));
                 }
                 if (medicalState.listStatus == ListStatus.success) {
                   if (medicalState.medicalRecords.isEmpty) {
-                    return Text(context.l10n.booking_health_status_no_records);
+                    return Text(context.t.booking.health_status.empty_record);
                   }
                   return Container(
                     decoration: BoxDecoration(
@@ -95,11 +95,11 @@ class HealthStatusPageState extends State<HealthStatusPage> {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<int?>(
                         value: healthStatus.relatedHealthRecordId,
-                        hint: Text(context.l10n.booking_health_status_record_hint),
+                        hint: Text(context.t.booking.health_status.record_hint),
                         items: [
                           DropdownMenuItem<int?>(
                             value: null,
-                            child: Text(context.l10n.common_none),
+                            child: Text(context.t.global.none),
                           ),
                           ...medicalState.medicalRecords
                               .map((MedicalRecord record) {
@@ -135,7 +135,7 @@ class HealthStatusPageState extends State<HealthStatusPage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: Text(context.l10n.booking_next_btn,
+                child: Text(context.t.global.next,
                     style: const TextStyle(color: Colors.white, fontSize: 20)),
               ),
             ),

@@ -1,0 +1,94 @@
+{
+  "addon": {
+    "empty": "Tidak ada layanan tambahan yang tersedia.",
+    "estimated_budget": "Perkiraan Biaya",
+    "title": {
+      "default": "Layanan Tambahan",
+      "nursing": "Prosedur Keperawatan",
+      "pharmacy": "Layanan Farmasi",
+      "radiology": "Layanan Radiologi",
+      "specialized_nursing": "Prosedur Keperawatan Khusus"
+    }
+  },
+  "book_appointment": "Buat Janji Temu",
+  "health_status": {
+    "empty_record": "Tidak ada rekam medis yang tersedia.",
+    "mobility_label": "Pilih status mobilitas Anda",
+    "record_hint": "Silakan pilih rekam medis",
+    "record_label": "Pilih rekam medis terkait",
+    "title": "Detail Kasus Pribadi"
+  },
+  "issue": {
+    "add_issue_button": "Tambah Keluhan",
+    "add_issue_title": "Tambah Keluhan",
+    "default_page_title": "Kasus Layanan",
+    "delete_dialog": {
+      "content": "Apakah Anda yakin ingin menghapus keluhan ini?",
+      "title": "Hapus Keluhan"
+    },
+    "edit_issue_title": "Ubah Keluhan",
+    "empty_issue": "Belum ada keluhan yang ditambahkan.\n Harap tambahkan keluhan agar\nAnda dapat melanjutkan ke langkah berikutnya.",
+    "fill_complaint_instruction": "Ceritakan keluhan Anda",
+    "form": {
+      "add_button": "Tambah",
+      "complaint_description_hint": "Silakan masukkan pertanyaan, kekhawatiran, gejala relevan yang terkait dengan kasus Anda beserta kata kunci terkait.",
+      "complaint_label": "Keluhan",
+      "complaint_title_hint": "Beritahu kami keluhan Anda",
+      "title_description_required": "Judul dan deskripsi keluhan wajib diisi."
+    },
+    "images": "Gambar",
+    "messages": {
+      "add_issue_success": "Keluhan berhasil ditambahkan",
+      "edit_issue_success": "Keluhan berhasil diperbarui"
+    },
+    "nurse_page_title": "Kasus Layanan Perawat",
+    "pharmacy_page_title": "Kasus Layanan Apoteker",
+    "radiology_page_title": "Kasus Layanan Radiolog",
+    "updated_on": "Diperbarui pada: {date}"
+  },
+  "professional_detail": {
+    "about_me": "Tentang Saya",
+    "certificates": "Sertifikat Profesional",
+    "experience_label": "Pengalaman",
+    "id_number": "Nomor ID: {number}",
+    "issued_on": "Diterbitkan: {date}",
+    "no_certificate": "Sertifikat tidak tersedia.",
+    "no_reviews": "Belum ada ulasan.",
+    "patients_label": "Pasien",
+    "rating_label": "Penilaian",
+    "reviews": "Ulasan",
+    "schedule_button": "Jadwalkan Janji Temu",
+    "see_all_button": "Lihat Semua",
+    "title": {
+      "default": "Detail Profesional",
+      "nurse": "Detail Perawat",
+      "pharmacist": "Detail Apoteker",
+      "radiologist": "Detail Radiolog"
+    },
+    "working_info": "Informasi Kerja"
+  },
+  "professional_search": {
+    "appointment_button": "Buat Janji Temu",
+    "empty": "Tidak ditemukan profesional yang cocok dengan kriteria Anda.",
+    "filter_text": "Difilter berdasarkan {count} layanan terpilih",
+    "title": {
+      "caregiver": "Cari Pengasuh/Pendamping/Pekerja",
+      "default": "Cari Profesional",
+      "nurse": "Cari Perawat",
+      "pharmacist": "Cari Apoteker",
+      "radiologist": "Cari Radiolog"
+    }
+  },
+  "schedule": {
+    "empty_slots": "Tidak ada slot tersedia untuk hari ini.",
+    "messages": {
+      "reschedule_failed": "Penjadwalan ulang gagal.",
+      "reschedule_success": "Janji temu berhasil dijadwalkan ulang"
+    },
+    "select_date": "Pilih Tanggal",
+    "select_hour": "Pilih Jam",
+    "submit_button": "Kirim",
+    "submitting_button": "Mengirim...",
+    "title": "Pilih Jadwal"
+  }
+}

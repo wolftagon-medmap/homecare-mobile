@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/views/file_viewer_page.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
+import 'package:m2health/i18n/translations.g.dart';
 
 class PersonalIssueDetailPage extends StatelessWidget {
   final PersonalIssue issue;
@@ -66,7 +66,7 @@ class PersonalIssueDetailPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  context.l10n.booking_personal_issue_concern,
+                  context.t.booking.issue.form.complaint_label,
                   style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 4),
@@ -80,7 +80,9 @@ class PersonalIssueDetailPage extends StatelessWidget {
                   Icon(Icons.access_time, size: 16, color: Colors.grey[600]),
                   const SizedBox(width: 8),
                   Text(
-                    context.l10n.booking_personal_issue_updated_on(DateFormat('EEEE, MMM d, y, HH:mm').format(issue.updatedAt!)),
+                    context.t.booking.issue.updated_on(date:
+                        DateFormat('EEEE, MMM d, y, HH:mm')
+                            .format(issue.updatedAt!)),
                     style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                   ),
                 ],
@@ -135,7 +137,7 @@ class PersonalIssueDetailPage extends StatelessWidget {
     }
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(context.l10n.booking_personal_issue_images,
+      Text(context.t.booking.issue.images,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
       const SizedBox(height: 18),
       GridView.builder(

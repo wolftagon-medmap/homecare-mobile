@@ -1,0 +1,39 @@
+{
+  "add": "Add",
+  "book_now": "Book Now",
+  "cancel": "Cancel",
+  "complete": "Complete",
+  "confirm": "Confirm",
+  "delete": "Delete",
+  "description": "Description",
+  "dialog": {
+    "coming_soon": "Coming Soon",
+    "feature_available_soon": "This feature will be available soon!"
+  },
+  "edit_information": "Edit Information",
+  "error": "Error",
+  "error_message": "Error: {error}",
+  "messages": {
+    "delete_success": "Deleted successfully",
+    "updated_success": "Updated successfully"
+  },
+  "modify": "Modify",
+  "next": "Next",
+  "no": "No",
+  "no_data": "No data available",
+  "none": "None",
+  "not_specified": "Not specified",
+  "ok": "OK",
+  "other": "Other",
+  "ready": "Ready",
+  "remove": "Remove",
+  "retry": "Retry",
+  "save": "Save",
+  "saving": "Saving...",
+  "services": "Services",
+  "status": "Status",
+  "submit": "Submit",
+  "unknown_location": "Unknown Location",
+  "update": "Update",
+  "yes": "Yes"
+}

@@ -1,0 +1,19 @@
+{
+  "allied_services": "辅助医疗",
+  "chat_ai_placeholder": "咨询AI医生，解答您的健康疑问",
+  "greeting": "更长寿，更健康，{displayName}！",
+  "services": {
+    "diabetic_care": "iRX糖尿病护理。",
+    "dietitian": "营养师服务",
+    "health_risk_assessment": "健康风险评估",
+    "home_screening": "居家健康筛查",
+    "homecare_for_elderly": "家政维修",
+    "nursing": " 上门护士。",
+    "pharmacist": "iRX 药师服务",
+    "physiotherapy": "物理治疗",
+    "precision_nutrition": "精准营养",
+    "remote_patient_monitoring": "远程健康监测",
+    "second_opinion": "医学影像第二意见",
+    "sleep_and_mental_health": "睡眠与心理健康"
+  }
+}

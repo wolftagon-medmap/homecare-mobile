@@ -3,13 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/bloc/personal_issues_state.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/domain/entities/time_slot.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/bloc/schedule_appointment_cubit.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/widgets/time_slot_grid_view.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ScheduleAppointmentPageData {
@@ -97,7 +97,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          context.l10n.booking_schedule_title,
+          context.t.booking.schedule.title,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -109,7 +109,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
             _buildProfessionalCard(),
             const SizedBox(height: 24),
             Text(
-              context.l10n.booking_schedule_select_date,
+              context.t.booking.schedule.select_date,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -119,7 +119,7 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
             _buildCalendar(),
             const SizedBox(height: 24),
             Text(
-              context.l10n.booking_schedule_select_hour,
+              context.t.booking.schedule.select_hour,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -138,12 +138,13 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                   }
                   if (state.status == ActionStatus.error) {
                     return Center(
-                        child:
-                            Text(state.errorMessage ?? context.l10n.common_error('Failed to load slots')));
+                        child: Text(state.errorMessage ??
+                            context.t.global
+                                .error_message(error: 'Failed to load slots')));
                   }
                   if (state.slots.isEmpty) {
                     return Center(
-                        child: Text(context.l10n.booking_schedule_no_slots));
+                        child: Text(context.t.booking.schedule.empty_slots));
                   }
 
                   return TimeSlotGridView(
@@ -208,7 +209,8 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
-                          professional.workplace ?? context.l10n.common_unknown_location,
+                          professional.workplace ??
+                              context.t.global.unknown_location,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -300,14 +302,15 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
           if (state.rescheduleStatus == ActionStatus.success) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(context.l10n.booking_schedule_reschedule_success),
+                content: Text(
+                    context.t.booking.schedule.messages.reschedule_success),
                 backgroundColor: Colors.green,
               ),
             );
             Navigator.of(context).pop(true); // Indicate success
           } else if (state.rescheduleStatus == ActionStatus.error) {
-            final errorMessage =
-                state.rescheduleErrorMessage ?? context.l10n.booking_schedule_reschedule_failed;
+            final errorMessage = state.rescheduleErrorMessage ??
+                context.t.booking.schedule.messages.reschedule_failed;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(errorMessage),
@@ -344,13 +347,14 @@ class _ScheduleAppointmentPageState extends State<ScheduleAppointmentPage> {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      Text(context.l10n.booking_schedule_submitting,
+                      Text(context.t.booking.schedule.submitting_button,
                           style: const TextStyle(color: Colors.white)),
                     ],
                   )
                 : Text(
-                    context.l10n.booking_schedule_submit_btn,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    context.t.booking.schedule.submit_button,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w600),
                   ),
           );
         },

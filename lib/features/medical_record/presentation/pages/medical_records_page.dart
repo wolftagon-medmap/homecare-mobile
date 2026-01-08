@@ -10,6 +10,7 @@ import 'package:m2health/features/medical_record/presentation/bloc/medical_recor
 import 'package:m2health/features/medical_record/presentation/bloc/medical_record_state.dart';
 import 'package:m2health/features/medical_record/presentation/pages/medical_record_detail.dart';
 import 'package:m2health/features/medical_record/presentation/pages/medical_record_form_page.dart';
+import 'package:m2health/i18n/translations.g.dart';
 
 class MedicalRecordsPage extends StatefulWidget {
   const MedicalRecordsPage({super.key});
@@ -169,7 +170,7 @@ class _MedicalRecordCard extends StatelessWidget {
             fontSize: 16,
           ),
         ),
-        subtitle: BlocBuilder<LocaleCubit, Locale>(
+        subtitle: BlocBuilder<LocaleCubit, AppLocale>(
           builder: (context, locale) {
             return Text(
               '${context.l10n.last_updated}: ${DateFormat.yMd(locale.languageCode).format(record.updatedAt)}', //

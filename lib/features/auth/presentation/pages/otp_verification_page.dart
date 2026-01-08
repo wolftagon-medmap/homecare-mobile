@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/auth/presentation/cubit/forgot_password_cubit.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:pinput/pinput.dart';
@@ -120,7 +120,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
               );
             } else if (state is ForgotPasswordOtpSent) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(context.l10n.auth_code_resent)),
+                SnackBar(
+                    content: Text(context.t.auth.otp_verification.message.code_resent)),
               );
               startTimer();
             }
@@ -135,7 +136,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        context.l10n.auth_otp_verification_title,
+                        context.t.auth.otp_verification.title,
                         style: const TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
@@ -144,7 +145,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        context.l10n.auth_otp_verification_subtitle(widget.email),
+                        context.t.auth.otp_verification.subtitle(email: widget.email),
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
@@ -158,9 +159,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                           defaultPinTheme: defaultPinTheme,
                           focusedPinTheme: focusedPinTheme,
                           submittedPinTheme: submittedPinTheme,
-                          validator: (s) {
-                            return s?.length == 6 ? null : context.l10n.auth_pin_incorrect;
-                          },
                           pinputAutovalidateMode:
                               PinputAutovalidateMode.onSubmit,
                           showCursor: true,
@@ -202,7 +200,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                                   ),
                                 )
                               : Text(
-                                  context.l10n.auth_verify_btn,
+                                  context.t.auth.otp_verification.button.submit,
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
@@ -223,8 +221,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                               : null,
                           child: Text(
                             _isResendEnabled
-                                ? context.l10n.auth_resend_code
-                                : context.l10n.auth_resend_in_seconds(_start),
+                                ? context.t.auth.otp_verification.button.resend_code
+                                : context.t.auth.otp_verification
+                                    .resend_time_countdown(seconds: _start),
                             style: TextStyle(
                               color:
                                   _isResendEnabled ? Const.aqua : Colors.grey,

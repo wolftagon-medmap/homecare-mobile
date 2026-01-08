@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/star_rating.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional/professional_bloc.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional/professional_event.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional/professional_state.dart';
+import 'package:m2health/i18n/translations.g.dart';
 
 class SearchProfessionalPage extends StatefulWidget {
   final String role;
@@ -65,15 +65,15 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
   String getTitle(BuildContext context, String role) {
     switch (role) {
       case 'nurse':
-        return context.l10n.booking_professional_search_nurse;
+        return context.t.booking.professional_search.title.nurse;
       case 'pharmacist':
-        return context.l10n.booking_professional_search_pharmacist;
+        return context.t.booking.professional_search.title.pharmacist;
       case 'radiologist':
-        return context.l10n.booking_professional_search_radiologist;
+        return context.t.booking.professional_search.title.radiologist;
       case 'caregiver':
-        return context.l10n.booking_professional_search_caregiver;
+        return context.t.booking.professional_search.title.caregiver;
       default:
-        return context.l10n.booking_professional_search_default;
+        return context.t.booking.professional_search.title.kDefault;
     }
   }
 
@@ -110,8 +110,8 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
                     Icon(Icons.filter_list, size: 16, color: Colors.grey[600]),
                     const SizedBox(width: 8),
                     Text(
-                      context.l10n
-                          .booking_professional_filter_text(widget.serviceIds.length),
+                      context.t.booking.professional_search
+                          .filter_text(count: widget.serviceIds.length),
                       style: TextStyle(color: Colors.grey[600], fontSize: 12),
                     ),
                   ],
@@ -127,7 +127,7 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
                     if (professionals.isEmpty) {
                       return Center(
                           child: Text(
-                              context.l10n.booking_professional_empty));
+                              context.t.booking.professional_search.empty));
                     }
                     return ListView.builder(
                       itemCount: professionals.length,
@@ -242,7 +242,11 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
                                               ),
                                             ),
                                             child: Text(
-                                              context.l10n.booking_professional_appointment_btn,
+                                              context
+                                                  .t
+                                                  .booking
+                                                  .professional_search
+                                                  .appointment_button,
                                               style: const TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.black,
@@ -280,8 +284,8 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
                     );
                   } else if (state is ProfessionalError) {
                     return Center(
-                        child: Text(
-                            '${context.l10n.common_error(state.message)}'));
+                        child: Text(context.t.global
+                            .error_message(error: state.message)));
                   } else {
                     return const Center(
                         child: Text('Failed to load professionals'));

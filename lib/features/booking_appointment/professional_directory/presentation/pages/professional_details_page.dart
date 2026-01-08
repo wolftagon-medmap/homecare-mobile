@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/reviewer.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional_detail/professional_detail_cubit.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional_detail/professional_detail_state.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/i18n/translations.g.dart';
 
 class ProfessionalDetailsPage extends StatefulWidget {
   final int professionalId;
@@ -36,13 +36,13 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
   String getTitle(BuildContext context) {
     switch (widget.role) {
       case 'nursing':
-        return context.l10n.booking_professional_detail_nurse;
+        return context.t.booking.professional_detail.title.nurse;
       case 'pharmacist':
-        return context.l10n.booking_professional_detail_pharmacist;
+        return context.t.booking.professional_detail.title.pharmacist;
       case 'radiologist':
-        return context.l10n.booking_professional_detail_radiologist;
+        return context.t.booking.professional_detail.title.radiologist;
       default:
-        return context.l10n.booking_professional_detail_default;
+        return context.t.booking.professional_detail.title.kDefault;
     }
   }
 
@@ -174,7 +174,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                       color: Const.tosca,
                     ),
                   ),
-                  Text(context.l10n.booking_professional_patients_label),
+                  Text(context.t.booking.professional_detail.patients_label),
                 ],
               ),
             ),
@@ -195,7 +195,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                       color: Const.tosca,
                     ),
                   ),
-                  Text(context.l10n.booking_professional_experience_label),
+                  Text(context.t.booking.professional_detail.experience_label),
                 ],
               ),
             ),
@@ -225,7 +225,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                       ),
                     ],
                   ),
-                  Text(context.l10n.booking_professional_rating_label),
+                  Text(context.t.booking.professional_detail.rating_label),
                 ],
               ),
             ),
@@ -242,7 +242,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            context.l10n.booking_professional_about_me,
+            context.t.booking.professional_detail.about_me,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
@@ -264,7 +264,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          context.l10n.booking_professional_working_info,
+          context.t.booking.professional_detail.working_info,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18,
@@ -277,8 +277,8 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
             const Icon(Icons.calendar_today, color: Colors.grey),
             const SizedBox(width: 8),
             Expanded(
-              child:
-                  Text(professional.workingHours ?? context.l10n.common_not_specified),
+              child: Text(
+                  professional.workingHours ?? context.t.global.not_specified),
             ),
           ],
         ),
@@ -292,7 +292,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                professional.workplace ?? context.l10n.common_not_specified,
+                professional.workplace ?? context.t.global.not_specified,
                 style: const TextStyle(color: Colors.blue),
               ),
             ),
@@ -310,7 +310,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
         Row(
           children: [
             Text(
-              context.l10n.booking_professional_certificate,
+              context.t.booking.professional_detail.certificates,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -322,7 +322,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
             professional.certificates!.isEmpty)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Text(context.l10n.booking_professional_no_certificate),
+            child: Text(context.t.booking.professional_detail.no_certificate),
           )
         else
           Column(
@@ -352,10 +352,10 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                             cert.title,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Text(context.l10n
-                              .booking_professional_id_number(cert.registrationNumber)),
-                          Text(context.l10n
-                              .booking_professional_issued_on(cert.issuedOn)),
+                          Text(context.t.booking.professional_detail
+                              .id_number(number: cert.registrationNumber)),
+                          Text(context.t.booking.professional_detail
+                              .issued_on(date: cert.issuedOn)),
                         ],
                       ),
                     ),
@@ -376,7 +376,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              context.l10n.booking_professional_reviews,
+              context.t.booking.professional_detail.reviews,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -387,14 +387,14 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                 onPressed: () {
                   // Handle See All click
                 },
-                child: Text(context.l10n.booking_professional_see_all),
+                child: Text(context.t.booking.professional_detail.see_all_button),
               ),
           ],
         ),
         if (reviews.isEmpty)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Text(context.l10n.booking_professional_no_reviews),
+            child: Text(context.t.booking.professional_detail.no_reviews),
           )
         else
           Column(
@@ -474,7 +474,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
           ),
         ),
         child: Text(
-          context.l10n.booking_professional_schedule_btn,
+          context.t.booking.professional_detail.schedule_button,
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,

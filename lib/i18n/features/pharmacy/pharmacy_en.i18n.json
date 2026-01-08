@@ -1,0 +1,21 @@
+{
+  "services": {
+    "health_coaching": {
+      "description": "Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well-being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management.",
+      "title": "Health Coaching"
+    },
+    "medication_counseling": {
+      "description": "Medication counseling and education guide patients on proper use, side effects, and adherence to prescriptions, enhancing safety and improving health outcomes.",
+      "title": "Medication Counseling\nand Education"
+    },
+    "smoking_cessation": {
+      "description": "Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.",
+      "title": "Smoking Cessation"
+    },
+    "therapy_review": {
+      "description": "Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.",
+      "title": "Comprehensive Therapy Review"
+    }
+  },
+  "title": "iRX Pharmacist Service"
+}

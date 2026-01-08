@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class ResetPasswordSuccessPage extends StatelessWidget {
@@ -35,7 +35,7 @@ class ResetPasswordSuccessPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                context.l10n.auth_reset_password_success_title,
+                context.t.auth.reset_password_success.title,
                 style: const TextStyle(
                   color: Const.aqua,
                   fontSize: 20,
@@ -45,7 +45,7 @@ class ResetPasswordSuccessPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                context.l10n.auth_reset_password_success_content,
+                context.t.auth.reset_password_success.body,
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 16, color: Colors.grey),
               ),
@@ -65,7 +65,7 @@ class ResetPasswordSuccessPage extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    context.l10n.auth_back_to_login_btn,
+                    context.t.auth.reset_password_success.button.login_page_link,
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16,

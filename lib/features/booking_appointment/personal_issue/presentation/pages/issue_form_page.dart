@@ -2,11 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/image_preview.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/bloc/personal_issues_cubit.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/bloc/personal_issues_state.dart';
+import 'package:m2health/i18n/translations.g.dart';
 
 class IssueFormPage extends StatefulWidget {
   final PersonalIssue? issue;
@@ -47,7 +47,8 @@ class _IssueFormPageState extends State<IssueFormPage> {
     if (issueTitle.isEmpty || description.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(context.l10n.booking_issue_form_required_error),
+          content:
+              Text(context.t.booking.issue.form.title_description_required),
           backgroundColor: Colors.red,
         ),
       );
@@ -106,8 +107,8 @@ class _IssueFormPageState extends State<IssueFormPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(isEditMode
-                  ? context.l10n.booking_issue_form_success_update
-                  : context.l10n.booking_issue_form_success_add),
+                  ? context.t.booking.issue.messages.edit_issue_success
+                  : context.t.booking.issue.messages.add_issue_success),
               backgroundColor: Colors.green,
             ),
           );
@@ -116,7 +117,7 @@ class _IssueFormPageState extends State<IssueFormPage> {
             SnackBar(
               content: Text(
                 state.createErrorMessage ??
-                    context.l10n.booking_appointment_created_failed,
+                    "Unknown error occurred while creating the issue.",
               ),
               backgroundColor: Colors.red,
             ),
@@ -126,7 +127,7 @@ class _IssueFormPageState extends State<IssueFormPage> {
             SnackBar(
               content: Text(
                 state.updateErrorMessage ??
-                    context.l10n.booking_appointment_created_failed,
+                    "Unknown error occurred while updating the issue.",
               ),
               backgroundColor: Colors.red,
             ),
@@ -138,8 +139,8 @@ class _IssueFormPageState extends State<IssueFormPage> {
           appBar: AppBar(
             title: Text(
               isEditMode
-                  ? context.l10n.booking_issue_form_edit_title
-                  : context.l10n.booking_issue_form_add_title,
+                  ? context.t.booking.issue.edit_issue_title
+                  : context.t.booking.issue.add_issue_title,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             leading: IconButton(
@@ -155,7 +156,7 @@ class _IssueFormPageState extends State<IssueFormPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  context.l10n.booking_issue_form_instruction,
+                  context.t.booking.issue.form.complaint_label,
                   style: const TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
@@ -165,7 +166,7 @@ class _IssueFormPageState extends State<IssueFormPage> {
                 TextField(
                   controller: _issueTitleController,
                   decoration: InputDecoration(
-                    hintText: context.l10n.booking_issue_form_title_hint,
+                    hintText: context.t.booking.issue.form.complaint_title_hint,
                     hintStyle:
                         const TextStyle(color: Color(0xFFD0D0D0), fontSize: 12),
                     border: OutlineInputBorder(
@@ -177,7 +178,8 @@ class _IssueFormPageState extends State<IssueFormPage> {
                 TextField(
                   controller: _descriptionController,
                   decoration: InputDecoration(
-                    hintText: context.l10n.booking_issue_form_desc_hint,
+                    hintText:
+                        context.t.booking.issue.form.complaint_description_hint,
                     hintStyle:
                         const TextStyle(color: Color(0xFFD0D0D0), fontSize: 12),
                     border: OutlineInputBorder(
@@ -189,7 +191,7 @@ class _IssueFormPageState extends State<IssueFormPage> {
                   maxLines: 5,
                 ),
                 const SizedBox(height: 16.0),
-                Text(context.l10n.booking_issue_form_images_label,
+                Text(context.t.booking.issue.images,
                     style: const TextStyle(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 ...List.generate(widget.maxImages, (index) {
@@ -233,8 +235,8 @@ class _IssueFormPageState extends State<IssueFormPage> {
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
                     : Text(
                         isEditMode
-                            ? context.l10n.booking_issue_form_update_btn
-                            : context.l10n.booking_issue_form_add_btn,
+                            ? context.t.global.update
+                            : context.t.global.add,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16,
