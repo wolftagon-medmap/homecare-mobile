@@ -5,6 +5,7 @@ import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/appointment/appointment_module.dart';
 import 'package:m2health/features/payment/domain/entities/payment.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class OfflinePaymentSuccessDialog extends StatelessWidget {
@@ -38,9 +39,9 @@ class OfflinePaymentSuccessDialog extends StatelessWidget {
                   height: 142,
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'Request Submitted',
-                  style: TextStyle(
+                Text(
+                  context.t.payment.offline_success.title,
+                  style: const TextStyle(
                     color: Const.aqua,
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -48,16 +49,16 @@ class OfflinePaymentSuccessDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  'Your request has been submitted successfully.\nPlease pay directly to the professional during the appointment.',
+                Text(
+                  context.t.payment.offline_success.content,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14),
+                  style: const TextStyle(fontSize: 14),
                 ),
                 const SizedBox(height: 16),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Estimated Total'),
+                    Text(context.t.payment.offline_success.estimated_total),
                     Text(
                       '\$${payment.amount.toStringAsFixed(2)}',
                       style: const TextStyle(
@@ -80,9 +81,9 @@ class OfflinePaymentSuccessDialog extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text(
-                      'Return to Home',
-                      style: TextStyle(
+                    child: Text(
+                      context.t.payment.return_home_btn,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

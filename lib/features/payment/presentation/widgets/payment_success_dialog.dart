@@ -7,6 +7,7 @@ import 'package:m2health/features/appointment/appointment_module.dart';
 import 'package:m2health/features/payment/domain/entities/payment.dart';
 import 'package:m2health/features/payment/presentation/cubit/feedback_cubit.dart';
 import 'package:m2health/features/payment/presentation/pages/feedback_form_page.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
@@ -46,9 +47,9 @@ class PaymentSuccessDialog extends StatelessWidget {
                   height: 142,
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'Payment Success',
-                  style: TextStyle(
+                Text(
+                  context.t.payment.success.title,
+                  style: const TextStyle(
                     color: Const.aqua,
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -57,7 +58,7 @@ class PaymentSuccessDialog extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Your money has been successfully sent to $professionalName.',
+                  context.t.payment.success.content(name: professionalName),
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 14),
                 ),
@@ -65,7 +66,7 @@ class PaymentSuccessDialog extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('Amount'),
+                    Text(context.t.payment.success.amount),
                     Text(
                       '\$${payment.amount.toStringAsFixed(2)}',
                       style: const TextStyle(
@@ -78,16 +79,16 @@ class PaymentSuccessDialog extends StatelessWidget {
                   thickness: 1,
                   height: 32,
                 ),
-                const Text(
-                  'How is your experience?',
-                  style: TextStyle(
+                Text(
+                  context.t.payment.success.experience_title,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  'Your feedback will help us to improve your\nexperience better',
+                Text(
+                  context.t.payment.success.experience_subtitle,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
@@ -118,9 +119,9 @@ class PaymentSuccessDialog extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text(
-                      'Please Feedback',
-                      style: TextStyle(
+                    child: Text(
+                      context.t.payment.success.feedback_btn,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -146,9 +147,9 @@ class PaymentSuccessDialog extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    child: const Text(
-                      'Return to Home',
-                      style: TextStyle(
+                    child: Text(
+                      context.t.payment.return_home_btn,
+                      style: const TextStyle(
                         color: Const.aqua,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

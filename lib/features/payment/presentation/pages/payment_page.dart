@@ -1,6 +1,6 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
 import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
@@ -8,8 +8,9 @@ import 'package:m2health/features/booking_appointment/professional_directory/dom
 import 'package:m2health/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:m2health/features/payment/presentation/widgets/offline_payment_success_dialog.dart';
 import 'package:m2health/features/payment/presentation/widgets/payment_success_dialog.dart';
+import 'package:m2health/i18n/translations.g.dart';
 
-class PaymentMethod {
+class PaymentMethod extends Equatable {
   final String id;
   final String type;
   final String displayName;
@@ -19,7 +20,7 @@ class PaymentMethod {
   final String? accountNumber;
   final String? expiryDate;
 
-  PaymentMethod({
+  const PaymentMethod({
     required this.id,
     required this.type,
     required this.displayName,
@@ -28,6 +29,12 @@ class PaymentMethod {
     this.accountNumber,
     this.expiryDate,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        code,
+      ];
 }
 
 class PaymentPage extends StatefulWidget {
@@ -58,53 +65,53 @@ class _PaymentPageState extends State<PaymentPage> {
 
   double get totalCost => widget.appointment.payTotal;
 
-  List<PaymentMethod> paymentMethods = [
-    // PaymentMethod(
-    //   id: '1',
-    //   type: 'card',
-    //   code: 'Visa',
-    //   displayName: 'Visa',
-    //   iconUrl: 'assets/icons/ic_visa.png',
-    //   accountNumber: '**** **** **** 1234',
-    //   expiryDate: '12/26',
-    // ),
-    // PaymentMethod(
-    //   id: '2',
-    //   type: 'card',
-    //   code: 'MasterCard',
-    //   displayName: 'MasterCard',
-    //   iconUrl: 'assets/icons/mastercard.png',
-    //   accountNumber: '**** **** **** 5678',
-    //   expiryDate: '11/25',
-    // ),
-    // PaymentMethod(
-    //   id: '3',
-    //   type: 'alipay',
-    //   code: 'Alipay',
-    //   displayName: 'Alipay',
-    //   iconUrl: 'assets/icons/ic_alipay.png',
-    // ),
-    // PaymentMethod(
-    //   id: '4',
-    //   type: 'paynow',
-    //   code: 'PayNow',
-    //   displayName: 'PayNow',
-    //   iconUrl: 'assets/icons/ic_paynow.jpg',
-    // ),
-    PaymentMethod(
-      id: '5',
-      type: 'cash',
-      code: 'CASH_OFFLINE',
-      displayName: 'Cash (Offline Payment)',
-      iconUrl: 'assets/icons/cash.png',
-    ),
-  ];
+  List<PaymentMethod> get paymentMethods => [
+        // PaymentMethod(
+        //   id: '1',
+        //   type: 'card',
+        //   code: 'Visa',
+        //   displayName: 'Visa',
+        //   iconUrl: 'assets/icons/ic_visa.png',
+        //   accountNumber: '**** **** **** 1234',
+        //   expiryDate: '12/26',
+        // ),
+        // PaymentMethod(
+        //   id: '2',
+        //   type: 'card',
+        //   code: 'MasterCard',
+        //   displayName: 'MasterCard',
+        //   iconUrl: 'assets/icons/mastercard.png',
+        //   accountNumber: '**** **** **** 5678',
+        //   expiryDate: '11/25',
+        // ),
+        // PaymentMethod(
+        //   id: '3',
+        //   type: 'alipay',
+        //   code: 'Alipay',
+        //   displayName: 'Alipay',
+        //   iconUrl: 'assets/icons/ic_alipay.png',
+        // ),
+        // PaymentMethod(
+        //   id: '4',
+        //   type: 'paynow',
+        //   code: 'PayNow',
+        //   displayName: 'PayNow',
+        //   iconUrl: 'assets/icons/ic_paynow.jpg',
+        // ),
+        PaymentMethod(
+          id: '5',
+          type: 'cash',
+          code: 'CASH_OFFLINE',
+          displayName: context.t.payment.methods.cash_offline,
+          iconUrl: 'assets/icons/cash.png',
+        ),
+      ];
 
   void _onConfirmPayment() {
     if (selectedPaymentMethod == null) return;
     if (widget.appointment.id == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Error: Appointment ID is missing.')),
+        SnackBar(content: Text(context.t.payment.error.appointment_id_missing)),
       );
       return;
     }
@@ -143,7 +150,8 @@ class _PaymentPageState extends State<PaymentPage> {
         } else if (state is PaymentFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(context.l10n.payment_failed(state.message)),
+              content:
+                  Text(context.t.payment.messages.failed(error: state.message)),
               backgroundColor: Colors.red,
             ),
           );
@@ -152,7 +160,7 @@ class _PaymentPageState extends State<PaymentPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            context.l10n.payment_title,
+            context.t.payment.title,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -215,7 +223,7 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
               const SizedBox(height: 16),
               Text(
-                context.l10n.payment_charge,
+                context.t.payment.service_charge,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -242,7 +250,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    context.l10n.payment_total,
+                    context.t.payment.total_label,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -259,7 +267,7 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
               const SizedBox(height: 24),
               Text(
-                context.l10n.payment_select_method,
+                context.t.payment.select_method,
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
@@ -299,7 +307,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         child: CircularProgressIndicator(color: Colors.white),
                       )
                     : Text(
-                        context.l10n.payment_confirm_btn,
+                        context.t.global.confirm,
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,

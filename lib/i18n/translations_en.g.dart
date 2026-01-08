@@ -45,6 +45,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsDashboardEn dashboard = TranslationsDashboardEn._(_root);
 	late final TranslationsGlobalEn global = TranslationsGlobalEn._(_root);
 	late final TranslationsNursingEn nursing = TranslationsNursingEn._(_root);
+	late final TranslationsPaymentEn payment = TranslationsPaymentEn._(_root);
 	late final TranslationsPharmacyEn pharmacy = TranslationsPharmacyEn._(_root);
 	late final TranslationsStoreEn store = TranslationsStoreEn._(_root);
 }
@@ -221,6 +222,51 @@ class TranslationsNursingEn {
 
 	/// en: 'Home Nursing'
 	String get title => 'Home Nursing';
+}
+
+// Path: payment
+class TranslationsPaymentEn {
+	TranslationsPaymentEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsPaymentErrorEn error = TranslationsPaymentErrorEn._(_root);
+	late final TranslationsPaymentFeedbackEn feedback = TranslationsPaymentFeedbackEn._(_root);
+	late final TranslationsPaymentFeedbackSuccessEn feedback_success = TranslationsPaymentFeedbackSuccessEn._(_root);
+	late final TranslationsPaymentMessagesEn messages = TranslationsPaymentMessagesEn._(_root);
+	late final TranslationsPaymentMethodsEn methods = TranslationsPaymentMethodsEn._(_root);
+	late final TranslationsPaymentOfflineSuccessEn offline_success = TranslationsPaymentOfflineSuccessEn._(_root);
+
+	/// en: 'Order Summary'
+	String get order_summary => 'Order Summary';
+
+	/// en: 'Pay {amount}'
+	String pay_btn({required Object amount}) => 'Pay ${amount}';
+
+	/// en: 'Price'
+	String get price_label => 'Price';
+
+	/// en: 'Return to Home'
+	String get return_home_btn => 'Return to Home';
+
+	/// en: 'Select Payment Method'
+	String get select_method => 'Select Payment Method';
+
+	/// en: 'Service Charge'
+	String get service_charge => 'Service Charge';
+
+	late final TranslationsPaymentSubscriptionSuccessEn subscription_success = TranslationsPaymentSubscriptionSuccessEn._(_root);
+	late final TranslationsPaymentSuccessEn success = TranslationsPaymentSuccessEn._(_root);
+
+	/// en: 'Payment'
+	String get title => 'Payment';
+
+	/// en: 'Total'
+	String get total_label => 'Total';
+
+	/// en: 'Validity'
+	String get validity_label => 'Validity';
 }
 
 // Path: pharmacy
@@ -692,6 +738,156 @@ class TranslationsNursingServicesEn {
 	// Translations
 	late final TranslationsNursingServicesPrimaryNursingEn primary_nursing = TranslationsNursingServicesPrimaryNursingEn._(_root);
 	late final TranslationsNursingServicesSpecializedNursingEn specialized_nursing = TranslationsNursingServicesSpecializedNursingEn._(_root);
+}
+
+// Path: payment.error
+class TranslationsPaymentErrorEn {
+	TranslationsPaymentErrorEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Error: Appointment ID is missing.'
+	String get appointment_id_missing => 'Error: Appointment ID is missing.';
+}
+
+// Path: payment.feedback
+class TranslationsPaymentFeedbackEn {
+	TranslationsPaymentFeedbackEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Enter amount'
+	String get enter_amount_hint => 'Enter amount';
+
+	/// en: 'Enter other amount'
+	String get enter_other_amount => 'Enter other amount';
+
+	/// en: 'Excellent'
+	String get excellent => 'Excellent';
+
+	/// en: 'Give some tips to {name}'
+	String give_tips({required Object name}) => 'Give some tips to ${name}';
+
+	/// en: 'You rated {name} {stars} stars'
+	String rated_text({required Object name, required Object stars}) => 'You rated ${name} ${stars} stars';
+
+	/// en: 'Submit Feedback'
+	String get submit_btn => 'Submit Feedback';
+
+	/// en: 'Write your feedback here...'
+	String get write_text_hint => 'Write your feedback here...';
+}
+
+// Path: payment.feedback_success
+class TranslationsPaymentFeedbackSuccessEn {
+	TranslationsPaymentFeedbackSuccessEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Your feedback has been submitted successfully.'
+	String get content => 'Your feedback has been submitted successfully.';
+
+	/// en: 'Thank You!'
+	String get thank_you => 'Thank You!';
+
+	/// en: 'View Appointment Detail'
+	String get view_detail_btn => 'View Appointment Detail';
+}
+
+// Path: payment.messages
+class TranslationsPaymentMessagesEn {
+	TranslationsPaymentMessagesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Payment Failed: {error}'
+	String failed({required Object error}) => 'Payment Failed: ${error}';
+
+	/// en: 'Feedback Failed: {error}'
+	String feedback_failed({required Object error}) => 'Feedback Failed: ${error}';
+
+	/// en: 'Purchase Failed: {error}'
+	String purchase_failed({required Object error}) => 'Purchase Failed: ${error}';
+}
+
+// Path: payment.methods
+class TranslationsPaymentMethodsEn {
+	TranslationsPaymentMethodsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Cash (Offline Payment)'
+	String get cash_offline => 'Cash (Offline Payment)';
+}
+
+// Path: payment.offline_success
+class TranslationsPaymentOfflineSuccessEn {
+	TranslationsPaymentOfflineSuccessEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Your request has been submitted successfully. Please pay directly to the professional during the appointment.'
+	String get content => 'Your request has been submitted successfully.\nPlease pay directly to the professional during the appointment.';
+
+	/// en: 'Estimated Total'
+	String get estimated_total => 'Estimated Total';
+
+	/// en: 'Request Submitted'
+	String get title => 'Request Submitted';
+}
+
+// Path: payment.subscription_success
+class TranslationsPaymentSubscriptionSuccessEn {
+	TranslationsPaymentSubscriptionSuccessEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'You have successfully purchased {planName}'
+	String content({required Object planName}) => 'You have successfully purchased ${planName}';
+
+	/// en: 'Payment Success'
+	String get title => 'Payment Success';
+}
+
+// Path: payment.success
+class TranslationsPaymentSuccessEn {
+	TranslationsPaymentSuccessEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Amount'
+	String get amount => 'Amount';
+
+	/// en: 'Your money has been successfully sent to {name}.'
+	String content({required Object name}) => 'Your money has been successfully sent to ${name}.';
+
+	/// en: 'Your feedback will help us to improve your experience better'
+	String get experience_subtitle => 'Your feedback will help us to improve your\nexperience better';
+
+	/// en: 'How is your experience?'
+	String get experience_title => 'How is your experience?';
+
+	/// en: 'Please Feedback'
+	String get feedback_btn => 'Please Feedback';
+
+	/// en: 'Payment Success'
+	String get title => 'Payment Success';
 }
 
 // Path: pharmacy.services
@@ -1357,6 +1553,41 @@ extension on Translations {
 			'nursing.services.specialized_nursing.description' => 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros',
 			'nursing.services.specialized_nursing.title' => 'Specialized Nursing Services',
 			'nursing.title' => 'Home Nursing',
+			'payment.error.appointment_id_missing' => 'Error: Appointment ID is missing.',
+			'payment.feedback.enter_amount_hint' => 'Enter amount',
+			'payment.feedback.enter_other_amount' => 'Enter other amount',
+			'payment.feedback.excellent' => 'Excellent',
+			'payment.feedback.give_tips' => ({required Object name}) => 'Give some tips to ${name}',
+			'payment.feedback.rated_text' => ({required Object name, required Object stars}) => 'You rated ${name} ${stars} stars',
+			'payment.feedback.submit_btn' => 'Submit Feedback',
+			'payment.feedback.write_text_hint' => 'Write your feedback here...',
+			'payment.feedback_success.content' => 'Your feedback has been submitted successfully.',
+			'payment.feedback_success.thank_you' => 'Thank You!',
+			'payment.feedback_success.view_detail_btn' => 'View Appointment Detail',
+			'payment.messages.failed' => ({required Object error}) => 'Payment Failed: ${error}',
+			'payment.messages.feedback_failed' => ({required Object error}) => 'Feedback Failed: ${error}',
+			'payment.messages.purchase_failed' => ({required Object error}) => 'Purchase Failed: ${error}',
+			'payment.methods.cash_offline' => 'Cash (Offline Payment)',
+			'payment.offline_success.content' => 'Your request has been submitted successfully.\nPlease pay directly to the professional during the appointment.',
+			'payment.offline_success.estimated_total' => 'Estimated Total',
+			'payment.offline_success.title' => 'Request Submitted',
+			'payment.order_summary' => 'Order Summary',
+			'payment.pay_btn' => ({required Object amount}) => 'Pay ${amount}',
+			'payment.price_label' => 'Price',
+			'payment.return_home_btn' => 'Return to Home',
+			'payment.select_method' => 'Select Payment Method',
+			'payment.service_charge' => 'Service Charge',
+			'payment.subscription_success.content' => ({required Object planName}) => 'You have successfully purchased ${planName}',
+			'payment.subscription_success.title' => 'Payment Success',
+			'payment.success.amount' => 'Amount',
+			'payment.success.content' => ({required Object name}) => 'Your money has been successfully sent to ${name}.',
+			'payment.success.experience_subtitle' => 'Your feedback will help us to improve your\nexperience better',
+			'payment.success.experience_title' => 'How is your experience?',
+			'payment.success.feedback_btn' => 'Please Feedback',
+			'payment.success.title' => 'Payment Success',
+			'payment.title' => 'Payment',
+			'payment.total_label' => 'Total',
+			'payment.validity_label' => 'Validity',
 			'pharmacy.services.health_coaching.description' => 'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well-being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management.',
 			'pharmacy.services.health_coaching.title' => 'Health Coaching',
 			'pharmacy.services.medication_counseling.description' => 'Medication counseling and education guide patients on proper use, side effects, and adherence to prescriptions, enhancing safety and improving health outcomes.',

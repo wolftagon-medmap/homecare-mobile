@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/subscription/domain/entities/subscription_plan_entity.dart';
 import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
 import 'package:m2health/features/subscription/presentation/bloc/subscription_state.dart';
+import 'package:m2health/i18n/translations.g.dart';
 
 class PaymentMethod {
   final String id;
@@ -102,15 +102,14 @@ class _SubscriptionPaymentPageState extends State<SubscriptionPaymentPage> {
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.check_circle,
-                      color: Colors.green, size: 60),
+                  const Icon(Icons.check_circle, color: Colors.green, size: 60),
                   const SizedBox(height: 16),
-                  Text(context.l10n.payment_subscription_success_title,
+                  Text(context.t.payment.subscription_success.title,
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
-                  Text(context.l10n
-                      .payment_subscription_success_content(widget.plan.name)),
+                  Text(context.t.payment.subscription_success
+                      .content(planName: widget.plan.name)),
                   const SizedBox(height: 24),
                   SizedBox(
                     width: double.infinity,
@@ -125,19 +124,18 @@ class _SubscriptionPaymentPageState extends State<SubscriptionPaymentPage> {
                         backgroundColor: Const.tosca,
                         foregroundColor: Colors.white,
                       ),
-                      child: Text(context.l10n.common_ok),
+                      child: Text(t.global.ok),
                     ),
                   ),
                 ],
               ),
             ),
           );
-        } else if (state.purchaseStatus ==
-            SubscriptionPurchaseStatus.failure) {
+        } else if (state.purchaseStatus == SubscriptionPurchaseStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(context.l10n
-                  .payment_purchase_failed(state.purchaseErrorMessage ?? '')),
+              content: Text(context.t.payment.messages
+                  .purchase_failed(error: state.purchaseErrorMessage ?? '')),
               backgroundColor: Colors.red,
             ),
           );
@@ -146,7 +144,7 @@ class _SubscriptionPaymentPageState extends State<SubscriptionPaymentPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            context.l10n.payment_title,
+            context.t.payment.title,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -156,7 +154,7 @@ class _SubscriptionPaymentPageState extends State<SubscriptionPaymentPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                context.l10n.payment_order_summary,
+                context.t.payment.order_summary,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -191,7 +189,7 @@ class _SubscriptionPaymentPageState extends State<SubscriptionPaymentPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(context.l10n.admin_homecare_price),
+                        Text(context.t.payment.price_label),
                         Text(
                           '\$${widget.plan.price.toStringAsFixed(2)}',
                           style: const TextStyle(
@@ -205,7 +203,7 @@ class _SubscriptionPaymentPageState extends State<SubscriptionPaymentPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(context.l10n.admin_homecare_validity_days),
+                        Text(context.t.payment.validity_label),
                         Text('${widget.plan.validityDays} Days'),
                       ],
                     ),
@@ -214,7 +212,7 @@ class _SubscriptionPaymentPageState extends State<SubscriptionPaymentPage> {
               ),
               const SizedBox(height: 24),
               Text(
-                context.l10n.payment_select_method,
+                context.t.payment.select_method,
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 18,
@@ -255,8 +253,9 @@ class _SubscriptionPaymentPageState extends State<SubscriptionPaymentPage> {
                         child: CircularProgressIndicator(color: Colors.white),
                       )
                     : Text(
-                        context.l10n.payment_pay_btn(
-                            '\$${widget.plan.price.toStringAsFixed(2)}'),
+                        context.t.payment.pay_btn(
+                            amount:
+                                '\$${widget.plan.price.toStringAsFixed(2)}'),
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 16,

@@ -42,6 +42,7 @@ class TranslationsZh with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDashboardZh dashboard = _TranslationsDashboardZh._(_root);
 	@override late final _TranslationsGlobalZh global = _TranslationsGlobalZh._(_root);
 	@override late final _TranslationsNursingZh nursing = _TranslationsNursingZh._(_root);
+	@override late final _TranslationsPaymentZh payment = _TranslationsPaymentZh._(_root);
 	@override late final _TranslationsPharmacyZh pharmacy = _TranslationsPharmacyZh._(_root);
 	@override late final _TranslationsStoreZh store = _TranslationsStoreZh._(_root);
 }
@@ -143,6 +144,32 @@ class _TranslationsNursingZh implements TranslationsNursingEn {
 	// Translations
 	@override late final _TranslationsNursingServicesZh services = _TranslationsNursingServicesZh._(_root);
 	@override String get title => '居家护理';
+}
+
+// Path: payment
+class _TranslationsPaymentZh implements TranslationsPaymentEn {
+	_TranslationsPaymentZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsPaymentErrorZh error = _TranslationsPaymentErrorZh._(_root);
+	@override late final _TranslationsPaymentFeedbackZh feedback = _TranslationsPaymentFeedbackZh._(_root);
+	@override late final _TranslationsPaymentFeedbackSuccessZh feedback_success = _TranslationsPaymentFeedbackSuccessZh._(_root);
+	@override late final _TranslationsPaymentMessagesZh messages = _TranslationsPaymentMessagesZh._(_root);
+	@override late final _TranslationsPaymentMethodsZh methods = _TranslationsPaymentMethodsZh._(_root);
+	@override late final _TranslationsPaymentOfflineSuccessZh offline_success = _TranslationsPaymentOfflineSuccessZh._(_root);
+	@override String get order_summary => '订单摘要';
+	@override String pay_btn({required Object amount}) => '支付 ${amount}';
+	@override String get price_label => '价格';
+	@override String get return_home_btn => '返回首页';
+	@override String get select_method => '选择支付方式';
+	@override String get service_charge => '服务费';
+	@override late final _TranslationsPaymentSubscriptionSuccessZh subscription_success = _TranslationsPaymentSubscriptionSuccessZh._(_root);
+	@override late final _TranslationsPaymentSuccessZh success = _TranslationsPaymentSuccessZh._(_root);
+	@override String get title => '支付';
+	@override String get total_label => '总计';
+	@override String get validity_label => '有效期';
 }
 
 // Path: pharmacy
@@ -439,6 +466,104 @@ class _TranslationsNursingServicesZh implements TranslationsNursingServicesEn {
 	// Translations
 	@override late final _TranslationsNursingServicesPrimaryNursingZh primary_nursing = _TranslationsNursingServicesPrimaryNursingZh._(_root);
 	@override late final _TranslationsNursingServicesSpecializedNursingZh specialized_nursing = _TranslationsNursingServicesSpecializedNursingZh._(_root);
+}
+
+// Path: payment.error
+class _TranslationsPaymentErrorZh implements TranslationsPaymentErrorEn {
+	_TranslationsPaymentErrorZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get appointment_id_missing => '错误：缺少预约 ID。';
+}
+
+// Path: payment.feedback
+class _TranslationsPaymentFeedbackZh implements TranslationsPaymentFeedbackEn {
+	_TranslationsPaymentFeedbackZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get enter_amount_hint => '输入金额';
+	@override String get enter_other_amount => '输入其他金额';
+	@override String get excellent => '极好';
+	@override String give_tips({required Object name}) => '给 ${name} 一些小费';
+	@override String rated_text({required Object name, required Object stars}) => '您给 ${name} 评了 ${stars} 星';
+	@override String get submit_btn => '提交反馈';
+	@override String get write_text_hint => '在此写下您的反馈...';
+}
+
+// Path: payment.feedback_success
+class _TranslationsPaymentFeedbackSuccessZh implements TranslationsPaymentFeedbackSuccessEn {
+	_TranslationsPaymentFeedbackSuccessZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get content => '您的反馈已成功提交。';
+	@override String get thank_you => '谢谢！';
+	@override String get view_detail_btn => '查看预约详情';
+}
+
+// Path: payment.messages
+class _TranslationsPaymentMessagesZh implements TranslationsPaymentMessagesEn {
+	_TranslationsPaymentMessagesZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String failed({required Object error}) => '支付失败：${error}';
+	@override String feedback_failed({required Object error}) => '反馈提交失败：${error}';
+	@override String purchase_failed({required Object error}) => '购买失败：${error}';
+}
+
+// Path: payment.methods
+class _TranslationsPaymentMethodsZh implements TranslationsPaymentMethodsEn {
+	_TranslationsPaymentMethodsZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get cash_offline => '现金（线下支付）';
+}
+
+// Path: payment.offline_success
+class _TranslationsPaymentOfflineSuccessZh implements TranslationsPaymentOfflineSuccessEn {
+	_TranslationsPaymentOfflineSuccessZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get content => '您的请求已成功提交。\n请在预约期间直接向专业人员支付。';
+	@override String get estimated_total => '预计总额';
+	@override String get title => '请求已提交';
+}
+
+// Path: payment.subscription_success
+class _TranslationsPaymentSubscriptionSuccessZh implements TranslationsPaymentSubscriptionSuccessEn {
+	_TranslationsPaymentSubscriptionSuccessZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String content({required Object planName}) => '您已成功购买 ${planName}';
+	@override String get title => '支付成功';
+}
+
+// Path: payment.success
+class _TranslationsPaymentSuccessZh implements TranslationsPaymentSuccessEn {
+	_TranslationsPaymentSuccessZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get amount => '金额';
+	@override String content({required Object name}) => '您的款项已成功发送给 ${name}。';
+	@override String get experience_subtitle => '您的反馈将帮助我们改善\n您的体验';
+	@override String get experience_title => '您的体验如何？';
+	@override String get feedback_btn => '请反馈';
+	@override String get title => '支付成功';
 }
 
 // Path: pharmacy.services
@@ -966,6 +1091,41 @@ extension on TranslationsZh {
 			'nursing.services.specialized_nursing.description' => '您只需专注于康复，将复杂的护理工作交给经验丰富的专业护理人员 。',
 			'nursing.services.specialized_nursing.title' => '专科护理服务',
 			'nursing.title' => '居家护理',
+			'payment.error.appointment_id_missing' => '错误：缺少预约 ID。',
+			'payment.feedback.enter_amount_hint' => '输入金额',
+			'payment.feedback.enter_other_amount' => '输入其他金额',
+			'payment.feedback.excellent' => '极好',
+			'payment.feedback.give_tips' => ({required Object name}) => '给 ${name} 一些小费',
+			'payment.feedback.rated_text' => ({required Object name, required Object stars}) => '您给 ${name} 评了 ${stars} 星',
+			'payment.feedback.submit_btn' => '提交反馈',
+			'payment.feedback.write_text_hint' => '在此写下您的反馈...',
+			'payment.feedback_success.content' => '您的反馈已成功提交。',
+			'payment.feedback_success.thank_you' => '谢谢！',
+			'payment.feedback_success.view_detail_btn' => '查看预约详情',
+			'payment.messages.failed' => ({required Object error}) => '支付失败：${error}',
+			'payment.messages.feedback_failed' => ({required Object error}) => '反馈提交失败：${error}',
+			'payment.messages.purchase_failed' => ({required Object error}) => '购买失败：${error}',
+			'payment.methods.cash_offline' => '现金（线下支付）',
+			'payment.offline_success.content' => '您的请求已成功提交。\n请在预约期间直接向专业人员支付。',
+			'payment.offline_success.estimated_total' => '预计总额',
+			'payment.offline_success.title' => '请求已提交',
+			'payment.order_summary' => '订单摘要',
+			'payment.pay_btn' => ({required Object amount}) => '支付 ${amount}',
+			'payment.price_label' => '价格',
+			'payment.return_home_btn' => '返回首页',
+			'payment.select_method' => '选择支付方式',
+			'payment.service_charge' => '服务费',
+			'payment.subscription_success.content' => ({required Object planName}) => '您已成功购买 ${planName}',
+			'payment.subscription_success.title' => '支付成功',
+			'payment.success.amount' => '金额',
+			'payment.success.content' => ({required Object name}) => '您的款项已成功发送给 ${name}。',
+			'payment.success.experience_subtitle' => '您的反馈将帮助我们改善\n您的体验',
+			'payment.success.experience_title' => '您的体验如何？',
+			'payment.success.feedback_btn' => '请反馈',
+			'payment.success.title' => '支付成功',
+			'payment.title' => '支付',
+			'payment.total_label' => '总计',
+			'payment.validity_label' => '有效期',
 			'pharmacy.services.health_coaching.description' => '提供个性化的指导与支持，助力实现健康目标、管理慢性疾病并提升整体健康水平。我们设有针对体重管理、糖尿病管理、高血压管理及高胆固醇管理的专项计划。',
 			'pharmacy.services.health_coaching.title' => '健康指导',
 			'pharmacy.services.medication_counseling.description' => '药物咨询与教育旨在指导患者正确使用药物、了解副作用并提高用药依从性，从而增强用药安全性并改善健康成效。',

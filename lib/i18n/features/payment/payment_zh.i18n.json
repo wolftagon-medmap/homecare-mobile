@@ -1,0 +1,53 @@
+{
+  "error": {
+    "appointment_id_missing": "错误：缺少预约 ID。"
+  },
+  "feedback": {
+    "enter_amount_hint": "输入金额",
+    "enter_other_amount": "输入其他金额",
+    "excellent": "极好",
+    "give_tips": "给 {name} 一些小费",
+    "rated_text": "您给 {name} 评了 {stars} 星",
+    "submit_btn": "提交反馈",
+    "write_text_hint": "在此写下您的反馈..."
+  },
+  "feedback_success": {
+    "content": "您的反馈已成功提交。",
+    "thank_you": "谢谢！",
+    "view_detail_btn": "查看预约详情"
+  },
+  "messages": {
+    "failed": "支付失败：{error}",
+    "feedback_failed": "反馈提交失败：{error}",
+    "purchase_failed": "购买失败：{error}"
+  },
+  "methods": {
+    "cash_offline": "现金（线下支付）"
+  },
+  "offline_success": {
+    "content": "您的请求已成功提交。\n请在预约期间直接向专业人员支付。",
+    "estimated_total": "预计总额",
+    "title": "请求已提交"
+  },
+  "order_summary": "订单摘要",
+  "pay_btn": "支付 {amount}",
+  "price_label": "价格",
+  "return_home_btn": "返回首页",
+  "select_method": "选择支付方式",
+  "service_charge": "服务费",
+  "subscription_success": {
+    "content": "您已成功购买 {planName}",
+    "title": "支付成功"
+  },
+  "success": {
+    "amount": "金额",
+    "content": "您的款项已成功发送给 {name}。",
+    "experience_subtitle": "您的反馈将帮助我们改善\n您的体验",
+    "experience_title": "您的体验如何？",
+    "feedback_btn": "请反馈",
+    "title": "支付成功"
+  },
+  "title": "支付",
+  "total_label": "总计",
+  "validity_label": "有效期"
+}

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/i18n/translations.g.dart';
 
 class FeedbackSuccessPage extends StatelessWidget {
   final Function onButtonPressed;
@@ -31,7 +31,7 @@ class FeedbackSuccessPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                context.l10n.payment_feedback_thank_you,
+                context.t.payment.feedback_success.thank_you,
                 style: const TextStyle(
                   color: Const.aqua,
                   fontSize: 20,
@@ -40,7 +40,7 @@ class FeedbackSuccessPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                context.l10n.payment_feedback_success_content,
+                context.t.payment.feedback_success.content,
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 16),
               ),
@@ -61,7 +61,7 @@ class FeedbackSuccessPage extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      context.l10n.payment_view_detail_btn,
+                      context.t.payment.feedback_success.view_detail_btn,
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
