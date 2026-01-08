@@ -43,6 +43,7 @@ class TranslationsId with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsGlobalId global = _TranslationsGlobalId._(_root);
 	@override late final _TranslationsNursingId nursing = _TranslationsNursingId._(_root);
 	@override late final _TranslationsPharmacyId pharmacy = _TranslationsPharmacyId._(_root);
+	@override late final _TranslationsStoreId store = _TranslationsStoreId._(_root);
 }
 
 // Path: auth
@@ -153,6 +154,21 @@ class _TranslationsPharmacyId implements TranslationsPharmacyEn {
 	// Translations
 	@override late final _TranslationsPharmacyServicesId services = _TranslationsPharmacyServicesId._(_root);
 	@override String get title => 'Layanan Apoteker iRX';
+}
+
+// Path: store
+class _TranslationsStoreId implements TranslationsStoreEn {
+	_TranslationsStoreId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get consumable => 'Barang Habis Pakai';
+	@override late final _TranslationsStoreMessagesId messages = _TranslationsStoreMessagesId._(_root);
+	@override String get no_products => 'Tidak ada produk tersedia';
+	@override String get poct => 'Point of Care Testing';
+	@override String get sort => 'Urutkan';
+	@override String get title => 'Toko Medis';
 }
 
 // Path: auth.button
@@ -436,6 +452,16 @@ class _TranslationsPharmacyServicesId implements TranslationsPharmacyServicesEn 
 	@override late final _TranslationsPharmacyServicesMedicationCounselingId medication_counseling = _TranslationsPharmacyServicesMedicationCounselingId._(_root);
 	@override late final _TranslationsPharmacyServicesSmokingCessationId smoking_cessation = _TranslationsPharmacyServicesSmokingCessationId._(_root);
 	@override late final _TranslationsPharmacyServicesTherapyReviewId therapy_review = _TranslationsPharmacyServicesTherapyReviewId._(_root);
+}
+
+// Path: store.messages
+class _TranslationsStoreMessagesId implements TranslationsStoreMessagesEn {
+	_TranslationsStoreMessagesId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get load_failed => 'Gagal memuat produk';
 }
 
 // Path: auth.forgot_password.form
@@ -949,6 +975,12 @@ extension on TranslationsId {
 			'pharmacy.services.therapy_review.description' => 'Tinjauan komprehensif terhadap obat-obatan dan gaya hidup Anda untuk mengoptimalkan hasil perawatan serta meminimalkan potensi efek samping.',
 			'pharmacy.services.therapy_review.title' => 'Evaluasi Terapi Menyeluruh',
 			'pharmacy.title' => 'Layanan Apoteker iRX',
+			'store.consumable' => 'Barang Habis Pakai',
+			'store.messages.load_failed' => 'Gagal memuat produk',
+			'store.no_products' => 'Tidak ada produk tersedia',
+			'store.poct' => 'Point of Care Testing',
+			'store.sort' => 'Urutkan',
+			'store.title' => 'Toko Medis',
 			_ => null,
 		};
 	}

@@ -1,0 +1,10 @@
+{
+  "consumable": "医疗耗材",
+  "messages": {
+    "load_failed": "加载产品失败"
+  },
+  "no_products": "暂无产品",
+  "poct": "PoCT",
+  "sort": "排序",
+  "title": "医疗商店"
+}

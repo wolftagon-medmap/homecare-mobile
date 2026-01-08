@@ -1,0 +1,10 @@
+{
+  "consumable": "Homecare Consumable",
+  "messages": {
+    "load_failed": "Failed to load products"
+  },
+  "no_products": "No products available",
+  "poct": "Point of Care Testing",
+  "sort": "Sort",
+  "title": "Medical Store"
+}

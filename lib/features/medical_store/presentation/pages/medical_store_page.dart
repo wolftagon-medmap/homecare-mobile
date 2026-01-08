@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/features/medical_store/domain/entity/medical_store.dart';
 import 'package:m2health/features/medical_store/presentation/bloc/medical_store_cubit.dart';
 import 'package:m2health/features/medical_store/presentation/bloc/medical_store_state.dart';
@@ -42,14 +42,14 @@ class _MedicalStorePageState extends State<MedicalStorePage>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              context.l10n.medical_store_title,
+              context.t.store.title,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             Row(
               children: [
                 const Icon(Icons.sort),
                 const SizedBox(width: 5),
-                Text(context.l10n.medical_store_sort,
+                Text(context.t.store.sort,
                     style: const TextStyle(fontSize: 14)),
               ],
             ),
@@ -66,8 +66,8 @@ class _MedicalStorePageState extends State<MedicalStorePage>
             color: Const.aqua,
           ),
           tabs: [
-            Tab(text: context.l10n.medical_store_consumable_tab),
-            Tab(text: context.l10n.medical_store_poct_tab),
+            Tab(text: context.t.store.consumable),
+            Tab(text: context.t.store.poct),
           ],
         ),
       ),
@@ -160,7 +160,7 @@ class _MedicalStoreProductListState extends State<_MedicalStoreProductList> {
           }
 
           if (state.products.isEmpty) {
-            return Center(child: Text(context.l10n.medical_store_no_products));
+            return Center(child: Text(context.t.store.no_products));
           }
 
           return CustomScrollView(

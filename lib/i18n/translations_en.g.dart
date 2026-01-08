@@ -46,6 +46,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsGlobalEn global = TranslationsGlobalEn._(_root);
 	late final TranslationsNursingEn nursing = TranslationsNursingEn._(_root);
 	late final TranslationsPharmacyEn pharmacy = TranslationsPharmacyEn._(_root);
+	late final TranslationsStoreEn store = TranslationsStoreEn._(_root);
 }
 
 // Path: auth
@@ -233,6 +234,32 @@ class TranslationsPharmacyEn {
 
 	/// en: 'iRX Pharmacist Service'
 	String get title => 'iRX Pharmacist Service';
+}
+
+// Path: store
+class TranslationsStoreEn {
+	TranslationsStoreEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Homecare Consumable'
+	String get consumable => 'Homecare Consumable';
+
+	late final TranslationsStoreMessagesEn messages = TranslationsStoreMessagesEn._(_root);
+
+	/// en: 'No products available'
+	String get no_products => 'No products available';
+
+	/// en: 'Point of Care Testing'
+	String get poct => 'Point of Care Testing';
+
+	/// en: 'Sort'
+	String get sort => 'Sort';
+
+	/// en: 'Medical Store'
+	String get title => 'Medical Store';
 }
 
 // Path: auth.button
@@ -678,6 +705,18 @@ class TranslationsPharmacyServicesEn {
 	late final TranslationsPharmacyServicesMedicationCounselingEn medication_counseling = TranslationsPharmacyServicesMedicationCounselingEn._(_root);
 	late final TranslationsPharmacyServicesSmokingCessationEn smoking_cessation = TranslationsPharmacyServicesSmokingCessationEn._(_root);
 	late final TranslationsPharmacyServicesTherapyReviewEn therapy_review = TranslationsPharmacyServicesTherapyReviewEn._(_root);
+}
+
+// Path: store.messages
+class TranslationsStoreMessagesEn {
+	TranslationsStoreMessagesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Failed to load products'
+	String get load_failed => 'Failed to load products';
 }
 
 // Path: auth.forgot_password.form
@@ -1327,6 +1366,12 @@ extension on Translations {
 			'pharmacy.services.therapy_review.description' => 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.',
 			'pharmacy.services.therapy_review.title' => 'Comprehensive Therapy Review',
 			'pharmacy.title' => 'iRX Pharmacist Service',
+			'store.consumable' => 'Homecare Consumable',
+			'store.messages.load_failed' => 'Failed to load products',
+			'store.no_products' => 'No products available',
+			'store.poct' => 'Point of Care Testing',
+			'store.sort' => 'Sort',
+			'store.title' => 'Medical Store',
 			_ => null,
 		};
 	}

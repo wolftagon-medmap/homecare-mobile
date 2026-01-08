@@ -43,6 +43,7 @@ class TranslationsZh with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsGlobalZh global = _TranslationsGlobalZh._(_root);
 	@override late final _TranslationsNursingZh nursing = _TranslationsNursingZh._(_root);
 	@override late final _TranslationsPharmacyZh pharmacy = _TranslationsPharmacyZh._(_root);
+	@override late final _TranslationsStoreZh store = _TranslationsStoreZh._(_root);
 }
 
 // Path: auth
@@ -153,6 +154,21 @@ class _TranslationsPharmacyZh implements TranslationsPharmacyEn {
 	// Translations
 	@override late final _TranslationsPharmacyServicesZh services = _TranslationsPharmacyServicesZh._(_root);
 	@override String get title => 'iRX 药师服务';
+}
+
+// Path: store
+class _TranslationsStoreZh implements TranslationsStoreEn {
+	_TranslationsStoreZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get consumable => '医疗耗材';
+	@override late final _TranslationsStoreMessagesZh messages = _TranslationsStoreMessagesZh._(_root);
+	@override String get no_products => '暂无产品';
+	@override String get poct => 'PoCT';
+	@override String get sort => '排序';
+	@override String get title => '医疗商店';
 }
 
 // Path: auth.button
@@ -305,7 +321,7 @@ class _TranslationsBookingIssueZh implements TranslationsBookingIssueEn {
 	// Translations
 	@override String get add_issue_button => '添加主诉';
 	@override String get add_issue_title => '添加问题';
-	@override String get default_page_title => '服务案例';
+	@override String get default_page_title => '服务请求';
 	@override late final _TranslationsBookingIssueDeleteDialogZh delete_dialog = _TranslationsBookingIssueDeleteDialogZh._(_root);
 	@override String get edit_issue_title => '编辑问题';
 	@override String get empty_issue => '尚未添加任何问题。\n 请添加一个或多个问题，以便\n您可以继续下一步。';
@@ -313,9 +329,9 @@ class _TranslationsBookingIssueZh implements TranslationsBookingIssueEn {
 	@override late final _TranslationsBookingIssueFormZh form = _TranslationsBookingIssueFormZh._(_root);
 	@override String get images => '图片';
 	@override late final _TranslationsBookingIssueMessagesZh messages = _TranslationsBookingIssueMessagesZh._(_root);
-	@override String get nurse_page_title => '护士服务案例';
-	@override String get pharmacy_page_title => '药师服务案例';
-	@override String get radiology_page_title => '放射科医生服务案例';
+	@override String get nurse_page_title => '护士服务请求';
+	@override String get pharmacy_page_title => '药师服务请求';
+	@override String get radiology_page_title => '放射科医生服务请求';
 	@override String updated_on({required Object date}) => '更新于：${date}';
 }
 
@@ -436,6 +452,16 @@ class _TranslationsPharmacyServicesZh implements TranslationsPharmacyServicesEn 
 	@override late final _TranslationsPharmacyServicesMedicationCounselingZh medication_counseling = _TranslationsPharmacyServicesMedicationCounselingZh._(_root);
 	@override late final _TranslationsPharmacyServicesSmokingCessationZh smoking_cessation = _TranslationsPharmacyServicesSmokingCessationZh._(_root);
 	@override late final _TranslationsPharmacyServicesTherapyReviewZh therapy_review = _TranslationsPharmacyServicesTherapyReviewZh._(_root);
+}
+
+// Path: store.messages
+class _TranslationsStoreMessagesZh implements TranslationsStoreMessagesEn {
+	_TranslationsStoreMessagesZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get load_failed => '加载产品失败';
 }
 
 // Path: auth.forgot_password.form
@@ -836,7 +862,7 @@ extension on TranslationsZh {
 			'booking.health_status.title' => '个人案例详情',
 			'booking.issue.add_issue_button' => '添加主诉',
 			'booking.issue.add_issue_title' => '添加问题',
-			'booking.issue.default_page_title' => '服务案例',
+			'booking.issue.default_page_title' => '服务请求',
 			'booking.issue.delete_dialog.content' => '您确定要删除此问题吗？',
 			'booking.issue.delete_dialog.title' => '删除问题',
 			'booking.issue.edit_issue_title' => '编辑问题',
@@ -850,9 +876,9 @@ extension on TranslationsZh {
 			'booking.issue.images' => '图片',
 			'booking.issue.messages.add_issue_success' => '问题添加成功',
 			'booking.issue.messages.edit_issue_success' => '问题更新成功',
-			'booking.issue.nurse_page_title' => '护士服务案例',
-			'booking.issue.pharmacy_page_title' => '药师服务案例',
-			'booking.issue.radiology_page_title' => '放射科医生服务案例',
+			'booking.issue.nurse_page_title' => '护士服务请求',
+			'booking.issue.pharmacy_page_title' => '药师服务请求',
+			'booking.issue.radiology_page_title' => '放射科医生服务请求',
 			'booking.issue.updated_on' => ({required Object date}) => '更新于：${date}',
 			'booking.professional_detail.about_me' => '关于我',
 			'booking.professional_detail.certificates' => '专业证书',
@@ -949,6 +975,12 @@ extension on TranslationsZh {
 			'pharmacy.services.therapy_review.description' => '全面审查您的药物使用及生活方式，旨在优化治疗效果并最大限度地减少潜在的副作用。',
 			'pharmacy.services.therapy_review.title' => '综合治疗审查',
 			'pharmacy.title' => 'iRX 药师服务',
+			'store.consumable' => '医疗耗材',
+			'store.messages.load_failed' => '加载产品失败',
+			'store.no_products' => '暂无产品',
+			'store.poct' => 'PoCT',
+			'store.sort' => '排序',
+			'store.title' => '医疗商店',
 			_ => null,
 		};
 	}
