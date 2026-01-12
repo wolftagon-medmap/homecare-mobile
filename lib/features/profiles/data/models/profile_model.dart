@@ -28,10 +28,10 @@ class ProfileModel extends Profile {
       height: (json['height'] as num?)?.toDouble() ?? 0.0,
       phoneNumber: json['phone_number'] ?? '',
       name: json['name'] ?? '',
-      homeAddress: json['home_address'] ?? '',
-      gender: json['gender'] ?? '',
-      drugAllergy: json['drug_allergy'] ?? '',
-      avatar: json['avatar'] ?? '',
+      homeAddress: json['home_address'],
+      gender: json['gender'],
+      drugAllergy: json['drug_allergy'],
+      avatar: json['avatar'],
       address: json['address'] != null
           ? AddressModel.fromJson(json['address'])
           : null,
