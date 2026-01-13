@@ -38,56 +38,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-// Tombol utama berwarna teal
-class PrimaryButton extends StatelessWidget {
-  final String text;
-  final VoidCallback? onPressed;
-  final bool isLoading;
-  final double? width;
-
-  const PrimaryButton({
-    super.key,
-    required this.text,
-    this.onPressed,
-    this.isLoading = false,
-    this.width,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: width ?? double.infinity,
-      height: 50,
-      child: ElevatedButton(
-        onPressed: isLoading ? null : onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Const.aqua,
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 0,
-        ),
-        child: isLoading
-            ? const SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
-              )
-            : Text(
-                text,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-      ),
-    );
-  }
-}
 
 // Tombol sekunder dengan border teal
 class SecondaryButton extends StatelessWidget {

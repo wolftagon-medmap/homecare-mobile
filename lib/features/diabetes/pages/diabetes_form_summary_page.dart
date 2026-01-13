@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/core/presentation/widgets/primary_button.dart';
 import 'package:m2health/features/booking_appointment/nursing/presentation/bloc/nursing_appointment_flow_bloc.dart';
 import 'package:m2health/features/booking_appointment/nursing/presentation/pages/nursing_appointment_flow_page.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';

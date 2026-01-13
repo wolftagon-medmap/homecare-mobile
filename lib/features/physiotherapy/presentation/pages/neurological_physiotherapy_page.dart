@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/core/presentation/widgets/primary_button.dart';
 import 'package:m2health/features/physiotherapy/presentation/bloc/physiotherapy_appointment_flow_bloc.dart';
 import 'package:m2health/features/physiotherapy/const.dart';
 import 'package:m2health/features/physiotherapy/presentation/pages/physiotherapy_appointment_flow_page.dart';
-import 'package:m2health/features/diabetes/widgets/diabetes_form_widget.dart';
 import 'package:m2health/service_locator.dart';
 
 class NeurologicalPhysiotherapyPage extends StatelessWidget {
