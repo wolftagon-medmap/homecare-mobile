@@ -572,7 +572,20 @@ class _SettingSection extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
             ListTile(
-              leading: const Icon(Icons.language, color: Color(0xFF35C5CF)),
+              leading: const Icon(Icons.key_rounded, color: Const.aqua),
+              title: const Text("Account"),
+              titleTextStyle: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () {
+                context.pushNamed(AppRoutes.accountSettings);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.language, color: Const.aqua),
               title: Text(context.l10n.settings_app_language),
               titleTextStyle: const TextStyle(
                 fontSize: 16,
@@ -581,7 +594,7 @@ class _SettingSection extends StatelessWidget {
               ),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: () {
-                context.push(AppRoutes.appLanguageSetting);
+                context.pushNamed(AppRoutes.appLanguageSetting);
               },
             ),
           ],
@@ -600,7 +613,6 @@ class _LogoutButton extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: OutlinedButton.icon(
         onPressed: () async {
-          await Utils.clearSp();
           if (context.mounted) {
             context.read<AuthCubit>().loggedOut();
           }

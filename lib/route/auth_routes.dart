@@ -11,20 +11,24 @@ class AuthRoutes {
   static List<GoRoute> routes = [
     GoRoute(
       path: AppRoutes.signUp,
+      name: AppRoutes.signUp,
       builder: (context, state) => const SignUpPage(),
     ),
     GoRoute(
       path: AppRoutes.signIn,
+      name: AppRoutes.signIn,
       builder: (context, state) {
         return const SignInPage();
       },
     ),
     GoRoute(
       path: AppRoutes.forgotPassword,
+      name: AppRoutes.forgotPassword,
       builder: (context, state) => const ForgotPasswordPage(),
     ),
     GoRoute(
       path: AppRoutes.otpVerification,
+      name: AppRoutes.otpVerification,
       builder: (context, state) {
         final email = state.extra as String;
         return OtpVerificationPage(email: email);
@@ -32,6 +36,7 @@ class AuthRoutes {
     ),
     GoRoute(
       path: AppRoutes.resetPassword,
+      name: AppRoutes.resetPassword,
       builder: (context, state) {
         final extras = state.extra as Map<String, dynamic>;
         return ResetPasswordPage(
@@ -41,6 +46,7 @@ class AuthRoutes {
     ),
     GoRoute(
       path: AppRoutes.resetPasswordSuccess,
+      name: AppRoutes.resetPasswordSuccess,
       builder: (context, state) => const ResetPasswordSuccessPage(),
     ),
   ];

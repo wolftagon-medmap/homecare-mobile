@@ -61,8 +61,12 @@ class AppRoutes {
   static const String submenu = '/submenu';
 
   // Settings
-  static const String appLanguageSetting = '/app-language-setting';
-
+  static const String appLanguageSetting = '/settings/language';
+  static const String accountSettings = '/settings/account';
+  static const String deleteAccount = '/settings/account/delete-account';
+  static const String deleteAccountReason = '/settings/account/delete-account/reason';
+  static const String deleteAccountOtp = '/settings/account/delete-account/otp';
+  static const String deleteAccountSuccess = '/settings/account/delete-account/success';
   // Precision Nutrition Module
   static const String precisionNutritionAssessmentForm =
       '$precisionNutrition/assessment/form';

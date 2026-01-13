@@ -136,14 +136,5 @@ class ProfileDetailRoutes {
       },
     ),
 
-
-    // Settings
-    GoRoute(
-      path: AppRoutes.appLanguageSetting,
-      name: AppRoutes.appLanguageSetting,
-      builder: (context, state) {
-        return const AppLanguagesSetting();
-      },
-    ),
   ];
 }
