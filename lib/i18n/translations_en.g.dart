@@ -47,6 +47,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsNursingEn nursing = TranslationsNursingEn._(_root);
 	late final TranslationsPaymentEn payment = TranslationsPaymentEn._(_root);
 	late final TranslationsPharmacyEn pharmacy = TranslationsPharmacyEn._(_root);
+	late final TranslationsSettingsEn settings = TranslationsSettingsEn._(_root);
 	late final TranslationsStoreEn store = TranslationsStoreEn._(_root);
 }
 
@@ -280,6 +281,24 @@ class TranslationsPharmacyEn {
 
 	/// en: 'iRX Pharmacist Service'
 	String get title => 'iRX Pharmacist Service';
+}
+
+// Path: settings
+class TranslationsSettingsEn {
+	TranslationsSettingsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Account'
+	String get account => 'Account';
+
+	/// en: 'App Language'
+	String get app_language => 'App Language';
+
+	/// en: 'Settings'
+	String get settings => 'Settings';
 }
 
 // Path: store
@@ -1597,6 +1616,9 @@ extension on Translations {
 			'pharmacy.services.therapy_review.description' => 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.',
 			'pharmacy.services.therapy_review.title' => 'Comprehensive Therapy Review',
 			'pharmacy.title' => 'iRX Pharmacist Service',
+			'settings.account' => 'Account',
+			'settings.app_language' => 'App Language',
+			'settings.settings' => 'Settings',
 			'store.consumable' => 'Homecare Consumable',
 			'store.messages.load_failed' => 'Failed to load products',
 			'store.no_products' => 'No products available',
