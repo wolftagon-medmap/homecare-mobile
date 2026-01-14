@@ -44,6 +44,7 @@ class TranslationsZh with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsNursingZh nursing = _TranslationsNursingZh._(_root);
 	@override late final _TranslationsPaymentZh payment = _TranslationsPaymentZh._(_root);
 	@override late final _TranslationsPharmacyZh pharmacy = _TranslationsPharmacyZh._(_root);
+	@override late final _TranslationsSettingsZh settings = _TranslationsSettingsZh._(_root);
 	@override late final _TranslationsStoreZh store = _TranslationsStoreZh._(_root);
 }
 
@@ -181,6 +182,18 @@ class _TranslationsPharmacyZh implements TranslationsPharmacyEn {
 	// Translations
 	@override late final _TranslationsPharmacyServicesZh services = _TranslationsPharmacyServicesZh._(_root);
 	@override String get title => 'iRX 药师服务';
+}
+
+// Path: settings
+class _TranslationsSettingsZh implements TranslationsSettingsEn {
+	_TranslationsSettingsZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get account => '帐户';
+	@override String get app_language => '语言设置';
+	@override String get settings => '设置';
 }
 
 // Path: store
@@ -1135,6 +1148,9 @@ extension on TranslationsZh {
 			'pharmacy.services.therapy_review.description' => '全面审查您的药物使用及生活方式，旨在优化治疗效果并最大限度地减少潜在的副作用。',
 			'pharmacy.services.therapy_review.title' => '综合治疗审查',
 			'pharmacy.title' => 'iRX 药师服务',
+			'settings.account' => '帐户',
+			'settings.app_language' => '语言设置',
+			'settings.settings' => '设置',
 			'store.consumable' => '医疗耗材',
 			'store.messages.load_failed' => '加载产品失败',
 			'store.no_products' => '暂无产品',

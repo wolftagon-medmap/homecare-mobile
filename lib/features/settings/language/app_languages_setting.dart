@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
+import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 class AppLanguagesSetting extends StatelessWidget {

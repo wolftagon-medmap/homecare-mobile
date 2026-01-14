@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
@@ -568,12 +569,12 @@ class _SettingSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              context.l10n.settings,
+              context.t.settings.settings,
               style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
             ListTile(
-              leading: const Icon(Icons.language, color: Color(0xFF35C5CF)),
-              title: Text(context.l10n.settings_app_language),
+              leading: const Icon(Icons.key_rounded, color: Const.aqua),
+              title: Text(context.t.settings.account),
               titleTextStyle: const TextStyle(
                 fontSize: 16,
                 color: Colors.black,
@@ -581,7 +582,20 @@ class _SettingSection extends StatelessWidget {
               ),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: () {
-                context.push(AppRoutes.appLanguageSetting);
+                context.pushNamed(AppRoutes.accountSettings);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.language, color: Const.aqua),
+              title: Text(context.t.settings.app_language),
+              titleTextStyle: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () {
+                context.pushNamed(AppRoutes.appLanguageSetting);
               },
             ),
           ],
@@ -600,7 +614,6 @@ class _LogoutButton extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: OutlinedButton.icon(
         onPressed: () async {
-          await Utils.clearSp();
           if (context.mounted) {
             context.read<AuthCubit>().loggedOut();
           }

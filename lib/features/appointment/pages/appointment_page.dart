@@ -6,7 +6,7 @@ import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
-import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
+import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/appointment/bloc/appointment_cubit.dart';
 import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
@@ -260,10 +260,15 @@ class _AppointmentListViewState extends State<AppointmentListView> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.event_busy, size: 64, color: Colors.grey[400]),
+          // Icon(Icons.event_busy, size: 64, color: Colors.grey[400]),
+          Image.asset(
+            'assets/illustration/empty_appointments.png',
+            width: 150,
+            height: 150,
+          ),
           const SizedBox(height: 16),
           Text(
-            context.l10n.appointment_list_empty(statusString),
+            context.l10n.appointment_list_empty(statusString.toLowerCase()),
             style: TextStyle(fontSize: 16, color: Colors.grey[600]),
           ),
         ],

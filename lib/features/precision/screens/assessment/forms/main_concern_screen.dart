@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/core/presentation/widgets/primary_button.dart';
 import 'package:m2health/features/precision/screens/assessment/info/anti_aging_longevity_page.dart';
 import 'package:m2health/features/precision/screens/assessment/info/chronic_disease_support_page.dart';
 import 'package:m2health/features/precision/screens/assessment/info/sub_health_page.dart';

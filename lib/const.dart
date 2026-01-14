@@ -5,6 +5,7 @@ class Const {
   static const String BASE_URL = 'https://homecare-api.med-map.org';
   static const String URL_API = BASE_URL + '/v1';
   static const String URL_IMG_PLACEHOLDER = 'https://placehold.co/100x100';
+
   static const String API_SERVICE_REQUESTS = URL_API + '/service-requests';
   static const String API_PRODUCTS = URL_API + '/products/';
   static const String API_LOGIN = URL_API + '/auth/login';
@@ -70,11 +71,18 @@ class Const {
       '$API_SUBSCRIPTIONS/purchase';
   static const String API_ADMIN_SUBSCRIPTIONS = '$URL_API/admin/subscriptions';
 
+  // Settings
+  static const String API_DELETE_ACCOUNT_REQUEST_OTP =
+      '$URL_API/users/me/delete-account/request-otp';
+  static const String API_DELETE_ACCOUNT_CONFIRM =
+      '$URL_API/users/me/delete-account/confirm';
+
   static const String ROLE = 'role';
   static const String IS_LOGED_IN = 'is_logged_in';
   static const String TOKEN = 'token';
   static const String EXPIRES_AT = 'expires_at';
   static const String USERNAME = 'username';
+  static const String EMAIL = 'email';
   static const String USER_ID = 'user_id';
   static const String NAME = 'name';
   static const String OBJ_PROFILE = 'obj_profile';

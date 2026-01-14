@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/presentation/widgets/otp_input.dart';
 import 'package:m2health/features/auth/presentation/cubit/forgot_password_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
-import 'package:pinput/pinput.dart';
 
 class OtpVerificationPage extends StatefulWidget {
   final String email;
@@ -65,30 +65,6 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
 
   @override
   Widget build(BuildContext context) {
-    final defaultPinTheme = PinTheme(
-      width: 56,
-      height: 56,
-      textStyle: const TextStyle(
-        fontSize: 20,
-        color: Color.fromRGBO(30, 60, 87, 1),
-        fontWeight: FontWeight.w600,
-      ),
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color.fromRGBO(234, 239, 243, 1)),
-        borderRadius: BorderRadius.circular(16),
-      ),
-    );
-
-    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: Const.aqua),
-    );
-
-    final submittedPinTheme = defaultPinTheme.copyWith(
-      decoration: defaultPinTheme.decoration?.copyWith(
-        color: const Color.fromRGBO(234, 239, 243, 1),
-      ),
-    );
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -121,7 +97,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
             } else if (state is ForgotPasswordOtpSent) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                    content: Text(context.t.auth.otp_verification.message.code_resent)),
+                    content: Text(
+                        context.t.auth.otp_verification.message.code_resent)),
               );
               startTimer();
             }
@@ -145,7 +122,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        context.t.auth.otp_verification.subtitle(email: widget.email),
+                        context.t.auth.otp_verification
+                            .subtitle(email: widget.email),
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
@@ -153,14 +131,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       ),
                       const SizedBox(height: 32),
                       Center(
-                        child: Pinput(
-                          length: 6,
+                        child: OtpInput(
                           controller: _otpController,
-                          defaultPinTheme: defaultPinTheme,
-                          focusedPinTheme: focusedPinTheme,
-                          submittedPinTheme: submittedPinTheme,
-                          pinputAutovalidateMode:
-                              PinputAutovalidateMode.onSubmit,
                           showCursor: true,
                           onCompleted: (pin) => log('Completed: $pin',
                               name: 'OtpVerificationPage'),
@@ -221,7 +193,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                               : null,
                           child: Text(
                             _isResendEnabled
-                                ? context.t.auth.otp_verification.button.resend_code
+                                ? context
+                                    .t.auth.otp_verification.button.resend_code
                                 : context.t.auth.otp_verification
                                     .resend_time_countdown(seconds: _start),
                             style: TextStyle(

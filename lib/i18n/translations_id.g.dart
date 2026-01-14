@@ -44,6 +44,7 @@ class TranslationsId with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsNursingId nursing = _TranslationsNursingId._(_root);
 	@override late final _TranslationsPaymentId payment = _TranslationsPaymentId._(_root);
 	@override late final _TranslationsPharmacyId pharmacy = _TranslationsPharmacyId._(_root);
+	@override late final _TranslationsSettingsId settings = _TranslationsSettingsId._(_root);
 	@override late final _TranslationsStoreId store = _TranslationsStoreId._(_root);
 }
 
@@ -181,6 +182,18 @@ class _TranslationsPharmacyId implements TranslationsPharmacyEn {
 	// Translations
 	@override late final _TranslationsPharmacyServicesId services = _TranslationsPharmacyServicesId._(_root);
 	@override String get title => 'Layanan Apoteker iRX';
+}
+
+// Path: settings
+class _TranslationsSettingsId implements TranslationsSettingsEn {
+	_TranslationsSettingsId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get account => 'Akun';
+	@override String get app_language => 'Bahasa Aplikasi';
+	@override String get settings => 'Pengaturan';
 }
 
 // Path: store
@@ -1135,6 +1148,9 @@ extension on TranslationsId {
 			'pharmacy.services.therapy_review.description' => 'Tinjauan komprehensif terhadap obat-obatan dan gaya hidup Anda untuk mengoptimalkan hasil perawatan serta meminimalkan potensi efek samping.',
 			'pharmacy.services.therapy_review.title' => 'Evaluasi Terapi Menyeluruh',
 			'pharmacy.title' => 'Layanan Apoteker iRX',
+			'settings.account' => 'Akun',
+			'settings.app_language' => 'Bahasa Aplikasi',
+			'settings.settings' => 'Pengaturan',
 			'store.consumable' => 'Barang Habis Pakai',
 			'store.messages.load_failed' => 'Gagal memuat produk',
 			'store.no_products' => 'Tidak ada produk tersedia',

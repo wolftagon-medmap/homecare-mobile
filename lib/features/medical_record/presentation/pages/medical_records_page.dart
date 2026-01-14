@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
+import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/medical_record/domain/entities/medical_record.dart';
 import 'package:m2health/features/medical_record/presentation/bloc/medical_record_bloc.dart';
 import 'package:m2health/features/medical_record/presentation/bloc/medical_record_event.dart';

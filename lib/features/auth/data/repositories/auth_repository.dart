@@ -241,6 +241,7 @@ class AuthRepository {
     if (data['user'] != null) {
       await Utils.setSpBool(Const.IS_LOGED_IN, true);
       await Utils.setSpString(Const.USERNAME, data['user']['username']);
+      await Utils.setSpString(Const.EMAIL, data['user']['email']);
       await Utils.setSpString(Const.ROLE, data['user']['role']);
       await Utils.setSpString(Const.USER_ID, data['user']['id'].toString());
     }

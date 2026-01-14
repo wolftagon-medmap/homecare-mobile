@@ -8,7 +8,7 @@ import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
-import 'package:m2health/core/presentation/bloc/locale_cubit.dart';
+import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/core/presentation/views/file_viewer_page.dart';
 import 'package:m2health/features/appointment/bloc/appointment_cubit.dart';
 import 'package:m2health/features/appointment/bloc/appointment_detail_cubit.dart';
