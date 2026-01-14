@@ -260,10 +260,15 @@ class _AppointmentListViewState extends State<AppointmentListView> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.event_busy, size: 64, color: Colors.grey[400]),
+          // Icon(Icons.event_busy, size: 64, color: Colors.grey[400]),
+          Image.asset(
+            'assets/illustration/empty_appointments.png',
+            width: 150,
+            height: 150,
+          ),
           const SizedBox(height: 16),
           Text(
-            context.l10n.appointment_list_empty(statusString),
+            context.l10n.appointment_list_empty(statusString.toLowerCase()),
             style: TextStyle(fontSize: 16, color: Colors.grey[600]),
           ),
         ],
