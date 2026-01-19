@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/core/presentation/widgets/primary_button.dart';
+import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
 import 'package:m2health/features/precision/widgets/precision_widgets.dart';
 
 class ImplementationJourneyPage extends StatelessWidget {

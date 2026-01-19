@@ -21,7 +21,7 @@ import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/core/services/appointment_service.dart';
-import 'package:m2health/core/presentation/widgets/gradient_button.dart';
+import 'package:m2health/core/presentation/widgets/buttons/gradient_button.dart';
 
 class DetailAppointmentPage extends StatefulWidget {
   final int appointmentId;
