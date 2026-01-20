@@ -180,8 +180,8 @@ class _BluetoothSearchDeviceView extends StatelessWidget {
                 size: ButtonSize.medium,
                 text: "Add Manually",
                 onPressed: () {
-                  // GoRouter.of(context)
-                  //     .pushNamed(AppRoutes.monitoringSupportedDevices);
+                  GoRouter.of(context)
+                      .pushNamed(AppRoutes.monitoringSupportedDevices);
                 },
               ),
             ),
