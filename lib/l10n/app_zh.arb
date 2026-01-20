@@ -763,7 +763,7 @@
         
               "second_opinion_title": "第二意见",
               "@second_opinion_title": {},
-              "second_opinion_teleradiology_title": "远程放射学",
+              "second_opinion_teleradiology_title": "远程影像阅片",
               "@second_opinion_teleradiology_title": {},
               "second_opinion_teleradiology_desc": "从我们的专业放射科医生那里发现关于医学影像的专家第二意见，通过在心血管、肌肉骨骼、头颈和神经影像方面的专注知识指导您的医疗决策",
               "@second_opinion_teleradiology_desc": {},
@@ -772,7 +772,7 @@
               "second_opinion_telepathology_desc": "我们的专家利用尖端的远程医疗技术进行远程病理图像审查，并与全球医疗团队进行咨询",
               "@second_opinion_telepathology_desc": {},
         
-              "teleradiology_title": "远程放射学",
+              "teleradiology_title": "远程影像阅片",
               "@teleradiology_title": {},
               "teleradiology_disease_name": "疾病名称",
               "@teleradiology_disease_name": {},
