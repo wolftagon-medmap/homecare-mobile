@@ -2325,16 +2325,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rpm_title => 'Monitor My Vitals';
 
   @override
-  String get rpm_heart_performance => 'Heart\nPerformance';
+  String get rpm_heart_performance => 'Heart Performance';
 
   @override
-  String get rpm_blood_oxygen => 'Blood Oxygen\nSaturation (SpO2)';
+  String get rpm_blood_oxygen => 'Blood Oxygen Saturation (SpO2)';
 
   @override
-  String get rpm_blood_glucose => 'Blood\nGlucose';
+  String get rpm_blood_glucose => 'Blood Glucose';
 
   @override
-  String get rpm_blood_pressure => 'Blood\nPressure';
+  String get rpm_blood_pressure => 'Blood Pressure';
 
   @override
   String get rpm_add_new_vital => '+ Add New Vital';

@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
+import 'package:m2health/features/remote_patient_monitoring/enums/vital_category.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class RemotePatientMonitoring extends StatelessWidget {
@@ -40,29 +41,25 @@ class RemotePatientMonitoring extends StatelessWidget {
               ),
             ),
             Divider(color: Colors.grey.shade200),
-            _VitalCard(
-              icon: SvgPicture.asset('assets/icons/ic_heart.svg'),
-              title: context.l10n.rpm_heart_performance,
-              backgroundColor: const Color.fromRGBO(154, 225, 255, 0.25),
-              textColor: const Color(0xFF35C5CF),
+            const _VitalCard(
+              category: VitalCategory.heartPerformance,
+              backgroundColor: Color.fromRGBO(154, 225, 255, 0.25),
+              foregroundColor: Color(0xFF35C5CF),
             ),
-            _VitalCard(
-              icon: SvgPicture.asset('assets/icons/ic_oxygen.svg'),
-              title: context.l10n.rpm_blood_oxygen,
-              backgroundColor: const Color.fromRGBO(178, 140, 255, 0.2),
-              textColor: const Color(0xFFB393FF),
+            const _VitalCard(
+              category: VitalCategory.bloodOxygen,
+              backgroundColor: Color.fromRGBO(178, 140, 255, 0.2),
+              foregroundColor: Color(0xFFB393FF),
             ),
-            _VitalCard(
-              icon: SvgPicture.asset('assets/icons/ic_blood.svg'),
-              title: context.l10n.rpm_blood_glucose,
-              backgroundColor: const Color.fromRGBO(255, 154, 154, 0.19),
-              textColor: const Color(0xFFFF9A9A),
+            const _VitalCard(
+              category: VitalCategory.bloodGlucose,
+              backgroundColor: Color.fromRGBO(255, 154, 154, 0.19),
+              foregroundColor: Color(0xFFFF9A9A),
             ),
-            _VitalCard(
-              icon: SvgPicture.asset('assets/icons/ic_bloodpressure.svg'),
-              title: context.l10n.rpm_blood_pressure,
-              backgroundColor: const Color.fromRGBO(247, 158, 27, 0.1),
-              textColor: const Color(0xFFF79E1B),
+            const _VitalCard(
+              category: VitalCategory.bloodPressure,
+              backgroundColor: Color.fromRGBO(247, 158, 27, 0.1),
+              foregroundColor: Color(0xFFF79E1B),
             ),
           ],
         ),
@@ -81,15 +78,14 @@ class RemotePatientMonitoring extends StatelessWidget {
 }
 
 class _VitalCard extends StatelessWidget {
-  final Widget icon;
-  final String title;
+  final VitalCategory category;
   final Color backgroundColor;
-  final Color textColor;
+  final Color foregroundColor;
+
   const _VitalCard({
-    required this.icon,
-    required this.title,
+    required this.category,
     required this.backgroundColor,
-    required this.textColor,
+    required this.foregroundColor,
   });
 
   @override
@@ -108,16 +104,17 @@ class _VitalCard extends StatelessWidget {
                 SizedBox(
                   width: 80,
                   height: 80,
-                  child: icon,
+                  child: SvgPicture.asset(category.iconPath),
                 ),
-                const Spacer(),
-                Text(
-                  title,
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: textColor,
+                Expanded(
+                  child: Text(
+                    category.displayName(context),
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: foregroundColor,
+                    ),
                   ),
                 ),
               ],
@@ -130,11 +127,13 @@ class _VitalCard extends StatelessWidget {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () {
-                      // GoRouter.of(context)
-                      //     .pushNamed(AppRoutes.monitoringScanDevice);
+                      GoRouter.of(context).pushNamed(
+                        AppRoutes.monitoringBluetoothSearchDevice,
+                        extra: category,
+                      );
                     },
                     style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Const.tosca),
+                      side: const BorderSide(color: Const.aqua),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -142,7 +141,7 @@ class _VitalCard extends StatelessWidget {
                     ),
                     child: Text(
                       context.l10n.rpm_link_device,
-                      style: const TextStyle(color: Const.tosca),
+                      style: const TextStyle(color: Const.aqua),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -153,7 +152,7 @@ class _VitalCard extends StatelessWidget {
                       // Handle add record
                     },
                     style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Const.tosca),
+                      side: const BorderSide(color: Const.aqua),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -161,7 +160,7 @@ class _VitalCard extends StatelessWidget {
                     ),
                     child: Text(
                       context.l10n.rpm_add_record,
-                      style: const TextStyle(color: Const.tosca),
+                      style: const TextStyle(color: Const.aqua),
                       textAlign: TextAlign.center,
                     ),
                   ),

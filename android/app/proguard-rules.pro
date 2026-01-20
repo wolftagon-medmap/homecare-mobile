@@ -44,3 +44,8 @@
 -dontwarn okhttp3.**
 -dontwarn retrofit2.**
 -dontwarn okio.**
+
+# ---------------------------------------------------------
+# 6. BLUETOOTH
+# ---------------------------------------------------------
+-keep class com.lib.flutter_blue_plus.* { *; }
