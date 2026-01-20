@@ -65,6 +65,12 @@
 		<string>We need your location to find homecare providers near your home.</string>
 		<key>NSBluetoothAlwaysUsageDescription</key>
 		<string>We need Bluetooth to connect to your health monitoring devices.</string>
+
+		<key>NSCameraUsageDescription</key>
+		<string>We need camera access to scan QR codes</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>We need photos access to get QR code from photo library</string>
+
 		<key>CFBundleLocalizations</key>
 		<array>
 			<string>en</string>

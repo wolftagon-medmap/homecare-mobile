@@ -191,7 +191,8 @@ class _BluetoothSearchDeviceView extends StatelessWidget {
                 size: ButtonSize.medium,
                 text: "Scan Code",
                 onPressed: () {
-                  // GoRouter.of(context).pushNamed(AppRoutes.monitoringScanDevice);
+                  GoRouter.of(context)
+                      .pushNamed(AppRoutes.monitoringScanDevice);
                 },
               ),
             ),
