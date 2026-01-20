@@ -9,7 +9,7 @@ import 'package:m2health/features/booking_appointment/pharmacy/presentation/page
 import '../features/precision/screens/precision_nutrition_page.dart';
 import '../features/diabetes/diabetic_care.dart';
 import '../features/home_health_screening/presentation/pages/home_health_screening.dart';
-import '../core/presentation/views/remote_patient_monitoring.dart';
+import '../features/remote_patient_monitoring/pages/remote_patient_monitoring.dart';
 import '../core/presentation/views/second_opinion.dart';
 import 'app_routes.dart';
 

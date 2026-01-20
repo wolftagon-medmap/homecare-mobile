@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/presentation/widgets/buttons/button_size.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String text;
@@ -11,6 +12,7 @@ class PrimaryButton extends StatelessWidget {
   final bool isLoading;
   final double? width;
   final IconData? icon;
+  final ButtonSize size;
 
   const PrimaryButton({
     super.key,
@@ -23,13 +25,14 @@ class PrimaryButton extends StatelessWidget {
     this.isLoading = false,
     this.width,
     this.icon,
+    this.size = ButtonSize.medium,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? double.infinity,
-      height: 50,
+      height: size.height,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
@@ -43,10 +46,10 @@ class PrimaryButton extends StatelessWidget {
           elevation: 0,
         ),
         child: isLoading
-            ? const SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(
+            ?  SizedBox(
+                width: size.iconSize,
+                height: size.iconSize,
+                child: const CircularProgressIndicator(
                   strokeWidth: 2,
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 ),
@@ -55,13 +58,13 @@ class PrimaryButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (icon != null) ...[
-                    Icon(icon, size: 20),
+                    Icon(icon, size: size.iconSize),
                     const SizedBox(width: 8),
                   ],
                   Text(
                     text,
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: size.fontSize,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

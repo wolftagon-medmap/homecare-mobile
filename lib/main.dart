@@ -121,6 +121,11 @@ class MyApp extends StatelessWidget {
               surfaceTintColor: Colors.transparent,
               foregroundColor: Colors.black,
               elevation: 0,
+              titleTextStyle: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
             cardTheme: const CardThemeData(
               color: Colors.white,

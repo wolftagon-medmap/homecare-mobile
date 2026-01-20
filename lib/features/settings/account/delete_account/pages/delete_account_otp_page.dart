@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/presentation/widgets/otp_input.dart';
-import 'package:m2health/core/presentation/widgets/primary_button.dart';
+import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/settings/account/delete_account/bloc/delete_account_cubit.dart';
 import 'package:m2health/features/settings/account/delete_account/bloc/delete_account_state.dart';

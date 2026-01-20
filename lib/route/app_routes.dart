@@ -85,6 +85,10 @@ class AppRoutes {
 
   static const String medicalStoreDetail = '$medicalStore/detail';
 
+  // Remote Patient Monitoring Module
+  static const String monitoringScanDevice = '$remotePatientMonitoring/scan-device';
+  static const String monitoringSupportedDevices = '$remotePatientMonitoring/supported-devices';
+
   // static const String home = '/';
   // static const String submenu = 'submenu';
   // static const String dashboard= 'dashboard';

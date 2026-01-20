@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/core/presentation/widgets/primary_button.dart';
+import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
 import 'package:m2health/features/physiotherapy/presentation/bloc/physiotherapy_appointment_flow_bloc.dart';
 import 'package:m2health/features/physiotherapy/const.dart';
 import 'package:m2health/features/physiotherapy/presentation/pages/physiotherapy_appointment_flow_page.dart';

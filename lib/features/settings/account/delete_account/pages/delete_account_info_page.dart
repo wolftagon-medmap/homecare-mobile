@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/presentation/widgets/primary_button.dart';
+import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class DeleteAccountInfoPage extends StatelessWidget {

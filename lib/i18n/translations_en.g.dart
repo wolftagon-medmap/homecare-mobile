@@ -1364,8 +1364,8 @@ class TranslationsPharmacyServicesTherapyReviewEn {
 	/// en: 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.'
 	String get description => 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.';
 
-	/// en: 'Comprehensive Therapy Review'
-	String get title => 'Comprehensive Therapy Review';
+	/// en: 'Comprehensive Review'
+	String get title => 'Comprehensive Review';
 }
 
 // Path: auth.forgot_password.form.label
@@ -1614,7 +1614,7 @@ extension on Translations {
 			'pharmacy.services.smoking_cessation.description' => 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.',
 			'pharmacy.services.smoking_cessation.title' => 'Smoking Cessation',
 			'pharmacy.services.therapy_review.description' => 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.',
-			'pharmacy.services.therapy_review.title' => 'Comprehensive Therapy Review',
+			'pharmacy.services.therapy_review.title' => 'Comprehensive Review',
 			'pharmacy.title' => 'iRX Pharmacist Service',
 			'settings.account' => 'Account',
 			'settings.app_language' => 'App Language',
