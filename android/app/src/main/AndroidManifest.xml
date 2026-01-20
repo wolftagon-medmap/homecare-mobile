@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
+
     <!-- WeChat permissions -->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -9,8 +9,18 @@
 
     <!-- Location permissions -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- BLUETOOTH -->
+    <!-- Tell Google Play Store that your app uses Bluetooth LE -->
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+
+
     <!-- Google Sign-In queries -->
     <queries>
         <package android:name="com.google.android.gms" />
@@ -33,18 +43,19 @@
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
             <meta-data
-              android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+            />
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>        </activity>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <!-- Google Maps API Key -->
         <meta-data android:name="com.google.android.geo.API_KEY"
-                   android:value="AIzaSyB7Rf0qklQMJGMNdIO658F7pQwhOX895Ks"/>
-        
+            android:value="AIzaSyB7Rf0qklQMJGMNdIO658F7pQwhOX895Ks" />
+
         <!-- WeChat Activity for handling callbacks -->
         <activity
             android:name="com.jarvan.fluwx.wxapi.WXEntryActivity"
@@ -58,7 +69,7 @@
                 <data android:scheme="wx1234567890abcdef" /> <!-- Replace with your WeChat App ID -->
             </intent-filter>
         </activity>
-        
+
         <!-- Google Sign-In Activity -->
         <activity
             android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
@@ -71,7 +82,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-    </application>    <!-- Required to query activities that can process text, see:
+    </application>    <!-- Required to query activities that can process
+    text, see:
          https://developer.android.com/training/package-visibility and
          https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
 
@@ -79,13 +91,13 @@
     <queries>
         <!-- Google Sign-In queries -->
         <package android:name="com.google.android.gms" />
-        
+
         <!-- WeChat queries -->
         <package android:name="com.tencent.mm" />
-        
+
         <intent>
-            <action android:name="android.intent.action.PROCESS_TEXT"/>
-            <data android:mimeType="text/plain"/>
+            <action android:name="android.intent.action.PROCESS_TEXT" />
+            <data android:mimeType="text/plain" />
         </intent>
     </queries>
 </manifest>

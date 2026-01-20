@@ -4321,25 +4321,25 @@ abstract class AppLocalizations {
   /// No description provided for @rpm_heart_performance.
   ///
   /// In en, this message translates to:
-  /// **'Heart\nPerformance'**
+  /// **'Heart Performance'**
   String get rpm_heart_performance;
 
   /// No description provided for @rpm_blood_oxygen.
   ///
   /// In en, this message translates to:
-  /// **'Blood Oxygen\nSaturation (SpO2)'**
+  /// **'Blood Oxygen Saturation (SpO2)'**
   String get rpm_blood_oxygen;
 
   /// No description provided for @rpm_blood_glucose.
   ///
   /// In en, this message translates to:
-  /// **'Blood\nGlucose'**
+  /// **'Blood Glucose'**
   String get rpm_blood_glucose;
 
   /// No description provided for @rpm_blood_pressure.
   ///
   /// In en, this message translates to:
-  /// **'Blood\nPressure'**
+  /// **'Blood Pressure'**
   String get rpm_blood_pressure;
 
   /// No description provided for @rpm_add_new_vital.
