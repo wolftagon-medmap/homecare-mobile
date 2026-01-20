@@ -1,0 +1,19 @@
+[project]
+name = "homecare-ble-simulator"
+version = "0.1.0"
+description = "A simulated Heart Rate Monitor for Homecare app testing"
+requires-python = ">=3.8"
+dependencies = [
+    "bless",
+
+    # Windows-only dependencies
+    "pysetupdi@git+https://github.com/gwangyi/pysetupdi ; sys_platform == 'win32'",
+    "bleak-winrt ; sys_platform == 'win32'",
+    
+    # macOS-only dependencies (Optional but recommended for stability)
+    "pyobjc-framework-CoreBluetooth ; sys_platform == 'darwin'",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
