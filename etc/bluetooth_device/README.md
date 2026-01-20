@@ -49,6 +49,8 @@ A suite of Python scripts to simulate medical BLE devices using the `bless` libr
 ---
 
 ## 🚀 Setup & Installation
+Requires python version 3.10 or 3.11 (Recommended).
+Versions higher than that would likely to have incompatibility issue, especially for Windows.
 
 ### 1. Create Environment
 ```bash
@@ -61,7 +63,7 @@ source .venv/bin/activate
 
 ### 2. Install Dependencies
 ```bash
-pip install bless
+pip install -e .
 ```
 
 ---
