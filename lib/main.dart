@@ -126,6 +126,7 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
+              centerTitle: true,
             ),
             cardTheme: const CardThemeData(
               color: Colors.white,

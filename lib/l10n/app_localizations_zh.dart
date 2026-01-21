@@ -2244,7 +2244,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get second_opinion_title => '第二意见';
 
   @override
-  String get second_opinion_teleradiology_title => '远程放射学';
+  String get second_opinion_teleradiology_title => '远程影像阅片';
 
   @override
   String get second_opinion_teleradiology_desc =>
@@ -2258,7 +2258,7 @@ class AppLocalizationsZh extends AppLocalizations {
       '我们的专家利用尖端的远程医疗技术进行远程病理图像审查，并与全球医疗团队进行咨询';
 
   @override
-  String get teleradiology_title => '远程放射学';
+  String get teleradiology_title => '远程影像阅片';
 
   @override
   String get teleradiology_disease_name => '疾病名称';

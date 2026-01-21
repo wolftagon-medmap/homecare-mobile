@@ -22,6 +22,8 @@ class _SignInPageState extends State<SignInPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  bool _isPasswordVisible = false;
+
   @override
   void dispose() {
     emailController.dispose();
@@ -123,13 +125,26 @@ class _SignInPageState extends State<SignInPage> {
             final password = TextFormField(
               controller: passwordController,
               autofocus: false,
-              obscureText: true,
+              obscureText: !_isPasswordVisible,
               decoration: InputDecoration(
                 hintText: context.t.auth.form.label.password,
                 contentPadding:
                     const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0)),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _isPasswordVisible
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                ),
               ),
             );
 

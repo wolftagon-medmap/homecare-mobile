@@ -438,7 +438,7 @@ class _TranslationsDashboardServicesZh implements TranslationsDashboardServicesE
 	@override String get dietitian => '营养师服务';
 	@override String get health_risk_assessment => '健康风险评估';
 	@override String get home_screening => '居家健康筛查';
-	@override String get homecare_for_elderly => '家政维修';
+	@override String get homecare_for_elderly => '长者家政维修';
 	@override String get nursing => ' 上门护士';
 	@override String get pharmacist => 'iRX 药师服务';
 	@override String get physiotherapy => '物理治疗';
@@ -1058,7 +1058,7 @@ extension on TranslationsZh {
 			'dashboard.services.dietitian' => '营养师服务',
 			'dashboard.services.health_risk_assessment' => '健康风险评估',
 			'dashboard.services.home_screening' => '居家健康筛查',
-			'dashboard.services.homecare_for_elderly' => '家政维修',
+			'dashboard.services.homecare_for_elderly' => '长者家政维修',
 			'dashboard.services.nursing' => ' 上门护士',
 			'dashboard.services.pharmacist' => 'iRX 药师服务',
 			'dashboard.services.physiotherapy' => '物理治疗',

@@ -64,9 +64,11 @@ class AppRoutes {
   static const String appLanguageSetting = '/settings/language';
   static const String accountSettings = '/settings/account';
   static const String deleteAccount = '/settings/account/delete-account';
-  static const String deleteAccountReason = '/settings/account/delete-account/reason';
+  static const String deleteAccountReason =
+      '/settings/account/delete-account/reason';
   static const String deleteAccountOtp = '/settings/account/delete-account/otp';
-  static const String deleteAccountSuccess = '/settings/account/delete-account/success';
+  static const String deleteAccountSuccess =
+      '/settings/account/delete-account/success';
   // Precision Nutrition Module
   static const String precisionNutritionAssessmentForm =
       '$precisionNutrition/assessment/form';
@@ -86,8 +88,12 @@ class AppRoutes {
   static const String medicalStoreDetail = '$medicalStore/detail';
 
   // Remote Patient Monitoring Module
-  static const String monitoringScanDevice = '$remotePatientMonitoring/scan-device';
-  static const String monitoringSupportedDevices = '$remotePatientMonitoring/supported-devices';
+  static const String monitoringBluetoothSearchDevice =
+      '$remotePatientMonitoring/bluetooth-search-device';
+  static const String monitoringSupportedDevices =
+      '$remotePatientMonitoring/supported-devices';
+  static const String monitoringScanDevice =
+      '$remotePatientMonitoring/scan-device';
 
   // static const String home = '/';
   // static const String submenu = 'submenu';
