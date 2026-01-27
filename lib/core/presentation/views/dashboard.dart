@@ -289,8 +289,9 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     const SizedBox(height: 20),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 10,
                       children: [
                         MainServiceMenuItem(
                           onTap: () {
@@ -323,8 +324,9 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     const SizedBox(height: 20),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 10,
                       children: [
                         MainServiceMenuItem(
                           onTap: () {
