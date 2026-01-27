@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/auth/data/datasources/google_auth_source.dart';
@@ -28,6 +31,8 @@ import 'package:go_router/go_router.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:device_preview_screenshot/device_preview_screenshot.dart';
 
 import 'const.dart';
 
@@ -49,15 +54,26 @@ void main() async {
   await localeCubit.loadSavedLocale();
 
   runApp(
-    TranslationProvider(
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<LocaleCubit>.value(
-            // App Language
-            value: localeCubit,
-          ),
-        ],
-        child: const MyApp(),
+    DevicePreview(
+      enabled: !kReleaseMode,
+      tools: [
+        ...DevicePreview.defaultTools,
+        DevicePreviewScreenshot(
+            onScreenshot: screenshotAsFiles(
+          // Save screenshots to the 'screenshots' directory in the app's documents directory
+          Directory('${Directory.current.path}/screenshots'),
+        )),
+      ],
+      builder: (context) => TranslationProvider(
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<LocaleCubit>.value(
+              // App Language
+              value: localeCubit,
+            ),
+          ],
+          child: const MyApp(),
+        ),
       ),
     ),
   );
@@ -110,6 +126,7 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<LocaleCubit, AppLocale>(builder: (context, locale) {
         return MaterialApp.router(
+          useInheritedMediaQuery: true,
           scaffoldMessengerKey: rootScaffoldMessengerKey,
           debugShowCheckedModeBanner: false,
           title: 'm2health',
@@ -194,11 +211,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Const.colorDashboard),
             useMaterial3: true,
           ),
-          builder: (context, child) {
-            return Scaffold(
-              body: child,
-            );
-          },
+          builder: DevicePreview.appBuilder,
           // localizationsDelegates: GlobalMaterialLocalizations.delegates,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocaleUtils.supportedLocales,
