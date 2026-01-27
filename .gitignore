@@ -50,3 +50,6 @@ app.*.map.json
 gemini.md
 flutter.md
 .tasks/
+
+# Screenshots
+screenshots/
