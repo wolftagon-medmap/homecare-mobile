@@ -513,6 +513,9 @@ class TranslationsBookingHealthStatusEn {
 	/// en: 'No medical records available.'
 	String get empty_record => 'No medical records available.';
 
+	/// en: 'e.g. walking stick, walking frame, other'
+	String get mobility_detail_hint => 'e.g. walking stick, walking frame, other';
+
 	/// en: 'Select your mobility status'
 	String get mobility_label => 'Select your mobility status';
 
@@ -1462,6 +1465,7 @@ extension on Translations {
 			'booking.addon.title.specialized_nursing' => 'Specialized Nursing Procedures',
 			'booking.book_appointment' => 'Book Appointment',
 			'booking.health_status.empty_record' => 'No medical records available.',
+			'booking.health_status.mobility_detail_hint' => 'e.g. walking stick, walking frame, other',
 			'booking.health_status.mobility_label' => 'Select your mobility status',
 			'booking.health_status.record_hint' => 'Please select a record',
 			'booking.health_status.record_label' => 'Select a related health record',

@@ -99,8 +99,6 @@ class _EditMentalStatePageState extends State<EditMentalStatePage> {
             }
           }
 
-          final bool isSaving = state is MentalHealthStateSaving;
-
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -198,24 +196,32 @@ class _EditMentalStatePageState extends State<EditMentalStatePage> {
                     _formData = _formData!.copyWith(note: v);
                   },
                 ),
-                const SizedBox(height: 24),
-                PrimaryButton(
-                  text: isSaving
-                      ? context.l10n.common_saving
-                      : context.l10n.common_save,
-                  isLoading: isSaving,
-                  onPressed: () {
-                    if (_formData != null) {
-                      context
-                          .read<MentalHealthStateCubit>()
-                          .saveMentalHealthState(_formData!);
-                    }
-                  },
-                ),
               ],
             ),
           );
         },
+      ),
+      bottomNavigationBar: BottomAppBar(
+        elevation: 8,
+        color: Colors.white,
+        child: BlocBuilder<MentalHealthStateCubit, MentalHealthStateState>(
+          builder: (context, state) {
+            final bool isSaving = state is MentalHealthStateSaving;
+            return PrimaryButton(
+              text: isSaving
+                  ? context.l10n.common_saving
+                  : context.l10n.common_save,
+              isLoading: isSaving,
+              onPressed: () {
+                if (_formData != null) {
+                  context
+                      .read<MentalHealthStateCubit>()
+                      .saveMentalHealthState(_formData!);
+                }
+              },
+            );
+          },
+        ),
       ),
     );
   }

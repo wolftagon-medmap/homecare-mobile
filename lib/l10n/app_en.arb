@@ -1173,11 +1173,11 @@
 
   "booking_mobility_bedbound": "Bedbound",
   "@booking_mobility_bedbound": {},
-  "booking_mobility_wheelchair_bound": "Wheelchair Bound",
+  "booking_mobility_wheelchair_bound": "Wheelchair",
   "@booking_mobility_wheelchair_bound": {},
-  "booking_mobility_walking_aid": "Walking Aid",
+  "booking_mobility_walking_aid": "With Walking Aid",
   "@booking_mobility_walking_aid": {},
-  "booking_mobility_mobile_without_aid": "Mobile Without Aid",
+  "booking_mobility_mobile_without_aid": "Independent without Walking Aid",
   "@booking_mobility_mobile_without_aid": {},
 
   "home_health_screening_title": "Home Health Screening",

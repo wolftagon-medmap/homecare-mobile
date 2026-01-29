@@ -346,6 +346,7 @@ class _TranslationsBookingHealthStatusId implements TranslationsBookingHealthSta
 
 	// Translations
 	@override String get empty_record => 'Tidak ada rekam medis yang tersedia.';
+	@override String get mobility_detail_hint => 'contoh: tongkat jalan, alat bantu jalan, lainnya';
 	@override String get mobility_label => 'Pilih status mobilitas Anda';
 	@override String get record_hint => 'Silakan pilih rekam medis';
 	@override String get record_label => 'Pilih rekam medis terkait';
@@ -994,6 +995,7 @@ extension on TranslationsId {
 			'booking.addon.title.specialized_nursing' => 'Prosedur Keperawatan Khusus',
 			'booking.book_appointment' => 'Buat Janji Temu',
 			'booking.health_status.empty_record' => 'Tidak ada rekam medis yang tersedia.',
+			'booking.health_status.mobility_detail_hint' => 'contoh: tongkat jalan, alat bantu jalan, lainnya',
 			'booking.health_status.mobility_label' => 'Pilih status mobilitas Anda',
 			'booking.health_status.record_hint' => 'Silakan pilih rekam medis',
 			'booking.health_status.record_label' => 'Pilih rekam medis terkait',

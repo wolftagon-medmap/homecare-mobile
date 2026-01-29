@@ -24,6 +24,7 @@ class NursingAppointmentRepositoryImpl extends NursingAppointmentRepository {
         'pay_total': params.payTotal,
         'nursing_request_data': {
           'mobility_status': params.nursingCase.mobilityStatus?.apiValue,
+          'mobility_status_detail': params.nursingCase.mobilityStatusDetail,
           'related_health_record_id': params.nursingCase.relatedHealthRecordId,
           'add_on_service_ids': params.nursingCase.addOnServices
               .map((service) => service.id)

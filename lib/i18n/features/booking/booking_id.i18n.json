@@ -13,6 +13,7 @@
   "book_appointment": "Buat Janji Temu",
   "health_status": {
     "empty_record": "Tidak ada rekam medis yang tersedia.",
+    "mobility_detail_hint": "contoh: tongkat jalan, alat bantu jalan, lainnya",
     "mobility_label": "Pilih status mobilitas Anda",
     "record_hint": "Silakan pilih rekam medis",
     "record_label": "Pilih rekam medis terkait",

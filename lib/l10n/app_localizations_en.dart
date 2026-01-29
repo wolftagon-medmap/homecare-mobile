@@ -1394,13 +1394,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get booking_mobility_bedbound => 'Bedbound';
 
   @override
-  String get booking_mobility_wheelchair_bound => 'Wheelchair Bound';
+  String get booking_mobility_wheelchair_bound => 'Wheelchair';
 
   @override
-  String get booking_mobility_walking_aid => 'Walking Aid';
+  String get booking_mobility_walking_aid => 'With Walking Aid';
 
   @override
-  String get booking_mobility_mobile_without_aid => 'Mobile Without Aid';
+  String get booking_mobility_mobile_without_aid =>
+      'Independent without Walking Aid';
 
   @override
   String get home_health_screening_title => 'Home Health Screening';

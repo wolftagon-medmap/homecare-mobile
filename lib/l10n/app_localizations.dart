@@ -2671,19 +2671,19 @@ abstract class AppLocalizations {
   /// No description provided for @booking_mobility_wheelchair_bound.
   ///
   /// In en, this message translates to:
-  /// **'Wheelchair Bound'**
+  /// **'Wheelchair'**
   String get booking_mobility_wheelchair_bound;
 
   /// No description provided for @booking_mobility_walking_aid.
   ///
   /// In en, this message translates to:
-  /// **'Walking Aid'**
+  /// **'With Walking Aid'**
   String get booking_mobility_walking_aid;
 
   /// No description provided for @booking_mobility_mobile_without_aid.
   ///
   /// In en, this message translates to:
-  /// **'Mobile Without Aid'**
+  /// **'Independent without Walking Aid'**
   String get booking_mobility_mobile_without_aid;
 
   /// No description provided for @home_health_screening_title.

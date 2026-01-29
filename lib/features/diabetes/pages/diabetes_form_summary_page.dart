@@ -55,13 +55,19 @@ class DiabetesFormSummaryPage extends StatelessWidget {
                   _LifestyleSection(state: state),
                   const SizedBox(height: 24),
                   _PhysicalSignsSection(state: state),
-                  const SizedBox(height: 32),
-                  const _ActionButtons(),
+                  // const SizedBox(height: 32),
+                  // const _ActionButtons(),
                 ],
               ),
             );
           },
         ),
+      ),
+      bottomNavigationBar: const BottomAppBar(
+        elevation: 8,
+        height: 140,
+        color: Colors.white,
+        child: _ActionButtons(),
       ),
     );
   }

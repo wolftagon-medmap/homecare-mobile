@@ -346,6 +346,7 @@ class _TranslationsBookingHealthStatusZh implements TranslationsBookingHealthSta
 
 	// Translations
 	@override String get empty_record => '没有可用的医疗记录。';
+	@override String get mobility_detail_hint => '例如：拐杖、助行架、其他';
 	@override String get mobility_label => '选择您的行动状态';
 	@override String get record_hint => '请选择记录';
 	@override String get record_label => '选择相关的健康记录';
@@ -994,6 +995,7 @@ extension on TranslationsZh {
 			'booking.addon.title.specialized_nursing' => '专业护理程序',
 			'booking.book_appointment' => '预约',
 			'booking.health_status.empty_record' => '没有可用的医疗记录。',
+			'booking.health_status.mobility_detail_hint' => '例如：拐杖、助行架、其他',
 			'booking.health_status.mobility_label' => '选择您的行动状态',
 			'booking.health_status.record_hint' => '请选择记录',
 			'booking.health_status.record_label' => '选择相关的健康记录',

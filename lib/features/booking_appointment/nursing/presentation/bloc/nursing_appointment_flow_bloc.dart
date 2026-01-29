@@ -94,6 +94,7 @@ class NursingAppointmentFlowBloc
       nursingCase: NursingCase(
         issues: state.selectedIssues,
         mobilityStatus: state.healthStatus?.mobilityStatus,
+        mobilityStatusDetail: state.healthStatus?.mobilityStatusDetail,
         relatedHealthRecordId: state.healthStatus?.relatedHealthRecordId,
         addOnServices: state.selectedAddOnServices,
       ),
