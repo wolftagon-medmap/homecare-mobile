@@ -181,7 +181,7 @@ class _TranslationsPharmacyId implements TranslationsPharmacyEn {
 
 	// Translations
 	@override late final _TranslationsPharmacyServicesId services = _TranslationsPharmacyServicesId._(_root);
-	@override String get title => 'Layanan Apoteker iRX';
+	@override String get title => 'Layanan iRX Pharmacist';
 }
 
 // Path: settings
@@ -588,9 +588,8 @@ class _TranslationsPharmacyServicesId implements TranslationsPharmacyServicesEn 
 
 	// Translations
 	@override late final _TranslationsPharmacyServicesHealthCoachingId health_coaching = _TranslationsPharmacyServicesHealthCoachingId._(_root);
-	@override late final _TranslationsPharmacyServicesMedicationCounselingId medication_counseling = _TranslationsPharmacyServicesMedicationCounselingId._(_root);
+	@override late final _TranslationsPharmacyServicesReviewAndCounselingId review_and_counseling = _TranslationsPharmacyServicesReviewAndCounselingId._(_root);
 	@override late final _TranslationsPharmacyServicesSmokingCessationId smoking_cessation = _TranslationsPharmacyServicesSmokingCessationId._(_root);
-	@override late final _TranslationsPharmacyServicesTherapyReviewId therapy_review = _TranslationsPharmacyServicesTherapyReviewId._(_root);
 }
 
 // Path: store.messages
@@ -872,15 +871,15 @@ class _TranslationsPharmacyServicesHealthCoachingId implements TranslationsPharm
 	@override String get title => 'Pelatihan Kesehatan';
 }
 
-// Path: pharmacy.services.medication_counseling
-class _TranslationsPharmacyServicesMedicationCounselingId implements TranslationsPharmacyServicesMedicationCounselingEn {
-	_TranslationsPharmacyServicesMedicationCounselingId._(this._root);
+// Path: pharmacy.services.review_and_counseling
+class _TranslationsPharmacyServicesReviewAndCounselingId implements TranslationsPharmacyServicesReviewAndCounselingEn {
+	_TranslationsPharmacyServicesReviewAndCounselingId._(this._root);
 
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Konseling dan edukasi obat memandu pasien tentang penggunaan yang benar, efek samping, dan kepatuhan terhadap resep, guna meningkatkan keamanan dan hasil kesehatan.';
-	@override String get title => 'Konseling dan Edukasi\nObat';
+	@override String get description => 'Evaluasi obat dan panduan ahli untuk membantu Anda mengelola efek samping serta mengoptimalkan hasil kesehatan Anda.';
+	@override String get title => 'Evaluasi Komprehensif dan Konsultasi';
 }
 
 // Path: pharmacy.services.smoking_cessation
@@ -892,17 +891,6 @@ class _TranslationsPharmacyServicesSmokingCessationId implements TranslationsPha
 	// Translations
 	@override String get description => 'Program berhenti merokok melibatkan penghentian kebiasaan merokok melalui strategi seperti konseling, pengobatan, dan program dukungan untuk meningkatkan kesehatan serta mengurangi risiko penyakit terkait rokok.';
 	@override String get title => 'Berhenti Merokok';
-}
-
-// Path: pharmacy.services.therapy_review
-class _TranslationsPharmacyServicesTherapyReviewId implements TranslationsPharmacyServicesTherapyReviewEn {
-	_TranslationsPharmacyServicesTherapyReviewId._(this._root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Tinjauan komprehensif terhadap obat-obatan dan gaya hidup Anda untuk mengoptimalkan hasil perawatan serta meminimalkan potensi efek samping.';
-	@override String get title => 'Evaluasi Terapi Menyeluruh';
 }
 
 // Path: auth.forgot_password.form.label
@@ -1143,13 +1131,11 @@ extension on TranslationsId {
 			'payment.validity_label' => 'Masa Berlaku',
 			'pharmacy.services.health_coaching.description' => 'Panduan dan dukungan yang dipersonalisasi untuk membantu individu mencapai target kesehatan, mengelola kondisi kronis, dan meningkatkan kesejahteraan secara keseluruhan, dengan program khusus untuk manajemen berat badan, diabetes, tekanan darah tinggi, serta kolesterol tinggi.',
 			'pharmacy.services.health_coaching.title' => 'Pelatihan Kesehatan',
-			'pharmacy.services.medication_counseling.description' => 'Konseling dan edukasi obat memandu pasien tentang penggunaan yang benar, efek samping, dan kepatuhan terhadap resep, guna meningkatkan keamanan dan hasil kesehatan.',
-			'pharmacy.services.medication_counseling.title' => 'Konseling dan Edukasi\nObat',
+			'pharmacy.services.review_and_counseling.description' => 'Evaluasi obat dan panduan ahli untuk membantu Anda mengelola efek samping serta mengoptimalkan hasil kesehatan Anda.',
+			'pharmacy.services.review_and_counseling.title' => 'Evaluasi Komprehensif dan Konsultasi',
 			'pharmacy.services.smoking_cessation.description' => 'Program berhenti merokok melibatkan penghentian kebiasaan merokok melalui strategi seperti konseling, pengobatan, dan program dukungan untuk meningkatkan kesehatan serta mengurangi risiko penyakit terkait rokok.',
 			'pharmacy.services.smoking_cessation.title' => 'Berhenti Merokok',
-			'pharmacy.services.therapy_review.description' => 'Tinjauan komprehensif terhadap obat-obatan dan gaya hidup Anda untuk mengoptimalkan hasil perawatan serta meminimalkan potensi efek samping.',
-			'pharmacy.services.therapy_review.title' => 'Evaluasi Terapi Menyeluruh',
-			'pharmacy.title' => 'Layanan Apoteker iRX',
+			'pharmacy.title' => 'Layanan iRX Pharmacist',
 			'settings.account' => 'Akun',
 			'settings.app_language' => 'Bahasa Aplikasi',
 			'settings.settings' => 'Pengaturan',

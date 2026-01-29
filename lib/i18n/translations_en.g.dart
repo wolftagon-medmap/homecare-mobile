@@ -920,9 +920,8 @@ class TranslationsPharmacyServicesEn {
 
 	// Translations
 	late final TranslationsPharmacyServicesHealthCoachingEn health_coaching = TranslationsPharmacyServicesHealthCoachingEn._(_root);
-	late final TranslationsPharmacyServicesMedicationCounselingEn medication_counseling = TranslationsPharmacyServicesMedicationCounselingEn._(_root);
+	late final TranslationsPharmacyServicesReviewAndCounselingEn review_and_counseling = TranslationsPharmacyServicesReviewAndCounselingEn._(_root);
 	late final TranslationsPharmacyServicesSmokingCessationEn smoking_cessation = TranslationsPharmacyServicesSmokingCessationEn._(_root);
-	late final TranslationsPharmacyServicesTherapyReviewEn therapy_review = TranslationsPharmacyServicesTherapyReviewEn._(_root);
 }
 
 // Path: store.messages
@@ -1326,19 +1325,19 @@ class TranslationsPharmacyServicesHealthCoachingEn {
 	String get title => 'Health Coaching';
 }
 
-// Path: pharmacy.services.medication_counseling
-class TranslationsPharmacyServicesMedicationCounselingEn {
-	TranslationsPharmacyServicesMedicationCounselingEn._(this._root);
+// Path: pharmacy.services.review_and_counseling
+class TranslationsPharmacyServicesReviewAndCounselingEn {
+	TranslationsPharmacyServicesReviewAndCounselingEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// en: 'Medication counseling and education guide patients on proper use, side effects, and adherence to prescriptions, enhancing safety and improving health outcomes.'
-	String get description => 'Medication counseling and education guide patients on proper use, side effects, and adherence to prescriptions, enhancing safety and improving health outcomes.';
+	/// en: 'Holistic medication review and expert guidance to help you manage side effects, improve adherence, and optimize your health.'
+	String get description => 'Holistic medication review and expert guidance to help you manage side effects, improve adherence, and optimize your health.';
 
-	/// en: 'Medication Counseling and Education'
-	String get title => 'Medication Counseling\nand Education';
+	/// en: 'Comprehensive Review and Counseling'
+	String get title => 'Comprehensive Review and Counseling';
 }
 
 // Path: pharmacy.services.smoking_cessation
@@ -1354,21 +1353,6 @@ class TranslationsPharmacyServicesSmokingCessationEn {
 
 	/// en: 'Smoking Cessation'
 	String get title => 'Smoking Cessation';
-}
-
-// Path: pharmacy.services.therapy_review
-class TranslationsPharmacyServicesTherapyReviewEn {
-	TranslationsPharmacyServicesTherapyReviewEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.'
-	String get description => 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.';
-
-	/// en: 'Comprehensive Review'
-	String get title => 'Comprehensive Review';
 }
 
 // Path: auth.forgot_password.form.label
@@ -1613,12 +1597,10 @@ extension on Translations {
 			'payment.validity_label' => 'Validity',
 			'pharmacy.services.health_coaching.description' => 'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well-being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management.',
 			'pharmacy.services.health_coaching.title' => 'Health Coaching',
-			'pharmacy.services.medication_counseling.description' => 'Medication counseling and education guide patients on proper use, side effects, and adherence to prescriptions, enhancing safety and improving health outcomes.',
-			'pharmacy.services.medication_counseling.title' => 'Medication Counseling\nand Education',
+			'pharmacy.services.review_and_counseling.description' => 'Holistic medication review and expert guidance to help you manage side effects, improve adherence, and optimize your health.',
+			'pharmacy.services.review_and_counseling.title' => 'Comprehensive Review and Counseling',
 			'pharmacy.services.smoking_cessation.description' => 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.',
 			'pharmacy.services.smoking_cessation.title' => 'Smoking Cessation',
-			'pharmacy.services.therapy_review.description' => 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.',
-			'pharmacy.services.therapy_review.title' => 'Comprehensive Review',
 			'pharmacy.title' => 'iRX Pharmacist Service',
 			'settings.account' => 'Account',
 			'settings.app_language' => 'App Language',

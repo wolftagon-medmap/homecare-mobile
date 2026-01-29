@@ -30,31 +30,11 @@ class PharmacyServicesPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ServiceSelectionCard(
-                title: context.t.pharmacy.services.medication_counseling.title,
+                title: context.t.pharmacy.services.review_and_counseling.title,
                 description: context
-                    .t.pharmacy.services.medication_counseling.description,
+                    .t.pharmacy.services.review_and_counseling.description,
                 imagePath: 'assets/icons/ilu_pharmacist.png',
                 backgroundColor: const Color(0xFFF79E1B).withValues(alpha: 0.1),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BlocProvider(
-                        create: (context) => PharmacyAppointmentFlowBloc(
-                          createPharmacyAppointment: sl(),
-                        ),
-                        child: const PharmacyAppointmentFlowPage(),
-                      ),
-                    ),
-                  );
-                },
-              ),
-              ServiceSelectionCard(
-                title: context.t.pharmacy.services.therapy_review.title,
-                description:
-                    context.t.pharmacy.services.therapy_review.description,
-                imagePath: 'assets/icons/ilu_therapy.png',
-                backgroundColor: const Color(0xFFB28CFF).withValues(alpha: 0.2),
                 onTap: () {
                   Navigator.push(
                     context,

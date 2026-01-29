@@ -588,9 +588,8 @@ class _TranslationsPharmacyServicesZh implements TranslationsPharmacyServicesEn 
 
 	// Translations
 	@override late final _TranslationsPharmacyServicesHealthCoachingZh health_coaching = _TranslationsPharmacyServicesHealthCoachingZh._(_root);
-	@override late final _TranslationsPharmacyServicesMedicationCounselingZh medication_counseling = _TranslationsPharmacyServicesMedicationCounselingZh._(_root);
+	@override late final _TranslationsPharmacyServicesReviewAndCounselingZh review_and_counseling = _TranslationsPharmacyServicesReviewAndCounselingZh._(_root);
 	@override late final _TranslationsPharmacyServicesSmokingCessationZh smoking_cessation = _TranslationsPharmacyServicesSmokingCessationZh._(_root);
-	@override late final _TranslationsPharmacyServicesTherapyReviewZh therapy_review = _TranslationsPharmacyServicesTherapyReviewZh._(_root);
 }
 
 // Path: store.messages
@@ -872,15 +871,15 @@ class _TranslationsPharmacyServicesHealthCoachingZh implements TranslationsPharm
 	@override String get title => '健康指导';
 }
 
-// Path: pharmacy.services.medication_counseling
-class _TranslationsPharmacyServicesMedicationCounselingZh implements TranslationsPharmacyServicesMedicationCounselingEn {
-	_TranslationsPharmacyServicesMedicationCounselingZh._(this._root);
+// Path: pharmacy.services.review_and_counseling
+class _TranslationsPharmacyServicesReviewAndCounselingZh implements TranslationsPharmacyServicesReviewAndCounselingEn {
+	_TranslationsPharmacyServicesReviewAndCounselingZh._(this._root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => '药物咨询与教育旨在指导患者正确使用药物、了解副作用并提高用药依从性，从而增强用药安全性并改善健康成效。';
-	@override String get title => '药物咨询\n与教育';
+	@override String get description => '全面的药物评估与专家指导，助您有效管理副作用、提高用药依从性并优化健康成效。';
+	@override String get title => '全面的用药评估与指导';
 }
 
 // Path: pharmacy.services.smoking_cessation
@@ -892,17 +891,6 @@ class _TranslationsPharmacyServicesSmokingCessationZh implements TranslationsPha
 	// Translations
 	@override String get description => '戒烟是指通过咨询、药物治疗和支持计划等策略停止吸烟，以改善健康状况并降低患吸烟相关疾病的风险。';
 	@override String get title => '戒烟';
-}
-
-// Path: pharmacy.services.therapy_review
-class _TranslationsPharmacyServicesTherapyReviewZh implements TranslationsPharmacyServicesTherapyReviewEn {
-	_TranslationsPharmacyServicesTherapyReviewZh._(this._root);
-
-	final TranslationsZh _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => '全面审查您的药物使用及生活方式，旨在优化治疗效果并最大限度地减少潜在的副作用。';
-	@override String get title => '综合治疗审查';
 }
 
 // Path: auth.forgot_password.form.label
@@ -1143,12 +1131,10 @@ extension on TranslationsZh {
 			'payment.validity_label' => '有效期',
 			'pharmacy.services.health_coaching.description' => '提供个性化的指导与支持，助力实现健康目标、管理慢性疾病并提升整体健康水平。我们设有针对体重管理、糖尿病管理、高血压管理及高胆固醇管理的专项计划。',
 			'pharmacy.services.health_coaching.title' => '健康指导',
-			'pharmacy.services.medication_counseling.description' => '药物咨询与教育旨在指导患者正确使用药物、了解副作用并提高用药依从性，从而增强用药安全性并改善健康成效。',
-			'pharmacy.services.medication_counseling.title' => '药物咨询\n与教育',
+			'pharmacy.services.review_and_counseling.description' => '全面的药物评估与专家指导，助您有效管理副作用、提高用药依从性并优化健康成效。',
+			'pharmacy.services.review_and_counseling.title' => '全面的用药评估与指导',
 			'pharmacy.services.smoking_cessation.description' => '戒烟是指通过咨询、药物治疗和支持计划等策略停止吸烟，以改善健康状况并降低患吸烟相关疾病的风险。',
 			'pharmacy.services.smoking_cessation.title' => '戒烟',
-			'pharmacy.services.therapy_review.description' => '全面审查您的药物使用及生活方式，旨在优化治疗效果并最大限度地减少潜在的副作用。',
-			'pharmacy.services.therapy_review.title' => '综合治疗审查',
 			'pharmacy.title' => 'iRX 药师服务',
 			'settings.account' => '帐户',
 			'settings.app_language' => '语言设置',
