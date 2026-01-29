@@ -1183,19 +1183,19 @@ abstract class AppLocalizations {
   /// No description provided for @hypertension_label.
   ///
   /// In en, this message translates to:
-  /// **'Hypertension'**
+  /// **'High Blood Pressure'**
   String get hypertension_label;
 
   /// No description provided for @dyslipidemia_label.
   ///
   /// In en, this message translates to:
-  /// **'Dyslipidemia'**
+  /// **'High Cholesterol'**
   String get dyslipidemia_label;
 
   /// No description provided for @cardiovascular_disease_label.
   ///
   /// In en, this message translates to:
-  /// **'Cardiovascular Disease'**
+  /// **'Heart Disease'**
   String get cardiovascular_disease_label;
 
   /// No description provided for @eye_disease_label.
@@ -1207,7 +1207,7 @@ abstract class AppLocalizations {
   /// No description provided for @neuropathy_label.
   ///
   /// In en, this message translates to:
-  /// **'Neuropathy'**
+  /// **'Nerve Damage'**
   String get neuropathy_label;
 
   /// No description provided for @kidney_disease_label.

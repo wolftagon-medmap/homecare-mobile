@@ -581,16 +581,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get hypertension_label => '高血压';
 
   @override
-  String get dyslipidemia_label => '血脂异常';
+  String get dyslipidemia_label => '高胆固醇';
 
   @override
-  String get cardiovascular_disease_label => '心血管疾病';
+  String get cardiovascular_disease_label => '心脏病';
 
   @override
   String get eye_disease_label => '眼部疾病 (视网膜病变)';
 
   @override
-  String get neuropathy_label => '神经病变';
+  String get neuropathy_label => '神经损伤';
 
   @override
   String get kidney_disease_label => '肾脏疾病';

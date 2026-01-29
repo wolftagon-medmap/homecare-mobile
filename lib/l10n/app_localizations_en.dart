@@ -603,19 +603,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get risk_factors_title => 'Medical History & Risk Factors';
 
   @override
-  String get hypertension_label => 'Hypertension';
+  String get hypertension_label => 'High Blood Pressure';
 
   @override
-  String get dyslipidemia_label => 'Dyslipidemia';
+  String get dyslipidemia_label => 'High Cholesterol';
 
   @override
-  String get cardiovascular_disease_label => 'Cardiovascular Disease';
+  String get cardiovascular_disease_label => 'Heart Disease';
 
   @override
   String get eye_disease_label => 'Eye Disease (Retinopathy)';
 
   @override
-  String get neuropathy_label => 'Neuropathy';
+  String get neuropathy_label => 'Nerve Damage';
 
   @override
   String get kidney_disease_label => 'Kidney Disease';
