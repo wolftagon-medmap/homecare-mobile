@@ -1382,10 +1382,10 @@ class AppLocalizationsZh extends AppLocalizations {
       '定期清洁服务，为长者维护卫生、舒适和安全的居住环境。';
 
   @override
-  String get homecare_living_security_safety => '居住安全与保障';
+  String get homecare_safety => '居家安全评估';
 
   @override
-  String get homecare_living_security_safety_desc => '安全检查和整理，以减少风险并创造安全的居住环境。';
+  String get homecare_safety_desc => '安全检查和整理，以减少风险并创造安全的居住环境。';
 
   @override
   String get homecare_kitchen_bathroom_repair => '厨房与浴室维修';

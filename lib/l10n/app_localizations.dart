@@ -2746,17 +2746,17 @@ abstract class AppLocalizations {
   /// **'Regular cleaning services to maintain a hygienic, comfortable, and safe living environment for the elderly.'**
   String get homecare_house_bedding_cleaning_desc;
 
-  /// No description provided for @homecare_living_security_safety.
+  /// No description provided for @homecare_safety.
   ///
   /// In en, this message translates to:
-  /// **'Living Security & Safety'**
-  String get homecare_living_security_safety;
+  /// **'Home Safety Assessment'**
+  String get homecare_safety;
 
-  /// No description provided for @homecare_living_security_safety_desc.
+  /// No description provided for @homecare_safety_desc.
   ///
   /// In en, this message translates to:
   /// **'Safety checks and organization to reduce risks and create a secure living environment.'**
-  String get homecare_living_security_safety_desc;
+  String get homecare_safety_desc;
 
   /// No description provided for @homecare_kitchen_bathroom_repair.
   ///

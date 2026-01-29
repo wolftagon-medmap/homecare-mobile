@@ -1438,10 +1438,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Regular cleaning services to maintain a hygienic, comfortable, and safe living environment for the elderly.';
 
   @override
-  String get homecare_living_security_safety => 'Living Security & Safety';
+  String get homecare_safety => 'Home Safety Assessment';
 
   @override
-  String get homecare_living_security_safety_desc =>
+  String get homecare_safety_desc =>
       'Safety checks and organization to reduce risks and create a secure living environment.';
 
   @override

@@ -1440,11 +1440,10 @@ class AppLocalizationsId extends AppLocalizations {
       'Layanan kebersihan rutin untuk menjaga lingkungan hidup yang higienis, nyaman, dan aman bagi lansia.';
 
   @override
-  String get homecare_living_security_safety =>
-      'Keamanan & Keselamatan Tempat Tinggal';
+  String get homecare_safety => 'Pemeriksaan Keamanan Tempat Tinggal';
 
   @override
-  String get homecare_living_security_safety_desc =>
+  String get homecare_safety_desc =>
       'Pemeriksaan keamanan dan penataan untuk mengurangi risiko dan menciptakan lingkungan hidup yang aman.';
 
   @override
