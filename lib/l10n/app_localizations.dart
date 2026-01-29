@@ -1261,7 +1261,7 @@ abstract class AppLocalizations {
   /// No description provided for @physical_signs_if_have_title.
   ///
   /// In en, this message translates to:
-  /// **'Physical Signs (If Have)'**
+  /// **'Physical Signs (If Applicable)'**
   String get physical_signs_if_have_title;
 
   /// No description provided for @eyes_last_exam_label.

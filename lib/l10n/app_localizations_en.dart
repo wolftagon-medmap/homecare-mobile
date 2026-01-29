@@ -642,7 +642,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get physical_signs_title => 'Physical Signs';
 
   @override
-  String get physical_signs_if_have_title => 'Physical Signs (If Have)';
+  String get physical_signs_if_have_title => 'Physical Signs (If Applicable)';
 
   @override
   String get eyes_last_exam_label => 'Eyes (Last Exam)';
