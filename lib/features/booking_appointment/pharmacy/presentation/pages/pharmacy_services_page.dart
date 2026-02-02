@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/presentation/views/health_coaching.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/bloc/pharmacy_appointment_flow_bloc.dart';
+import 'package:m2health/features/booking_appointment/pharmacy/presentation/bloc/smoking_cessation_flow_cubit.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_appointment_flow_page.dart';
+import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/smoking_cessation_flow_page.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
@@ -73,8 +75,17 @@ class PharmacyServicesPage extends StatelessWidget {
                 backgroundColor:
                     const Color(0xFFFF9A9A).withValues(alpha: 0.19),
                 onTap: () {
-                  String route = AppRoutes.home;
-                  Navigator.pushNamed(context, route);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                        create: (context) => SmokingCessationFlowCubit(
+                          createPharmacyAppointment: sl(),
+                        ),
+                        child: const SmokingCessationFlowPage(),
+                      ),
+                    ),
+                  );
                 },
               ),
             ],
