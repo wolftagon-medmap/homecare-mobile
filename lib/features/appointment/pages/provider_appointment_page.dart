@@ -8,6 +8,8 @@ import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/appointment/bloc/provider_appointment_cubit.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/appointment/widgets/provider_appointment_action_dialog.dart';
+import 'package:m2health/features/home_health_screening/presentation/widgets/screening_appointment_list_action_buttons.dart';
+import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 
@@ -74,7 +76,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
           ],
         ),
       ),
-      body: BlocListener<ProviderAppointmentCubit, ProviderAppointmentState>(
+      body: BlocConsumer<ProviderAppointmentCubit, ProviderAppointmentState>(
         listener: (context, state) {
           log('ProviderAppointmentState changed: $state',
               name: 'ProviderAppointmentPage');
@@ -120,74 +122,75 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
             );
           }
         },
-        child: BlocBuilder<ProviderAppointmentCubit, ProviderAppointmentState>(
-          builder: (context, state) {
-            if (state is ProviderAppointmentLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is ProviderAppointmentLoaded) {
-              return TabBarView(
-                controller: _tabController,
+        builder: (context, state) {
+          if (state is ProviderAppointmentLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is ProviderAppointmentError) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildProviderAppointmentList(state.appointments, 'pending'),
-                  _buildProviderAppointmentList(state.appointments, 'accepted'),
-                  _buildProviderAppointmentList(
-                      state.appointments, 'completed'),
-                  _buildProviderAppointmentList(
-                      state.appointments, 'cancelled'),
+                  const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                  const SizedBox(height: 16),
+                  Text(context.l10n.common_error(state.message)),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      context
+                          .read<ProviderAppointmentCubit>()
+                          .fetchProviderAppointments();
+                    },
+                    child: Text(context.l10n.common_retry),
+                  ),
                 ],
-              );
-            } else if (state is ProviderAppointmentError) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.error_outline,
-                        size: 64, color: Colors.red),
-                    const SizedBox(height: 16),
-                    Text(context.l10n.common_error(state.message)),
-                    const SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () {
-                        context
-                            .read<ProviderAppointmentCubit>()
-                            .fetchProviderAppointments();
-                      },
-                      child: Text(context.l10n.common_retry),
-                    ),
-                  ],
+              ),
+            );
+          } else if (state is ProviderAppointmentLoaded) {
+            return TabBarView(
+              controller: _tabController,
+              children: [
+                _ProviderAppointmentTab(
+                  appointments: state.appointments,
+                  status: 'pending',
                 ),
-              );
-            }
-            return Center(child: Text(context.l10n.common_no_data));
-          },
-        ),
+                _ProviderAppointmentTab(
+                  appointments: state.appointments,
+                  status: 'accepted',
+                ),
+                _ProviderAppointmentTab(
+                  appointments: state.appointments,
+                  status: 'completed',
+                ),
+                _ProviderAppointmentTab(
+                  appointments: state.appointments,
+                  status: 'cancelled',
+                ),
+              ],
+            );
+          }
+          return Center(child: Text(context.l10n.common_no_data));
+        },
       ),
     );
   }
+}
 
-  Widget _buildProviderAppointmentList(
-      List<AppointmentEntity> appointments, String status) {
-    final filteredAppointments = appointments
-        .where((appointment) =>
-            appointment.status.toLowerCase() == status.toLowerCase())
-        .toList();
+class _ProviderAppointmentTab extends StatelessWidget {
+  final List<AppointmentEntity> appointments;
+  final String status;
 
-    Widget buildEmptyState(String status) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.event_busy, size: 64, color: Colors.grey[400]),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.appointment_list_empty(status.toLowerCase()),
-              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-            ),
-          ],
-        ),
-      );
-    }
+  const _ProviderAppointmentTab({
+    required this.appointments,
+    required this.status,
+  });
 
+  List<AppointmentEntity> get filteredAppointments => appointments
+      .where((appointment) =>
+          appointment.status.toLowerCase() == status.toLowerCase())
+      .toList();
+
+  @override
+  Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () =>
           context.read<ProviderAppointmentCubit>().fetchProviderAppointments(),
@@ -201,7 +204,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
           if (filteredAppointments.isEmpty)
             SliverFillRemaining(
               hasScrollBody: false,
-              child: buildEmptyState(status),
+              child: buildEmptyAppointmentList(context, status),
             )
           else
             SliverPadding(
@@ -210,7 +213,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                 itemCount: filteredAppointments.length,
                 itemBuilder: (context, index) {
                   final appointment = filteredAppointments[index];
-                  return _buildProviderAppointmentCard(appointment, status);
+                  return _ProviderAppointmentCard(appointment: appointment);
                 },
               ),
             ),
@@ -219,48 +222,74 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
     );
   }
 
-  Widget _buildProviderAppointmentCard(
-      AppointmentEntity appointment, String status) {
-    final patient = appointment.patientProfile!;
+  Widget buildEmptyAppointmentList(BuildContext context, String status) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.event_busy, size: 64, color: Colors.grey[400]),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.appointment_list_empty(status.toLowerCase()),
+            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
+class _ProviderAppointmentCard extends StatelessWidget {
+  final AppointmentEntity appointment;
+  const _ProviderAppointmentCard({required this.appointment});
+
+  Profile get patient => appointment.patientProfile!;
+  String get status => appointment.status;
+  String get date {
     final localStarTime = appointment.startDatetime.toLocal();
-    final localEndTime = appointment.endDatetime?.toLocal();
-    final date = DateFormat('EEEE, dd MMMM yyyy').format(localStarTime);
+    return DateFormat('EEEE, dd MMMM yyyy').format(localStarTime);
+  }
+
+  String get hourRange {
+    final localStarTime = appointment.startDatetime.toLocal();
+    final localEndTime = appointment.endDatetime!.toLocal();
     final startHour = DateFormat('hh:mm a').format(localStarTime);
-    final endHour = localEndTime != null
-        ? DateFormat('hh:mm a').format(localEndTime)
-        : null;
+    final endHour = DateFormat('hh:mm a').format(localEndTime);
+    return '$startHour - $endHour';
+  }
 
-    String getStatusDescription(String status) {
-      switch (status.toLowerCase()) {
-        case 'pending':
-          return context.l10n.appointment_status_waiting_approval;
-        case 'accepted':
-          return context.l10n.appointment_status_accepted;
-        case 'completed':
-          return context.l10n.appointment_status_completed;
-        case 'cancelled':
-          return context.l10n.appointment_status_cancelled;
-        default:
-          return context.l10n.common_status;
-      }
+  String getStatusDescription(BuildContext context, String status) {
+    switch (status.toLowerCase()) {
+      case 'pending':
+        return context.l10n.appointment_status_waiting_approval;
+      case 'accepted':
+        return context.l10n.appointment_status_accepted;
+      case 'completed':
+        return context.l10n.appointment_status_completed;
+      case 'cancelled':
+        return context.l10n.appointment_status_cancelled;
+      default:
+        return context.l10n.common_status;
     }
+  }
 
-    String getLocalizedStatus(String status) {
-      switch (status.toLowerCase()) {
-        case 'pending':
-          return context.l10n.appointment_status_pending;
-        case 'accepted':
-          return context.l10n.appointment_status_accepted;
-        case 'completed':
-          return context.l10n.appointment_status_completed;
-        case 'cancelled':
-          return context.l10n.appointment_status_cancelled;
-        default:
-          return status.toUpperCase();
-      }
+  String getLocalizedStatus(BuildContext context, String status) {
+    switch (status.toLowerCase()) {
+      case 'pending':
+        return context.l10n.appointment_status_pending;
+      case 'accepted':
+        return context.l10n.appointment_status_accepted;
+      case 'completed':
+        return context.l10n.appointment_status_completed;
+      case 'cancelled':
+        return context.l10n.appointment_status_cancelled;
+      default:
+        return status.toUpperCase();
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         GoRouter.of(context).pushNamed(
@@ -306,7 +335,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                         Row(
                           children: [
                             Text(
-                              getStatusDescription(status),
+                              getStatusDescription(context, status),
                               style: TextStyle(
                                 color: Colors.grey[600],
                                 fontSize: 14,
@@ -323,7 +352,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                getLocalizedStatus(appointment.status),
+                                getLocalizedStatus(context, appointment.status),
                                 style: TextStyle(
                                   color: _getStatusColor(appointment.status),
                                   fontSize: 12,
@@ -336,8 +365,11 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                         const SizedBox(height: 4),
                         Row(
                           children: [
-                            Icon(Icons.calendar_today,
-                                size: 16, color: Colors.grey[600]),
+                            Icon(
+                              Icons.calendar_today,
+                              size: 16,
+                              color: Colors.grey[600],
+                            ),
                             const SizedBox(width: 4),
                             Text(
                               date,
@@ -355,9 +387,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                                 size: 16, color: Colors.grey[600]),
                             const SizedBox(width: 4),
                             Text(
-                              endHour != null
-                                  ? '$startHour - $endHour'
-                                  : startHour,
+                              hourRange,
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey[600],
@@ -411,90 +441,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
                       color: Color(0xFF35C5CF),
                     ),
                   ),
-                  if (status.toLowerCase() == 'pending')
-                    Row(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () => showDeclineAppointmentDialog(
-                              context, appointment.id!),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            foregroundColor: Colors.white,
-                            minimumSize: const Size(80, 36),
-                          ),
-                          child: Text(context.l10n.appointment_decline_btn),
-                        ),
-                        const SizedBox(width: 8),
-                        ElevatedButton(
-                          onPressed: () {
-                            if (appointment.type == 'screening' &&
-                                appointment.screeningRequestData != null) {
-                              context
-                                  .read<ProviderAppointmentCubit>()
-                                  .acceptAppointment(
-                                    appointment.id!,
-                                    screeningId:
-                                        appointment.screeningRequestData!.id,
-                                  );
-                            } else {
-                              showAcceptAppointmentDialog(
-                                  context, appointment.id!);
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF35C5CF),
-                            foregroundColor: Colors.white,
-                            minimumSize: const Size(80, 36),
-                          ),
-                          child: Text(context.l10n.appointment_accept_btn),
-                        ),
-                      ],
-                    ),
-                  if (status.toLowerCase() == 'accepted')
-                    ElevatedButton(
-                      onPressed: () {
-                        if (appointment.type == 'screening' &&
-                            appointment.screeningRequestData != null) {
-                          context
-                              .read<ProviderAppointmentCubit>()
-                              .confirmSampleCollected(
-                                appointment.screeningRequestData!.id,
-                              );
-                        } else {
-                          showCompleteAppointmentDialog(
-                              context, appointment.id!);
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: appointment.type == 'screening'
-                            ? Const.aqua
-                            : Colors.green,
-                        foregroundColor: Colors.white,
-                      ),
-                      child: Text(appointment.type == 'screening'
-                          ? context
-                              .l10n.appointment_screening_confirm_sample_btn
-                          : context.l10n.appointment_mark_complete_btn),
-                    ),
-                  if (status.toLowerCase() == 'completed' &&
-                      appointment.type == 'screening' &&
-                      appointment.screeningRequestData?.status ==
-                          'sample_collected')
-                    ElevatedButton(
-                      onPressed: () async {
-                        // Navigate to appointment detail page to upload report
-                        GoRouter.of(context).pushNamed(
-                          AppRoutes.providerAppointmentDetail,
-                          extra: appointment.id,
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        foregroundColor: Colors.white,
-                      ),
-                      child: Text(
-                          context.l10n.appointment_screening_upload_report_btn),
-                    ),
+                  _buildActionButtonsByAppointmentType(),
                 ],
               ),
             ],
@@ -504,16 +451,91 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
     );
   }
 
-  Color _getStatusColor(String status) {
-    switch (status.toLowerCase()) {
-      case 'completed':
-      case 'accepted':
-        return Colors.green;
-      case 'cancelled':
-        return Colors.red;
-      case 'pending':
+// ---- Action Buttons by Appointment Type ----
+  Widget _buildActionButtonsByAppointmentType() {
+    switch (appointment.type.toLowerCase()) {
+      case 'screening':
+        return ScreeningAppointmentListActionButtons(appointment: appointment);
       default:
-        return Colors.orange;
+        return _ProviderActionButtons(appointment: appointment);
     }
+  }
+}
+
+class _ProviderActionButtons extends StatelessWidget {
+  final AppointmentEntity appointment;
+  const _ProviderActionButtons({required this.appointment});
+
+  String get status => appointment.status;
+
+  @override
+  Widget build(BuildContext context) {
+    if (status.toLowerCase() == 'pending') {
+      return _buildForPendingStatus(context);
+    } else if (status.toLowerCase() == 'accepted') {
+      return _buildForAcceptedStatus(context);
+    } else if (status.toLowerCase() == 'completed') {
+      return _buildForCompletedStatus(context);
+    }
+    return const SizedBox.shrink();
+  }
+
+  Widget _buildForPendingStatus(BuildContext context) {
+    return Row(
+      children: [
+        ElevatedButton(
+          onPressed: () =>
+              showDeclineAppointmentDialog(context, appointment.id!),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
+            minimumSize: const Size(80, 36),
+          ),
+          child: Text(context.l10n.appointment_decline_btn),
+        ),
+        const SizedBox(width: 8),
+        ElevatedButton(
+          onPressed: () {
+            showAcceptAppointmentDialog(context, appointment.id!);
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF35C5CF),
+            foregroundColor: Colors.white,
+            minimumSize: const Size(80, 36),
+          ),
+          child: Text(context.l10n.appointment_accept_btn),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildForAcceptedStatus(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        showCompleteAppointmentDialog(context, appointment.id!);
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
+      ),
+      child: Text(context.l10n.appointment_mark_complete_btn),
+    );
+  }
+
+  Widget _buildForCompletedStatus(BuildContext context) {
+    return const SizedBox.shrink();
+  }
+}
+
+Color _getStatusColor(String status) {
+  switch (status.toLowerCase()) {
+    case 'completed':
+    case 'accepted':
+      return Colors.green;
+    case 'cancelled':
+      return Colors.red;
+    case 'pending':
+    default:
+      return Colors.orange;
   }
 }
