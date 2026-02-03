@@ -634,7 +634,7 @@ class _TranslationsAuthFormLabelZh implements TranslationsAuthFormLabelEn {
 	@override String get password => '密码';
 	@override String get password_confirm => '确认密码';
 	@override String get user_role => '选择用户类型';
-	@override String get username => '用户名';
+	@override String get username => '姓名';
 }
 
 // Path: auth.form.validation
@@ -651,7 +651,7 @@ class _TranslationsAuthFormValidationZh implements TranslationsAuthFormValidatio
 	@override String get password_mismatch => '密码不匹配';
 	@override String get password_required => '请输入密码';
 	@override String get user_role_required => '请选择用户类型';
-	@override String get username_required => '请输入用户名';
+	@override String get username_required => '请输入姓名';
 }
 
 // Path: auth.login.button
@@ -933,7 +933,7 @@ extension on TranslationsZh {
 			'auth.form.label.password' => '密码',
 			'auth.form.label.password_confirm' => '确认密码',
 			'auth.form.label.user_role' => '选择用户类型',
-			'auth.form.label.username' => '用户名',
+			'auth.form.label.username' => '姓名',
 			'auth.form.validation.email_required' => '请输入您的电子邮箱',
 			'auth.form.validation.invalid_email' => '请输入有效的电子邮箱',
 			'auth.form.validation.invalid_password_length' => '密码必须至少 6 个字符',
@@ -941,7 +941,7 @@ extension on TranslationsZh {
 			'auth.form.validation.password_mismatch' => '密码不匹配',
 			'auth.form.validation.password_required' => '请输入密码',
 			'auth.form.validation.user_role_required' => '请选择用户类型',
-			'auth.form.validation.username_required' => '请输入用户名',
+			'auth.form.validation.username_required' => '请输入姓名',
 			'auth.login.button.create_account_link' => '创建新账户',
 			'auth.login.button.forgot_password_link' => '忘记密码？',
 			'auth.login.button.submit' => '登录',

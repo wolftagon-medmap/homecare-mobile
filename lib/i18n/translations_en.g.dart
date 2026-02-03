@@ -981,8 +981,8 @@ class TranslationsAuthFormLabelEn {
 	/// en: 'Select User Type'
 	String get user_role => 'Select User Type';
 
-	/// en: 'Username'
-	String get username => 'Username';
+	/// en: 'Name'
+	String get username => 'Name';
 }
 
 // Path: auth.form.validation
@@ -1014,8 +1014,8 @@ class TranslationsAuthFormValidationEn {
 	/// en: 'Please select a user type'
 	String get user_role_required => 'Please select a user type';
 
-	/// en: 'Please enter a username'
-	String get username_required => 'Please enter a username';
+	/// en: 'Please enter your name'
+	String get username_required => 'Please enter your name';
 }
 
 // Path: auth.login.button
@@ -1399,7 +1399,7 @@ extension on Translations {
 			'auth.form.label.password' => 'Password',
 			'auth.form.label.password_confirm' => 'Confirm Password',
 			'auth.form.label.user_role' => 'Select User Type',
-			'auth.form.label.username' => 'Username',
+			'auth.form.label.username' => 'Name',
 			'auth.form.validation.email_required' => 'Please enter your email',
 			'auth.form.validation.invalid_email' => 'Please enter a valid email',
 			'auth.form.validation.invalid_password_length' => 'Password must be at least 6 characters',
@@ -1407,7 +1407,7 @@ extension on Translations {
 			'auth.form.validation.password_mismatch' => 'Passwords do not match',
 			'auth.form.validation.password_required' => 'Please enter a password',
 			'auth.form.validation.user_role_required' => 'Please select a user type',
-			'auth.form.validation.username_required' => 'Please enter a username',
+			'auth.form.validation.username_required' => 'Please enter your name',
 			'auth.login.button.create_account_link' => 'Create new account',
 			'auth.login.button.forgot_password_link' => 'Forgot Password?',
 			'auth.login.button.submit' => 'Sign In',

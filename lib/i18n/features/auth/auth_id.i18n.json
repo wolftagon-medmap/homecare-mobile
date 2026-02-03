@@ -23,7 +23,7 @@
       "password": "Kata Sandi",
       "password_confirm": "Konfirmasi Kata Sandi",
       "user_role": "Pilih Tipe Pengguna",
-      "username": "Nama Pengguna"
+      "username": "Nama"
     },
     "validation": {
       "email_required": "Harap masukkan email Anda",
@@ -33,7 +33,7 @@
       "password_mismatch": "Kata sandi tidak cocok",
       "password_required": "Harap masukkan kata sandi",
       "user_role_required": "Harap pilih tipe pengguna",
-      "username_required": "Harap masukkan nama pengguna"
+      "username_required": "Harap masukkan nama"
     }
   },
   "login": {

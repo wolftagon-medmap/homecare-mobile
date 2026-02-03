@@ -634,7 +634,7 @@ class _TranslationsAuthFormLabelId implements TranslationsAuthFormLabelEn {
 	@override String get password => 'Kata Sandi';
 	@override String get password_confirm => 'Konfirmasi Kata Sandi';
 	@override String get user_role => 'Pilih Tipe Pengguna';
-	@override String get username => 'Nama Pengguna';
+	@override String get username => 'Nama';
 }
 
 // Path: auth.form.validation
@@ -651,7 +651,7 @@ class _TranslationsAuthFormValidationId implements TranslationsAuthFormValidatio
 	@override String get password_mismatch => 'Kata sandi tidak cocok';
 	@override String get password_required => 'Harap masukkan kata sandi';
 	@override String get user_role_required => 'Harap pilih tipe pengguna';
-	@override String get username_required => 'Harap masukkan nama pengguna';
+	@override String get username_required => 'Harap masukkan nama';
 }
 
 // Path: auth.login.button
@@ -933,7 +933,7 @@ extension on TranslationsId {
 			'auth.form.label.password' => 'Kata Sandi',
 			'auth.form.label.password_confirm' => 'Konfirmasi Kata Sandi',
 			'auth.form.label.user_role' => 'Pilih Tipe Pengguna',
-			'auth.form.label.username' => 'Nama Pengguna',
+			'auth.form.label.username' => 'Nama',
 			'auth.form.validation.email_required' => 'Harap masukkan email Anda',
 			'auth.form.validation.invalid_email' => 'Harap masukkan email yang valid',
 			'auth.form.validation.invalid_password_length' => 'Kata sandi harus minimal 6 karakter',
@@ -941,7 +941,7 @@ extension on TranslationsId {
 			'auth.form.validation.password_mismatch' => 'Kata sandi tidak cocok',
 			'auth.form.validation.password_required' => 'Harap masukkan kata sandi',
 			'auth.form.validation.user_role_required' => 'Harap pilih tipe pengguna',
-			'auth.form.validation.username_required' => 'Harap masukkan nama pengguna',
+			'auth.form.validation.username_required' => 'Harap masukkan nama',
 			'auth.login.button.create_account_link' => 'Buat akun baru',
 			'auth.login.button.forgot_password_link' => 'Lupa Kata Sandi?',
 			'auth.login.button.submit' => 'Masuk',

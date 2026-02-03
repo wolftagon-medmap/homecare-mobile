@@ -31,6 +31,9 @@ class _SignUpPageState extends State<SignUpPage> {
   String? _passwordError;
   UserRole? _selectedRole;
 
+  bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
+
   void _validatePasswords() {
     setState(() {
       if (_passwordController.text != _confirmPasswordController.text) {
@@ -180,7 +183,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _usernameController,
                       decoration: InputDecoration(
-                        hintText: context.t.auth.form.label.username,
+                        labelText: context.t.auth.form.label.username,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
@@ -200,7 +203,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        hintText: context.t.auth.form.label.email,
+                        labelText: context.t.auth.form.label.email,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
@@ -221,14 +224,27 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _passwordController,
                       decoration: InputDecoration(
-                        hintText: context.t.auth.form.label.password,
+                        labelText: context.t.auth.form.label.password,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible;
+                            });
+                          },
+                        ),
                       ),
-                      obscureText: true,
+                      obscureText: !_isPasswordVisible,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return context
@@ -245,15 +261,29 @@ class _SignUpPageState extends State<SignUpPage> {
                     TextFormField(
                       controller: _confirmPasswordController,
                       decoration: InputDecoration(
-                        hintText: context.t.auth.form.label.password_confirm,
+                        labelText: context.t.auth.form.label.password_confirm,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         errorText: _passwordError,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isConfirmPasswordVisible
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isConfirmPasswordVisible =
+                                  !_isConfirmPasswordVisible;
+                            });
+                          },
+                        ),
                       ),
-                      obscureText: true,
+                      obscureText: !_isConfirmPasswordVisible,
                       onChanged: (value) {
                         _validatePasswords();
                       },
@@ -272,7 +302,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(height: 20),
                     DropdownButtonFormField<UserRole>(
                       decoration: InputDecoration(
-                        hintText: context.t.auth.form.label.user_role,
+                        labelText: context.t.auth.form.label.user_role,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),
