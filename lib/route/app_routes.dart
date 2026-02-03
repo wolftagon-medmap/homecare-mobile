@@ -95,6 +95,10 @@ class AppRoutes {
   static const String monitoringScanDevice =
       '$remotePatientMonitoring/scan-device';
 
+  // Smoking Cessation Module
+  static const String smokingCessationPlanForm = '/appointment/smoking-cessation-plan/form';
+  static const String smokingCessationPlanView = '/appointment/smoking-cessation-plan/view';
+
   // static const String home = '/';
   // static const String submenu = 'submenu';
   // static const String dashboard= 'dashboard';

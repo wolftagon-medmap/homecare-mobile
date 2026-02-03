@@ -14,6 +14,8 @@ import 'package:m2health/features/appointment/widgets/provider_appointment_actio
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
 import 'package:m2health/features/home_health_screening/presentation/widgets/screening_appointment_detail_action_buttons.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
+import 'package:m2health/features/smoking_cessation/presentation/widgets/prepare_smoking_cessation_plan_button.dart';
+import 'package:m2health/features/smoking_cessation/presentation/widgets/smoking_habit_assessment_card.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
@@ -121,7 +123,9 @@ class ProviderAppointmentDetailView extends StatelessWidget {
               appointment.pharmacyCase?.serviceType == 'smoking_cessation') ...[
             const SizedBox(height: 24),
             _buildSectionTitle("Smoking Cessation Assessment"),
-            _SmokingCessationInfo(appointment: appointment),
+            SmokingHabitAssessmentCard(
+              smokingForm: appointment.pharmacyCase!.smokingCessationForm!,
+            ),
           ],
         ],
       ),
@@ -154,20 +158,17 @@ class _AppointmentSchedule extends StatelessWidget {
     final endHour = DateFormat('hh:mm a').format(localEndTime);
     final hour = '$startHour - $endHour';
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            context.l10n.appointment_detail_schedule_title,
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-          ),
-          const SizedBox(height: 8),
-          _InfoRow(icon: Icons.calendar_today_outlined, text: date),
-          _InfoRow(icon: Icons.access_time_outlined, text: hour),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          context.l10n.appointment_detail_schedule_title,
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        ),
+        const SizedBox(height: 8),
+        _InfoRow(icon: Icons.calendar_today_outlined, text: date),
+        _InfoRow(icon: Icons.access_time_outlined, text: hour),
+      ],
     );
   }
 }
@@ -219,6 +220,7 @@ class _PatientCardHeader extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 30,
+          backgroundColor: Colors.grey.shade200,
           backgroundImage:
               (patient.avatar != null) ? NetworkImage(patient.avatar!) : null,
           child: (patient.avatar == null)
@@ -305,6 +307,7 @@ class _PatientInfoTable extends StatelessWidget {
         : context.l10n.none;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           context.l10n.appointment_detail_patient_title,
@@ -488,150 +491,6 @@ class _ScreeningRequestInfo extends StatelessWidget {
                 ),
               ))
         ]
-      ],
-    );
-  }
-}
-
-class _SmokingCessationInfo extends StatelessWidget {
-  final AppointmentEntity appointment;
-  const _SmokingCessationInfo({required this.appointment});
-
-  @override
-  Widget build(BuildContext context) {
-    final smokingForm = appointment.pharmacyCase?.smokingCessationForm;
-    if (smokingForm == null) return const SizedBox.shrink();
-
-    final currentHabit = smokingForm.isSmoking
-        ? (smokingForm.productTypes != null &&
-                smokingForm.productTypes!.isNotEmpty
-            ? smokingForm.productTypes!.join(', ')
-            : context.l10n.common_none)
-        : 'Not currently smoking';
-
-    return Container(
-      margin: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Const.aqua.withValues(alpha: 0.2)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Image.asset(
-                  'assets/icons/ic_medical_checklist.png',
-                  width: 16,
-                  height: 16,
-                ),
-                const SizedBox(width: 8),
-                const Text(
-                  'Smoking Habit',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                  ),
-                ),
-                const Spacer(),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0)
-                .copyWith(bottom: 16.0),
-            child: Column(
-              spacing: 12,
-              children: [
-                _AssessmentItem(
-                  icon: Icons.smoking_rooms,
-                  label: 'SMOKING?',
-                  value: currentHabit,
-                ),
-                if (smokingForm.isSmoking) ...[
-                  _AssessmentItem(
-                    icon: Icons.bar_chart_outlined,
-                    label: 'INTENSITY',
-                    value: '${smokingForm.sticksPerDay ?? 0} sticks / day',
-                  ),
-                  _AssessmentItem(
-                    icon: Icons.history_rounded,
-                    label: 'PREVIOUS ATTEMPTS',
-                    value: smokingForm.hasTriedQuitting
-                        ? 'Has tried to quit before'
-                        : 'No previous attempts',
-                  ),
-                ],
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _AssessmentItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String value;
-
-  const _AssessmentItem({
-    required this.icon,
-    required this.label,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 4,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Icon(
-            icon,
-            size: 16,
-            color: const Color(0xFF35C5CF),
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF6A7282),
-                  letterSpacing: 0.25,
-                ),
-              ),
-              Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF222222),
-                ),
-              ),
-            ],
-          ),
-        ),
       ],
     );
   }
@@ -960,27 +819,7 @@ class _ActionButtons extends StatelessWidget {
     if (appointment.type == 'pharmacy' &&
         appointment.pharmacyCase?.serviceType == 'smoking_cessation') {
       return BottomAppBar(
-        child: ElevatedButton(
-          onPressed: () {
-            GoRouter.of(context).pushNamed(
-              AppRoutes.smokingCessationPlan,
-              extra: appointment,
-            );
-          },
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size(double.infinity, 50),
-            backgroundColor: Const.aqua,
-            foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            textStyle: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          ),
-          child: const Text('Prepare Smoking Cessation Plan'),
-        ),
+        child: PrepareSmokingCessationPlanButton(appointment: appointment),
       );
     }
     return const SizedBox.shrink();

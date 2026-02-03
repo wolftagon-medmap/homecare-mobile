@@ -103,6 +103,7 @@ class _AdminProfessionalDetailViewState
                       children: [
                         CircleAvatar(
                           radius: 50,
+                          backgroundColor: Colors.grey.shade200,
                           backgroundImage: profile.avatar != null
                               ? NetworkImage(profile.avatar!)
                               : null,

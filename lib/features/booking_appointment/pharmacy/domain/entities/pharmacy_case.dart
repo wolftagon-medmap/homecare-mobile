@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/mobility_status.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
-import 'package:m2health/features/booking_appointment/pharmacy/domain/entities/smoking_cessation_form.dart';
+import 'package:m2health/features/smoking_cessation/domain/entities/smoking_cessation_form.dart';
 
 class PharmacyCase extends Equatable {
   final int? appointmentId;

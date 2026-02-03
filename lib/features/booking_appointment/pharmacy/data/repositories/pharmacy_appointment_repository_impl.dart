@@ -3,7 +3,7 @@ import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/core/data/models/appointment_model.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/services/appointment_service.dart';
-import 'package:m2health/features/booking_appointment/pharmacy/data/models/smoking_cessation_form_model.dart';
+import 'package:m2health/features/smoking_cessation/data/models/smoking_cessation_form_model.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/domain/repositories/pharmacy_appointment_repository.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/domain/usecases/create_pharmacy_appointment.dart';
 

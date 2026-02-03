@@ -312,6 +312,7 @@ class _ProviderAppointmentCard extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 30,
+                    backgroundColor: Colors.grey.shade200,
                     backgroundImage: (patient.avatar != null)
                         ? NetworkImage(patient.avatar!)
                         : null,

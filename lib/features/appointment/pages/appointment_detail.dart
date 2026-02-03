@@ -17,6 +17,8 @@ import 'package:m2health/features/booking_appointment/personal_issue/domain/enti
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
+import 'package:m2health/features/smoking_cessation/presentation/widgets/smoking_habit_assessment_card.dart';
+import 'package:m2health/features/smoking_cessation/presentation/widgets/view_smoking_cessation_plan_button.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
@@ -167,6 +169,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
         children: [
           CircleAvatar(
             radius: 40,
+            backgroundColor: Colors.grey.shade200,
             backgroundImage: (provider.avatar != null)
                 ? NetworkImage(provider.avatar!)
                 : null,
@@ -455,71 +458,22 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
     final smokingForm = appointment.pharmacyCase?.smokingCessationForm;
     if (smokingForm == null) return const SizedBox.shrink();
 
-    final currentHabit = smokingForm.isSmoking
-        ? (smokingForm.productTypes != null &&
-                smokingForm.productTypes!.isNotEmpty
-            ? smokingForm.productTypes!.join(', ')
-            : context.l10n.common_none)
-        : 'Not currently smoking';
-
-    return Container(
-      margin: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Const.aqua.withValues(alpha: 0.2)),
-      ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                Image.asset(
-                  'assets/icons/ic_medical_checklist.png',
-                  width: 16,
-                  height: 16,
-                ),
-                const SizedBox(width: 8),
-                const Text(
-                  'Smoking Habit',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                  ),
-                ),
-                const Spacer(),
-              ],
+          const Text(
+            "Smoking Cessation Details",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0)
-                .copyWith(bottom: 16.0),
-            child: Column(
-              spacing: 12,
-              children: [
-                _AssessmentItem(
-                  icon: Icons.smoking_rooms,
-                  label: 'SMOKING?',
-                  value: currentHabit,
-                ),
-                if (smokingForm.isSmoking) ...[
-                  _AssessmentItem(
-                    icon: Icons.bar_chart_outlined,
-                    label: 'INTENSITY',
-                    value: '${smokingForm.sticksPerDay ?? 0} sticks / day',
-                  ),
-                  _AssessmentItem(
-                    icon: Icons.history_rounded,
-                    label: 'PREVIOUS ATTEMPTS',
-                    value: smokingForm.hasTriedQuitting
-                        ? 'Has tried to quit before'
-                        : 'No previous attempts',
-                  ),
-                ],
-              ],
-            ),
-          ),
+          const SizedBox(height: 8),
+          SmokingHabitAssessmentCard(smokingForm: smokingForm),
+          const SizedBox(height: 8),
+          ViewSmokingCessationPlanButton(appointment: appointment),
         ],
       ),
     );
@@ -887,25 +841,22 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
       return const SizedBox.shrink();
     }
 
-    return Container(
-        padding: const EdgeInsets.all(16).copyWith(
-          bottom: MediaQuery.of(context).padding.bottom,
-        ),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-        ),
-        child: isHorizontalLayout
-            ? Row(
-                spacing: 16,
-                children:
-                    buttons.map((button) => Expanded(child: button)).toList(),
-              )
-            : Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                spacing: 8,
-                children: buttons,
-              ));
+    return BottomAppBar(
+      color: Colors.white,
+      height: isHorizontalLayout ? 80 : 132,
+      child: isHorizontalLayout
+          ? Row(
+              spacing: 16,
+              children:
+                  buttons.map((button) => Expanded(child: button)).toList(),
+            )
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              spacing: 8,
+              children: buttons,
+            ),
+    );
   }
 
   void _showFullImage(BuildContext context, String imageUrl) {
@@ -917,70 +868,6 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
           title: 'Issue Image', // Optional: Custom title
         ),
       ),
-    );
-  }
-}
-
-class _AssessmentItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String value;
-
-  const _AssessmentItem({
-    required this.icon,
-    required this.label,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 4,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Icon(
-            icon,
-            size: 16,
-            color: const Color(0xFF35C5CF),
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF6A7282),
-                  letterSpacing: 0.25,
-                ),
-              ),
-              Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF222222),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

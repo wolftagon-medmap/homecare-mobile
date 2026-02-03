@@ -163,19 +163,20 @@ class MyApp extends StatelessWidget {
             textSelectionTheme: TextSelectionThemeData(
               cursorColor: Const.aqua,
               selectionColor: Const.aqua.withValues(alpha: 0.4),
+              selectionHandleColor: Const.aqua,
             ),
             inputDecorationTheme: InputDecorationTheme(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.0),
                 borderSide: const BorderSide(
-                  color: Colors.grey,
+                  color: Color(0xFFE5E7EB),
                   width: 1.0,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.0),
                 borderSide: const BorderSide(
-                  color: Colors.grey,
+                  color: Color(0xFFE5E7EB),
                   width: 1.0,
                 ),
               ),
@@ -219,7 +220,36 @@ class MyApp extends StatelessWidget {
               labelSmall: TextStyle(fontFamily: 'Poppins'),
             ),
             scaffoldBackgroundColor: Colors.white,
-            colorScheme: ColorScheme.fromSeed(seedColor: Const.colorDashboard),
+            datePickerTheme: DatePickerThemeData(
+              headerBackgroundColor: Const.aqua,
+              headerForegroundColor: Colors.white,
+              backgroundColor: Colors.white,
+              dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return Const.aqua;
+                }
+                return null;
+              }),
+              dayForegroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return Colors.white;
+                }
+                return Colors.black;
+              }),
+              todayBackgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return Const.aqua;
+                }
+                return null;
+              }),
+              todayForegroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return Colors.white;
+                }
+                return Colors.black;
+              }),
+            ),
+            colorScheme: ColorScheme.fromSeed(seedColor: Const.aqua),
             useMaterial3: true,
           ),
           builder: DevicePreview.appBuilder,

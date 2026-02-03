@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
-import 'package:m2health/features/booking_appointment/pharmacy/domain/entities/smoking_cessation_form.dart';
+import 'package:m2health/features/smoking_cessation/domain/entities/smoking_cessation_form.dart';
 
 class SmokingCessationFormPage extends StatefulWidget {
   final SmokingCessationForm? initialForm;

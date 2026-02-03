@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/domain/entities/pharmacy_case.dart';
-import 'package:m2health/features/booking_appointment/pharmacy/domain/entities/smoking_cessation_form.dart';
+import 'package:m2health/features/smoking_cessation/domain/entities/smoking_cessation_form.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/domain/usecases/create_pharmacy_appointment.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 
