@@ -4,18 +4,14 @@
       "description": "Panduan dan dukungan yang dipersonalisasi untuk membantu individu mencapai target kesehatan, mengelola kondisi kronis, dan meningkatkan kesejahteraan secara keseluruhan, dengan program khusus untuk manajemen berat badan, diabetes, tekanan darah tinggi, serta kolesterol tinggi.",
       "title": "Pelatihan Kesehatan"
     },
-    "medication_counseling": {
-      "description": "Konseling dan edukasi obat memandu pasien tentang penggunaan yang benar, efek samping, dan kepatuhan terhadap resep, guna meningkatkan keamanan dan hasil kesehatan.",
-      "title": "Konseling dan Edukasi\nObat"
+    "review_and_counseling": {
+      "description": "Evaluasi obat dan panduan ahli untuk membantu Anda mengelola efek samping serta mengoptimalkan hasil kesehatan Anda.",
+      "title": "Evaluasi Komprehensif dan Konsultasi"
     },
     "smoking_cessation": {
       "description": "Program berhenti merokok melibatkan penghentian kebiasaan merokok melalui strategi seperti konseling, pengobatan, dan program dukungan untuk meningkatkan kesehatan serta mengurangi risiko penyakit terkait rokok.",
       "title": "Berhenti Merokok"
-    },
-    "therapy_review": {
-      "description": "Tinjauan komprehensif terhadap obat-obatan dan gaya hidup Anda untuk mengoptimalkan hasil perawatan serta meminimalkan potensi efek samping.",
-      "title": "Evaluasi Terapi Menyeluruh"
     }
   },
-  "title": "Layanan Apoteker iRX"
+  "title": "Layanan iRX Pharmacist"
 }

@@ -23,7 +23,7 @@
       "password": "Password",
       "password_confirm": "Confirm Password",
       "user_role": "Select User Type",
-      "username": "Username"
+      "username": "Name"
     },
     "validation": {
       "email_required": "Please enter your email",
@@ -33,7 +33,7 @@
       "password_mismatch": "Passwords do not match",
       "password_required": "Please enter a password",
       "user_role_required": "Please select a user type",
-      "username_required": "Please enter a username"
+      "username_required": "Please enter your name"
     }
   },
   "login": {

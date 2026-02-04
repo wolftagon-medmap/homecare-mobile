@@ -93,6 +93,7 @@ class _TranslationsDashboardZh implements TranslationsDashboardEn {
 	@override String get allied_services => '辅助医疗';
 	@override String get chat_ai_placeholder => '咨询AI医生，解答您的健康疑问';
 	@override String greeting({required Object displayName}) => '更长寿，更健康，${displayName}！';
+	@override String get main_services => '服务预约';
 	@override late final _TranslationsDashboardServicesZh services = _TranslationsDashboardServicesZh._(_root);
 }
 
@@ -346,6 +347,7 @@ class _TranslationsBookingHealthStatusZh implements TranslationsBookingHealthSta
 
 	// Translations
 	@override String get empty_record => '没有可用的医疗记录。';
+	@override String get mobility_detail_hint => '例如：拐杖、助行架、其他';
 	@override String get mobility_label => '选择您的行动状态';
 	@override String get record_hint => '请选择记录';
 	@override String get record_label => '选择相关的健康记录';
@@ -441,8 +443,8 @@ class _TranslationsDashboardServicesZh implements TranslationsDashboardServicesE
 	@override String get homecare_for_elderly => '长者家政维修';
 	@override String get nursing => ' 上门护士';
 	@override String get pharmacist => 'iRX 药师服务';
-	@override String get physiotherapy => '物理治疗';
-	@override String get precision_nutrition => '精准营养';
+	@override String get physiotherapy => '理疗预约';
+	@override String get precision_nutrition => '营养ABCD';
 	@override String get remote_patient_monitoring => '远程健康监测';
 	@override String get second_opinion => '医学影像第二意见';
 	@override String get sleep_and_mental_health => '睡眠与心理健康';
@@ -587,9 +589,8 @@ class _TranslationsPharmacyServicesZh implements TranslationsPharmacyServicesEn 
 
 	// Translations
 	@override late final _TranslationsPharmacyServicesHealthCoachingZh health_coaching = _TranslationsPharmacyServicesHealthCoachingZh._(_root);
-	@override late final _TranslationsPharmacyServicesMedicationCounselingZh medication_counseling = _TranslationsPharmacyServicesMedicationCounselingZh._(_root);
+	@override late final _TranslationsPharmacyServicesReviewAndCounselingZh review_and_counseling = _TranslationsPharmacyServicesReviewAndCounselingZh._(_root);
 	@override late final _TranslationsPharmacyServicesSmokingCessationZh smoking_cessation = _TranslationsPharmacyServicesSmokingCessationZh._(_root);
-	@override late final _TranslationsPharmacyServicesTherapyReviewZh therapy_review = _TranslationsPharmacyServicesTherapyReviewZh._(_root);
 }
 
 // Path: store.messages
@@ -634,7 +635,7 @@ class _TranslationsAuthFormLabelZh implements TranslationsAuthFormLabelEn {
 	@override String get password => '密码';
 	@override String get password_confirm => '确认密码';
 	@override String get user_role => '选择用户类型';
-	@override String get username => '用户名';
+	@override String get username => '姓名';
 }
 
 // Path: auth.form.validation
@@ -651,7 +652,7 @@ class _TranslationsAuthFormValidationZh implements TranslationsAuthFormValidatio
 	@override String get password_mismatch => '密码不匹配';
 	@override String get password_required => '请输入密码';
 	@override String get user_role_required => '请选择用户类型';
-	@override String get username_required => '请输入用户名';
+	@override String get username_required => '请输入姓名';
 }
 
 // Path: auth.login.button
@@ -871,15 +872,15 @@ class _TranslationsPharmacyServicesHealthCoachingZh implements TranslationsPharm
 	@override String get title => '健康指导';
 }
 
-// Path: pharmacy.services.medication_counseling
-class _TranslationsPharmacyServicesMedicationCounselingZh implements TranslationsPharmacyServicesMedicationCounselingEn {
-	_TranslationsPharmacyServicesMedicationCounselingZh._(this._root);
+// Path: pharmacy.services.review_and_counseling
+class _TranslationsPharmacyServicesReviewAndCounselingZh implements TranslationsPharmacyServicesReviewAndCounselingEn {
+	_TranslationsPharmacyServicesReviewAndCounselingZh._(this._root);
 
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => '药物咨询与教育旨在指导患者正确使用药物、了解副作用并提高用药依从性，从而增强用药安全性并改善健康成效。';
-	@override String get title => '药物咨询\n与教育';
+	@override String get description => '全面的药物评估与专家指导，助您有效管理副作用、提高用药依从性并优化健康成效。';
+	@override String get title => '全面的用药评估与指导';
 }
 
 // Path: pharmacy.services.smoking_cessation
@@ -891,17 +892,6 @@ class _TranslationsPharmacyServicesSmokingCessationZh implements TranslationsPha
 	// Translations
 	@override String get description => '戒烟是指通过咨询、药物治疗和支持计划等策略停止吸烟，以改善健康状况并降低患吸烟相关疾病的风险。';
 	@override String get title => '戒烟';
-}
-
-// Path: pharmacy.services.therapy_review
-class _TranslationsPharmacyServicesTherapyReviewZh implements TranslationsPharmacyServicesTherapyReviewEn {
-	_TranslationsPharmacyServicesTherapyReviewZh._(this._root);
-
-	final TranslationsZh _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => '全面审查您的药物使用及生活方式，旨在优化治疗效果并最大限度地减少潜在的副作用。';
-	@override String get title => '综合治疗审查';
 }
 
 // Path: auth.forgot_password.form.label
@@ -944,7 +934,7 @@ extension on TranslationsZh {
 			'auth.form.label.password' => '密码',
 			'auth.form.label.password_confirm' => '确认密码',
 			'auth.form.label.user_role' => '选择用户类型',
-			'auth.form.label.username' => '用户名',
+			'auth.form.label.username' => '姓名',
 			'auth.form.validation.email_required' => '请输入您的电子邮箱',
 			'auth.form.validation.invalid_email' => '请输入有效的电子邮箱',
 			'auth.form.validation.invalid_password_length' => '密码必须至少 6 个字符',
@@ -952,7 +942,7 @@ extension on TranslationsZh {
 			'auth.form.validation.password_mismatch' => '密码不匹配',
 			'auth.form.validation.password_required' => '请输入密码',
 			'auth.form.validation.user_role_required' => '请选择用户类型',
-			'auth.form.validation.username_required' => '请输入用户名',
+			'auth.form.validation.username_required' => '请输入姓名',
 			'auth.login.button.create_account_link' => '创建新账户',
 			'auth.login.button.forgot_password_link' => '忘记密码？',
 			'auth.login.button.submit' => '登录',
@@ -994,6 +984,7 @@ extension on TranslationsZh {
 			'booking.addon.title.specialized_nursing' => '专业护理程序',
 			'booking.book_appointment' => '预约',
 			'booking.health_status.empty_record' => '没有可用的医疗记录。',
+			'booking.health_status.mobility_detail_hint' => '例如：拐杖、助行架、其他',
 			'booking.health_status.mobility_label' => '选择您的行动状态',
 			'booking.health_status.record_hint' => '请选择记录',
 			'booking.health_status.record_label' => '选择相关的健康记录',
@@ -1054,6 +1045,7 @@ extension on TranslationsZh {
 			'dashboard.allied_services' => '辅助医疗',
 			'dashboard.chat_ai_placeholder' => '咨询AI医生，解答您的健康疑问',
 			'dashboard.greeting' => ({required Object displayName}) => '更长寿，更健康，${displayName}！',
+			'dashboard.main_services' => '服务预约',
 			'dashboard.services.diabetic_care' => 'iRX糖尿病护理',
 			'dashboard.services.dietitian' => '营养师服务',
 			'dashboard.services.health_risk_assessment' => '健康风险评估',
@@ -1061,8 +1053,8 @@ extension on TranslationsZh {
 			'dashboard.services.homecare_for_elderly' => '长者家政维修',
 			'dashboard.services.nursing' => ' 上门护士',
 			'dashboard.services.pharmacist' => 'iRX 药师服务',
-			'dashboard.services.physiotherapy' => '物理治疗',
-			'dashboard.services.precision_nutrition' => '精准营养',
+			'dashboard.services.physiotherapy' => '理疗预约',
+			'dashboard.services.precision_nutrition' => '营养ABCD',
 			'dashboard.services.remote_patient_monitoring' => '远程健康监测',
 			'dashboard.services.second_opinion' => '医学影像第二意见',
 			'dashboard.services.sleep_and_mental_health' => '睡眠与心理健康',
@@ -1141,12 +1133,10 @@ extension on TranslationsZh {
 			'payment.validity_label' => '有效期',
 			'pharmacy.services.health_coaching.description' => '提供个性化的指导与支持，助力实现健康目标、管理慢性疾病并提升整体健康水平。我们设有针对体重管理、糖尿病管理、高血压管理及高胆固醇管理的专项计划。',
 			'pharmacy.services.health_coaching.title' => '健康指导',
-			'pharmacy.services.medication_counseling.description' => '药物咨询与教育旨在指导患者正确使用药物、了解副作用并提高用药依从性，从而增强用药安全性并改善健康成效。',
-			'pharmacy.services.medication_counseling.title' => '药物咨询\n与教育',
+			'pharmacy.services.review_and_counseling.description' => '全面的药物评估与专家指导，助您有效管理副作用、提高用药依从性并优化健康成效。',
+			'pharmacy.services.review_and_counseling.title' => '全面的用药评估与指导',
 			'pharmacy.services.smoking_cessation.description' => '戒烟是指通过咨询、药物治疗和支持计划等策略停止吸烟，以改善健康状况并降低患吸烟相关疾病的风险。',
 			'pharmacy.services.smoking_cessation.title' => '戒烟',
-			'pharmacy.services.therapy_review.description' => '全面审查您的药物使用及生活方式，旨在优化治疗效果并最大限度地减少潜在的副作用。',
-			'pharmacy.services.therapy_review.title' => '综合治疗审查',
 			'pharmacy.title' => 'iRX 药师服务',
 			'settings.account' => '帐户',
 			'settings.app_language' => '语言设置',

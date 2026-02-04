@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart' show Option, none, some;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/health_status.dart';
@@ -24,11 +25,14 @@ class HealthStatusPage extends StatefulWidget {
 
 class HealthStatusPageState extends State<HealthStatusPage> {
   late HealthStatus healthStatus;
+  late TextEditingController _mobilityDetailController;
 
   @override
   void initState() {
     super.initState();
     healthStatus = widget.initialHealthStatus ?? const HealthStatus();
+    _mobilityDetailController =
+        TextEditingController(text: healthStatus.mobilityStatusDetail ?? '');
     context.read<MedicalRecordBloc>().add(FetchMedicalRecords());
   }
 
@@ -47,101 +51,159 @@ class HealthStatusPageState extends State<HealthStatusPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(context.t.booking.health_status.mobility_label,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            ...MobilityStatus.values.map((status) {
-              return RadioListTile<MobilityStatus>(
-                title: Text(status.label(context)),
-                value: status,
-                groupValue: healthStatus.mobilityStatus,
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() {
-                      healthStatus =
-                          healthStatus.copyWith(mobilityStatus: value);
-                    });
-                  }
-                },
-                activeColor: const Color(0xFF35C5CF),
-              );
-            }),
-            const SizedBox(height: 20),
-            Text(context.t.booking.health_status.record_label,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10.0),
-            BlocBuilder<MedicalRecordBloc, MedicalRecordState>(
-              builder: (context, medicalState) {
-                if (medicalState.listStatus == ListStatus.loading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (medicalState.listStatus == ListStatus.failure) {
-                  return Center(
-                      child: Text(
-                          medicalState.listError ?? 'Failed to load medical records.'));
-                }
-                if (medicalState.listStatus == ListStatus.success) {
-                  if (medicalState.medicalRecords.isEmpty) {
-                    return Text(context.t.booking.health_status.empty_record);
-                  }
-                  return Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<int?>(
-                        value: healthStatus.relatedHealthRecordId,
-                        hint: Text(context.t.booking.health_status.record_hint),
-                        items: [
-                          DropdownMenuItem<int?>(
-                            value: null,
-                            child: Text(context.t.global.none),
-                          ),
-                          ...medicalState.medicalRecords
-                              .map((MedicalRecord record) {
-                            return DropdownMenuItem<int?>(
-                              value: record.id,
-                              child: Text(record.title),
-                            );
-                          })
-                        ],
-                        onChanged: (newValue) {
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(context.t.booking.health_status.mobility_label,
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold)),
+              ...[
+                MobilityStatus.independent,
+                MobilityStatus.walkingAid,
+                MobilityStatus.wheelchair,
+                MobilityStatus.bedbound,
+              ].map((status) {
+                return Column(
+                  children: [
+                    RadioListTile<MobilityStatus>(
+                      title: Text(status.label(context)),
+                      value: status,
+                      groupValue: healthStatus.mobilityStatus,
+                      onChanged: (value) {
+                        if (value != null) {
                           setState(() {
-                            healthStatus = healthStatus.copyWith(
-                                relatedHealthRecordId: newValue);
+                            healthStatus =
+                                healthStatus.copyWith(mobilityStatus: value);
                           });
-                        },
-                        isExpanded: true,
-                      ),
+                        }
+                        // Clear detail if not walking aid
+                        if (status != MobilityStatus.walkingAid) {
+                          _mobilityDetailController.clear();
+                          healthStatus = healthStatus.copyWith(
+                              mobilityStatusDetail: none());
+                        }
+                      },
+                      activeColor: const Color(0xFF35C5CF),
                     ),
-                  );
-                }
-                return const Text('Select a status'); // Fallback, usually covered by loading
-              },
-            ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              height: 58,
-              child: ElevatedButton(
-                onPressed: () => _onClickNext(context, healthStatus),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF35C5CF),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-                child: Text(context.t.global.next,
-                    style: const TextStyle(color: Colors.white, fontSize: 20)),
+                    if (status == MobilityStatus.walkingAid &&
+                        healthStatus.mobilityStatus ==
+                            MobilityStatus.walkingAid)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: TextField(
+                          autofocus: true,
+                          decoration: InputDecoration(
+                            hintText: context
+                                .t.booking.health_status.mobility_detail_hint,
+                            hintStyle: const TextStyle(
+                                fontSize: 12, color: Colors.grey),
+                          ),
+                          controller: _mobilityDetailController,
+                          onChanged: (value) {
+                            setState(() {
+                              healthStatus = healthStatus.copyWith(
+                                  mobilityStatusDetail: some(value));
+                            });
+                          },
+                        ),
+                      ),
+                  ],
+                );
+              }),
+              const SizedBox(height: 20),
+              Text(context.t.booking.health_status.record_label,
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 10.0),
+              BlocBuilder<MedicalRecordBloc, MedicalRecordState>(
+                builder: (context, medicalState) {
+                  if (medicalState.listStatus == ListStatus.loading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (medicalState.listStatus == ListStatus.failure) {
+                    return Center(
+                        child: Text(medicalState.listError ??
+                            'Failed to load medical records.'));
+                  }
+                  if (medicalState.listStatus == ListStatus.success) {
+                    if (medicalState.medicalRecords.isEmpty) {
+                      return Text(context.t.booking.health_status.empty_record);
+                    }
+                    return Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<Option<int>>(
+                          value: healthStatus.relatedHealthRecordId == null
+                              ? none()
+                              : some(healthStatus.relatedHealthRecordId!),
+                          hint:
+                              Text(context.t.booking.health_status.record_hint),
+                          dropdownColor: Colors.white,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
+                          items: [
+                            DropdownMenuItem<Option<int>>(
+                              value: none(),
+                              child: Text(context.t.global.none),
+                            ),
+                            ...medicalState.medicalRecords
+                                .map((MedicalRecord record) {
+                              return DropdownMenuItem<Option<int>>(
+                                value: some(record.id),
+                                child: Text(record.title),
+                              );
+                            })
+                          ],
+                          onChanged: (newValue) {
+                            setState(() {
+                              healthStatus = healthStatus.copyWith(
+                                  relatedHealthRecordId: newValue);
+                            });
+                          },
+                          isExpanded: true,
+                        ),
+                      ),
+                    );
+                  }
+                  return const Text(
+                      'Select a status'); // Fallback, usually covered by loading
+                },
               ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        child: ElevatedButton(
+          onPressed: isReadyToSubmit
+              ? () => _onClickNext(context, healthStatus)
+              : null,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF35C5CF),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
             ),
-          ],
+          ),
+          child: Text(context.t.global.next,
+              style: const TextStyle(color: Colors.white, fontSize: 20)),
         ),
       ),
     );
+  }
+
+  bool get isReadyToSubmit {
+    if (healthStatus.mobilityStatus == MobilityStatus.walkingAid) {
+      return _mobilityDetailController.text.isNotEmpty;
+    }
+    return healthStatus.mobilityStatus != null;
   }
 }

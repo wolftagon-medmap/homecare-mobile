@@ -602,19 +602,19 @@ class AppLocalizationsId extends AppLocalizations {
   String get risk_factors_title => 'Riwayat Medis & Faktor Risiko';
 
   @override
-  String get hypertension_label => 'Hipertensi';
+  String get hypertension_label => 'Tekanan Darah Tinggi';
 
   @override
-  String get dyslipidemia_label => 'Dislipidemia';
+  String get dyslipidemia_label => 'Kolesterol Tinggi';
 
   @override
-  String get cardiovascular_disease_label => 'Penyakit Kardiovaskular';
+  String get cardiovascular_disease_label => 'Penyakit Jantung';
 
   @override
   String get eye_disease_label => 'Penyakit Mata (Retinopati)';
 
   @override
-  String get neuropathy_label => 'Neuropati';
+  String get neuropathy_label => 'Kerusakan Saraf';
 
   @override
   String get kidney_disease_label => 'Penyakit Ginjal';
@@ -1440,11 +1440,10 @@ class AppLocalizationsId extends AppLocalizations {
       'Layanan kebersihan rutin untuk menjaga lingkungan hidup yang higienis, nyaman, dan aman bagi lansia.';
 
   @override
-  String get homecare_living_security_safety =>
-      'Keamanan & Keselamatan Tempat Tinggal';
+  String get homecare_safety => 'Pemeriksaan Keamanan Tempat Tinggal';
 
   @override
-  String get homecare_living_security_safety_desc =>
+  String get homecare_safety_desc =>
       'Pemeriksaan keamanan dan penataan untuk mengurangi risiko dan menciptakan lingkungan hidup yang aman.';
 
   @override

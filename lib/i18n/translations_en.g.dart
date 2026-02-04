@@ -109,6 +109,9 @@ class TranslationsDashboardEn {
 	/// en: 'Live Longer & Live Healthier, {displayName}!'
 	String greeting({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!';
 
+	/// en: 'Services Appointment'
+	String get main_services => 'Services Appointment';
+
 	late final TranslationsDashboardServicesEn services = TranslationsDashboardServicesEn._(_root);
 }
 
@@ -513,6 +516,9 @@ class TranslationsBookingHealthStatusEn {
 	/// en: 'No medical records available.'
 	String get empty_record => 'No medical records available.';
 
+	/// en: 'e.g. walking stick, walking frame, other'
+	String get mobility_detail_hint => 'e.g. walking stick, walking frame, other';
+
 	/// en: 'Select your mobility status'
 	String get mobility_label => 'Select your mobility status';
 
@@ -681,8 +687,8 @@ class TranslationsDashboardServicesEn {
 
 	// Translations
 
-	/// en: 'Diabetic Care'
-	String get diabetic_care => 'Diabetic Care';
+	/// en: 'iRX Diabetic Care'
+	String get diabetic_care => 'iRX Diabetic Care';
 
 	/// en: 'Dietitian Service'
 	String get dietitian => 'Dietitian Service';
@@ -702,11 +708,11 @@ class TranslationsDashboardServicesEn {
 	/// en: 'iRX Pharmacist Service'
 	String get pharmacist => 'iRX Pharmacist Service';
 
-	/// en: 'Physiotherapy'
-	String get physiotherapy => 'Physiotherapy';
+	/// en: 'Physiotherapy Appointment'
+	String get physiotherapy => 'Physiotherapy Appointment';
 
-	/// en: 'Precision Nutrition'
-	String get precision_nutrition => 'Precision Nutrition';
+	/// en: 'Nutrition ABCD'
+	String get precision_nutrition => 'Nutrition ABCD';
 
 	/// en: 'Remote Patient Monitoring'
 	String get remote_patient_monitoring => 'Remote Patient Monitoring';
@@ -917,9 +923,8 @@ class TranslationsPharmacyServicesEn {
 
 	// Translations
 	late final TranslationsPharmacyServicesHealthCoachingEn health_coaching = TranslationsPharmacyServicesHealthCoachingEn._(_root);
-	late final TranslationsPharmacyServicesMedicationCounselingEn medication_counseling = TranslationsPharmacyServicesMedicationCounselingEn._(_root);
+	late final TranslationsPharmacyServicesReviewAndCounselingEn review_and_counseling = TranslationsPharmacyServicesReviewAndCounselingEn._(_root);
 	late final TranslationsPharmacyServicesSmokingCessationEn smoking_cessation = TranslationsPharmacyServicesSmokingCessationEn._(_root);
-	late final TranslationsPharmacyServicesTherapyReviewEn therapy_review = TranslationsPharmacyServicesTherapyReviewEn._(_root);
 }
 
 // Path: store.messages
@@ -979,8 +984,8 @@ class TranslationsAuthFormLabelEn {
 	/// en: 'Select User Type'
 	String get user_role => 'Select User Type';
 
-	/// en: 'Username'
-	String get username => 'Username';
+	/// en: 'Name'
+	String get username => 'Name';
 }
 
 // Path: auth.form.validation
@@ -1012,8 +1017,8 @@ class TranslationsAuthFormValidationEn {
 	/// en: 'Please select a user type'
 	String get user_role_required => 'Please select a user type';
 
-	/// en: 'Please enter a username'
-	String get username_required => 'Please enter a username';
+	/// en: 'Please enter your name'
+	String get username_required => 'Please enter your name';
 }
 
 // Path: auth.login.button
@@ -1323,19 +1328,19 @@ class TranslationsPharmacyServicesHealthCoachingEn {
 	String get title => 'Health Coaching';
 }
 
-// Path: pharmacy.services.medication_counseling
-class TranslationsPharmacyServicesMedicationCounselingEn {
-	TranslationsPharmacyServicesMedicationCounselingEn._(this._root);
+// Path: pharmacy.services.review_and_counseling
+class TranslationsPharmacyServicesReviewAndCounselingEn {
+	TranslationsPharmacyServicesReviewAndCounselingEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 
-	/// en: 'Medication counseling and education guide patients on proper use, side effects, and adherence to prescriptions, enhancing safety and improving health outcomes.'
-	String get description => 'Medication counseling and education guide patients on proper use, side effects, and adherence to prescriptions, enhancing safety and improving health outcomes.';
+	/// en: 'Holistic medication review and expert guidance to help you manage side effects, improve adherence, and optimize your health.'
+	String get description => 'Holistic medication review and expert guidance to help you manage side effects, improve adherence, and optimize your health.';
 
-	/// en: 'Medication Counseling and Education'
-	String get title => 'Medication Counseling\nand Education';
+	/// en: 'Comprehensive Review and Counseling'
+	String get title => 'Comprehensive Review and Counseling';
 }
 
 // Path: pharmacy.services.smoking_cessation
@@ -1351,21 +1356,6 @@ class TranslationsPharmacyServicesSmokingCessationEn {
 
 	/// en: 'Smoking Cessation'
 	String get title => 'Smoking Cessation';
-}
-
-// Path: pharmacy.services.therapy_review
-class TranslationsPharmacyServicesTherapyReviewEn {
-	TranslationsPharmacyServicesTherapyReviewEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.'
-	String get description => 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.';
-
-	/// en: 'Comprehensive Review'
-	String get title => 'Comprehensive Review';
 }
 
 // Path: auth.forgot_password.form.label
@@ -1412,7 +1402,7 @@ extension on Translations {
 			'auth.form.label.password' => 'Password',
 			'auth.form.label.password_confirm' => 'Confirm Password',
 			'auth.form.label.user_role' => 'Select User Type',
-			'auth.form.label.username' => 'Username',
+			'auth.form.label.username' => 'Name',
 			'auth.form.validation.email_required' => 'Please enter your email',
 			'auth.form.validation.invalid_email' => 'Please enter a valid email',
 			'auth.form.validation.invalid_password_length' => 'Password must be at least 6 characters',
@@ -1420,7 +1410,7 @@ extension on Translations {
 			'auth.form.validation.password_mismatch' => 'Passwords do not match',
 			'auth.form.validation.password_required' => 'Please enter a password',
 			'auth.form.validation.user_role_required' => 'Please select a user type',
-			'auth.form.validation.username_required' => 'Please enter a username',
+			'auth.form.validation.username_required' => 'Please enter your name',
 			'auth.login.button.create_account_link' => 'Create new account',
 			'auth.login.button.forgot_password_link' => 'Forgot Password?',
 			'auth.login.button.submit' => 'Sign In',
@@ -1462,6 +1452,7 @@ extension on Translations {
 			'booking.addon.title.specialized_nursing' => 'Specialized Nursing Procedures',
 			'booking.book_appointment' => 'Book Appointment',
 			'booking.health_status.empty_record' => 'No medical records available.',
+			'booking.health_status.mobility_detail_hint' => 'e.g. walking stick, walking frame, other',
 			'booking.health_status.mobility_label' => 'Select your mobility status',
 			'booking.health_status.record_hint' => 'Please select a record',
 			'booking.health_status.record_label' => 'Select a related health record',
@@ -1522,15 +1513,16 @@ extension on Translations {
 			'dashboard.allied_services' => 'Allied Health',
 			'dashboard.chat_ai_placeholder' => 'Chat With AI doctor for all your health questions',
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
-			'dashboard.services.diabetic_care' => 'Diabetic Care',
+			'dashboard.main_services' => 'Services Appointment',
+			'dashboard.services.diabetic_care' => 'iRX Diabetic Care',
 			'dashboard.services.dietitian' => 'Dietitian Service',
 			'dashboard.services.health_risk_assessment' => 'Health Risk Assessment',
 			'dashboard.services.home_screening' => 'Home Health Screening',
 			'dashboard.services.homecare_for_elderly' => 'Home Care for Elderly',
 			'dashboard.services.nursing' => 'Home Nursing',
 			'dashboard.services.pharmacist' => 'iRX Pharmacist Service',
-			'dashboard.services.physiotherapy' => 'Physiotherapy',
-			'dashboard.services.precision_nutrition' => 'Precision Nutrition',
+			'dashboard.services.physiotherapy' => 'Physiotherapy Appointment',
+			'dashboard.services.precision_nutrition' => 'Nutrition ABCD',
 			'dashboard.services.remote_patient_monitoring' => 'Remote Patient Monitoring',
 			'dashboard.services.second_opinion' => '2nd Opinion for Medical Image',
 			'dashboard.services.sleep_and_mental_health' => 'Sleep & Mental Health',
@@ -1609,12 +1601,10 @@ extension on Translations {
 			'payment.validity_label' => 'Validity',
 			'pharmacy.services.health_coaching.description' => 'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well-being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management.',
 			'pharmacy.services.health_coaching.title' => 'Health Coaching',
-			'pharmacy.services.medication_counseling.description' => 'Medication counseling and education guide patients on proper use, side effects, and adherence to prescriptions, enhancing safety and improving health outcomes.',
-			'pharmacy.services.medication_counseling.title' => 'Medication Counseling\nand Education',
+			'pharmacy.services.review_and_counseling.description' => 'Holistic medication review and expert guidance to help you manage side effects, improve adherence, and optimize your health.',
+			'pharmacy.services.review_and_counseling.title' => 'Comprehensive Review and Counseling',
 			'pharmacy.services.smoking_cessation.description' => 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.',
 			'pharmacy.services.smoking_cessation.title' => 'Smoking Cessation',
-			'pharmacy.services.therapy_review.description' => 'Comprehensive review of your medication and lifestyle to optimize treatment outcomes and minimize potential side effects.',
-			'pharmacy.services.therapy_review.title' => 'Comprehensive Review',
 			'pharmacy.title' => 'iRX Pharmacist Service',
 			'settings.account' => 'Account',
 			'settings.app_language' => 'App Language',

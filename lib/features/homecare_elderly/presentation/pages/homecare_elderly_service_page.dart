@@ -56,8 +56,8 @@ class _HomecareElderlyServicePageState
                 },
               ),
               ServiceSelectionCard(
-                title: context.l10n.homecare_living_security_safety,
-                description: context.l10n.homecare_living_security_safety_desc,
+                title: context.l10n.homecare_safety,
+                description: context.l10n.homecare_safety_desc,
                 imagePath: 'assets/illustration/living_security_n_safety.png',
                 backgroundColor: const Color.fromRGBO(178, 140, 255, 0.2),
                 onTap: () {

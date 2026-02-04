@@ -1183,19 +1183,19 @@ abstract class AppLocalizations {
   /// No description provided for @hypertension_label.
   ///
   /// In en, this message translates to:
-  /// **'Hypertension'**
+  /// **'High Blood Pressure'**
   String get hypertension_label;
 
   /// No description provided for @dyslipidemia_label.
   ///
   /// In en, this message translates to:
-  /// **'Dyslipidemia'**
+  /// **'High Cholesterol'**
   String get dyslipidemia_label;
 
   /// No description provided for @cardiovascular_disease_label.
   ///
   /// In en, this message translates to:
-  /// **'Cardiovascular Disease'**
+  /// **'Heart Disease'**
   String get cardiovascular_disease_label;
 
   /// No description provided for @eye_disease_label.
@@ -1207,7 +1207,7 @@ abstract class AppLocalizations {
   /// No description provided for @neuropathy_label.
   ///
   /// In en, this message translates to:
-  /// **'Neuropathy'**
+  /// **'Nerve Damage'**
   String get neuropathy_label;
 
   /// No description provided for @kidney_disease_label.
@@ -1261,7 +1261,7 @@ abstract class AppLocalizations {
   /// No description provided for @physical_signs_if_have_title.
   ///
   /// In en, this message translates to:
-  /// **'Physical Signs (If Have)'**
+  /// **'Physical Signs (If Applicable)'**
   String get physical_signs_if_have_title;
 
   /// No description provided for @eyes_last_exam_label.
@@ -2671,19 +2671,19 @@ abstract class AppLocalizations {
   /// No description provided for @booking_mobility_wheelchair_bound.
   ///
   /// In en, this message translates to:
-  /// **'Wheelchair Bound'**
+  /// **'Wheelchair'**
   String get booking_mobility_wheelchair_bound;
 
   /// No description provided for @booking_mobility_walking_aid.
   ///
   /// In en, this message translates to:
-  /// **'Walking Aid'**
+  /// **'With Walking Aid'**
   String get booking_mobility_walking_aid;
 
   /// No description provided for @booking_mobility_mobile_without_aid.
   ///
   /// In en, this message translates to:
-  /// **'Mobile Without Aid'**
+  /// **'Independent without Walking Aid'**
   String get booking_mobility_mobile_without_aid;
 
   /// No description provided for @home_health_screening_title.
@@ -2746,17 +2746,17 @@ abstract class AppLocalizations {
   /// **'Regular cleaning services to maintain a hygienic, comfortable, and safe living environment for the elderly.'**
   String get homecare_house_bedding_cleaning_desc;
 
-  /// No description provided for @homecare_living_security_safety.
+  /// No description provided for @homecare_safety.
   ///
   /// In en, this message translates to:
-  /// **'Living Security & Safety'**
-  String get homecare_living_security_safety;
+  /// **'Home Safety Assessment'**
+  String get homecare_safety;
 
-  /// No description provided for @homecare_living_security_safety_desc.
+  /// No description provided for @homecare_safety_desc.
   ///
   /// In en, this message translates to:
   /// **'Safety checks and organization to reduce risks and create a secure living environment.'**
-  String get homecare_living_security_safety_desc;
+  String get homecare_safety_desc;
 
   /// No description provided for @homecare_kitchen_bathroom_repair.
   ///

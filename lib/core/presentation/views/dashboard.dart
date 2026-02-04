@@ -278,7 +278,7 @@ class _DashboardState extends State<Dashboard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      context.t.global.services,
+                      context.t.dashboard.main_services,
                       textAlign: TextAlign.left,
                       style: const TextStyle(
                         color: Color(0xFF232F55),

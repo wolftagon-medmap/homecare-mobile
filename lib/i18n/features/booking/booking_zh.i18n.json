@@ -13,6 +13,7 @@
   "book_appointment": "预约",
   "health_status": {
     "empty_record": "没有可用的医疗记录。",
+    "mobility_detail_hint": "例如：拐杖、助行架、其他",
     "mobility_label": "选择您的行动状态",
     "record_hint": "请选择记录",
     "record_label": "选择相关的健康记录",

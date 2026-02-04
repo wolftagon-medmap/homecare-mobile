@@ -603,19 +603,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get risk_factors_title => 'Medical History & Risk Factors';
 
   @override
-  String get hypertension_label => 'Hypertension';
+  String get hypertension_label => 'High Blood Pressure';
 
   @override
-  String get dyslipidemia_label => 'Dyslipidemia';
+  String get dyslipidemia_label => 'High Cholesterol';
 
   @override
-  String get cardiovascular_disease_label => 'Cardiovascular Disease';
+  String get cardiovascular_disease_label => 'Heart Disease';
 
   @override
   String get eye_disease_label => 'Eye Disease (Retinopathy)';
 
   @override
-  String get neuropathy_label => 'Neuropathy';
+  String get neuropathy_label => 'Nerve Damage';
 
   @override
   String get kidney_disease_label => 'Kidney Disease';
@@ -642,7 +642,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get physical_signs_title => 'Physical Signs';
 
   @override
-  String get physical_signs_if_have_title => 'Physical Signs (If Have)';
+  String get physical_signs_if_have_title => 'Physical Signs (If Applicable)';
 
   @override
   String get eyes_last_exam_label => 'Eyes (Last Exam)';
@@ -1394,13 +1394,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get booking_mobility_bedbound => 'Bedbound';
 
   @override
-  String get booking_mobility_wheelchair_bound => 'Wheelchair Bound';
+  String get booking_mobility_wheelchair_bound => 'Wheelchair';
 
   @override
-  String get booking_mobility_walking_aid => 'Walking Aid';
+  String get booking_mobility_walking_aid => 'With Walking Aid';
 
   @override
-  String get booking_mobility_mobile_without_aid => 'Mobile Without Aid';
+  String get booking_mobility_mobile_without_aid =>
+      'Independent without Walking Aid';
 
   @override
   String get home_health_screening_title => 'Home Health Screening';
@@ -1437,10 +1438,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Regular cleaning services to maintain a hygienic, comfortable, and safe living environment for the elderly.';
 
   @override
-  String get homecare_living_security_safety => 'Living Security & Safety';
+  String get homecare_safety => 'Home Safety Assessment';
 
   @override
-  String get homecare_living_security_safety_desc =>
+  String get homecare_safety_desc =>
       'Safety checks and organization to reduce risks and create a secure living environment.';
 
   @override

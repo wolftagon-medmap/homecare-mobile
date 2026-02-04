@@ -63,6 +63,8 @@
 
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>We need your location to find homecare providers near your home.</string>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>We need your location to find homecare providers near your home.</string>
 		<key>NSBluetoothAlwaysUsageDescription</key>
 		<string>We need Bluetooth to connect to your health monitoring devices.</string>
 

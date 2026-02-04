@@ -85,8 +85,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
       } else {
         setState(() {
           _isLoading = false;
-          _errorMessage =
-              context.l10n.favourite_error_fetching(e.toString());
+          _errorMessage = context.l10n.favourite_error_fetching(e.toString());
         });
       }
     }
@@ -251,6 +250,7 @@ class _PharmacistCard extends StatelessWidget {
     return Stack(
       children: [
         CircleAvatar(
+          backgroundColor: Colors.grey.shade200,
           backgroundImage: pharmacist.imageUrl.isNotEmpty
               ? NetworkImage(pharmacist.imageUrl)
               : null,

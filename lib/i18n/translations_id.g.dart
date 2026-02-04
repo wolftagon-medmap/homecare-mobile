@@ -93,6 +93,7 @@ class _TranslationsDashboardId implements TranslationsDashboardEn {
 	@override String get allied_services => 'Layanan Kesehatan Penunjang';
 	@override String get chat_ai_placeholder => 'Tanya dokter AI seputar kesehatan Anda';
 	@override String greeting({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!';
+	@override String get main_services => 'Layanan Janji Temu';
 	@override late final _TranslationsDashboardServicesId services = _TranslationsDashboardServicesId._(_root);
 }
 
@@ -181,7 +182,7 @@ class _TranslationsPharmacyId implements TranslationsPharmacyEn {
 
 	// Translations
 	@override late final _TranslationsPharmacyServicesId services = _TranslationsPharmacyServicesId._(_root);
-	@override String get title => 'Layanan Apoteker iRX';
+	@override String get title => 'Layanan iRX Pharmacist';
 }
 
 // Path: settings
@@ -346,6 +347,7 @@ class _TranslationsBookingHealthStatusId implements TranslationsBookingHealthSta
 
 	// Translations
 	@override String get empty_record => 'Tidak ada rekam medis yang tersedia.';
+	@override String get mobility_detail_hint => 'contoh: tongkat jalan, alat bantu jalan, lainnya';
 	@override String get mobility_label => 'Pilih status mobilitas Anda';
 	@override String get record_hint => 'Silakan pilih rekam medis';
 	@override String get record_label => 'Pilih rekam medis terkait';
@@ -434,15 +436,15 @@ class _TranslationsDashboardServicesId implements TranslationsDashboardServicesE
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get diabetic_care => 'Perawatan Diabetes';
+	@override String get diabetic_care => 'Perawatan Diabetes iRX';
 	@override String get dietitian => 'Layanan Ahli Gizi';
 	@override String get health_risk_assessment => 'Penilaian Risiko Kesehatan';
 	@override String get home_screening => 'Skrining Kesehatan di Rumah';
 	@override String get homecare_for_elderly => 'Perawatan Lansia di Rumah';
 	@override String get nursing => 'Layanan Keperawatan di Rumah';
 	@override String get pharmacist => 'Layanan Apoteker iRX';
-	@override String get physiotherapy => 'Fisioterapi';
-	@override String get precision_nutrition => 'Nutrisi Presisi';
+	@override String get physiotherapy => 'Janji Temu Fisioterapi';
+	@override String get precision_nutrition => 'Nutrisi ABCD';
 	@override String get remote_patient_monitoring => 'Pemantauan Kesehatan Jarak Jauh';
 	@override String get second_opinion => 'Second Opinion Citra Medis';
 	@override String get sleep_and_mental_health => 'Tidur & Kesehatan Mental';
@@ -587,9 +589,8 @@ class _TranslationsPharmacyServicesId implements TranslationsPharmacyServicesEn 
 
 	// Translations
 	@override late final _TranslationsPharmacyServicesHealthCoachingId health_coaching = _TranslationsPharmacyServicesHealthCoachingId._(_root);
-	@override late final _TranslationsPharmacyServicesMedicationCounselingId medication_counseling = _TranslationsPharmacyServicesMedicationCounselingId._(_root);
+	@override late final _TranslationsPharmacyServicesReviewAndCounselingId review_and_counseling = _TranslationsPharmacyServicesReviewAndCounselingId._(_root);
 	@override late final _TranslationsPharmacyServicesSmokingCessationId smoking_cessation = _TranslationsPharmacyServicesSmokingCessationId._(_root);
-	@override late final _TranslationsPharmacyServicesTherapyReviewId therapy_review = _TranslationsPharmacyServicesTherapyReviewId._(_root);
 }
 
 // Path: store.messages
@@ -634,7 +635,7 @@ class _TranslationsAuthFormLabelId implements TranslationsAuthFormLabelEn {
 	@override String get password => 'Kata Sandi';
 	@override String get password_confirm => 'Konfirmasi Kata Sandi';
 	@override String get user_role => 'Pilih Tipe Pengguna';
-	@override String get username => 'Nama Pengguna';
+	@override String get username => 'Nama';
 }
 
 // Path: auth.form.validation
@@ -651,7 +652,7 @@ class _TranslationsAuthFormValidationId implements TranslationsAuthFormValidatio
 	@override String get password_mismatch => 'Kata sandi tidak cocok';
 	@override String get password_required => 'Harap masukkan kata sandi';
 	@override String get user_role_required => 'Harap pilih tipe pengguna';
-	@override String get username_required => 'Harap masukkan nama pengguna';
+	@override String get username_required => 'Harap masukkan nama';
 }
 
 // Path: auth.login.button
@@ -871,15 +872,15 @@ class _TranslationsPharmacyServicesHealthCoachingId implements TranslationsPharm
 	@override String get title => 'Pelatihan Kesehatan';
 }
 
-// Path: pharmacy.services.medication_counseling
-class _TranslationsPharmacyServicesMedicationCounselingId implements TranslationsPharmacyServicesMedicationCounselingEn {
-	_TranslationsPharmacyServicesMedicationCounselingId._(this._root);
+// Path: pharmacy.services.review_and_counseling
+class _TranslationsPharmacyServicesReviewAndCounselingId implements TranslationsPharmacyServicesReviewAndCounselingEn {
+	_TranslationsPharmacyServicesReviewAndCounselingId._(this._root);
 
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get description => 'Konseling dan edukasi obat memandu pasien tentang penggunaan yang benar, efek samping, dan kepatuhan terhadap resep, guna meningkatkan keamanan dan hasil kesehatan.';
-	@override String get title => 'Konseling dan Edukasi\nObat';
+	@override String get description => 'Evaluasi obat dan panduan ahli untuk membantu Anda mengelola efek samping serta mengoptimalkan hasil kesehatan Anda.';
+	@override String get title => 'Evaluasi Komprehensif dan Konsultasi';
 }
 
 // Path: pharmacy.services.smoking_cessation
@@ -891,17 +892,6 @@ class _TranslationsPharmacyServicesSmokingCessationId implements TranslationsPha
 	// Translations
 	@override String get description => 'Program berhenti merokok melibatkan penghentian kebiasaan merokok melalui strategi seperti konseling, pengobatan, dan program dukungan untuk meningkatkan kesehatan serta mengurangi risiko penyakit terkait rokok.';
 	@override String get title => 'Berhenti Merokok';
-}
-
-// Path: pharmacy.services.therapy_review
-class _TranslationsPharmacyServicesTherapyReviewId implements TranslationsPharmacyServicesTherapyReviewEn {
-	_TranslationsPharmacyServicesTherapyReviewId._(this._root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get description => 'Tinjauan komprehensif terhadap obat-obatan dan gaya hidup Anda untuk mengoptimalkan hasil perawatan serta meminimalkan potensi efek samping.';
-	@override String get title => 'Evaluasi Terapi Menyeluruh';
 }
 
 // Path: auth.forgot_password.form.label
@@ -944,7 +934,7 @@ extension on TranslationsId {
 			'auth.form.label.password' => 'Kata Sandi',
 			'auth.form.label.password_confirm' => 'Konfirmasi Kata Sandi',
 			'auth.form.label.user_role' => 'Pilih Tipe Pengguna',
-			'auth.form.label.username' => 'Nama Pengguna',
+			'auth.form.label.username' => 'Nama',
 			'auth.form.validation.email_required' => 'Harap masukkan email Anda',
 			'auth.form.validation.invalid_email' => 'Harap masukkan email yang valid',
 			'auth.form.validation.invalid_password_length' => 'Kata sandi harus minimal 6 karakter',
@@ -952,7 +942,7 @@ extension on TranslationsId {
 			'auth.form.validation.password_mismatch' => 'Kata sandi tidak cocok',
 			'auth.form.validation.password_required' => 'Harap masukkan kata sandi',
 			'auth.form.validation.user_role_required' => 'Harap pilih tipe pengguna',
-			'auth.form.validation.username_required' => 'Harap masukkan nama pengguna',
+			'auth.form.validation.username_required' => 'Harap masukkan nama',
 			'auth.login.button.create_account_link' => 'Buat akun baru',
 			'auth.login.button.forgot_password_link' => 'Lupa Kata Sandi?',
 			'auth.login.button.submit' => 'Masuk',
@@ -994,6 +984,7 @@ extension on TranslationsId {
 			'booking.addon.title.specialized_nursing' => 'Prosedur Keperawatan Khusus',
 			'booking.book_appointment' => 'Buat Janji Temu',
 			'booking.health_status.empty_record' => 'Tidak ada rekam medis yang tersedia.',
+			'booking.health_status.mobility_detail_hint' => 'contoh: tongkat jalan, alat bantu jalan, lainnya',
 			'booking.health_status.mobility_label' => 'Pilih status mobilitas Anda',
 			'booking.health_status.record_hint' => 'Silakan pilih rekam medis',
 			'booking.health_status.record_label' => 'Pilih rekam medis terkait',
@@ -1054,15 +1045,16 @@ extension on TranslationsId {
 			'dashboard.allied_services' => 'Layanan Kesehatan Penunjang',
 			'dashboard.chat_ai_placeholder' => 'Tanya dokter AI seputar kesehatan Anda',
 			'dashboard.greeting' => ({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!',
-			'dashboard.services.diabetic_care' => 'Perawatan Diabetes',
+			'dashboard.main_services' => 'Layanan Janji Temu',
+			'dashboard.services.diabetic_care' => 'Perawatan Diabetes iRX',
 			'dashboard.services.dietitian' => 'Layanan Ahli Gizi',
 			'dashboard.services.health_risk_assessment' => 'Penilaian Risiko Kesehatan',
 			'dashboard.services.home_screening' => 'Skrining Kesehatan di Rumah',
 			'dashboard.services.homecare_for_elderly' => 'Perawatan Lansia di Rumah',
 			'dashboard.services.nursing' => 'Layanan Keperawatan di Rumah',
 			'dashboard.services.pharmacist' => 'Layanan Apoteker iRX',
-			'dashboard.services.physiotherapy' => 'Fisioterapi',
-			'dashboard.services.precision_nutrition' => 'Nutrisi Presisi',
+			'dashboard.services.physiotherapy' => 'Janji Temu Fisioterapi',
+			'dashboard.services.precision_nutrition' => 'Nutrisi ABCD',
 			'dashboard.services.remote_patient_monitoring' => 'Pemantauan Kesehatan Jarak Jauh',
 			'dashboard.services.second_opinion' => 'Second Opinion Citra Medis',
 			'dashboard.services.sleep_and_mental_health' => 'Tidur & Kesehatan Mental',
@@ -1141,13 +1133,11 @@ extension on TranslationsId {
 			'payment.validity_label' => 'Masa Berlaku',
 			'pharmacy.services.health_coaching.description' => 'Panduan dan dukungan yang dipersonalisasi untuk membantu individu mencapai target kesehatan, mengelola kondisi kronis, dan meningkatkan kesejahteraan secara keseluruhan, dengan program khusus untuk manajemen berat badan, diabetes, tekanan darah tinggi, serta kolesterol tinggi.',
 			'pharmacy.services.health_coaching.title' => 'Pelatihan Kesehatan',
-			'pharmacy.services.medication_counseling.description' => 'Konseling dan edukasi obat memandu pasien tentang penggunaan yang benar, efek samping, dan kepatuhan terhadap resep, guna meningkatkan keamanan dan hasil kesehatan.',
-			'pharmacy.services.medication_counseling.title' => 'Konseling dan Edukasi\nObat',
+			'pharmacy.services.review_and_counseling.description' => 'Evaluasi obat dan panduan ahli untuk membantu Anda mengelola efek samping serta mengoptimalkan hasil kesehatan Anda.',
+			'pharmacy.services.review_and_counseling.title' => 'Evaluasi Komprehensif dan Konsultasi',
 			'pharmacy.services.smoking_cessation.description' => 'Program berhenti merokok melibatkan penghentian kebiasaan merokok melalui strategi seperti konseling, pengobatan, dan program dukungan untuk meningkatkan kesehatan serta mengurangi risiko penyakit terkait rokok.',
 			'pharmacy.services.smoking_cessation.title' => 'Berhenti Merokok',
-			'pharmacy.services.therapy_review.description' => 'Tinjauan komprehensif terhadap obat-obatan dan gaya hidup Anda untuk mengoptimalkan hasil perawatan serta meminimalkan potensi efek samping.',
-			'pharmacy.services.therapy_review.title' => 'Evaluasi Terapi Menyeluruh',
-			'pharmacy.title' => 'Layanan Apoteker iRX',
+			'pharmacy.title' => 'Layanan iRX Pharmacist',
 			'settings.account' => 'Akun',
 			'settings.app_language' => 'Bahasa Aplikasi',
 			'settings.settings' => 'Pengaturan',
