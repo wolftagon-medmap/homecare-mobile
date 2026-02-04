@@ -93,6 +93,7 @@ class _TranslationsDashboardId implements TranslationsDashboardEn {
 	@override String get allied_services => 'Layanan Kesehatan Penunjang';
 	@override String get chat_ai_placeholder => 'Tanya dokter AI seputar kesehatan Anda';
 	@override String greeting({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!';
+	@override String get main_services => 'Layanan Janji Temu';
 	@override late final _TranslationsDashboardServicesId services = _TranslationsDashboardServicesId._(_root);
 }
 
@@ -435,15 +436,15 @@ class _TranslationsDashboardServicesId implements TranslationsDashboardServicesE
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get diabetic_care => 'Perawatan Diabetes';
+	@override String get diabetic_care => 'Perawatan Diabetes iRX';
 	@override String get dietitian => 'Layanan Ahli Gizi';
 	@override String get health_risk_assessment => 'Penilaian Risiko Kesehatan';
 	@override String get home_screening => 'Skrining Kesehatan di Rumah';
 	@override String get homecare_for_elderly => 'Perawatan Lansia di Rumah';
 	@override String get nursing => 'Layanan Keperawatan di Rumah';
 	@override String get pharmacist => 'Layanan Apoteker iRX';
-	@override String get physiotherapy => 'Fisioterapi';
-	@override String get precision_nutrition => 'Nutrisi Presisi';
+	@override String get physiotherapy => 'Janji Temu Fisioterapi';
+	@override String get precision_nutrition => 'Nutrisi ABCD';
 	@override String get remote_patient_monitoring => 'Pemantauan Kesehatan Jarak Jauh';
 	@override String get second_opinion => 'Second Opinion Citra Medis';
 	@override String get sleep_and_mental_health => 'Tidur & Kesehatan Mental';
@@ -1044,15 +1045,16 @@ extension on TranslationsId {
 			'dashboard.allied_services' => 'Layanan Kesehatan Penunjang',
 			'dashboard.chat_ai_placeholder' => 'Tanya dokter AI seputar kesehatan Anda',
 			'dashboard.greeting' => ({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!',
-			'dashboard.services.diabetic_care' => 'Perawatan Diabetes',
+			'dashboard.main_services' => 'Layanan Janji Temu',
+			'dashboard.services.diabetic_care' => 'Perawatan Diabetes iRX',
 			'dashboard.services.dietitian' => 'Layanan Ahli Gizi',
 			'dashboard.services.health_risk_assessment' => 'Penilaian Risiko Kesehatan',
 			'dashboard.services.home_screening' => 'Skrining Kesehatan di Rumah',
 			'dashboard.services.homecare_for_elderly' => 'Perawatan Lansia di Rumah',
 			'dashboard.services.nursing' => 'Layanan Keperawatan di Rumah',
 			'dashboard.services.pharmacist' => 'Layanan Apoteker iRX',
-			'dashboard.services.physiotherapy' => 'Fisioterapi',
-			'dashboard.services.precision_nutrition' => 'Nutrisi Presisi',
+			'dashboard.services.physiotherapy' => 'Janji Temu Fisioterapi',
+			'dashboard.services.precision_nutrition' => 'Nutrisi ABCD',
 			'dashboard.services.remote_patient_monitoring' => 'Pemantauan Kesehatan Jarak Jauh',
 			'dashboard.services.second_opinion' => 'Second Opinion Citra Medis',
 			'dashboard.services.sleep_and_mental_health' => 'Tidur & Kesehatan Mental',

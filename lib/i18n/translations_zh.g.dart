@@ -93,6 +93,7 @@ class _TranslationsDashboardZh implements TranslationsDashboardEn {
 	@override String get allied_services => '辅助医疗';
 	@override String get chat_ai_placeholder => '咨询AI医生，解答您的健康疑问';
 	@override String greeting({required Object displayName}) => '更长寿，更健康，${displayName}！';
+	@override String get main_services => '服务预约';
 	@override late final _TranslationsDashboardServicesZh services = _TranslationsDashboardServicesZh._(_root);
 }
 
@@ -442,8 +443,8 @@ class _TranslationsDashboardServicesZh implements TranslationsDashboardServicesE
 	@override String get homecare_for_elderly => '长者家政维修';
 	@override String get nursing => ' 上门护士';
 	@override String get pharmacist => 'iRX 药师服务';
-	@override String get physiotherapy => '物理治疗';
-	@override String get precision_nutrition => '精准营养';
+	@override String get physiotherapy => '理疗预约';
+	@override String get precision_nutrition => '营养ABCD';
 	@override String get remote_patient_monitoring => '远程健康监测';
 	@override String get second_opinion => '医学影像第二意见';
 	@override String get sleep_and_mental_health => '睡眠与心理健康';
@@ -1044,6 +1045,7 @@ extension on TranslationsZh {
 			'dashboard.allied_services' => '辅助医疗',
 			'dashboard.chat_ai_placeholder' => '咨询AI医生，解答您的健康疑问',
 			'dashboard.greeting' => ({required Object displayName}) => '更长寿，更健康，${displayName}！',
+			'dashboard.main_services' => '服务预约',
 			'dashboard.services.diabetic_care' => 'iRX糖尿病护理',
 			'dashboard.services.dietitian' => '营养师服务',
 			'dashboard.services.health_risk_assessment' => '健康风险评估',
@@ -1051,8 +1053,8 @@ extension on TranslationsZh {
 			'dashboard.services.homecare_for_elderly' => '长者家政维修',
 			'dashboard.services.nursing' => ' 上门护士',
 			'dashboard.services.pharmacist' => 'iRX 药师服务',
-			'dashboard.services.physiotherapy' => '物理治疗',
-			'dashboard.services.precision_nutrition' => '精准营养',
+			'dashboard.services.physiotherapy' => '理疗预约',
+			'dashboard.services.precision_nutrition' => '营养ABCD',
 			'dashboard.services.remote_patient_monitoring' => '远程健康监测',
 			'dashboard.services.second_opinion' => '医学影像第二意见',
 			'dashboard.services.sleep_and_mental_health' => '睡眠与心理健康',

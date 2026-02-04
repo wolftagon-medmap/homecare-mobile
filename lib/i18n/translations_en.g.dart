@@ -109,6 +109,9 @@ class TranslationsDashboardEn {
 	/// en: 'Live Longer & Live Healthier, {displayName}!'
 	String greeting({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!';
 
+	/// en: 'Services Appointment'
+	String get main_services => 'Services Appointment';
+
 	late final TranslationsDashboardServicesEn services = TranslationsDashboardServicesEn._(_root);
 }
 
@@ -684,8 +687,8 @@ class TranslationsDashboardServicesEn {
 
 	// Translations
 
-	/// en: 'Diabetic Care'
-	String get diabetic_care => 'Diabetic Care';
+	/// en: 'iRX Diabetic Care'
+	String get diabetic_care => 'iRX Diabetic Care';
 
 	/// en: 'Dietitian Service'
 	String get dietitian => 'Dietitian Service';
@@ -705,11 +708,11 @@ class TranslationsDashboardServicesEn {
 	/// en: 'iRX Pharmacist Service'
 	String get pharmacist => 'iRX Pharmacist Service';
 
-	/// en: 'Physiotherapy'
-	String get physiotherapy => 'Physiotherapy';
+	/// en: 'Physiotherapy Appointment'
+	String get physiotherapy => 'Physiotherapy Appointment';
 
-	/// en: 'Precision Nutrition'
-	String get precision_nutrition => 'Precision Nutrition';
+	/// en: 'Nutrition ABCD'
+	String get precision_nutrition => 'Nutrition ABCD';
 
 	/// en: 'Remote Patient Monitoring'
 	String get remote_patient_monitoring => 'Remote Patient Monitoring';
@@ -1510,15 +1513,16 @@ extension on Translations {
 			'dashboard.allied_services' => 'Allied Health',
 			'dashboard.chat_ai_placeholder' => 'Chat With AI doctor for all your health questions',
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
-			'dashboard.services.diabetic_care' => 'Diabetic Care',
+			'dashboard.main_services' => 'Services Appointment',
+			'dashboard.services.diabetic_care' => 'iRX Diabetic Care',
 			'dashboard.services.dietitian' => 'Dietitian Service',
 			'dashboard.services.health_risk_assessment' => 'Health Risk Assessment',
 			'dashboard.services.home_screening' => 'Home Health Screening',
 			'dashboard.services.homecare_for_elderly' => 'Home Care for Elderly',
 			'dashboard.services.nursing' => 'Home Nursing',
 			'dashboard.services.pharmacist' => 'iRX Pharmacist Service',
-			'dashboard.services.physiotherapy' => 'Physiotherapy',
-			'dashboard.services.precision_nutrition' => 'Precision Nutrition',
+			'dashboard.services.physiotherapy' => 'Physiotherapy Appointment',
+			'dashboard.services.precision_nutrition' => 'Nutrition ABCD',
 			'dashboard.services.remote_patient_monitoring' => 'Remote Patient Monitoring',
 			'dashboard.services.second_opinion' => '2nd Opinion for Medical Image',
 			'dashboard.services.sleep_and_mental_health' => 'Sleep & Mental Health',
