@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/core/presentation/widgets/buttons/button_size.dart';
+import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
 import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/settings/language/app_languages_setting.dart';
 import 'package:m2health/features/auth/domain/entities/user_role.dart';
@@ -29,7 +31,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String? _passwordError;
-  UserRole? _selectedRole;
+  UserRole? _selectedRole = UserRole.patient;
 
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
@@ -300,35 +302,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       },
                     ),
                     const SizedBox(height: 20),
-                    DropdownButtonFormField<UserRole>(
-                      decoration: InputDecoration(
-                        labelText: context.t.auth.form.label.user_role,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
+                    FormField<UserRole>(
                       initialValue: _selectedRole,
-                      items: <UserRole>[
-                        UserRole.patient,
-                        UserRole.nurse,
-                        UserRole.pharmacist,
-                        UserRole.radiologist,
-                        UserRole.caregiver,
-                        UserRole.physiotherapist,
-                      ].map<DropdownMenuItem<UserRole>>((UserRole value) {
-                        return DropdownMenuItem<UserRole>(
-                          value: value,
-                          child: Text(
-                            value.getDisplayName(context),
-                            style: const TextStyle(fontWeight: FontWeight.w400),
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (UserRole? newValue) {
-                        setState(() {
-                          _selectedRole = newValue;
-                        });
-                      },
                       validator: (value) {
                         if (value == null) {
                           return context
@@ -336,33 +311,53 @@ class _SignUpPageState extends State<SignUpPage> {
                         }
                         return null;
                       },
+                      builder: (FormFieldState<UserRole> fieldState) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            DropdownMenu<UserRole>(
+                              expandedInsets: EdgeInsets.zero,
+                              initialSelection: _selectedRole,
+                              label: Text(context.t.auth.form.label.user_role),
+                              menuHeight: 180,
+                              onSelected: (UserRole? newValue) {
+                                setState(() {
+                                  _selectedRole = newValue;
+                                });
+                                fieldState.didChange(newValue);
+                              },
+                              dropdownMenuEntries: <UserRole>[
+                                UserRole.patient,
+                                UserRole.nurse,
+                                UserRole.pharmacist,
+                                UserRole.radiologist,
+                                UserRole.caregiver,
+                                UserRole.physiotherapist,
+                              ].map<DropdownMenuEntry<UserRole>>(
+                                  (UserRole value) {
+                                return DropdownMenuEntry<UserRole>(
+                                  value: value,
+                                  label: value.getDisplayName(context),
+                                  style: MenuItemButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                     const SizedBox(height: 30),
-                    SizedBox(
-                      width: 300,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Const.aqua,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          elevation: 5.0,
-                          side: BorderSide.none,
-                          padding: const EdgeInsets.all(16.0),
-                        ),
-                        onPressed: state is SignUpLoading
-                            ? null
-                            : () => _submitForm(context),
-                        child: Text(context.t.auth.register.button.submit,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            )),
-                      ),
+                    PrimaryButton(
+                      size: ButtonSize.large,
+                      text: context.t.auth.register.button.submit,
+                      isLoading: state is SignUpLoading,
+                      onPressed: () => _submitForm(context),
                     ),
-                    if (state is SignUpLoading)
-                      const Center(child: CircularProgressIndicator()),
                     const SizedBox(height: 20),
                     TextButton(
                       onPressed: () {
