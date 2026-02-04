@@ -7,6 +7,7 @@ class NursingCase extends Equatable {
   final int? appointmentId;
   final List<PersonalIssue> issues;
   final MobilityStatus? mobilityStatus;
+  final String? mobilityStatusDetail;
   final int? relatedHealthRecordId;
   final List<AddOnService> addOnServices;
 
@@ -14,6 +15,7 @@ class NursingCase extends Equatable {
     this.appointmentId,
     required this.issues,
     this.mobilityStatus,
+    this.mobilityStatusDetail,
     this.relatedHealthRecordId,
     required this.addOnServices,
   });
@@ -23,6 +25,7 @@ class NursingCase extends Equatable {
         appointmentId,
         issues,
         mobilityStatus,
+        mobilityStatusDetail,
         relatedHealthRecordId,
         addOnServices,
       ];
@@ -31,6 +34,7 @@ class NursingCase extends Equatable {
     int? appointmentId,
     List<PersonalIssue>? issues,
     MobilityStatus? mobilityStatus,
+    String? mobilityStatusDetail,
     int? relatedHealthRecordId,
     List<AddOnService>? addOnServices,
     double? estimatedBudget,
@@ -39,6 +43,7 @@ class NursingCase extends Equatable {
       appointmentId: appointmentId ?? this.appointmentId,
       issues: issues ?? this.issues,
       mobilityStatus: mobilityStatus ?? this.mobilityStatus,
+      mobilityStatusDetail: mobilityStatusDetail ?? this.mobilityStatusDetail,
       relatedHealthRecordId: relatedHealthRecordId,
       addOnServices: addOnServices ?? this.addOnServices,
     );

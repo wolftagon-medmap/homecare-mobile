@@ -8,7 +8,8 @@ import 'package:m2health/features/home_health_screening/domain/entities/screenin
 import 'package:m2health/features/home_health_screening/domain/repositories/home_health_screening_repository.dart';
 import 'package:m2health/features/home_health_screening/domain/usecases/create_screening_appointment.dart';
 
-class HomeHealthScreeningRepositoryImpl implements HomeHealthScreeningRepository {
+class HomeHealthScreeningRepositoryImpl
+    implements HomeHealthScreeningRepository {
   final HomeHealthScreeningRemoteDatasource remoteDatasource;
   final AppointmentService appointmentService;
 
@@ -18,7 +19,8 @@ class HomeHealthScreeningRepositoryImpl implements HomeHealthScreeningRepository
   });
 
   @override
-  Future<Either<Failure, List<ScreeningCategory>>> getScreeningServices() async {
+  Future<Either<Failure, List<ScreeningCategory>>>
+      getScreeningServices() async {
     try {
       final result = await remoteDatasource.getScreeningServices();
       return Right(result);
@@ -39,13 +41,48 @@ class HomeHealthScreeningRepositoryImpl implements HomeHealthScreeningRepository
         'summary': params.summary,
         'pay_total': params.payTotal,
         'screening_request_data': {
-          'screening_services_ids': params.selectedItems.map((e) => e.id).toList(),
+          'screening_services_ids':
+              params.selectedItems.map((e) => e.id).toList(),
         },
       };
 
       final response = await appointmentService.createAppointment(payload);
       final result = AppointmentModel.fromJson(response);
       return Right(result);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+// ---- Provider Screening Actions ----
+  @override
+  Future<Either<Failure, Unit>> acceptScreeningRequest(
+      int screeningRequestId) async {
+    try {
+      await remoteDatasource.acceptScreeningRequest(screeningRequestId);
+      return const Right(unit);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> confirmSampleCollected(
+      int screeningRequestId) async {
+    try {
+      await remoteDatasource.confirmSampleCollected(screeningRequestId);
+      return const Right(unit);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> markScreeningReportReady(
+      int screeningRequestId) async {
+    try {
+      await remoteDatasource.markScreeningReportReady(screeningRequestId);
+      return const Right(unit);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

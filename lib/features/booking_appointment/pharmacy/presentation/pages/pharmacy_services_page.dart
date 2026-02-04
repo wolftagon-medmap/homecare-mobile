@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/presentation/views/health_coaching.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/bloc/pharmacy_appointment_flow_bloc.dart';
+import 'package:m2health/features/smoking_cessation/presentation/bloc/smoking_cessation_flow_cubit.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_appointment_flow_page.dart';
+import 'package:m2health/features/smoking_cessation/presentation/pages/smoking_cessation_flow_page.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
@@ -30,31 +32,11 @@ class PharmacyServicesPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ServiceSelectionCard(
-                title: context.t.pharmacy.services.medication_counseling.title,
+                title: context.t.pharmacy.services.review_and_counseling.title,
                 description: context
-                    .t.pharmacy.services.medication_counseling.description,
+                    .t.pharmacy.services.review_and_counseling.description,
                 imagePath: 'assets/icons/ilu_pharmacist.png',
                 backgroundColor: const Color(0xFFF79E1B).withValues(alpha: 0.1),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BlocProvider(
-                        create: (context) => PharmacyAppointmentFlowBloc(
-                          createPharmacyAppointment: sl(),
-                        ),
-                        child: const PharmacyAppointmentFlowPage(),
-                      ),
-                    ),
-                  );
-                },
-              ),
-              ServiceSelectionCard(
-                title: context.t.pharmacy.services.therapy_review.title,
-                description:
-                    context.t.pharmacy.services.therapy_review.description,
-                imagePath: 'assets/icons/ilu_therapy.png',
-                backgroundColor: const Color(0xFFB28CFF).withValues(alpha: 0.2),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -93,8 +75,17 @@ class PharmacyServicesPage extends StatelessWidget {
                 backgroundColor:
                     const Color(0xFFFF9A9A).withValues(alpha: 0.19),
                 onTap: () {
-                  String route = AppRoutes.home;
-                  Navigator.pushNamed(context, route);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                        create: (context) => SmokingCessationFlowCubit(
+                          createPharmacyAppointment: sl(),
+                        ),
+                        child: const SmokingCessationFlowPage(),
+                      ),
+                    ),
+                  );
                 },
               ),
             ],

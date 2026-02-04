@@ -17,6 +17,8 @@ import 'package:m2health/features/booking_appointment/personal_issue/domain/enti
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
+import 'package:m2health/features/smoking_cessation/presentation/widgets/smoking_habit_assessment_card.dart';
+import 'package:m2health/features/smoking_cessation/presentation/widgets/view_smoking_cessation_plan_button.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
@@ -102,6 +104,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
             _buildHomecareTaskInfo(appointment)
           else if (appointment.type == 'physiotherapy')
             _buildPhysiotherapyInfo(appointment)
+          else if (appointment.type == 'pharmacy' &&
+              appointment.pharmacyCase?.serviceType == 'smoking_cessation')
+            _buildSmokingCessationInfo(appointment)
           else
             _buildConcernInfo(appointment),
           const SizedBox(height: 16),
@@ -164,6 +169,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
         children: [
           CircleAvatar(
             radius: 40,
+            backgroundColor: Colors.grey.shade200,
             backgroundImage: (provider.avatar != null)
                 ? NetworkImage(provider.avatar!)
                 : null,
@@ -448,6 +454,31 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
     );
   }
 
+  Widget _buildSmokingCessationInfo(AppointmentEntity appointment) {
+    final smokingForm = appointment.pharmacyCase?.smokingCessationForm;
+    if (smokingForm == null) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Smoking Cessation Details",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          const SizedBox(height: 8),
+          SmokingHabitAssessmentCard(smokingForm: smokingForm),
+          const SizedBox(height: 8),
+          ViewSmokingCessationPlanButton(appointment: appointment),
+        ],
+      ),
+    );
+  }
+
   Widget _buildConcernInfo(AppointmentEntity appointment) {
     List<PersonalIssue>? issues;
 
@@ -530,10 +561,10 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
                           BlocBuilder<LocaleCubit, AppLocale>(
                             builder: (context, locale) {
                               return Text(
-                                context.l10n.created_on(
-                                    DateFormat.yMMMd(locale.flutterLocale.languageCode)
-                                        .add_jm()
-                                        .format(issue.createdAt!.toLocal())),
+                                context.l10n.created_on(DateFormat.yMMMd(
+                                        locale.flutterLocale.languageCode)
+                                    .add_jm()
+                                    .format(issue.createdAt!.toLocal())),
                                 style: TextStyle(
                                     fontSize: 12, color: Colors.grey[600]),
                               );
@@ -810,25 +841,22 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
       return const SizedBox.shrink();
     }
 
-    return Container(
-        padding: const EdgeInsets.all(16).copyWith(
-          bottom: MediaQuery.of(context).padding.bottom,
-        ),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-        ),
-        child: isHorizontalLayout
-            ? Row(
-                spacing: 16,
-                children:
-                    buttons.map((button) => Expanded(child: button)).toList(),
-              )
-            : Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                spacing: 8,
-                children: buttons,
-              ));
+    return BottomAppBar(
+      color: Colors.white,
+      height: isHorizontalLayout ? 80 : 132,
+      child: isHorizontalLayout
+          ? Row(
+              spacing: 16,
+              children:
+                  buttons.map((button) => Expanded(child: button)).toList(),
+            )
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              spacing: 8,
+              children: buttons,
+            ),
+    );
   }
 
   void _showFullImage(BuildContext context, String imageUrl) {

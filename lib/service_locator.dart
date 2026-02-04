@@ -10,6 +10,7 @@ import 'package:m2health/features/pharmacogenomics/injection.dart';
 import 'package:m2health/features/profiles/injection.dart';
 import 'package:m2health/features/schedule/injection.dart';
 import 'package:m2health/features/settings/injection.dart';
+import 'package:m2health/features/smoking_cessation/injection.dart';
 import 'package:m2health/features/wellness_genomics/injection.dart';
 import 'package:m2health/core/services/appointment_service.dart';
 import 'package:m2health/features/subscription/injection.dart';
@@ -44,4 +45,5 @@ Future<void> setupLocator() async {
   initHomecareElderlyModule(sl);
   initPhysiotherapyModule(sl);
   initSettingsModule(sl);
+  initSmokingCessationModule(sl);
 }

@@ -457,6 +457,7 @@ class _AppointmentListItem extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 30,
+                      backgroundColor: Colors.grey.shade200,
                       backgroundImage:
                           (avatarUrl != null && avatarUrl.isNotEmpty)
                               ? NetworkImage(avatarUrl)

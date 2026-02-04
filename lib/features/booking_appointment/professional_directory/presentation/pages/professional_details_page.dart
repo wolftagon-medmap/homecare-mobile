@@ -387,7 +387,8 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                 onPressed: () {
                   // Handle See All click
                 },
-                child: Text(context.t.booking.professional_detail.see_all_button),
+                child:
+                    Text(context.t.booking.professional_detail.see_all_button),
               ),
           ],
         ),
@@ -407,11 +408,14 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                     Row(
                       children: [
                         CircleAvatar(
-                          backgroundImage: review.reviewer.avatar.isNotEmpty
+                          backgroundColor: Colors.grey.shade200,
+                          backgroundImage: review.reviewer.avatar != null
                               ? NetworkImage(review.reviewer.avatar)
-                              : const AssetImage('assets/images/review1.png')
-                                  as ImageProvider,
-                          onBackgroundImageError: (exception, stackTrace) {},
+                              : null,
+                          child: (review.reviewer.avatar == null)
+                              ? const Icon(Icons.person,
+                                  size: 30, color: Colors.grey)
+                              : null,
                         ),
                         const SizedBox(width: 16),
                         Expanded(

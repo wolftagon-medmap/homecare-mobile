@@ -252,6 +252,7 @@ class _ProfessionalCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 30,
+                backgroundColor: Colors.grey.shade200,
                 backgroundImage: profile.avatar != null
                     ? NetworkImage(profile.avatar!)
                     : null,

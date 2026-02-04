@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:m2health/features/home_health_screening/presentation/bloc/screening_appointment_action_cubit.dart';
 import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/auth/data/datasources/google_auth_source.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
@@ -55,7 +56,8 @@ void main() async {
 
   runApp(
     DevicePreview(
-      enabled: !kReleaseMode,
+      // enabled: !kReleaseMode,
+      enabled: false,
       tools: [
         ...DevicePreview.defaultTools,
         DevicePreviewScreenshot(
@@ -92,6 +94,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (context) => AppointmentCubit(sl<Dio>())),
         BlocProvider(create: (context) => ProviderAppointmentCubit(sl<Dio>())),
+        BlocProvider(
+          create: (context) =>
+              ScreeningAppointmentActionCubit(repository: sl()),
+        ),
         BlocProvider(
             create: (context) => ProfileCubit(
                   getProfileUseCase: sl<GetProfile>(),
@@ -145,6 +151,11 @@ class MyApp extends StatelessWidget {
               ),
               centerTitle: true,
             ),
+            bottomAppBarTheme: const BottomAppBarThemeData(
+              color: Colors.white,
+              elevation: 8,
+              shape: CircularNotchedRectangle(),
+            ),
             cardTheme: const CardThemeData(
               color: Colors.white,
               surfaceTintColor: Colors.transparent,
@@ -152,19 +163,20 @@ class MyApp extends StatelessWidget {
             textSelectionTheme: TextSelectionThemeData(
               cursorColor: Const.aqua,
               selectionColor: Const.aqua.withValues(alpha: 0.4),
+              selectionHandleColor: Const.aqua,
             ),
             inputDecorationTheme: InputDecorationTheme(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.0),
                 borderSide: const BorderSide(
-                  color: Colors.grey,
+                  color: Color(0xFFE5E7EB),
                   width: 1.0,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12.0),
                 borderSide: const BorderSide(
-                  color: Colors.grey,
+                  color: Color(0xFFE5E7EB),
                   width: 1.0,
                 ),
               ),
@@ -208,7 +220,36 @@ class MyApp extends StatelessWidget {
               labelSmall: TextStyle(fontFamily: 'Poppins'),
             ),
             scaffoldBackgroundColor: Colors.white,
-            colorScheme: ColorScheme.fromSeed(seedColor: Const.colorDashboard),
+            datePickerTheme: DatePickerThemeData(
+              headerBackgroundColor: Const.aqua,
+              headerForegroundColor: Colors.white,
+              backgroundColor: Colors.white,
+              dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return Const.aqua;
+                }
+                return null;
+              }),
+              dayForegroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return Colors.white;
+                }
+                return Colors.black;
+              }),
+              todayBackgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return Const.aqua;
+                }
+                return null;
+              }),
+              todayForegroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
+                  return Colors.white;
+                }
+                return Colors.black;
+              }),
+            ),
+            colorScheme: ColorScheme.fromSeed(seedColor: Const.aqua),
             useMaterial3: true,
           ),
           builder: DevicePreview.appBuilder,

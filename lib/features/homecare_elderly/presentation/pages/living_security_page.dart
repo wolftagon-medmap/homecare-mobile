@@ -48,7 +48,7 @@ class _LivingSecurityPageState extends State<LivingSecurityPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          context.l10n.homecare_living_security_safety,
+          context.l10n.homecare_safety,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
@@ -70,7 +70,7 @@ class _LivingSecurityPageState extends State<LivingSecurityPage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  context.l10n.homecare_living_security_safety_desc,
+                  context.l10n.homecare_safety_desc,
                   style: const TextStyle(fontSize: 12, height: 1.65),
                 ),
               ],
@@ -129,7 +129,7 @@ class _FeatureCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                context.l10n.homecare_living_security_safety,
+                context.l10n.homecare_safety,
                 style: const TextStyle(
                   fontWeight: FontWeight.w300,
                 ),

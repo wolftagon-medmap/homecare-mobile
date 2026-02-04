@@ -1,7 +1,11 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/presentation/widgets/buttons/button_size.dart';
+import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
 import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/settings/language/app_languages_setting.dart';
 import 'package:m2health/features/auth/domain/entities/user_role.dart';
@@ -19,6 +23,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -78,12 +83,13 @@ class _SignInPageState extends State<SignInPage> {
           listener: (context, state) {
             if (state is SignInSuccess) {
               context.read<AuthCubit>().loggedIn();
+              TextInput.finishAutofillContext();
             } else if (state is SignInError) {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text(context.t.global.error),
+                    title: const Text("Login Failed"),
                     content: Text(state.message),
                     actions: <Widget>[
                       TextButton(
@@ -114,18 +120,33 @@ class _SignInPageState extends State<SignInPage> {
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               autofocus: false,
+              autofillHints: const [AutofillHints.email],
               decoration: InputDecoration(
                 hintText: context.t.auth.form.label.email,
                 contentPadding:
                     const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return context.t.auth.form.validation.email_required;
+                }
+                return null;
+              },
             );
             final password = TextFormField(
               controller: passwordController,
               autofocus: false,
+              autofillHints: const [AutofillHints.password],
               obscureText: !_isPasswordVisible,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return context.t.auth.form.validation.password_required;
+                }
+                return null;
+              },
               decoration: InputDecoration(
                 hintText: context.t.auth.form.label.password,
                 contentPadding:
@@ -150,27 +171,18 @@ class _SignInPageState extends State<SignInPage> {
 
             final loginButton = Padding(
               padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Const.aqua,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  elevation: 5.0,
-                  side: BorderSide.none,
-                  padding: const EdgeInsets.all(16.0),
-                ),
-                onPressed: () {
-                  context
-                      .read<SignInCubit>()
-                      .signIn(emailController.text, passwordController.text);
-                },
-                child: Text(context.t.auth.login.button.submit,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    )),
+              child: PrimaryButton(
+                size: ButtonSize.large,
+                text: context.t.auth.login.button.submit,
+                isLoading: state is SignInLoading,
+                onPressed: state is SignInLoading
+                    ? null
+                    : () {
+                        if (formKey.currentState!.validate()) {
+                          context.read<SignInCubit>().signIn(
+                              emailController.text, passwordController.text);
+                        }
+                      },
               ),
             );
 
@@ -222,51 +234,56 @@ class _SignInPageState extends State<SignInPage> {
             );
 
             return Center(
-              child: ListView(
-                shrinkWrap: true,
-                padding: const EdgeInsets.only(left: 24.0, right: 24.0),
-                children: <Widget>[
-                  Text(
-                    context.t.auth.login.title,
-                    style: const TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Const.aqua,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    context.t.auth.login.subtitle,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 48.0),
-                  email,
-                  const SizedBox(height: 8.0),
-                  password,
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {
-                        context.push(AppRoutes.forgotPassword);
-                      },
-                      child: Text(
-                        context.t.auth.login.button.forgot_password_link,
-                        style: const TextStyle(color: Colors.grey),
+              child: Form(
+                key: formKey,
+                child: AutofillGroup(
+                  child: ListView(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+                    children: <Widget>[
+                      Text(
+                        context.t.auth.login.title,
+                        style: const TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Const.aqua,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                    ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        context.t.auth.login.subtitle,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 48.0),
+                      email,
+                      const SizedBox(height: 8.0),
+                      password,
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {
+                            context.push(AppRoutes.forgotPassword);
+                          },
+                          child: Text(
+                            context.t.auth.login.button.forgot_password_link,
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 24.0),
+                      loginButton,
+                      const SizedBox(height: 11.0),
+                      createAccountText,
+                      continueWithText,
+                      socialIcons,
+                    ],
                   ),
-                  const SizedBox(height: 24.0),
-                  loginButton,
-                  const SizedBox(height: 11.0),
-                  createAccountText,
-                  continueWithText,
-                  socialIcons,
-                ],
+                ),
               ),
             );
           },

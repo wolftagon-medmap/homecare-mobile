@@ -23,7 +23,7 @@
       "password": "密码",
       "password_confirm": "确认密码",
       "user_role": "选择用户类型",
-      "username": "用户名"
+      "username": "姓名"
     },
     "validation": {
       "email_required": "请输入您的电子邮箱",
@@ -33,7 +33,7 @@
       "password_mismatch": "密码不匹配",
       "password_required": "请输入密码",
       "user_role_required": "请选择用户类型",
-      "username_required": "请输入用户名"
+      "username_required": "请输入姓名"
     }
   },
   "login": {

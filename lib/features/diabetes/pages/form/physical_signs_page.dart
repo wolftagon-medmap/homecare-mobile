@@ -194,30 +194,30 @@ class PhysicalSignsPageState extends State<PhysicalSignsFormPage> {
                     .copyWith(labelText: context.l10n.findings_label),
               ),
               const SizedBox(height: 24),
-              FormSubHeader(context.l10n.kidneys_label,
-                  iconPath: "assets/icons/ic_kidney.png"),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _kidneyEgfrController,
-                      onChanged: (_) => _updateState(),
-                      decoration: const FormInputDecoration()
-                          .copyWith(labelText: 'eGFR', hintText: 'E.g 90'),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: TextFormField(
-                      controller: _kidneyAcrController,
-                      onChanged: (_) => _updateState(),
-                      decoration: const FormInputDecoration().copyWith(
-                          labelText: 'Urine ACR', hintText: 'E.g 30 mg/g'),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
+              // FormSubHeader(context.l10n.kidneys_label,
+              //     iconPath: "assets/icons/ic_kidney.png"),
+              // Row(
+              //   children: [
+              //     Expanded(
+              //       child: TextFormField(
+              //         controller: _kidneyEgfrController,
+              //         onChanged: (_) => _updateState(),
+              //         decoration: const FormInputDecoration()
+              //             .copyWith(labelText: 'eGFR', hintText: 'E.g 90'),
+              //       ),
+              //     ),
+              //     const SizedBox(width: 16),
+              //     Expanded(
+              //       child: TextFormField(
+              //         controller: _kidneyAcrController,
+              //         onChanged: (_) => _updateState(),
+              //         decoration: const FormInputDecoration().copyWith(
+              //             labelText: 'Urine ACR', hintText: 'E.g 30 mg/g'),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(height: 24),
               FormSubHeader(context.l10n.feet_label,
                   iconPath: "assets/icons/ic_feet.png"),
               Row(

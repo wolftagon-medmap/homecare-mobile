@@ -13,6 +13,7 @@
   "book_appointment": "Book Appointment",
   "health_status": {
     "empty_record": "No medical records available.",
+    "mobility_detail_hint": "e.g. walking stick, walking frame, other",
     "mobility_label": "Select your mobility status",
     "record_hint": "Please select a record",
     "record_label": "Select a related health record",

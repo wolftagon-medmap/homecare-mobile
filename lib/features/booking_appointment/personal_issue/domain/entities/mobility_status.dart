@@ -4,20 +4,20 @@ import 'package:m2health/core/extensions/l10n_extensions.dart';
 
 enum MobilityStatus {
   bedbound,
-  wheelchairBound,
+  wheelchair,
   walkingAid,
-  mobileWithoutAid;
+  independent;
 
   String get apiValue {
     switch (this) {
       case MobilityStatus.bedbound:
         return 'bedbound';
-      case MobilityStatus.wheelchairBound:
-        return 'wheelchairBound';
+      case MobilityStatus.wheelchair:
+        return 'wheelchair';
       case MobilityStatus.walkingAid:
         return 'walkingAid';
-      case MobilityStatus.mobileWithoutAid:
-        return 'mobileWithoutAid';
+      case MobilityStatus.independent:
+        return 'independent';
     }
   }
 
@@ -25,11 +25,11 @@ enum MobilityStatus {
     switch (this) {
       case MobilityStatus.bedbound:
         return context.l10n.booking_mobility_bedbound;
-      case MobilityStatus.wheelchairBound:
+      case MobilityStatus.wheelchair:
         return context.l10n.booking_mobility_wheelchair_bound;
       case MobilityStatus.walkingAid:
         return context.l10n.booking_mobility_walking_aid;
-      case MobilityStatus.mobileWithoutAid:
+      case MobilityStatus.independent:
         return context.l10n.booking_mobility_mobile_without_aid;
     }
   }
