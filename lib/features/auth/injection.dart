@@ -15,5 +15,5 @@ void initAuthModule(GetIt sl) {
   sl.registerLazySingleton(() => GoogleAuthSource());
 
   // Cubits
-  sl.registerLazySingleton(() => AuthCubit());
+  sl.registerLazySingleton(() => AuthCubit(authRepository: sl()));
 }

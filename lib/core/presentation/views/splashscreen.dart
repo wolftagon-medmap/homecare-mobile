@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart'; // Import GoRouter
 import 'package:m2health/const.dart'; // Import constants
+import 'package:m2health/core/presentation/widgets/buttons/button_size.dart';
+import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
+import 'package:m2health/route/app_routes.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -18,9 +21,10 @@ class SplashScreen extends StatelessWidget {
               height: 30, // Sesuaikan ukuran ikon
             ),
             const SizedBox(width: 10),
-            const Text('M2Health Care',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Const.tosca)),
+            const Text(
+              'M2Health Care',
+              style: TextStyle(fontWeight: FontWeight.w700, color: Const.aqua),
+            ),
           ],
         ),
         centerTitle: true,
@@ -31,59 +35,36 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Simplify homecare bookings with expert Healthcare Specialists at your fingertips!',
+              'Simplify Homecare Bookings with Expert Healthcare Specialists at Your Fingertips!',
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 30,
+                fontSize: 28,
+                color: Color(0xFF263257),
               ),
             ),
-            const SizedBox(height: 20),
-            Image.asset(
-              'assets/images/splash.png', // Ganti dengan path ilustrasi Anda
-              width: 394,
-              height: 394,
-            ),
-            const SizedBox(height: 20),
-            // SizedBox(
-            //   width: 357,
-            //   child: ElevatedButton(
-            //     onPressed: () {
-            //       context.go('/dasboard');
-            //     },
-            //     style: ElevatedButton.styleFrom(
-            //       backgroundColor: Const.tosca,
-            //       padding: const EdgeInsets.symmetric(vertical: 16),
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(10),
-            //       ),
-            //     ),
-            //     child: const Text(
-            //       'Get Started',
-            //       style: TextStyle(color: Colors.white),
-            //     ),
-            //   ),
-            // ),
-            SizedBox(
-              width: 357,
-              child: ElevatedButton(
-                onPressed: () {
-                  context.go('/sign-in');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Const.tosca,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                child: const Text(
-                  'Get Started',
-                  style: TextStyle(color: Colors.white),
-                ),
+            Expanded(
+              child: Image.asset(
+                'assets/illustration/splash.png', // Ganti dengan path ilustrasi Anda
+                width: 380,
+                height: 380,
               ),
             ),
-            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        height: 128,
+        child: Column(
+          children: [
+            PrimaryButton(
+              text: 'Get Started',
+              size: ButtonSize.large,
+              onPressed: () {
+                context.pushNamed(AppRoutes.medicalDisclaimer);
+              },
+            ),
+            const SizedBox(height: 16),
             GestureDetector(
               onTap: () {
                 // Handle tap
@@ -93,6 +74,7 @@ class SplashScreen extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.blue,
                   decoration: TextDecoration.underline,
+                  decorationColor: Colors.blue,
                 ),
               ),
             ),

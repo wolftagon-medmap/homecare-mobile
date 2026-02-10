@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/const.dart';
 import 'package:m2health/features/auth/data/repositories/auth_repository.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 abstract class SignInState {}
 
@@ -40,8 +44,15 @@ class SignInCubit extends Cubit<SignInState> {
   // Google Login
   Future<void> signInWithGoogle({String? role, String? idToken}) async {
     emit(SignInLoading());
-    final result =
-        await authRepository.authenticateWithGoogle(role: role, idToken: idToken);
+    final result = await authRepository.authenticateWithGoogle(
+        role: role, idToken: idToken);
+    _handleResult(result);
+  }
+
+  // Apple Login
+  Future<void> signInWithApple({String? role}) async {
+    emit(SignInLoading());
+    final result = await authRepository.authenticateWithApple(role: role);
     _handleResult(result);
   }
 
@@ -62,7 +73,6 @@ class SignInCubit extends Cubit<SignInState> {
     }
   }
 }
-
 
 // class SignInCubit extends Cubit<SignInState> {
 //   SignInCubit() : super(SignInInitial());

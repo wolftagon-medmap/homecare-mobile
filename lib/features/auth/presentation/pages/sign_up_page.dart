@@ -1,4 +1,5 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -13,6 +14,7 @@ import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../cubit/sign_up_cubit.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -32,6 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   String? _passwordError;
   UserRole? _selectedRole = UserRole.patient;
+  bool _isAgreed = false;
 
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
@@ -46,11 +49,35 @@ class _SignUpPageState extends State<SignUpPage> {
     });
   }
 
+  Future<void> _launchTnC() async {
+    final Uri url =
+        Uri.parse(Const.TERMS_AND_CONDITIONS_URL);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   void _submitForm(BuildContext context) {
     _validatePasswords();
-    if (_formKey.currentState!.validate() &&
-        _passwordError == null &&
-        _selectedRole != null) {
+
+    final isValid = _formKey.currentState!.validate();
+
+    if (!_isAgreed) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Please agree to the Terms & Conditions",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
+    if (isValid && _passwordError == null && _selectedRole != null) {
       context.read<SignUpCubit>().signUp(
             _emailController.text.trim(),
             _passwordController.text,
@@ -180,8 +207,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 30),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     TextFormField(
                       controller: _usernameController,
                       decoration: InputDecoration(
@@ -351,14 +377,53 @@ class _SignUpPageState extends State<SignUpPage> {
                         );
                       },
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 10),
+                    // T&C Consent Row
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: _isAgreed,
+                          activeColor: Const.aqua,
+                          onChanged: (value) {
+                            setState(() {
+                              _isAgreed = value ?? false;
+                            });
+                          },
+                        ),
+                        Expanded(
+                          child: RichText(
+                            text: TextSpan(
+                              text: "I agree to the ",
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 13),
+                              children: [
+                                TextSpan(
+                                  text: "Terms and Conditions",
+                                  style: const TextStyle(
+                                    color: Const.aqua,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = _launchTnC,
+                                ),
+                                // const TextSpan(
+                                //     text:
+                                //         " and acknowledge the medical disclaimer."),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
                     PrimaryButton(
                       size: ButtonSize.large,
                       text: context.t.auth.register.button.submit,
                       isLoading: state is SignUpLoading,
                       onPressed: () => _submitForm(context),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 8),
                     TextButton(
                       onPressed: () {
                         context.go(AppRoutes.signIn);
@@ -368,7 +433,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: const TextStyle(color: Const.aqua),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 8),
                     Text(
                       context.t.auth.continue_with_alternative_text,
                       style: const TextStyle(
@@ -378,14 +443,17 @@ class _SignUpPageState extends State<SignUpPage> {
                       textAlign: TextAlign.center,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const SizedBox(width: 16),
                           IconButton(
-                            icon: Image.asset('assets/icons/ic_google.png'),
-                            iconSize: 40,
+                            icon: Image.asset(
+                              'assets/icons/ic_google_signin.png',
+                              width: 44,
+                              height: 44,
+                            ),
                             onPressed: () {
                               if (_selectedRole == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -400,6 +468,32 @@ class _SignUpPageState extends State<SignUpPage> {
                               context
                                   .read<SignUpCubit>()
                                   .signUpWithGoogle(_selectedRole!.value);
+                            },
+                          ),
+                          const SizedBox(width: 8),
+                          IconButton(
+                            icon: ClipOval(
+                              child: Image.asset(
+                                'assets/icons/ic_apple_signin.png',
+                                width: 44,
+                                height: 44,
+                              ),
+                            ),
+                            iconSize: 40,
+                            onPressed: () {
+                              if (_selectedRole == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(context
+                                        .l10n.auth_select_role_first_error),
+                                    backgroundColor: Colors.orange,
+                                  ),
+                                );
+                                return;
+                              }
+                              context
+                                  .read<SignUpCubit>()
+                                  .signUpWithApple(_selectedRole!.value);
                             },
                           ),
                           const SizedBox(width: 16),
