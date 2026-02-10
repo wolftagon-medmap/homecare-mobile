@@ -1,5 +1,7 @@
 class AppRoutes {
   // Core
+  static const String splash = '/splash';
+  static const String medicalDisclaimer = '/medical-disclaimer';
   static const String home = '/';
   static const String dashboard = home;
   static const String appointment = '/appointment';

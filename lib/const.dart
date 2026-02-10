@@ -78,8 +78,12 @@ class Const {
   static const String API_DELETE_ACCOUNT_CONFIRM =
       '$URL_API/users/me/delete-account/confirm';
 
+  static const String TERMS_AND_CONDITIONS_URL =
+      'https://homecare-api.med-map.org/web/terms-and-conditions';
+
   static const String ROLE = 'role';
   static const String IS_LOGED_IN = 'is_logged_in';
+  static const String ONBOARDING_COMPLETED = 'onboarding_completed';
   static const String TOKEN = 'token';
   static const String EXPIRES_AT = 'expires_at';
   static const String USERNAME = 'username';

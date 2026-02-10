@@ -51,7 +51,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Future<void> _launchTnC() async {
     final Uri url =
-        Uri.parse('https://homecare-api.med-map.org/web/terms-and-conditions');
+        Uri.parse(Const.TERMS_AND_CONDITIONS_URL);
     if (!await launchUrl(url)) {
       throw Exception('Could not launch $url');
     }
