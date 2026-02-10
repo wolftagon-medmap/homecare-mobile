@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Const {
+  static const String APPLICATION_ID = "org.medmap.homecare";
   // static const String BASE_URL = 'http://127.0.0.1:3333';
   static const String BASE_URL = 'https://homecare-api.med-map.org';
   static const String URL_API = BASE_URL + '/v1';

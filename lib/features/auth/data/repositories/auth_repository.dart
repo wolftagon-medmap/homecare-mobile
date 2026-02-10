@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/auth/data/datasources/google_auth_source.dart';
 import 'package:m2health/utils.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 enum AuthResultStatus { success, requiresRole, failure, cancelled }
 
@@ -75,6 +76,86 @@ class AuthRepository {
       await googleAuthSource.signOut();
       return AuthResult(
           status: AuthResultStatus.failure, message: e.toString());
+    }
+  }
+
+  // =========================================================
+  //  APPLE AUTH FLOW
+  // =========================================================
+  Future<AuthResult> authenticateWithApple({String? role}) async {
+    try {
+      // 1. Get token if not provided
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        webAuthenticationOptions: WebAuthenticationOptions(
+          clientId: Const.APPLICATION_ID,
+          redirectUri: Uri.parse('${Const.URL_API}/auth/apple/callback'),
+        ),
+      );
+
+      log("Apple Credential: ${credential.toString()}", name: "SignInPage");
+
+      // 2. Prepare payload
+      final Map<String, dynamic> payload = {
+        'idToken': credential.identityToken,
+        'authorizationCode': credential.authorizationCode,
+        'firstName': credential.givenName,
+        'lastName': credential.familyName,
+      };
+      if (role != null) payload['role'] = role.toLowerCase();
+
+      // 3. Make API call
+      final response = await dio.post(
+        '${Const.URL_API}/auth/apple', // Corrected URL
+        data: payload,
+        options: Options(validateStatus: (status) => status! < 500),
+      );
+
+      // 4. Handle response
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        await _saveSession(response.data);
+        return AuthResult(
+            status: AuthResultStatus.success, data: response.data);
+      }
+
+      // Not registered yet, requires role selection
+      if (response.statusCode == 400 &&
+          response.data['requiresRegistration'] == true) {
+        return AuthResult(
+          status: AuthResultStatus.requiresRole,
+          idToken: credential.identityToken, // Pass back the token
+        );
+      }
+
+      return AuthResult(
+        status: AuthResultStatus.failure,
+        message: response.data['message'] ?? 'Apple authentication failed',
+      );
+    } on SignInWithAppleException catch (e, stackTrace) {
+      log(
+        "Apple Sign-In Exception",
+        name: "AuthRepository",
+        error: e,
+        stackTrace: stackTrace,
+      );
+      return AuthResult(
+        status: AuthResultStatus.cancelled,
+        message: "Apple Sign-In cancelled or failed",
+      );
+    } catch (e, stackTrace) {
+      log(
+        "Apple Authentication Error",
+        error: e,
+        stackTrace: stackTrace,
+        name: "AuthRepository",
+      );
+      return AuthResult(
+        status: AuthResultStatus.failure,
+        message: "Apple authentication failed",
+      );
     }
   }
 
