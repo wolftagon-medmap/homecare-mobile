@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/features/auth/data/repositories/auth_repository.dart';
 import 'package:m2health/utils.dart';
 
 enum AuthStatus { unknown, authenticated, unauthenticated }
@@ -13,7 +14,8 @@ class AuthState {
 }
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthState.unknown()) {
+  final AuthRepository authRepository;
+  AuthCubit({required this.authRepository}) : super(AuthState.unknown()) {
     checkAuthStatus();
   }
 
@@ -33,7 +35,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   // Call this when logging out
   Future<void> loggedOut() async {
-    await Utils.clearSp(); // Helper to clear session data
+    authRepository.clearSession(); // Clear session data in repository
     emit(AuthState.unauthenticated());
   }
 }

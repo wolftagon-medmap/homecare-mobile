@@ -328,6 +328,15 @@ class AuthRepository {
     }
   }
 
+  Future<void> clearSession() async {
+    await Utils.removeSp(Const.TOKEN);
+    await Utils.removeSp(Const.IS_LOGED_IN);
+    await Utils.removeSp(Const.USERNAME);
+    await Utils.removeSp(Const.EMAIL);
+    await Utils.removeSp(Const.ROLE);
+    await Utils.removeSp(Const.USER_ID);
+  }
+
   Future<void> _fetchUserProfile(String token) async {
     try {
       final response = await dio.get('${Const.URL_API}/profiles',
