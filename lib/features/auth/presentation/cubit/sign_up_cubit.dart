@@ -76,4 +76,33 @@ class SignUpCubit extends Cubit<SignUpState> {
         break;
     }
   }
+
+  // Apple SignUp
+  Future<void> signUpWithApple(String role) async {
+    if (role.isEmpty) {
+      emit(SignUpFailure('Please select a role first.'));
+      return;
+    }
+    emit(SignUpLoading());
+
+    final result = await authRepository.authenticateWithApple(role: role);
+
+    switch (result.status) {
+      case AuthResultStatus.success:
+        emit(SignUpSSOSuccess());
+        break;
+      case AuthResultStatus.requiresRole:
+        // This case should ideally not happen from the sign-up page
+        // as a role is already provided. But if it does, treat as an error.
+        emit(SignUpFailure(
+            'This Apple account is already partially registered. Please sign in instead.'));
+        break;
+      case AuthResultStatus.failure:
+        emit(SignUpFailure(result.message ?? 'Apple Sign-Up failed'));
+        break;
+      case AuthResultStatus.cancelled:
+        emit(SignUpInitial()); // Or a new SignUpCancelled state
+        break;
+    }
+  }
 }

@@ -384,8 +384,11 @@ class _SignUpPageState extends State<SignUpPage> {
                         children: [
                           const SizedBox(width: 16),
                           IconButton(
-                            icon: Image.asset('assets/icons/ic_google.png'),
-                            iconSize: 40,
+                            icon: Image.asset(
+                              'assets/icons/ic_google_signin.png',
+                              width: 44,
+                              height: 44,
+                            ),
                             onPressed: () {
                               if (_selectedRole == null) {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -400,6 +403,32 @@ class _SignUpPageState extends State<SignUpPage> {
                               context
                                   .read<SignUpCubit>()
                                   .signUpWithGoogle(_selectedRole!.value);
+                            },
+                          ),
+                          const SizedBox(width: 8),
+                          IconButton(
+                            icon: ClipOval(
+                              child: Image.asset(
+                                'assets/icons/ic_apple_signin.png',
+                                width: 44,
+                                height: 44,
+                              ),
+                            ),
+                            iconSize: 40,
+                            onPressed: () {
+                              if (_selectedRole == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(context
+                                        .l10n.auth_select_role_first_error),
+                                    backgroundColor: Colors.orange,
+                                  ),
+                                );
+                                return;
+                              }
+                              context
+                                  .read<SignUpCubit>()
+                                  .signUpWithApple(_selectedRole!.value);
                             },
                           ),
                           const SizedBox(width: 16),
