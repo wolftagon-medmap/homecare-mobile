@@ -93,7 +93,7 @@ class _ChatPharmaPageState extends State<ChatPharmaPage> {
 }
 
 class _ChatPharmaHeader extends StatelessWidget {
-  const _ChatPharmaHeader({super.key});
+  const _ChatPharmaHeader();
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +142,7 @@ class _ChatPharmaHeader extends StatelessWidget {
 }
 
 class _HIPAAPrivacyLabel extends StatelessWidget {
-  const _HIPAAPrivacyLabel({super.key});
+  const _HIPAAPrivacyLabel();
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +169,7 @@ class _HIPAAPrivacyLabel extends StatelessWidget {
 }
 
 class _PharmacHelpRequestButton extends StatelessWidget {
-  const _PharmacHelpRequestButton({super.key});
+  const _PharmacHelpRequestButton();
 
   @override
   Widget build(BuildContext context) {
