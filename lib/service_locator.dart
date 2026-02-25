@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:m2health/core/network/token_expiration_interceptor.dart';
 import 'package:m2health/features/auth/injection.dart';
 import 'package:m2health/features/booking_appointment/injection.dart';
+import 'package:m2health/features/chatbot/injection.dart';
 import 'package:m2health/features/home_health_screening/injection.dart';
 import 'package:m2health/features/medical_record/injection.dart';
 import 'package:m2health/features/payment/injection.dart';
@@ -46,4 +47,5 @@ Future<void> setupLocator() async {
   initPhysiotherapyModule(sl);
   initSettingsModule(sl);
   initSmokingCessationModule(sl);
+  initChatbotModule(sl);
 }

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/features/booking_appointment/pharmacy/presentation/bloc/pharmacy_appointment_flow_bloc.dart';
+import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_appointment_flow_page.dart';
+import 'package:m2health/service_locator.dart';
 
 class ChatPharma extends StatelessWidget {
   final List<Map<String, dynamic>> chatHistory;
@@ -7,7 +11,8 @@ class ChatPharma extends StatelessWidget {
   final ScrollController scrollController;
   final Function sendMessage;
 
-  ChatPharma({
+  const ChatPharma({
+    super.key,
     required this.chatHistory,
     required this.chatController,
     required this.scrollController,
@@ -21,7 +26,7 @@ class ChatPharma extends StatelessWidget {
         title: Row(
           children: [
             Image.asset(
-              'assets/icons/ic_pharma.png',
+              'assets/icons/ic_pharma_ai.png',
               width: 24,
               height: 24,
             ),
@@ -101,7 +106,7 @@ class ChatPharma extends StatelessWidget {
                               backgroundColor:
                                   const Color.fromARGB(255, 240, 240, 240),
                               child: Image.asset(
-                                'assets/icons/ic_pharma.png',
+                                'assets/icons/ic_pharma_ai.png',
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -174,11 +179,18 @@ class ChatPharma extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => PersonalPage()),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlocProvider(
+                                  create: (context) =>
+                                      PharmacyAppointmentFlowBloc(
+                                    createPharmacyAppointment: sl(),
+                                  ),
+                                  child: const PharmacyAppointmentFlowPage(),
+                                ),
+                              ),
+                            );
                           },
                           child: Text(
                             context.l10n.chat_pharma_request_help,
@@ -212,7 +224,8 @@ class ChatPharma extends StatelessWidget {
                               Expanded(
                                 child: TextField(
                                   decoration: InputDecoration(
-                                    hintText: context.l10n.chat_pharma_input_hint,
+                                    hintText:
+                                        context.l10n.chat_pharma_input_hint,
                                     hintStyle: const TextStyle(
                                       color: Color(0xFFA1A1A1),
                                     ),

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/presentation/views/health_coaching.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/bloc/pharmacy_appointment_flow_bloc.dart';
+import 'package:m2health/features/chatbot/presentation/bloc/chat_cubit.dart';
+import 'package:m2health/features/chatbot/presentation/pages/chat_pharma.dart';
 import 'package:m2health/features/smoking_cessation/presentation/bloc/smoking_cessation_flow_cubit.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_appointment_flow_page.dart';
 import 'package:m2health/features/smoking_cessation/presentation/pages/smoking_cessation_flow_page.dart';
@@ -42,12 +44,26 @@ class PharmacyServicesPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => BlocProvider(
-                        create: (context) => PharmacyAppointmentFlowBloc(
-                          createPharmacyAppointment: sl(),
-                        ),
-                        child: const PharmacyAppointmentFlowPage(),
+                        create: (context) => ChatCubit(repository: sl()),
+                        child: const ChatPharmaPage(),
                       ),
                     ),
+                    // MaterialPageRoute(
+                    //   builder: (context) => ChatPharma(
+                    //     chatHistory: const [],
+                    //     chatController: TextEditingController(),
+                    //     scrollController: ScrollController(),
+                    //     sendMessage: () {},
+                    //   ),
+                    // ),
+                    // MaterialPageRoute(
+                    //   builder: (context) => BlocProvider(
+                    //     create: (context) => PharmacyAppointmentFlowBloc(
+                    //       createPharmacyAppointment: sl(),
+                    //     ),
+                    //     child: const PharmacyAppointmentFlowPage(),
+                    //   ),
+                    // ),
                   );
                 },
               ),
@@ -62,7 +78,7 @@ class PharmacyServicesPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HealthCoaching(),
+                      builder: (context) => const HealthCoaching(),
                     ),
                   );
                 },
