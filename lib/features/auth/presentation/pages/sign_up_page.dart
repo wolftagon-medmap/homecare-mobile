@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -50,8 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Future<void> _launchTnC() async {
-    final Uri url =
-        Uri.parse(Const.TERMS_AND_CONDITIONS_URL);
+    final Uri url = Uri.parse(Const.TERMS_AND_CONDITIONS_URL);
     if (!await launchUrl(url)) {
       throw Exception('Could not launch $url');
     }
@@ -434,72 +435,74 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Text(
-                      context.t.auth.continue_with_alternative_text,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
+                    if (!Platform.isIOS) ...[
+                      Text(
+                        context.t.auth.continue_with_alternative_text,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(width: 16),
-                          IconButton(
-                            icon: Image.asset(
-                              'assets/icons/ic_google_signin.png',
-                              width: 44,
-                              height: 44,
-                            ),
-                            onPressed: () {
-                              if (_selectedRole == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(context
-                                        .l10n.auth_select_role_first_error),
-                                    backgroundColor: Colors.orange,
-                                  ),
-                                );
-                                return;
-                              }
-                              context
-                                  .read<SignUpCubit>()
-                                  .signUpWithGoogle(_selectedRole!.value);
-                            },
-                          ),
-                          const SizedBox(width: 8),
-                          IconButton(
-                            icon: ClipOval(
-                              child: Image.asset(
-                                'assets/icons/ic_apple_signin.png',
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(width: 16),
+                            IconButton(
+                              icon: Image.asset(
+                                'assets/icons/ic_google_signin.png',
                                 width: 44,
                                 height: 44,
                               ),
+                              onPressed: () {
+                                if (_selectedRole == null) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(context
+                                          .l10n.auth_select_role_first_error),
+                                      backgroundColor: Colors.orange,
+                                    ),
+                                  );
+                                  return;
+                                }
+                                context
+                                    .read<SignUpCubit>()
+                                    .signUpWithGoogle(_selectedRole!.value);
+                              },
                             ),
-                            iconSize: 40,
-                            onPressed: () {
-                              if (_selectedRole == null) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(context
-                                        .l10n.auth_select_role_first_error),
-                                    backgroundColor: Colors.orange,
-                                  ),
-                                );
-                                return;
-                              }
-                              context
-                                  .read<SignUpCubit>()
-                                  .signUpWithApple(_selectedRole!.value);
-                            },
-                          ),
-                          const SizedBox(width: 16),
-                        ],
-                      ),
-                    )
+                            // const SizedBox(width: 8),
+                            // IconButton(
+                            //   icon: ClipOval(
+                            //     child: Image.asset(
+                            //       'assets/icons/ic_apple_signin.png',
+                            //       width: 44,
+                            //       height: 44,
+                            //     ),
+                            //   ),
+                            //   iconSize: 40,
+                            //   onPressed: () {
+                            //     if (_selectedRole == null) {
+                            //       ScaffoldMessenger.of(context).showSnackBar(
+                            //         SnackBar(
+                            //           content: Text(context
+                            //               .l10n.auth_select_role_first_error),
+                            //           backgroundColor: Colors.orange,
+                            //         ),
+                            //       );
+                            //       return;
+                            //     }
+                            //     context
+                            //         .read<SignUpCubit>()
+                            //         .signUpWithApple(_selectedRole!.value);
+                            //   },
+                            // ),
+                            const SizedBox(width: 16),
+                          ],
+                        ),
+                      )
+                    ]
                   ],
                 ),
               ),
