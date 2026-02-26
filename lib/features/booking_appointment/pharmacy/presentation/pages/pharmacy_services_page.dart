@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:m2health/core/presentation/views/health_coaching.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/bloc/pharmacy_appointment_flow_bloc.dart';
@@ -40,34 +41,7 @@ class PharmacyServicesPage extends StatelessWidget {
                 imagePath: 'assets/icons/ilu_pharmacist.png',
                 backgroundColor: const Color(0xFFF79E1B).withValues(alpha: 0.1),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BlocProvider(
-                        create: (context) => ChatCubit(
-                          repository: sl(),
-                          service: 'pharmacy',
-                        ),
-                        child: const ChatPharmaPage(),
-                      ),
-                    ),
-                    // MaterialPageRoute(
-                    //   builder: (context) => ChatPharma(
-                    //     chatHistory: const [],
-                    //     chatController: TextEditingController(),
-                    //     scrollController: ScrollController(),
-                    //     sendMessage: () {},
-                    //   ),
-                    // ),
-                    // MaterialPageRoute(
-                    //   builder: (context) => BlocProvider(
-                    //     create: (context) => PharmacyAppointmentFlowBloc(
-                    //       createPharmacyAppointment: sl(),
-                    //     ),
-                    //     child: const PharmacyAppointmentFlowPage(),
-                    //   ),
-                    // ),
-                  );
+                  GoRouter.of(context).push(AppRoutes.chatPharmaAI);
                 },
               ),
               ServiceSelectionCard(
