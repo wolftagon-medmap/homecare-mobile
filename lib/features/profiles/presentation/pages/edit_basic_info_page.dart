@@ -74,10 +74,26 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
   }
 
   Future<void> _pickImage() async {
-    final XFile? image = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 85);
+    final XFile? image =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
     if (image != null) {
-      setState(() => _selectedImage = File(image.path));
+      final int sizeInBytes = await image.length();
+      const int limitInBytes = 10 * 1024 * 1024;
+
+      if (sizeInBytes > limitInBytes) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Selected image is too large (limit is 10MB)'),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } else {
+        setState(() => _selectedImage = File(image.path));
+      }
     }
   }
 
@@ -119,13 +135,19 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-                content: Text(state.message), backgroundColor: Colors.green));
+              content: Text(state.message),
+              backgroundColor: Colors.green,
+              behavior: SnackBarBehavior.floating,
+            ));
           Navigator.pop(context);
         } else if (state is ProfileError) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-                content: Text(state.message), backgroundColor: Colors.red));
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+            ));
         }
       },
       child: Scaffold(
@@ -360,7 +382,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
             ),
           ),
         ),
-        bottomNavigationBar: Padding(
+        bottomNavigationBar: BottomAppBar(
           padding: const EdgeInsets.all(16.0),
           child: BlocBuilder<ProfileCubit, ProfileState>(
               builder: (context, state) {

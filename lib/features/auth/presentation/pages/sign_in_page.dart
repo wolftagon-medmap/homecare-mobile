@@ -1,11 +1,9 @@
-import 'dart:developer';
+import 'dart:io';
 
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/presentation/widgets/buttons/button_size.dart';
 import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
@@ -235,20 +233,20 @@ class _SignInPageState extends State<SignInPage> {
                       context.read<SignInCubit>().signInWithGoogle();
                     },
                   ),
-                  const SizedBox(width: 8),
-                  IconButton(
-                    icon: ClipOval(
-                      child: Image.asset(
-                        'assets/icons/ic_apple_signin.png',
-                        width: 44,
-                        height: 44,
-                      ),
-                    ),
-                    iconSize: 40,
-                    onPressed: () {
-                      context.read<SignInCubit>().signInWithApple();
-                    },
-                  ),
+                  // const SizedBox(width: 8),
+                  // IconButton(
+                  //   icon: ClipOval(
+                  //     child: Image.asset(
+                  //       'assets/icons/ic_apple_signin.png',
+                  //       width: 44,
+                  //       height: 44,
+                  //     ),
+                  //   ),
+                  //   iconSize: 40,
+                  //   onPressed: () {
+                  //     context.read<SignInCubit>().signInWithApple();
+                  //   },
+                  // ),
                   const SizedBox(width: 16),
                 ],
               ),
@@ -300,8 +298,10 @@ class _SignInPageState extends State<SignInPage> {
                       loginButton,
                       const SizedBox(height: 11.0),
                       createAccountText,
-                      continueWithText,
-                      socialIcons,
+                      if (!Platform.isIOS) ...[
+                        continueWithText,
+                        socialIcons,
+                      ],
                     ],
                   ),
                 ),

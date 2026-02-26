@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
+import 'package:m2health/route/app_routes.dart';
 
 class HealthCoaching extends StatefulWidget {
   const HealthCoaching({super.key});
@@ -28,7 +30,10 @@ class _HealthCoachingState extends State<HealthCoaching> {
                   'Personalized plans and support to achieve and maintain a healthy weight.',
               imagePath: 'assets/images/illu_weight.png',
               backgroundColor: const Color(0xFF9AE1FF).withValues(alpha: 0.33),
-              onTap: () {},
+              onTap: () {
+                GoRouter.of(context)
+                    .push(AppRoutes.pharmacyBookAppointmentFlow);
+              },
             ),
             ServiceSelectionCard(
               title: 'Diabetes Management',
@@ -36,7 +41,10 @@ class _HealthCoachingState extends State<HealthCoaching> {
                   'Guidance and strategies to effectively manage diabetes and maintain optimal health.',
               imagePath: 'assets/images/ilu_diabetes.png',
               backgroundColor: const Color(0xFFB28CFF).withValues(alpha: 0.2),
-              onTap: () {},
+              onTap: () {
+                GoRouter.of(context)
+                    .push(AppRoutes.pharmacyBookAppointmentFlow);
+              },
             ),
             ServiceSelectionCard(
               title: 'High Blood Pressure Management',
@@ -44,7 +52,10 @@ class _HealthCoachingState extends State<HealthCoaching> {
                   'Customized coaching to control and reduce high blood pressure.',
               imagePath: 'assets/images/ilu_blood.png',
               backgroundColor: const Color(0xFFFF9A9A).withValues(alpha: 0.19),
-              onTap: () {},
+              onTap: () {
+                GoRouter.of(context)
+                    .push(AppRoutes.pharmacyBookAppointmentFlow);
+              },
             ),
             ServiceSelectionCard(
               title: 'High Cholestrol Management',
@@ -52,7 +63,10 @@ class _HealthCoachingState extends State<HealthCoaching> {
                   'Tailored programs to lower cholesterol levels and improve heart health.',
               imagePath: 'assets/images/ilu_colestrol.png',
               backgroundColor: const Color(0xFFEDE6FC).withValues(alpha: 0.33),
-              onTap: () {},
+              onTap: () {
+                GoRouter.of(context)
+                    .push(AppRoutes.pharmacyBookAppointmentFlow);
+              },
             ),
           ],
         ),

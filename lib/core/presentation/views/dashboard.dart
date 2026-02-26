@@ -227,35 +227,42 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/icons/ic_doctor.png',
-                          width: 24,
-                          height: 24,
-                          color: const Color.fromARGB(255, 0, 0, 0),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: context.t.dashboard.chat_ai_placeholder,
-                              hintStyle: const TextStyle(
-                                  color: Color(0xFF8A96BC), fontSize: 11),
-                              border: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              focusedBorder: InputBorder.none,
+                  GestureDetector(
+                    onTap: () {
+                      GoRouter.of(context).push(AppRoutes.chatDoctorAI);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'assets/icons/ic_doctor.png',
+                            width: 24,
+                            height: 24,
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: TextField(
+                              enabled: false,
+                              decoration: InputDecoration(
+                                hintText:
+                                    context.t.dashboard.chat_ai_placeholder,
+                                hintStyle: const TextStyle(
+                                    color: Color(0xFF8A96BC), fontSize: 11),
+                                border: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
