@@ -53,8 +53,17 @@ class _ChatPharmaPageState extends State<ChatPharmaPage> {
               const _HIPAAPrivacyLabel(),
               Expanded(
                 child: state.maybeMap(
-                  loading: (_) =>
-                      const Center(child: CircularProgressIndicator()),
+                  loading: (_) => const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(color: Const.aqua),
+                        SizedBox(height: 8),
+                        Text("Loading chat...",
+                            style: TextStyle(color: Colors.grey)),
+                      ],
+                    ),
+                  ),
                   error: (e) => Center(child: Text(e.message)),
                   loaded: (s) => ListView.builder(
                     controller: _scrollController,

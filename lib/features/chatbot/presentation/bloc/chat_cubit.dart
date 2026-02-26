@@ -9,8 +9,9 @@ import 'package:m2health/features/chatbot/presentation/bloc/chat_state.dart';
 class ChatCubit extends Cubit<ChatState> {
   final ChatRepository _repository;
   StreamSubscription<ChatEvent>? _eventSubscription;
+  final String service;
 
-  ChatCubit({required ChatRepository repository})
+  ChatCubit({required ChatRepository repository, required this.service})
       : _repository = repository,
         super(const ChatState.initial());
 
@@ -19,7 +20,7 @@ class ChatCubit extends Cubit<ChatState> {
         name: 'ChatCubit.initialize');
     emit(const ChatState.loading());
     try {
-      final session = await _repository.getActiveSession();
+      final session = await _repository.getActiveSession(service: service);
       if (session != null && !session.isExpired) {
         // The last input event in history determines the current UI state
         log("Input config: type=${session.pendingInput?.inputType}, fields=${session.pendingInput?.fields.length}, nodeId=${session.pendingInput?.nodeId}",
@@ -43,7 +44,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   void _startSession() {
     _eventSubscription?.cancel();
-    _eventSubscription = _repository.invokeSession().listen(
+    _eventSubscription = _repository.invokeSession(service: service).listen(
       _handleEvent,
       onError: (e) {
         log("Error in session stream: $e", name: 'ChatCubit._startSession');
@@ -162,6 +163,7 @@ class ChatCubit extends Cubit<ChatState> {
     // 2. Start Request Stream
     _eventSubscription?.cancel();
     _eventSubscription = _repository.sendInput(
+      service: service,
       nodeId: nodeId,
       messageId: null,
       input: {'user_input': text},

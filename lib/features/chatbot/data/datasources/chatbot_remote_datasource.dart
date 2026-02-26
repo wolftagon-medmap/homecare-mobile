@@ -13,12 +13,14 @@ import 'package:m2health/utils.dart';
 abstract class ChatRemoteDataSource {
   /// Establishes SSE connection for new or existing session
   Stream<ChatEventModel> invokeSession({
+    required String service,
     String? existingSessionId,
     bool stream = true,
   });
 
   /// Send user input and receive SSE stream response
   Stream<ChatEventModel> sendInput({
+    required String service,
     required String nodeId,
     required String? messageId,
     required Map<String, dynamic> input,
@@ -28,41 +30,51 @@ abstract class ChatRemoteDataSource {
   Future<String> uploadFile(File file);
 
   /// Get active session history (for app restart/reconnect)
-  Future<ChatSessionModel> getSessionHistory();
+  Future<ChatSessionModel> getSessionHistory({
+    required String service,
+  });
 
   /// Close session
-  Future<void> closeSession(String sessionId);
+  Future<void> closeSession({
+    required String service,
+  });
 }
 
 class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   final Dio _dio;
+  final int _maxRetries = 3;
+  final Duration _retryDelay = const Duration(seconds: 2);
 
   ChatRemoteDataSourceImpl(this._dio);
 
   @override
   Stream<ChatEventModel> invokeSession({
+    required String service,
     String? existingSessionId,
     bool stream = true,
   }) async* {
-    final requestBody = <String, dynamic>{
-      'stream': stream,
-      if (existingSessionId != null) 'session_id': existingSessionId,
-    };
+    yield* _retryableStream(() async {
+      final requestBody = <String, dynamic>{
+        'service': service,
+        'stream': stream,
+        if (existingSessionId != null) 'session_id': existingSessionId,
+      };
 
-    final token = await Utils.getSpString(Const.TOKEN);
-    final response = await _dio.post<ResponseBody>(
-      '${Const.URL_API}/chatbot/invoke',
-      data: requestBody,
-      options: Options(
-        responseType: ResponseType.stream,
-        headers: {
-          'Accept': 'text/event-stream',
-          'Authorization': 'Bearer $token'
-        },
-      ),
-    );
+      final token = await Utils.getSpString(Const.TOKEN);
+      final response = await _dio.post<ResponseBody>(
+        '${Const.URL_API}/chatbot/invoke',
+        data: requestBody,
+        options: Options(
+          responseType: ResponseType.stream,
+          headers: {
+            'Accept': 'text/event-stream',
+            'Authorization': 'Bearer $token'
+          },
+        ),
+      );
 
-    yield* _parseEventStream(response.data!.stream);
+      return response;
+    });
   }
 
   @override
@@ -70,27 +82,63 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
     required String nodeId,
     required String? messageId,
     required Map<String, dynamic> input,
+    required String service,
   }) async* {
-    final requestBody = {
-      'message_id': messageId,
-      'input': {nodeId: input},
-      'stream': true,
-    };
+    yield* _retryableStream(() async {
+      final requestBody = {
+        'service': service,
+        'message_id': messageId,
+        'input': {nodeId: input},
+        'stream': true,
+      };
 
-    final token = await Utils.getSpString(Const.TOKEN);
-    final response = await _dio.post<ResponseBody>(
-      '${Const.URL_API}/chatbot/invoke',
-      data: requestBody,
-      options: Options(
-        responseType: ResponseType.stream,
-        headers: {
-          'Accept': 'text/event-stream',
-          'Authorization': 'Bearer $token',
-        },
-      ),
-    );
+      final token = await Utils.getSpString(Const.TOKEN);
+      final response = await _dio.post<ResponseBody>(
+        '${Const.URL_API}/chatbot/invoke',
+        data: requestBody,
+        options: Options(
+          responseType: ResponseType.stream,
+          headers: {
+            'Accept': 'text/event-stream',
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      return response;
+    });
+  }
 
-    yield* _parseEventStream(response.data!.stream);
+  /// Helper to wrap the POST request with retry logic for SSE streams
+  Stream<ChatEventModel> _retryableStream(
+    Future<Response<ResponseBody>> Function() request,
+  ) async* {
+    int attempts = 0;
+
+    while (attempts < _maxRetries) {
+      try {
+        attempts++;
+        final response = await request();
+        yield* _parseEventStream(response.data!.stream);
+        break; // Successfully finished the stream
+      } catch (e) {
+        final isTimeout = e is DioException &&
+            (e.type == DioExceptionType.connectionTimeout ||
+                e.type == DioExceptionType.receiveTimeout ||
+                e.response?.statusCode == 504);
+
+        if (isTimeout && attempts < _maxRetries) {
+          log('Connection timeout (attempt $attempts). Retrying in ${_retryDelay.inSeconds}s...',
+              name: 'ChatRemoteDataSourceImpl');
+          await Future.delayed(_retryDelay);
+          continue;
+        }
+
+        // Rethrow if it's not a timeout or we ran out of retries
+        log('Request failed after $attempts attempts: $e',
+            name: 'ChatRemoteDataSourceImpl');
+        rethrow;
+      }
+    }
   }
 
   Stream<ChatEventModel> _parseEventStream(
@@ -149,11 +197,14 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   }
 
   @override
-  Future<ChatSessionModel> getSessionHistory() async {
+  Future<ChatSessionModel> getSessionHistory({
+    required String service,
+  }) async {
     try {
       final token = await Utils.getSpString(Const.TOKEN);
       final response = await _dio.get(
         '${Const.URL_API}/chatbot/session',
+        queryParameters: {'service': service},
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
@@ -169,12 +220,12 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   }
 
   @override
-  Future<void> closeSession(String sessionId) async {
+  Future<void> closeSession({required String service}) async {
     try {
       final token = await Utils.getSpString(Const.TOKEN);
       await _dio.post(
         '${Const.URL_API}/chatbot/stop',
-        data: {'session_id': sessionId},
+        data: {'service': service},
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
     } catch (e, stackTrace) {

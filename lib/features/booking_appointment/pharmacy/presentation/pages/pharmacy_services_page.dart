@@ -44,7 +44,10 @@ class PharmacyServicesPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => BlocProvider(
-                        create: (context) => ChatCubit(repository: sl()),
+                        create: (context) => ChatCubit(
+                          repository: sl(),
+                          service: 'pharmacy',
+                        ),
                         child: const ChatPharmaPage(),
                       ),
                     ),

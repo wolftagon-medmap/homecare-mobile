@@ -16,10 +16,12 @@ class ChatRepositoryImpl implements ChatRepository {
 
   @override
   Stream<ChatEvent> invokeSession({
+    required String service,
     String? existingSessionId,
     bool stream = true,
   }) async* {
     await for (final eventModel in _remoteDataSource.invokeSession(
+      service: service,
       stream: stream,
     )) {
       final event = eventModel.toEntity();
@@ -29,11 +31,13 @@ class ChatRepositoryImpl implements ChatRepository {
 
   @override
   Stream<ChatEvent> sendInput({
+    required String service,
     required String nodeId,
     required String? messageId,
     required Map<String, dynamic> input,
   }) async* {
     await for (final eventModel in _remoteDataSource.sendInput(
+      service: service,
       nodeId: nodeId,
       messageId: messageId,
       input: input,
@@ -49,9 +53,11 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<ChatSession?> getActiveSession() async {
+  Future<ChatSession?> getActiveSession({
+    required String service,
+  }) async {
     try {
-      final session = await _remoteDataSource.getSessionHistory();
+      final session = await _remoteDataSource.getSessionHistory(service: service);
       final events = session.events.map((e) => e.toEntity()).toList();
 
       // Find last input event for pending input
@@ -81,7 +87,7 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<void> closeSession(String sessionId) async {
-    await _remoteDataSource.closeSession(sessionId);
+  Future<void> closeSession({required String service}) async {
+    await _remoteDataSource.closeSession(service: service);
   }
 }

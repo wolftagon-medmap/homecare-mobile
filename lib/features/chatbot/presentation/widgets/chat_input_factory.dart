@@ -93,7 +93,9 @@ class _ChatInputFactoryState extends State<ChatInputFactory> {
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none,
                               contentPadding: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 4),
+                                vertical: 10,
+                                horizontal: 4,
+                              ),
                             ),
                           ),
                         ),

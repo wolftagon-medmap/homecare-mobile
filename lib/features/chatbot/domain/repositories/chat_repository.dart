@@ -7,6 +7,7 @@ abstract class ChatRepository {
   /// Initialize new session or reconnect to existing one
   /// Returns stream of events from the workflow
   Stream<ChatEvent> invokeSession({
+    required String service,
     String? existingSessionId,
     bool stream = true,
   });
@@ -14,6 +15,7 @@ abstract class ChatRepository {
   /// Send user input to active session
   /// Returns stream of response events
   Stream<ChatEvent> sendInput({
+    required String service,
     required String nodeId,
     required String? messageId,
     required Map<String, dynamic> input,
@@ -24,8 +26,12 @@ abstract class ChatRepository {
 
   /// Get active session history from backend
   /// Returns null if no active session
-  Future<ChatSession?> getActiveSession();
+  Future<ChatSession?> getActiveSession({
+    required String service,
+  });
 
   /// Close/stop active session
-  Future<void> closeSession(String sessionId);
+  Future<void> closeSession({
+    required String service,
+  });
 }
