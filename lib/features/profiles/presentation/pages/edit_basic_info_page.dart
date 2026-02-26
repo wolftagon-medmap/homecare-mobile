@@ -135,13 +135,19 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-                content: Text(state.message), backgroundColor: Colors.green));
+              content: Text(state.message),
+              backgroundColor: Colors.green,
+              behavior: SnackBarBehavior.floating,
+            ));
           Navigator.pop(context);
         } else if (state is ProfileError) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
-                content: Text(state.message), backgroundColor: Colors.red));
+              content: Text(state.message),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+            ));
         }
       },
       child: Scaffold(
@@ -376,7 +382,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
             ),
           ),
         ),
-        bottomNavigationBar: Padding(
+        bottomNavigationBar: BottomAppBar(
           padding: const EdgeInsets.all(16.0),
           child: BlocBuilder<ProfileCubit, ProfileState>(
               builder: (context, state) {
