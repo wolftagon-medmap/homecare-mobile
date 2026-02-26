@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:m2health/features/booking_appointment/pharmacy/pharmacy_routes.dart';
 import 'package:m2health/features/chatbot/chatbot_routes.dart';
 import 'package:m2health/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:m2health/features/payment/presentation/pages/payment_page.dart';
@@ -101,6 +102,7 @@ final GoRouter router = GoRouter(
     ...ProfileDetailRoutes.routes,
     ...ChatbotRoutes.routes,
     ...SettingsRoutes.routes,
+    ...PharmacyRoutes.routes,
     ...RemotePatientMonitoringRoutes.routes,
     ...SmokingCessationRoutes.routes,
 

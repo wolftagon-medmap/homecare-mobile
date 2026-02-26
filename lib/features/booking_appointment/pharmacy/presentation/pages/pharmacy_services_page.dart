@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:m2health/core/presentation/views/health_coaching.dart';
+import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/health_coaching.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
-import 'package:m2health/features/booking_appointment/pharmacy/presentation/bloc/pharmacy_appointment_flow_bloc.dart';
-import 'package:m2health/features/chatbot/presentation/bloc/chat_cubit.dart';
-import 'package:m2health/features/chatbot/presentation/pages/chat_pharma.dart';
 import 'package:m2health/features/smoking_cessation/presentation/bloc/smoking_cessation_flow_cubit.dart';
-import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_appointment_flow_page.dart';
 import 'package:m2health/features/smoking_cessation/presentation/pages/smoking_cessation_flow_page.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
@@ -88,60 +84,3 @@ class PharmacyServicesPage extends StatelessWidget {
     );
   }
 }
-
-// class PharmaDetailPage extends StatefulWidget {
-//   final Map<String, String> item;
-
-//   const PharmaDetailPage({super.key, required this.item});
-
-//   @override
-//   State<PharmaDetailPage> createState() => _PharmaDetailPageState();
-// }
-
-// class _PharmaDetailPageState extends State<PharmaDetailPage> {
-//   final TextEditingController _chatController = TextEditingController();
-//   final ScrollController _scrollController = ScrollController();
-//   List<Map<String, dynamic>> _chatHistory = [];
-
-//   // void _shareProduct() {
-//   //   final String productUrl = Const.URL_WEB + '/tender/detail/${item['title']}';
-//   //   Share.share(productUrl, subject: '');
-//   // }
-
-//   void _sendMessage() {
-//     if (_chatController.text.isNotEmpty) {
-//       setState(() {
-//         _chatHistory.add({
-//           "message": _chatController.text,
-//           "isSender": true,
-//         });
-//         _chatController.clear();
-//       });
-
-//       // Simulate a response from the other side
-//       Future.delayed(const Duration(seconds: 1), () {
-//         setState(() {
-//           _chatHistory.add({
-//             "message": "This is a dummy response",
-//             "isSender": false,
-//           });
-//           _scrollController.animateTo(
-//             _scrollController.position.maxScrollExtent,
-//             duration: const Duration(milliseconds: 300),
-//             curve: Curves.easeOut,
-//           );
-//         });
-//       });
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ChatPharma(
-//       chatHistory: _chatHistory,
-//       chatController: _chatController,
-//       scrollController: _scrollController,
-//       sendMessage: _sendMessage,
-//     );
-//   }
-// }

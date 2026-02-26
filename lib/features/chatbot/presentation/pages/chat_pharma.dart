@@ -1,15 +1,14 @@
 // chatbot/presentation/pages/chat_pharma_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/booking_appointment/pharmacy/presentation/bloc/pharmacy_appointment_flow_bloc.dart';
-import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_appointment_flow_page.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/chat_cubit.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/chat_state.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/chat_input_factory.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/event_bubble_factory.dart';
-import 'package:m2health/service_locator.dart';
+import 'package:m2health/route/app_routes.dart';
 
 class ChatPharmaPage extends StatefulWidget {
   const ChatPharmaPage({super.key});
@@ -240,17 +239,7 @@ class _PharmacHelpRequestButton extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => BlocProvider(
-                    create: (context) => PharmacyAppointmentFlowBloc(
-                      createPharmacyAppointment: sl(),
-                    ),
-                    child: const PharmacyAppointmentFlowPage(),
-                  ),
-                ),
-              );
+              GoRouter.of(context).push(AppRoutes.pharmacyBookAppointmentFlow);
             },
             child: Text(
               context.l10n.chat_pharma_request_help,
