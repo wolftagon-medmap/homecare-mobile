@@ -124,7 +124,8 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
         final isTimeout = e is DioException &&
             (e.type == DioExceptionType.connectionTimeout ||
                 e.type == DioExceptionType.receiveTimeout ||
-                e.response?.statusCode == 504);
+                e.response?.statusCode == 504 ||
+                e.response?.statusCode == 503);
 
         if (isTimeout && attempts < _maxRetries) {
           log('Connection timeout (attempt $attempts). Retrying in ${_retryDelay.inSeconds}s...',

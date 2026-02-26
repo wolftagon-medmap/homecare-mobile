@@ -56,7 +56,8 @@ class AppRoutes {
   static const String partnership = '/request-partnership';
   static const String partnership_list = '/partnership-list';
   static const String service_request = '/service-request';
-  static const String chat = '/chat';
+  static const String chatPharmaAI = '/chat-pharma-ai';
+  static const String chatDoctorAI = '/chat-doctor-ai';
   static const String pharma_profile = '/pharma-profile';
   static const String personal = '/personal';
   static const String nursing = '/nursing';

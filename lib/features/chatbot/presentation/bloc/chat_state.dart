@@ -8,7 +8,7 @@ part 'chat_state.freezed.dart';
 @freezed
 class ChatState with _$ChatState {
   const factory ChatState.initial() = _Initial;
-  const factory ChatState.loading() = _Loading;
+  const factory ChatState.loading({String? message}) = _Loading;
 
   const factory ChatState.loaded({
     required List<ChatEvent> events,

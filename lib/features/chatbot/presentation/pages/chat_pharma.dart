@@ -41,26 +41,68 @@ class _ChatPharmaPageState extends State<ChatPharmaPage> {
     });
   }
 
+  void _showResetConfirmation() {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Reset Chat'),
+        content: const Text(
+            'Are you sure you want to reset the current conversation? All history for this session will be cleared.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(dialogContext);
+              context.read<ChatCubit>().resetChat();
+            },
+            child: const Text('Reset', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ChatCubit, ChatState>(
       listener: (context, state) => _scrollToBottom(),
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(title: const _ChatPharmaHeader()),
+          appBar: AppBar(
+            title: const _ChatPharmaHeader(),
+            actions: [
+              PopupMenuButton<String>(
+                onSelected: (value) {
+                  if (value == 'reset') _showResetConfirmation();
+                },
+                color: Colors.white,
+                icon: const Icon(Icons.more_vert, color: Colors.grey),
+                itemBuilder: (context) => [
+                  const PopupMenuItem(
+                    value: 'reset',
+                    textStyle: TextStyle(color: Colors.red),
+                    child: Text('Reset Chat'),
+                  ),
+                ],
+              ),
+            ],
+          ),
           body: Column(
             children: [
               const _HIPAAPrivacyLabel(),
               Expanded(
                 child: state.maybeMap(
-                  loading: (_) => const Center(
+                  loading: (s) => Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircularProgressIndicator(color: Const.aqua),
-                        SizedBox(height: 8),
-                        Text("Loading chat...",
-                            style: TextStyle(color: Colors.grey)),
+                        const CircularProgressIndicator(color: Const.aqua),
+                        const SizedBox(height: 8),
+                        Text(s.message ?? "Loading...",
+                            style: const TextStyle(color: Colors.grey)),
                       ],
                     ),
                   ),

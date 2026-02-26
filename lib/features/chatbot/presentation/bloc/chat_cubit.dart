@@ -18,7 +18,7 @@ class ChatCubit extends Cubit<ChatState> {
   Future<void> initialize() async {
     log("Initializing ChatCubit. Checking for active session...",
         name: 'ChatCubit.initialize');
-    emit(const ChatState.loading());
+    emit(const ChatState.loading(message: "Loading chat..."));
     try {
       final session = await _repository.getActiveSession(service: service);
       if (session != null && !session.isExpired) {
@@ -43,6 +43,7 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   void _startSession() {
+    emit(const ChatState.loading(message: "Starting new session..."));
     _eventSubscription?.cancel();
     _eventSubscription = _repository.invokeSession(service: service).listen(
       _handleEvent,
@@ -168,5 +169,20 @@ class ChatCubit extends Cubit<ChatState> {
       messageId: null,
       input: {'user_input': text},
     ).listen(_handleEvent);
+  }
+
+  Future<void> resetChat() async {
+    log("Resetting chat session for service: $service",
+        name: 'ChatCubit.resetChat');
+    emit(const ChatState.loading(message: "Resetting chat..."));
+    try {
+      _eventSubscription?.cancel();
+      await _repository.closeSession(service: service);
+
+      _startSession();
+    } catch (e) {
+      log("Error resetting chat: $e", name: 'ChatCubit.resetChat');
+      emit(ChatState.error(e.toString()));
+    }
   }
 }

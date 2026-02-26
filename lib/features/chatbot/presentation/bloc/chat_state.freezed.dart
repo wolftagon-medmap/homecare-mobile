@@ -155,7 +155,7 @@ extension ChatStatePatterns on ChatState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(String? message)? loading,
     TResult Function(List<ChatEvent> events, InputConfiguration? inputConfig,
             bool isProcessing, bool isSessionClosed, String? error)?
         loaded,
@@ -167,7 +167,7 @@ extension ChatStatePatterns on ChatState {
       case _Initial() when initial != null:
         return initial();
       case _Loading() when loading != null:
-        return loading();
+        return loading(_that.message);
       case Loaded() when loaded != null:
         return loaded(_that.events, _that.inputConfig, _that.isProcessing,
             _that.isSessionClosed, _that.error);
@@ -194,7 +194,7 @@ extension ChatStatePatterns on ChatState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(String? message) loading,
     required TResult Function(
             List<ChatEvent> events,
             InputConfiguration? inputConfig,
@@ -209,7 +209,7 @@ extension ChatStatePatterns on ChatState {
       case _Initial():
         return initial();
       case _Loading():
-        return loading();
+        return loading(_that.message);
       case Loaded():
         return loaded(_that.events, _that.inputConfig, _that.isProcessing,
             _that.isSessionClosed, _that.error);
@@ -235,7 +235,7 @@ extension ChatStatePatterns on ChatState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(String? message)? loading,
     TResult? Function(List<ChatEvent> events, InputConfiguration? inputConfig,
             bool isProcessing, bool isSessionClosed, String? error)?
         loaded,
@@ -246,7 +246,7 @@ extension ChatStatePatterns on ChatState {
       case _Initial() when initial != null:
         return initial();
       case _Loading() when loading != null:
-        return loading();
+        return loading(_that.message);
       case Loaded() when loaded != null:
         return loaded(_that.events, _that.inputConfig, _that.isProcessing,
             _that.isSessionClosed, _that.error);
@@ -281,20 +281,62 @@ class _Initial implements ChatState {
 /// @nodoc
 
 class _Loading implements ChatState {
-  const _Loading();
+  const _Loading({this.message});
+
+  final String? message;
+
+  /// Create a copy of ChatState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$LoadingCopyWith<_Loading> get copyWith =>
+      __$LoadingCopyWithImpl<_Loading>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Loading);
+        (other.runtimeType == runtimeType &&
+            other is _Loading &&
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, message);
 
   @override
   String toString() {
-    return 'ChatState.loading()';
+    return 'ChatState.loading(message: $message)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$LoadingCopyWith<$Res>
+    implements $ChatStateCopyWith<$Res> {
+  factory _$LoadingCopyWith(_Loading value, $Res Function(_Loading) _then) =
+      __$LoadingCopyWithImpl;
+  @useResult
+  $Res call({String? message});
+}
+
+/// @nodoc
+class __$LoadingCopyWithImpl<$Res> implements _$LoadingCopyWith<$Res> {
+  __$LoadingCopyWithImpl(this._self, this._then);
+
+  final _Loading _self;
+  final $Res Function(_Loading) _then;
+
+  /// Create a copy of ChatState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? message = freezed,
+  }) {
+    return _then(_Loading(
+      message: freezed == message
+          ? _self.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
   }
 }
 
