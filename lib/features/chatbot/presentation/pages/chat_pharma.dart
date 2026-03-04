@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/features/chatbot/domain/entities/chat_event.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/chat_cubit.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/chat_state.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/chat_input_factory.dart';
@@ -28,14 +29,18 @@ class _ChatPharmaPageState extends State<ChatPharmaPage> {
     });
   }
 
-  void _scrollToBottom() {
+  void _scrollToBottom({bool isStreaming = false}) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
+        if (isStreaming) {
+          _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+        } else {
+          _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+          );
+        }
       }
     });
   }
@@ -67,7 +72,14 @@ class _ChatPharmaPageState extends State<ChatPharmaPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ChatCubit, ChatState>(
-      listener: (context, state) => _scrollToBottom(),
+      listener: (context, state) {
+        final isStreaming = state.maybeMap(
+          loaded: (s) =>
+              s.events.isNotEmpty && s.events.last is StreamMessageEvent,
+          orElse: () => false,
+        );
+        _scrollToBottom(isStreaming: isStreaming);
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -106,17 +118,19 @@ class _ChatPharmaPageState extends State<ChatPharmaPage> {
                     ),
                   ),
                   error: (e) => Center(child: Text(e.message)),
-                  loaded: (s) => ListView.builder(
-                    controller: _scrollController,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    itemCount: state.displayableEvents.length,
-                    itemBuilder: (context, index) {
-                      return EventBubbleFactory(
-                        event: state.displayableEvents[index],
-                        // Only the last event can be "active" for interaction
-                        isActive: index == state.displayableEvents.length - 1,
-                      );
-                    },
+                  loaded: (s) => Scrollbar(
+                    child: ListView.builder(
+                      controller: _scrollController,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      itemCount: state.displayableEvents.length,
+                      itemBuilder: (context, index) {
+                        return EventBubbleFactory(
+                          event: state.displayableEvents[index],
+                          // Only the last event can be "active" for interaction
+                          isActive: index == state.displayableEvents.length - 1,
+                        );
+                      },
+                    ),
                   ),
                   orElse: () => const SizedBox.shrink(),
                 ),

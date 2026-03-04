@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:m2health/features/chatbot/domain/entities/chat_message.dart';
 import 'package:m2health/features/chatbot/domain/entities/input_configuration.dart';
 
-abstract class ChatEvent {
+abstract class ChatEvent extends Equatable {
   final String nodeId;
   final String? nodeExecutionId;
   final String? messageId;
@@ -9,7 +10,7 @@ abstract class ChatEvent {
   final EventStatus status;
   final EventSender sender;
 
-  ChatEvent({
+  const ChatEvent({
     required this.nodeId,
     this.nodeExecutionId,
     this.messageId,
@@ -17,6 +18,10 @@ abstract class ChatEvent {
     this.status = EventStatus.end,
     required this.sender,
   });
+
+  @override
+  List<Object?> get props =>
+      [nodeId, nodeExecutionId, messageId, type, status, sender];
 }
 
 enum EventSender { assistant, user }
@@ -41,26 +46,32 @@ enum EventStatus { stream, end }
 class UserInputEvent extends ChatEvent {
   final String textInput;
 
-  UserInputEvent({
+  const UserInputEvent({
     super.nodeId = "", // No need nodeId for user input events, set to empty
     required this.textInput,
     super.sender = EventSender.user,
   }) : super(
           type: EventType.userInput,
         );
+
+  @override
+  List<Object?> get props => [...super.props, textInput];
 }
 
 // Input Event (Waiting for user input)
 class InputEvent extends ChatEvent {
   final InputConfiguration inputConfig;
 
-  InputEvent({
+  const InputEvent({
     required super.nodeId,
     required this.inputConfig,
     super.messageId,
     super.nodeExecutionId,
     super.sender = EventSender.assistant,
   }) : super(type: EventType.input);
+
+  @override
+  List<Object?> get props => [...super.props, inputConfig];
 }
 
 // Output Message Event (Standard output)
@@ -71,7 +82,7 @@ class OutputMessageEvent extends ChatEvent {
   final String? sourceUrl;
   final Map<String, dynamic>? extra;
 
-  OutputMessageEvent({
+  const OutputMessageEvent({
     required super.nodeId,
     required this.content,
     this.outputKey,
@@ -83,6 +94,10 @@ class OutputMessageEvent extends ChatEvent {
     super.status,
     super.sender = EventSender.assistant,
   }) : super(type: EventType.outputMsg);
+
+  @override
+  List<Object?> get props =>
+      [...super.props, content, outputKey, attachments, sourceUrl, extra];
 }
 
 //  Stream Message Event (Streaming chunks)
@@ -92,7 +107,7 @@ class StreamMessageEvent extends ChatEvent {
   final String? reasoningContent;
   final EventStatus streamStatus;
 
-  StreamMessageEvent({
+  const StreamMessageEvent({
     required super.nodeId,
     required this.content,
     this.outputKey,
@@ -104,11 +119,15 @@ class StreamMessageEvent extends ChatEvent {
           type: EventType.streamMsg,
           status: streamStatus,
         );
+
+  @override
+  List<Object?> get props =>
+      [...super.props, content, outputKey, reasoningContent, streamStatus];
 }
 
 // Unknown Event (For unrecognized event types)
 class UnknownEvent extends ChatEvent {
-  UnknownEvent({
+  const UnknownEvent({
     required super.nodeId,
     super.status = EventStatus.end,
   }) : super(type: EventType.unknown, sender: EventSender.assistant);

@@ -11,6 +11,9 @@ class ChatCubit extends Cubit<ChatState> {
   StreamSubscription<ChatEvent>? _eventSubscription;
   final String service;
 
+  Timer? _throttleTimer;
+  List<ChatEvent>? _pendingEvents;
+
   ChatCubit({required ChatRepository repository, required this.service})
       : _repository = repository,
         super(const ChatState.initial());
@@ -60,16 +63,12 @@ class ChatCubit extends Cubit<ChatState> {
 
     // First event received --> Change from loading to loaded state
     if (state is! Loaded) {
-      final events = <ChatEvent>[event];
-      emit(ChatState.loaded(events: events));
+      emit(ChatState.loaded(events: [event]));
       return;
     }
 
     state.mapOrNull(loaded: (s) {
       final events = List<ChatEvent>.from(s.events);
-      log("Received event: ${event.type}, Node ID: ${event.nodeId}, Sender: ${(event is UserInputEvent) ? 'user' : 'assistant'}",
-          name: 'ChatCubit._handleEvent');
-
       switch (event) {
         case InputEvent _:
           emit(
@@ -79,9 +78,16 @@ class ChatCubit extends Cubit<ChatState> {
               isProcessing: false,
             ),
           );
-        case StreamMessageEvent _:
-          _processStreamChunk(events, event);
-          emit(s.copyWith(events: events));
+        case StreamMessageEvent streamEvent:
+          _processStreamChunk(events, streamEvent, (processedEvents) {
+            emit(
+              s.copyWith(
+                events: processedEvents,
+                isProcessing: streamEvent.streamStatus == EventStatus.stream,
+              ),
+            );
+          });
+
         case OutputMessageEvent _:
           emit(
             s.copyWith(
@@ -95,26 +101,46 @@ class ChatCubit extends Cubit<ChatState> {
     });
   }
 
-  void _processStreamChunk(List<ChatEvent> events, StreamMessageEvent chunk) {
-    final index = events.lastIndexWhere((e) =>
+  void _processStreamChunk(List<ChatEvent> stateEvents,
+      StreamMessageEvent chunk, void Function(List<ChatEvent>) onComplete) {
+    final index = stateEvents.lastIndexWhere((e) =>
         e is StreamMessageEvent &&
         e.nodeExecutionId == chunk.nodeExecutionId &&
         e.outputKey == chunk.outputKey);
 
-    if (index >= 0) {
-      // Update existing streaming event in-place
-      final existing = events[index] as StreamMessageEvent;
-      events[index] = StreamMessageEvent(
-        nodeId: existing.nodeId,
-        content: chunk.streamStatus == EventStatus.stream
-            ? existing.content + chunk.content
-            : chunk.content, // Final replace
-        streamStatus: chunk.streamStatus,
-        nodeExecutionId: chunk.nodeExecutionId,
-        outputKey: chunk.outputKey,
-      );
+    if (index < 0) {
+      stateEvents.add(chunk); // No matching output message, add as new message
+      onComplete(stateEvents);
+    }
+
+    final isOngoingStream = chunk.streamStatus == EventStatus.stream;
+    final events = _pendingEvents ?? stateEvents;
+    final existing = events[index] as StreamMessageEvent;
+    events[index] = StreamMessageEvent(
+      nodeId: existing.nodeId,
+      content: isOngoingStream
+          ? existing.content + chunk.content
+          : chunk.content, // Final replace
+      streamStatus: chunk.streamStatus,
+      nodeExecutionId: chunk.nodeExecutionId,
+      outputKey: chunk.outputKey,
+    );
+    if (isOngoingStream) {
+      // throttle updates for ongoing streams to avoid UI jank
+      _pendingEvents = events;
+      _throttleTimer ??= Timer(const Duration(milliseconds: 24), () {
+        if (_pendingEvents != null) {
+          onComplete(_pendingEvents!);
+          _pendingEvents = null;
+        }
+        _throttleTimer = null;
+      });
     } else {
-      events.add(chunk);
+      // end of stream: finalize immediately
+      _throttleTimer?.cancel();
+      _throttleTimer = null;
+      _pendingEvents = null;
+      onComplete(events);
     }
   }
 
