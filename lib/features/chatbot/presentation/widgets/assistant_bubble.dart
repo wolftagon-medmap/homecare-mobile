@@ -30,11 +30,16 @@ class AssistantBubble extends StatelessWidget {
               Flexible(
                 child: Container(
                   margin: const EdgeInsets.only(right: 48, bottom: 8),
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: const [
+                  padding: const EdgeInsets.only(
+                      top: 20, bottom: 12, left: 20, right: 20),
+                  decoration: const BoxDecoration(
+                    color: Const.grayLight,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(24),
+                      topRight: Radius.circular(24),
+                      bottomRight: Radius.circular(24),
+                    ),
+                    boxShadow: [
                       BoxShadow(color: Colors.black12, blurRadius: 4)
                     ],
                   ),
