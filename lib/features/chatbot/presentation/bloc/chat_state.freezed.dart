@@ -156,7 +156,7 @@ extension ChatStatePatterns on ChatState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String? message)? loading,
-    TResult Function(List<ChatEvent> events, InputConfiguration? inputConfig,
+    TResult Function(List<ChatEvent> events, InputEvent? activeInputEvent,
             bool isProcessing, bool isSessionClosed, String? error)?
         loaded,
     TResult Function(String message)? error,
@@ -169,7 +169,7 @@ extension ChatStatePatterns on ChatState {
       case _Loading() when loading != null:
         return loading(_that.message);
       case Loaded() when loaded != null:
-        return loaded(_that.events, _that.inputConfig, _that.isProcessing,
+        return loaded(_that.events, _that.activeInputEvent, _that.isProcessing,
             _that.isSessionClosed, _that.error);
       case _Error() when error != null:
         return error(_that.message);
@@ -197,7 +197,7 @@ extension ChatStatePatterns on ChatState {
     required TResult Function(String? message) loading,
     required TResult Function(
             List<ChatEvent> events,
-            InputConfiguration? inputConfig,
+            InputEvent? activeInputEvent,
             bool isProcessing,
             bool isSessionClosed,
             String? error)
@@ -211,7 +211,7 @@ extension ChatStatePatterns on ChatState {
       case _Loading():
         return loading(_that.message);
       case Loaded():
-        return loaded(_that.events, _that.inputConfig, _that.isProcessing,
+        return loaded(_that.events, _that.activeInputEvent, _that.isProcessing,
             _that.isSessionClosed, _that.error);
       case _Error():
         return error(_that.message);
@@ -236,7 +236,7 @@ extension ChatStatePatterns on ChatState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String? message)? loading,
-    TResult? Function(List<ChatEvent> events, InputConfiguration? inputConfig,
+    TResult? Function(List<ChatEvent> events, InputEvent? activeInputEvent,
             bool isProcessing, bool isSessionClosed, String? error)?
         loaded,
     TResult? Function(String message)? error,
@@ -248,7 +248,7 @@ extension ChatStatePatterns on ChatState {
       case _Loading() when loading != null:
         return loading(_that.message);
       case Loaded() when loaded != null:
-        return loaded(_that.events, _that.inputConfig, _that.isProcessing,
+        return loaded(_that.events, _that.activeInputEvent, _that.isProcessing,
             _that.isSessionClosed, _that.error);
       case _Error() when error != null:
         return error(_that.message);
@@ -345,7 +345,7 @@ class __$LoadingCopyWithImpl<$Res> implements _$LoadingCopyWith<$Res> {
 class Loaded implements ChatState {
   const Loaded(
       {required final List<ChatEvent> events,
-      this.inputConfig,
+      this.activeInputEvent,
       this.isProcessing = false,
       this.isSessionClosed = false,
       this.error})
@@ -358,7 +358,8 @@ class Loaded implements ChatState {
     return EqualUnmodifiableListView(_events);
   }
 
-  final InputConfiguration? inputConfig;
+  final InputEvent? activeInputEvent;
+// The input event that is currently active (waiting for user input)
   @JsonKey()
   final bool isProcessing;
   @JsonKey()
@@ -378,8 +379,8 @@ class Loaded implements ChatState {
         (other.runtimeType == runtimeType &&
             other is Loaded &&
             const DeepCollectionEquality().equals(other._events, _events) &&
-            (identical(other.inputConfig, inputConfig) ||
-                other.inputConfig == inputConfig) &&
+            (identical(other.activeInputEvent, activeInputEvent) ||
+                other.activeInputEvent == activeInputEvent) &&
             (identical(other.isProcessing, isProcessing) ||
                 other.isProcessing == isProcessing) &&
             (identical(other.isSessionClosed, isSessionClosed) ||
@@ -391,14 +392,14 @@ class Loaded implements ChatState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_events),
-      inputConfig,
+      activeInputEvent,
       isProcessing,
       isSessionClosed,
       error);
 
   @override
   String toString() {
-    return 'ChatState.loaded(events: $events, inputConfig: $inputConfig, isProcessing: $isProcessing, isSessionClosed: $isSessionClosed, error: $error)';
+    return 'ChatState.loaded(events: $events, activeInputEvent: $activeInputEvent, isProcessing: $isProcessing, isSessionClosed: $isSessionClosed, error: $error)';
   }
 }
 
@@ -409,7 +410,7 @@ abstract mixin class $LoadedCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<ChatEvent> events,
-      InputConfiguration? inputConfig,
+      InputEvent? activeInputEvent,
       bool isProcessing,
       bool isSessionClosed,
       String? error});
@@ -427,7 +428,7 @@ class _$LoadedCopyWithImpl<$Res> implements $LoadedCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? events = null,
-    Object? inputConfig = freezed,
+    Object? activeInputEvent = freezed,
     Object? isProcessing = null,
     Object? isSessionClosed = null,
     Object? error = freezed,
@@ -437,10 +438,10 @@ class _$LoadedCopyWithImpl<$Res> implements $LoadedCopyWith<$Res> {
           ? _self._events
           : events // ignore: cast_nullable_to_non_nullable
               as List<ChatEvent>,
-      inputConfig: freezed == inputConfig
-          ? _self.inputConfig
-          : inputConfig // ignore: cast_nullable_to_non_nullable
-              as InputConfiguration?,
+      activeInputEvent: freezed == activeInputEvent
+          ? _self.activeInputEvent
+          : activeInputEvent // ignore: cast_nullable_to_non_nullable
+              as InputEvent?,
       isProcessing: null == isProcessing
           ? _self.isProcessing
           : isProcessing // ignore: cast_nullable_to_non_nullable

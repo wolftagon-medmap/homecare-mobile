@@ -12,7 +12,8 @@ class ChatState with _$ChatState {
 
   const factory ChatState.loaded({
     required List<ChatEvent> events,
-    InputConfiguration? inputConfig,
+    InputEvent?
+        activeInputEvent, // The input event that is currently active (waiting for user input)
     @Default(false) bool isProcessing,
     @Default(false) bool isSessionClosed,
     String? error,

@@ -22,12 +22,9 @@ class ChatCubit extends Cubit<ChatState> {
     try {
       final session = await _repository.getActiveSession(service: service);
       if (session != null && !session.isExpired) {
-        // The last input event in history determines the current UI state
-        log("Input config: type=${session.pendingInput?.inputType}, fields=${session.pendingInput?.fields.length}, nodeId=${session.pendingInput?.nodeId}",
-            name: 'ChatCubit.initialize');
         emit(ChatState.loaded(
           events: session.events,
-          inputConfig: session.pendingInput,
+          activeInputEvent: session.activeInputEvent,
         ));
       } else {
         log(
@@ -48,7 +45,8 @@ class ChatCubit extends Cubit<ChatState> {
     _eventSubscription = _repository.invokeSession(service: service).listen(
       _handleEvent,
       onError: (e) {
-        log("Error in session stream: $e", name: 'ChatCubit._startSession');
+        log("Error in session stream",
+            name: 'ChatCubit._startSession', error: e);
       },
       onDone: () {
         log("Session stream closed", name: 'ChatCubit._startSession');
@@ -57,7 +55,7 @@ class ChatCubit extends Cubit<ChatState> {
   }
 
   void _handleEvent(ChatEvent event) {
-    log("Handling new event. Type: ${event.type}, Node ID: ${event.nodeId}, Sender: ${(event is UserInputEvent) ? 'user' : 'assistant'}",
+    log("Handling new event. Sender: ${event.sender},Type: ${event.type}, Node ID: ${event.nodeId}",
         name: 'ChatCubit._handleEvent');
 
     // First event received --> Change from loading to loaded state
@@ -72,27 +70,28 @@ class ChatCubit extends Cubit<ChatState> {
       log("Received event: ${event.type}, Node ID: ${event.nodeId}, Sender: ${(event is UserInputEvent) ? 'user' : 'assistant'}",
           name: 'ChatCubit._handleEvent');
 
-      if (event is InputEvent) {
-        // Update input bar config while keeping the event in history
-        log("Input Config: Type=${event.inputConfig.inputType}, Fields=${event.inputConfig.fields.length}, Node ID=${event.inputConfig.nodeId}",
-            name: 'ChatCubit._handleEvent');
-        emit(
-          s.copyWith(
-            events: [...events, event],
-            inputConfig: event.inputConfig,
-            isProcessing: false,
-          ),
-        );
-        return;
+      switch (event) {
+        case InputEvent _:
+          emit(
+            s.copyWith(
+              events: [...events, event],
+              activeInputEvent: event,
+              isProcessing: false,
+            ),
+          );
+        case StreamMessageEvent _:
+          _processStreamChunk(events, event);
+          emit(s.copyWith(events: events));
+        case OutputMessageEvent _:
+          emit(
+            s.copyWith(
+              events: [...events, event],
+              isProcessing: false,
+            ),
+          );
+        default:
+          break;
       }
-
-      if (event is StreamMessageEvent) {
-        _processStreamChunk(events, event);
-      } else {
-        events.add(event);
-      }
-
-      emit(s.copyWith(events: events));
     });
   }
 
@@ -129,8 +128,8 @@ class ChatCubit extends Cubit<ChatState> {
       return;
     }
 
-    if (state.mapOrNull(loaded: (s) => s.inputConfig == null) ?? true) {
-      log("No pending input configuration. Ignoring user input.",
+    if (state.mapOrNull(loaded: (s) => s.activeInputEvent == null) ?? true) {
+      log("No active input event. Ignoring user input.",
           name: 'ChatCubit.sendText');
       return;
     }
@@ -146,27 +145,14 @@ class ChatCubit extends Cubit<ChatState> {
       ),
     );
 
-    state.mapOrNull(
-      loaded: (value) => {
-        log("Input Config: Type=${value.inputConfig?.inputType}, Fields=${value.inputConfig?.fields.length}, Node ID=${value.inputConfig?.nodeId}",
-            name: 'ChatCubit.sendText')
-      },
-    );
-
-    final nodeId = state.maybeMap(
-      loaded: (s) => s.inputConfig?.nodeId ?? 'unknown_node',
-      orElse: () => 'unknown_node',
-    );
-
-    log("User input added to state. Node ID: $nodeId. Starting to send input to repository.",
-        name: 'ChatCubit.sendText');
-
     // 2. Start Request Stream
+    final activeInputEvent =
+        state.mapOrNull(loaded: (s) => s.activeInputEvent)!;
     _eventSubscription?.cancel();
     _eventSubscription = _repository.sendInput(
       service: service,
-      nodeId: nodeId,
-      messageId: null,
+      nodeId: activeInputEvent.nodeId,
+      messageId: activeInputEvent.messageId,
       input: {'user_input': text},
     ).listen(_handleEvent);
   }

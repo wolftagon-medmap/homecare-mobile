@@ -124,8 +124,7 @@ class ChatEventModel {
         log("Input Node ID: $nodeId", name: 'ChatEventModel.toEntity');
         return InputEvent(
           nodeId: nodeId,
-          inputConfig: inputSchema!.toInputConfigurationEntity().copyWith(
-              nodeId: nodeId), // Ensure nodeId is set in the input config
+          inputConfig: inputSchema!.toInputConfigurationEntity(), // Ensure nodeId is set in the input config
           messageId: messageId,
           nodeExecutionId: nodeExecutionId,
           sender: convertSender(sender),

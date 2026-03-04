@@ -92,7 +92,7 @@ class _ChatDoctorAIPageState extends State<ChatDoctorAIPage> {
               const _HIPAAPrivacyLabel(),
               Expanded(
                 child: state.maybeMap(
-                  loading: (s) =>  Center(
+                  loading: (s) => Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -123,7 +123,9 @@ class _ChatDoctorAIPageState extends State<ChatDoctorAIPage> {
               // Handles the bottom bar logic: text, forms, or selection
               ChatInputFactory(
                 config: state.maybeMap(
-                    loaded: (s) => s.inputConfig, orElse: () => null),
+                  loaded: (s) => s.activeInputEvent?.inputConfig,
+                  orElse: () => null,
+                ),
                 isProcessing: state.maybeMap(
                     loaded: (s) => s.isProcessing, orElse: () => false),
                 onSendText: context.read<ChatCubit>().sendText,

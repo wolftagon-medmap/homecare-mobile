@@ -19,7 +19,6 @@ class InputSchemaModel {
           .toList(),
     );
   }
-  
 
   InputConfiguration toInputConfigurationEntity() {
     InputType parseInputType(String? type) {
@@ -40,7 +39,6 @@ class InputSchemaModel {
     return InputConfiguration(
       inputType: parseInputType(inputType),
       fields: value,
-      nodeId: nodeId,
     );
   }
 }
