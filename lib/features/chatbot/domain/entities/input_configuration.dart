@@ -1,23 +1,19 @@
 class InputConfiguration {
   final InputType inputType;
   final List<InputField> fields;
-  final String? nodeId; // Reference to input node
 
   InputConfiguration({
     required this.inputType,
     required this.fields,
-    this.nodeId,
   });
 
   InputConfiguration copyWith({
     InputType? inputType,
     List<InputField>? fields,
-    String? nodeId,
   }) {
     return InputConfiguration(
       inputType: inputType ?? this.inputType,
       fields: fields ?? this.fields,
-      nodeId: nodeId ?? this.nodeId,
     );
   }
 

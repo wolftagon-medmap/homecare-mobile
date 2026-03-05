@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:m2health/features/chatbot/data/datasources/chatbot_remote_datasource.dart';
 import 'package:m2health/features/chatbot/domain/entities/chat_event.dart';
 import 'package:m2health/features/chatbot/domain/entities/chat_session.dart';
-import 'package:m2health/features/chatbot/domain/entities/input_configuration.dart';
 import 'package:m2health/features/chatbot/domain/repositories/chat_repository.dart';
 
 class ChatRepositoryImpl implements ChatRepository {
@@ -57,19 +56,20 @@ class ChatRepositoryImpl implements ChatRepository {
     required String service,
   }) async {
     try {
-      final session = await _remoteDataSource.getSessionHistory(service: service);
+      final session =
+          await _remoteDataSource.getSessionHistory(service: service);
       final events = session.events.map((e) => e.toEntity()).toList();
 
       // Find last input event for pending input
-      InputConfiguration? pendingInput;
+      InputEvent? activeInputEvent;
       for (final event in events.reversed) {
         if (event is InputEvent) {
-          pendingInput = event.inputConfig;
+          activeInputEvent = event;
           break;
         }
       }
 
-      log('Active session found with ${events.length} events. Pending input type: ${pendingInput != null ? pendingInput.inputType : 'none'}',
+      log('Active session found with ${events.length} events. Pending input type: ${activeInputEvent != null ? activeInputEvent.inputConfig.inputType : 'none'}',
           name: 'ChatRepositoryImpl');
 
       return ChatSession(
@@ -77,7 +77,7 @@ class ChatRepositoryImpl implements ChatRepository {
         createdAt: session.createdAt,
         expiresAt: session.expiresAt,
         events: events,
-        pendingInput: pendingInput,
+        activeInputEvent: activeInputEvent,
       );
     } catch (e) {
       log('No active session found or failed to fetch session history: $e',
