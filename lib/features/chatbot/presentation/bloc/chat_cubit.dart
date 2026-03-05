@@ -8,19 +8,21 @@ import 'package:m2health/features/chatbot/presentation/bloc/chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   final ChatRepository _repository;
-  StreamSubscription<ChatEvent>? _eventSubscription;
   final String service;
-
-  Timer? _throttleTimer;
-  List<ChatEvent>? _pendingEvents;
 
   ChatCubit({required ChatRepository repository, required this.service})
       : _repository = repository,
         super(const ChatState.initial());
 
+  StreamSubscription<ChatEvent>? _eventSubscription;
+  Timer? _throttleTimer;
+  List<ChatEvent>? _pendingEvents;
+  Future<void> Function()? _lastAction; // For retrying failed actions
+
   Future<void> initialize() async {
     log("Initializing ChatCubit. Checking for active session...",
         name: 'ChatCubit.initialize');
+    _lastAction = initialize;
     emit(const ChatState.loading(message: "Loading chat..."));
     try {
       final session = await _repository.getActiveSession(service: service);
@@ -38,23 +40,21 @@ class ChatCubit extends Cubit<ChatState> {
       }
     } catch (e) {
       log("Error during initialization: $e", name: 'ChatCubit.initialize');
-      emit(ChatState.error(e.toString()));
+      emit(const ChatState.error(
+        message: "Failed to load chat session. Please try again.",
+        isRetryable: true,
+      ));
     }
   }
 
   void _startSession() {
+    _lastAction = () async => _startSession();
     emit(const ChatState.loading(message: "Starting new session..."));
     _eventSubscription?.cancel();
     _eventSubscription = _repository.invokeSession(service: service).listen(
-      _handleEvent,
-      onError: (e) {
-        log("Error in session stream",
-            name: 'ChatCubit._startSession', error: e);
-      },
-      onDone: () {
-        log("Session stream closed", name: 'ChatCubit._startSession');
-      },
-    );
+          _handleEvent,
+          onError: _handleStreamError,
+        );
   }
 
   void _handleEvent(ChatEvent event) {
@@ -101,8 +101,11 @@ class ChatCubit extends Cubit<ChatState> {
     });
   }
 
-  void _processStreamChunk(List<ChatEvent> stateEvents,
-      StreamMessageEvent chunk, void Function(List<ChatEvent>) onComplete) {
+  void _processStreamChunk(
+    List<ChatEvent> stateEvents,
+    StreamMessageEvent chunk,
+    void Function(List<ChatEvent>) onComplete,
+  ) {
     final index = stateEvents.lastIndexWhere((e) =>
         e is StreamMessageEvent &&
         e.nodeExecutionId == chunk.nodeExecutionId &&
@@ -111,6 +114,7 @@ class ChatCubit extends Cubit<ChatState> {
     if (index < 0) {
       stateEvents.add(chunk); // No matching output message, add as new message
       onComplete(stateEvents);
+      return;
     }
 
     final isOngoingStream = chunk.streamStatus == EventStatus.stream;
@@ -128,7 +132,7 @@ class ChatCubit extends Cubit<ChatState> {
     if (isOngoingStream) {
       // throttle updates for ongoing streams to avoid UI jank
       _pendingEvents = events;
-      _throttleTimer ??= Timer(const Duration(milliseconds: 24), () {
+      _throttleTimer ??= Timer(const Duration(milliseconds: 48), () {
         if (_pendingEvents != null) {
           onComplete(_pendingEvents!);
           _pendingEvents = null;
@@ -160,27 +164,55 @@ class ChatCubit extends Cubit<ChatState> {
       return;
     }
 
-    // 1. Local Optimistic Update
-    final userEvent = UserInputEvent(textInput: text);
-    state.mapOrNull(
-      loaded: (s) => emit(
-        s.copyWith(
-          events: [...s.events, userEvent],
-          isProcessing: true,
-        ),
-      ),
-    );
+    _lastAction = () => sendText(text);
 
-    // 2. Start Request Stream
+    // Clear previous message-level errors when starting a new attempt
+    state.mapOrNull(
+        loaded: (s) => emit(s.copyWith(error: null, isRetryable: false)));
+
+    // 1. Local Optimistic Update
     final activeInputEvent =
         state.mapOrNull(loaded: (s) => s.activeInputEvent)!;
+    final userEvent = UserInputEvent(
+      textInput: text,
+      repliedMessageId: activeInputEvent.messageId,
+    );
+    state.mapOrNull(loaded: (s) {
+      emit(
+        s.copyWith(
+          events: s.events.contains(userEvent)
+              ? s.events
+              : [...s.events, userEvent],
+          isProcessing: true,
+        ),
+      );
+    });
+
+    // 2. Start Request Stream
     _eventSubscription?.cancel();
     _eventSubscription = _repository.sendInput(
       service: service,
       nodeId: activeInputEvent.nodeId,
       messageId: activeInputEvent.messageId,
       input: {'user_input': text},
-    ).listen(_handleEvent);
+    ).listen(
+      _handleEvent,
+      onError: _handleStreamError,
+    );
+  }
+
+  void _handleStreamError(dynamic e) {
+    state.maybeMap(
+      loaded: (s) => emit(s.copyWith(
+        isProcessing: false,
+        error: "Failed to send message.\nPlease try again.",
+        isRetryable: true,
+      )),
+      orElse: () => emit(const ChatState.error(
+        message: "Could not connect to AI service.\nPlease try again.",
+        isRetryable: true,
+      )),
+    );
   }
 
   Future<void> resetChat() async {
@@ -190,11 +222,19 @@ class ChatCubit extends Cubit<ChatState> {
     try {
       _eventSubscription?.cancel();
       await _repository.closeSession(service: service);
-
       _startSession();
     } catch (e) {
       log("Error resetting chat: $e", name: 'ChatCubit.resetChat');
-      emit(ChatState.error(e.toString()));
+      emit(const ChatState.error(
+        message: "Failed to reset chat. Please try again.",
+        isRetryable: true,
+      ));
+    }
+  }
+
+  void retry() {
+    if (_lastAction != null) {
+      _lastAction!();
     }
   }
 }

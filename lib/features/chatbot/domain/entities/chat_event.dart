@@ -45,17 +45,19 @@ enum EventStatus { stream, end }
 // User Input Event
 class UserInputEvent extends ChatEvent {
   final String textInput;
+  final String? repliedMessageId;
 
   const UserInputEvent({
     super.nodeId = "", // No need nodeId for user input events, set to empty
     required this.textInput,
     super.sender = EventSender.user,
+    this.repliedMessageId,
   }) : super(
           type: EventType.userInput,
         );
 
   @override
-  List<Object?> get props => [...super.props, textInput];
+  List<Object?> get props => [...super.props, textInput, repliedMessageId];
 }
 
 // Input Event (Waiting for user input)

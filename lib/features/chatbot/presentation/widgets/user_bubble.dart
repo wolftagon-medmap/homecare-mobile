@@ -21,8 +21,10 @@ class UserBubble extends StatelessWidget {
             bottomRight: Radius.circular(24),
           ),
         ),
-        child: Text(
+        child: SelectableText(
           event.textInput,
+          selectionColor: Colors.white30,
+          cursorColor: Colors.white,
           style: const TextStyle(color: Colors.white),
         ),
       ),

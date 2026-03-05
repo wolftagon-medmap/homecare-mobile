@@ -117,7 +117,21 @@ class _ChatPharmaPageState extends State<ChatPharmaPage> {
                       ],
                     ),
                   ),
-                  error: (e) => Center(child: Text(e.message)),
+                  error: (e) => Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(e.message, textAlign: TextAlign.center,),
+                        TextButton(
+                          onPressed: context.read<ChatCubit>().retry,
+                          child: const Text(
+                            "Retry",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   loaded: (s) => Scrollbar(
                     child: ListView.builder(
                       controller: _scrollController,
@@ -135,6 +149,48 @@ class _ChatPharmaPageState extends State<ChatPharmaPage> {
                   orElse: () => const SizedBox.shrink(),
                 ),
               ),
+
+              // Error Banner
+              state.maybeMap(
+                loaded: (s) {
+                  if (s.error != null && (s.isRetryable ?? false)) {
+                    return Container(
+                      color: Colors.red.shade50,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.error_outline,
+                            color: Colors.red,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(s.error!,
+                                style: const TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 13,
+                                )),
+                          ),
+                          TextButton(
+                            onPressed: context.read<ChatCubit>().retry,
+                            child: const Text(
+                              "Retry",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+                orElse: () => const SizedBox.shrink(),
+              ),
+
               const _PharmacHelpRequestButton(),
               // Handles the bottom bar logic: text, forms, or selection
               ChatInputFactory(

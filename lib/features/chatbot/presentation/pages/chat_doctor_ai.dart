@@ -115,7 +115,24 @@ class _ChatDoctorAIPageState extends State<ChatDoctorAIPage> {
                       ],
                     ),
                   ),
-                  error: (e) => Center(child: Text(e.message)),
+                  error: (e) => Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          e.message,
+                          textAlign: TextAlign.center,
+                        ),
+                        TextButton(
+                          onPressed: context.read<ChatCubit>().retry,
+                          child: const Text(
+                            "Retry",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   loaded: (s) => Scrollbar(
                     child: ListView.builder(
                       controller: _scrollController,
@@ -133,7 +150,39 @@ class _ChatDoctorAIPageState extends State<ChatDoctorAIPage> {
                   orElse: () => const SizedBox.shrink(),
                 ),
               ),
-              // const _PharmacHelpRequestButton(),
+
+              // Error Banner
+              state.maybeMap(
+                loaded: (s) {
+                  if (s.error != null && (s.isRetryable ?? false)) {
+                    return Container(
+                      color: Colors.red.shade50,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.error_outline,
+                              color: Colors.red, size: 20),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(s.error!,
+                                style: const TextStyle(
+                                    color: Colors.red, fontSize: 13)),
+                          ),
+                          TextButton(
+                            onPressed: context.read<ChatCubit>().retry,
+                            child: const Text("RETRY",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+                orElse: () => const SizedBox.shrink(),
+              ),
+
               // Handles the bottom bar logic: text, forms, or selection
               ChatInputFactory(
                 config: state.maybeMap(
@@ -231,51 +280,3 @@ class _HIPAAPrivacyLabel extends StatelessWidget {
     );
   }
 }
-
-// class _PharmacHelpRequestButton extends StatelessWidget {
-//   const _PharmacHelpRequestButton();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.symmetric(vertical: 12),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           const Icon(Icons.info_outline_rounded, color: Colors.grey),
-//           const SizedBox(width: 5),
-//           Text(
-//             context.l10n.chat_pharma_need_help,
-//             style: const TextStyle(
-//               color: Colors.grey,
-//               fontSize: 12,
-//             ),
-//           ),
-//           GestureDetector(
-//             onTap: () {
-//               Navigator.push(
-//                 context,
-//                 MaterialPageRoute(
-//                   builder: (context) => BlocProvider(
-//                     create: (context) => PharmacyAppointmentFlowBloc(
-//                       createPharmacyAppointment: sl(),
-//                     ),
-//                     child: const PharmacyAppointmentFlowPage(),
-//                   ),
-//                 ),
-//               );
-//             },
-//             child: Text(
-//               context.l10n.chat_pharma_request_help,
-//               style: const TextStyle(
-//                 color: Color(0xFF35C5CF),
-//                 fontSize: 12,
-//                 fontWeight: FontWeight.w500,
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
