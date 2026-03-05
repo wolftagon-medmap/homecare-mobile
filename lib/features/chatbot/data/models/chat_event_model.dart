@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:m2health/features/chatbot/domain/entities/chat_event.dart';
-import 'package:m2health/features/chatbot/domain/entities/chat_message.dart';
+import 'package:m2health/features/chatbot/domain/entities/attachment.dart';
 import 'package:m2health/features/chatbot/domain/entities/input_configuration.dart';
 
 part 'output_schema_model.dart';
@@ -77,9 +77,6 @@ class ChatEventModel {
       }
     }
 
-    log("Converting event model to entity. Event type: $event, Node ID: $nodeId, Sender: $sender",
-        name: 'ChatEventModel.toEntity');
-
     switch (event) {
       case 'user_input':
         // Extract text from input structure like {"node_xxx": {"user_input": "text to be displayed"}}
@@ -121,10 +118,10 @@ class ChatEventModel {
           throw const FormatException(
               'Input schema is missing for input event');
         }
-        log("Input Node ID: $nodeId", name: 'ChatEventModel.toEntity');
         return InputEvent(
           nodeId: nodeId,
-          inputConfig: inputSchema!.toInputConfigurationEntity(), // Ensure nodeId is set in the input config
+          inputConfig: inputSchema!
+              .toInputConfigurationEntity(), // Ensure nodeId is set in the input config
           messageId: messageId,
           nodeExecutionId: nodeExecutionId,
           sender: convertSender(sender),

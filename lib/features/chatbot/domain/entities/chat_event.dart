@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:m2health/features/chatbot/domain/entities/chat_message.dart';
+import 'package:m2health/features/chatbot/domain/entities/attachment.dart';
 import 'package:m2health/features/chatbot/domain/entities/input_configuration.dart';
 
 abstract class ChatEvent extends Equatable {
