@@ -99,7 +99,8 @@ class _AppointmentPageState extends State<AppointmentPage>
           labelColor: Const.aqua,
           tabAlignment: TabAlignment.fill,
           isScrollable: false,
-          labelStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+          labelStyle:
+              const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           labelPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
           indicatorSize: TabBarIndicatorSize.tab,
           tabs: _tabs.map((status) {

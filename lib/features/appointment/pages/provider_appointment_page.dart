@@ -68,7 +68,8 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
           labelColor: Const.aqua,
           isScrollable: false,
           tabAlignment: TabAlignment.fill,
-          labelStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+          labelStyle:
+              const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           labelPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
           indicatorSize: TabBarIndicatorSize.tab,
           tabs: [
