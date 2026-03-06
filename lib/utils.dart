@@ -174,6 +174,17 @@ class Utils {
   }
   // end SP Utils
 
+  /// Checks whether the user has accepted the AI assistant data consent.
+  static Future<bool> hasAcceptedAiConsent() async {
+    final result = await getSpBool(Const.AI_CONSENT_ACCEPTED);
+    return result ?? false;
+  }
+
+  /// Stores the user's AI assistant data consent acceptance.
+  static Future<void> setAiConsentAccepted(bool accepted) async {
+    await setSpBool(Const.AI_CONSENT_ACCEPTED, accepted);
+  }
+
   // static void myLog(String message) {
   //   final pattern = RegExp('.{1,800}');
   //   pattern.allMatches(message).forEach((match) => print(match.group(0)));
