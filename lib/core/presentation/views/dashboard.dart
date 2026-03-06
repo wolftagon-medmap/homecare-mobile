@@ -411,16 +411,16 @@ class _DashboardState extends State<Dashboard> {
                             },
                           ),
                         ),
-                        Expanded(
-                          child: AlliedHealthMenuItem(
-                            imagePath: 'assets/icons/ilu_remote_monitoring.png',
-                            label: context
-                                .t.dashboard.services.remote_patient_monitoring,
-                            onTap: () {
-                              context.push(AppRoutes.remotePatientMonitoring);
-                            },
-                          ),
-                        ),
+                        // Expanded(
+                        //   child: AlliedHealthMenuItem(
+                        //     imagePath: 'assets/icons/ilu_remote_monitoring.png',
+                        //     label: context
+                        //         .t.dashboard.services.remote_patient_monitoring,
+                        //     onTap: () {
+                        //       context.push(AppRoutes.remotePatientMonitoring);
+                        //     },
+                        //   ),
+                        // ),
                         Expanded(
                           child: AlliedHealthMenuItem(
                             imagePath: 'assets/icons/ilu_2nd_opinion.webp',
@@ -589,8 +589,8 @@ class AlliedHealthMenuItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 child: Image.asset(
                   imagePath,
-                  height: 72,
-                  width: 111,
+                  // height: 72,
+                  // width: 111,
                   fit: BoxFit.cover,
                 ),
               ),
