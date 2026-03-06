@@ -1,13 +1,16 @@
-// chatbot/presentation/pages/chat_pharma_page.dart
+// chatbot/presentation/pages/chat_doctor_ai_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/chatbot/domain/entities/chat_event.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/chat_cubit.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/chat_state.dart';
+import 'package:m2health/features/chatbot/presentation/widgets/ai_data_consent.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/chat_input_factory.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/event_bubble_factory.dart';
+import 'package:m2health/utils.dart';
 
 class ChatDoctorAIPage extends StatefulWidget {
   const ChatDoctorAIPage({super.key});
@@ -23,8 +26,27 @@ class _ChatDoctorAIPageState extends State<ChatDoctorAIPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      context.read<ChatCubit>().initialize();
+      await _checkConsentAndInitialize();
     });
+  }
+
+  Future<void> _checkConsentAndInitialize() async {
+    final alreadyAccepted = await Utils.hasAcceptedAiConsent();
+    if (!mounted) return;
+
+    if (alreadyAccepted) {
+      context.read<ChatCubit>().initialize();
+      return;
+    }
+
+    final accepted = await AiDataConsentModal.show(context);
+    if (!mounted) return;
+
+    if (accepted) {
+      context.read<ChatCubit>().initialize();
+    } else {
+      GoRouter.of(context).pop();
+    }
   }
 
   void _scrollToBottom({bool isStreaming = false}) {
