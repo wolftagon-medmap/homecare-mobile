@@ -12,13 +12,21 @@ class ChatState with _$ChatState {
 
   const factory ChatState.loaded({
     required List<ChatEvent> events,
-    InputConfiguration? inputConfig,
+    InputEvent?
+        activeInputEvent, // The input event that is currently active (waiting for user input)
     @Default(false) bool isProcessing,
     @Default(false) bool isSessionClosed,
+
+    // Message level error (e.g. failed to send input). Preserve chat history while allowing retry.
     String? error,
+    bool? isRetryable,
   }) = Loaded;
 
-  const factory ChatState.error(String message) = _Error;
+  // Session level error (e.g. failed to load session, critical errors)
+  const factory ChatState.error({
+    required String message,
+    @Default(true) bool isRetryable,
+  }) = _Error;
 }
 
 extension ChatStateX on ChatState {

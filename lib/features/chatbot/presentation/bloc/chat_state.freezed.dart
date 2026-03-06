@@ -156,10 +156,15 @@ extension ChatStatePatterns on ChatState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function(String? message)? loading,
-    TResult Function(List<ChatEvent> events, InputConfiguration? inputConfig,
-            bool isProcessing, bool isSessionClosed, String? error)?
+    TResult Function(
+            List<ChatEvent> events,
+            InputEvent? activeInputEvent,
+            bool isProcessing,
+            bool isSessionClosed,
+            String? error,
+            bool? isRetryable)?
         loaded,
-    TResult Function(String message)? error,
+    TResult Function(String message, bool isRetryable)? error,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -169,10 +174,10 @@ extension ChatStatePatterns on ChatState {
       case _Loading() when loading != null:
         return loading(_that.message);
       case Loaded() when loaded != null:
-        return loaded(_that.events, _that.inputConfig, _that.isProcessing,
-            _that.isSessionClosed, _that.error);
+        return loaded(_that.events, _that.activeInputEvent, _that.isProcessing,
+            _that.isSessionClosed, _that.error, _that.isRetryable);
       case _Error() when error != null:
-        return error(_that.message);
+        return error(_that.message, _that.isRetryable);
       case _:
         return orElse();
     }
@@ -197,12 +202,13 @@ extension ChatStatePatterns on ChatState {
     required TResult Function(String? message) loading,
     required TResult Function(
             List<ChatEvent> events,
-            InputConfiguration? inputConfig,
+            InputEvent? activeInputEvent,
             bool isProcessing,
             bool isSessionClosed,
-            String? error)
+            String? error,
+            bool? isRetryable)
         loaded,
-    required TResult Function(String message) error,
+    required TResult Function(String message, bool isRetryable) error,
   }) {
     final _that = this;
     switch (_that) {
@@ -211,10 +217,10 @@ extension ChatStatePatterns on ChatState {
       case _Loading():
         return loading(_that.message);
       case Loaded():
-        return loaded(_that.events, _that.inputConfig, _that.isProcessing,
-            _that.isSessionClosed, _that.error);
+        return loaded(_that.events, _that.activeInputEvent, _that.isProcessing,
+            _that.isSessionClosed, _that.error, _that.isRetryable);
       case _Error():
-        return error(_that.message);
+        return error(_that.message, _that.isRetryable);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -236,10 +242,15 @@ extension ChatStatePatterns on ChatState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function(String? message)? loading,
-    TResult? Function(List<ChatEvent> events, InputConfiguration? inputConfig,
-            bool isProcessing, bool isSessionClosed, String? error)?
+    TResult? Function(
+            List<ChatEvent> events,
+            InputEvent? activeInputEvent,
+            bool isProcessing,
+            bool isSessionClosed,
+            String? error,
+            bool? isRetryable)?
         loaded,
-    TResult? Function(String message)? error,
+    TResult? Function(String message, bool isRetryable)? error,
   }) {
     final _that = this;
     switch (_that) {
@@ -248,10 +259,10 @@ extension ChatStatePatterns on ChatState {
       case _Loading() when loading != null:
         return loading(_that.message);
       case Loaded() when loaded != null:
-        return loaded(_that.events, _that.inputConfig, _that.isProcessing,
-            _that.isSessionClosed, _that.error);
+        return loaded(_that.events, _that.activeInputEvent, _that.isProcessing,
+            _that.isSessionClosed, _that.error, _that.isRetryable);
       case _Error() when error != null:
-        return error(_that.message);
+        return error(_that.message, _that.isRetryable);
       case _:
         return null;
     }
@@ -345,10 +356,11 @@ class __$LoadingCopyWithImpl<$Res> implements _$LoadingCopyWith<$Res> {
 class Loaded implements ChatState {
   const Loaded(
       {required final List<ChatEvent> events,
-      this.inputConfig,
+      this.activeInputEvent,
       this.isProcessing = false,
       this.isSessionClosed = false,
-      this.error})
+      this.error,
+      this.isRetryable})
       : _events = events;
 
   final List<ChatEvent> _events;
@@ -358,12 +370,15 @@ class Loaded implements ChatState {
     return EqualUnmodifiableListView(_events);
   }
 
-  final InputConfiguration? inputConfig;
+  final InputEvent? activeInputEvent;
+// The input event that is currently active (waiting for user input)
   @JsonKey()
   final bool isProcessing;
   @JsonKey()
   final bool isSessionClosed;
+// Message level error (e.g. failed to send input), not critical errors which would be represented by the error state
   final String? error;
+  final bool? isRetryable;
 
   /// Create a copy of ChatState
   /// with the given fields replaced by the non-null parameter values.
@@ -378,27 +393,30 @@ class Loaded implements ChatState {
         (other.runtimeType == runtimeType &&
             other is Loaded &&
             const DeepCollectionEquality().equals(other._events, _events) &&
-            (identical(other.inputConfig, inputConfig) ||
-                other.inputConfig == inputConfig) &&
+            (identical(other.activeInputEvent, activeInputEvent) ||
+                other.activeInputEvent == activeInputEvent) &&
             (identical(other.isProcessing, isProcessing) ||
                 other.isProcessing == isProcessing) &&
             (identical(other.isSessionClosed, isSessionClosed) ||
                 other.isSessionClosed == isSessionClosed) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.isRetryable, isRetryable) ||
+                other.isRetryable == isRetryable));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_events),
-      inputConfig,
+      activeInputEvent,
       isProcessing,
       isSessionClosed,
-      error);
+      error,
+      isRetryable);
 
   @override
   String toString() {
-    return 'ChatState.loaded(events: $events, inputConfig: $inputConfig, isProcessing: $isProcessing, isSessionClosed: $isSessionClosed, error: $error)';
+    return 'ChatState.loaded(events: $events, activeInputEvent: $activeInputEvent, isProcessing: $isProcessing, isSessionClosed: $isSessionClosed, error: $error, isRetryable: $isRetryable)';
   }
 }
 
@@ -409,10 +427,11 @@ abstract mixin class $LoadedCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<ChatEvent> events,
-      InputConfiguration? inputConfig,
+      InputEvent? activeInputEvent,
       bool isProcessing,
       bool isSessionClosed,
-      String? error});
+      String? error,
+      bool? isRetryable});
 }
 
 /// @nodoc
@@ -427,20 +446,21 @@ class _$LoadedCopyWithImpl<$Res> implements $LoadedCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? events = null,
-    Object? inputConfig = freezed,
+    Object? activeInputEvent = freezed,
     Object? isProcessing = null,
     Object? isSessionClosed = null,
     Object? error = freezed,
+    Object? isRetryable = freezed,
   }) {
     return _then(Loaded(
       events: null == events
           ? _self._events
           : events // ignore: cast_nullable_to_non_nullable
               as List<ChatEvent>,
-      inputConfig: freezed == inputConfig
-          ? _self.inputConfig
-          : inputConfig // ignore: cast_nullable_to_non_nullable
-              as InputConfiguration?,
+      activeInputEvent: freezed == activeInputEvent
+          ? _self.activeInputEvent
+          : activeInputEvent // ignore: cast_nullable_to_non_nullable
+              as InputEvent?,
       isProcessing: null == isProcessing
           ? _self.isProcessing
           : isProcessing // ignore: cast_nullable_to_non_nullable
@@ -453,6 +473,10 @@ class _$LoadedCopyWithImpl<$Res> implements $LoadedCopyWith<$Res> {
           ? _self.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      isRetryable: freezed == isRetryable
+          ? _self.isRetryable
+          : isRetryable // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -460,9 +484,11 @@ class _$LoadedCopyWithImpl<$Res> implements $LoadedCopyWith<$Res> {
 /// @nodoc
 
 class _Error implements ChatState {
-  const _Error(this.message);
+  const _Error({required this.message, this.isRetryable = true});
 
   final String message;
+  @JsonKey()
+  final bool isRetryable;
 
   /// Create a copy of ChatState
   /// with the given fields replaced by the non-null parameter values.
@@ -476,15 +502,17 @@ class _Error implements ChatState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Error &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.isRetryable, isRetryable) ||
+                other.isRetryable == isRetryable));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(runtimeType, message, isRetryable);
 
   @override
   String toString() {
-    return 'ChatState.error(message: $message)';
+    return 'ChatState.error(message: $message, isRetryable: $isRetryable)';
   }
 }
 
@@ -493,7 +521,7 @@ abstract mixin class _$ErrorCopyWith<$Res> implements $ChatStateCopyWith<$Res> {
   factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) =
       __$ErrorCopyWithImpl;
   @useResult
-  $Res call({String message});
+  $Res call({String message, bool isRetryable});
 }
 
 /// @nodoc
@@ -508,12 +536,17 @@ class __$ErrorCopyWithImpl<$Res> implements _$ErrorCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? message = null,
+    Object? isRetryable = null,
   }) {
     return _then(_Error(
-      null == message
+      message: null == message
           ? _self.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
+      isRetryable: null == isRetryable
+          ? _self.isRetryable
+          : isRetryable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }

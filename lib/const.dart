@@ -80,6 +80,8 @@ class Const {
 
   static const String TERMS_AND_CONDITIONS_URL =
       'https://homecare-api.med-map.org/web/terms-and-conditions';
+  static const String PRIVACY_POLICY_URL =
+      'https://homecare-api.med-map.org/web/privacy-policy';
 
   static const String ROLE = 'role';
   static const String IS_LOGED_IN = 'is_logged_in';
@@ -91,6 +93,7 @@ class Const {
   static const String USER_ID = 'user_id';
   static const String NAME = 'name';
   static const String OBJ_PROFILE = 'obj_profile';
+  static const String AI_CONSENT_ACCEPTED = 'ai_consent_accepted';
 
   static const Color tosca = Color(0xFF00B0A7);
   static const Color aqua = Color(0xFF35C5CF);

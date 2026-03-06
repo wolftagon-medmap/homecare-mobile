@@ -92,6 +92,9 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
         'stream': true,
       };
 
+      log("Sending input to API: $requestBody",
+          name: 'ChatRemoteDataSourceImpl.sendInput');
+
       final token = await Utils.getSpString(Const.TOKEN);
       final response = await _dio.post<ResponseBody>(
         '${Const.URL_API}/chatbot/invoke',
@@ -120,12 +123,11 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
         final response = await request();
         yield* _parseEventStream(response.data!.stream);
         break; // Successfully finished the stream
-      } catch (e) {
-        final isTimeout = e is DioException &&
-            (e.type == DioExceptionType.connectionTimeout ||
-                e.type == DioExceptionType.receiveTimeout ||
-                e.response?.statusCode == 504 ||
-                e.response?.statusCode == 503);
+      } on DioException catch (e, stackTrace) {
+        final isTimeout = e.type == DioExceptionType.connectionTimeout ||
+            e.type == DioExceptionType.receiveTimeout ||
+            e.response?.statusCode == 504 ||
+            e.response?.statusCode == 503;
 
         if (isTimeout && attempts < _maxRetries) {
           log('Connection timeout (attempt $attempts). Retrying in ${_retryDelay.inSeconds}s...',
@@ -134,9 +136,17 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
           continue;
         }
 
-        // Rethrow if it's not a timeout or we ran out of retries
-        log('Request failed after $attempts attempts: $e',
-            name: 'ChatRemoteDataSourceImpl');
+        if (e.response != null) {
+          log('Request failed: status_code=${e.response?.statusCode}, message=${e.response?.data} (attempt $attempts)',
+              name: 'ChatRemoteDataSourceImpl',
+              error: e,
+              stackTrace: stackTrace);
+        } else {
+          log('Request failed (attempt $attempts)',
+              name: 'ChatRemoteDataSourceImpl',
+              error: e,
+              stackTrace: stackTrace);
+        }
         rethrow;
       }
     }

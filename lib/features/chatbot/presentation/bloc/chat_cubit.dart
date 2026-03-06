@@ -8,26 +8,28 @@ import 'package:m2health/features/chatbot/presentation/bloc/chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   final ChatRepository _repository;
-  StreamSubscription<ChatEvent>? _eventSubscription;
   final String service;
 
   ChatCubit({required ChatRepository repository, required this.service})
       : _repository = repository,
         super(const ChatState.initial());
 
+  StreamSubscription<ChatEvent>? _eventSubscription;
+  Timer? _throttleTimer;
+  List<ChatEvent>? _pendingEvents;
+  Future<void> Function()? _lastAction; // For retrying failed actions
+
   Future<void> initialize() async {
     log("Initializing ChatCubit. Checking for active session...",
         name: 'ChatCubit.initialize');
+    _lastAction = initialize;
     emit(const ChatState.loading(message: "Loading chat..."));
     try {
       final session = await _repository.getActiveSession(service: service);
       if (session != null && !session.isExpired) {
-        // The last input event in history determines the current UI state
-        log("Input config: type=${session.pendingInput?.inputType}, fields=${session.pendingInput?.fields.length}, nodeId=${session.pendingInput?.nodeId}",
-            name: 'ChatCubit.initialize');
         emit(ChatState.loaded(
           events: session.events,
-          inputConfig: session.pendingInput,
+          activeInputEvent: session.activeInputEvent,
         ));
       } else {
         log(
@@ -38,84 +40,111 @@ class ChatCubit extends Cubit<ChatState> {
       }
     } catch (e) {
       log("Error during initialization: $e", name: 'ChatCubit.initialize');
-      emit(ChatState.error(e.toString()));
+      emit(const ChatState.error(
+        message: "Failed to load chat session. Please try again.",
+        isRetryable: true,
+      ));
     }
   }
 
   void _startSession() {
+    _lastAction = () async => _startSession();
     emit(const ChatState.loading(message: "Starting new session..."));
     _eventSubscription?.cancel();
     _eventSubscription = _repository.invokeSession(service: service).listen(
-      _handleEvent,
-      onError: (e) {
-        log("Error in session stream: $e", name: 'ChatCubit._startSession');
-      },
-      onDone: () {
-        log("Session stream closed", name: 'ChatCubit._startSession');
-      },
-    );
+          _handleEvent,
+          onError: _handleStreamError,
+        );
   }
 
   void _handleEvent(ChatEvent event) {
-    log("Handling new event. Type: ${event.type}, Node ID: ${event.nodeId}, Sender: ${(event is UserInputEvent) ? 'user' : 'assistant'}",
+    log("Handling new event. Sender: ${event.sender},Type: ${event.type}, Node ID: ${event.nodeId}",
         name: 'ChatCubit._handleEvent');
 
     // First event received --> Change from loading to loaded state
     if (state is! Loaded) {
-      final events = <ChatEvent>[event];
-      emit(ChatState.loaded(events: events));
+      emit(ChatState.loaded(events: [event]));
       return;
     }
 
     state.mapOrNull(loaded: (s) {
       final events = List<ChatEvent>.from(s.events);
-      log("Received event: ${event.type}, Node ID: ${event.nodeId}, Sender: ${(event is UserInputEvent) ? 'user' : 'assistant'}",
-          name: 'ChatCubit._handleEvent');
+      switch (event) {
+        case InputEvent _:
+          emit(
+            s.copyWith(
+              events: [...events, event],
+              activeInputEvent: event,
+              isProcessing: false,
+            ),
+          );
+        case StreamMessageEvent streamEvent:
+          _processStreamChunk(events, streamEvent, (processedEvents) {
+            emit(
+              s.copyWith(
+                events: processedEvents,
+                isProcessing: streamEvent.streamStatus == EventStatus.stream,
+              ),
+            );
+          });
 
-      if (event is InputEvent) {
-        // Update input bar config while keeping the event in history
-        log("Input Config: Type=${event.inputConfig.inputType}, Fields=${event.inputConfig.fields.length}, Node ID=${event.inputConfig.nodeId}",
-            name: 'ChatCubit._handleEvent');
-        emit(
-          s.copyWith(
-            events: [...events, event],
-            inputConfig: event.inputConfig,
-            isProcessing: false,
-          ),
-        );
-        return;
+        case OutputMessageEvent _:
+          emit(
+            s.copyWith(
+              events: [...events, event],
+              isProcessing: false,
+            ),
+          );
+        default:
+          break;
       }
-
-      if (event is StreamMessageEvent) {
-        _processStreamChunk(events, event);
-      } else {
-        events.add(event);
-      }
-
-      emit(s.copyWith(events: events));
     });
   }
 
-  void _processStreamChunk(List<ChatEvent> events, StreamMessageEvent chunk) {
-    final index = events.lastIndexWhere((e) =>
+  void _processStreamChunk(
+    List<ChatEvent> stateEvents,
+    StreamMessageEvent chunk,
+    void Function(List<ChatEvent>) onComplete,
+  ) {
+    final index = stateEvents.lastIndexWhere((e) =>
         e is StreamMessageEvent &&
         e.nodeExecutionId == chunk.nodeExecutionId &&
         e.outputKey == chunk.outputKey);
 
-    if (index >= 0) {
-      // Update existing streaming event in-place
-      final existing = events[index] as StreamMessageEvent;
-      events[index] = StreamMessageEvent(
-        nodeId: existing.nodeId,
-        content: chunk.streamStatus == EventStatus.stream
-            ? existing.content + chunk.content
-            : chunk.content, // Final replace
-        streamStatus: chunk.streamStatus,
-        nodeExecutionId: chunk.nodeExecutionId,
-        outputKey: chunk.outputKey,
-      );
+    if (index < 0) {
+      stateEvents.add(chunk); // No matching output message, add as new message
+      onComplete(stateEvents);
+      return;
+    }
+
+    final isOngoingStream = chunk.streamStatus == EventStatus.stream;
+    final events = _pendingEvents ?? stateEvents;
+    final existing = events[index] as StreamMessageEvent;
+    events[index] = StreamMessageEvent(
+      nodeId: existing.nodeId,
+      content: isOngoingStream
+          ? existing.content + chunk.content
+          : chunk.content, // Final replace
+      streamStatus: chunk.streamStatus,
+      nodeExecutionId: chunk.nodeExecutionId,
+      outputKey: chunk.outputKey,
+    );
+    if (isOngoingStream) {
+      // throttle updates for ongoing streams to avoid UI jank
+      _pendingEvents = events;
+      _throttleTimer ??= Timer(const Duration(milliseconds: 48), () {
+        if (_pendingEvents != null) {
+          onComplete(_pendingEvents!);
+          _pendingEvents = null;
+        }
+        _throttleTimer = null;
+      });
     } else {
-      events.add(chunk);
+      // end of stream: finalize immediately
+      _throttleTimer?.cancel();
+      _throttleTimer = null;
+      _pendingEvents = null;
+      onComplete(events);
     }
   }
 
@@ -129,46 +158,61 @@ class ChatCubit extends Cubit<ChatState> {
       return;
     }
 
-    if (state.mapOrNull(loaded: (s) => s.inputConfig == null) ?? true) {
-      log("No pending input configuration. Ignoring user input.",
+    if (state.mapOrNull(loaded: (s) => s.activeInputEvent == null) ?? true) {
+      log("No active input event. Ignoring user input.",
           name: 'ChatCubit.sendText');
       return;
     }
 
-    // 1. Local Optimistic Update
-    final userEvent = UserInputEvent(textInput: text);
+    _lastAction = () => sendText(text);
+
+    // Clear previous message-level errors when starting a new attempt
     state.mapOrNull(
-      loaded: (s) => emit(
+        loaded: (s) => emit(s.copyWith(error: null, isRetryable: false)));
+
+    // 1. Local Optimistic Update
+    final activeInputEvent =
+        state.mapOrNull(loaded: (s) => s.activeInputEvent)!;
+    final userEvent = UserInputEvent(
+      textInput: text,
+      repliedMessageId: activeInputEvent.messageId,
+    );
+    state.mapOrNull(loaded: (s) {
+      emit(
         s.copyWith(
-          events: [...s.events, userEvent],
+          events: s.events.contains(userEvent)
+              ? s.events
+              : [...s.events, userEvent],
           isProcessing: true,
         ),
-      ),
-    );
-
-    state.mapOrNull(
-      loaded: (value) => {
-        log("Input Config: Type=${value.inputConfig?.inputType}, Fields=${value.inputConfig?.fields.length}, Node ID=${value.inputConfig?.nodeId}",
-            name: 'ChatCubit.sendText')
-      },
-    );
-
-    final nodeId = state.maybeMap(
-      loaded: (s) => s.inputConfig?.nodeId ?? 'unknown_node',
-      orElse: () => 'unknown_node',
-    );
-
-    log("User input added to state. Node ID: $nodeId. Starting to send input to repository.",
-        name: 'ChatCubit.sendText');
+      );
+    });
 
     // 2. Start Request Stream
     _eventSubscription?.cancel();
     _eventSubscription = _repository.sendInput(
       service: service,
-      nodeId: nodeId,
-      messageId: null,
+      nodeId: activeInputEvent.nodeId,
+      messageId: activeInputEvent.messageId,
       input: {'user_input': text},
-    ).listen(_handleEvent);
+    ).listen(
+      _handleEvent,
+      onError: _handleStreamError,
+    );
+  }
+
+  void _handleStreamError(dynamic e) {
+    state.maybeMap(
+      loaded: (s) => emit(s.copyWith(
+        isProcessing: false,
+        error: "Failed to send message.\nPlease try again.",
+        isRetryable: true,
+      )),
+      orElse: () => emit(const ChatState.error(
+        message: "Could not connect to AI service.\nPlease try again.",
+        isRetryable: true,
+      )),
+    );
   }
 
   Future<void> resetChat() async {
@@ -178,11 +222,19 @@ class ChatCubit extends Cubit<ChatState> {
     try {
       _eventSubscription?.cancel();
       await _repository.closeSession(service: service);
-
       _startSession();
     } catch (e) {
       log("Error resetting chat: $e", name: 'ChatCubit.resetChat');
-      emit(ChatState.error(e.toString()));
+      emit(const ChatState.error(
+        message: "Failed to reset chat. Please try again.",
+        isRetryable: true,
+      ));
+    }
+  }
+
+  void retry() {
+    if (_lastAction != null) {
+      _lastAction!();
     }
   }
 }
