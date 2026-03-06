@@ -151,19 +151,24 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
         }
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: Text(
-            // 'Profile Information',
             context.l10n.profile_info_title,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              children: [
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Form(
+                    key: _formKey,
+                    child: ListView(
+                      padding: const EdgeInsets.only(top: 16, bottom: 16),
+                      children: [
                 Text(
                   context.l10n.profile_info_profile_image,
                   style: const TextStyle(
@@ -332,7 +337,6 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () async {
-                    // Navigate to Map Page and wait for result
                     final result = await Navigator.push<Address>(
                       context,
                       MaterialPageRoute(
@@ -377,44 +381,50 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                   ),
                   maxLines: 3,
                 ),
-                const SizedBox(height: 36),
+                const SizedBox(height: 16),
               ],
             ),
           ),
         ),
-        bottomNavigationBar: BottomAppBar(
-          padding: const EdgeInsets.all(16.0),
-          child: BlocBuilder<ProfileCubit, ProfileState>(
-              builder: (context, state) {
-            final isUpdating = state is ProfileSaving;
-            return ElevatedButton(
-              onPressed: isUpdating ? null : _submitForm,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Const.aqua,
-                minimumSize: const Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
               ),
-              child: isUpdating
-                  ? const SizedBox(
-                      height: 24,
-                      width: 24,
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 3,
+              // Save button — selalu di atas keyboard
+              BlocBuilder<ProfileCubit, ProfileState>(
+                builder: (context, state) {
+                  final isUpdating = state is ProfileSaving;
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+                    child: ElevatedButton(
+                      onPressed: isUpdating ? null : _submitForm,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Const.aqua,
+                        minimumSize: const Size(double.infinity, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
-                    )
-                  : Text(
-                      context.l10n.common_save,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      child: isUpdating
+                          ? const SizedBox(
+                              height: 24,
+                              width: 24,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 3,
+                              ),
+                            )
+                          : Text(
+                              context.l10n.common_save,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                     ),
-            );
-          }),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

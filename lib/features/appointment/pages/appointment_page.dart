@@ -97,9 +97,12 @@ class _AppointmentPageState extends State<AppointmentPage>
           controller: _tabController,
           indicatorColor: Const.aqua,
           labelColor: Const.aqua,
-          tabAlignment: TabAlignment.start,
-          isScrollable: true,
-          labelStyle: const TextStyle(fontSize: 16),
+          tabAlignment: TabAlignment.fill,
+          isScrollable: false,
+          labelStyle:
+              const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+          labelPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+          indicatorSize: TabBarIndicatorSize.tab,
           tabs: _tabs.map((status) {
             String label = _getStatusLabel(status.name, context);
             return Tab(text: label);
