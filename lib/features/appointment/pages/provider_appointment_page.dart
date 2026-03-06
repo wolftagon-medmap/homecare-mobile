@@ -66,8 +66,11 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
           controller: _tabController,
           indicatorColor: Const.aqua,
           labelColor: Const.aqua,
-          isScrollable: true,
-          tabAlignment: TabAlignment.start,
+          isScrollable: false,
+          tabAlignment: TabAlignment.fill,
+          labelStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+          labelPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
+          indicatorSize: TabBarIndicatorSize.tab,
           tabs: [
             Tab(text: context.l10n.appointment_status_pending),
             Tab(text: context.l10n.appointment_status_accepted),
