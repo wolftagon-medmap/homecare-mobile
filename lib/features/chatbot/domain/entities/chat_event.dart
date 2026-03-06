@@ -1,7 +1,8 @@
-import 'package:m2health/features/chatbot/domain/entities/chat_message.dart';
+import 'package:equatable/equatable.dart';
+import 'package:m2health/features/chatbot/domain/entities/attachment.dart';
 import 'package:m2health/features/chatbot/domain/entities/input_configuration.dart';
 
-abstract class ChatEvent {
+abstract class ChatEvent extends Equatable {
   final String nodeId;
   final String? nodeExecutionId;
   final String? messageId;
@@ -9,7 +10,7 @@ abstract class ChatEvent {
   final EventStatus status;
   final EventSender sender;
 
-  ChatEvent({
+  const ChatEvent({
     required this.nodeId,
     this.nodeExecutionId,
     this.messageId,
@@ -17,6 +18,10 @@ abstract class ChatEvent {
     this.status = EventStatus.end,
     required this.sender,
   });
+
+  @override
+  List<Object?> get props =>
+      [nodeId, nodeExecutionId, messageId, type, status, sender];
 }
 
 enum EventSender { assistant, user }
@@ -37,61 +42,41 @@ enum EventType {
 
 enum EventStatus { stream, end }
 
-// 0. User Input Event
+// User Input Event
 class UserInputEvent extends ChatEvent {
   final String textInput;
+  final String? repliedMessageId;
 
-  UserInputEvent({
+  const UserInputEvent({
     super.nodeId = "", // No need nodeId for user input events, set to empty
     required this.textInput,
     super.sender = EventSender.user,
+    this.repliedMessageId,
   }) : super(
           type: EventType.userInput,
         );
+
+  @override
+  List<Object?> get props => [...super.props, textInput, repliedMessageId];
 }
 
-// 1. Guide Word Event (Opening)
-// class GuideWordEvent extends ChatEvent {
-//   final String message;
-//   final String? reasoningContent;
-
-//   GuideWordEvent({
-//     required super.nodeId,
-//     required this.message,
-//     this.reasoningContent,
-//     super.messageId,
-//     super.nodeExecutionId,
-//     super.status,
-//   }) : super(type: EventType.guideWord);
-// }
-
-// 2. Guide Question Event (Suggested questions)
-// class GuideQuestionEvent extends ChatEvent {
-//   final List<String> questions;
-
-//   GuideQuestionEvent({
-//     required super.nodeId,
-//     required this.questions,
-//     super.messageId,
-//     super.nodeExecutionId,
-//     super.status,
-//   }) : super(type: EventType.guideQuestion);
-// }
-
-// 3. Input Event (Waiting for user input)
+// Input Event (Waiting for user input)
 class InputEvent extends ChatEvent {
   final InputConfiguration inputConfig;
 
-  InputEvent({
+  const InputEvent({
     required super.nodeId,
     required this.inputConfig,
     super.messageId,
     super.nodeExecutionId,
     super.sender = EventSender.assistant,
   }) : super(type: EventType.input);
+
+  @override
+  List<Object?> get props => [...super.props, inputConfig];
 }
 
-// 4. Output Message Event (Standard output)
+// Output Message Event (Standard output)
 class OutputMessageEvent extends ChatEvent {
   final String content;
   final String? outputKey;
@@ -99,7 +84,7 @@ class OutputMessageEvent extends ChatEvent {
   final String? sourceUrl;
   final Map<String, dynamic>? extra;
 
-  OutputMessageEvent({
+  const OutputMessageEvent({
     required super.nodeId,
     required this.content,
     this.outputKey,
@@ -111,54 +96,20 @@ class OutputMessageEvent extends ChatEvent {
     super.status,
     super.sender = EventSender.assistant,
   }) : super(type: EventType.outputMsg);
+
+  @override
+  List<Object?> get props =>
+      [...super.props, content, outputKey, attachments, sourceUrl, extra];
 }
 
-// 5. Output With Input Event (Output + editable text)
-// class OutputWithInputEvent extends ChatEvent {
-//   final String content;
-//   final String? outputKey;
-//   final List<Attachment> attachments;
-//   final InputConfiguration inputConfig; // Contains editable field
-
-//   OutputWithInputEvent({
-//     required super.nodeId,
-//     required this.content,
-//     required this.inputConfig,
-//     this.outputKey,
-//     this.attachments = const [],
-//     super.messageId,
-//     super.nodeExecutionId,
-//     super.status,
-//   }) : super(type: EventType.outputWithInputMsg);
-// }
-
-// 6. Output With Choose Event (Output + selection options)
-// class OutputWithChooseEvent extends ChatEvent {
-//   final String content;
-//   final String? outputKey;
-//   final List<Attachment> attachments;
-//   final InputConfiguration inputConfig; // Contains select options
-
-//   OutputWithChooseEvent({
-//     required super.nodeId,
-//     required this.content,
-//     required this.inputConfig,
-//     this.outputKey,
-//     this.attachments = const [],
-//     super.messageId,
-//     super.nodeExecutionId,
-//     super.status,
-//   }) : super(type: EventType.outputWithChooseMsg);
-// }
-
-// 7. Stream Message Event (Streaming chunks)
+//  Stream Message Event (Streaming chunks)
 class StreamMessageEvent extends ChatEvent {
   final String content;
   final String? outputKey;
   final String? reasoningContent;
   final EventStatus streamStatus;
 
-  StreamMessageEvent({
+  const StreamMessageEvent({
     required super.nodeId,
     required this.content,
     this.outputKey,
@@ -170,9 +121,21 @@ class StreamMessageEvent extends ChatEvent {
           type: EventType.streamMsg,
           status: streamStatus,
         );
+
+  @override
+  List<Object?> get props =>
+      [...super.props, content, outputKey, reasoningContent, streamStatus];
 }
 
-// 8. Close Event (Session ended)
+// Unknown Event (For unrecognized event types)
+class UnknownEvent extends ChatEvent {
+  const UnknownEvent({
+    required super.nodeId,
+    super.status = EventStatus.end,
+  }) : super(type: EventType.unknown, sender: EventSender.assistant);
+}
+
+//  Close Event (Session ended)
 // class CloseEvent extends ChatEvent {
 //   final String? errorCode;
 //   final String? errorMessage;
@@ -187,7 +150,7 @@ class StreamMessageEvent extends ChatEvent {
 //   bool get isError => errorCode != null || errorMessage != null;
 // }
 
-// 9. Error Event (Processing error)
+//  Error Event (Processing error)
 // class ErrorEvent extends ChatEvent {
 //   final String errorCode;
 //   final String errorMessage;
@@ -199,10 +162,3 @@ class StreamMessageEvent extends ChatEvent {
 //     super.nodeExecutionId,
 //   }) : super(type: EventType.error);
 // }
-
-class UnknownEvent extends ChatEvent {
-  UnknownEvent({
-    required super.nodeId,
-    super.status = EventStatus.end,
-  }) : super(type: EventType.unknown, sender: EventSender.assistant);
-}

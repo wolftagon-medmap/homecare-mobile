@@ -51,13 +51,6 @@ class _SignUpPageState extends State<SignUpPage> {
     });
   }
 
-  Future<void> _launchTnC() async {
-    final Uri url = Uri.parse(Const.TERMS_AND_CONDITIONS_URL);
-    if (!await launchUrl(url)) {
-      throw Exception('Could not launch $url');
-    }
-  }
-
   void _submitForm(BuildContext context) {
     _validatePasswords();
 
@@ -406,11 +399,25 @@ class _SignUpPageState extends State<SignUpPage> {
                                     decoration: TextDecoration.underline,
                                   ),
                                   recognizer: TapGestureRecognizer()
-                                    ..onTap = _launchTnC,
+                                    ..onTap = () {
+                                      launchUrl(Uri.parse(
+                                          Const.TERMS_AND_CONDITIONS_URL));
+                                    },
                                 ),
-                                // const TextSpan(
-                                //     text:
-                                //         " and acknowledge the medical disclaimer."),
+                                const TextSpan(text: " and "),
+                                TextSpan(
+                                  text: "Privacy Policy",
+                                  style: const TextStyle(
+                                    color: Const.aqua,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      launchUrl(
+                                          Uri.parse(Const.PRIVACY_POLICY_URL));
+                                    },
+                                ),
                               ],
                             ),
                           ),
