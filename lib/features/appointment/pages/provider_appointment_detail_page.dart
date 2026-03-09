@@ -180,7 +180,7 @@ class _PatientCardHeader extends StatelessWidget {
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
       case 'completed':
-      case 'accepted':
+      case 'upcoming':
         return const Color(0xFF18B23C);
       case 'pending':
         return const Color(0xFFE59500);
@@ -193,14 +193,14 @@ class _PatientCardHeader extends StatelessWidget {
 
   String _getLocalizedStatus(BuildContext context, String status) {
     switch (status.toLowerCase()) {
+      case 'waiting_for_payment':
+        return 'Waiting for Payment';
       case 'upcoming':
         return context.l10n.appointment_status_upcoming;
       case 'pending':
         return context.l10n.appointment_status_pending;
       case 'waiting_approval':
         return context.l10n.appointment_status_waiting_approval;
-      case 'accepted':
-        return context.l10n.appointment_status_accepted;
       case 'completed':
         return context.l10n.appointment_status_completed;
       case 'cancelled':
@@ -697,8 +697,8 @@ class _ActionButtons extends StatelessWidget {
 
         if (status == 'pending') {
           return _buildForPendingStatus(context, appointmentId);
-        } else if (status == 'accepted') {
-          return _buildForAcceptedStatus(context, appointmentId);
+        } else if (status == 'upcoming') {
+          return _buildForUpcomingStatus(context, appointmentId);
         } else if (status == 'completed') {
           return _buildForCompletedStatus(context, appointmentId);
         }
@@ -791,7 +791,7 @@ class _ActionButtons extends StatelessWidget {
     );
   }
 
-  Widget _buildForAcceptedStatus(BuildContext context, int appointmentId) {
+  Widget _buildForUpcomingStatus(BuildContext context, int appointmentId) {
     return BottomAppBar(
       child: ElevatedButton(
         onPressed: () async {
