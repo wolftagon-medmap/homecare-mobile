@@ -102,9 +102,9 @@ class _AppointmentPageState extends State<AppointmentPage>
             unselectedLabelColor: Colors.grey,
             isScrollable: false,
             labelStyle:
-                const TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
             unselectedLabelStyle:
-                const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+                const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
             labelPadding: EdgeInsets.zero,
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: _tabs.map((status) {

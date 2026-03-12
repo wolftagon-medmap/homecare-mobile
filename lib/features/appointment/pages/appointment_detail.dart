@@ -816,6 +816,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
 
     List<Widget> buttons;
     switch (status) {
+      case 'waiting_for_payment':
+        buttons = [cancelButton, payButton];
+        break;
       case 'pending':
         if (appointment.payment == null) {
           buttons = [payButton, cancelButton];
