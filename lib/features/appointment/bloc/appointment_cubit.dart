@@ -20,8 +20,11 @@ class AppointmentCubit extends Cubit<AppointmentState> {
   static String _statusToString(AppointmentStatus status) {
     switch (status) {
       case AppointmentStatus.upcoming:
-        return 'accepted'; // 'Upcoming' tab shows 'accepted' appointments
+        return 'accepted'; // 'Upcoming' tab shows 'accepted' appointments (nurse has accepted)
       case AppointmentStatus.pending:
+        // Pending tab shows both 'waiting_for_payment' and 'pending' appointments
+        // Backend will handle this, but we query for 'pending'
+        return 'pending';
       case AppointmentStatus.completed:
       case AppointmentStatus.cancelled:
       case AppointmentStatus.missed:

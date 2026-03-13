@@ -816,6 +816,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
 
     List<Widget> buttons;
     switch (status) {
+      case 'waiting_for_payment':
+        buttons = [cancelButton, payButton];
+        break;
       case 'pending':
         if (appointment.payment == null) {
           buttons = [payButton, cancelButton];
@@ -824,7 +827,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
           buttons = [cancelButton, rescheduleButton];
         }
         break;
-      case 'accepted':
+      case 'upcoming':
         buttons = [cancelButton, rescheduleButton];
         break;
       case 'completed':
@@ -922,7 +925,7 @@ class _StatusTag extends StatelessWidget {
       case 'cancelled':
         return Colors.red;
       case 'pending':
-      case 'accepted':
+      case 'upcoming':
         return const Color(0xFFE59500);
       default:
         return Colors.grey;
@@ -931,10 +934,10 @@ class _StatusTag extends StatelessWidget {
 
   String _getStatusLabel(String status, BuildContext context) {
     switch (status) {
+      case 'waiting_for_payment':
+        return 'Waiting for Payment';
       case 'upcoming':
         return context.l10n.appointment_status_upcoming;
-      case 'accepted':
-        return context.l10n.appointment_status_accepted;
       case 'pending':
         return context.l10n.appointment_status_pending;
       case 'completed':

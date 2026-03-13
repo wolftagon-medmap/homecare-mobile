@@ -2,6 +2,8 @@ part of 'appointment_cubit.dart';
 
 enum AppointmentStatus { pending, upcoming, completed, cancelled, missed }
 
+// Note: 'upcoming' tab on patient side displays appointments with 'accepted' status from backend
+
 enum LoadStatus { initial, loading, success, failure, loadingMore, refreshing }
 
 class AppointmentTabData {
