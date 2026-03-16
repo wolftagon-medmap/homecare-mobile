@@ -73,12 +73,20 @@ class ProviderAppointmentCubit extends Cubit<ProviderAppointmentState> {
     }
   }
 
-  Future<void> rejectAppointment(int appointmentId) async {
+  Future<void> rejectAppointment(
+    int appointmentId, {
+    required String cancellationReason,
+    String? otherReason,
+  }) async {
     try {
       final currentState = state;
       log('Current state type: ${currentState.runtimeType}');
 
-      await _appointmentService.rejectProviderAppointment(appointmentId);
+      await _appointmentService.rejectProviderAppointment(
+        appointmentId,
+        cancellationReason: cancellationReason,
+        otherReason: otherReason,
+      );
 
       emit(ProviderAppointmentChangeSucceed(
           message: 'Appointment declined successfully'));

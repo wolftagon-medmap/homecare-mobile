@@ -105,6 +105,10 @@ class ProviderAppointmentDetailView extends StatelessWidget {
           _PatientCardHeader(appointment: appointment),
           const SizedBox(height: 24),
           _AppointmentSchedule(appointment: appointment),
+          if (appointment.status.toLowerCase() == 'cancelled') ...[
+            const SizedBox(height: 24),
+            _buildCancellationInfoCard(appointment),
+          ],
           const SizedBox(height: 24),
           _PatientInfoTable(appointment: appointment),
           if (appointment.type == 'screening')
@@ -140,6 +144,46 @@ class ProviderAppointmentDetailView extends StatelessWidget {
         style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
       ),
     );
+  }
+
+  Widget _buildCancellationInfoCard(AppointmentEntity appointment) {
+    final cancelledBy = _formatCancelledBy(appointment.cancelledBy);
+    final cancellationReason = appointment.cancellationReason ?? '-';
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.red.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.red.withValues(alpha: 0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Cancellation details',
+            style: TextStyle(fontWeight: FontWeight.w700, color: Colors.red),
+          ),
+          const SizedBox(height: 8),
+          Text('Cancelled by: $cancelledBy'),
+          const SizedBox(height: 4),
+          Text('Reason: $cancellationReason'),
+        ],
+      ),
+    );
+  }
+
+  String _formatCancelledBy(String? cancelledBy) {
+    if (cancelledBy == null || cancelledBy.isEmpty) return '-';
+    switch (cancelledBy.toLowerCase()) {
+      case 'patient':
+        return 'Patient';
+      case 'provider':
+        return 'Provider';
+      default:
+        return cancelledBy;
+    }
   }
 }
 
