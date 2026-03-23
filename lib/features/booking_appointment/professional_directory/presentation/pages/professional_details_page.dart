@@ -166,8 +166,8 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  const Text(
-                    '180+', // Example data
+                  Text(
+                    '${professional.completedAppointmentsCount}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,

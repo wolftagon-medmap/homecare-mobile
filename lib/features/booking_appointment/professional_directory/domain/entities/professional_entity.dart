@@ -21,6 +21,7 @@ class ProfessionalEntity extends Equatable {
   final bool isFavorite;
   final String role;
   final String providerType;
+  final int completedAppointmentsCount;
 
   const ProfessionalEntity({
     required this.id,
@@ -41,6 +42,7 @@ class ProfessionalEntity extends Equatable {
     required this.isFavorite,
     required this.role,
     required this.providerType,
+    required this.completedAppointmentsCount,
   });
 
   @override
@@ -63,5 +65,6 @@ class ProfessionalEntity extends Equatable {
         isFavorite,
         role,
         providerType,
+        completedAppointmentsCount,
       ];
 }
