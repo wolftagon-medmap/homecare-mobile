@@ -23,6 +23,17 @@ class AddressRepositoryImpl implements AddressRepository {
   }
 
   @override
+  Future<Either<Failure, Address>> saveWorkplaceAddress(
+      SaveAddressParams params) async {
+    try {
+      final address = await remoteDatasource.saveWorkplaceAddress(params.toJson());
+      return Right(address);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<PlaceSuggestion>>> searchPlaces(
       String query, String sessionToken) async {
     try {

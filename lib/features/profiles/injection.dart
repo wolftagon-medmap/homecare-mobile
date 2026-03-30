@@ -21,6 +21,7 @@ void initProfileModule(GetIt sl) {
   sl.registerLazySingleton(() => UpdateCertificate(sl()));
   sl.registerLazySingleton(() => DeleteCertificate(sl()));
   sl.registerLazySingleton(() => SaveAddress(sl()));
+  sl.registerLazySingleton(() => SaveWorkplaceAddress(sl()));
   sl.registerLazySingleton(() => SearchPlaces(sl()));
   sl.registerLazySingleton(() => GetPlaceDetails(sl()));
 

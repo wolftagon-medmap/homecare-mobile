@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/certificate.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
@@ -13,6 +14,7 @@ import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.d
 import 'package:m2health/features/profiles/presentation/bloc/certificate_state.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
+import 'package:m2health/features/profiles/presentation/pages/address_map_page.dart';
 import 'package:m2health/features/profiles/presentation/widgets/add_edit_certificate_dialog.dart';
 
 class EditProfessionalProfilePage extends StatefulWidget {
@@ -36,6 +38,7 @@ class _EditProfessionalProfilePageState
   late TextEditingController _workplaceController;
   late TextEditingController _experienceController;
   String? _selectedJobTitle;
+  Address? _workplaceAddress;
 
   @override
   void initState() {
@@ -44,10 +47,20 @@ class _EditProfessionalProfilePageState
     _nameController = TextEditingController(text: p.name ?? '');
     _aboutMeController = TextEditingController(text: p.about ?? '');
     _workHoursController = TextEditingController(text: p.workingHours ?? '');
-    _workplaceController = TextEditingController(text: p.workPlace ?? '');
+    _workplaceAddress = p.workplaceAddress;
+    _workplaceController = TextEditingController(
+      text: _buildWorkplaceText(p.workplaceAddress, fallback: p.workPlace),
+    );
     _experienceController =
         TextEditingController(text: p.experience?.toString() ?? '');
     _selectedJobTitle = p.jobTitle;
+  }
+
+  String _buildWorkplaceText(Address? address, {String? fallback}) {
+    if (address == null) return fallback ?? '';
+    return [address.name, address.formattedAddress]
+        .where((part) => part != null && part.isNotEmpty)
+        .join(', ');
   }
 
   @override
@@ -176,10 +189,33 @@ class _EditProfessionalProfilePageState
                   label: 'Working Hours',
                   hint: 'E.g: Monday - Friday, 09.00AM - 05.00 PM'),
               const SizedBox(height: 16),
-              _TextFieldWidget(
-                  controller: _workplaceController,
-                  label: 'Workplace',
-                  hint: 'Type or search building or places here'),
+              GestureDetector(
+                onTap: () async {
+                  final result = await Navigator.push<Address>(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddressMapPage(
+                        initialAddress: _workplaceAddress,
+                        saveAsWorkplace: true,
+                      ),
+                    ),
+                  );
+
+                  if (result != null && context.mounted) {
+                    setState(() {
+                      _workplaceAddress = result;
+                      _workplaceController.text = _buildWorkplaceText(result);
+                    });
+                  }
+                },
+                child: AbsorbPointer(
+                  child: _TextFieldWidget(
+                    controller: _workplaceController,
+                    label: 'Workplace',
+                    hint: 'Type or search building or places here',
+                  ),
+                ),
+              ),
               const SizedBox(height: 24),
               BlocBuilder<ProfileCubit, ProfileState>(
                   builder: (context, state) {

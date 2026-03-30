@@ -7,10 +7,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/place_detail.dart';
 import 'package:m2health/features/profiles/domain/usecases/save_address.dart';
+import 'package:m2health/features/profiles/domain/usecases/save_workplace_address.dart';
 import 'package:m2health/features/profiles/presentation/bloc/address_map_state.dart';
 
 class AddressMapCubit extends Cubit<AddressMapState> {
   final SaveAddress _saveAddressUseCase;
+  final SaveWorkplaceAddress _saveWorkplaceAddressUseCase;
+  final bool _saveAsWorkplace;
   Timer? _debounceTimer;
 
   // Flag to prevent Native Reverse Geocoder from overwriting precise Google Search results
@@ -18,7 +21,11 @@ class AddressMapCubit extends Cubit<AddressMapState> {
 
   AddressMapCubit({
     required SaveAddress saveAddressUseCase,
+    required SaveWorkplaceAddress saveWorkplaceAddressUseCase,
+    bool saveAsWorkplace = false,
   })  : _saveAddressUseCase = saveAddressUseCase,
+        _saveWorkplaceAddressUseCase = saveWorkplaceAddressUseCase,
+        _saveAsWorkplace = saveAsWorkplace,
         super(const AddressMapState());
 
   Future<void> initialize(Address? address) async {
@@ -160,7 +167,9 @@ class AddressMapCubit extends Cubit<AddressMapState> {
       shortFormattedAddress: state.shortFormattedAddress,
     );
 
-    final result = await _saveAddressUseCase(params);
+    final result = _saveAsWorkplace
+        ? await _saveWorkplaceAddressUseCase(params)
+        : await _saveAddressUseCase(params);
 
     result.fold(
       (failure) => emit(state.copyWith(

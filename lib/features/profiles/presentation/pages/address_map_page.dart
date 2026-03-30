@@ -12,14 +12,21 @@ import 'package:m2health/service_locator.dart';
 
 class AddressMapPage extends StatelessWidget {
   final Address? initialAddress;
+  final bool saveAsWorkplace;
 
-  const AddressMapPage({super.key, this.initialAddress});
+  const AddressMapPage({
+    super.key,
+    this.initialAddress,
+    this.saveAsWorkplace = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => AddressMapCubit(
         saveAddressUseCase: sl(),
+        saveWorkplaceAddressUseCase: sl(),
+        saveAsWorkplace: saveAsWorkplace,
       )..initialize(initialAddress),
       child: const _AddressMapView(),
     );
