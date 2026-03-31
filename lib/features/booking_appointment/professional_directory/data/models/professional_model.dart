@@ -22,6 +22,7 @@ class ProfessionalModel extends ProfessionalEntity {
     required super.isFavorite,
     required super.role,
     required super.providerType,
+    required super.completedAppointmentsCount,
   });
 
   factory ProfessionalModel.fromJson(Map<String, dynamic> json) {
@@ -50,6 +51,8 @@ class ProfessionalModel extends ProfessionalEntity {
       isFavorite: json['is_favorite'] ?? false,
       role: json['role'],
       providerType: json['provider_type'] ?? json['role'],
+      completedAppointmentsCount:
+          (json['completed_appointments_count'] as num?)?.toInt() ?? 0,
     );
   }
 }
