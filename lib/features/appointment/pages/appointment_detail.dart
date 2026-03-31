@@ -94,6 +94,10 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
           _buildProviderCard(appointment.provider!, appointment.status),
           const SizedBox(height: 16),
           _buildScheduleCard(appointment),
+          if (appointment.status.toLowerCase() == 'cancelled') ...[
+            const SizedBox(height: 16),
+            _buildCancellationInfoCard(appointment),
+          ],
           const SizedBox(height: 16),
           _buildPatientInfo(appointment.patientProfile!),
           const SizedBox(height: 16),
@@ -146,6 +150,46 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
         ],
       ),
     );
+  }
+
+  Widget _buildCancellationInfoCard(AppointmentEntity appointment) {
+    final cancelledBy = _formatCancelledBy(appointment.cancelledBy);
+    final cancellationReason = appointment.cancellationReason ?? '-';
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.red.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.red.withValues(alpha: 0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Cancellation details',
+            style: TextStyle(fontWeight: FontWeight.w700, color: Colors.red),
+          ),
+          const SizedBox(height: 8),
+          _InfoRow(label: 'Cancelled by', text: cancelledBy),
+          const SizedBox(height: 6),
+          _InfoRow(label: 'Reason', text: cancellationReason, isFlexible: true),
+        ],
+      ),
+    );
+  }
+
+  String _formatCancelledBy(String? cancelledBy) {
+    if (cancelledBy == null || cancelledBy.isEmpty) return '-';
+    switch (cancelledBy.toLowerCase()) {
+      case 'patient':
+        return 'Patient';
+      case 'provider':
+        return 'Provider';
+      default:
+        return cancelledBy;
+    }
   }
 
   Widget _buildProviderCard(ProfessionalEntity? provider, String status) {
@@ -738,11 +782,12 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
           context: context,
           builder: (BuildContext dialogContext) {
             return CancelAppoinmentDialog(
-              onPressYes: () {
-                context
-                    .read<AppointmentCubit>()
-                    .cancelAppointment(appointment.id!);
-                Navigator.of(dialogContext).pop();
+              onPressYes: (selection) {
+                context.read<AppointmentCubit>().cancelAppointment(
+                      appointment.id!,
+                      cancellationReason: selection.cancellationReason,
+                      otherReason: selection.otherReason,
+                    );
                 context.pop();
               },
             );

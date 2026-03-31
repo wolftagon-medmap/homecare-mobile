@@ -335,10 +335,12 @@ class _AppointmentListItem extends StatelessWidget {
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            return CancelAppoinmentDialog(onPressYes: () {
-              context
-                  .read<AppointmentCubit>()
-                  .cancelAppointment(appointment.id!);
+            return CancelAppoinmentDialog(onPressYes: (selection) {
+              context.read<AppointmentCubit>().cancelAppointment(
+                    appointment.id!,
+                    cancellationReason: selection.cancellationReason,
+                    otherReason: selection.otherReason,
+                  );
             });
           },
         );
