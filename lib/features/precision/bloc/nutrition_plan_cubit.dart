@@ -49,6 +49,7 @@ class LifestyleAdjustment extends Equatable {
 class FoodItem extends Equatable {
   final String name;
   final String imageUrl;
+  final bool isLocalImage;
   final int calories;
   final int grams;
   final int protein;
@@ -58,6 +59,7 @@ class FoodItem extends Equatable {
   const FoodItem({
     required this.name,
     required this.imageUrl,
+    this.isLocalImage = false,
     required this.calories,
     required this.grams,
     required this.protein,
@@ -67,7 +69,7 @@ class FoodItem extends Equatable {
 
   @override
   List<Object?> get props =>
-      [name, imageUrl, calories, grams, protein, carbs, fat];
+      [name, imageUrl, isLocalImage, calories, grams, protein, carbs, fat];
 }
 
 class DailyMealPlan extends Equatable {
