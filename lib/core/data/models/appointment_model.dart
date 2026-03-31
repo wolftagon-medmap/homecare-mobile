@@ -21,6 +21,8 @@ class AppointmentModel extends AppointmentEntity {
     required super.createdAt,
     required super.updatedAt,
     super.providerId,
+    super.cancelledBy,
+    super.cancellationReason,
     super.provider,
     super.nursingCase,
     super.pharmacyCase,
@@ -54,11 +56,14 @@ class AppointmentModel extends AppointmentEntity {
             appointmentJson['screening_request_data'])
         : null;
     final homecareRequest = appointmentJson['homecare_request_data'] != null
-        ? HomecareRequestDataModel.fromJson(appointmentJson['homecare_request_data'])
+        ? HomecareRequestDataModel.fromJson(
+            appointmentJson['homecare_request_data'])
         : null;
-    final physiotherapyRequest = appointmentJson['physiotherapy_request_data'] != null
-        ? PhysiotherapyRequestDataModel.fromJson(appointmentJson['physiotherapy_request_data'])
-        : null;
+    final physiotherapyRequest =
+        appointmentJson['physiotherapy_request_data'] != null
+            ? PhysiotherapyRequestDataModel.fromJson(
+                appointmentJson['physiotherapy_request_data'])
+            : null;
 
     return AppointmentModel(
       id: appointmentJson['id'],
@@ -72,6 +77,8 @@ class AppointmentModel extends AppointmentEntity {
       createdAt: DateTime.parse(appointmentJson['created_at']),
       updatedAt: DateTime.parse(appointmentJson['updated_at']),
       providerId: appointmentJson['provider_id'],
+      cancelledBy: appointmentJson['cancelled_by'],
+      cancellationReason: appointmentJson['cancellation_reason'],
       provider: provider,
       nursingCase: nursingCase,
       pharmacyCase: pharmacyCase,
@@ -96,6 +103,8 @@ class AppointmentModel extends AppointmentEntity {
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
       'provider_id': providerId,
+      'cancelled_by': cancelledBy,
+      'cancellation_reason': cancellationReason,
     };
   }
 
@@ -112,6 +121,8 @@ class AppointmentModel extends AppointmentEntity {
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       providerId: entity.providerId,
+      cancelledBy: entity.cancelledBy,
+      cancellationReason: entity.cancellationReason,
       provider: entity.provider,
       nursingCase: entity.nursingCase,
       patientProfile: entity.patientProfile,

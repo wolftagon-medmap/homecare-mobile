@@ -76,12 +76,21 @@ class AppointmentService {
   }
 
   /// Reject provider appointment - Enhanced with detailed debugging
-  Future<void> rejectProviderAppointment(int appointmentId) async {
+  Future<void> rejectProviderAppointment(
+    int appointmentId, {
+    required String cancellationReason,
+    String? otherReason,
+  }) async {
     try {
       final token = await Utils.getSpString(Const.TOKEN);
 
       final response = await _dio.post(
         '${Const.URL_API}/provider/appointments/$appointmentId/cancel',
+        data: {
+          'cancellation_reason': cancellationReason,
+          if (otherReason != null && otherReason.trim().isNotEmpty)
+            'other_reason': otherReason.trim(),
+        },
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
@@ -333,12 +342,21 @@ class AppointmentService {
     }
   }
 
-  Future<void> cancelAppointment(int appointmentId) async {
+  Future<void> cancelAppointment(
+    int appointmentId, {
+    required String cancellationReason,
+    String? otherReason,
+  }) async {
     try {
       final token = await Utils.getSpString(Const.TOKEN);
 
       final response = await _dio.post(
         '${Const.API_APPOINTMENT}/$appointmentId/cancel',
+        data: {
+          'cancellation_reason': cancellationReason,
+          if (otherReason != null && otherReason.trim().isNotEmpty)
+            'other_reason': otherReason.trim(),
+        },
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
