@@ -17,6 +17,7 @@ import 'package:m2health/features/booking_appointment/personal_issue/domain/enti
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
+import 'package:m2health/features/second_opinion_imaging/presentation/pages/second_opinion_request_detail_page.dart';
 import 'package:m2health/features/smoking_cessation/presentation/widgets/smoking_habit_assessment_card.dart';
 import 'package:m2health/features/smoking_cessation/presentation/widgets/view_smoking_cessation_plan_button.dart';
 import 'package:m2health/i18n/translations.g.dart';
@@ -108,6 +109,8 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
             _buildHomecareTaskInfo(appointment)
           else if (appointment.type == 'physiotherapy')
             _buildPhysiotherapyInfo(appointment)
+          else if (appointment.type == 'second_opinion_imaging')
+            _buildSecondOpinionImagingInfo(context, appointment)
           else if (appointment.type == 'pharmacy' &&
               appointment.pharmacyCase?.serviceType == 'smoking_cessation')
             _buildSmokingCessationInfo(appointment)
@@ -115,6 +118,54 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
             _buildConcernInfo(appointment),
           const SizedBox(height: 16),
           _buildPaymentSummary(appointment),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSecondOpinionImagingInfo(
+      BuildContext context, AppointmentEntity appointment) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            context.l10n.appointment_detail_service_requested,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  appointment.summary,
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  final result = await GoRouter.of(context).pushNamed(
+                    AppRoutes.secondOpinionRequestDetail,
+                    extra: SecondOpinionRequestDetailPageParams(
+                      appointment: appointment,
+                      isProvider: false,
+                    ),
+                  );
+
+                  if (result == true) {
+                    context
+                        .read<AppointmentDetailCubit>()
+                        .fetchAppointmentDetail(appointment.id!);
+                  }
+                },
+                child: const Text("View detail"),
+              ),
+            ],
+          ),
         ],
       ),
     );

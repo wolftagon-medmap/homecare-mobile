@@ -9,9 +9,9 @@ import 'package:m2health/core/extensions/string_extensions.dart';
 import 'package:m2health/core/presentation/views/file_viewer_page.dart';
 import 'package:m2health/features/appointment/bloc/provider_appointment_cubit.dart';
 import 'package:m2health/features/appointment/bloc/provider_appointment_detail_cubit.dart';
-import 'package:m2health/features/appointment/pages/screening_report_submission_page.dart';
 import 'package:m2health/features/appointment/widgets/provider_appointment_action_dialog.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
+import 'package:m2health/features/second_opinion_imaging/presentation/pages/second_opinion_request_detail_page.dart';
 import 'package:m2health/features/home_health_screening/presentation/widgets/screening_appointment_detail_action_buttons.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/smoking_cessation/presentation/widgets/prepare_smoking_cessation_plan_button.dart';
@@ -117,6 +117,11 @@ class ProviderAppointmentDetailView extends StatelessWidget {
               _buildSectionTitle(
                   context.l10n.appointment_detail_lab_test_title),
               _ScreeningRequestInfo(appointment: appointment),
+            ])
+          else if (appointment.type == 'second_opinion_imaging')
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const SizedBox(height: 24),
+              _SecondOpinionImagingRequestInfo(appointment: appointment),
             ])
           else
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -224,7 +229,7 @@ class _PatientCardHeader extends StatelessWidget {
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
       case 'completed':
-      case 'upcoming':
+      case 'accepted':
         return const Color(0xFF18B23C);
       case 'pending':
         return const Color(0xFFE59500);
@@ -540,6 +545,53 @@ class _ScreeningRequestInfo extends StatelessWidget {
   }
 }
 
+class _SecondOpinionImagingRequestInfo extends StatelessWidget {
+  final AppointmentEntity appointment;
+  const _SecondOpinionImagingRequestInfo({required this.appointment});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          context.l10n.appointment_detail_service_requested,
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                appointment.summary,
+                style: const TextStyle(fontSize: 14),
+              ),
+            ),
+            TextButton(
+              onPressed: () async {
+                final result = await GoRouter.of(context).pushNamed(
+                  AppRoutes.secondOpinionRequestDetail,
+                  extra: SecondOpinionRequestDetailPageParams(
+                    appointment: appointment,
+                    isProvider: true,
+                  ),
+                );
+
+                if (result == true) {
+                  context
+                      .read<ProviderAppointmentDetailCubit>()
+                      .fetchProviderAppointmentById(appointment.id!);
+                }
+              },
+              child: const Text("View detail"),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 class _PersonalCaseInfo extends StatelessWidget {
   final AppointmentEntity appointment;
   const _PersonalCaseInfo({required this.appointment});
@@ -741,7 +793,7 @@ class _ActionButtons extends StatelessWidget {
 
         if (status == 'pending') {
           return _buildForPendingStatus(context, appointmentId);
-        } else if (status == 'upcoming') {
+        } else if (status == 'accepted' || status == 'upcoming') {
           return _buildForUpcomingStatus(context, appointmentId);
         } else if (status == 'completed') {
           return _buildForCompletedStatus(context, appointmentId);

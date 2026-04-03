@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
-import 'package:m2health/core/presentation/views/teleradiology.dart';
+import 'package:m2health/features/second_opinion_imaging/presentation/pages/second_opinion_imaging_flow_page.dart';
+import 'package:m2health/features/second_opinion_imaging/presentation/bloc/second_opinion_imaging_flow_bloc.dart';
+import 'package:m2health/service_locator.dart';
 
-class OpinionMedical extends StatefulWidget {
-  const OpinionMedical({super.key});
+class SecondOpinionMedical extends StatefulWidget {
+  const SecondOpinionMedical({super.key});
 
   @override
-  State<OpinionMedical> createState() => _OpinionMedicalState();
+  State<SecondOpinionMedical> createState() => _SecondOpinionMedicalState();
 }
 
-class _OpinionMedicalState extends State<OpinionMedical> {
+class _SecondOpinionMedicalState extends State<SecondOpinionMedical> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +36,13 @@ class _OpinionMedicalState extends State<OpinionMedical> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const TeleradiologyDetail(),
+                    builder: (context) => BlocProvider(
+                      create: (context) => SecondOpinionImagingFlowBloc(
+                        repository: sl(),
+                        serviceType: 'radiology',
+                      ),
+                      child: const SecondOpinionImagingFlowPage(),
+                    ),
                   ),
                 );
               },
@@ -44,7 +53,18 @@ class _OpinionMedicalState extends State<OpinionMedical> {
               imagePath: 'assets/images/ilu_telepathology.png',
               backgroundColor: const Color(0xFFB28CFF).withValues(alpha: 0.2),
               onTap: () {
-                // Navigator.pushNamed(context, AppRoutes.home);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                      create: (context) => SecondOpinionImagingFlowBloc(
+                        repository: sl(),
+                        serviceType: 'pathology',
+                      ),
+                      child: const SecondOpinionImagingFlowPage(),
+                    ),
+                  ),
+                );
               },
             ),
           ],
