@@ -152,7 +152,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
                     AppRoutes.secondOpinionRequestDetail,
                     extra: SecondOpinionRequestDetailPageParams(
                       appointment: appointment,
-                      isProvider: true,
+                      isProvider: false,
                     ),
                   );
 
