@@ -39,6 +39,7 @@ class _SecondOpinionMedicalState extends State<SecondOpinionMedical> {
                     builder: (context) => BlocProvider(
                       create: (context) => SecondOpinionImagingFlowBloc(
                         repository: sl(),
+                        serviceType: 'radiology',
                       ),
                       child: const SecondOpinionImagingFlowPage(),
                     ),
@@ -52,7 +53,18 @@ class _SecondOpinionMedicalState extends State<SecondOpinionMedical> {
               imagePath: 'assets/images/ilu_telepathology.png',
               backgroundColor: const Color(0xFFB28CFF).withValues(alpha: 0.2),
               onTap: () {
-                // Not implemented yet
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                      create: (context) => SecondOpinionImagingFlowBloc(
+                        repository: sl(),
+                        serviceType: 'pathology',
+                      ),
+                      child: const SecondOpinionImagingFlowPage(),
+                    ),
+                  ),
+                );
               },
             ),
           ],

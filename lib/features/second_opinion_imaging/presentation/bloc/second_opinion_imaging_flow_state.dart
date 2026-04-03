@@ -16,7 +16,8 @@ enum AppointmentSubmissionStatus {
 
 class SecondOpinionImagingFlowState extends Equatable {
   final SecondOpinionImagingFlowStep currentStep;
-  
+  final String serviceType; // 'radiology' or 'pathology'
+
   // Data from form
   final String? diseaseName;
   final String? diseaseHistory;
@@ -26,12 +27,13 @@ class SecondOpinionImagingFlowState extends Equatable {
   final ProfessionalEntity? selectedProfessional;
   final DateTime? selectedTimeSlot;
   final AppointmentEntity? createdAppointment;
-  
+
   final AppointmentSubmissionStatus submissionStatus;
   final String? errorMessage;
 
   const SecondOpinionImagingFlowState({
     this.currentStep = SecondOpinionImagingFlowStep.form,
+    required this.serviceType,
     this.diseaseName,
     this.diseaseHistory,
     this.biomarker,
@@ -43,8 +45,13 @@ class SecondOpinionImagingFlowState extends Equatable {
     this.errorMessage,
   });
 
+  factory SecondOpinionImagingFlowState.initial(String serviceType) {
+    return SecondOpinionImagingFlowState(serviceType: serviceType);
+  }
+
   SecondOpinionImagingFlowState copyWith({
     SecondOpinionImagingFlowStep? currentStep,
+    String? serviceType,
     String? diseaseName,
     String? diseaseHistory,
     String? biomarker,
@@ -57,6 +64,7 @@ class SecondOpinionImagingFlowState extends Equatable {
   }) {
     return SecondOpinionImagingFlowState(
       currentStep: currentStep ?? this.currentStep,
+      serviceType: serviceType ?? this.serviceType,
       diseaseName: diseaseName ?? this.diseaseName,
       diseaseHistory: diseaseHistory ?? this.diseaseHistory,
       biomarker: biomarker ?? this.biomarker,
@@ -72,6 +80,7 @@ class SecondOpinionImagingFlowState extends Equatable {
   @override
   List<Object?> get props => [
         currentStep,
+        serviceType,
         diseaseName,
         diseaseHistory,
         biomarker,

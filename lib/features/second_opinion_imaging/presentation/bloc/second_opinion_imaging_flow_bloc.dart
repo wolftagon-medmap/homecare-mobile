@@ -56,8 +56,10 @@ class FlowSubmitAppointment extends SecondOpinionImagingFlowEvent {}
 class SecondOpinionImagingFlowBloc extends Bloc<SecondOpinionImagingFlowEvent, SecondOpinionImagingFlowState> {
   final SecondOpinionImagingRepository repository;
 
-  SecondOpinionImagingFlowBloc({required this.repository})
-      : super(const SecondOpinionImagingFlowState()) {
+  SecondOpinionImagingFlowBloc({
+    required this.repository,
+    required String serviceType,
+  }) : super(SecondOpinionImagingFlowState.initial(serviceType)) {
     on<FlowStepChanged>(_onStepChanged);
     on<FlowFormSubmitted>(_onFormSubmitted);
     on<FlowProfessionalSelected>(_onProfessionalSelected);
@@ -99,7 +101,7 @@ class SecondOpinionImagingFlowBloc extends Bloc<SecondOpinionImagingFlowEvent, S
     final params = CreateSecondOpinionImagingAppointmentParams(
       providerId: state.selectedProfessional!.id,
       startDatetime: state.selectedTimeSlot!,
-      serviceType: 'radiology',
+      serviceType: state.serviceType,
       diseaseName: state.diseaseName!,
       diseaseHistory: state.diseaseHistory,
       biomarker: state.biomarker,

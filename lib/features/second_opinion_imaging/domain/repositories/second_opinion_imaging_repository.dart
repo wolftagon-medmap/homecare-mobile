@@ -61,3 +61,4 @@ class SecondOpinionImageFile extends Equatable {
   @override
   List<Object?> get props => [file, imageType];
 }
+

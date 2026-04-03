@@ -9,6 +9,7 @@ import 'package:m2health/features/booking_appointment/schedule_appointment/prese
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
 import 'package:m2health/features/second_opinion_imaging/presentation/bloc/second_opinion_imaging_flow_bloc.dart';
 import 'package:m2health/features/second_opinion_imaging/presentation/pages/teleradiology.dart';
+import 'package:m2health/features/second_opinion_imaging/presentation/pages/telepathology.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
@@ -105,14 +106,16 @@ class _SecondOpinionImagingFlowPageState
               controller: _pageController,
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                const TeleradiologyPage(),
+                state.serviceType == 'radiology'
+                    ? const TeleradiologyPage()
+                    : const TelepathologyPage(),
                 BlocProvider(
                   create: (context) => ProfessionalBloc(
                     getProfessionals: sl(),
                     toggleFavorite: sl(),
                   ),
                   child: SearchProfessionalPage(
-                    role: 'radiologist',
+                    role: 'radiologist', // Simplified: searching radiologist for both
                     onProfessionalSelected: (prof) {
                       context
                           .read<SecondOpinionImagingFlowBloc>()

@@ -19,7 +19,7 @@ class DashboardRoutes {
       parentNavigatorKey: rootNavigatorKey,
       path: AppRoutes.pharmaServices,
       builder: (context, state) {
-        return PharmacyServicesPage();
+        return const PharmacyServicesPage();
       },
     ),
     GoRoute(
@@ -41,28 +41,28 @@ class DashboardRoutes {
       path: AppRoutes.homeHealthScreening,
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        return HomeHealth();
+        return const HomeHealth();
       },
     ),
     GoRoute(
       path: AppRoutes.homeHealthScreening,
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        return HomeHealth();
+        return const HomeHealth();
       },
     ),
     GoRoute(
       path: AppRoutes.remotePatientMonitoring,
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        return RemotePatientMonitoring();
+        return const RemotePatientMonitoring();
       },
     ),
     GoRoute(
       path: AppRoutes.secondOpinionMedical,
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        return const OpinionMedical();
+        return const SecondOpinionMedical();
       },
     ),
     GoRoute(
