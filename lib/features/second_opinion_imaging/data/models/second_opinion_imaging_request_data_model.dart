@@ -1,7 +1,8 @@
 import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/second_opinion_imaging/domain/entities/second_opinion_imaging_request_data.dart';
 
-class SecondOpinionImagingRequestDataModel extends SecondOpinionImagingRequestData {
+class SecondOpinionImagingRequestDataModel
+    extends SecondOpinionImagingRequestData {
   const SecondOpinionImagingRequestDataModel({
     required super.id,
     required super.appointmentId,
@@ -15,7 +16,8 @@ class SecondOpinionImagingRequestDataModel extends SecondOpinionImagingRequestDa
     required super.updatedAt,
   });
 
-  factory SecondOpinionImagingRequestDataModel.fromJson(Map<String, dynamic> json) {
+  factory SecondOpinionImagingRequestDataModel.fromJson(
+      Map<String, dynamic> json) {
     return SecondOpinionImagingRequestDataModel(
       id: json['id'],
       appointmentId: json['appointment_id'],
@@ -52,7 +54,7 @@ class SecondOpinionImageModel extends SecondOpinionImageEntity {
     return SecondOpinionImageModel(
       id: json['id'],
       imageType: json['image_type'],
-      fileUrl: json['file_url'],
+      fileUrl: json['file']['url'],
     );
   }
 }

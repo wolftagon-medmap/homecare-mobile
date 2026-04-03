@@ -297,13 +297,21 @@ class AppointmentService {
       );
 
       return AppointmentModel.fromJson(response.data);
-    } catch (e) {
+    } catch (e, stackTrace) {
       if (e is DioException) {
-        log('DioException fetching appointment detail: ${e.message}',
-            error: e, name: 'AppointmentService');
+        log(
+          'DioException fetching appointment detail: ${e.message}',
+          error: e,
+          name: 'AppointmentService',
+          stackTrace: stackTrace,
+        );
       } else {
-        log('Error fetching appointment detail: $e',
-            error: e, name: 'AppointmentService');
+        log(
+          'Error fetching appointment detail: $e',
+          error: e,
+          name: 'AppointmentService',
+          stackTrace: stackTrace,
+        );
       }
       rethrow;
     }
@@ -496,9 +504,38 @@ class AppointmentService {
         log('DioException message: ${e.message}', name: 'AppointmentService');
         log('DioException response: ${e.response?.data}',
             name: 'AppointmentService');
-        throw BadRequestFailure(e.response?.data['message'] ?? 'Validation Error');
+        throw BadRequestFailure(
+            e.response?.data['message'] ?? 'Validation Error');
       }
       throw Exception('Unknown error creating appointment.');
+    }
+  }
+
+  Future<void> submitSecondOpinionFeedback(
+      int appointmentId, Map<String, dynamic> payload) async {
+    try {
+      final token = await Utils.getSpString(Const.TOKEN);
+
+      final response = await _dio.post(
+        '${Const.URL_API}/appointments/$appointmentId/feedback',
+        data: payload,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        throw Exception('Failed to submit feedback: ${response.statusCode}');
+      }
+    } catch (e) {
+      if (e is DioException) {
+        throw BadRequestFailure(
+            e.response?.data['message'] ?? 'Failed to submit feedback');
+      }
+      throw Exception('Unknown error submitting feedback.');
     }
   }
 

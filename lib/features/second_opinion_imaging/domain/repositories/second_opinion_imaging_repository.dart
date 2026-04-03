@@ -8,6 +8,12 @@ import 'package:m2health/core/domain/entities/appointment_entity.dart';
 abstract class SecondOpinionImagingRepository {
   Future<Either<Failure, AppointmentEntity>> createAppointment(
       CreateSecondOpinionImagingAppointmentParams params);
+
+  Future<Either<Failure, Unit>> submitFeedback({
+    required int appointmentId,
+    required String diagnosticOpinion,
+    required String recommendationOpinion,
+  });
 }
 
 class CreateSecondOpinionImagingAppointmentParams extends Equatable {

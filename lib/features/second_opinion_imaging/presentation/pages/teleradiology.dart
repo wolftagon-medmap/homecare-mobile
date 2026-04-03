@@ -166,49 +166,6 @@ class _TeleradiologyPageState extends State<TeleradiologyPage> {
                     : null;
               },
             ),
-            const SizedBox(height: 40),
-            Text(
-              context.l10n.teleradiology_medical_opinion,
-              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-            ),
-            const Divider(),
-            Text(
-              context.l10n.teleradiology_professional_only_info,
-              style: const TextStyle(
-                fontSize: 12,
-                fontStyle: FontStyle.italic,
-              ),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              context.l10n.teleradiology_diagnostic_opinion,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Write your diagnostic opinion here...",
-                hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              context.l10n.teleradiology_recommendation_opinion,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Write your recommendation here...",
-                hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
           ],
         ),
       ),

@@ -4,12 +4,17 @@ import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/core/data/models/appointment_model.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/services/appointment_service.dart';
+import 'package:m2health/features/second_opinion_imaging/data/datasources/second_opinion_imaging_remote_datasource.dart';
 import 'package:m2health/features/second_opinion_imaging/domain/repositories/second_opinion_imaging_repository.dart';
 
 class SecondOpinionImagingRepositoryImpl extends SecondOpinionImagingRepository {
   final AppointmentService appointmentService;
+  final SecondOpinionImagingRemoteDataSource remoteDataSource;
 
-  SecondOpinionImagingRepositoryImpl({required this.appointmentService});
+  SecondOpinionImagingRepositoryImpl({
+    required this.appointmentService,
+    required this.remoteDataSource,
+  });
 
   @override
   Future<Either<Failure, AppointmentEntity>> createAppointment(
@@ -46,6 +51,26 @@ class SecondOpinionImagingRepositoryImpl extends SecondOpinionImagingRepository 
       final response = await appointmentService.createAppointmentMultipart(formData);
       final result = AppointmentModel.fromJson(response);
       return Right(result);
+    } on Failure catch (failure) {
+      return Left(failure);
+    } on Exception catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> submitFeedback({
+    required int appointmentId,
+    required String diagnosticOpinion,
+    required String recommendationOpinion,
+  }) async {
+    try {
+      await remoteDataSource.submitFeedback(
+        appointmentId: appointmentId,
+        diagnosticOpinion: diagnosticOpinion,
+        recommendationOpinion: recommendationOpinion,
+      );
+      return const Right(unit);
     } on Failure catch (failure) {
       return Left(failure);
     } on Exception catch (e) {

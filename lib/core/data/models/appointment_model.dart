@@ -7,6 +7,8 @@ import 'package:m2health/features/booking_appointment/pharmacy/data/models/pharm
 import 'package:m2health/features/booking_appointment/professional_directory/data/models/professional_model.dart';
 import 'package:m2health/features/profiles/data/models/profile_model.dart';
 import 'package:m2health/features/physiotherapy/data/models/physiotherapy_request_data_model.dart';
+import 'package:m2health/features/second_opinion_imaging/data/models/second_opinion_imaging_request_data_model.dart';
+import 'package:m2health/features/second_opinion_imaging/data/models/second_opinion_imaging_feedback_model.dart';
 
 class AppointmentModel extends AppointmentEntity {
   const AppointmentModel({
@@ -29,6 +31,8 @@ class AppointmentModel extends AppointmentEntity {
     super.screeningRequestData,
     super.homecareRequestData,
     super.physiotherapyRequestData,
+    super.secondOpinionImagingRequestData,
+    super.secondOpinionImagingFeedback,
     super.patientProfile,
     super.payment,
   });
@@ -64,6 +68,16 @@ class AppointmentModel extends AppointmentEntity {
             ? PhysiotherapyRequestDataModel.fromJson(
                 appointmentJson['physiotherapy_request_data'])
             : null;
+    final secondOpinionImagingRequest =
+        appointmentJson['second_opinion_imaging_request_data'] != null
+            ? SecondOpinionImagingRequestDataModel.fromJson(
+                appointmentJson['second_opinion_imaging_request_data'])
+            : null;
+    final secondOpinionImagingFeedback =
+        appointmentJson['second_opinion_imaging_feedback'] != null
+            ? SecondOpinionImagingFeedbackModel.fromJson(
+                appointmentJson['second_opinion_imaging_feedback'])
+            : null;
 
     return AppointmentModel(
       id: appointmentJson['id'],
@@ -71,7 +85,9 @@ class AppointmentModel extends AppointmentEntity {
       type: appointmentJson['type'],
       status: appointmentJson['status'],
       startDatetime: DateTime.parse(appointmentJson['start_datetime']),
-      endDatetime: DateTime.parse(appointmentJson['end_datetime']),
+      endDatetime: appointmentJson['end_datetime'] != null
+          ? DateTime.parse(appointmentJson['end_datetime'])
+          : null,
       summary: appointmentJson['summary'] ?? 'N/A',
       payTotal: double.parse(appointmentJson['pay_total'].toString()),
       createdAt: DateTime.parse(appointmentJson['created_at']),
@@ -85,6 +101,8 @@ class AppointmentModel extends AppointmentEntity {
       screeningRequestData: screeningRequest,
       homecareRequestData: homecareRequest,
       physiotherapyRequestData: physiotherapyRequest,
+      secondOpinionImagingRequestData: secondOpinionImagingRequest,
+      secondOpinionImagingFeedback: secondOpinionImagingFeedback,
       patientProfile: patient,
       payment: payment,
     );
@@ -125,7 +143,14 @@ class AppointmentModel extends AppointmentEntity {
       cancellationReason: entity.cancellationReason,
       provider: entity.provider,
       nursingCase: entity.nursingCase,
+      pharmacyCase: entity.pharmacyCase,
+      screeningRequestData: entity.screeningRequestData,
+      homecareRequestData: entity.homecareRequestData,
+      physiotherapyRequestData: entity.physiotherapyRequestData,
+      secondOpinionImagingRequestData: entity.secondOpinionImagingRequestData,
+      secondOpinionImagingFeedback: entity.secondOpinionImagingFeedback,
       patientProfile: entity.patientProfile,
+      payment: entity.payment,
     );
   }
 }
