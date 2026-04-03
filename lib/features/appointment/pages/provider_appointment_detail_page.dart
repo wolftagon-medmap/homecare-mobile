@@ -229,7 +229,7 @@ class _PatientCardHeader extends StatelessWidget {
   Color _getStatusColor(String status) {
     switch (status.toLowerCase()) {
       case 'completed':
-      case 'upcoming':
+      case 'accepted':
         return const Color(0xFF18B23C);
       case 'pending':
         return const Color(0xFFE59500);
@@ -793,7 +793,7 @@ class _ActionButtons extends StatelessWidget {
 
         if (status == 'pending') {
           return _buildForPendingStatus(context, appointmentId);
-        } else if (status == 'upcoming') {
+        } else if (status == 'accepted' || status == 'upcoming') {
           return _buildForUpcomingStatus(context, appointmentId);
         } else if (status == 'completed') {
           return _buildForCompletedStatus(context, appointmentId);
