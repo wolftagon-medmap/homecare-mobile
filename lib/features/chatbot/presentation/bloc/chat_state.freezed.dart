@@ -376,7 +376,7 @@ class Loaded implements ChatState {
   final bool isProcessing;
   @JsonKey()
   final bool isSessionClosed;
-// Message level error (e.g. failed to send input), not critical errors which would be represented by the error state
+// Message level error (e.g. failed to send input). Preserve chat history while allowing retry.
   final String? error;
   final bool? isRetryable;
 

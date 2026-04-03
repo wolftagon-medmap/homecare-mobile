@@ -98,6 +98,8 @@ dependencies:
   freezed_annotation: ^3.1.0
   flutter_markdown: ^0.7.7+1
   markdown: ^7.3.0
+  record: ^6.2.0
+  permission_handler: ^12.0.1
   # fluwx: ^4.1.0
   # sign_in_with_apple: ^6.1.1
   # crypto: ^3.0.3
