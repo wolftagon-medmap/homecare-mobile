@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/blocs/voice_input/voice_input_cubit.dart';
 import 'package:m2health/core/blocs/voice_input/voice_input_state.dart';
+import 'package:m2health/core/widgets/voice_input/voice_recording_view.dart';
 import 'package:m2health/features/chatbot/domain/entities/input_configuration.dart';
 import 'package:m2health/service_locator.dart';
 
@@ -72,13 +73,19 @@ class _ChatInputFactoryState extends State<ChatInputFactory> {
         child: BlocBuilder<VoiceInputCubit, VoiceInputState>(
           builder: (context, voiceState) {
             final isRecording = voiceState.maybeWhen(
-              recording: () => true,
+              recording: (_) => true,
+              orElse: () => false,
+            );
+            final isPaused = voiceState.maybeWhen(
+              paused: (_) => true,
               orElse: () => false,
             );
             final isTranscribing = voiceState.maybeWhen(
               transcribing: () => true,
               orElse: () => false,
             );
+
+            final showVoiceUI = isRecording || isPaused;
 
             return Column(
               children: [
@@ -97,93 +104,84 @@ class _ChatInputFactoryState extends State<ChatInputFactory> {
                       )
                     ],
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: isRecording
-                                ? Colors.red.withValues(alpha: 0.1)
-                                : Colors.grey.shade100,
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              // Voice Input Button
-                              IconButton(
-                                icon: Icon(
-                                  isRecording
-                                      ? Icons.stop_circle_rounded
-                                      : Icons.mic_none_outlined,
-                                  color: isRecording ? Colors.red : Colors.grey,
-                                ),
-                                onPressed: widget.isProcessing || isTranscribing
-                                    ? null
-                                    : () => _voiceInputCubit.toggleRecording(),
-                              ),
-                              Expanded(
-                                child: TextField(
-                                  controller: _controller,
-                                  maxLines: 7,
-                                  minLines: 1,
-                                  enabled: doesAcceptDialogInput &&
-                                      !widget.isProcessing &&
-                                      !isTranscribing &&
-                                      !isRecording,
-                                  style: const TextStyle(fontSize: 13),
-                                  keyboardType: TextInputType.multiline,
-                                  textInputAction: TextInputAction.newline,
-                                  decoration: InputDecoration(
-                                    hintText: isRecording
-                                        ? "Recording..."
-                                        : isTranscribing
-                                            ? "Transcribing..."
-                                            : "Write your message",
-                                    border: InputBorder.none,
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 10,
-                                      horizontal: 4,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      // Send Button
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 4.0),
-                        child: CircleAvatar(
-                          backgroundColor: doesAcceptDialogInput &&
-                                  !isRecording &&
-                                  !isTranscribing
-                              ? Const.aqua
-                              : Colors.grey,
-                          child: IconButton(
-                            icon: const Icon(Icons.send_rounded,
-                                color: Colors.white),
-                            onPressed: doesAcceptDialogInput &&
-                                    !isRecording &&
-                                    !isTranscribing
-                                ? _handleSend
-                                : null,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  child: showVoiceUI
+                      ? VoiceRecordingView(cubit: _voiceInputCubit)
+                      : _buildStandardInputUI(
+                          doesAcceptDialogInput, isTranscribing),
                 ),
               ],
             );
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildStandardInputUI(bool doesAcceptDialogInput, bool isTranscribing) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                // Voice Input Button
+                IconButton(
+                  icon: const Icon(Icons.mic_none_outlined, color: Colors.grey),
+                  onPressed: widget.isProcessing || isTranscribing
+                      ? null
+                      : () => _voiceInputCubit.startRecording(),
+                ),
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    maxLines: 7,
+                    minLines: 1,
+                    enabled: doesAcceptDialogInput &&
+                        !widget.isProcessing &&
+                        !isTranscribing,
+                    style: const TextStyle(fontSize: 13),
+                    keyboardType: TextInputType.multiline,
+                    textInputAction: TextInputAction.newline,
+                    decoration: InputDecoration(
+                      hintText: isTranscribing
+                          ? "Transcribing..."
+                          : "Write your message",
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 4,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        // Send Button
+        Padding(
+          padding: const EdgeInsets.only(bottom: 4.0),
+          child: CircleAvatar(
+            backgroundColor: doesAcceptDialogInput && !isTranscribing
+                ? Const.aqua
+                : Colors.grey,
+            child: IconButton(
+              icon: const Icon(Icons.send_rounded, color: Colors.white),
+              onPressed:
+                  doesAcceptDialogInput && !isTranscribing ? _handleSend : null,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

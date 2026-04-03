@@ -53,6 +53,7 @@ extension VoiceInputStatePatterns on VoiceInputState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Idle value)? idle,
     TResult Function(_Recording value)? recording,
+    TResult Function(_Paused value)? paused,
     TResult Function(_Transcribing value)? transcribing,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
@@ -64,6 +65,8 @@ extension VoiceInputStatePatterns on VoiceInputState {
         return idle(_that);
       case _Recording() when recording != null:
         return recording(_that);
+      case _Paused() when paused != null:
+        return paused(_that);
       case _Transcribing() when transcribing != null:
         return transcribing(_that);
       case _Success() when success != null:
@@ -92,6 +95,7 @@ extension VoiceInputStatePatterns on VoiceInputState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Idle value) idle,
     required TResult Function(_Recording value) recording,
+    required TResult Function(_Paused value) paused,
     required TResult Function(_Transcribing value) transcribing,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
@@ -102,6 +106,8 @@ extension VoiceInputStatePatterns on VoiceInputState {
         return idle(_that);
       case _Recording():
         return recording(_that);
+      case _Paused():
+        return paused(_that);
       case _Transcribing():
         return transcribing(_that);
       case _Success():
@@ -129,6 +135,7 @@ extension VoiceInputStatePatterns on VoiceInputState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Idle value)? idle,
     TResult? Function(_Recording value)? recording,
+    TResult? Function(_Paused value)? paused,
     TResult? Function(_Transcribing value)? transcribing,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
@@ -139,6 +146,8 @@ extension VoiceInputStatePatterns on VoiceInputState {
         return idle(_that);
       case _Recording() when recording != null:
         return recording(_that);
+      case _Paused() when paused != null:
+        return paused(_that);
       case _Transcribing() when transcribing != null:
         return transcribing(_that);
       case _Success() when success != null:
@@ -165,7 +174,8 @@ extension VoiceInputStatePatterns on VoiceInputState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? idle,
-    TResult Function()? recording,
+    TResult Function(double amplitude)? recording,
+    TResult Function(double amplitude)? paused,
     TResult Function()? transcribing,
     TResult Function(String text)? success,
     TResult Function(String message)? error,
@@ -176,7 +186,9 @@ extension VoiceInputStatePatterns on VoiceInputState {
       case _Idle() when idle != null:
         return idle();
       case _Recording() when recording != null:
-        return recording();
+        return recording(_that.amplitude);
+      case _Paused() when paused != null:
+        return paused(_that.amplitude);
       case _Transcribing() when transcribing != null:
         return transcribing();
       case _Success() when success != null:
@@ -204,7 +216,8 @@ extension VoiceInputStatePatterns on VoiceInputState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() idle,
-    required TResult Function() recording,
+    required TResult Function(double amplitude) recording,
+    required TResult Function(double amplitude) paused,
     required TResult Function() transcribing,
     required TResult Function(String text) success,
     required TResult Function(String message) error,
@@ -214,7 +227,9 @@ extension VoiceInputStatePatterns on VoiceInputState {
       case _Idle():
         return idle();
       case _Recording():
-        return recording();
+        return recording(_that.amplitude);
+      case _Paused():
+        return paused(_that.amplitude);
       case _Transcribing():
         return transcribing();
       case _Success():
@@ -241,7 +256,8 @@ extension VoiceInputStatePatterns on VoiceInputState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? idle,
-    TResult? Function()? recording,
+    TResult? Function(double amplitude)? recording,
+    TResult? Function(double amplitude)? paused,
     TResult? Function()? transcribing,
     TResult? Function(String text)? success,
     TResult? Function(String message)? error,
@@ -251,7 +267,9 @@ extension VoiceInputStatePatterns on VoiceInputState {
       case _Idle() when idle != null:
         return idle();
       case _Recording() when recording != null:
-        return recording();
+        return recording(_that.amplitude);
+      case _Paused() when paused != null:
+        return paused(_that.amplitude);
       case _Transcribing() when transcribing != null:
         return transcribing();
       case _Success() when success != null:
@@ -287,20 +305,129 @@ class _Idle implements VoiceInputState {
 /// @nodoc
 
 class _Recording implements VoiceInputState {
-  const _Recording();
+  const _Recording({this.amplitude = 0.0});
+
+  @JsonKey()
+  final double amplitude;
+
+  /// Create a copy of VoiceInputState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$RecordingCopyWith<_Recording> get copyWith =>
+      __$RecordingCopyWithImpl<_Recording>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Recording);
+        (other.runtimeType == runtimeType &&
+            other is _Recording &&
+            (identical(other.amplitude, amplitude) ||
+                other.amplitude == amplitude));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, amplitude);
 
   @override
   String toString() {
-    return 'VoiceInputState.recording()';
+    return 'VoiceInputState.recording(amplitude: $amplitude)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$RecordingCopyWith<$Res>
+    implements $VoiceInputStateCopyWith<$Res> {
+  factory _$RecordingCopyWith(
+          _Recording value, $Res Function(_Recording) _then) =
+      __$RecordingCopyWithImpl;
+  @useResult
+  $Res call({double amplitude});
+}
+
+/// @nodoc
+class __$RecordingCopyWithImpl<$Res> implements _$RecordingCopyWith<$Res> {
+  __$RecordingCopyWithImpl(this._self, this._then);
+
+  final _Recording _self;
+  final $Res Function(_Recording) _then;
+
+  /// Create a copy of VoiceInputState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? amplitude = null,
+  }) {
+    return _then(_Recording(
+      amplitude: null == amplitude
+          ? _self.amplitude
+          : amplitude // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _Paused implements VoiceInputState {
+  const _Paused({this.amplitude = 0.0});
+
+  @JsonKey()
+  final double amplitude;
+
+  /// Create a copy of VoiceInputState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$PausedCopyWith<_Paused> get copyWith =>
+      __$PausedCopyWithImpl<_Paused>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _Paused &&
+            (identical(other.amplitude, amplitude) ||
+                other.amplitude == amplitude));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, amplitude);
+
+  @override
+  String toString() {
+    return 'VoiceInputState.paused(amplitude: $amplitude)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$PausedCopyWith<$Res>
+    implements $VoiceInputStateCopyWith<$Res> {
+  factory _$PausedCopyWith(_Paused value, $Res Function(_Paused) _then) =
+      __$PausedCopyWithImpl;
+  @useResult
+  $Res call({double amplitude});
+}
+
+/// @nodoc
+class __$PausedCopyWithImpl<$Res> implements _$PausedCopyWith<$Res> {
+  __$PausedCopyWithImpl(this._self, this._then);
+
+  final _Paused _self;
+  final $Res Function(_Paused) _then;
+
+  /// Create a copy of VoiceInputState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? amplitude = null,
+  }) {
+    return _then(_Paused(
+      amplitude: null == amplitude
+          ? _self.amplitude
+          : amplitude // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
   }
 }
 
