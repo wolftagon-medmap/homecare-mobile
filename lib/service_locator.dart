@@ -13,6 +13,7 @@ import 'package:m2health/features/schedule/injection.dart';
 import 'package:m2health/features/settings/injection.dart';
 import 'package:m2health/features/smoking_cessation/injection.dart';
 import 'package:m2health/features/wellness_genomics/injection.dart';
+import 'package:m2health/core/blocs/voice_input/voice_input_cubit.dart';
 import 'package:m2health/core/services/ai_tools_service.dart';
 import 'package:m2health/core/services/appointment_service.dart';
 import 'package:m2health/features/subscription/injection.dart';
@@ -34,6 +35,7 @@ Future<void> setupLocator() async {
   sl.registerSingleton<SharedPreferences>(sharedPreferences);
   sl.registerLazySingleton(() => AppointmentService(sl()));
   sl.registerLazySingleton(() => AIToolsService(sl()));
+  sl.registerFactory(() => VoiceInputCubit(aiToolsService: sl()));
 
   // Feature Module Injectors
   initAuthModule(sl);
