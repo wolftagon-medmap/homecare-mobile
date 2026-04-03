@@ -461,6 +461,47 @@ class AppointmentService {
     }
   }
 
+  Future<Map<String, dynamic>> createAppointmentMultipart(
+      FormData formData) async {
+    try {
+      final token = await Utils.getSpString(Const.TOKEN);
+
+      log('Creating appointment with multipart data',
+          name: 'AppointmentService');
+
+      final response = await _dio.post(
+        Const.API_APPOINTMENT,
+        data: formData,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      log('Create appointment multipart response status: ${response.statusCode}',
+          name: 'AppointmentService');
+      log('Create appointment multipart response data: ${response.data}',
+          name: 'AppointmentService');
+
+      return response.data;
+    } catch (e, stackTrace) {
+      log(
+        'Error creating multipart appointment',
+        name: 'AppointmentService',
+        error: e,
+        stackTrace: stackTrace,
+      );
+      if (e is DioException) {
+        log('DioException message: ${e.message}', name: 'AppointmentService');
+        log('DioException response: ${e.response?.data}',
+            name: 'AppointmentService');
+        throw BadRequestFailure(e.response?.data['message'] ?? 'Validation Error');
+      }
+      throw Exception('Unknown error creating appointment.');
+    }
+  }
+
   Future<Map<String, dynamic>> updateAppointment(
       int appointmentId, Map<String, dynamic> appointmentData) async {
     try {
