@@ -27,7 +27,12 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   // Traditional SignUp
   Future<void> signUp(
-      String email, String password, String username, String role) async {
+    String email,
+    String password,
+    String username,
+    String role, {
+    String? countryCode,
+  }) async {
     if (email.isEmpty ||
         !EmailValidator.validate(email) ||
         password.isEmpty ||
@@ -39,7 +44,12 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(SignUpLoading());
 
     final result = await authRepository.register(
-        email, password, username, role.toLowerCase());
+      email,
+      password,
+      username,
+      role.toLowerCase(),
+      countryCode: countryCode,
+    );
 
     if (result.status == AuthResultStatus.success) {
       emit(SignUpSuccess());

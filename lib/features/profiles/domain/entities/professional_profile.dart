@@ -6,6 +6,7 @@ class ProfessionalProfile extends Equatable {
   final int id;
   final int userId;
   final String? name;
+  final String? countryCode;
   final String? avatar;
   final int? experience;
   final double? rating;
@@ -26,6 +27,7 @@ class ProfessionalProfile extends Equatable {
     required this.id,
     required this.userId,
     this.name,
+    this.countryCode,
     this.avatar,
     this.experience,
     this.rating,
@@ -47,6 +49,7 @@ class ProfessionalProfile extends Equatable {
         id,
         userId,
         name,
+        countryCode,
         avatar,
         experience,
         rating,
@@ -67,6 +70,7 @@ class ProfessionalProfile extends Equatable {
     int? id,
     int? userId,
     String? name,
+    String? countryCode,
     String? avatar,
     int? experience,
     double? rating,
@@ -85,6 +89,7 @@ class ProfessionalProfile extends Equatable {
     return ProfessionalProfile(
         id: id ?? this.id,
         name: name ?? this.name,
+        countryCode: countryCode ?? this.countryCode,
         avatar: avatar ?? this.avatar,
         experience: experience ?? this.experience,
         rating: rating ?? this.rating,
