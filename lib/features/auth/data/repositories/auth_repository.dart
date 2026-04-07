@@ -194,13 +194,21 @@ class AuthRepository {
   }
 
   Future<AuthResult> register(
-      String email, String password, String username, String role) async {
+    String email,
+    String password,
+    String username,
+    String role, {
+    String? countryCode,
+  }) async {
     try {
-      final payload = {
+      final payload = <String, dynamic>{
         "email": email,
         "password": password,
         "username": username,
       };
+      if (countryCode != null && countryCode.isNotEmpty) {
+        payload["country_code"] = countryCode;
+      }
 
       late String endpoint;
       if (['nurse', 'pharmacist', 'radiologist', 'caregiver', 'physiotherapist']

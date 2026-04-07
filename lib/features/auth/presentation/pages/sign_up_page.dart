@@ -15,6 +15,8 @@ import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/features/profiles/data/datasources/countries_remote_datasource.dart';
+import 'package:m2health/features/profiles/data/models/country_model.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../cubit/sign_up_cubit.dart';
@@ -38,8 +40,40 @@ class _SignUpPageState extends State<SignUpPage> {
   UserRole? _selectedRole = UserRole.patient;
   bool _isAgreed = false;
 
+  List<CountryModel> _countries = [];
+  bool _countriesLoading = true;
+  String? _countriesError;
+  String? _selectedCountryCode;
+
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCountries();
+  }
+
+  Future<void> _loadCountries() async {
+    setState(() {
+      _countriesLoading = true;
+      _countriesError = null;
+    });
+    try {
+      final list = await sl<CountriesRemoteDatasource>().fetchCountries();
+      if (!mounted) return;
+      setState(() {
+        _countries = list;
+        _countriesLoading = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _countriesLoading = false;
+        _countriesError = 'Could not load countries. Check your connection.';
+      });
+    }
+  }
 
   void _validatePasswords() {
     setState(() {
@@ -55,6 +89,19 @@ class _SignUpPageState extends State<SignUpPage> {
     _validatePasswords();
 
     final isValid = _formKey.currentState!.validate();
+
+    if (_selectedCountryCode == null || _selectedCountryCode!.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Please select your country',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
 
     if (!_isAgreed) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -77,6 +124,7 @@ class _SignUpPageState extends State<SignUpPage> {
             _passwordController.text,
             _usernameController.text.trim(),
             _selectedRole!.value,
+            countryCode: _selectedCountryCode,
           );
     } else if (_selectedRole == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -321,6 +369,58 @@ class _SignUpPageState extends State<SignUpPage> {
                         return null;
                       },
                     ),
+                    const SizedBox(height: 20),
+                    if (_countriesLoading)
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: Center(
+                            child: SizedBox(
+                          width: 28,
+                          height: 28,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )),
+                      )
+                    else if (_countriesError != null)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              _countriesError!,
+                              style: const TextStyle(
+                                  color: Colors.red, fontSize: 13),
+                            ),
+                            TextButton(
+                              onPressed: _loadCountries,
+                              child: const Text('Retry'),
+                            ),
+                          ],
+                        ),
+                      )
+                    else
+                      DropdownButtonFormField<String>(
+                        value: _selectedCountryCode,
+                        decoration: InputDecoration(
+                          labelText: 'Country',
+                          contentPadding: const EdgeInsets.fromLTRB(
+                              20.0, 10.0, 20.0, 10.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        items: _countries
+                            .map(
+                              (c) => DropdownMenuItem<String>(
+                                value: c.code,
+                                child: Text(c.name),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (v) {
+                          setState(() => _selectedCountryCode = v);
+                        },
+                      ),
                     const SizedBox(height: 20),
                     FormField<UserRole>(
                       initialValue: _selectedRole,

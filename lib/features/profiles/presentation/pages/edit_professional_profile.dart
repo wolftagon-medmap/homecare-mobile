@@ -6,9 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/features/profiles/data/datasources/countries_remote_datasource.dart';
+import 'package:m2health/features/profiles/data/models/country_model.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/certificate.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
+import 'package:m2health/service_locator.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
 import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/certificate_state.dart';
@@ -38,6 +41,9 @@ class _EditProfessionalProfilePageState
   late TextEditingController _workplaceController;
   late TextEditingController _experienceController;
   String? _selectedJobTitle;
+  List<CountryModel> _countries = [];
+  bool _countriesLoading = true;
+  String? _selectedCountryCode;
   Address? _workplaceAddress;
 
   @override
@@ -54,6 +60,22 @@ class _EditProfessionalProfilePageState
     _experienceController =
         TextEditingController(text: p.experience?.toString() ?? '');
     _selectedJobTitle = p.jobTitle;
+    _selectedCountryCode = p.countryCode;
+    _loadCountries();
+  }
+
+  Future<void> _loadCountries() async {
+    try {
+      final list = await sl<CountriesRemoteDatasource>().fetchCountries();
+      if (mounted) {
+        setState(() {
+          _countries = list;
+          _countriesLoading = false;
+        });
+      }
+    } catch (_) {
+      if (mounted) setState(() => _countriesLoading = false);
+    }
   }
 
   String _buildWorkplaceText(Address? address, {String? fallback}) {
@@ -84,8 +106,9 @@ class _EditProfessionalProfilePageState
   void _onSavePressed() {
     if (_formKey.currentState!.validate()) {
       final params = UpdateProfessionalProfileParams(
-        role: '', // Role will be injected by the cubit
+        role: '',
         name: _nameController.text,
+        countryCode: _selectedCountryCode,
         avatar: _selectedAvatar,
         jobTitle: _selectedJobTitle,
         about: _aboutMeController.text,
@@ -155,6 +178,42 @@ class _EditProfessionalProfilePageState
               ),
               const SizedBox(height: 24),
               _TextFieldWidget(controller: _nameController, label: 'Full Name'),
+              const SizedBox(height: 16),
+              if (_countriesLoading)
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Center(
+                    child: SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    ),
+                  ),
+                )
+              else if (_countries.isNotEmpty)
+                DropdownButtonFormField<String>(
+                  decoration: InputDecoration(
+                    labelText: 'Country',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 8),
+                  ),
+                  value: _selectedCountryCode != null &&
+                          _countries.any((c) => c.code == _selectedCountryCode)
+                      ? _selectedCountryCode
+                      : null,
+                  items: _countries
+                      .map(
+                        (c) => DropdownMenuItem(
+                          value: c.code,
+                          child: Text(c.name),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (v) => setState(() => _selectedCountryCode = v),
+                ),
               const SizedBox(height: 16),
               _JobTitleDropdown(
                 currentJobTitle: widget.profile.jobTitle,

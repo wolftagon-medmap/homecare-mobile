@@ -5,6 +5,7 @@ class Profile extends Equatable {
   final int id;
   final int userId;
   final String name;
+  final String? countryCode;
   final int? age;
   final double? weight;
   final double? height;
@@ -21,6 +22,7 @@ class Profile extends Equatable {
     required this.id,
     required this.userId,
     required this.name,
+    this.countryCode,
     this.age,
     this.weight,
     this.height,
@@ -39,6 +41,7 @@ class Profile extends Equatable {
         id,
         userId,
         name,
+        countryCode,
         age,
         weight,
         height,
@@ -56,6 +59,7 @@ class Profile extends Equatable {
     int? id,
     int? userId,
     String? name,
+    String? countryCode,
     int? age,
     double? weight,
     double? height,
@@ -72,6 +76,7 @@ class Profile extends Equatable {
       id: id ?? this.id,
       userId: userId ?? this.userId,
       name: name ?? this.name,
+      countryCode: countryCode ?? this.countryCode,
       age: age ?? this.age,
       weight: weight ?? this.weight,
       height: height ?? this.height,

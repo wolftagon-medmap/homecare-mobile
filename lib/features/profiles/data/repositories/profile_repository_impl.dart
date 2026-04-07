@@ -35,6 +35,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
     try {
       final profileData = {
         'name': params.name,
+        'country_code': params.countryCode,
         'age': params.age,
         'weight': params.weight,
         'height': params.height,
@@ -76,6 +77,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
     try {
       final profileData = {
         'name': params.name,
+        'country_code': params.countryCode,
         'about': params.about,
         'job_title': params.jobTitle,
         'working_hours': params.workHours,

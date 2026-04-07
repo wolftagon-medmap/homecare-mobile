@@ -18,6 +18,7 @@ class UpdateProfessionalProfile {
 class UpdateProfessionalProfileParams extends Equatable {
   final String role;
   final String? name;
+  final String? countryCode;
   final String? about;
   final String? jobTitle;
   final String? workHours;
@@ -28,6 +29,7 @@ class UpdateProfessionalProfileParams extends Equatable {
   const UpdateProfessionalProfileParams({
     required this.role,
     this.name,
+    this.countryCode,
     this.about,
     this.jobTitle,
     this.workHours,
@@ -38,11 +40,12 @@ class UpdateProfessionalProfileParams extends Equatable {
 
   @override
   List<Object?> get props =>
-      [role, name, about, jobTitle, workHours, workPlace, experience, avatar];
+      [role, name, countryCode, about, jobTitle, workHours, workPlace, experience, avatar];
 
   UpdateProfessionalProfileParams copyWith({
     String? role,
     String? name,
+    String? countryCode,
     String? about,
     String? jobTitle,
     String? workHours,
@@ -53,6 +56,7 @@ class UpdateProfessionalProfileParams extends Equatable {
     return UpdateProfessionalProfileParams(
       role: role ?? this.role,
       name: name ?? this.name,
+      countryCode: countryCode ?? this.countryCode,
       about: about ?? this.about,
       jobTitle: jobTitle ?? this.jobTitle,
       workHours: workHours ?? this.workHours,
