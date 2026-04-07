@@ -7,6 +7,8 @@ import 'package:m2health/features/booking_appointment/pharmacy/data/models/pharm
 import 'package:m2health/features/booking_appointment/professional_directory/data/models/professional_model.dart';
 import 'package:m2health/features/profiles/data/models/profile_model.dart';
 import 'package:m2health/features/physiotherapy/data/models/physiotherapy_request_data_model.dart';
+import 'package:m2health/features/second_opinion_imaging/data/models/second_opinion_imaging_request_data_model.dart';
+import 'package:m2health/features/second_opinion_imaging/data/models/second_opinion_imaging_feedback_model.dart';
 
 class AppointmentModel extends AppointmentEntity {
   const AppointmentModel({
@@ -21,12 +23,16 @@ class AppointmentModel extends AppointmentEntity {
     required super.createdAt,
     required super.updatedAt,
     super.providerId,
+    super.cancelledBy,
+    super.cancellationReason,
     super.provider,
     super.nursingCase,
     super.pharmacyCase,
     super.screeningRequestData,
     super.homecareRequestData,
     super.physiotherapyRequestData,
+    super.secondOpinionImagingRequestData,
+    super.secondOpinionImagingFeedback,
     super.patientProfile,
     super.payment,
   });
@@ -54,11 +60,24 @@ class AppointmentModel extends AppointmentEntity {
             appointmentJson['screening_request_data'])
         : null;
     final homecareRequest = appointmentJson['homecare_request_data'] != null
-        ? HomecareRequestDataModel.fromJson(appointmentJson['homecare_request_data'])
+        ? HomecareRequestDataModel.fromJson(
+            appointmentJson['homecare_request_data'])
         : null;
-    final physiotherapyRequest = appointmentJson['physiotherapy_request_data'] != null
-        ? PhysiotherapyRequestDataModel.fromJson(appointmentJson['physiotherapy_request_data'])
-        : null;
+    final physiotherapyRequest =
+        appointmentJson['physiotherapy_request_data'] != null
+            ? PhysiotherapyRequestDataModel.fromJson(
+                appointmentJson['physiotherapy_request_data'])
+            : null;
+    final secondOpinionImagingRequest =
+        appointmentJson['second_opinion_imaging_request_data'] != null
+            ? SecondOpinionImagingRequestDataModel.fromJson(
+                appointmentJson['second_opinion_imaging_request_data'])
+            : null;
+    final secondOpinionImagingFeedback =
+        appointmentJson['second_opinion_imaging_feedback'] != null
+            ? SecondOpinionImagingFeedbackModel.fromJson(
+                appointmentJson['second_opinion_imaging_feedback'])
+            : null;
 
     return AppointmentModel(
       id: appointmentJson['id'],
@@ -66,18 +85,24 @@ class AppointmentModel extends AppointmentEntity {
       type: appointmentJson['type'],
       status: appointmentJson['status'],
       startDatetime: DateTime.parse(appointmentJson['start_datetime']),
-      endDatetime: DateTime.parse(appointmentJson['end_datetime']),
+      endDatetime: appointmentJson['end_datetime'] != null
+          ? DateTime.parse(appointmentJson['end_datetime'])
+          : null,
       summary: appointmentJson['summary'] ?? 'N/A',
       payTotal: double.parse(appointmentJson['pay_total'].toString()),
       createdAt: DateTime.parse(appointmentJson['created_at']),
       updatedAt: DateTime.parse(appointmentJson['updated_at']),
       providerId: appointmentJson['provider_id'],
+      cancelledBy: appointmentJson['cancelled_by'],
+      cancellationReason: appointmentJson['cancellation_reason'],
       provider: provider,
       nursingCase: nursingCase,
       pharmacyCase: pharmacyCase,
       screeningRequestData: screeningRequest,
       homecareRequestData: homecareRequest,
       physiotherapyRequestData: physiotherapyRequest,
+      secondOpinionImagingRequestData: secondOpinionImagingRequest,
+      secondOpinionImagingFeedback: secondOpinionImagingFeedback,
       patientProfile: patient,
       payment: payment,
     );
@@ -96,6 +121,8 @@ class AppointmentModel extends AppointmentEntity {
       'created_at': createdAt.toIso8601String(),
       'updated_at': updatedAt.toIso8601String(),
       'provider_id': providerId,
+      'cancelled_by': cancelledBy,
+      'cancellation_reason': cancellationReason,
     };
   }
 
@@ -112,9 +139,18 @@ class AppointmentModel extends AppointmentEntity {
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       providerId: entity.providerId,
+      cancelledBy: entity.cancelledBy,
+      cancellationReason: entity.cancellationReason,
       provider: entity.provider,
       nursingCase: entity.nursingCase,
+      pharmacyCase: entity.pharmacyCase,
+      screeningRequestData: entity.screeningRequestData,
+      homecareRequestData: entity.homecareRequestData,
+      physiotherapyRequestData: entity.physiotherapyRequestData,
+      secondOpinionImagingRequestData: entity.secondOpinionImagingRequestData,
+      secondOpinionImagingFeedback: entity.secondOpinionImagingFeedback,
       patientProfile: entity.patientProfile,
+      payment: entity.payment,
     );
   }
 }

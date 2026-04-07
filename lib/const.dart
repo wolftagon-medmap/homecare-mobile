@@ -9,8 +9,8 @@ class Const {
   /// - HP fisik (WiFi sama):   http://<IP_PC>:3333 (mis. 192.168.1.5)
   /// - Production:             https://homecare-api.med-map.org
   // static const String BASE_URL = 'http://127.0.0.1:3333';
-  // static const String BASE_URL = 'http://10.0.2.2:3333'; // Android emulator
-  static const String BASE_URL = 'https://homecare-api.med-map.org';
+  static const String BASE_URL = 'http://10.0.2.2:3333'; // Android emulator
+  // static const String BASE_URL = 'https://homecare-api.med-map.org';
 
   static const String URL_API = BASE_URL + '/v1';
   static const String URL_IMG_PLACEHOLDER = 'https://placehold.co/100x100';
@@ -80,6 +80,8 @@ class Const {
   static const String API_SUBSCRIPTIONS_PURCHASE =
       '$API_SUBSCRIPTIONS/purchase';
   static const String API_ADMIN_SUBSCRIPTIONS = '$URL_API/admin/subscriptions';
+
+  static const String API_AI_TRANSCRIBE = '$URL_API/ai-tools/transcribe';
 
   // Settings
   static const String API_DELETE_ACCOUNT_REQUEST_OTP =

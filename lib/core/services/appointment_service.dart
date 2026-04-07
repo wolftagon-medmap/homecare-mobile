@@ -76,12 +76,21 @@ class AppointmentService {
   }
 
   /// Reject provider appointment - Enhanced with detailed debugging
-  Future<void> rejectProviderAppointment(int appointmentId) async {
+  Future<void> rejectProviderAppointment(
+    int appointmentId, {
+    required String cancellationReason,
+    String? otherReason,
+  }) async {
     try {
       final token = await Utils.getSpString(Const.TOKEN);
 
       final response = await _dio.post(
         '${Const.URL_API}/provider/appointments/$appointmentId/cancel',
+        data: {
+          'cancellation_reason': cancellationReason,
+          if (otherReason != null && otherReason.trim().isNotEmpty)
+            'other_reason': otherReason.trim(),
+        },
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
@@ -288,13 +297,21 @@ class AppointmentService {
       );
 
       return AppointmentModel.fromJson(response.data);
-    } catch (e) {
+    } catch (e, stackTrace) {
       if (e is DioException) {
-        log('DioException fetching appointment detail: ${e.message}',
-            error: e, name: 'AppointmentService');
+        log(
+          'DioException fetching appointment detail: ${e.message}',
+          error: e,
+          name: 'AppointmentService',
+          stackTrace: stackTrace,
+        );
       } else {
-        log('Error fetching appointment detail: $e',
-            error: e, name: 'AppointmentService');
+        log(
+          'Error fetching appointment detail: $e',
+          error: e,
+          name: 'AppointmentService',
+          stackTrace: stackTrace,
+        );
       }
       rethrow;
     }
@@ -333,12 +350,21 @@ class AppointmentService {
     }
   }
 
-  Future<void> cancelAppointment(int appointmentId) async {
+  Future<void> cancelAppointment(
+    int appointmentId, {
+    required String cancellationReason,
+    String? otherReason,
+  }) async {
     try {
       final token = await Utils.getSpString(Const.TOKEN);
 
       final response = await _dio.post(
         '${Const.API_APPOINTMENT}/$appointmentId/cancel',
+        data: {
+          'cancellation_reason': cancellationReason,
+          if (otherReason != null && otherReason.trim().isNotEmpty)
+            'other_reason': otherReason.trim(),
+        },
         options: Options(
           headers: {
             'Authorization': 'Bearer $token',
@@ -440,6 +466,76 @@ class AppointmentService {
         throw BadRequestFailure(e.response?.data['message']);
       }
       throw Exception('Unknown error creating appointment.');
+    }
+  }
+
+  Future<Map<String, dynamic>> createAppointmentMultipart(
+      FormData formData) async {
+    try {
+      final token = await Utils.getSpString(Const.TOKEN);
+
+      log('Creating appointment with multipart data',
+          name: 'AppointmentService');
+
+      final response = await _dio.post(
+        Const.API_APPOINTMENT,
+        data: formData,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      log('Create appointment multipart response status: ${response.statusCode}',
+          name: 'AppointmentService');
+      log('Create appointment multipart response data: ${response.data}',
+          name: 'AppointmentService');
+
+      return response.data;
+    } catch (e, stackTrace) {
+      log(
+        'Error creating multipart appointment',
+        name: 'AppointmentService',
+        error: e,
+        stackTrace: stackTrace,
+      );
+      if (e is DioException) {
+        log('DioException message: ${e.message}', name: 'AppointmentService');
+        log('DioException response: ${e.response?.data}',
+            name: 'AppointmentService');
+        throw BadRequestFailure(
+            e.response?.data['message'] ?? 'Validation Error');
+      }
+      throw Exception('Unknown error creating appointment.');
+    }
+  }
+
+  Future<void> submitSecondOpinionFeedback(
+      int appointmentId, Map<String, dynamic> payload) async {
+    try {
+      final token = await Utils.getSpString(Const.TOKEN);
+
+      final response = await _dio.post(
+        '${Const.URL_API}/appointments/$appointmentId/feedback',
+        data: payload,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        throw Exception('Failed to submit feedback: ${response.statusCode}');
+      }
+    } catch (e) {
+      if (e is DioException) {
+        throw BadRequestFailure(
+            e.response?.data['message'] ?? 'Failed to submit feedback');
+      }
+      throw Exception('Unknown error submitting feedback.');
     }
   }
 

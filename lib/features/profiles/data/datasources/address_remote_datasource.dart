@@ -9,6 +9,7 @@ import 'package:m2health/features/profiles/data/models/place_suggestion_model.da
 
 abstract class AddressRemoteDatasource {
   Future<AddressModel> saveAddress(Map<String, dynamic> data);
+  Future<AddressModel> saveWorkplaceAddress(Map<String, dynamic> data);
   Future<List<PlaceSuggestionModel>> searchPlaces(
       String query, String sessionToken);
   Future<PlaceDetailModel> getPlaceDetails(String placeId, String sessionToken);
@@ -35,6 +36,24 @@ class AddressRemoteDatasourceImpl implements AddressRemoteDatasource {
       return AddressModel.fromJson(result.data['data']);
     } on DioException catch (e, stackTrace) {
       log('Failed to save address: ${e.message}',
+          name: 'AddressRemoteDatasourceImpl',
+          stackTrace: stackTrace,
+          error: e);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<AddressModel> saveWorkplaceAddress(Map<String, dynamic> data) async {
+    try {
+      final result = await dio.post(
+        '${Const.URL_API}/addresses/save-workplace',
+        data: data,
+        options: await _getAuthHeaders(),
+      );
+      return AddressModel.fromJson(result.data['data']);
+    } on DioException catch (e, stackTrace) {
+      log('Failed to save workplace address: ${e.message}',
           name: 'AddressRemoteDatasourceImpl',
           stackTrace: stackTrace,
           error: e);

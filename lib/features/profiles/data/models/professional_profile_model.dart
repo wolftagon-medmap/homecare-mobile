@@ -1,4 +1,5 @@
 import 'package:m2health/features/booking_appointment/add_on_services/data/model/add_on_service_model.dart';
+import 'package:m2health/features/profiles/data/models/address_model.dart';
 import 'package:m2health/features/profiles/data/models/certificate_model.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 
@@ -22,6 +23,7 @@ class ProfessionalProfileModel extends ProfessionalProfile {
     super.updatedAt,
     super.certificates = const [],
     super.providedServices = const [],
+    super.workplaceAddress,
   });
 
   factory ProfessionalProfileModel.fromJson(Map<String, dynamic> json) {
@@ -56,6 +58,11 @@ class ProfessionalProfileModel extends ProfessionalProfile {
               ?.map((e) => AddOnServiceModel.fromJson(e))
               .toList() ??
           [],
+      workplaceAddress: json['workplaceAddress'] != null
+          ? AddressModel.fromJson(json['workplaceAddress'])
+          : (json['workplace_address'] != null
+              ? AddressModel.fromJson(json['workplace_address'])
+              : null),
     );
   }
 }

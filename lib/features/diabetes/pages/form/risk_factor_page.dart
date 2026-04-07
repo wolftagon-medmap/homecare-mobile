@@ -224,8 +224,9 @@ class RiskFactorsPageState extends State<RiskFactorsFormPage> {
     String? serverValue;
     if (key == 'Smoking') {
       try {
-         final status = SmokingStatus.values.firstWhere((e) => e.label(context) == uiValue);
-         serverValue = status.value;
+        final status =
+            SmokingStatus.values.firstWhere((e) => e.label(context) == uiValue);
+        serverValue = status.value;
       } catch (e) {
         serverValue = null;
       }
@@ -293,7 +294,7 @@ class RiskFactorCard extends StatelessWidget {
         FormSubHeader(name, iconPath: iconPath),
         Wrap(
           direction: Axis.vertical,
-          spacing: -10,
+          spacing: -20,
           children: options.map((value) {
             return Row(
               mainAxisSize: MainAxisSize.min,

@@ -28,10 +28,8 @@ const dummyLifestyleAdjustments = [
       title: 'Target: 7-8 hrs/night',
       description: 'No screens 30 mins before bed'),
   LifestyleAdjustment(
-      title: 'Daily Breathing Practice',
-      description: 'Use calm/headspace app'),
-  LifestyleAdjustment(
-      title: 'Brisk Walking 4x/week', description: '30 mins'),
+      title: 'Daily Breathing Practice', description: 'Use calm/headspace app'),
+  LifestyleAdjustment(title: 'Brisk Walking 4x/week', description: '30 mins'),
 ];
 
 final dummyWeeklyMealPlan = {
@@ -39,7 +37,8 @@ final dummyWeeklyMealPlan = {
     breakfast: [
       FoodItem(
           name: 'Tuna Salad',
-          imageUrl: 'https://i.imgur.com/ZrEnTyG.png',
+          imageUrl: 'assets/images/food_salmon.webp',
+          isLocalImage: true,
           calories: 294,
           grams: 100,
           protein: 25,
@@ -47,20 +46,13 @@ final dummyWeeklyMealPlan = {
           fat: 17),
       FoodItem(
           name: 'Oatmeal',
-          imageUrl: 'https://i.imgur.com/NXCm0pc.png',
+          imageUrl: 'assets/images/food_oatmeal.webp',
+          isLocalImage: true,
           calories: 157,
           grams: 100,
           protein: 15,
           carbs: 22,
           fat: 7),
-      FoodItem(
-          name: 'Pancakes',
-          imageUrl: 'https://i.imgur.com/3m7THGu.png',
-          calories: 317,
-          grams: 100,
-          protein: 20,
-          carbs: 47,
-          fat: 5),
     ],
     lunch: [
       FoodItem(

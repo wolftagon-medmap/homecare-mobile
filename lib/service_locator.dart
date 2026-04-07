@@ -13,10 +13,13 @@ import 'package:m2health/features/schedule/injection.dart';
 import 'package:m2health/features/settings/injection.dart';
 import 'package:m2health/features/smoking_cessation/injection.dart';
 import 'package:m2health/features/wellness_genomics/injection.dart';
+import 'package:m2health/core/blocs/voice_input/voice_input_cubit.dart';
+import 'package:m2health/core/services/ai_tools_service.dart';
 import 'package:m2health/core/services/appointment_service.dart';
 import 'package:m2health/features/subscription/injection.dart';
 import 'package:m2health/features/homecare_elderly/injection.dart';
 import 'package:m2health/features/physiotherapy/injection.dart';
+import 'package:m2health/features/second_opinion_imaging/injection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
@@ -31,6 +34,8 @@ Future<void> setupLocator() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerSingleton<SharedPreferences>(sharedPreferences);
   sl.registerLazySingleton(() => AppointmentService(sl()));
+  sl.registerLazySingleton(() => AIToolsService(sl()));
+  sl.registerFactory(() => VoiceInputCubit(aiToolsService: sl()));
 
   // Feature Module Injectors
   initAuthModule(sl);
@@ -45,6 +50,7 @@ Future<void> setupLocator() async {
   initSubscriptionModule(sl);
   initHomecareElderlyModule(sl);
   initPhysiotherapyModule(sl);
+  initSecondOpinionImagingModule(sl);
   initSettingsModule(sl);
   initSmokingCessationModule(sl);
   initChatbotModule(sl);

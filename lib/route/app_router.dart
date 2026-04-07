@@ -9,6 +9,7 @@ import 'package:m2health/features/payment/presentation/cubit/payment_cubit.dart'
 import 'package:m2health/features/payment/presentation/pages/payment_page.dart';
 import 'package:m2health/features/homecare_elderly/admin/pages/admin_homecare_configuration_page.dart';
 import 'package:m2health/features/remote_patient_monitoring/remote_patient_monitoring_routes.dart';
+import 'package:m2health/features/second_opinion_imaging/second_opinion_routes.dart';
 import 'package:m2health/features/settings/settings_routes.dart';
 import 'package:m2health/features/smoking_cessation/smoking_cessation_routes.dart';
 import 'package:m2health/route/auth_routes.dart';
@@ -105,6 +106,7 @@ final GoRouter router = GoRouter(
     ...PharmacyRoutes.routes,
     ...RemotePatientMonitoringRoutes.routes,
     ...SmokingCessationRoutes.routes,
+    ...SecondOpinionRoutes.routes,
 
     GoRoute(
       path: AppRoutes.payment,

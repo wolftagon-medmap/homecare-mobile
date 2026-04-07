@@ -102,6 +102,9 @@ class AppRoutes {
   static const String smokingCessationPlanForm = '/appointment/smoking-cessation-plan/form';
   static const String smokingCessationPlanView = '/appointment/smoking-cessation-plan/view';
 
+  // Second Opinion Medical Module
+  static const String secondOpinionRequestDetail = '$secondOpinionMedical/detail';
+
   // static const String home = '/';
   // static const String submenu = 'submenu';
   // static const String dashboard= 'dashboard';
