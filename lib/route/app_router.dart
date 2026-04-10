@@ -59,9 +59,6 @@ final GoRouter router = GoRouter(
     final bool inOnBoardingRoute =
         onboardingRoutes.contains(state.matchedLocation);
 
-    log('Current Route: ${state.matchedLocation}, Is Logged In: $isLoggedIn, Onboarding Completed: $isOnboardingCompleted, inAuthRoute: $inAuthRoute, inPublicRoute: $inPublicRoute',
-        name: 'AppRouter');
-
     // Redirect to Dashboard if already logged in
     if (isLoggedIn) {
       if (inAuthRoute || inOnBoardingRoute) {

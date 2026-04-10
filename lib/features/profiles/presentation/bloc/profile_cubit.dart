@@ -45,7 +45,6 @@ class ProfileCubit extends Cubit<ProfileState> {
           }
         },
         (profile) {
-          log('Professional profile loaded: $profile', name: 'ProfileCubit');
           emit(ProfessionalProfileLoaded(profile));
         },
       );
