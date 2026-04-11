@@ -49,6 +49,31 @@ class _CancelAppoinmentDialogState extends State<CancelAppoinmentDialog> {
     super.dispose();
   }
 
+  void _showReasonPicker() {
+    showDialog<String>(
+      context: context,
+      builder: (ctx) => SimpleDialog(
+        backgroundColor: Colors.white,
+        title: const Text('Cancellation reason',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+        children: _reasons
+            .map(
+              (reason) => SimpleDialogOption(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                  setState(() => _selectedReason = reason);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Text(reason, style: const TextStyle(fontSize: 14)),
+                ),
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+
   void _onConfirm() {
     final otherReason = _otherReasonController.text.trim();
     if (_isOtherReason && otherReason.length < 3) {
@@ -109,40 +134,20 @@ class _CancelAppoinmentDialogState extends State<CancelAppoinmentDialog> {
                 style: const TextStyle(fontSize: 12),
               ),
               const SizedBox(height: 16),
-              DropdownButtonFormField<String>(
-                initialValue: _selectedReason,
-                isExpanded: true,
-                decoration: const InputDecoration(
-                  labelText: 'Cancellation reason',
-                  border: OutlineInputBorder(),
-                ),
-                items: _reasons
-                    .map(
-                      (reason) => DropdownMenuItem(
-                        value: reason,
-                        child: Text(
-                          reason,
-                          softWrap: true,
-                        ),
-                      ),
-                    )
-                    .toList(),
-                onChanged: (value) {
-                  if (value == null) return;
-                  setState(() {
-                    _selectedReason = value;
-                  });
-                },
-              ),
-              const SizedBox(height: 8),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  _selectedReason,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: Colors.black87,
-                    fontWeight: FontWeight.w500,
+              GestureDetector(
+                onTap: _showReasonPicker,
+                child: InputDecorator(
+                  decoration: const InputDecoration(
+                    labelText: 'Cancellation reason',
+                    labelStyle: TextStyle(fontSize: 14),
+                    border: OutlineInputBorder(),
+                    suffixIcon: Icon(Icons.arrow_drop_down),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  ),
+                  child: Text(
+                    _selectedReason,
+                    style: const TextStyle(fontSize: 14),
                   ),
                 ),
               ),
