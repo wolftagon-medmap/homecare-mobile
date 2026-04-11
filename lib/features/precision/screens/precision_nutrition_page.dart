@@ -32,7 +32,7 @@ class PrecisionNutritionPage extends StatelessWidget {
               children: [
                 // Left side - Timeline
                 Container(
-                  width: 100,
+                  width: 80,
                   child: const NutritionTimeline(currentStep: 1),
                 ),
                 const SizedBox(width: 16),
@@ -106,7 +106,6 @@ class PrecisionNutritionPage extends StatelessWidget {
       );
     });
   }
-
 }
 
 class PrecisionNutritionCard extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:m2health/features/profiles/data/datasources/address_remote_datasource.dart';
+import 'package:m2health/features/profiles/data/datasources/countries_remote_datasource.dart';
 import 'package:m2health/features/profiles/data/datasources/profile_remote_datasource.dart';
 import 'package:m2health/features/profiles/data/datasources/certificate_remote_datasource.dart';
 import 'package:m2health/features/profiles/data/repositories/address_repository_impl.dart';
@@ -21,6 +22,7 @@ void initProfileModule(GetIt sl) {
   sl.registerLazySingleton(() => UpdateCertificate(sl()));
   sl.registerLazySingleton(() => DeleteCertificate(sl()));
   sl.registerLazySingleton(() => SaveAddress(sl()));
+  sl.registerLazySingleton(() => SaveWorkplaceAddress(sl()));
   sl.registerLazySingleton(() => SearchPlaces(sl()));
   sl.registerLazySingleton(() => GetPlaceDetails(sl()));
 
@@ -38,6 +40,9 @@ void initProfileModule(GetIt sl) {
   // Data sources
   sl.registerLazySingleton<ProfileRemoteDatasource>(
     () => ProfileRemoteDatasourceImpl(dio: sl<Dio>()),
+  );
+  sl.registerLazySingleton<CountriesRemoteDatasource>(
+    () => CountriesRemoteDatasourceImpl(dio: sl<Dio>()),
   );
   sl.registerLazySingleton<CertificateRemoteDatasource>(
     () => CertificateRemoteDatasourceImpl(dio: sl<Dio>()),

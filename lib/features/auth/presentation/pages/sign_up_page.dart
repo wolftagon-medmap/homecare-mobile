@@ -15,6 +15,7 @@ import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/core/presentation/widgets/country_picker_field.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../cubit/sign_up_cubit.dart';
@@ -38,6 +39,8 @@ class _SignUpPageState extends State<SignUpPage> {
   UserRole? _selectedRole = UserRole.patient;
   bool _isAgreed = false;
 
+  String? _selectedCountryCode;
+
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
 
@@ -55,6 +58,19 @@ class _SignUpPageState extends State<SignUpPage> {
     _validatePasswords();
 
     final isValid = _formKey.currentState!.validate();
+
+    if (_selectedCountryCode == null || _selectedCountryCode!.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Please select your country',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
 
     if (!_isAgreed) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -77,6 +93,7 @@ class _SignUpPageState extends State<SignUpPage> {
             _passwordController.text,
             _usernameController.text.trim(),
             _selectedRole!.value,
+            countryCode: _selectedCountryCode,
           );
     } else if (_selectedRole == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -320,6 +337,11 @@ class _SignUpPageState extends State<SignUpPage> {
                         }
                         return null;
                       },
+                    ),
+                    const SizedBox(height: 20),
+                    CountryPickerField(
+                      value: _selectedCountryCode,
+                      onChanged: (v) => setState(() => _selectedCountryCode = v),
                     ),
                     const SizedBox(height: 20),
                     FormField<UserRole>(

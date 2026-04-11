@@ -16,6 +16,7 @@ class UpdateProfile {
 
 class UpdateProfileParams {
   final String? name;
+  final String? countryCode;
   final int? age;
   final double? weight;
   final double? height;
@@ -27,6 +28,7 @@ class UpdateProfileParams {
 
   UpdateProfileParams({
     this.name,
+    this.countryCode,
     this.age,
     this.weight,
     this.height,
@@ -39,6 +41,7 @@ class UpdateProfileParams {
 
   UpdateProfileParams copyWith({
     String? name,
+    String? countryCode,
     int? age,
     double? weight,
     double? height,
@@ -50,6 +53,7 @@ class UpdateProfileParams {
   }) {
     return UpdateProfileParams(
       name: name ?? this.name,
+      countryCode: countryCode ?? this.countryCode,
       age: age ?? this.age,
       weight: weight ?? this.weight,
       height: height ?? this.height,

@@ -44,8 +44,7 @@ class _WeeklyMealPlanDetailPageState extends State<WeeklyMealPlanDetailPage> {
         context.read<NutritionPlanCubit>().state.weeklyMealPlan[widget.day];
 
     if (dailyPlan == null) {
-      return Scaffold(
-          body: Center(child: Text(context.l10n.common_no_data)));
+      return Scaffold(body: Center(child: Text(context.l10n.common_no_data)));
     }
 
     final List<String> tabs = [
@@ -184,14 +183,23 @@ class _FoodItemCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.network(
-                  food.imageUrl,
-                  width: 60,
-                  height: 60,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
-                      const Icon(Icons.image_not_supported, size: 60),
-                ),
+                child: food.isLocalImage
+                    ? Image.asset(
+                        food.imageUrl,
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.image_not_supported, size: 60),
+                      )
+                    : Image.network(
+                        food.imageUrl,
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.image_not_supported, size: 60),
+                      ),
               ),
               const SizedBox(width: 16),
               Expanded(

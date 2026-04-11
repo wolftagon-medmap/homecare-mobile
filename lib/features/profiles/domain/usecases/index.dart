@@ -2,6 +2,7 @@ export 'get_profile.dart';
 export 'update_profile.dart';
 
 export 'save_address.dart';
+export 'save_workplace_address.dart';
 export 'search_places.dart';
 export 'get_place_details.dart';
 

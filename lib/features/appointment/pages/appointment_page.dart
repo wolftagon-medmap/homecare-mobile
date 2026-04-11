@@ -93,20 +93,37 @@ class _AppointmentPageState extends State<AppointmentPage>
             },
           ),
         ],
-        bottom: TabBar(
-          controller: _tabController,
-          indicatorColor: Const.aqua,
-          labelColor: Const.aqua,
-          tabAlignment: TabAlignment.fill,
-          isScrollable: false,
-          labelStyle:
-              const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-          labelPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 0),
-          indicatorSize: TabBarIndicatorSize.tab,
-          tabs: _tabs.map((status) {
-            String label = _getStatusLabel(status.name, context);
-            return Tab(text: label);
-          }).toList(),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(48),
+          child: TabBar(
+            controller: _tabController,
+            indicatorColor: Const.aqua,
+            labelColor: Const.aqua,
+            unselectedLabelColor: Colors.grey,
+            isScrollable: false,
+            labelStyle:
+                const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+            unselectedLabelStyle:
+                const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+            labelPadding: EdgeInsets.zero,
+            indicatorSize: TabBarIndicatorSize.tab,
+            tabs: _tabs.map((status) {
+              String label = _getStatusLabel(status.name, context);
+              return SizedBox(
+                width: MediaQuery.of(context).size.width / _tabs.length,
+                child: Tab(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      label,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
         ),
       ),
       body: BlocBuilder<AppointmentCubit, AppointmentState>(
@@ -132,10 +149,11 @@ class _AppointmentPageState extends State<AppointmentPage>
 
 String _getStatusLabel(String status, BuildContext context) {
   switch (status) {
+    case 'accepted':
     case 'upcoming':
       return context.l10n.appointment_status_upcoming;
-    case 'accepted':
-      return context.l10n.appointment_status_accepted;
+    case 'waiting_for_payment':
+      return 'Awaiting Payment';
     case 'pending':
       return context.l10n.appointment_status_pending;
     case 'completed':
@@ -295,6 +313,7 @@ class _AppointmentListItem extends StatelessWidget {
         return Colors.green;
       case 'cancelled':
         return Colors.red;
+      case 'waiting_for_payment':
       case 'pending':
       case 'accepted':
       case 'upcoming':
@@ -316,10 +335,12 @@ class _AppointmentListItem extends StatelessWidget {
         showDialog(
           context: context,
           builder: (BuildContext context) {
-            return CancelAppoinmentDialog(onPressYes: () {
-              context
-                  .read<AppointmentCubit>()
-                  .cancelAppointment(appointment.id!);
+            return CancelAppoinmentDialog(onPressYes: (selection) {
+              context.read<AppointmentCubit>().cancelAppointment(
+                    appointment.id!,
+                    cancellationReason: selection.cancellationReason,
+                    otherReason: selection.otherReason,
+                  );
             });
           },
         );
@@ -407,6 +428,46 @@ class _AppointmentListItem extends StatelessWidget {
         child: Text(
           context.l10n.appointment_book_again_btn,
           style: const TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+
+    final payButton = Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        gradient: const LinearGradient(
+          colors: [
+            Color(0xFF35C5CF),
+            Color(0xFF9DCEFF),
+          ],
+          begin: Alignment.bottomRight,
+          end: Alignment.topLeft,
+        ),
+      ),
+      child: OutlinedButton(
+        onPressed: () async {
+          // Navigate to payment page with the appointment entity
+          await context.push(AppRoutes.payment, extra: appointment);
+          // Refresh appointments after returning from payment
+          if (context.mounted) {
+            context.read<AppointmentCubit>().refreshAllTabs();
+          }
+        },
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: Colors.transparent),
+          backgroundColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        child: const Text(
+          'Pay',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 13,
+          ),
+          textAlign: TextAlign.center,
         ),
       ),
     );
@@ -533,6 +594,11 @@ class _AppointmentListItem extends StatelessWidget {
                     Expanded(child: cancelButton),
                     const SizedBox(width: 10),
                     Expanded(child: rescheduleButton),
+                  ],
+                  if (appointmentStatusLower == 'waiting_for_payment') ...[
+                    Expanded(child: cancelButton),
+                    const SizedBox(width: 10),
+                    Expanded(child: payButton),
                   ],
                   if (appointmentStatusLower == 'pending' ||
                       appointmentStatusLower == 'accepted' ||

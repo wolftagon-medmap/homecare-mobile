@@ -7,6 +7,8 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_blue_plus_winrt
   flutter_timezone
   geolocator_windows
+  permission_handler_windows
+  record_windows
   share_plus
   url_launcher_windows
 )

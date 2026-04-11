@@ -1,4 +1,5 @@
 import 'package:m2health/features/booking_appointment/add_on_services/data/model/add_on_service_model.dart';
+import 'package:m2health/features/profiles/data/models/address_model.dart';
 import 'package:m2health/features/profiles/data/models/certificate_model.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 
@@ -7,6 +8,7 @@ class ProfessionalProfileModel extends ProfessionalProfile {
     required super.id,
     required super.userId,
     super.name,
+    super.countryCode,
     super.avatar,
     super.experience,
     super.rating,
@@ -17,10 +19,12 @@ class ProfessionalProfileModel extends ProfessionalProfile {
     super.isVerified,
     super.verifiedAt,
     super.isHomeScreeningAuthorized,
+    super.serviceRadiusPreference,
     super.createdAt,
     super.updatedAt,
     super.certificates = const [],
     super.providedServices = const [],
+    super.workplaceAddress,
   });
 
   factory ProfessionalProfileModel.fromJson(Map<String, dynamic> json) {
@@ -28,6 +32,7 @@ class ProfessionalProfileModel extends ProfessionalProfile {
       id: json['id'] ?? 0,
       userId: json['user_id'] ?? 0,
       name: json['name'] ?? '',
+      countryCode: json['country_code']?.toString().toUpperCase(),
       avatar: json['avatar'],
       experience: json['experience'] ?? 0,
       rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
@@ -40,6 +45,7 @@ class ProfessionalProfileModel extends ProfessionalProfile {
           ? DateTime.parse(json['verified_at'])
           : null,
       isHomeScreeningAuthorized: json['is_home_screening_authorized'],
+      serviceRadiusPreference: json['service_radius_preference'],
       createdAt: json['created_at'] != null
           ? DateTime.parse(json['created_at'])
           : null,
@@ -54,6 +60,11 @@ class ProfessionalProfileModel extends ProfessionalProfile {
               ?.map((e) => AddOnServiceModel.fromJson(e))
               .toList() ??
           [],
+      workplaceAddress: json['workplaceAddress'] != null
+          ? AddressModel.fromJson(json['workplaceAddress'])
+          : (json['workplace_address'] != null
+              ? AddressModel.fromJson(json['workplace_address'])
+              : null),
     );
   }
 }

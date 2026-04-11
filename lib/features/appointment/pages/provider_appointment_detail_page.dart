@@ -9,9 +9,9 @@ import 'package:m2health/core/extensions/string_extensions.dart';
 import 'package:m2health/core/presentation/views/file_viewer_page.dart';
 import 'package:m2health/features/appointment/bloc/provider_appointment_cubit.dart';
 import 'package:m2health/features/appointment/bloc/provider_appointment_detail_cubit.dart';
-import 'package:m2health/features/appointment/pages/screening_report_submission_page.dart';
 import 'package:m2health/features/appointment/widgets/provider_appointment_action_dialog.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
+import 'package:m2health/features/second_opinion_imaging/presentation/pages/second_opinion_request_detail_page.dart';
 import 'package:m2health/features/home_health_screening/presentation/widgets/screening_appointment_detail_action_buttons.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/smoking_cessation/presentation/widgets/prepare_smoking_cessation_plan_button.dart';
@@ -105,6 +105,10 @@ class ProviderAppointmentDetailView extends StatelessWidget {
           _PatientCardHeader(appointment: appointment),
           const SizedBox(height: 24),
           _AppointmentSchedule(appointment: appointment),
+          if (appointment.status.toLowerCase() == 'cancelled') ...[
+            const SizedBox(height: 24),
+            _buildCancellationInfoCard(appointment),
+          ],
           const SizedBox(height: 24),
           _PatientInfoTable(appointment: appointment),
           if (appointment.type == 'screening')
@@ -113,6 +117,11 @@ class ProviderAppointmentDetailView extends StatelessWidget {
               _buildSectionTitle(
                   context.l10n.appointment_detail_lab_test_title),
               _ScreeningRequestInfo(appointment: appointment),
+            ])
+          else if (appointment.type == 'second_opinion_imaging')
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const SizedBox(height: 24),
+              _SecondOpinionImagingRequestInfo(appointment: appointment),
             ])
           else
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -140,6 +149,46 @@ class ProviderAppointmentDetailView extends StatelessWidget {
         style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
       ),
     );
+  }
+
+  Widget _buildCancellationInfoCard(AppointmentEntity appointment) {
+    final cancelledBy = _formatCancelledBy(appointment.cancelledBy);
+    final cancellationReason = appointment.cancellationReason ?? '-';
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.red.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.red.withValues(alpha: 0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Cancellation details',
+            style: TextStyle(fontWeight: FontWeight.w700, color: Colors.red),
+          ),
+          const SizedBox(height: 8),
+          Text('Cancelled by: $cancelledBy'),
+          const SizedBox(height: 4),
+          Text('Reason: $cancellationReason'),
+        ],
+      ),
+    );
+  }
+
+  String _formatCancelledBy(String? cancelledBy) {
+    if (cancelledBy == null || cancelledBy.isEmpty) return '-';
+    switch (cancelledBy.toLowerCase()) {
+      case 'patient':
+        return 'Patient';
+      case 'provider':
+        return 'Provider';
+      default:
+        return cancelledBy;
+    }
   }
 }
 
@@ -193,14 +242,14 @@ class _PatientCardHeader extends StatelessWidget {
 
   String _getLocalizedStatus(BuildContext context, String status) {
     switch (status.toLowerCase()) {
+      case 'waiting_for_payment':
+        return 'Waiting for Payment';
       case 'upcoming':
         return context.l10n.appointment_status_upcoming;
       case 'pending':
         return context.l10n.appointment_status_pending;
       case 'waiting_approval':
         return context.l10n.appointment_status_waiting_approval;
-      case 'accepted':
-        return context.l10n.appointment_status_accepted;
       case 'completed':
         return context.l10n.appointment_status_completed;
       case 'cancelled':
@@ -496,6 +545,53 @@ class _ScreeningRequestInfo extends StatelessWidget {
   }
 }
 
+class _SecondOpinionImagingRequestInfo extends StatelessWidget {
+  final AppointmentEntity appointment;
+  const _SecondOpinionImagingRequestInfo({required this.appointment});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          context.l10n.appointment_detail_service_requested,
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                appointment.summary,
+                style: const TextStyle(fontSize: 14),
+              ),
+            ),
+            TextButton(
+              onPressed: () async {
+                final result = await GoRouter.of(context).pushNamed(
+                  AppRoutes.secondOpinionRequestDetail,
+                  extra: SecondOpinionRequestDetailPageParams(
+                    appointment: appointment,
+                    isProvider: true,
+                  ),
+                );
+
+                if (result == true) {
+                  context
+                      .read<ProviderAppointmentDetailCubit>()
+                      .fetchProviderAppointmentById(appointment.id!);
+                }
+              },
+              child: const Text("View detail"),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 class _PersonalCaseInfo extends StatelessWidget {
   final AppointmentEntity appointment;
   const _PersonalCaseInfo({required this.appointment});
@@ -697,8 +793,8 @@ class _ActionButtons extends StatelessWidget {
 
         if (status == 'pending') {
           return _buildForPendingStatus(context, appointmentId);
-        } else if (status == 'accepted') {
-          return _buildForAcceptedStatus(context, appointmentId);
+        } else if (status == 'accepted' || status == 'upcoming') {
+          return _buildForUpcomingStatus(context, appointmentId);
         } else if (status == 'completed') {
           return _buildForCompletedStatus(context, appointmentId);
         }
@@ -791,7 +887,7 @@ class _ActionButtons extends StatelessWidget {
     );
   }
 
-  Widget _buildForAcceptedStatus(BuildContext context, int appointmentId) {
+  Widget _buildForUpcomingStatus(BuildContext context, int appointmentId) {
     return BottomAppBar(
       child: ElevatedButton(
         onPressed: () async {

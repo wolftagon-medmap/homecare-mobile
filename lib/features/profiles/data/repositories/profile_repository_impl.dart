@@ -18,7 +18,6 @@ class ProfileRepositoryImpl extends ProfileRepository {
   Future<Either<Failure, Profile>> get() async {
     try {
       final profile = await remoteDatasource.getProfile();
-      log('Profile fetched: $profile', name: 'ProfileRepositoryImpl');
       return Right(profile);
     } catch (e, stackTrace) {
       log('Failed to fetch profile: $e',
@@ -35,6 +34,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
     try {
       final profileData = {
         'name': params.name,
+        'country_code': params.countryCode,
         'age': params.age,
         'weight': params.weight,
         'height': params.height,
@@ -57,8 +57,6 @@ class ProfileRepositoryImpl extends ProfileRepository {
   Future<Either<Failure, ProfessionalProfile>> getProfessionalProfile() async {
     try {
       final profile = await remoteDatasource.getProfessionalProfile();
-      log('Professional Profile fetched: $profile',
-          name: 'ProfileRepositoryImpl');
       return Right(profile);
     } catch (e, stackTrace) {
       log('Failed to fetch professional profile',
@@ -76,11 +74,13 @@ class ProfileRepositoryImpl extends ProfileRepository {
     try {
       final profileData = {
         'name': params.name,
+        'country_code': params.countryCode,
         'about': params.about,
         'job_title': params.jobTitle,
         'working_hours': params.workHours,
         'workplace': params.workPlace,
         'experience': params.experience,
+        'service_radius_preference': params.serviceRadiusPreference,
       };
 
       await remoteDatasource.updateProfessionalProfile(

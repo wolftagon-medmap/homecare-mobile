@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/presentation/widgets/country_picker_field.dart';
+import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/certificate.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
@@ -13,6 +15,7 @@ import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.d
 import 'package:m2health/features/profiles/presentation/bloc/certificate_state.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
+import 'package:m2health/features/profiles/presentation/pages/address_map_page.dart';
 import 'package:m2health/features/profiles/presentation/widgets/add_edit_certificate_dialog.dart';
 
 class EditProfessionalProfilePage extends StatefulWidget {
@@ -36,6 +39,9 @@ class _EditProfessionalProfilePageState
   late TextEditingController _workplaceController;
   late TextEditingController _experienceController;
   String? _selectedJobTitle;
+  String? _selectedCountryCode;
+  Address? _workplaceAddress;
+  int? _serviceRadiusPreference;
 
   @override
   void initState() {
@@ -44,10 +50,22 @@ class _EditProfessionalProfilePageState
     _nameController = TextEditingController(text: p.name ?? '');
     _aboutMeController = TextEditingController(text: p.about ?? '');
     _workHoursController = TextEditingController(text: p.workingHours ?? '');
-    _workplaceController = TextEditingController(text: p.workPlace ?? '');
+    _workplaceAddress = p.workplaceAddress;
+    _workplaceController = TextEditingController(
+      text: _buildWorkplaceText(p.workplaceAddress, fallback: p.workPlace),
+    );
     _experienceController =
         TextEditingController(text: p.experience?.toString() ?? '');
     _selectedJobTitle = p.jobTitle;
+    _selectedCountryCode = p.countryCode;
+    _serviceRadiusPreference = p.serviceRadiusPreference;
+  }
+
+  String _buildWorkplaceText(Address? address, {String? fallback}) {
+    if (address == null) return fallback ?? '';
+    return [address.name, address.formattedAddress]
+        .where((part) => part != null && part.isNotEmpty)
+        .join(', ');
   }
 
   @override
@@ -71,14 +89,16 @@ class _EditProfessionalProfilePageState
   void _onSavePressed() {
     if (_formKey.currentState!.validate()) {
       final params = UpdateProfessionalProfileParams(
-        role: '', // Role will be injected by the cubit
+        role: '',
         name: _nameController.text,
+        countryCode: _selectedCountryCode,
         avatar: _selectedAvatar,
         jobTitle: _selectedJobTitle,
         about: _aboutMeController.text,
         workHours: _workHoursController.text,
         workPlace: _workplaceController.text,
         experience: int.tryParse(_experienceController.text),
+        serviceRadiusPreference: _serviceRadiusPreference,
       );
       context.read<ProfileCubit>().updateProfessionalProfile(params);
     }
@@ -143,6 +163,14 @@ class _EditProfessionalProfilePageState
               const SizedBox(height: 24),
               _TextFieldWidget(controller: _nameController, label: 'Full Name'),
               const SizedBox(height: 16),
+              const Text("Country",
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+              const SizedBox(height: 8),
+              CountryPickerField(
+                value: _selectedCountryCode,
+                onChanged: (v) => setState(() => _selectedCountryCode = v),
+              ),
+              const SizedBox(height: 16),
               _JobTitleDropdown(
                 currentJobTitle: widget.profile.jobTitle,
                 onChanged: (value) {
@@ -176,10 +204,84 @@ class _EditProfessionalProfilePageState
                   label: 'Working Hours',
                   hint: 'E.g: Monday - Friday, 09.00AM - 05.00 PM'),
               const SizedBox(height: 16),
-              _TextFieldWidget(
-                  controller: _workplaceController,
-                  label: 'Workplace',
-                  hint: 'Type or search building or places here'),
+              GestureDetector(
+                onTap: () async {
+                  final result = await Navigator.push<Address>(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddressMapPage(
+                        initialAddress: _workplaceAddress,
+                        saveAsWorkplace: true,
+                      ),
+                    ),
+                  );
+
+                  if (result != null && context.mounted) {
+                    setState(() {
+                      _workplaceAddress = result;
+                      _workplaceController.text = _buildWorkplaceText(result);
+                    });
+                  }
+                },
+                child: AbsorbPointer(
+                  child: _TextFieldWidget(
+                    controller: _workplaceController,
+                    label: 'Workplace',
+                    hint: 'Type or search building or places here',
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Row(
+                children: [
+                  Text(
+                    "Service Radius Preference",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(width: 4),
+                  Tooltip(
+                    message:
+                        'This setting indicates the maximum distance you are willing to travel for providing homecare services.'
+                        ' Setting a larger radius may increase your chances of getting more appointments, but also means you may have to travel farther.',
+                    child: Icon(Icons.info_outline, size: 16),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  const Text('1 km', style: TextStyle(fontSize: 12)),
+                  Expanded(
+                    child: Slider(
+                      value: _serviceRadiusPreference?.toDouble() ?? 30,
+                      min: 1,
+                      max: 50,
+                      divisions: 49,
+                      activeColor: Const.aqua,
+                      label: '${_serviceRadiusPreference ?? 30} km',
+                      onChanged: (value) {
+                        setState(() {
+                          _serviceRadiusPreference = value.toInt();
+                        });
+                      },
+                    ),
+                  ),
+                  const Text('50 km', style: TextStyle(fontSize: 12)),
+                ],
+              ),
+              Center(
+                child: Text(
+                  '${_serviceRadiusPreference ?? 30} km',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Const.aqua,
+                  ),
+                ),
+              ),
               const SizedBox(height: 24),
               BlocBuilder<ProfileCubit, ProfileState>(
                   builder: (context, state) {
@@ -432,6 +534,7 @@ class _JobTitleDropdown extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
+        const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: jobTitles.contains(currentJobTitle) ? currentJobTitle : null,
           decoration: InputDecoration(

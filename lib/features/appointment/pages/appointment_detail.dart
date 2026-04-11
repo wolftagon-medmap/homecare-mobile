@@ -17,6 +17,7 @@ import 'package:m2health/features/booking_appointment/personal_issue/domain/enti
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
+import 'package:m2health/features/second_opinion_imaging/presentation/pages/second_opinion_request_detail_page.dart';
 import 'package:m2health/features/smoking_cessation/presentation/widgets/smoking_habit_assessment_card.dart';
 import 'package:m2health/features/smoking_cessation/presentation/widgets/view_smoking_cessation_plan_button.dart';
 import 'package:m2health/i18n/translations.g.dart';
@@ -94,6 +95,10 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
           _buildProviderCard(appointment.provider!, appointment.status),
           const SizedBox(height: 16),
           _buildScheduleCard(appointment),
+          if (appointment.status.toLowerCase() == 'cancelled') ...[
+            const SizedBox(height: 16),
+            _buildCancellationInfoCard(appointment),
+          ],
           const SizedBox(height: 16),
           _buildPatientInfo(appointment.patientProfile!),
           const SizedBox(height: 16),
@@ -104,6 +109,8 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
             _buildHomecareTaskInfo(appointment)
           else if (appointment.type == 'physiotherapy')
             _buildPhysiotherapyInfo(appointment)
+          else if (appointment.type == 'second_opinion_imaging')
+            _buildSecondOpinionImagingInfo(context, appointment)
           else if (appointment.type == 'pharmacy' &&
               appointment.pharmacyCase?.serviceType == 'smoking_cessation')
             _buildSmokingCessationInfo(appointment)
@@ -111,6 +118,54 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
             _buildConcernInfo(appointment),
           const SizedBox(height: 16),
           _buildPaymentSummary(appointment),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSecondOpinionImagingInfo(
+      BuildContext context, AppointmentEntity appointment) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            context.l10n.appointment_detail_service_requested,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  appointment.summary,
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  final result = await GoRouter.of(context).pushNamed(
+                    AppRoutes.secondOpinionRequestDetail,
+                    extra: SecondOpinionRequestDetailPageParams(
+                      appointment: appointment,
+                      isProvider: false,
+                    ),
+                  );
+
+                  if (result == true) {
+                    context
+                        .read<AppointmentDetailCubit>()
+                        .fetchAppointmentDetail(appointment.id!);
+                  }
+                },
+                child: const Text("View detail"),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -146,6 +201,46 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
         ],
       ),
     );
+  }
+
+  Widget _buildCancellationInfoCard(AppointmentEntity appointment) {
+    final cancelledBy = _formatCancelledBy(appointment.cancelledBy);
+    final cancellationReason = appointment.cancellationReason ?? '-';
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.red.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.red.withValues(alpha: 0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Cancellation details',
+            style: TextStyle(fontWeight: FontWeight.w700, color: Colors.red),
+          ),
+          const SizedBox(height: 8),
+          _InfoRow(label: 'Cancelled by', text: cancelledBy),
+          const SizedBox(height: 6),
+          _InfoRow(label: 'Reason', text: cancellationReason, isFlexible: true),
+        ],
+      ),
+    );
+  }
+
+  String _formatCancelledBy(String? cancelledBy) {
+    if (cancelledBy == null || cancelledBy.isEmpty) return '-';
+    switch (cancelledBy.toLowerCase()) {
+      case 'patient':
+        return 'Patient';
+      case 'provider':
+        return 'Provider';
+      default:
+        return cancelledBy;
+    }
   }
 
   Widget _buildProviderCard(ProfessionalEntity? provider, String status) {
@@ -738,11 +833,12 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
           context: context,
           builder: (BuildContext dialogContext) {
             return CancelAppoinmentDialog(
-              onPressYes: () {
-                context
-                    .read<AppointmentCubit>()
-                    .cancelAppointment(appointment.id!);
-                Navigator.of(dialogContext).pop();
+              onPressYes: (selection) {
+                context.read<AppointmentCubit>().cancelAppointment(
+                      appointment.id!,
+                      cancellationReason: selection.cancellationReason,
+                      otherReason: selection.otherReason,
+                    );
                 context.pop();
               },
             );
@@ -816,6 +912,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
 
     List<Widget> buttons;
     switch (status) {
+      case 'waiting_for_payment':
+        buttons = [cancelButton, payButton];
+        break;
       case 'pending':
         if (appointment.payment == null) {
           buttons = [payButton, cancelButton];
@@ -824,7 +923,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
           buttons = [cancelButton, rescheduleButton];
         }
         break;
-      case 'accepted':
+      case 'upcoming':
         buttons = [cancelButton, rescheduleButton];
         break;
       case 'completed':
@@ -922,7 +1021,7 @@ class _StatusTag extends StatelessWidget {
       case 'cancelled':
         return Colors.red;
       case 'pending':
-      case 'accepted':
+      case 'upcoming':
         return const Color(0xFFE59500);
       default:
         return Colors.grey;
@@ -931,10 +1030,10 @@ class _StatusTag extends StatelessWidget {
 
   String _getStatusLabel(String status, BuildContext context) {
     switch (status) {
+      case 'waiting_for_payment':
+        return 'Waiting for Payment';
       case 'upcoming':
         return context.l10n.appointment_status_upcoming;
-      case 'accepted':
-        return context.l10n.appointment_status_accepted;
       case 'pending':
         return context.l10n.appointment_status_pending;
       case 'completed':

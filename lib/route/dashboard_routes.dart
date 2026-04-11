@@ -6,11 +6,11 @@ import 'package:m2health/features/physiotherapy/presentation/pages/physiotherapy
 import 'package:m2health/features/precision/precision_nutrition_routes.dart';
 import 'package:m2health/route/navigator_keys.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_services_page.dart';
-import '../features/precision/screens/precision_nutrition_page.dart';
-import '../features/diabetes/diabetic_care.dart';
-import '../features/home_health_screening/presentation/pages/home_health_screening.dart';
-import '../features/remote_patient_monitoring/pages/remote_patient_monitoring.dart';
-import '../core/presentation/views/second_opinion.dart';
+import 'package:m2health/features/precision/screens/precision_nutrition_page.dart';
+import 'package:m2health/features/diabetes/diabetic_care.dart';
+import 'package:m2health/features/home_health_screening/presentation/pages/home_health_screening.dart';
+import 'package:m2health/features/remote_patient_monitoring/pages/remote_patient_monitoring.dart';
+import 'package:m2health/features/second_opinion_imaging/presentation/pages/second_opinion.dart';
 import 'app_routes.dart';
 
 class DashboardRoutes {
@@ -19,7 +19,7 @@ class DashboardRoutes {
       parentNavigatorKey: rootNavigatorKey,
       path: AppRoutes.pharmaServices,
       builder: (context, state) {
-        return PharmacyServicesPage();
+        return const PharmacyServicesPage();
       },
     ),
     GoRoute(
@@ -41,28 +41,28 @@ class DashboardRoutes {
       path: AppRoutes.homeHealthScreening,
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        return HomeHealth();
+        return const HomeHealth();
       },
     ),
     GoRoute(
       path: AppRoutes.homeHealthScreening,
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        return HomeHealth();
+        return const HomeHealth();
       },
     ),
     GoRoute(
       path: AppRoutes.remotePatientMonitoring,
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        return RemotePatientMonitoring();
+        return const RemotePatientMonitoring();
       },
     ),
     GoRoute(
       path: AppRoutes.secondOpinionMedical,
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
-        return const OpinionMedical();
+        return const SecondOpinionMedical();
       },
     ),
     GoRoute(

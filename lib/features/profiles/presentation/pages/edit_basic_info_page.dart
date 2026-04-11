@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
+import 'package:m2health/core/presentation/widgets/country_picker_field.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'dart:io';
@@ -33,6 +34,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
   late TextEditingController _drugAllergyController;
   String? _selectedGender;
   Address? _address;
+  String? _selectedCountryCode;
 
   final List<String> genderItems = ['Male', 'Female'];
 
@@ -59,6 +61,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
       _address = profile!.address;
       _addressController.text = _buildHomeAddressText(_address!);
     }
+    _selectedCountryCode = profile?.countryCode;
   }
 
   @override
@@ -114,6 +117,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
       _formKey.currentState!.save();
       final params = UpdateProfileParams(
         name: _nameController.text,
+        countryCode: _selectedCountryCode,
         age: int.tryParse(_ageController.text),
         weight: double.tryParse(_weightController.text),
         height: double.tryParse(_heightController.text),
@@ -264,6 +268,11 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
+                ),
+                const SizedBox(height: 20),
+                CountryPickerField(
+                  value: _selectedCountryCode,
+                  onChanged: (v) => setState(() => _selectedCountryCode = v),
                 ),
                 const SizedBox(height: 20),
                 TextFormField(

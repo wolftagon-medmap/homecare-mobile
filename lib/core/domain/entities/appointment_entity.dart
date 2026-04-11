@@ -6,6 +6,8 @@ import 'package:m2health/features/booking_appointment/nursing/domain/entities/nu
 import 'package:m2health/features/booking_appointment/pharmacy/domain/entities/pharmacy_case.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/physiotherapy/domain/entities/physiotherapy_request_data.dart';
+import 'package:m2health/features/second_opinion_imaging/domain/entities/second_opinion_imaging_feedback.dart';
+import 'package:m2health/features/second_opinion_imaging/domain/entities/second_opinion_imaging_request_data.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 
 class AppointmentEntity extends Equatable {
@@ -20,6 +22,8 @@ class AppointmentEntity extends Equatable {
   final DateTime createdAt;
   final DateTime updatedAt;
   final int? providerId;
+  final String? cancelledBy;
+  final String? cancellationReason;
 
   final ProfessionalEntity? provider;
   final NursingCase? nursingCase;
@@ -27,6 +31,8 @@ class AppointmentEntity extends Equatable {
   final ScreeningRequestData? screeningRequestData;
   final HomecareRequestData? homecareRequestData;
   final PhysiotherapyRequestData? physiotherapyRequestData;
+  final SecondOpinionImagingRequestData? secondOpinionImagingRequestData;
+  final SecondOpinionImagingFeedback? secondOpinionImagingFeedback;
   final Profile? patientProfile;
   final Payment? payment;
 
@@ -42,12 +48,16 @@ class AppointmentEntity extends Equatable {
     required this.createdAt,
     required this.updatedAt,
     this.providerId,
+    this.cancelledBy,
+    this.cancellationReason,
     this.provider,
     this.nursingCase,
     this.pharmacyCase,
     this.screeningRequestData,
     this.homecareRequestData,
     this.physiotherapyRequestData,
+    this.secondOpinionImagingRequestData,
+    this.secondOpinionImagingFeedback,
     this.patientProfile,
     this.payment,
   });
@@ -65,12 +75,16 @@ class AppointmentEntity extends Equatable {
         createdAt,
         updatedAt,
         providerId,
+        cancelledBy,
+        cancellationReason,
         provider,
         nursingCase,
         pharmacyCase,
         screeningRequestData,
         homecareRequestData,
         physiotherapyRequestData,
+        secondOpinionImagingRequestData,
+        secondOpinionImagingFeedback,
         patientProfile,
         payment,
       ];

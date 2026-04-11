@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/appointment/bloc/provider_appointment_cubit.dart';
+import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
 
 void showCompleteAppointmentDialog(BuildContext context, int appointmentId) {
   showDialog(
@@ -72,52 +73,17 @@ void showAcceptAppointmentDialog(BuildContext context, int appointmentId) {
 void showDeclineAppointmentDialog(BuildContext context, int appointmentId) {
   showDialog(
     context: context,
-    builder: (BuildContext dialogContext) {
-      return AlertDialog(
-        title: const Text(
-          'Are you sure you want to decline this appointment?',
-          style: TextStyle(
-            color: Const.aqua,
-            fontWeight: FontWeight.w600,
-            fontSize: 18,
-          ),
-        ),
-        icon: const Icon(
-          Icons.warning_amber_rounded,
-          color: Colors.red,
-          size: 64,
-        ),
-        backgroundColor: Colors.white,
-        content: Text(
-          'This action cannot be undone.',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.red[600],
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(dialogContext).pop();
-            },
-            child: const Text('Cancel'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(dialogContext).pop();
-              context
-                  .read<ProviderAppointmentCubit>()
-                  .rejectAppointment(appointmentId);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
-            ),
-            child: const Text('Decline'),
-          ),
-        ],
+    builder: (BuildContext _) {
+      return CancelAppoinmentDialog(
+        title: 'Are you sure you want to decline this appointment?',
+        subtitle: 'This action cannot be undone.',
+        onPressYes: (selection) {
+          context.read<ProviderAppointmentCubit>().rejectAppointment(
+                appointmentId,
+                cancellationReason: selection.cancellationReason,
+                otherReason: selection.otherReason,
+              );
+        },
       );
     },
   );

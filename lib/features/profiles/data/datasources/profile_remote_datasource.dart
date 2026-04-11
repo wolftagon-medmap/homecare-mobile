@@ -65,7 +65,6 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
         options: await _getAuthHeaders(),
       );
       final data = response.data['data'];
-      log('Profile data received: $data', name: 'ProfileRemoteDatasourceImpl');
       return ProfileModel.fromJson(data);
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
@@ -118,8 +117,6 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
         options: await _getAuthHeaders(),
       );
       final data = response.data['data'];
-      log('Professional profile data received: $data',
-          name: 'ProfileRemoteDatasourceImpl');
       return ProfessionalProfileModel.fromJson(data);
     } on DioException catch (e) {
       log('Dio error while fetching professional profile: ${e.response}',
@@ -197,7 +194,7 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
         '${Const.URL_API}/admin/professionals',
         queryParameters: {
           'status': status, // 'verified' or 'unverified'
-          'role': role,     // e.g., 'nurse', 'pharmacist', etc.
+          'role': role, // e.g., 'nurse', 'pharmacist', etc.
         },
         options: await _getAuthHeaders(),
       );
