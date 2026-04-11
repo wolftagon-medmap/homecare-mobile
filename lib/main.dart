@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:m2health/core/services/app_update_service.dart';
+import 'package:upgrader/upgrader.dart';
 import 'package:m2health/features/home_health_screening/presentation/bloc/screening_appointment_action_cubit.dart';
 import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/auth/data/datasources/google_auth_source.dart';
@@ -52,6 +54,14 @@ void main() async {
 
   final localeCubit = LocaleCubit();
   await localeCubit.loadSavedLocale();
+
+  // Trigger Android update check once the first frame is rendered.
+  // iOS is handled via UpgradeAlert in MyApp's builder.
+  if (Platform.isAndroid) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => AppUpdateService.checkAndroidUpdate(),
+    );
+  }
 
   runApp(
     DevicePreview(
@@ -251,7 +261,16 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Const.aqua),
             useMaterial3: true,
           ),
-          builder: DevicePreview.appBuilder,
+          builder: (context, child) {
+            // DevicePreview wrapping (disabled in production, kept for dev).
+            final widget = DevicePreview.appBuilder(context, child);
+            // On iOS, wrap with UpgradeAlert so it checks the App Store
+            // version on startup and prompts the user if an update is available.
+            if (Platform.isIOS) {
+              return UpgradeAlert(child: widget);
+            }
+            return widget;
+          },
           // localizationsDelegates: GlobalMaterialLocalizations.delegates,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocaleUtils.supportedLocales,
