@@ -4,11 +4,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
-import 'package:m2health/features/profiles/data/datasources/countries_remote_datasource.dart';
-import 'package:m2health/features/profiles/data/models/country_model.dart';
+import 'package:m2health/core/presentation/widgets/country_picker_field.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
-import 'package:m2health/service_locator.dart';
 import 'dart:io';
 import 'package:m2health/features/profiles/domain/usecases/update_profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
@@ -36,8 +34,6 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
   late TextEditingController _drugAllergyController;
   String? _selectedGender;
   Address? _address;
-  List<CountryModel> _countries = [];
-  bool _countriesLoading = true;
   String? _selectedCountryCode;
 
   final List<String> genderItems = ['Male', 'Female'];
@@ -66,23 +62,6 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
       _addressController.text = _buildHomeAddressText(_address!);
     }
     _selectedCountryCode = profile?.countryCode;
-    _loadCountries();
-  }
-
-  Future<void> _loadCountries() async {
-    try {
-      final list = await sl<CountriesRemoteDatasource>().fetchCountries();
-      if (mounted) {
-        setState(() {
-          _countries = list;
-          _countriesLoading = false;
-        });
-      }
-    } catch (_) {
-      if (mounted) {
-        setState(() => _countriesLoading = false);
-      }
-    }
   }
 
   @override
@@ -291,39 +270,10 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                if (_countriesLoading)
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: Center(
-                      child: SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      ),
-                    ),
-                  )
-                else if (_countries.isNotEmpty)
-                  DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                      labelText: 'Country',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    value: _selectedCountryCode != null &&
-                            _countries.any((c) => c.code == _selectedCountryCode)
-                        ? _selectedCountryCode
-                        : null,
-                    items: _countries
-                        .map(
-                          (c) => DropdownMenuItem(
-                            value: c.code,
-                            child: Text(c.name),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (v) => setState(() => _selectedCountryCode = v),
-                  ),
+                CountryPickerField(
+                  value: _selectedCountryCode,
+                  onChanged: (v) => setState(() => _selectedCountryCode = v),
+                ),
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: _ageController,
