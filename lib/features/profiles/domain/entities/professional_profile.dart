@@ -19,6 +19,7 @@ class ProfessionalProfile extends Equatable {
   final DateTime? verifiedAt;
   final bool?
       isHomeScreeningAuthorized; // Home screening authorization for nurse
+  final int? serviceRadiusPreference; // in kilometers
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final List<Certificate> certificates;
@@ -40,6 +41,7 @@ class ProfessionalProfile extends Equatable {
     this.isVerified = false,
     this.verifiedAt,
     this.isHomeScreeningAuthorized,
+    this.serviceRadiusPreference,
     this.createdAt,
     this.updatedAt,
     this.certificates = const [],
@@ -63,6 +65,7 @@ class ProfessionalProfile extends Equatable {
         isVerified,
         verifiedAt,
         isHomeScreeningAuthorized,
+        serviceRadiusPreference,
         createdAt,
         updatedAt,
         certificates,
@@ -85,6 +88,7 @@ class ProfessionalProfile extends Equatable {
     bool? isVerified,
     DateTime? verifiedAt,
     bool? isHomeScreeningAuthorized,
+    int? serviceRadiusPreference,
     DateTime? createdAt,
     DateTime? updatedAt,
     List<Certificate>? certificates,
@@ -106,6 +110,8 @@ class ProfessionalProfile extends Equatable {
         verifiedAt: verifiedAt ?? this.verifiedAt,
         isHomeScreeningAuthorized:
             isHomeScreeningAuthorized ?? this.isHomeScreeningAuthorized,
+        serviceRadiusPreference:
+            serviceRadiusPreference ?? this.serviceRadiusPreference,
         userId: userId ?? this.userId,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,

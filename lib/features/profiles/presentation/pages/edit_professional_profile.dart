@@ -45,6 +45,7 @@ class _EditProfessionalProfilePageState
   bool _countriesLoading = true;
   String? _selectedCountryCode;
   Address? _workplaceAddress;
+  int? _serviceRadiusPreference;
 
   @override
   void initState() {
@@ -61,6 +62,7 @@ class _EditProfessionalProfilePageState
         TextEditingController(text: p.experience?.toString() ?? '');
     _selectedJobTitle = p.jobTitle;
     _selectedCountryCode = p.countryCode;
+    _serviceRadiusPreference = p.serviceRadiusPreference;
     _loadCountries();
   }
 
@@ -115,6 +117,7 @@ class _EditProfessionalProfilePageState
         workHours: _workHoursController.text,
         workPlace: _workplaceController.text,
         experience: int.tryParse(_experienceController.text),
+        serviceRadiusPreference: _serviceRadiusPreference,
       );
       context.read<ProfileCubit>().updateProfessionalProfile(params);
     }
@@ -179,6 +182,13 @@ class _EditProfessionalProfilePageState
               const SizedBox(height: 24),
               _TextFieldWidget(controller: _nameController, label: 'Full Name'),
               const SizedBox(height: 16),
+              const Text(
+                "Country",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               if (_countriesLoading)
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 8),
@@ -194,11 +204,13 @@ class _EditProfessionalProfilePageState
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(
                     labelText: 'Country',
+                    labelStyle: const TextStyle(fontSize: 14),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 8),
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   ),
                   value: _selectedCountryCode != null &&
                           _countries.any((c) => c.code == _selectedCountryCode)
@@ -272,6 +284,57 @@ class _EditProfessionalProfilePageState
                     controller: _workplaceController,
                     label: 'Workplace',
                     hint: 'Type or search building or places here',
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Row(
+                children: [
+                  Text(
+                    "Service Radius Preference",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(width: 4),
+                  Tooltip(
+                    message:
+                        'This setting indicates the maximum distance you are willing to travel for providing homecare services.'
+                        ' Setting a larger radius may increase your chances of getting more appointments, but also means you may have to travel farther.',
+                    child: Icon(Icons.info_outline, size: 16),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  const Text('1 km', style: TextStyle(fontSize: 12)),
+                  Expanded(
+                    child: Slider(
+                      value: _serviceRadiusPreference?.toDouble() ?? 30,
+                      min: 1,
+                      max: 50,
+                      divisions: 49,
+                      activeColor: Const.aqua,
+                      label: '${_serviceRadiusPreference ?? 30} km',
+                      onChanged: (value) {
+                        setState(() {
+                          _serviceRadiusPreference = value.toInt();
+                        });
+                      },
+                    ),
+                  ),
+                  const Text('50 km', style: TextStyle(fontSize: 12)),
+                ],
+              ),
+              Center(
+                child: Text(
+                  '${_serviceRadiusPreference ?? 30} km',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Const.aqua,
                   ),
                 ),
               ),
