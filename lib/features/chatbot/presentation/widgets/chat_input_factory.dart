@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:m2health/core/blocs/voice_input/voice_input_cubit.dart';
 import 'package:m2health/core/blocs/voice_input/voice_input_state.dart';
 import 'package:m2health/core/widgets/voice_input/voice_recording_view.dart';
@@ -65,6 +66,31 @@ class _ChatInputFactoryState extends State<ChatInputFactory> {
                 SnackBar(
                   content: Text(message),
                   behavior: SnackBarBehavior.floating,
+                ),
+              );
+            },
+            permissionPermanentlyDenied: () {
+              showDialog<void>(
+                context: context,
+                builder: (ctx) => AlertDialog(
+                  title: const Text('Microphone Access Required'),
+                  content: const Text(
+                    'Microphone permission has been denied. '
+                    'Please enable it in your device Settings to use voice input.',
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.of(ctx).pop(),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(ctx).pop();
+                        openAppSettings();
+                      },
+                      child: const Text('Open Settings'),
+                    ),
+                  ],
                 ),
               );
             },

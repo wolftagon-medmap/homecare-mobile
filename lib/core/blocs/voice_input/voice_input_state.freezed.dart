@@ -57,6 +57,8 @@ extension VoiceInputStatePatterns on VoiceInputState {
     TResult Function(_Transcribing value)? transcribing,
     TResult Function(_Success value)? success,
     TResult Function(_Error value)? error,
+    TResult Function(_PermissionPermanentlyDenied value)?
+        permissionPermanentlyDenied,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -73,6 +75,9 @@ extension VoiceInputStatePatterns on VoiceInputState {
         return success(_that);
       case _Error() when error != null:
         return error(_that);
+      case _PermissionPermanentlyDenied()
+          when permissionPermanentlyDenied != null:
+        return permissionPermanentlyDenied(_that);
       case _:
         return orElse();
     }
@@ -99,6 +104,8 @@ extension VoiceInputStatePatterns on VoiceInputState {
     required TResult Function(_Transcribing value) transcribing,
     required TResult Function(_Success value) success,
     required TResult Function(_Error value) error,
+    required TResult Function(_PermissionPermanentlyDenied value)
+        permissionPermanentlyDenied,
   }) {
     final _that = this;
     switch (_that) {
@@ -114,6 +121,8 @@ extension VoiceInputStatePatterns on VoiceInputState {
         return success(_that);
       case _Error():
         return error(_that);
+      case _PermissionPermanentlyDenied():
+        return permissionPermanentlyDenied(_that);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -139,6 +148,8 @@ extension VoiceInputStatePatterns on VoiceInputState {
     TResult? Function(_Transcribing value)? transcribing,
     TResult? Function(_Success value)? success,
     TResult? Function(_Error value)? error,
+    TResult? Function(_PermissionPermanentlyDenied value)?
+        permissionPermanentlyDenied,
   }) {
     final _that = this;
     switch (_that) {
@@ -154,6 +165,9 @@ extension VoiceInputStatePatterns on VoiceInputState {
         return success(_that);
       case _Error() when error != null:
         return error(_that);
+      case _PermissionPermanentlyDenied()
+          when permissionPermanentlyDenied != null:
+        return permissionPermanentlyDenied(_that);
       case _:
         return null;
     }
@@ -179,6 +193,7 @@ extension VoiceInputStatePatterns on VoiceInputState {
     TResult Function()? transcribing,
     TResult Function(String text)? success,
     TResult Function(String message)? error,
+    TResult Function()? permissionPermanentlyDenied,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -195,6 +210,9 @@ extension VoiceInputStatePatterns on VoiceInputState {
         return success(_that.text);
       case _Error() when error != null:
         return error(_that.message);
+      case _PermissionPermanentlyDenied()
+          when permissionPermanentlyDenied != null:
+        return permissionPermanentlyDenied();
       case _:
         return orElse();
     }
@@ -221,6 +239,7 @@ extension VoiceInputStatePatterns on VoiceInputState {
     required TResult Function() transcribing,
     required TResult Function(String text) success,
     required TResult Function(String message) error,
+    required TResult Function() permissionPermanentlyDenied,
   }) {
     final _that = this;
     switch (_that) {
@@ -236,6 +255,8 @@ extension VoiceInputStatePatterns on VoiceInputState {
         return success(_that.text);
       case _Error():
         return error(_that.message);
+      case _PermissionPermanentlyDenied():
+        return permissionPermanentlyDenied();
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -261,6 +282,7 @@ extension VoiceInputStatePatterns on VoiceInputState {
     TResult? Function()? transcribing,
     TResult? Function(String text)? success,
     TResult? Function(String message)? error,
+    TResult? Function()? permissionPermanentlyDenied,
   }) {
     final _that = this;
     switch (_that) {
@@ -276,6 +298,9 @@ extension VoiceInputStatePatterns on VoiceInputState {
         return success(_that.text);
       case _Error() when error != null:
         return error(_that.message);
+      case _PermissionPermanentlyDenied()
+          when permissionPermanentlyDenied != null:
+        return permissionPermanentlyDenied();
       case _:
         return null;
     }
@@ -572,6 +597,27 @@ class __$ErrorCopyWithImpl<$Res> implements _$ErrorCopyWith<$Res> {
           : message // ignore: cast_nullable_to_non_nullable
               as String,
     ));
+  }
+}
+
+/// @nodoc
+
+class _PermissionPermanentlyDenied implements VoiceInputState {
+  const _PermissionPermanentlyDenied();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _PermissionPermanentlyDenied);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'VoiceInputState.permissionPermanentlyDenied()';
   }
 }
 
