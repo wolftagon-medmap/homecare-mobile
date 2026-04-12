@@ -48,7 +48,14 @@ class VoiceInputCubit extends Cubit<VoiceInputState> {
   Future<void> startRecording() async {
     try {
       final status = await Permission.microphone.request();
-      if (status != PermissionStatus.granted) {
+      if (status.isPermanentlyDenied || status.isRestricted) {
+        // iOS: permission was previously denied and the system won't show
+        // the prompt again. The user must re-enable it manually in Settings.
+        emit(const VoiceInputState.permissionPermanentlyDenied());
+        emit(const VoiceInputState.idle());
+        return;
+      }
+      if (!status.isGranted) {
         emit(const VoiceInputState.error(message: 'Microphone permission denied'));
         emit(const VoiceInputState.idle());
         return;

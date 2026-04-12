@@ -10,4 +10,6 @@ class VoiceInputState with _$VoiceInputState {
   const factory VoiceInputState.transcribing() = _Transcribing;
   const factory VoiceInputState.success({required String text}) = _Success;
   const factory VoiceInputState.error({required String message}) = _Error;
+  const factory VoiceInputState.permissionPermanentlyDenied() =
+      _PermissionPermanentlyDenied;
 }
