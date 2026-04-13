@@ -1,0 +1,36 @@
+name: Generate Podfile.lock
+
+# Run manually from the Actions tab — one-time use to generate ios/Podfile.lock
+# after the Podfile was added or updated.
+on:
+  workflow_dispatch:
+
+jobs:
+  pod-install:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Use a token with write access so the commit push works
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Flutter pub get
+        run: flutter pub get
+
+      - name: Pod install
+        run: cd ios && pod install --repo-update
+
+      - name: Commit Podfile.lock
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ios/Podfile.lock
+          git diff --cached --quiet || git commit -m "chore(ios): generate Podfile.lock"
+          git push
