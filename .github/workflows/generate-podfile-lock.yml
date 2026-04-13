@@ -5,6 +5,9 @@ name: Generate Podfile.lock
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   pod-install:
     runs-on: macos-latest
