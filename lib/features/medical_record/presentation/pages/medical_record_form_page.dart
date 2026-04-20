@@ -45,6 +45,7 @@ class MedicalRecordFormView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+  resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text(
           isEditMode ? 'Edit Medical Record' : 'Add New Medical Record',
@@ -80,7 +81,31 @@ class MedicalRecordFormView extends StatelessWidget {
           return _FormBody(isEditMode: isEditMode);
         },
       ),
-      bottomNavigationBar: _SubmitButton(isEditMode: isEditMode),
+      bottomNavigationBar: _KeyboardAwareBottomBar(
+        child: _SubmitButton(isEditMode: isEditMode),
+      ),
+    );
+  }
+}
+
+/// Keeps the bottom bar (e.g., Submit button) visible by moving it above the keyboard.
+/// This mirrors the behavior users expect from the Profile Information page.
+class _KeyboardAwareBottomBar extends StatelessWidget {
+  final Widget child;
+  const _KeyboardAwareBottomBar({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+
+    return AnimatedPadding(
+      duration: const Duration(milliseconds: 180),
+      curve: Curves.easeOut,
+      padding: EdgeInsets.only(bottom: bottomInset),
+      child: SafeArea(
+        top: false,
+        child: child,
+      ),
     );
   }
 }
