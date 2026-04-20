@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:m2health/features/file_upload/data/datasources/file_upload_remote_data_source.dart';
 import 'package:m2health/features/medical_record/data/datasources/medical_record_remote_data_source.dart';
 import 'package:m2health/features/medical_record/data/repositories/medical_record_repository_impl.dart';
 import 'package:m2health/features/medical_record/domain/repositories/medical_record_repository.dart';
@@ -8,6 +9,11 @@ import 'package:m2health/features/medical_record/domain/usecases/get_medical_rec
 import 'package:m2health/features/medical_record/domain/usecases/update_medical_record.dart';
 
 void initMedicalRecordModule(GetIt sl) {
+  // Data sources (shared)
+  sl.registerLazySingleton<FileUploadRemoteDataSource>(
+    () => FileUploadRemoteDataSourceImpl(dio: sl()),
+  );
+
   // Use cases
   sl.registerLazySingleton(() => GetMedicalRecords(sl()));
   sl.registerLazySingleton(() => CreateMedicalRecord(sl()));
