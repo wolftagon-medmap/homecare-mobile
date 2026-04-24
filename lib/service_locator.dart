@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:m2health/const.dart';
 import 'package:m2health/core/network/token_expiration_interceptor.dart';
 import 'package:m2health/features/auth/injection.dart';
 import 'package:m2health/features/booking_appointment/injection.dart';
@@ -28,6 +29,20 @@ Future<void> setupLocator() async {
   // External Dependencies (like Dio, SharedPreferences, etc.)
   sl.registerLazySingleton<Dio>(() {
     final dio = Dio();
+
+    if (Const.DEBUG_HTTP_LOGS) {
+      dio.interceptors.add(
+        LogInterceptor(
+          request: true,
+          requestHeader: true,
+          requestBody: true,
+          responseHeader: true,
+          responseBody: true,
+          error: true,
+        ),
+      );
+    }
+
     dio.interceptors.add(TokenExpirationInterceptor());
     return dio;
   });

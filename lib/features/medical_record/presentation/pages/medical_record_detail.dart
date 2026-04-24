@@ -102,90 +102,128 @@ class MedicalRecordDetailPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              if (record.fileUrl != null && record.fileUrl!.isNotEmpty)
-                _buildModernCard(
-                  title: context.l10n.medical_record_records_file,
-                  content: Row(
+              Builder(builder: (context) {
+                final files = record.files;
+                final legacyUrl = record.fileUrl;
+
+                if (files.isEmpty && (legacyUrl == null || legacyUrl.isEmpty)) {
+                  return const SizedBox.shrink();
+                }
+
+                Widget buildActions(String? url) {
+                  return Column(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFDC3545),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Icon(
-                          record.fileUrl!.toLowerCase().endsWith('.pdf')
-                              ? Icons.picture_as_pdf
-                              : Icons.image,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              width: double.infinity,
-                              child: OutlinedButton(
-                                onPressed: () {
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton(
+                          onPressed: url == null || url.isEmpty
+                              ? null
+                              : () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          FileViewerPage(url: record.fileUrl),
+                                          FileViewerPage(url: url),
                                     ),
                                   );
                                 },
-                                style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(
-                                      color: Color(0xFF28A745)),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 12),
-                                ),
-                                child: Text(
-                                  context.l10n.medical_record_view_file_btn,
-                                  style: const TextStyle(
-                                    color: Color(0xFF28A745),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(color: Color(0xFF28A745)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            const SizedBox(height: 8),
-                            SizedBox(
-                              width: double.infinity,
-                              child: OutlinedButton(
-                                onPressed: () {
-                                  _launchUrl(context, record.fileUrl);
-                                },
-                                style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(
-                                      color: Color(0xFF28A745)),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 12),
-                                ),
-                                child: Text(
-                                  context.l10n.medical_record_download_file_btn,
-                                  style: const TextStyle(
-                                    color: Color(0xFF28A745),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                          ),
+                          child: Text(
+                            context.l10n.medical_record_view_file_btn,
+                            style: const TextStyle(
+                              color: Color(0xFF28A745),
+                              fontWeight: FontWeight.w600,
                             ),
-                          ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton(
+                          onPressed: url == null || url.isEmpty
+                              ? null
+                              : () => _launchUrl(context, url),
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(color: Color(0xFF28A745)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                          ),
+                          child: Text(
+                            context.l10n.medical_record_download_file_btn,
+                            style: const TextStyle(
+                              color: Color(0xFF28A745),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ),
                     ],
+                  );
+                }
+
+                return _buildModernCard(
+                  title: context.l10n.medical_record_records_file,
+                  content: Column(
+                    children: [
+                      ...files.map((f) {
+                        final url = f.url;
+                        final isPdf = (url ?? '').toLowerCase().endsWith('.pdf');
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 16.0),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFDC3545),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Icon(
+                                  isPdf ? Icons.picture_as_pdf : Icons.image,
+                                  color: Colors.white,
+                                  size: 24,
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(child: buildActions(url)),
+                            ],
+                          ),
+                        );
+                      }),
+                      if (legacyUrl != null && legacyUrl.isNotEmpty)
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFDC3545),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Icon(
+                                legacyUrl.toLowerCase().endsWith('.pdf')
+                                    ? Icons.picture_as_pdf
+                                    : Icons.image,
+                                color: Colors.white,
+                                size: 24,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(child: buildActions(legacyUrl)),
+                          ],
+                        ),
+                    ],
                   ),
-                ),
+                );
+              }),
               const SizedBox(height: 24),
             ],
           ),
