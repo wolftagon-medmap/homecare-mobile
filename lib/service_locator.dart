@@ -17,6 +17,7 @@ import 'package:m2health/features/wellness_genomics/injection.dart';
 import 'package:m2health/core/blocs/voice_input/voice_input_cubit.dart';
 import 'package:m2health/core/services/ai_tools_service.dart';
 import 'package:m2health/core/services/appointment_service.dart';
+import 'package:m2health/core/services/fcm_service.dart';
 import 'package:m2health/features/subscription/injection.dart';
 import 'package:m2health/features/homecare_elderly/injection.dart';
 import 'package:m2health/features/physiotherapy/injection.dart';
@@ -50,6 +51,7 @@ Future<void> setupLocator() async {
   sl.registerSingleton<SharedPreferences>(sharedPreferences);
   sl.registerLazySingleton(() => AppointmentService(sl()));
   sl.registerLazySingleton(() => AIToolsService(sl()));
+  sl.registerLazySingleton(() => FcmService(sl<Dio>(), sl<SharedPreferences>()));
   sl.registerFactory(() => VoiceInputCubit(aiToolsService: sl()));
 
   // Feature Module Injectors

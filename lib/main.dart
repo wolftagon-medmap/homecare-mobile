@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:m2health/features/home_health_screening/presentation/bloc/screening_appointment_action_cubit.dart';
 import 'package:m2health/features/settings/language/locale_cubit.dart';
@@ -35,10 +37,19 @@ import 'package:device_preview/device_preview.dart';
 import 'package:device_preview_screenshot/device_preview_screenshot.dart';
 
 import 'const.dart';
+import 'core/services/fcm_service.dart';
+
+@pragma('vm:entry-point')
+Future<void> _firebaseBackgroundMessageHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundMessageHandler);
   await setupLocator();
+  await sl<FcmService>().init();
 
   // Timezone setup
   tz.initializeTimeZones();
