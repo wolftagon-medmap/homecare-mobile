@@ -36,29 +36,43 @@ class HomeHealthScreeningRepositoryImpl
       final payload = {
         'type': params.type,
         'provider_id': params.providerId,
-        'provider_type': params.providerType,
         'start_datetime': params.startDatetime.toIso8601String(),
         'summary': params.summary,
-        'pay_total': params.payTotal,
-        'screening_request_data': {
-          'screening_services_ids':
-              params.selectedItems.map((e) => e.id).toList(),
+        'request_data': {
+          'service_ids': params.selectedItems.map((e) => e.id).toList(),
         },
       };
 
       final response = await appointmentService.createAppointment(payload);
-      final result = AppointmentModel.fromJson(response);
+      final result = AppointmentModel.fromJson(
+          response['appointment'] as Map<String, dynamic>);
       return Right(result);
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
   }
 
-// ---- Provider Screening Actions ----
+  // ---- v2 Provider Screening Actions (use appointmentId) ----
+
   @override
+  Future<Either<Failure, Unit>> updateServiceRequestStatus(
+      int appointmentId, String status) async {
+    try {
+      await remoteDatasource.updateServiceRequestStatus(appointmentId, status);
+      return const Right(unit);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  // ---- Deprecated Provider Screening Actions ----
+
+  @override
+  @Deprecated('Use updateServiceRequestStatus(appointmentId, "request_accepted"). TODO: delete.')
   Future<Either<Failure, Unit>> acceptScreeningRequest(
       int screeningRequestId) async {
     try {
+      // ignore: deprecated_member_use
       await remoteDatasource.acceptScreeningRequest(screeningRequestId);
       return const Right(unit);
     } catch (e) {
@@ -67,9 +81,11 @@ class HomeHealthScreeningRepositoryImpl
   }
 
   @override
+  @Deprecated('Use updateServiceRequestStatus(appointmentId, "sample_collected"). TODO: delete.')
   Future<Either<Failure, Unit>> confirmSampleCollected(
       int screeningRequestId) async {
     try {
+      // ignore: deprecated_member_use
       await remoteDatasource.confirmSampleCollected(screeningRequestId);
       return const Right(unit);
     } catch (e) {
@@ -78,9 +94,11 @@ class HomeHealthScreeningRepositoryImpl
   }
 
   @override
+  @Deprecated('Use updateServiceRequestStatus(appointmentId, "report_ready"). TODO: delete.')
   Future<Either<Failure, Unit>> markScreeningReportReady(
       int screeningRequestId) async {
     try {
+      // ignore: deprecated_member_use
       await remoteDatasource.markScreeningReportReady(screeningRequestId);
       return const Right(unit);
     } catch (e) {

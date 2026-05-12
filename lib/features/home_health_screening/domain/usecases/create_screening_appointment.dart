@@ -18,15 +18,14 @@ class CreateScreeningAppointment {
 
 class CreateScreeningAppointmentParams extends Equatable {
   final String type = 'screening';
-  final String providerType = 'nurse';
   final int providerId;
   final DateTime startDatetime;
+
+  // ignore: deprecated_member_use_from_same_package
   final List<ScreeningItem> selectedItems;
 
-  String get summary => 'Home Health Screening: ${selectedItems.map((e) => e.name).join(', ')}';
-  
-  double get payTotal => selectedItems.fold(
-      0.0, (previousValue, element) => previousValue + element.price);
+  String get summary =>
+      'Home Health Screening: ${selectedItems.map((e) => e.name).join(', ')}';
 
   const CreateScreeningAppointmentParams({
     required this.providerId,

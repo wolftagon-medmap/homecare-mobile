@@ -18,7 +18,6 @@ abstract class SecondOpinionImagingRepository {
 
 class CreateSecondOpinionImagingAppointmentParams extends Equatable {
   final String type = 'second_opinion_imaging';
-  final String providerType = 'radiologist'; // For teleradiology
   final int providerId;
   final DateTime startDatetime;
   final String serviceType;
@@ -26,8 +25,6 @@ class CreateSecondOpinionImagingAppointmentParams extends Equatable {
   final String? diseaseHistory;
   final String? biomarker;
   final List<SecondOpinionImageFile> images;
-
-  double get payTotal => 50.0; // Placeholder price
 
   String get summary => 'Second Opinion of $serviceType analysis ($diseaseName)';
 
@@ -44,7 +41,6 @@ class CreateSecondOpinionImagingAppointmentParams extends Equatable {
   @override
   List<Object?> get props => [
         type,
-        providerType,
         providerId,
         startDatetime,
         serviceType,

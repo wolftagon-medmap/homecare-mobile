@@ -18,29 +18,29 @@ class CreatePharmacyAppointment {
 
 class CreatePharmacyAppointmentParams extends Equatable {
   final String type = 'pharmacy';
-  final String providerType = 'pharmacist';
   final int providerId;
   final DateTime startDatetime;
   final PharmacyCase pharmacyCase;
+  // Required for smoking_cessation service type — submit questionnaire first,
+  // pass the returned response id here.
+  final int? questionnaireResponseId;
 
   String get summary =>
       pharmacyCase.addOnServices.map((e) => e.name).join(', ');
-  double get payTotal => pharmacyCase.addOnServices.map((e) => e.price).fold(
-      0.0,
-      (previousValue, element) => previousValue + element); // Sum of prices
 
   const CreatePharmacyAppointmentParams({
     required this.providerId,
     required this.startDatetime,
     required this.pharmacyCase,
+    this.questionnaireResponseId,
   });
 
   @override
   List<Object?> get props => [
         type,
-        providerType,
         providerId,
         startDatetime,
         pharmacyCase,
+        questionnaireResponseId,
       ];
 }

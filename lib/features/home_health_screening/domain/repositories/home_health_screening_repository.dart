@@ -10,9 +10,17 @@ abstract class HomeHealthScreeningRepository {
   Future<Either<Failure, AppointmentEntity>> createAppointment(
       CreateScreeningAppointmentParams params);
 
-  // ---- Actions for Practitioners ----
+  // ---- v2 Provider Screening Actions ----
+  // status: request_accepted | sample_collected | report_ready
+  Future<Either<Failure, Unit>> updateServiceRequestStatus(
+      int appointmentId, String status);
+
+  // ---- Deprecated Provider Screening Actions ----
+  @Deprecated('Use updateServiceRequestStatus(appointmentId, "request_accepted"). TODO: delete.')
   Future<Either<Failure, Unit>> acceptScreeningRequest(int screeningRequestId);
+  @Deprecated('Use updateServiceRequestStatus(appointmentId, "sample_collected"). TODO: delete.')
   Future<Either<Failure, Unit>> confirmSampleCollected(int screeningRequestId);
+  @Deprecated('Use updateServiceRequestStatus(appointmentId, "report_ready"). TODO: delete.')
   Future<Either<Failure, Unit>> markScreeningReportReady(
       int screeningRequestId);
 }
