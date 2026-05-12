@@ -13,6 +13,7 @@ import 'package:m2health/features/pharmacogenomics/domain/usecases/delete_pharma
 import 'package:m2health/features/pharmacogenomics/domain/usecases/store_pharmacogenomics.dart';
 import 'package:m2health/features/pharmacogenomics/presentation/bloc/pharmacogenomics_cubit.dart';
 import 'package:m2health/features/pharmacogenomics/domain/usecases/get_pharmacogenomics.dart';
+import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/features/precision/bloc/nutrition_assessment_cubit.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
 import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.dart';
@@ -89,7 +90,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => sl<AuthCubit>()),
         BlocProvider<NutritionAssessmentCubit>(
-          create: (context) => NutritionAssessmentCubit(sl<Dio>()),
+          create: (context) =>
+              NutritionAssessmentCubit(sl<Dio>(), sl<QuestionnaireService>()),
         ),
         BlocProvider(create: (context) => AppointmentCubit(sl<Dio>())),
         BlocProvider(create: (context) => ProviderAppointmentCubit(sl<Dio>())),
@@ -126,7 +128,10 @@ class MyApp extends StatelessWidget {
             deleteMedicalRecord: sl<DeleteMedicalRecord>(),
           ),
         ),
-        BlocProvider(create: (context) => DiabetesFormCubit(sl<Dio>())),
+        BlocProvider(
+          create: (context) =>
+              DiabetesFormCubit(sl<Dio>(), sl<QuestionnaireService>()),
+        ),
         BlocProvider(create: (context) => sl<SubscriptionCubit>()),
       ],
       child: BlocBuilder<LocaleCubit, AppLocale>(builder: (context, locale) {

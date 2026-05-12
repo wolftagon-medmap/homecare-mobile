@@ -27,6 +27,9 @@ class PharmacyAppointmentFlowState extends Equatable {
   final DateTime? selectedTimeSlot;
   final AppointmentEntity? createdAppointment;
 
+  // v2: questionnaire response id for smoking cessation intake form
+  final int? smokingCessationQuestionnaireResponseId;
+
   // Submission status
   final AppointmentSubmissionStatus submissionStatus;
   final String? errorMessage;
@@ -39,6 +42,7 @@ class PharmacyAppointmentFlowState extends Equatable {
     this.selectedProfessional,
     this.selectedTimeSlot,
     this.createdAppointment,
+    this.smokingCessationQuestionnaireResponseId,
     this.submissionStatus = AppointmentSubmissionStatus.initial,
     this.errorMessage,
   });
@@ -55,6 +59,7 @@ class PharmacyAppointmentFlowState extends Equatable {
     ProfessionalEntity? selectedProfessional,
     DateTime? selectedTimeSlot,
     AppointmentEntity? createdAppointment,
+    int? smokingCessationQuestionnaireResponseId,
     AppointmentSubmissionStatus? submissionStatus,
     String? errorMessage,
   }) {
@@ -67,6 +72,9 @@ class PharmacyAppointmentFlowState extends Equatable {
       selectedProfessional: selectedProfessional ?? this.selectedProfessional,
       selectedTimeSlot: selectedTimeSlot ?? this.selectedTimeSlot,
       createdAppointment: createdAppointment ?? this.createdAppointment,
+      smokingCessationQuestionnaireResponseId:
+          smokingCessationQuestionnaireResponseId ??
+              this.smokingCessationQuestionnaireResponseId,
       submissionStatus: submissionStatus ?? this.submissionStatus,
       errorMessage: errorMessage ?? this.errorMessage,
     );
@@ -81,6 +89,7 @@ class PharmacyAppointmentFlowState extends Equatable {
         selectedProfessional,
         selectedTimeSlot,
         createdAppointment,
+        smokingCessationQuestionnaireResponseId,
         submissionStatus,
         errorMessage,
       ];

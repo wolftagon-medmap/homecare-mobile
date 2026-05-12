@@ -11,6 +11,7 @@ import 'package:m2health/features/profiles/presentation/pages/edit_lifestyle_n_s
 import 'package:m2health/features/profiles/presentation/pages/edit_medical_history_n_risk_factor_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_physical_sign_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_mental_state_page.dart';
+import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/features/profiles/presentation/bloc/mental_health_state_cubit.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_professional_profile.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_basic_info_page.dart';
@@ -57,7 +58,10 @@ class ProfileDetailRoutes {
       name: AppRoutes.profileMentalState,
       builder: (context, state) {
         return BlocProvider(
-          create: (context) => MentalHealthStateCubit(repository: sl()),
+          create: (context) => MentalHealthStateCubit(
+            repository: sl(),
+            questionnaireService: sl<QuestionnaireService>(),
+          ),
           child: const EditMentalStatePage(),
         );
       },

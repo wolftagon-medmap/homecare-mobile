@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/utils.dart';
 import 'package:path/path.dart' as p;
 import 'package:m2health/const.dart';
@@ -84,9 +85,11 @@ class NutritionAssessmentState extends Equatable {
 // Cubit untuk Precision Nutrition
 class NutritionAssessmentCubit extends Cubit<NutritionAssessmentState> {
   final Dio _dio;
+  final QuestionnaireService _questionnaireService;
 
   NutritionAssessmentCubit(
     this._dio,
+    this._questionnaireService,
   ) : super(const NutritionAssessmentState());
 
   void setMainConcern(String concern) {
@@ -270,6 +273,58 @@ class NutritionAssessmentCubit extends Cubit<NutritionAssessmentState> {
 
   void resetState() {
     emit(const NutritionAssessmentState());
+  }
+
+  // v2: submit via unified questionnaire endpoint
+  Future<void> submitAssessmentV2() async {
+    emit(state.copyWith(isLoading: true, errorMessage: null));
+    try {
+      await _questionnaireService.submitQuestionnaireResponse(
+        questionnaireCode: 'nutrition-abcd',
+        answers: {
+          'main_concern': state.mainConcern,
+          'self_rated_health': state.selfRatedHealth,
+          'sleep_hours': state.lifestyleHabits?.sleepHours,
+          'activity_level': state.lifestyleHabits?.activityLevel,
+          'stress_level': state.lifestyleHabits?.stressLevel,
+          'meal_frequency': state.nutritionHabits?.mealFrequency,
+          'water_intake': state.nutritionHabits?.waterIntake,
+        },
+      );
+      emit(state.copyWith(isLoading: false));
+    } catch (e) {
+      log('Error submitting nutrition assessment v2: $e',
+          name: 'NutritionAssessmentCubit');
+      emit(state.copyWith(
+          isLoading: false,
+          errorMessage: 'Failed to submit nutrition assessment'));
+    }
+  }
+
+  // v2: load via unified questionnaire endpoint
+  Future<bool> fetchAssessmentV2() async {
+    emit(state.copyWith(isLoading: true, errorMessage: null));
+    try {
+      final data = await _questionnaireService
+          .getLatestQuestionnaireResponse('nutrition-abcd');
+      if (data == null) {
+        emit(state.copyWith(isLoading: false));
+        return false;
+      }
+      final answers = data['answers'] as Map<String, dynamic>? ?? data;
+      emit(state.copyWith(
+        isLoading: false,
+        mainConcern: answers['main_concern'] as String?,
+        selfRatedHealth:
+            (answers['self_rated_health'] as num?)?.toDouble() ?? 1.0,
+      ));
+      return true;
+    } catch (e) {
+      log('Error fetching nutrition assessment v2: $e',
+          name: 'NutritionAssessmentCubit');
+      emit(state.copyWith(isLoading: false));
+      return false;
+    }
   }
 }
 

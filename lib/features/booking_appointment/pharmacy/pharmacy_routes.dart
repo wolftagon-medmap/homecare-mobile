@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/bloc/pharmacy_appointment_flow_bloc.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_appointment_flow_page.dart';
 import 'package:m2health/route/app_routes.dart';
@@ -16,6 +17,7 @@ class PharmacyRoutes {
         return BlocProvider(
           create: (context) => PharmacyAppointmentFlowBloc(
             createPharmacyAppointment: sl(),
+            questionnaireService: sl<QuestionnaireService>(),
           ),
           child: const PharmacyAppointmentFlowPage(),
         );
