@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/smoking_cessation/domain/entities/smoking_cessation_form.dart';
 
 class SmokingHabitAssessmentCard extends StatelessWidget {
-  final SmokingCessationForm smokingForm;
+  final Map<String, dynamic>? intakeDetail;
   const SmokingHabitAssessmentCard({
-    required this.smokingForm,
+    required this.intakeDetail,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    final currentHabit = smokingForm.isSmoking
-        ? (smokingForm.productTypes != null &&
-                smokingForm.productTypes!.isNotEmpty
-            ? smokingForm.productTypes!.join(', ')
+    final isSmoking = intakeDetail?['is_smoking'] == true;
+    final productTypes = intakeDetail?['product_types'];
+    final cigarettesPerDay = intakeDetail?['cigarettes_per_day'];
+    final hasTriedQuitting = intakeDetail?['has_tried_quitting'] == true;
+
+    final currentHabit = isSmoking
+        ? (productTypes != null &&
+                productTypes is List &&
+                productTypes.isNotEmpty
+            ? (productTypes as List).join(', ')
             : context.l10n.common_none)
         : 'Not currently smoking';
 
@@ -49,16 +54,16 @@ class SmokingHabitAssessmentCard extends StatelessWidget {
                   label: 'SMOKING?',
                   value: currentHabit,
                 ),
-                if (smokingForm.isSmoking) ...[
+                if (isSmoking) ...[
                   _AssessmentItem(
                     icon: Icons.bar_chart_outlined,
                     label: 'INTENSITY',
-                    value: '${smokingForm.sticksPerDay ?? 0} sticks / day',
+                    value: '${cigarettesPerDay ?? 0} sticks / day',
                   ),
                   _AssessmentItem(
                     icon: Icons.history_rounded,
                     label: 'PREVIOUS ATTEMPTS',
-                    value: smokingForm.hasTriedQuitting
+                    value: hasTriedQuitting
                         ? 'Has tried to quit before'
                         : 'No previous attempts',
                   ),

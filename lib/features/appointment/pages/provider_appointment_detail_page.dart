@@ -133,7 +133,7 @@ class ProviderAppointmentDetailView extends StatelessWidget {
             const SizedBox(height: 24),
             _buildSectionTitle("Smoking Cessation Assessment"),
             SmokingHabitAssessmentCard(
-              smokingForm: appointment.pharmacyCase!.smokingCessationForm!,
+              intakeDetail: appointment.serviceRequest?.detail,
             ),
           ],
         ],

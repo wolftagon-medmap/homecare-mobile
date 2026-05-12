@@ -13,6 +13,7 @@ class SearchProfessionalPage extends StatefulWidget {
   final String role;
   final List<int> serviceIds;
   final bool isHomeScreeningAuthorized;
+  final String? serviceSubCategory;
   final Function(ProfessionalEntity) onProfessionalSelected;
 
   const SearchProfessionalPage({
@@ -20,6 +21,7 @@ class SearchProfessionalPage extends StatefulWidget {
     required this.role,
     this.serviceIds = const [],
     this.isHomeScreeningAuthorized = false,
+    this.serviceSubCategory,
     required this.onProfessionalSelected,
   });
 
@@ -51,6 +53,7 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
             name: query,
             serviceIds: widget.serviceIds,
             isHomeScreeningAuthorized: widget.isHomeScreeningAuthorized,
+            serviceSubCategory: widget.serviceSubCategory,
           ),
         );
   }

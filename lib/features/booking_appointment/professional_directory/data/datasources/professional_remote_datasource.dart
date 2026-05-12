@@ -15,6 +15,7 @@ class ProfessionalRemoteDatasource {
     String? name,
     List<int>? serviceIds,
     bool? isHomeScreeningAuthorized,
+    String? serviceSubCategory,
   }) async {
     try {
       final token = await Utils.getSpString(Const.TOKEN);
@@ -25,6 +26,8 @@ class ProfessionalRemoteDatasource {
           'service_ids[]': serviceIds,
         if (isHomeScreeningAuthorized != null)
           'is_home_screening_authorized': isHomeScreeningAuthorized,
+        if (serviceSubCategory != null)
+          'service_sub_category': serviceSubCategory,
       };
       log('Fetching professionals with params: $queryParams',
           name: 'ProfessionalRemoteDatasource');
@@ -81,7 +84,7 @@ class ProfessionalRemoteDatasource {
       final data = {
         'user_id': userId,
         'item_id': professionalId,
-        'item_type': 'nurse', // Assuming nurse for now
+        'item_type': 'nurse',
         'highlighted': 1,
       };
       final response = await dio.post(

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/data/models/service_model.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/data/model/add_on_service_model.dart';
 import 'package:m2health/features/home_health_screening/data/models/screening_category_model.dart';
 import 'package:m2health/utils.dart';
 
@@ -21,7 +21,7 @@ class HomeHealthScreeningRemoteDatasource {
     final raw = response.data;
     final list = (raw is Map ? raw['data'] : raw) as List? ?? [];
     return list
-        .map((s) => AddOnServiceModel.fromJson(s as Map<String, dynamic>))
+        .map((s) => ServiceModel.fromJson(s as Map<String, dynamic>))
         .toList();
   }
 

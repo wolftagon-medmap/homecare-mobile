@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/presentation/bloc/add_on_service_cubit.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/presentation/bloc/add_on_service_state.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
+import 'package:m2health/features/booking_appointment/services_selection/presentation/bloc/add_on_service_cubit.dart';
+import 'package:m2health/features/booking_appointment/services_selection/presentation/bloc/services_selection_state.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/service_locator.dart';
 
-class AddOnServicePage extends StatelessWidget {
+class ServicesSelectionPage extends StatelessWidget {
   final String serviceType;
-  final Function(List<AddOnService>) onComplete;
-  final List<AddOnService>? initialSelectedServices;
+  final Function(List<ServiceEntity>) onComplete;
+  final List<ServiceEntity>? initialSelectedServices;
 
-  const AddOnServicePage({
+  const ServicesSelectionPage({
     super.key,
     required this.serviceType,
     required this.onComplete,
@@ -35,7 +35,7 @@ class AddOnServicePage extends StatelessWidget {
 
 class AddOnServiceView extends StatefulWidget {
   final String serviceType;
-  final Function(List<AddOnService>) onComplete;
+  final Function(List<ServiceEntity>) onComplete;
 
   const AddOnServiceView({
     super.key,
@@ -99,29 +99,29 @@ class AddOnServiceViewState extends State<AddOnServiceView> {
 
     return RefreshIndicator(
       onRefresh: refreshAddOnServices,
-      child: BlocBuilder<AddOnServiceCubit, AddOnServiceState>(
+      child: BlocBuilder<AddOnServiceCubit, ServicesSelectionState>(
         builder: (context, state) {
-          if (state.status == AddOnServiceStateStatus.loading) {
+          if (state.status == ServicesSelectionStateStatus.loading) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (state.status == AddOnServiceStateStatus.error) {
+          if (state.status == ServicesSelectionStateStatus.error) {
             return Center(
                 child: Text(state.errorMessage ?? "Unexpected error occurred"));
           }
 
-          if (state.status == AddOnServiceStateStatus.loaded) {
-            if (state.addOnServices.isEmpty) {
+          if (state.status == ServicesSelectionStateStatus.loaded) {
+            if (state.services.isEmpty) {
               return Center(child: Text(context.t.booking.addon.empty));
             }
 
-            final availableServices = state.addOnServices;
+            final availableServices = state.services;
             return ListView.builder(
               itemCount: availableServices.length,
               itemBuilder: (context, index) {
                 final service = availableServices[index];
                 final isSelected =
-                    state.selectedAddOnServices.any((s) => s.id == service.id);
+                    state.selectedServices.any((s) => s.id == service.id);
 
                 return Card(
                   child: ListTile(
@@ -182,14 +182,14 @@ class AddOnServiceViewState extends State<AddOnServiceView> {
 
   Widget _buildBookButton(BuildContext context) {
     final state = context.watch<AddOnServiceCubit>().state;
-    final isButtonEnabled = state.selectedAddOnServices.isNotEmpty;
+    final isButtonEnabled = state.selectedServices.isNotEmpty;
 
     return SizedBox(
       width: double.infinity,
       height: 58,
       child: ElevatedButton(
         onPressed: isButtonEnabled
-            ? () => widget.onComplete(state.selectedAddOnServices)
+            ? () => widget.onComplete(state.selectedServices)
             : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF35C5CF),

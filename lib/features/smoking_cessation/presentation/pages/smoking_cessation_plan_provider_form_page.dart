@@ -132,8 +132,8 @@ class _SmokingCessationPlanProviderFormPageState
                         _PatientHeader(appointment: widget.appointment),
                         const SizedBox(height: 24),
                         SmokingHabitAssessmentCard(
-                          smokingForm: widget
-                              .appointment.pharmacyCase!.smokingCessationForm!,
+                          intakeDetail:
+                              widget.appointment.serviceRequest?.detail,
                         ),
                         const SizedBox(height: 24),
                         _PrescribeMedicationSection(
@@ -207,7 +207,7 @@ class _SmokingCessationPlanProviderFormPageState
                     text: 'Submit Plan',
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        context.read<SmokingCessationPlanCubit>().submitPlan();
+                        context.read<SmokingCessationPlanCubit>().submitCarePlan();
                       }
                     },
                   ),

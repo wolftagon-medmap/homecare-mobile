@@ -102,7 +102,7 @@ class ProfileDetailRoutes {
         return BlocProvider(
             create: (_) => ManageServicesCubit(
                   profileRemoteDatasource: sl(),
-                  addOnRepository: sl(),
+                  servicesRepository: sl(),
                   role: args.role,
                 )..loadServices(
                     args.currentServices,

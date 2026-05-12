@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/presentation/pages/add_on_service_page.dart';
+import 'package:m2health/features/booking_appointment/services_selection/presentation/pages/services_selection_page.dart';
+import 'package:m2health/features/booking_appointment/nursing/const.dart';
 import 'package:m2health/features/booking_appointment/nursing/presentation/bloc/nursing_appointment_flow_bloc.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/bloc/personal_issues_cubit.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional/professional_bloc.dart';
@@ -145,7 +146,7 @@ class _NursingAppointmentFlowPageState
                         .add(FlowHealthStatusUpdated(healthStatus));
                   },
                 ),
-                AddOnServicePage(
+                ServicesSelectionPage(
                   serviceType: state.serviceType.apiValue,
                   initialSelectedServices: state.selectedAddOnServices,
                   onComplete: (services) {
@@ -162,6 +163,9 @@ class _NursingAppointmentFlowPageState
                   child: SearchProfessionalPage(
                     role: 'nurse',
                     serviceIds: state.selectedAddOnServices.map((e) => e.id).toList(),
+                    serviceSubCategory: state.serviceType == NurseServiceType.specializedNurse
+                        ? 'Specialized'
+                        : null,
                     onProfessionalSelected: (prof) {
                       context
                           .read<NursingAppointmentFlowBloc>()

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/presentation/pages/add_on_service_page.dart';
+import 'package:m2health/features/booking_appointment/services_selection/presentation/pages/services_selection_page.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/bloc/personal_issues_cubit.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/pages/health_status_page.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/pages/personal_issues_page.dart';
@@ -145,7 +145,7 @@ class PharmacyAppointmentFlowPageState
                         .add(FlowHealthStatusUpdated(healthStatus));
                   },
                 ),
-                AddOnServicePage(
+                ServicesSelectionPage(
                   serviceType: 'pharmacy',
                   initialSelectedServices: state.selectedAddOnServices,
                   onComplete: (services) {
