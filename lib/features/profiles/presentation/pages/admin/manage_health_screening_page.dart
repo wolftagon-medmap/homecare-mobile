@@ -168,6 +168,8 @@ class ScreeningServicesCubit extends Cubit<ScreeningServicesState> {
   }
 }
 
+@Deprecated(
+    'Replaced by ManageServicesPage with category=screening. TODO: delete.')
 class ManageHealthScreeningPage extends StatelessWidget {
   const ManageHealthScreeningPage({super.key});
 

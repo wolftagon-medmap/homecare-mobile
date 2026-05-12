@@ -5,7 +5,6 @@ import 'package:m2health/features/pharmacogenomics/presentation/pharmagenomical_
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/manage_services_cubit.dart';
 import 'package:m2health/features/profiles/presentation/pages/admin/admin_professionals_page.dart';
-import 'package:m2health/features/profiles/presentation/pages/admin/manage_health_screening_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/admin/manage_services_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_lifestyle_n_selfcare_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_medical_history_n_risk_factor_page.dart';
@@ -133,10 +132,12 @@ class ProfileDetailRoutes {
         return const AdminProfessionalsPage();
       },
     ),
+    // TODO: delete manageHealthScreening route after all navigation call-sites are updated.
+    // Redirecting to unified ManageServicesPage with screening pre-selected.
     GoRoute(
       path: AppRoutes.manageHealthScreening,
       builder: (context, state) {
-        return const ManageHealthScreeningPage();
+        return const ManageServicesPage();
       },
     ),
 
