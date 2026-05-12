@@ -64,8 +64,6 @@ class AddOnServiceViewState extends State<AddOnServiceView> {
           return context.t.booking.addon.title.specialized_nursing;
         case 'pharmacy':
           return context.t.booking.addon.title.pharmacy;
-        case 'radiology':
-          return context.t.booking.addon.title.radiology;
         default:
           return context.t.booking.addon.title.kDefault;
       }
