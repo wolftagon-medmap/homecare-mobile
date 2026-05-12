@@ -2,10 +2,15 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/data/models/care_plan_model.dart';
+import 'package:m2health/core/data/models/diagnostic_report_model.dart';
+import 'package:m2health/core/data/models/order_model.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
+import 'package:m2health/core/domain/entities/care_plan_entity.dart';
+import 'package:m2health/core/domain/entities/diagnostic_report_entity.dart';
+import 'package:m2health/core/domain/entities/order_entity.dart';
 import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/features/appointment/models/paginated_appointment_response.dart';
-// ignore: unused_import
 import 'package:m2health/core/data/models/appointment_model.dart';
 import 'package:m2health/features/profiles/data/models/profile_model.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
@@ -538,6 +543,144 @@ class AppointmentService {
       throw Exception('Unknown error submitting feedback.');
     }
   }
+
+  // ── v2: Order & Payment ──────────────────────────────────────────────────
+
+  Future<OrderEntity> getOrder(int orderId) async {
+    final token = await Utils.getSpString(Const.TOKEN);
+    final response = await _dio.get(
+      '${Const.API_ORDERS}/$orderId',
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+    return OrderModel.fromJson(response.data['data'] ?? response.data);
+  }
+
+  Future<void> payOrder(int orderId, String method) async {
+    final token = await Utils.getSpString(Const.TOKEN);
+    try {
+      await _dio.post(
+        '${Const.API_ORDERS}/$orderId/pay',
+        data: {'method': method},
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        }),
+      );
+    } catch (e) {
+      if (e is DioException) {
+        throw BadRequestFailure(
+            e.response?.data['message'] ?? 'Failed to pay order');
+      }
+      rethrow;
+    }
+  }
+
+  // ── v2: Provider post-consultation ───────────────────────────────────────
+
+  Future<void> updateServiceRequestStatus(
+      int appointmentId, String status) async {
+    final token = await Utils.getSpString(Const.TOKEN);
+    try {
+      await _dio.post(
+        '${Const.API_APPOINTMENT}/$appointmentId/service-request/status',
+        data: {'status': status},
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        }),
+      );
+    } catch (e) {
+      if (e is DioException) {
+        throw BadRequestFailure(
+            e.response?.data['message'] ?? 'Failed to update status');
+      }
+      rethrow;
+    }
+  }
+
+  Future<DiagnosticReportEntity> createDiagnosticReport(
+    int appointmentId, {
+    required String conclusion,
+    String? recommendation,
+    int? fileUploadId,
+  }) async {
+    final token = await Utils.getSpString(Const.TOKEN);
+    try {
+      final response = await _dio.post(
+        '${Const.API_APPOINTMENT}/$appointmentId/diagnostic-reports',
+        data: {
+          'conclusion': conclusion,
+          if (recommendation != null) 'recommendation': recommendation,
+          if (fileUploadId != null) 'file_upload_id': fileUploadId,
+        },
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        }),
+      );
+      final data = response.data['data'] ?? response.data;
+      return DiagnosticReportModel.fromJson(data as Map<String, dynamic>);
+    } catch (e) {
+      if (e is DioException) {
+        throw BadRequestFailure(
+            e.response?.data['message'] ?? 'Failed to create diagnostic report');
+      }
+      rethrow;
+    }
+  }
+
+  Future<CarePlanEntity> createCarePlan(
+      int appointmentId, Map<String, dynamic> payload) async {
+    final token = await Utils.getSpString(Const.TOKEN);
+    try {
+      final response = await _dio.post(
+        '${Const.API_APPOINTMENT}/$appointmentId/care-plans',
+        data: payload,
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        }),
+      );
+      final data = response.data['data'] ?? response.data;
+      return CarePlanModel.fromJson(data as Map<String, dynamic>);
+    } catch (e) {
+      if (e is DioException) {
+        throw BadRequestFailure(
+            e.response?.data['message'] ?? 'Failed to create care plan');
+      }
+      rethrow;
+    }
+  }
+
+  // ── v2: Deprecated methods kept for backward compat ─────────────────────
+
+  @Deprecated(
+      'Use payOrder(orderId, method) instead. TODO: delete after migration.')
+  Future<void> submitSecondOpinionFeedback(
+      int appointmentId, Map<String, dynamic> payload) async {
+    final token = await Utils.getSpString(Const.TOKEN);
+    try {
+      final response = await _dio.post(
+        '${Const.URL_API}/appointments/$appointmentId/feedback',
+        data: payload,
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        }),
+      );
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        throw Exception('Failed to submit feedback: ${response.statusCode}');
+      }
+    } catch (e) {
+      if (e is DioException) {
+        throw BadRequestFailure(
+            e.response?.data['message'] ?? 'Failed to submit feedback');
+      }
+      throw Exception('Unknown error submitting feedback.');
+    }
+  }
+
+  // ── Existing update appointment ──────────────────────────────────────────
 
   Future<Map<String, dynamic>> updateAppointment(
       int appointmentId, Map<String, dynamic> appointmentData) async {
