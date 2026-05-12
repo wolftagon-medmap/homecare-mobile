@@ -5,7 +5,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
-import 'package:m2health/core/domain/entities/service_entity.dart';
+import 'package:m2health/core/domain/entities/care_plan_entity.dart';
+import 'package:m2health/core/domain/entities/diagnostic_report_entity.dart';
+import 'package:m2health/core/domain/entities/order_entity.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
 import 'package:m2health/features/settings/language/locale_cubit.dart';
@@ -18,7 +20,6 @@ import 'package:m2health/features/booking_appointment/professional_directory/dom
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'package:m2health/features/second_opinion_imaging/presentation/pages/second_opinion_request_detail_page.dart';
-import 'package:m2health/features/smoking_cessation/presentation/widgets/smoking_habit_assessment_card.dart';
 import 'package:m2health/features/smoking_cessation/presentation/widgets/view_smoking_cessation_plan_button.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
@@ -409,14 +410,14 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
   }
 
   Widget _buildScreeningInfo(AppointmentEntity appointment) {
-    final screeningData = appointment.screeningRequestData;
-    if (screeningData == null) return const SizedBox.shrink();
-    if (appointment.payment == null) {
-      // Hardcoded check for unpaid appointments
-      return const SizedBox.shrink();
-    }
+    final serviceRequest = appointment.serviceRequest;
+    final isPaid = appointment.order?.isPaid ?? false;
+    if (!isPaid) return const SizedBox.shrink();
 
-    final reports = screeningData.reports;
+    final serviceRequestStatus = serviceRequest?.status ?? 'request_submitted';
+    final reports = appointment.diagnosticReports
+        .where((r) => r.type == 'screening')
+        .toList();
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -449,7 +450,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  screeningData.status.replaceAll('_', ' ').toUpperCase(),
+                  serviceRequestStatus.replaceAll('_', ' ').toUpperCase(),
                   style: const TextStyle(
                     color: Const.aqua,
                     fontWeight: FontWeight.bold,
@@ -458,7 +459,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
               ),
             ],
           ),
-          if (reports.isNotEmpty && screeningData.status == 'report_ready') ...[
+          if (reports.isNotEmpty && serviceRequestStatus == 'report_ready') ...[
             Text(
               context.l10n.appointment_detail_report(reports.length),
               style: const TextStyle(
@@ -467,53 +468,65 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
               ),
             ),
             const SizedBox(height: 8),
-            ...reports.map((report) => Card(
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      side: BorderSide(color: Colors.grey.shade200)),
-                  margin: const EdgeInsets.only(bottom: 8),
-                  child: ListTile(
-                    leading: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.red.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(
-                          report.file.extname == 'pdf'
-                              ? Icons.picture_as_pdf
-                              : Icons.insert_drive_file,
-                          color: Colors.red),
-                    ),
-                    title: Text(
-                      'Report #${report.id}',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    subtitle: Text(report.file.extname.toUpperCase()),
-                    trailing: IconButton(
-                      icon: const Icon(
-                          Icons.visibility), // Changed icon to visibility
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => FileViewerPage(
-                              url: report.file.url,
-                              title: 'Lab Report #${report.id}',
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ))
+            ..._buildDiagnosticReportCards(reports),
           ]
         ],
       ),
     );
+  }
+
+  List<Widget> _buildDiagnosticReportCards(
+      List<DiagnosticReportEntity> reports) {
+    return reports.map((report) {
+      final file = report.file;
+      return Card(
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(color: Colors.grey.shade200)),
+        margin: const EdgeInsets.only(bottom: 8),
+        child: ListTile(
+          leading: file != null
+              ? Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.red.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(
+                    file.extname == 'pdf'
+                        ? Icons.picture_as_pdf
+                        : Icons.insert_drive_file,
+                    color: Colors.red,
+                  ),
+                )
+              : const Icon(Icons.description),
+          title: Text(
+            'Report #${report.id}',
+            style: const TextStyle(fontWeight: FontWeight.w600),
+          ),
+          subtitle: file != null
+              ? Text(file.extname.toUpperCase())
+              : Text(report.conclusion ?? ''),
+          trailing: file != null
+              ? IconButton(
+                  icon: const Icon(Icons.visibility),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FileViewerPage(
+                          url: file.url,
+                          title: 'Lab Report #${report.id}',
+                        ),
+                      ),
+                    );
+                  },
+                )
+              : null,
+        ),
+      );
+    }).toList();
   }
 
   Widget _buildHomecareTaskInfo(AppointmentEntity appointment) {
@@ -550,8 +563,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
   }
 
   Widget _buildSmokingCessationInfo(AppointmentEntity appointment) {
-    final smokingForm = appointment.pharmacyCase?.smokingCessationForm;
-    if (smokingForm == null) return const SizedBox.shrink();
+    final smokingCarePlans = appointment.carePlans
+        .where((p) => p.type == 'smoking_cessation')
+        .toList();
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -566,10 +580,81 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
             ),
           ),
           const SizedBox(height: 8),
-          SmokingHabitAssessmentCard(smokingForm: smokingForm),
-          const SizedBox(height: 8),
           ViewSmokingCessationPlanButton(appointment: appointment),
+          if (smokingCarePlans.isNotEmpty) ...[
+            const SizedBox(height: 12),
+            ...smokingCarePlans.map((plan) => _buildCarePlanCard(plan)),
+          ],
         ],
+      ),
+    );
+  }
+
+  Widget _buildCarePlanCard(CarePlanEntity plan) {
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: Colors.grey.shade200),
+      ),
+      margin: const EdgeInsets.only(bottom: 8),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    plan.title,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                ),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Const.aqua.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    plan.status.replaceAll('_', ' ').toUpperCase(),
+                    style: const TextStyle(
+                      color: Const.aqua,
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            if (plan.description != null) ...[
+              const SizedBox(height: 6),
+              Text(plan.description!,
+                  style: const TextStyle(fontSize: 13, height: 1.4)),
+            ],
+            if (plan.activities.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              ...plan.activities.map(
+                (activity) => Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Icon(Icons.check_circle_outline,
+                          size: 16, color: Const.aqua),
+                      const SizedBox(width: 8),
+                      Flexible(
+                          child: Text(activity.description,
+                              style: const TextStyle(fontSize: 13))),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -681,31 +766,11 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
   }
 
   Widget _buildPaymentSummary(AppointmentEntity appointment) {
-    List<ServiceEntity> services = [];
-    if (appointment.type == 'nursing') {
-      final nursingCase = appointment.nursingCase;
-      if (nursingCase != null && nursingCase.addOnServices.isNotEmpty) {
-        services = nursingCase.addOnServices;
-      }
-    } else if (appointment.type == 'pharmacy') {
-      final pharmacyCase = appointment.pharmacyCase;
-      if (pharmacyCase != null && pharmacyCase.addOnServices.isNotEmpty) {
-        services = pharmacyCase.addOnServices;
-      }
-    } else if (appointment.type == 'screening') {
-      final screeningRequest = appointment.screeningRequestData;
-      if (screeningRequest != null && screeningRequest.services.isNotEmpty) {
-        services = screeningRequest.services;
-      }
-    } else if (appointment.type == 'physiotherapy') {
-      final physiotherapyData = appointment.physiotherapyRequestData;
-      if (physiotherapyData != null) {
-        services = [physiotherapyData.service];
-      }
-    }
-
-    final total = appointment.payTotal;
-    final isPaid = appointment.payment != null;
+    final order = appointment.order;
+    final isPaid = order?.isPaid ?? false;
+    final isFullyCovered = order?.isFullyCovered ?? false;
+    final lineItems = order?.lineItems ?? const <OrderLineItem>[];
+    final total = order?.total ?? 0.0;
 
     return BlocBuilder<LocaleCubit, AppLocale>(
       builder: (context, locale) {
@@ -724,51 +789,40 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
                 ),
               ),
               const SizedBox(height: 8),
-              if (appointment.payment != null) ...[
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Text(context.l10n.appointment_detail_payment_date),
-                    const Spacer(),
-                    Text(DateFormat.yMMMd(locale.languageCode)
-                        .add_jm()
-                        .format(appointment.payment!.createdAt.toLocal())),
-                  ],
+              if (isFullyCovered) ...[
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.green.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                    border:
+                        Border.all(color: Colors.green.withValues(alpha: 0.3)),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.check_circle, color: Colors.green, size: 18),
+                      SizedBox(width: 8),
+                      Text('Fully covered by subscription',
+                          style: TextStyle(color: Colors.green)),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Text(context.l10n.appointment_detail_payment_method),
-                    const Spacer(),
-                    Text(appointment.payment!.method),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Text(context.l10n.appointment_detail_order_completed_date),
-                    const Spacer(),
-                    Text(DateFormat.yMMMd(locale.languageCode)
-                        .add_jm()
-                        .format(appointment.payment!.updatedAt.toLocal())),
-                  ],
-                ),
-                const Divider(height: 20),
               ],
-              if (services.isNotEmpty) ...[
+              if (lineItems.isNotEmpty) ...[
                 Text(
                   context.l10n.services,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
-                ...services.map(
-                  (addOn) => Padding(
+                ...lineItems.map(
+                  (item) => Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
                     child: Row(
                       children: [
-                        Expanded(child: Text(addOn.name)),
+                        Expanded(child: Text(item.description)),
                         const SizedBox(width: 16),
-                        Text('${addOn.price}'),
+                        Text('\$${item.amount.toStringAsFixed(2)}'),
                       ],
                     ),
                   ),
@@ -786,7 +840,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
                   ),
                   const Spacer(),
                   Text(
-                    '\$$total',
+                    '\$${total.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -809,7 +863,8 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
 
     Widget payButton = ElevatedButton(
       onPressed: () {
-        GoRouter.of(context).pushNamed(AppRoutes.payment, extra: appointment);
+        GoRouter.of(context)
+            .pushNamed(AppRoutes.payment, extra: appointment.order);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFF35C5CF),
@@ -916,7 +971,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
         buttons = [cancelButton, payButton];
         break;
       case 'pending':
-        if (appointment.payment == null) {
+        if (!(appointment.order?.isPaid ?? false)) {
           buttons = [payButton, cancelButton];
           isHorizontalLayout = false;
         } else {
