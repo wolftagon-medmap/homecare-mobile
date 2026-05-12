@@ -863,8 +863,7 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
 
     Widget payButton = ElevatedButton(
       onPressed: () {
-        GoRouter.of(context)
-            .pushNamed(AppRoutes.payment, extra: appointment.order);
+        GoRouter.of(context).pushNamed(AppRoutes.payment, extra: appointment);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFF35C5CF),

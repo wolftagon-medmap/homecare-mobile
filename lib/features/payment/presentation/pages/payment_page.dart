@@ -53,13 +53,13 @@ class _PaymentPageState extends State<PaymentPage> {
   PaymentMethod? selectedPaymentMethod;
 
   ProfessionalEntity get profile => widget.appointment.provider!;
-  OrderEntity? get _order => widget.appointment.order;
-  bool get _isFullyCovered => _order != null && _order!.total == 0.0;
+  OrderEntity get _order => widget.appointment.order!;
+  bool get _isFullyCovered => _order.total == 0.0;
 
-  List<OrderLineItem> get _lineItems => _order?.lineItems ?? [];
+  List<OrderLineItem> get _lineItems => _order.lineItems;
 
   // ignore: deprecated_member_use_from_same_package
-  double get totalCost => _order?.total ?? widget.appointment.payTotal;
+  double get totalCost => _order.total;
 
   List<PaymentMethod> get paymentMethods => [
         // PaymentMethod(
@@ -124,21 +124,12 @@ class _PaymentPageState extends State<PaymentPage> {
     if (selectedPaymentMethod == null) return;
 
     final order = _order;
-    if (order != null) {
-      context.read<PaymentCubit>().payOrder(
-            orderId: order.id,
-            method: selectedPaymentMethod!.code,
-            amount: totalCost,
-          );
-    } else {
-      // ignore: deprecated_member_use
-      context.read<PaymentCubit>().createPayment(
-            appointmentId: widget.appointment.id!,
-            method: selectedPaymentMethod!.code,
-            amount: totalCost,
-          );
+    context.read<PaymentCubit>().payOrder(
+          orderId: order.id,
+          method: selectedPaymentMethod!.code,
+          amount: totalCost,
+        );
     }
-  }
 
   @override
   Widget build(BuildContext context) {
