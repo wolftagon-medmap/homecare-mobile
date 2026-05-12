@@ -6,14 +6,26 @@ class AddOnServiceModel extends AddOnService {
     required super.name,
     required super.price,
     required super.serviceType,
+    super.subCategory,
+    super.pricingModel,
+    super.durationMinutes,
+    super.code,
+    super.isPublished,
   });
 
   factory AddOnServiceModel.fromJson(Map<String, dynamic> json) {
     return AddOnServiceModel(
-      id: json['id'],
-      name: json['title'],
-      price: (json['price'] as num).toDouble(),
-      serviceType: json['service_type'] ?? 'nursing',
+      id: json['id'] as int,
+      // v2 uses 'name'; legacy used 'title'
+      name: (json['name'] ?? json['title']) as String? ?? '',
+      price: double.parse((json['price'] ?? 0).toString()),
+      // v2 uses 'category'; legacy used 'service_type'
+      serviceType: (json['category'] ?? json['service_type'] ?? '') as String,
+      subCategory: json['sub_category'] as String?,
+      pricingModel: json['pricing_model'] as String?,
+      durationMinutes: json['duration_minutes'] as int?,
+      code: json['code'] as String?,
+      isPublished: json['is_published'] as bool?,
     );
   }
 }

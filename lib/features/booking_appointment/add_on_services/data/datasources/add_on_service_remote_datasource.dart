@@ -11,27 +11,27 @@ class AddOnServiceRemoteDatasource {
 
   AddOnServiceRemoteDatasource(this.dio);
 
+  // serviceType is now the unified service category (e.g. 'nursing', 'pharmacy', 'screening').
   Future<List<AddOnService>> getAddOnServices(String serviceType) async {
     final token = await Utils.getSpString(Const.TOKEN);
-    log('Fetching add-on services for $serviceType',
+    log('Fetching services for category=$serviceType',
         name: 'AddOnServiceRemoteDatasource');
 
     final response = await dio.get(
-      '${Const.URL_API}/service-titles',
-      queryParameters: {'service_type': serviceType},
+      Const.API_SERVICES,
+      queryParameters: {'category': serviceType, 'is_published': true},
       options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
+        headers: {'Authorization': 'Bearer $token'},
       ),
     );
 
     log('Response data: ${response.data}',
         name: 'AddOnServiceRemoteDatasource');
 
-    final services = (response.data as List)
-        .map((service) => AddOnServiceModel.fromJson(service))
+    final raw = response.data;
+    final list = (raw is Map ? raw['data'] : raw) as List? ?? [];
+    return list
+        .map((s) => AddOnServiceModel.fromJson(s as Map<String, dynamic>))
         .toList();
-    return services;
   }
 }
