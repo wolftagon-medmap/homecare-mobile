@@ -13,64 +13,83 @@ class ScreeningAppointmentActionCubit
   ScreeningAppointmentActionCubit({required this.repository})
       : super(ScreeningAppointmentActionInitial());
 
-  Future<void> acceptScreeningRequest(int screeningRequestId) async {
-    log('Accepting appointment of screening request (id: $screeningRequestId)',
+  // ── v2 methods (use appointmentId, not screeningRequestId) ────────────────
+
+  Future<void> acceptRequest(int appointmentId) async {
+    log('Accepting screening request for appointment (id: $appointmentId)',
         name: 'ScreeningAppointmentActionCubit');
     emit(ScreeningAppointmentActionLoading());
+    final result = await repository.updateServiceRequestStatus(
+        appointmentId, 'request_accepted');
+    result.fold(
+      (failure) => emit(ScreeningAppointmentActionError(failure.message)),
+      (_) => emit(const ScreeningAppointmentActionSuccess(
+          message: 'Appointment accepted successfully')),
+    );
+  }
+
+  Future<void> confirmSampleCollectedV2(int appointmentId) async {
+    log('Confirming sample collected for appointment (id: $appointmentId)',
+        name: 'ScreeningAppointmentActionCubit');
+    emit(ScreeningAppointmentActionLoading());
+    final result = await repository.updateServiceRequestStatus(
+        appointmentId, 'sample_collected');
+    result.fold(
+      (failure) => emit(ScreeningAppointmentActionError(failure.message)),
+      (_) => emit(const ScreeningAppointmentActionSuccess(
+          message: 'Sample collection confirmed successfully')),
+    );
+  }
+
+  Future<void> markReportReady(int appointmentId) async {
+    log('Marking report ready for appointment (id: $appointmentId)',
+        name: 'ScreeningAppointmentActionCubit');
+    emit(ScreeningAppointmentActionLoading());
+    final result = await repository.updateServiceRequestStatus(
+        appointmentId, 'report_ready');
+    result.fold(
+      (failure) => emit(ScreeningAppointmentActionError(failure.message)),
+      (_) => emit(const ScreeningAppointmentActionSuccess(
+          message: 'Report marked as ready successfully')),
+    );
+  }
+
+  // ── Deprecated (use screeningRequestId — no longer valid in v2) ───────────
+
+  @Deprecated('Use acceptRequest(appointmentId). TODO: delete.')
+  Future<void> acceptScreeningRequest(int screeningRequestId) async {
+    emit(ScreeningAppointmentActionLoading());
+    // ignore: deprecated_member_use
     final result = await repository.acceptScreeningRequest(screeningRequestId);
     result.fold(
-      (failure) {
-        log('Failed to accept screening request: ${failure.toString()}',
-            name: 'ScreeningAppointmentActionCubit');
-        emit(const ScreeningAppointmentActionError(
-            "Failed to accept appointment"));
-      },
-      (_) {
-        emit(const ScreeningAppointmentActionSuccess(
-          message: "Appointment accepted successfully",
-        ));
-      },
+      (failure) => emit(ScreeningAppointmentActionError(failure.message)),
+      (_) => emit(const ScreeningAppointmentActionSuccess(
+          message: 'Appointment accepted successfully')),
     );
   }
 
+  @Deprecated('Use confirmSampleCollectedV2(appointmentId). TODO: delete.')
   Future<void> confirmSampleCollected(int screeningRequestId) async {
-    log('Confirming sample collected for screening request (id: $screeningRequestId)',
-        name: 'ScreeningAppointmentActionCubit');
     emit(ScreeningAppointmentActionLoading());
+    // ignore: deprecated_member_use
     final result = await repository.confirmSampleCollected(screeningRequestId);
     result.fold(
-      (failure) {
-        log('Failed to confirm sample collection: ${failure.toString()}',
-            name: 'ScreeningAppointmentActionCubit');
-        emit(const ScreeningAppointmentActionError(
-            "Failed to confirm sample collection"));
-      },
-      (_) {
-        emit(const ScreeningAppointmentActionSuccess(
-          message: "Sample collection confirmed successfully",
-        ));
-      },
+      (failure) => emit(ScreeningAppointmentActionError(failure.message)),
+      (_) => emit(const ScreeningAppointmentActionSuccess(
+          message: 'Sample collection confirmed successfully')),
     );
   }
 
+  @Deprecated('Use markReportReady(appointmentId). TODO: delete.')
   Future<void> markScreeningReportReady(int screeningRequestId) async {
-    log('Marking screening report ready for screening request (id: $screeningRequestId)',
-        name: 'ScreeningAppointmentActionCubit');
     emit(ScreeningAppointmentActionLoading());
+    // ignore: deprecated_member_use
     final result =
         await repository.markScreeningReportReady(screeningRequestId);
     result.fold(
-      (failure) {
-        log('Failed to mark report ready: ${failure.toString()}',
-            name: 'ScreeningAppointmentActionCubit');
-        emit(const ScreeningAppointmentActionError(
-            "Failed to mark report as ready"));
-      },
-      (_) {
-        emit(const ScreeningAppointmentActionSuccess(
-          message: "Report marked as ready successfully",
-        ));
-      },
+      (failure) => emit(ScreeningAppointmentActionError(failure.message)),
+      (_) => emit(const ScreeningAppointmentActionSuccess(
+          message: 'Report marked as ready successfully')),
     );
   }
 }

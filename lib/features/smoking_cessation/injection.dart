@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:m2health/core/services/appointment_service.dart';
 import 'package:m2health/features/smoking_cessation/data/datasources/smoking_cessation_datasource.dart';
 import 'package:m2health/features/smoking_cessation/data/repositories/smoking_cessation_repository_impl.dart';
 import 'package:m2health/features/smoking_cessation/domain/repositories/smoking_cessation_repository.dart';
@@ -6,7 +7,10 @@ import 'package:m2health/features/smoking_cessation/domain/repositories/smoking_
 void initSmokingCessationModule(GetIt sl) {
   // Repository
   sl.registerLazySingleton<SmokingCessationRepository>(
-    () => SmokingCessationRepositoryImpl(remoteDatasource: sl()),
+    () => SmokingCessationRepositoryImpl(
+      remoteDatasource: sl(),
+      appointmentService: sl<AppointmentService>(),
+    ),
   );
 
   // Datasource

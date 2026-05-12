@@ -58,6 +58,30 @@ class SecondOpinionImagingRepositoryImpl extends SecondOpinionImagingRepository 
   }
 
   @override
+  Future<Either<Failure, Unit>> createDiagnosticReport({
+    required int appointmentId,
+    required String conclusion,
+    String? recommendation,
+    int? fileUploadId,
+  }) async {
+    try {
+      await appointmentService.createDiagnosticReport(
+        appointmentId,
+        conclusion: conclusion,
+        recommendation: recommendation,
+        fileUploadId: fileUploadId,
+      );
+      return const Right(unit);
+    } on Failure catch (failure) {
+      return Left(failure);
+    } on Exception catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  @Deprecated(
+      'Use createDiagnosticReport(appointmentId, conclusion, recommendation). TODO: delete.')
   Future<Either<Failure, Unit>> submitFeedback({
     required int appointmentId,
     required String diagnosticOpinion,

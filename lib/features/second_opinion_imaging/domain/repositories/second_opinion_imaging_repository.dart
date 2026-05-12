@@ -9,6 +9,16 @@ abstract class SecondOpinionImagingRepository {
   Future<Either<Failure, AppointmentEntity>> createAppointment(
       CreateSecondOpinionImagingAppointmentParams params);
 
+  // v2: creates a DiagnosticReport via POST /appointments/:id/diagnostic-reports
+  Future<Either<Failure, Unit>> createDiagnosticReport({
+    required int appointmentId,
+    required String conclusion,
+    String? recommendation,
+    int? fileUploadId,
+  });
+
+  @Deprecated(
+      'Use createDiagnosticReport(appointmentId, conclusion, recommendation). TODO: delete.')
   Future<Either<Failure, Unit>> submitFeedback({
     required int appointmentId,
     required String diagnosticOpinion,
