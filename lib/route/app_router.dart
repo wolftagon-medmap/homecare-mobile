@@ -5,6 +5,7 @@ import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/pharmacy_routes.dart';
 import 'package:m2health/features/chatbot/chatbot_routes.dart';
+import 'package:m2health/features/payment/domain/usecases/pay_order.dart';
 import 'package:m2health/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:m2health/features/payment/presentation/pages/payment_page.dart';
 import 'package:m2health/features/homecare_elderly/admin/pages/admin_homecare_configuration_page.dart';
@@ -112,7 +113,10 @@ final GoRouter router = GoRouter(
         final appointment = state.extra as AppointmentEntity;
 
         return BlocProvider(
-          create: (context) => PaymentCubit(createPaymentUseCase: sl()),
+          create: (context) => PaymentCubit(
+                createPaymentUseCase: sl(),
+                payOrderUseCase: sl<PayOrder>(),
+              ),
           child: PaymentPage(appointment: appointment),
         );
       },

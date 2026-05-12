@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/core/extensions/string_extensions.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
+import 'package:m2health/core/domain/entities/order_entity.dart';
+import 'package:m2health/core/extensions/string_extensions.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:m2health/features/payment/presentation/widgets/offline_payment_success_dialog.dart';
@@ -53,17 +53,13 @@ class _PaymentPageState extends State<PaymentPage> {
   PaymentMethod? selectedPaymentMethod;
 
   ProfessionalEntity get profile => widget.appointment.provider!;
-  List<AddOnService> get services {
-    if (widget.appointment.nursingCase != null) {
-      return widget.appointment.nursingCase!.addOnServices;
-    } else if (widget.appointment.pharmacyCase != null) {
-      return widget.appointment.pharmacyCase!.addOnServices;
-    } else {
-      return [];
-    }
-  }
+  OrderEntity? get _order => widget.appointment.order;
+  bool get _isFullyCovered => _order != null && _order!.total == 0.0;
 
-  double get totalCost => widget.appointment.payTotal;
+  List<OrderLineItem> get _lineItems => _order?.lineItems ?? [];
+
+  // ignore: deprecated_member_use_from_same_package
+  double get totalCost => _order?.total ?? widget.appointment.payTotal;
 
   List<PaymentMethod> get paymentMethods => [
         // PaymentMethod(
@@ -108,7 +104,6 @@ class _PaymentPageState extends State<PaymentPage> {
       ];
 
   void _onConfirmPayment() {
-    if (selectedPaymentMethod == null) return;
     if (widget.appointment.id == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(context.t.payment.error.appointment_id_missing)),
@@ -116,16 +111,38 @@ class _PaymentPageState extends State<PaymentPage> {
       return;
     }
 
-    context.read<PaymentCubit>().createPayment(
-          appointmentId: widget.appointment.id!,
-          method: selectedPaymentMethod!.code,
-          amount: totalCost,
-        );
+    if (_isFullyCovered) {
+      // Subscription covers full cost — nothing to pay.
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content:
+                Text('Appointment is fully covered by your subscription.')),
+      );
+      return;
+    }
+
+    if (selectedPaymentMethod == null) return;
+
+    final order = _order;
+    if (order != null) {
+      context.read<PaymentCubit>().payOrder(
+            orderId: order.id,
+            method: selectedPaymentMethod!.code,
+            amount: totalCost,
+          );
+    } else {
+      // ignore: deprecated_member_use
+      context.read<PaymentCubit>().createPayment(
+            appointmentId: widget.appointment.id!,
+            method: selectedPaymentMethod!.code,
+            amount: totalCost,
+          );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final isButtonEnabled = selectedPaymentMethod != null;
+    final isButtonEnabled = _isFullyCovered || selectedPaymentMethod != null;
 
     return BlocListener<PaymentCubit, PaymentState>(
       listener: (context, state) {
@@ -232,18 +249,16 @@ class _PaymentPageState extends State<PaymentPage> {
               const SizedBox(height: 8),
               Column(
                 spacing: 4,
-                children: [
-                  ...services.map((service) {
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(child: Text(service.name)),
-                        Text('\$${service.price}'),
-                      ],
-                    );
-                  })
-                ],
+                children: _lineItems.map((item) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(child: Text(item.description)),
+                      Text('\$${item.amount.toStringAsFixed(2)}'),
+                    ],
+                  );
+                }).toList(),
               ),
               const Divider(height: 32),
               Row(
@@ -257,7 +272,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     ),
                   ),
                   Text(
-                    '\$$totalCost',
+                    '\$${totalCost.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -265,21 +280,45 @@ class _PaymentPageState extends State<PaymentPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
-              Text(
-                context.t.payment.select_method,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
+              if (_isFullyCovered) ...[
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.green.withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.green.shade300),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.check_circle, color: Colors.green),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Fully covered by your subscription — no payment required.',
+                          style: TextStyle(color: Colors.green),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Column(
-                spacing: 8,
-                children: paymentMethods
-                    .map((method) => _buildPaymentMethodCard(method))
-                    .toList(),
-              )
+              ] else ...[
+                const SizedBox(height: 24),
+                Text(
+                  context.t.payment.select_method,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Column(
+                  spacing: 8,
+                  children: paymentMethods
+                      .map((method) => _buildPaymentMethodCard(method))
+                      .toList(),
+                ),
+              ]
             ],
           ),
         ),
