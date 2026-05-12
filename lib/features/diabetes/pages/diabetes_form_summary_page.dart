@@ -9,9 +9,7 @@ import 'package:m2health/features/booking_appointment/nursing/presentation/pages
 import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_state.dart';
 import 'package:m2health/features/diabetes/models/diabetes_options.dart';
-import 'package:m2health/features/diabetes/widgets/diabetes_form_widget.dart';
 import 'package:m2health/features/booking_appointment/nursing/const.dart';
-import 'package:m2health/features/precision/widgets/precision_widgets.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 

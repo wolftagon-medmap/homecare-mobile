@@ -14,7 +14,7 @@ import 'package:m2health/features/pharmacogenomics/domain/usecases/store_pharmac
 import 'package:m2health/features/pharmacogenomics/presentation/bloc/pharmacogenomics_cubit.dart';
 import 'package:m2health/features/pharmacogenomics/domain/usecases/get_pharmacogenomics.dart';
 import 'package:m2health/core/services/questionnaire_service.dart';
-import 'package:m2health/features/precision/bloc/nutrition_assessment_cubit.dart';
+import 'package:m2health/features/nutrition/bloc/nutrition_assessment_cubit.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
 import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';

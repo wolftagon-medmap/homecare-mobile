@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/precision/bloc/nutrition_plan_cubit.dart';
-import 'package:m2health/features/precision/widgets/precision_widgets.dart';
+import 'package:m2health/features/nutrition/bloc/nutrition_plan_cubit.dart';
+import 'package:m2health/features/nutrition/widgets/precision_widgets.dart';
 import 'package:m2health/route/app_routes.dart';
 
 const weeklyFoodImagePaths = [

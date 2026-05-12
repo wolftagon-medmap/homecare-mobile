@@ -5,7 +5,7 @@ import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_state.dart';
 import 'package:m2health/features/diabetes/models/diabetes_options.dart';
 import 'package:m2health/features/diabetes/widgets/diabetes_form_widget.dart';
-import 'package:m2health/features/precision/widgets/precision_widgets.dart';
+import 'package:m2health/features/nutrition/widgets/precision_widgets.dart';
 
 class DiabetesHistoryFormPage extends StatefulWidget {
   final DiabetesHistory initialData;

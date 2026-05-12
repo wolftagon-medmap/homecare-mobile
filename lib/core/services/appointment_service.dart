@@ -422,10 +422,6 @@ class AppointmentService {
       if (payload['provider_id'] == null) {
         throw Exception('Provider ID is required');
       }
-      if (payload['provider_type'] == null ||
-          payload['provider_type'].toString().isEmpty) {
-        throw Exception('Provider type is required');
-      }
 
       log('Creating appointment with payload:\n$payload',
           name: 'AppointmentService');
@@ -516,33 +512,6 @@ class AppointmentService {
     }
   }
 
-  Future<void> submitSecondOpinionFeedback(
-      int appointmentId, Map<String, dynamic> payload) async {
-    try {
-      final token = await Utils.getSpString(Const.TOKEN);
-
-      final response = await _dio.post(
-        '${Const.URL_API}/appointments/$appointmentId/feedback',
-        data: payload,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-            'Content-Type': 'application/json',
-          },
-        ),
-      );
-
-      if (response.statusCode != 200 && response.statusCode != 201) {
-        throw Exception('Failed to submit feedback: ${response.statusCode}');
-      }
-    } catch (e) {
-      if (e is DioException) {
-        throw BadRequestFailure(
-            e.response?.data['message'] ?? 'Failed to submit feedback');
-      }
-      throw Exception('Unknown error submitting feedback.');
-    }
-  }
 
   // ── v2: Order & Payment ──────────────────────────────────────────────────
 

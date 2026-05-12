@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
-import 'package:m2health/features/precision/bloc/nutrition_plan_cubit.dart';
-import 'package:m2health/features/precision/screens/plan/weekly_meal_plan_page.dart';
+import 'package:m2health/features/nutrition/bloc/nutrition_plan_cubit.dart';
+import 'package:m2health/features/nutrition/screens/plan/weekly_meal_plan_page.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class NutritionPlanPage extends StatelessWidget {
