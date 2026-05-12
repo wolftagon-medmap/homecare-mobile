@@ -49,22 +49,3 @@ class FlowTimeSlotSelected extends PharmacyAppointmentFlowEvent {
 }
 
 class FlowSubmitAppointment extends PharmacyAppointmentFlowEvent {}
-
-// v2: submit smoking cessation intake questionnaire before creating appointment
-class FlowSmokingCessationFormSubmitted extends PharmacyAppointmentFlowEvent {
-  final bool isSmoking;
-  final List<String>? productTypes;
-  final int? cigarettesPerDay;
-  final bool hasTriedQuitting;
-
-  const FlowSmokingCessationFormSubmitted({
-    required this.isSmoking,
-    this.productTypes,
-    this.cigarettesPerDay,
-    required this.hasTriedQuitting,
-  });
-
-  @override
-  List<Object?> get props =>
-      [isSmoking, productTypes, cigarettesPerDay, hasTriedQuitting];
-}

@@ -2,11 +2,9 @@ import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/health_status.dart';
-import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/mobility_status.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/domain/entities/pharmacy_case.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/domain/usecases/create_pharmacy_appointment.dart';
@@ -18,11 +16,9 @@ part 'pharmacy_appointment_flow_state.dart';
 class PharmacyAppointmentFlowBloc
     extends Bloc<PharmacyAppointmentFlowEvent, PharmacyAppointmentFlowState> {
   final CreatePharmacyAppointment createPharmacyAppointment;
-  final QuestionnaireService questionnaireService;
 
   PharmacyAppointmentFlowBloc({
     required this.createPharmacyAppointment,
-    required this.questionnaireService,
   }) : super(PharmacyAppointmentFlowState.initial()) {
     on<FlowStepChanged>(_onStepChanged);
     on<FlowPersonalIssueUpdated>(_onPersonalCaseUpdated);
@@ -31,7 +27,6 @@ class PharmacyAppointmentFlowBloc
     on<FlowProfessionalSelected>(_onProfessionalSelected);
     on<FlowTimeSlotSelected>(_onTimeSlotSelected);
     on<FlowSubmitAppointment>(_onSubmitAppointment);
-    on<FlowSmokingCessationFormSubmitted>(_onSmokingCessationFormSubmitted);
   }
 
   @override
@@ -98,7 +93,6 @@ class PharmacyAppointmentFlowBloc
         relatedHealthRecordId: state.healthStatus?.relatedHealthRecordId,
         addOnServices: state.selectedAddOnServices,
       ),
-      questionnaireResponseId: state.smokingCessationQuestionnaireResponseId,
     );
 
     final result = await createPharmacyAppointment(params);
@@ -116,37 +110,5 @@ class PharmacyAppointmentFlowBloc
         ));
       },
     );
-  }
-
-  // v2: submit smoking cessation intake questionnaire, store response id, then proceed
-  Future<void> _onSmokingCessationFormSubmitted(
-      FlowSmokingCessationFormSubmitted event,
-      Emitter<PharmacyAppointmentFlowState> emit) async {
-    emit(state.copyWith(
-        submissionStatus: AppointmentSubmissionStatus.submitting));
-    try {
-      final responseId =
-          await questionnaireService.submitQuestionnaireResponse(
-        questionnaireCode: 'smoking-cessation-intake',
-        answers: {
-          'is_smoking': event.isSmoking,
-          'product_types': event.productTypes,
-          'cigarettes_per_day': event.cigarettesPerDay,
-          'has_tried_quitting': event.hasTriedQuitting,
-        },
-      );
-      emit(state.copyWith(
-        smokingCessationQuestionnaireResponseId: responseId,
-        submissionStatus: AppointmentSubmissionStatus.initial,
-        currentStep: PharmacyFlowStep.searchProfessional,
-      ));
-    } catch (e) {
-      log('Error submitting smoking cessation questionnaire: $e',
-          name: 'PharmacyAppointmentFlowBloc');
-      emit(state.copyWith(
-        submissionStatus: AppointmentSubmissionStatus.failure,
-        errorMessage: 'Failed to submit smoking cessation form',
-      ));
-    }
   }
 }
