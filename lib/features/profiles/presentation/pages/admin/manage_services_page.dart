@@ -359,8 +359,7 @@ class _ServiceCard extends StatelessWidget {
               onPressed: () => Navigator.of(dialogContext).pop(),
             ),
             TextButton(
-              child:
-                  const Text('Delete', style: TextStyle(color: Colors.red)),
+              child: const Text('Delete', style: TextStyle(color: Colors.red)),
               onPressed: () {
                 context.read<AdminServicesCubit>().deleteService(service.id);
                 Navigator.of(dialogContext).pop();
@@ -415,10 +414,8 @@ class _ServiceFormModalState extends State<_ServiceFormModal> {
     super.initState();
     final s = widget.service;
     _nameController = TextEditingController(text: s?.name ?? '');
-    _priceController =
-        TextEditingController(text: s?.price.toString() ?? '');
-    _subCategoryController =
-        TextEditingController(text: s?.subCategory ?? '');
+    _priceController = TextEditingController(text: s?.price.toString() ?? '');
+    _subCategoryController = TextEditingController(text: s?.subCategory ?? '');
     _durationController =
         TextEditingController(text: s?.durationMinutes?.toString() ?? '');
     _codeController = TextEditingController(text: s?.code ?? '');
@@ -444,8 +441,9 @@ class _ServiceFormModalState extends State<_ServiceFormModal> {
         ? null
         : _subCategoryController.text.trim();
     final duration = int.tryParse(_durationController.text);
-    final code =
-        _codeController.text.trim().isEmpty ? null : _codeController.text.trim();
+    final code = _codeController.text.trim().isEmpty
+        ? null
+        : _codeController.text.trim();
 
     if (_isEditing) {
       context.read<AdminServicesCubit>().updateService(
@@ -528,8 +526,7 @@ class _ServiceFormModalState extends State<_ServiceFormModal> {
                   border: OutlineInputBorder(),
                 ),
                 items: const [
-                  DropdownMenuItem(
-                      value: 'per_item', child: Text('Per Item')),
+                  DropdownMenuItem(value: 'per_item', child: Text('Per Item')),
                   DropdownMenuItem(
                       value: 'per_package', child: Text('Per Package')),
                   DropdownMenuItem(
