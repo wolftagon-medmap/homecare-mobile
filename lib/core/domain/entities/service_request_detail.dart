@@ -23,13 +23,10 @@ class NursingDetail extends ServiceRequestDetail with EquatableMixin {
   });
 
   static NursingDetail fromJson(Map<String, dynamic> detail) {
-    final rawIssues =
-        (detail['personal_issues'] ?? detail['personalIssues']) as List? ?? [];
+    final rawIssues = detail['personal_issues'] as List? ?? [];
     final rawServices = detail['services'] as List? ?? [];
-    final mobilityStatusRaw =
-        detail['mobility_status'] ?? detail['mobilityStatus'];
-    final mobilityStatusDetailRaw =
-        detail['mobility_status_detail'] ?? detail['mobilityStatusDetail'];
+    final mobilityStatusRaw = detail['mobility_status'] as String?;
+    final mobilityStatusDetailRaw = detail['mobility_status_detail'] as String?;
     return NursingDetail(
       personalIssues: rawIssues
           .map((e) => PersonalIssueModel.fromJson(e as Map<String, dynamic>))
@@ -38,9 +35,9 @@ class NursingDetail extends ServiceRequestDetail with EquatableMixin {
           .map((e) => ServiceModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       mobilityStatus: mobilityStatusRaw != null
-          ? MobilityStatus.fromApiValue(mobilityStatusRaw as String)
+          ? MobilityStatus.fromApiValue(mobilityStatusRaw)
           : null,
-      mobilityStatusDetail: mobilityStatusDetailRaw as String?,
+      mobilityStatusDetail: mobilityStatusDetailRaw,
     );
   }
 
@@ -61,8 +58,7 @@ class PharmacyGeneralDetail extends ServiceRequestDetail with EquatableMixin {
   });
 
   static PharmacyGeneralDetail fromJson(Map<String, dynamic> detail) {
-    final rawIssues =
-        (detail['personal_issues'] ?? detail['personalIssues']) as List? ?? [];
+    final rawIssues = detail['personal_issues'] as List? ?? [];
     final rawServices = detail['services'] as List? ?? [];
     return PharmacyGeneralDetail(
       personalIssues: rawIssues
@@ -93,9 +89,7 @@ class PharmacySmokingCessationDetail extends ServiceRequestDetail
   });
 
   static PharmacySmokingCessationDetail fromJson(Map<String, dynamic> detail) {
-    final rawAnswers = (detail['questionnaire_answers'] ??
-            detail['questionnaireAnswers']) as Map? ??
-        {};
+    final rawAnswers = detail['questionnaire_answers'] as Map? ?? {};
     final rawServices = detail['services'] as List? ?? [];
     return PharmacySmokingCessationDetail(
       questionnaireAnswers: Map<String, dynamic>.from(rawAnswers),
@@ -139,12 +133,10 @@ class HomecareDetail extends ServiceRequestDetail with EquatableMixin {
 
   static HomecareDetail fromJson(Map<String, dynamic> detail) {
     final rawServices = detail['services'] as List? ?? [];
-    final billingType =
-        (detail['billing_type'] ?? detail['billingType'] as String?) ??
-            'hourly';
+    final billingType = (detail['billing_type'] as String?) ?? 'hourly';
     return HomecareDetail(
       services: List<String>.from(rawServices),
-      billingType: billingType as String,
+      billingType: billingType,
     );
   }
 
@@ -193,13 +185,9 @@ class SecondOpinionDetail extends ServiceRequestDetail with EquatableMixin {
   static SecondOpinionDetail fromJson(Map<String, dynamic> detail) {
     final rawImages = detail['images'] as List? ?? [];
     return SecondOpinionDetail(
-      serviceType:
-          (detail['service_type'] ?? detail['serviceType'] as String?) ??
-              'radiology',
-      diseaseName:
-          (detail['disease_name'] ?? detail['diseaseName'] as String?) ?? '',
-      diseaseHistory:
-          (detail['disease_history'] ?? detail['diseaseHistory']) as String?,
+      serviceType: (detail['service_type'] as String?) ?? 'radiology',
+      diseaseName: (detail['disease_name'] as String?) ?? '',
+      diseaseHistory: detail['disease_history'] as String?,
       biomarker: detail['biomarker'] as String?,
       images: rawImages
           .map((e) => SecondOpinionImage.fromJson(e as Map<String, dynamic>))
@@ -226,10 +214,9 @@ class SecondOpinionImage extends Equatable {
 
   static SecondOpinionImage fromJson(Map<String, dynamic> json) {
     return SecondOpinionImage(
-      imageType: (json['image_type'] ?? json['imageType']) as String?,
-      fileUrl: (json['file_url'] ?? json['fileUrl']) as String?,
-      fileUploadId:
-          (json['file_upload_id'] ?? json['fileUploadId'] as int?) ?? 0,
+      imageType: json['image_type'] as String?,
+      fileUrl: json['file_url'] as String?,
+      fileUploadId: (json['file_upload_id'] as int?) ?? 0,
     );
   }
 

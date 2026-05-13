@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
+import 'package:m2health/core/domain/entities/diagnostic_report_entity.dart';
 import 'package:m2health/features/appointment/bloc/screening_report/screening_report_cubit.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -80,13 +81,17 @@ class ScreeningReportSubmissionView extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          final screeningData = appointment.screeningRequestData;
-          if (screeningData == null) {
+          final serviceRequest = appointment.serviceRequest;
+          final serviceRequestId = serviceRequest?.id;
+          if (serviceRequestId == null) {
             return const Center(child: Text('Invalid screening data'));
           }
 
-          final reports = screeningData.reports;
-          final isFinalized = screeningData.status == 'report_ready';
+          final List<DiagnosticReportEntity> reports = appointment
+              .diagnosticReports
+              .where((r) => r.type == 'screening')
+              .toList();
+          final isFinalized = serviceRequest?.status == 'report_ready';
 
           return Padding(
             padding: const EdgeInsets.all(16.0),
@@ -161,22 +166,25 @@ class ScreeningReportSubmissionView extends StatelessWidget {
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold),
                                 ),
-                                subtitle:
-                                    Text(report.file.extname.toUpperCase()),
+                                subtitle: report.file != null
+                                    ? Text(report.file!.extname.toUpperCase())
+                                    : null,
                                 trailing: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    IconButton(
-                                      icon: const Icon(
-                                          Icons.visibility_outlined,
-                                          color: Colors.grey),
-                                      onPressed: () async {
-                                        final uri = Uri.parse(report.file.url);
-                                        if (await canLaunchUrl(uri)) {
-                                          await launchUrl(uri);
-                                        }
-                                      },
-                                    ),
+                                    if (report.file != null)
+                                      IconButton(
+                                        icon: const Icon(
+                                            Icons.visibility_outlined,
+                                            color: Colors.grey),
+                                        onPressed: () async {
+                                          final uri =
+                                              Uri.parse(report.file!.url);
+                                          if (await canLaunchUrl(uri)) {
+                                            await launchUrl(uri);
+                                          }
+                                        },
+                                      ),
                                     if (!isFinalized)
                                       IconButton(
                                         icon: const Icon(Icons.delete_outline,
@@ -244,7 +252,7 @@ class ScreeningReportSubmissionView extends StatelessWidget {
                           File file = File(result.files.single.path!);
                           if (context.mounted) {
                             context.read<ScreeningReportCubit>().uploadReport(
-                                appointment!.id!, screeningData.id, file);
+                                appointment!.id!, serviceRequestId, file);
                           }
                         }
                       },
@@ -280,7 +288,7 @@ class ScreeningReportSubmissionView extends StatelessWidget {
                                           context
                                               .read<ScreeningReportCubit>()
                                               .markReady(appointment!.id!,
-                                                  screeningData.id);
+                                                  serviceRequestId);
                                         },
                                         child: const Text('Confirm',
                                             style: TextStyle(
