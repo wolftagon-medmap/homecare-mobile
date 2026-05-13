@@ -41,31 +41,28 @@ class AppointmentEntity extends Equatable {
   @Deprecated('Use order.total instead. TODO: delete after migration.')
   final double payTotal;
 
-  // TODO: Remove in next refactor cycle — replaced by serviceRequest.asNursingDetail()
-  @Deprecated('Use serviceRequest.asNursingDetail() instead. TODO: delete.')
+  @Deprecated(
+      'Use serviceRequest.detail as NursingDetail instead. TODO: delete.')
   final NursingCase? nursingCase;
 
-  // TODO: Remove in next refactor cycle — replaced by serviceRequest.asPharmacyDetail()
-  @Deprecated('Use serviceRequest.asPharmacyDetail() instead. TODO: delete.')
+  @Deprecated(
+      'Use serviceRequest.detail as PharmacyGeneralDetail or PharmacySmokingCessationDetail instead. TODO: delete.')
   final PharmacyCase? pharmacyCase;
 
-  // TODO: Remove in next refactor cycle — replaced by serviceRequest + diagnosticReports
   @Deprecated(
       'Use serviceRequest.status and diagnosticReports instead. TODO: delete.')
   final ScreeningRequestData? screeningRequestData;
 
-  // TODO: Remove in next refactor cycle — replaced by serviceRequest.asHomecareDetail()
-  @Deprecated('Use serviceRequest.asHomecareDetail() instead. TODO: delete.')
+  @Deprecated(
+      'Use serviceRequest.detail as HomecareDetail instead. TODO: delete.')
   final HomecareRequestData? homecareRequestData;
 
-  // TODO: Remove in next refactor cycle — replaced by serviceRequest.asPhysiotherapyDetail()
   @Deprecated(
-      'Use serviceRequest.asPhysiotherapyDetail() instead. TODO: delete.')
+      'Use serviceRequest.detail as PhysiotherapyDetail instead. TODO: delete.')
   final PhysiotherapyRequestData? physiotherapyRequestData;
 
-  // TODO: Remove in next refactor cycle — replaced by serviceRequest.asSecondOpinionDetail()
   @Deprecated(
-      'Use serviceRequest.asSecondOpinionDetail() instead. TODO: delete.')
+      'Use serviceRequest.detail as SecondOpinionDetail instead. TODO: delete.')
   final SecondOpinionImagingRequestData? secondOpinionImagingRequestData;
 
   // TODO: Remove in next refactor cycle — replaced by diagnosticReports

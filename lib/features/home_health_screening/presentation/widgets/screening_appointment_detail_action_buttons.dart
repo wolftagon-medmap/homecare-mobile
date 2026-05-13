@@ -55,17 +55,16 @@ class ScreeningAppointmentDetailActionButtons extends StatelessWidget {
         }
       },
       child: Builder(builder: (context) {
-        final screeningData = appointment.screeningRequestData;
-        final screeningStep = screeningData?.status;
-        final screeningRequestId = screeningData!.id;
+        final screeningStep = appointment.serviceRequest?.status;
+        final appointmentId = appointment.id!;
 
         switch (screeningStep) {
           case 'request_submitted':
-            return _buildForPendingStatus(context, screeningRequestId);
+            return _buildForPendingStatus(context, appointmentId);
           case 'request_accepted':
-            return _buildForAcceptedStatus(context, screeningRequestId);
+            return _buildForAcceptedStatus(context, appointmentId);
           case 'sample_collected':
-            return _buildForSampleCollectedStatus(context, screeningRequestId);
+            return _buildForSampleCollectedStatus(context, appointmentId);
           default:
             return const SizedBox.shrink();
         }
