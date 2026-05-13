@@ -12,7 +12,7 @@ class HomecareRequestDataModel extends HomecareRequestData {
     return HomecareRequestDataModel(
       id: json['id'] ?? 0,
       appointmentId: json['appointment_id'] ?? 0,
-      billingType: json['billing_type'],
+      billingType: (json['billing_type'] as String?) ?? 'hourly',
       services:
           (json['services'] as List? ?? []).map((e) => e as String).toList(),
     );

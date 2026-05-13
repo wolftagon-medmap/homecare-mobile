@@ -32,8 +32,10 @@ class NursingAppointmentRepositoryImpl extends NursingAppointmentRepository {
         },
       };
       final response = await appointmentService.createAppointment(payload);
-      final result = AppointmentModel.fromJson(
-          response['appointment'] as Map<String, dynamic>);
+      final result = AppointmentModel.fromJson({
+        ...response['appointment'] as Map<String, dynamic>,
+        if (response['order'] != null) 'order': response['order'],
+      });
       return Right(result);
     } on Failure catch (failure) {
       return Left(failure);
