@@ -47,7 +47,6 @@ class SmokingCessationPlanCubit extends Cubit<SmokingCessationPlanState> {
     );
   }
 
-  // v2: creates a CarePlan via unified care-plans endpoint.
   Future<void> submitCarePlan() async {
     emit(state.copyWith(submitStatus: SmokingCessationPlanStatus.loading));
 
@@ -60,32 +59,6 @@ class SmokingCessationPlanCubit extends Cubit<SmokingCessationPlanState> {
     }
 
     final result = await _repository.createSmokingCessationCarePlan(
-        appointmentId, planToSubmit);
-
-    result.fold(
-      (failure) => emit(state.copyWith(
-        submitStatus: SmokingCessationPlanStatus.failure,
-        errorMessage: failure.message,
-      )),
-      (_) =>
-          emit(state.copyWith(submitStatus: SmokingCessationPlanStatus.success)),
-    );
-  }
-
-  @Deprecated('Use submitCarePlan(). TODO: delete.')
-  Future<void> submitPlan() async {
-    emit(state.copyWith(submitStatus: SmokingCessationPlanStatus.loading));
-
-    var planToSubmit = state.plan;
-    if (!state.prescribeMedication) {
-      planToSubmit = planToSubmit.copyWith(
-        medicationName: null,
-        medicationInstructions: null,
-      );
-    }
-
-    // ignore: deprecated_member_use
-    final result = await _repository.submitSmokingCessationPlan(
         appointmentId, planToSubmit);
 
     result.fold(
