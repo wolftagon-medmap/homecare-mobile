@@ -129,7 +129,8 @@ class ProviderAppointmentDetailView extends StatelessWidget {
               _PersonalCaseInfo(appointment: appointment),
             ]),
           if (appointment.type == 'pharmacy' &&
-              appointment.pharmacyCase?.serviceType == 'smoking_cessation') ...[
+              appointment.serviceRequest!.detail!['service_type'] ==
+                  'smoking_cessation') ...[
             const SizedBox(height: 24),
             _buildSectionTitle("Smoking Cessation Assessment"),
             SmokingHabitAssessmentCard(

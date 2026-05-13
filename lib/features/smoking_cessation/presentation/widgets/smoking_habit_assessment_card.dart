@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 
 class SmokingHabitAssessmentCard extends StatelessWidget {
@@ -20,7 +19,7 @@ class SmokingHabitAssessmentCard extends StatelessWidget {
         ? (productTypes != null &&
                 productTypes is List &&
                 productTypes.isNotEmpty
-            ? (productTypes as List).join(', ')
+            ? (productTypes).join(', ')
             : context.l10n.common_none)
         : 'Not currently smoking';
 

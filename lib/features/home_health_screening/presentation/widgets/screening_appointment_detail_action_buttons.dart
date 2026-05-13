@@ -133,7 +133,7 @@ class ScreeningAppointmentDetailActionButtons extends StatelessWidget {
                     onPressed: () {
                       context
                           .read<ScreeningAppointmentActionCubit>()
-                          .acceptScreeningRequest(
+                          .acceptRequest(
                             screeningRequestId,
                           );
                     },

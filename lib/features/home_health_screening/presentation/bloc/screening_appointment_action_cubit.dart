@@ -28,7 +28,7 @@ class ScreeningAppointmentActionCubit
     );
   }
 
-  Future<void> confirmSampleCollectedV2(int appointmentId) async {
+  Future<void> confirmSampleCollected(int appointmentId) async {
     log('Confirming sample collected for appointment (id: $appointmentId)',
         name: 'ScreeningAppointmentActionCubit');
     emit(ScreeningAppointmentActionLoading());
@@ -57,7 +57,7 @@ class ScreeningAppointmentActionCubit
   // ── Deprecated (use screeningRequestId — no longer valid in v2) ───────────
 
   @Deprecated('Use acceptRequest(appointmentId). TODO: delete.')
-  Future<void> acceptScreeningRequest(int screeningRequestId) async {
+  Future<void> acceptScreeningRequestV1(int screeningRequestId) async {
     emit(ScreeningAppointmentActionLoading());
     // ignore: deprecated_member_use
     final result = await repository.acceptScreeningRequest(screeningRequestId);
@@ -69,7 +69,7 @@ class ScreeningAppointmentActionCubit
   }
 
   @Deprecated('Use confirmSampleCollectedV2(appointmentId). TODO: delete.')
-  Future<void> confirmSampleCollected(int screeningRequestId) async {
+  Future<void> confirmSampleCollectedV1(int screeningRequestId) async {
     emit(ScreeningAppointmentActionLoading());
     // ignore: deprecated_member_use
     final result = await repository.confirmSampleCollected(screeningRequestId);
@@ -81,7 +81,7 @@ class ScreeningAppointmentActionCubit
   }
 
   @Deprecated('Use markReportReady(appointmentId). TODO: delete.')
-  Future<void> markScreeningReportReady(int screeningRequestId) async {
+  Future<void> markScreeningReportReadyV1(int screeningRequestId) async {
     emit(ScreeningAppointmentActionLoading());
     // ignore: deprecated_member_use
     final result =

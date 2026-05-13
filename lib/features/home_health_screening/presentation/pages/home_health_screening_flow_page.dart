@@ -107,7 +107,7 @@ class _HomeHealthScreeningFlowPageState
                 BlocProvider(
                   create: (_) => ScreeningServicesCubit(sl()),
                   child: ScreeningServicesSelectionPage(
-                    initialSelection: state.selectedItems,
+                    initialSelection: state.selectedServices,
                     onNext: (items) {
                       context
                           .read<HomeHealthScreeningFlowBloc>()
