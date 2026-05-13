@@ -29,7 +29,7 @@ class ServiceRequestModel extends ServiceRequestEntity {
           return PharmacySmokingCessationDetail.fromJson(detail);
         }
         return PharmacyGeneralDetail.fromJson(detail);
-      case 'home_health_screening':
+      case 'screening':
         return ScreeningDetail.fromJson(detail);
       case 'homecare':
         return HomecareDetail.fromJson(detail);
