@@ -146,7 +146,7 @@ class PharmacyAppointmentFlowPageState
                   },
                 ),
                 ServicesSelectionPage(
-                  serviceType: 'pharmacy',
+                  serviceCategory: 'pharmacy',
                   initialSelectedServices: state.selectedAddOnServices,
                   onComplete: (services) {
                     context

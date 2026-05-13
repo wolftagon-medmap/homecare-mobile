@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
-import 'package:m2health/features/booking_appointment/services_selection/presentation/bloc/add_on_service_cubit.dart';
+import 'package:m2health/features/booking_appointment/services_selection/presentation/bloc/services_selection_cubit.dart';
 import 'package:m2health/features/booking_appointment/services_selection/presentation/bloc/services_selection_state.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/service_locator.dart';
 
 class ServicesSelectionPage extends StatelessWidget {
-  final String serviceType;
+  final String serviceCategory;
+  final String? serviceSubCategory;
   final Function(List<ServiceEntity>) onComplete;
   final List<ServiceEntity>? initialSelectedServices;
 
   const ServicesSelectionPage({
     super.key,
-    required this.serviceType,
+    required this.serviceCategory,
+    this.serviceSubCategory,
     required this.onComplete,
     this.initialSelectedServices,
   });
@@ -21,58 +23,67 @@ class ServicesSelectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AddOnServiceCubit(
+      create: (context) => ServicesSelectionCubit(
         sl(),
         initialSelectedServices: initialSelectedServices ?? [],
       ),
-      child: AddOnServiceView(
-        serviceType: serviceType,
+      child: ServicesSelectionView(
+        serviceCategory: serviceCategory,
+        serviceSubCategory: serviceSubCategory,
         onComplete: onComplete,
       ),
     );
   }
 }
 
-class AddOnServiceView extends StatefulWidget {
-  final String serviceType;
+class ServicesSelectionView extends StatefulWidget {
+  final String serviceCategory;
+  final String? serviceSubCategory;
   final Function(List<ServiceEntity>) onComplete;
 
-  const AddOnServiceView({
+  const ServicesSelectionView({
     super.key,
-    required this.serviceType,
+    required this.serviceCategory,
+    this.serviceSubCategory,
     required this.onComplete,
   });
 
   @override
-  State<AddOnServiceView> createState() => AddOnServiceViewState();
+  State<ServicesSelectionView> createState() => ServicesSelectionViewState();
 }
 
-class AddOnServiceViewState extends State<AddOnServiceView> {
+class ServicesSelectionViewState extends State<ServicesSelectionView> {
   @override
   void initState() {
     super.initState();
-    context.read<AddOnServiceCubit>().loadAddOnServices(widget.serviceType);
+    context.read<ServicesSelectionCubit>().loadServices(
+          category: widget.serviceCategory,
+          subCategory: widget.serviceSubCategory,
+        );
   }
 
   @override
   Widget build(BuildContext context) {
-    String getTitle(BuildContext context, String serviceType) {
-      switch (serviceType) {
-        case 'nursing':
-          return context.t.booking.addon.title.nursing;
-        case 'specialized_nursing':
+    String getTitle(BuildContext context, String serviceCategory,
+        {String? subCategory}) {
+      if (serviceCategory.toLowerCase() == 'nursing') {
+        if (subCategory != null && subCategory.toLowerCase() == 'specialized') {
           return context.t.booking.addon.title.specialized_nursing;
-        case 'pharmacy':
-          return context.t.booking.addon.title.pharmacy;
-        default:
-          return context.t.booking.addon.title.kDefault;
+        } else {
+          return context.t.booking.addon.title.nursing;
+        }
+      } else if (serviceCategory.toLowerCase() == 'pharmacy') {
+        return context.t.booking.addon.title.pharmacy;
+      } else {
+        return context.t.booking.addon.title.kDefault;
       }
     }
 
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            getTitle(context, widget.serviceType),
+            getTitle(context, widget.serviceCategory,
+                subCategory: widget.serviceSubCategory),
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),
@@ -94,12 +105,15 @@ class AddOnServiceViewState extends State<AddOnServiceView> {
 
   Widget _buildAddOnList(BuildContext context) {
     Future<void> refreshAddOnServices() async {
-      context.read<AddOnServiceCubit>().loadAddOnServices(widget.serviceType);
+      context.read<ServicesSelectionCubit>().loadServices(
+            category: widget.serviceCategory,
+            subCategory: widget.serviceSubCategory,
+          );
     }
 
     return RefreshIndicator(
       onRefresh: refreshAddOnServices,
-      child: BlocBuilder<AddOnServiceCubit, ServicesSelectionState>(
+      child: BlocBuilder<ServicesSelectionCubit, ServicesSelectionState>(
         builder: (context, state) {
           if (state.status == ServicesSelectionStateStatus.loading) {
             return const Center(child: CircularProgressIndicator());
@@ -129,7 +143,7 @@ class AddOnServiceViewState extends State<AddOnServiceView> {
                       value: isSelected,
                       onChanged: (bool? value) {
                         context
-                            .read<AddOnServiceCubit>()
+                            .read<ServicesSelectionCubit>()
                             .toggleAddOnServiceSelection(service);
                       },
                       activeColor: const Color(0xFF35C5CF),
@@ -163,7 +177,7 @@ class AddOnServiceViewState extends State<AddOnServiceView> {
 
   Widget _buildBudgetSection(BuildContext context) {
     final estimatedBudget =
-        context.watch<AddOnServiceCubit>().state.estimatedBudget;
+        context.watch<ServicesSelectionCubit>().state.estimatedBudget;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -181,7 +195,7 @@ class AddOnServiceViewState extends State<AddOnServiceView> {
   }
 
   Widget _buildBookButton(BuildContext context) {
-    final state = context.watch<AddOnServiceCubit>().state;
+    final state = context.watch<ServicesSelectionCubit>().state;
     final isButtonEnabled = state.selectedServices.isNotEmpty;
 
     return SizedBox(

@@ -147,7 +147,8 @@ class _NursingAppointmentFlowPageState
                   },
                 ),
                 ServicesSelectionPage(
-                  serviceType: state.serviceType.apiValue,
+                  serviceCategory: state.serviceType.category,
+                  serviceSubCategory: state.serviceType.subCategory,
                   initialSelectedServices: state.selectedAddOnServices,
                   onComplete: (services) {
                     context

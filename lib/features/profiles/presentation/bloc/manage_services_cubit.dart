@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
+import 'package:m2health/features/booking_appointment/nursing/const.dart';
 import 'package:m2health/features/booking_appointment/services_selection/domain/repositories/services_repository.dart';
 import 'package:m2health/features/profiles/data/datasources/profile_remote_datasource.dart';
 
@@ -61,13 +62,20 @@ class ManageServicesCubit extends Cubit<ManageServicesState> {
 
       if (role == 'nurse') {
         // Fetch Primary Nursing
-        final primaryResult = await servicesRepository.getServices('nursing');
+        NurseServiceType primaryType = NurseServiceType.primaryNurse;
+        final primaryResult = await servicesRepository.getServices(
+          category: primaryType.category,
+          subCategory: primaryType.subCategory,
+        );
         primaryResult.fold((l) => throw Exception(l.message),
             (r) => allAvailableServices.addAll(r));
 
         // Fetch Specialized Nursing
-        final specializedResult =
-            await servicesRepository.getServices('specialized_nursing');
+        NurseServiceType specializedType = NurseServiceType.specializedNurse;
+        final specializedResult = await servicesRepository.getServices(
+          category: specializedType.category,
+          subCategory: specializedType.subCategory,
+        );
         specializedResult.fold((l) => throw Exception(l.message),
             (r) => allAvailableServices.addAll(r));
       } else {
@@ -76,7 +84,9 @@ class ManageServicesCubit extends Cubit<ManageServicesState> {
         if (role == 'pharmacist') serviceType = 'pharmacy';
         if (role == 'radiologist') serviceType = 'radiology';
 
-        final result = await servicesRepository.getServices(serviceType);
+        final result = await servicesRepository.getServices(
+          category: serviceType,
+        );
         result.fold((failure) => throw Exception(failure.message),
             (services) => allAvailableServices = services);
       }

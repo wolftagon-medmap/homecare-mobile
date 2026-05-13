@@ -8,7 +8,7 @@ class GetServices {
 
   GetServices(this.repository);
 
-  Future<Either<Failure, List<ServiceEntity>>> call(String serviceType) async {
-    return await repository.getServices(serviceType);
+  Future<Either<Failure, List<ServiceEntity>>> call({required String category, String? subCategory}) async {
+    return await repository.getServices(category: category, subCategory: subCategory);
   }
 }
