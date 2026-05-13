@@ -23,8 +23,6 @@ class AppointmentModel extends AppointmentEntity {
     required super.startDatetime,
     super.endDatetime,
     required super.summary,
-    // ignore: deprecated_member_use_from_same_package
-    super.payTotal,
     required super.createdAt,
     required super.updatedAt,
     super.providerId,
@@ -35,24 +33,25 @@ class AppointmentModel extends AppointmentEntity {
     super.carePlans,
     super.diagnosticReports,
     super.provider,
-    // ignore: deprecated_member_use_from_same_package
-    super.nursingCase,
-    // ignore: deprecated_member_use_from_same_package
-    super.pharmacyCase,
-    // ignore: deprecated_member_use_from_same_package
-    super.screeningRequestData,
-    // ignore: deprecated_member_use_from_same_package
-    super.homecareRequestData,
-    // ignore: deprecated_member_use_from_same_package
-    super.physiotherapyRequestData,
-    // ignore: deprecated_member_use_from_same_package
-    super.secondOpinionImagingRequestData,
-    // ignore: deprecated_member_use_from_same_package
-    super.secondOpinionImagingFeedback,
-    // ignore: deprecated_member_use_from_same_package
     super.patientProfile,
-    // ignore: deprecated_member_use_from_same_package
-    super.payment,
+    // // ignore: deprecated_member_use_from_same_package
+    // super.payTotal,
+    // // ignore: deprecated_member_use_from_same_package
+    // super.nursingCase,
+    // // ignore: deprecated_member_use_from_same_package
+    // super.pharmacyCase,
+    // // ignore: deprecated_member_use_from_same_package
+    // super.screeningRequestData,
+    // // ignore: deprecated_member_use_from_same_package
+    // super.homecareRequestData,
+    // // ignore: deprecated_member_use_from_same_package
+    // super.physiotherapyRequestData,
+    // // ignore: deprecated_member_use_from_same_package
+    // super.secondOpinionImagingRequestData,
+    // // ignore: deprecated_member_use_from_same_package
+    // super.secondOpinionImagingFeedback,
+    // // ignore: deprecated_member_use_from_same_package
+    // super.payment,
   });
 
   factory AppointmentModel.fromJson(Map<String, dynamic> json) {
@@ -90,94 +89,94 @@ class AppointmentModel extends AppointmentEntity {
 
     // Backward-compat: populate deprecated per-type fields.
     // Try v2 service_request.detail first; fall back to legacy top-level keys.
-    final detail = serviceRequestJson?['detail'] as Map<String, dynamic>?;
+    // final detail = serviceRequestJson?['detail'] as Map<String, dynamic>?;
 
-    // ignore: deprecated_member_use_from_same_package
-    final nursingCase = _orLegacy(
-      () => detail != null && type == 'nursing'
-          ? NursingPersonalCaseModel.fromJson(detail)
-          : null,
-      () => json['nursing_request_data'] != null
-          ? NursingPersonalCaseModel.fromJson(
-              json['nursing_request_data'] as Map<String, dynamic>)
-          : null,
-    );
+    // // ignore: deprecated_member_use_from_same_package
+    // final nursingCase = _orLegacy(
+    //   () => detail != null && type == 'nursing'
+    //       ? NursingPersonalCaseModel.fromJson(detail)
+    //       : null,
+    //   () => json['nursing_request_data'] != null
+    //       ? NursingPersonalCaseModel.fromJson(
+    //           json['nursing_request_data'] as Map<String, dynamic>)
+    //       : null,
+    // );
 
-    // ignore: deprecated_member_use_from_same_package
-    final pharmacyCase = _orLegacy(
-      () => detail != null && type == 'pharmacy'
-          ? PharmacyPersonalCaseModel.fromJson(detail)
-          : null,
-      () => json['pharmacy_request_data'] != null
-          ? PharmacyPersonalCaseModel.fromJson(
-              json['pharmacy_request_data'] as Map<String, dynamic>)
-          : null,
-    );
+    // // ignore: deprecated_member_use_from_same_package
+    // final pharmacyCase = _orLegacy(
+    //   () => detail != null && type == 'pharmacy'
+    //       ? PharmacyPersonalCaseModel.fromJson(detail)
+    //       : null,
+    //   () => json['pharmacy_request_data'] != null
+    //       ? PharmacyPersonalCaseModel.fromJson(
+    //           json['pharmacy_request_data'] as Map<String, dynamic>)
+    //       : null,
+    // );
 
-    // ignore: deprecated_member_use_from_same_package
-    final screeningRequest = _orLegacy(
-      () => detail != null && type == 'screening'
-          ? ScreeningRequestData.fromJson(detail)
-          : null,
-      () => json['screening_request_data'] != null
-          ? ScreeningRequestData.fromJson(
-              json['screening_request_data'] as Map<String, dynamic>)
-          : null,
-    );
+    // // ignore: deprecated_member_use_from_same_package
+    // final screeningRequest = _orLegacy(
+    //   () => detail != null && type == 'screening'
+    //       ? ScreeningRequestData.fromJson(detail)
+    //       : null,
+    //   () => json['screening_request_data'] != null
+    //       ? ScreeningRequestData.fromJson(
+    //           json['screening_request_data'] as Map<String, dynamic>)
+    //       : null,
+    // );
 
-    // ignore: deprecated_member_use_from_same_package
-    final homecareRequest = _orLegacy(
-      () => detail != null && type == 'homecare'
-          ? HomecareRequestDataModel.fromJson(detail)
-          : null,
-      () => json['homecare_request_data'] != null
-          ? HomecareRequestDataModel.fromJson(
-              json['homecare_request_data'] as Map<String, dynamic>)
-          : null,
-    );
+    // // ignore: deprecated_member_use_from_same_package
+    // final homecareRequest = _orLegacy(
+    //   () => detail != null && type == 'homecare'
+    //       ? HomecareRequestDataModel.fromJson(detail)
+    //       : null,
+    //   () => json['homecare_request_data'] != null
+    //       ? HomecareRequestDataModel.fromJson(
+    //           json['homecare_request_data'] as Map<String, dynamic>)
+    //       : null,
+    // );
 
-    // ignore: deprecated_member_use_from_same_package
-    final physiotherapyRequest = _orLegacy(
-      () => detail != null && type == 'physiotherapy'
-          ? PhysiotherapyRequestDataModel.fromJson(detail)
-          : null,
-      () => json['physiotherapy_request_data'] != null
-          ? PhysiotherapyRequestDataModel.fromJson(
-              json['physiotherapy_request_data'] as Map<String, dynamic>)
-          : null,
-    );
+    // // ignore: deprecated_member_use_from_same_package
+    // final physiotherapyRequest = _orLegacy(
+    //   () => detail != null && type == 'physiotherapy'
+    //       ? PhysiotherapyRequestDataModel.fromJson(detail)
+    //       : null,
+    //   () => json['physiotherapy_request_data'] != null
+    //       ? PhysiotherapyRequestDataModel.fromJson(
+    //           json['physiotherapy_request_data'] as Map<String, dynamic>)
+    //       : null,
+    // );
 
-    // ignore: deprecated_member_use_from_same_package
-    final secondOpinionRequest = _orLegacy(
-      () => detail != null && type == 'second_opinion_imaging'
-          ? SecondOpinionImagingRequestDataModel.fromJson(detail)
-          : null,
-      () => json['second_opinion_imaging_request_data'] != null
-          ? SecondOpinionImagingRequestDataModel.fromJson(
-              json['second_opinion_imaging_request_data']
-                  as Map<String, dynamic>)
-          : null,
-    );
+    // // ignore: deprecated_member_use_from_same_package
+    // final secondOpinionRequest = _orLegacy(
+    //   () => detail != null && type == 'second_opinion_imaging'
+    //       ? SecondOpinionImagingRequestDataModel.fromJson(detail)
+    //       : null,
+    //   () => json['second_opinion_imaging_request_data'] != null
+    //       ? SecondOpinionImagingRequestDataModel.fromJson(
+    //           json['second_opinion_imaging_request_data']
+    //               as Map<String, dynamic>)
+    //       : null,
+    // );
 
-    // ignore: deprecated_member_use_from_same_package
-    final secondOpinionFeedback =
-        // ignore: deprecated_member_use_from_same_package
-        json['second_opinion_imaging_feedback'] != null
-            ? SecondOpinionImagingFeedbackModel.fromJson(
-                // ignore: deprecated_member_use_from_same_package
-                json['second_opinion_imaging_feedback']
-                    as Map<String, dynamic>)
-            : null;
+    // // ignore: deprecated_member_use_from_same_package
+    // final secondOpinionFeedback =
+    //     // ignore: deprecated_member_use_from_same_package
+    //     json['second_opinion_imaging_feedback'] != null
+    //         ? SecondOpinionImagingFeedbackModel.fromJson(
+    //             // ignore: deprecated_member_use_from_same_package
+    //             json['second_opinion_imaging_feedback']
+    //                 as Map<String, dynamic>)
+    //         : null;
 
-    // ignore: deprecated_member_use_from_same_package
-    final payment = json['payment'] != null
-        ? PaymentModel.fromJson(json['payment'] as Map<String, dynamic>)
-        : null;
+    // // ignore: deprecated_member_use_from_same_package
+    // final payment = json['payment'] != null
+    //     ? PaymentModel.fromJson(json['payment'] as Map<String, dynamic>)
+    //     : null;
 
-    // pay_total: prefer order.total; fall back to legacy pay_total field
-    final payTotal = order != null
-        ? order.total
-        : double.parse((json['pay_total'] ?? 0).toString());
+    // // pay_total: prefer order.total; fall back to legacy pay_total field
+    // final payTotal = order != null
+    //     ? order.total
+    //     : double.parse((json['pay_total'] ?? 0).toString());
 
     return AppointmentModel(
       id: json['id'] as int?,
@@ -189,7 +188,6 @@ class AppointmentModel extends AppointmentEntity {
           ? DateTime.parse(json['end_datetime'] as String)
           : null,
       summary: json['summary'] as String? ?? 'N/A',
-      payTotal: payTotal,
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
       providerId: json['provider_id'] as int?,
@@ -200,15 +198,16 @@ class AppointmentModel extends AppointmentEntity {
       carePlans: carePlans,
       diagnosticReports: diagnosticReports,
       provider: provider,
-      nursingCase: nursingCase,
-      pharmacyCase: pharmacyCase,
-      screeningRequestData: screeningRequest,
-      homecareRequestData: homecareRequest,
-      physiotherapyRequestData: physiotherapyRequest,
-      secondOpinionImagingRequestData: secondOpinionRequest,
-      secondOpinionImagingFeedback: secondOpinionFeedback,
       patientProfile: patient,
-      payment: payment,
+      // payTotal: payTotal,
+      // nursingCase: nursingCase,
+      // pharmacyCase: pharmacyCase,
+      // screeningRequestData: screeningRequest,
+      // homecareRequestData: homecareRequest,
+      // physiotherapyRequestData: physiotherapyRequest,
+      // secondOpinionImagingRequestData: secondOpinionRequest,
+      // secondOpinionImagingFeedback: secondOpinionFeedback,
+      // payment: payment,
     );
   }
 
@@ -239,8 +238,6 @@ class AppointmentModel extends AppointmentEntity {
       startDatetime: entity.startDatetime,
       endDatetime: entity.endDatetime,
       summary: entity.summary,
-      // ignore: deprecated_member_use_from_same_package
-      payTotal: entity.payTotal,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       providerId: entity.providerId,
@@ -251,30 +248,32 @@ class AppointmentModel extends AppointmentEntity {
       carePlans: entity.carePlans,
       diagnosticReports: entity.diagnosticReports,
       provider: entity.provider,
-      // ignore: deprecated_member_use_from_same_package
-      nursingCase: entity.nursingCase,
-      // ignore: deprecated_member_use_from_same_package
-      pharmacyCase: entity.pharmacyCase,
-      // ignore: deprecated_member_use_from_same_package
-      screeningRequestData: entity.screeningRequestData,
-      // ignore: deprecated_member_use_from_same_package
-      homecareRequestData: entity.homecareRequestData,
-      // ignore: deprecated_member_use_from_same_package
-      physiotherapyRequestData: entity.physiotherapyRequestData,
-      // ignore: deprecated_member_use_from_same_package
-      secondOpinionImagingRequestData: entity.secondOpinionImagingRequestData,
-      // ignore: deprecated_member_use_from_same_package
-      secondOpinionImagingFeedback: entity.secondOpinionImagingFeedback,
       patientProfile: entity.patientProfile,
-      // ignore: deprecated_member_use_from_same_package
-      payment: entity.payment,
+      // // ignore: deprecated_member_use_from_same_package
+      // payTotal: entity.payTotal,
+      // // ignore: deprecated_member_use_from_same_package
+      // nursingCase: entity.nursingCase,
+      // // ignore: deprecated_member_use_from_same_package
+      // pharmacyCase: entity.pharmacyCase,
+      // // ignore: deprecated_member_use_from_same_package
+      // screeningRequestData: entity.screeningRequestData,
+      // // ignore: deprecated_member_use_from_same_package
+      // homecareRequestData: entity.homecareRequestData,
+      // // ignore: deprecated_member_use_from_same_package
+      // physiotherapyRequestData: entity.physiotherapyRequestData,
+      // // ignore: deprecated_member_use_from_same_package
+      // secondOpinionImagingRequestData: entity.secondOpinionImagingRequestData,
+      // // ignore: deprecated_member_use_from_same_package
+      // secondOpinionImagingFeedback: entity.secondOpinionImagingFeedback,
+      // // ignore: deprecated_member_use_from_same_package
+      // payment: entity.payment,
     );
   }
 
-  // Returns the result of primary() if non-null, otherwise calls fallback().
-  static T? _orLegacy<T>(T? Function() primary, T? Function() fallback) {
-    final p = primary();
-    if (p != null) return p;
-    return fallback();
-  }
+  // // Returns the result of primary() if non-null, otherwise calls fallback().
+  // static T? _orLegacy<T>(T? Function() primary, T? Function() fallback) {
+  //   final p = primary();
+  //   if (p != null) return p;
+  //   return fallback();
+  // }
 }
