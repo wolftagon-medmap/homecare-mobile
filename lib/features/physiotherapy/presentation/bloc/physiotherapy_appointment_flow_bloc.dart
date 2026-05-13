@@ -51,17 +51,11 @@ class PhysiotherapyAppointmentFlowBloc extends Bloc<
     emit(state.copyWith(
         submissionStatus: AppointmentSubmissionStatus.submitting));
 
-    final typeString = state.type == PhysiotherapyType.musculoskeletal
-        ? 'musculoskeletal'
-        : 'neurological';
-    final serviceCode =
-        'physiotherapy.$typeString.${state.selectedDuration}_minutes';
-
     final params = CreatePhysiotherapyAppointmentParams(
       providerId: state.selectedProfessional!.id,
       startDatetime: state.selectedTimeSlot!,
       duration: state.selectedDuration!,
-      serviceCode: serviceCode,
+      physioType: state.type.name,
     );
 
     final result = await createPhysiotherapyAppointment(params);

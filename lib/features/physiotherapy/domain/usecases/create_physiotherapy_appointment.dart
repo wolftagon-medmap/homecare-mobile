@@ -20,7 +20,7 @@ class CreatePhysiotherapyAppointmentParams extends Equatable {
   final int providerId;
   final DateTime startDatetime;
   final int duration;
-  final String serviceCode;
+  final String physioType;
 
   String get summary => 'Physiotherapy Session ($duration mins)';
 
@@ -28,9 +28,9 @@ class CreatePhysiotherapyAppointmentParams extends Equatable {
     required this.providerId,
     required this.startDatetime,
     required this.duration,
-    required this.serviceCode,
+    required this.physioType,
   });
 
   @override
-  List<Object?> get props => [type, providerId, startDatetime, duration, serviceCode];
+  List<Object?> get props => [type, providerId, startDatetime, duration, physioType];
 }
