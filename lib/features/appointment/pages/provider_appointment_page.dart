@@ -437,15 +437,17 @@ class _ProviderAppointmentCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    context.l10n.appointment_detail_total_amount(
-                        appointment.payTotal.toStringAsFixed(2)),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Color(0xFF35C5CF),
-                    ),
-                  ),
+                  appointment.order != null
+                      ? Text(
+                          context.l10n.appointment_detail_total_amount(
+                              appointment.order!.total.toStringAsFixed(2)),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Color(0xFF35C5CF),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
                   _buildActionButtonsByAppointmentType(),
                 ],
               ),
