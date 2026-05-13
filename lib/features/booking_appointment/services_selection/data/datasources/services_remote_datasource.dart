@@ -11,9 +11,10 @@ class ServicesRemoteDatasource {
 
   ServicesRemoteDatasource(this.dio);
 
-  // serviceType is the unified service category (e.g. 'nursing', 'pharmacy', 'screening').
-  Future<List<ServiceEntity>> getServices(
-      {required String category, String? subCategory}) async {
+  Future<List<ServiceEntity>> getServices({
+    required String category,
+    String? subCategory,
+  }) async {
     final token = await Utils.getSpString(Const.TOKEN);
     log('Fetching services for category=$category, subcategory=$subCategory',
         name: 'ServicesRemoteDatasource');
@@ -22,7 +23,7 @@ class ServicesRemoteDatasource {
       Const.API_SERVICES,
       queryParameters: {
         'category': category,
-        'subcategory': subCategory,
+        'sub_category': subCategory,
         'is_published': true
       },
       options: Options(
