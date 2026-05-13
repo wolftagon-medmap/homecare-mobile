@@ -18,10 +18,10 @@ class SmokingCessationFormPage extends StatefulWidget {
 }
 
 class _SmokingCessationFormPageState extends State<SmokingCessationFormPage> {
-  bool _isSmoking = true;
+  bool? _isSmoking;
   final List<String> _selectedProductTypes = [];
   int? _sticksPerDay;
-  bool _hasTriedQuitting = false;
+  bool? _hasTriedQuitting;
 
   final TextEditingController _sticksController = TextEditingController();
 
@@ -47,6 +47,9 @@ class _SmokingCessationFormPageState extends State<SmokingCessationFormPage> {
     setState(() {
       if (_selectedProductTypes.contains(type)) {
         _selectedProductTypes.remove(type);
+        if (_selectedProductTypes.isEmpty) {
+          _isSmoking = null;
+        }
       } else {
         _selectedProductTypes.add(type);
         _isSmoking = true; // If any product is selected, they are smoking
@@ -79,8 +82,9 @@ class _SmokingCessationFormPageState extends State<SmokingCessationFormPage> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 16),
-              const Text(
-                'Are you smoking cigarette, other tobacco products (e.g. cigars, pipes) or vaping?',
+              const _RequiredQuestionText(
+                text:
+                    'Are you smoking cigarette, other tobacco products (e.g. cigars, pipes) or vaping?',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 16),
@@ -102,17 +106,18 @@ class _SmokingCessationFormPageState extends State<SmokingCessationFormPage> {
               const Divider(height: 32),
               _CustomCheckbox(
                 label: 'I am not currently smoking',
-                isSelected: !_isSmoking && _selectedProductTypes.isEmpty,
+                isSelected:
+                    _isSmoking == false && _selectedProductTypes.isEmpty,
                 onTap: () {
                   setState(() {
-                    _isSmoking = false;
+                    _isSmoking = _isSmoking == false ? null : false;
                     _selectedProductTypes.clear();
                   });
                 },
               ),
               const SizedBox(height: 24),
-              const Text(
-                'How many sticks do you smoke in a day?',
+              const _RequiredQuestionText(
+                text: 'How many sticks do you smoke in a day?',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
@@ -134,8 +139,8 @@ class _SmokingCessationFormPageState extends State<SmokingCessationFormPage> {
                 },
               ),
               const SizedBox(height: 24),
-              const Text(
-                'Have you previously attempted to quit?',
+              const _RequiredQuestionText(
+                text: 'Have you previously attempted to quit?',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 12),
@@ -143,13 +148,13 @@ class _SmokingCessationFormPageState extends State<SmokingCessationFormPage> {
                 children: [
                   _CustomRadioButton(
                     label: 'Yes',
-                    isSelected: _hasTriedQuitting,
+                    isSelected: _hasTriedQuitting == true,
                     onTap: () => setState(() => _hasTriedQuitting = true),
                   ),
                   const SizedBox(width: 32),
                   _CustomRadioButton(
                     label: 'No',
-                    isSelected: !_hasTriedQuitting,
+                    isSelected: _hasTriedQuitting == false,
                     onTap: () => setState(() => _hasTriedQuitting = false),
                   ),
                 ],
@@ -172,16 +177,20 @@ class _SmokingCessationFormPageState extends State<SmokingCessationFormPage> {
         ),
         child: PrimaryButton(
           text: "Book Now",
-          onPressed: () {
-            widget.onSubmit(SmokingCessationForm(
-              isSmoking: _isSmoking,
-              productTypes: _selectedProductTypes.isEmpty
-                  ? null
-                  : List.from(_selectedProductTypes),
-              sticksPerDay: _sticksPerDay,
-              hasTriedQuitting: _hasTriedQuitting,
-            ));
-          },
+          onPressed: (_isSmoking == null ||
+                  _hasTriedQuitting == null ||
+                  _sticksPerDay == null)
+              ? null
+              : () {
+                  widget.onSubmit(SmokingCessationForm(
+                    isSmoking: _isSmoking!,
+                    productTypes: _selectedProductTypes.isEmpty
+                        ? null
+                        : List.from(_selectedProductTypes),
+                    sticksPerDay: _sticksPerDay,
+                    hasTriedQuitting: _hasTriedQuitting!,
+                  ));
+                },
         ),
       ),
     );
@@ -281,6 +290,32 @@ class _CustomRadioButton extends StatelessWidget {
           Text(
             label,
             style: const TextStyle(fontSize: 14),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RequiredQuestionText extends StatelessWidget {
+  final String text;
+  final TextStyle style;
+
+  const _RequiredQuestionText({
+    required this.text,
+    required this.style,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text.rich(
+      TextSpan(
+        text: text,
+        style: style,
+        children: const [
+          TextSpan(
+            text: ' *',
+            style: TextStyle(color: Colors.red),
           ),
         ],
       ),

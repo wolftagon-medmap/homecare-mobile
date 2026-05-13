@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-@Deprecated(
-    'Replaced by FlowSmokingCessationFormSubmitted questionnaire flow. TODO: delete.')
 class SmokingCessationForm extends Equatable {
   final bool isSmoking;
   final List<String>? productTypes;
