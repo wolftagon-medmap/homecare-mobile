@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
@@ -593,6 +594,48 @@ class AppointmentService {
       if (e is DioException) {
         throw BadRequestFailure(
             e.response?.data['message'] ?? 'Failed to create diagnostic report');
+      }
+      rethrow;
+    }
+  }
+
+  /// Uploads [file] directly to the diagnostic-reports endpoint (multipart).
+  /// The backend handles file storage internally — no separate file-upload step needed.
+  Future<DiagnosticReportEntity> uploadDiagnosticReport(
+      int appointmentId, File file) async {
+    final token = await Utils.getSpString(Const.TOKEN);
+    try {
+      final fileName = file.path.split('/').last;
+      final formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(file.path, filename: fileName),
+      });
+      final response = await _dio.post(
+        '${Const.API_APPOINTMENT}/$appointmentId/diagnostic-reports',
+        data: formData,
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+      final data = response.data['report'] ?? response.data;
+      return DiagnosticReportModel.fromJson(data as Map<String, dynamic>);
+    } catch (e) {
+      if (e is DioException) {
+        throw BadRequestFailure(
+            e.response?.data['message'] ?? 'Failed to upload diagnostic report');
+      }
+      rethrow;
+    }
+  }
+
+  Future<void> deleteDiagnosticReport(int reportId) async {
+    final token = await Utils.getSpString(Const.TOKEN);
+    try {
+      await _dio.delete(
+        '${Const.URL_API}/diagnostic-reports/$reportId',
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+    } catch (e) {
+      if (e is DioException) {
+        throw BadRequestFailure(
+            e.response?.data['message'] ?? 'Failed to delete diagnostic report');
       }
       rethrow;
     }

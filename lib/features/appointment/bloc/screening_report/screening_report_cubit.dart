@@ -2,23 +2,17 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
-import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/services/appointment_service.dart';
-import 'package:m2health/utils.dart';
 import 'package:meta/meta.dart';
 
 part 'screening_report_state.dart';
 
 class ScreeningReportCubit extends Cubit<ScreeningReportState> {
   final AppointmentService appointmentService;
-  final Dio dio;
 
-  ScreeningReportCubit({
-    required this.appointmentService,
-    required this.dio,
-  }) : super(ScreeningReportInitial());
+  ScreeningReportCubit({required this.appointmentService})
+      : super(ScreeningReportInitial());
 
   Future<void> fetchReports(int appointmentId) async {
     try {
@@ -31,25 +25,10 @@ class ScreeningReportCubit extends Cubit<ScreeningReportState> {
     }
   }
 
-  Future<void> uploadReport(
-      int appointmentId, int screeningRequestId, File file) async {
+  Future<void> uploadReport(int appointmentId, File file) async {
     try {
       emit(ScreeningReportLoading());
-
-      final token = await Utils.getSpString(Const.TOKEN);
-      String fileName = file.path.split('/').last;
-      FormData formData = FormData.fromMap({
-        "screening_request_id": screeningRequestId,
-        "file": await MultipartFile.fromFile(file.path, filename: fileName),
-      });
-
-      await dio.post(
-        '${Const.URL_API}/screening-reports',
-        data: formData,
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
-
-      // Refresh data
+      await appointmentService.uploadDiagnosticReport(appointmentId, file);
       final appointment =
           await appointmentService.fetchAppointmentDetail(appointmentId);
       emit(ScreeningReportActionSuccess(
@@ -68,14 +47,7 @@ class ScreeningReportCubit extends Cubit<ScreeningReportState> {
   Future<void> deleteReport(int appointmentId, int reportId) async {
     try {
       emit(ScreeningReportLoading());
-
-      final token = await Utils.getSpString(Const.TOKEN);
-      await dio.delete(
-        '${Const.URL_API}/screening-reports/$reportId',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
-
-      // Refresh data
+      await appointmentService.deleteDiagnosticReport(reportId);
       final appointment =
           await appointmentService.fetchAppointmentDetail(appointmentId);
       emit(ScreeningReportActionSuccess(
@@ -91,17 +63,11 @@ class ScreeningReportCubit extends Cubit<ScreeningReportState> {
     }
   }
 
-  Future<void> markReady(int appointmentId, int screeningRequestId) async {
+  Future<void> markReady(int appointmentId) async {
     try {
       emit(ScreeningReportLoading());
-
-      final token = await Utils.getSpString(Const.TOKEN);
-      await dio.post(
-        '${Const.URL_API}/screening-requests/$screeningRequestId/report-ready',
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
-      );
-
-      // Refresh data
+      await appointmentService.updateServiceRequestStatus(
+          appointmentId, 'report_ready');
       final appointment =
           await appointmentService.fetchAppointmentDetail(appointmentId);
       emit(ScreeningReportActionSuccess(

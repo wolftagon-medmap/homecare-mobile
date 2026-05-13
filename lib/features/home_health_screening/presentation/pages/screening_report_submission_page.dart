@@ -9,7 +9,7 @@ import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/domain/entities/diagnostic_report_entity.dart';
 import 'package:m2health/features/appointment/bloc/screening_report/screening_report_cubit.dart';
 import 'package:m2health/service_locator.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:m2health/core/presentation/views/file_viewer_page.dart';
 
 class ScreeningReportSubmissionPage extends StatelessWidget {
   final int appointmentId;
@@ -21,7 +21,6 @@ class ScreeningReportSubmissionPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => ScreeningReportCubit(
         appointmentService: sl(),
-        dio: sl(),
       )..fetchReports(appointmentId),
       child: const ScreeningReportSubmissionView(),
     );
@@ -81,17 +80,12 @@ class ScreeningReportSubmissionView extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          final serviceRequest = appointment.serviceRequest;
-          final serviceRequestId = serviceRequest?.id;
-          if (serviceRequestId == null) {
-            return const Center(child: Text('Invalid screening data'));
-          }
-
           final List<DiagnosticReportEntity> reports = appointment
               .diagnosticReports
               .where((r) => r.type == 'screening')
               .toList();
-          final isFinalized = serviceRequest?.status == 'report_ready';
+          final isFinalized =
+              appointment.serviceRequest?.status == 'report_ready';
 
           return Padding(
             padding: const EdgeInsets.all(16.0),
@@ -177,13 +171,15 @@ class ScreeningReportSubmissionView extends StatelessWidget {
                                         icon: const Icon(
                                             Icons.visibility_outlined,
                                             color: Colors.grey),
-                                        onPressed: () async {
-                                          final uri =
-                                              Uri.parse(report.file!.url);
-                                          if (await canLaunchUrl(uri)) {
-                                            await launchUrl(uri);
-                                          }
-                                        },
+                                        onPressed: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => FileViewerPage(
+                                              url: report.file!.url,
+                                              title: 'Lab Report #${report.id}',
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     if (!isFinalized)
                                       IconButton(
@@ -252,7 +248,7 @@ class ScreeningReportSubmissionView extends StatelessWidget {
                           File file = File(result.files.single.path!);
                           if (context.mounted) {
                             context.read<ScreeningReportCubit>().uploadReport(
-                                appointment!.id!, serviceRequestId, file);
+                                appointment!.id!, file);
                           }
                         }
                       },
@@ -287,8 +283,7 @@ class ScreeningReportSubmissionView extends StatelessWidget {
                                           Navigator.pop(ctx);
                                           context
                                               .read<ScreeningReportCubit>()
-                                              .markReady(appointment!.id!,
-                                                  serviceRequestId);
+                                              .markReady(appointment!.id!);
                                         },
                                         child: const Text('Confirm',
                                             style: TextStyle(
