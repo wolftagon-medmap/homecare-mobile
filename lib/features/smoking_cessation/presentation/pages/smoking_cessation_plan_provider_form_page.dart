@@ -312,11 +312,16 @@ class _PatientHeader extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(patient.name,
+                    Expanded(
+                      child: Text(
+                        patient.name,
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Color(0xFF1A1A1A))),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Color(0xFF1A1A1A),
+                        ),
+                      ),
+                    ),
                     _StatusBadge(status: appointment.status),
                   ],
                 ),
