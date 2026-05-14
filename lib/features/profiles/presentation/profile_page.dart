@@ -507,21 +507,6 @@ class _AdminSection extends StatelessWidget {
             ),
             ListTile(
               leading:
-                  const Icon(Icons.health_and_safety, color: Color(0xFF35C5CF)),
-              title: Text(
-                  context.l10n.profile_admin_manage_health_screening_services),
-              titleTextStyle: const TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-                fontWeight: FontWeight.normal,
-              ),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              onTap: () {
-                context.push(AppRoutes.manageHealthScreening);
-              },
-            ),
-            ListTile(
-              leading:
                   const Icon(Icons.verified_user, color: Color(0xFF35C5CF)),
               title: Text(context.l10n.profile_admin_verify_professional),
               titleTextStyle: const TextStyle(

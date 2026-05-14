@@ -368,14 +368,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 });
                                 fieldState.didChange(newValue);
                               },
-                              dropdownMenuEntries: <UserRole>[
-                                UserRole.patient,
-                                UserRole.nurse,
-                                UserRole.pharmacist,
-                                UserRole.radiologist,
-                                UserRole.caregiver,
-                                UserRole.physiotherapist,
-                              ].map<DropdownMenuEntry<UserRole>>(
+                              dropdownMenuEntries: ALL_USER_ROLES.map<DropdownMenuEntry<UserRole>>(
                                   (UserRole value) {
                                 return DropdownMenuEntry<UserRole>(
                                   value: value,

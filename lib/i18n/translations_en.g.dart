@@ -486,6 +486,18 @@ class TranslationsAuthUserRoleEn {
 
 	/// en: 'Radiologist'
 	String get radiologist => 'Radiologist';
+
+	/// en: 'Pathologist'
+	String get pathologist => 'Pathologist';
+
+	/// en: 'Nutritionist'
+	String get nutritionist => 'Nutritionist';
+
+	/// en: 'Psychologist'
+	String get psychologist => 'Psychologist';
+
+	/// en: 'Optometrist'
+	String get optometrist => 'Optometrist';
 }
 
 // Path: booking.addon
@@ -1443,6 +1455,10 @@ extension on Translations {
 			'auth.user_role.pharmacist' => 'Pharmacist',
 			'auth.user_role.physiotherapist' => 'Physiotherapist',
 			'auth.user_role.radiologist' => 'Radiologist',
+			'auth.user_role.pathologist' => 'Pathologist',
+			'auth.user_role.nutritionist' => 'Nutritionist',
+			'auth.user_role.psychologist' => 'Psychologist',
+			'auth.user_role.optometrist' => 'Optometrist',
 			'booking.addon.empty' => 'No add-on services available.',
 			'booking.addon.estimated_budget' => 'Estimated Budget',
 			'booking.addon.title.kDefault' => 'Add On Services',

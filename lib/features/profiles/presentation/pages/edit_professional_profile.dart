@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/presentation/widgets/country_picker_field.dart';
+import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/certificate.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
@@ -517,13 +518,8 @@ class _JobTitleDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const jobTitles = [
-      'Nurse',
-      'Pharmacist',
-      'Radiologist',
-      'Caregiver/Helper',
-      'Physiotherapist',
-    ];
+    final jobTitles =
+        PROFESSIONAL_ROLES.map((r) => r.getDisplayName(context)).toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -555,6 +551,7 @@ class _JobTitleDropdown extends StatelessWidget {
             floatingLabelBehavior: FloatingLabelBehavior.never,
           ),
           dropdownColor: Colors.white,
+          menuMaxHeight: 240,
           items: jobTitles.map((title) {
             return DropdownMenuItem<String>(
                 value: title,

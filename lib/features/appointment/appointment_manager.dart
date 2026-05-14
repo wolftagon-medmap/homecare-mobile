@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/features/appointment/pages/appointment_page.dart';
 import 'package:m2health/features/appointment/pages/provider_appointment_page.dart';
+import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/utils.dart';
 import 'package:m2health/const.dart';
 
 /// Manages appointment routing based on user role
 class AppointmentManager {
-  static const List<String> providerRoles = [
-    'pharmacist',
-    'nurse',
-    'radiologist',
-    'caregiver',
-  ];
+  static final List<String> providerRoles =
+      PROFESSIONAL_ROLES.map((role) => role.value).toList();
 
   /// Check if the current user is a provider
   static Future<bool> isProvider() async {

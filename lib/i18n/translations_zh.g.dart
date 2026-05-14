@@ -325,6 +325,10 @@ class _TranslationsAuthUserRoleZh implements TranslationsAuthUserRoleEn {
 	@override String get pharmacist => '药剂师';
 	@override String get physiotherapist => '物理治疗师';
 	@override String get radiologist => '放射科医生';
+	@override String get pathologist => '病理学家';
+	@override String get nutritionist => '营养师';
+	@override String get psychologist => '心理学家';
+	@override String get optometrist => '验光师';
 }
 
 // Path: booking.addon
@@ -975,6 +979,10 @@ extension on TranslationsZh {
 			'auth.user_role.pharmacist' => '药剂师',
 			'auth.user_role.physiotherapist' => '物理治疗师',
 			'auth.user_role.radiologist' => '放射科医生',
+			'auth.user_role.pathologist' => '病理学家',
+			'auth.user_role.nutritionist' => '营养师',
+			'auth.user_role.psychologist' => '心理学家',
+			'auth.user_role.optometrist' => '验光师',
 			'booking.addon.empty' => '没有可用的附加服务。',
 			'booking.addon.estimated_budget' => '预计预算',
 			'booking.addon.title.kDefault' => '附加服务',

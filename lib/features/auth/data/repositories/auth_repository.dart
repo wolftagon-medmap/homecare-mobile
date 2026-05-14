@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/auth/data/datasources/google_auth_source.dart';
+import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/utils.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -211,8 +212,7 @@ class AuthRepository {
       }
 
       late String endpoint;
-      if (['nurse', 'pharmacist', 'radiologist', 'caregiver', 'physiotherapist']
-          .contains(role)) {
+      if (PROFESSIONAL_ROLES.map((r) => r.value).contains(role)) {
         endpoint = '${Const.API_REGISTER}/professional';
         payload['role'] = role;
       } else {

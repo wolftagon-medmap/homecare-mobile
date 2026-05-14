@@ -325,6 +325,10 @@ class _TranslationsAuthUserRoleId implements TranslationsAuthUserRoleEn {
 	@override String get pharmacist => 'Apoteker';
 	@override String get physiotherapist => 'Fisioterapis';
 	@override String get radiologist => 'Radiolog';
+	@override String get pathologist => 'Patolog';
+	@override String get nutritionist => 'Ahli Gizi';
+	@override String get psychologist => 'Psikolog';
+	@override String get optometrist => 'Optometris';
 }
 
 // Path: booking.addon
@@ -975,6 +979,10 @@ extension on TranslationsId {
 			'auth.user_role.pharmacist' => 'Apoteker',
 			'auth.user_role.physiotherapist' => 'Fisioterapis',
 			'auth.user_role.radiologist' => 'Radiolog',
+			'auth.user_role.pathologist' => 'Patolog',
+			'auth.user_role.nutritionist' => 'Ahli Gizi',
+			'auth.user_role.psychologist' => 'Psikolog',
+			'auth.user_role.optometrist' => 'Optometris',
 			'booking.addon.empty' => 'Tidak ada layanan tambahan yang tersedia.',
 			'booking.addon.estimated_budget' => 'Perkiraan Biaya',
 			'booking.addon.title.kDefault' => 'Layanan Tambahan',
