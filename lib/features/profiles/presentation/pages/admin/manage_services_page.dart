@@ -78,7 +78,7 @@ class AdminServicesCubit extends Cubit<AdminServicesState> {
     required double price,
     String? subCategory,
     String? pricingModel,
-    int? durationMinutes,
+    int? duration,
     String? code,
     bool isPublished = false,
   }) async {
@@ -91,7 +91,7 @@ class AdminServicesCubit extends Cubit<AdminServicesState> {
           'price': price,
           if (subCategory != null) 'sub_category': subCategory,
           if (pricingModel != null) 'pricing_model': pricingModel,
-          if (durationMinutes != null) 'duration_minutes': durationMinutes,
+          if (duration != null) 'detail': {'duration': duration},
           if (code != null) 'code': code,
           'is_published': isPublished,
         },
@@ -108,7 +108,7 @@ class AdminServicesCubit extends Cubit<AdminServicesState> {
     required double price,
     String? subCategory,
     String? pricingModel,
-    int? durationMinutes,
+    int? duration,
     String? code,
     bool isPublished = false,
   }) async {
@@ -121,7 +121,7 @@ class AdminServicesCubit extends Cubit<AdminServicesState> {
           'price': price,
           if (subCategory != null) 'sub_category': subCategory,
           if (pricingModel != null) 'pricing_model': pricingModel,
-          if (durationMinutes != null) 'duration_minutes': durationMinutes,
+          if (duration != null) 'detail': {'duration': duration},
           if (code != null) 'code': code,
           'is_published': isPublished,
         },
@@ -452,7 +452,7 @@ class _ServiceFormModalState extends State<_ServiceFormModal> {
             price: price,
             subCategory: subCategory,
             pricingModel: _pricingModel,
-            durationMinutes: duration,
+            duration: duration,
             code: code,
             isPublished: _isPublished,
           );
@@ -462,7 +462,7 @@ class _ServiceFormModalState extends State<_ServiceFormModal> {
             price: price,
             subCategory: subCategory,
             pricingModel: _pricingModel,
-            durationMinutes: duration,
+            duration: duration,
             code: code,
             isPublished: _isPublished,
           );

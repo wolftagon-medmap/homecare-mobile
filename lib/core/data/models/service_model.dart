@@ -23,7 +23,7 @@ class ServiceModel extends ServiceEntity {
       category: (json['category'] ?? json['service_type']) as String?,
       subCategory: json['sub_category'] as String?,
       pricingModel: json['pricing_model'] as String?,
-      durationMinutes: json['duration_minutes'] as int?,
+      durationMinutes: json['detail']?['duration'],
       code: json['code'] as String?,
       isPublished: json['is_published'] as bool?,
     );
