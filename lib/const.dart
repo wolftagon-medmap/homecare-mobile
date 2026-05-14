@@ -88,6 +88,22 @@ class Const {
 
   static const String API_AI_TRANSCRIBE = '$URL_API/ai-tools/transcribe';
 
+  // v2 unified service catalog
+  static const String API_SERVICES = '$URL_API/services';
+  static const String API_ADMIN_SERVICES = '$URL_API/admin/services';
+
+  // v2 orders & payment
+  static const String API_ORDERS = '$URL_API/orders';
+
+  // v2 questionnaires
+  static const String API_QUESTIONNAIRES = '$URL_API/questionnaires';
+  static const String API_QUESTIONNAIRE_RESPONSES =
+      '$URL_API/questionnaire-responses';
+
+  // v2 observations & conditions
+  static const String API_OBSERVATIONS = '$URL_API/observations';
+  static const String API_CONDITIONS = '$URL_API/conditions';
+
   // Settings
   static const String API_DELETE_ACCOUNT_REQUEST_OTP =
       '$URL_API/users/me/delete-account/request-otp';
