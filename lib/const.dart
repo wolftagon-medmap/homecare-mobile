@@ -87,6 +87,7 @@ class Const {
   static const String API_ADMIN_SUBSCRIPTIONS = '$URL_API/admin/subscriptions';
 
   static const String API_AI_TRANSCRIBE = '$URL_API/ai-tools/transcribe';
+  static const String API_DEVICE_TOKENS = '$URL_API/device-tokens';
 
   // v2 unified service catalog
   static const String API_SERVICES = '$URL_API/services';
