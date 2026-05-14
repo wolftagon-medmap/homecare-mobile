@@ -90,10 +90,10 @@ class _TranslationsDashboardId implements TranslationsDashboardEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get allied_services => 'Layanan Kesehatan Penunjang';
 	@override String get chat_ai_placeholder => 'Tanya dokter AI seputar kesehatan Anda';
 	@override String greeting({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!';
 	@override String get main_services => 'Layanan Janji Temu';
+	@override String get other_services => 'Layanan Kesehatan Lainnya';
 	@override late final _TranslationsDashboardServicesId services = _TranslationsDashboardServicesId._(_root);
 }
 
@@ -452,6 +452,8 @@ class _TranslationsDashboardServicesId implements TranslationsDashboardServicesE
 	@override String get remote_patient_monitoring => 'Pemantauan Kesehatan Jarak Jauh';
 	@override String get second_opinion => 'Second Opinion Citra Medis';
 	@override String get sleep_and_mental_health => 'Tidur & Kesehatan Mental';
+	@override String get psychologist => 'Psikolog';
+	@override String get optometrist => 'Optometris';
 }
 
 // Path: global.dialog
@@ -1050,10 +1052,10 @@ extension on TranslationsId {
 			'booking.schedule.submit_button' => 'Kirim',
 			'booking.schedule.submitting_button' => 'Mengirim...',
 			'booking.schedule.title' => 'Pilih Jadwal',
-			'dashboard.allied_services' => 'Layanan Kesehatan Penunjang',
 			'dashboard.chat_ai_placeholder' => 'Tanya dokter AI seputar kesehatan Anda',
 			'dashboard.greeting' => ({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!',
 			'dashboard.main_services' => 'Layanan Janji Temu',
+			'dashboard.other_services' => 'Layanan Kesehatan Lainnya',
 			'dashboard.services.diabetic_care' => 'Perawatan Diabetes iRX',
 			'dashboard.services.dietitian' => 'Layanan Ahli Gizi',
 			'dashboard.services.health_risk_assessment' => 'Penilaian Risiko Kesehatan',
@@ -1066,6 +1068,8 @@ extension on TranslationsId {
 			'dashboard.services.remote_patient_monitoring' => 'Pemantauan Kesehatan Jarak Jauh',
 			'dashboard.services.second_opinion' => 'Second Opinion Citra Medis',
 			'dashboard.services.sleep_and_mental_health' => 'Tidur & Kesehatan Mental',
+			'dashboard.services.psychologist' => 'Psikolog',
+			'dashboard.services.optometrist' => 'Optometris',
 			'global.add' => 'Tambah',
 			'global.book_now' => 'Pesan Sekarang',
 			'global.cancel' => 'Batal',

@@ -337,10 +337,10 @@ class _DashboardState extends State<Dashboard> {
                       children: [
                         MainServiceMenuItem(
                           onTap: () {
-                            context.push(AppRoutes.homeHealthScreening);
+                            // context.push(AppRoutes.homeHealthScreening);
                           },
-                          iconPath: 'assets/icons/ic_home_health_screening.png',
-                          title: context.t.dashboard.services.home_screening,
+                          iconPath: 'assets/icons/ic_psychologist.png',
+                          title: context.t.dashboard.services.psychologist,
                           backgroundColor:
                               const Color.fromRGBO(178, 140, 255, 0.2),
                         ),
@@ -356,11 +356,10 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         MainServiceMenuItem(
                           onTap: () {
-                            context.push(AppRoutes.homecareForElderly);
+                            // context.push(AppRoutes.homecareForElderly);
                           },
-                          iconPath: 'assets/icons/ic_homecare_elderly.png',
-                          title:
-                              context.t.dashboard.services.homecare_for_elderly,
+                          iconPath: 'assets/icons/ic_optometrist.png',
+                          title: context.t.dashboard.services.optometrist,
                           backgroundColor:
                               const Color.fromRGBO(178, 140, 255, 0.2),
                         ),
@@ -381,7 +380,7 @@ class _DashboardState extends State<Dashboard> {
                 ],
               ),
 
-              // ALLIED HEALTH SERVICES
+              // OTHER SERVICES
               Padding(
                 padding: const EdgeInsets.only(
                     top: 40, right: 24, left: 24, bottom: 40),
@@ -389,7 +388,7 @@ class _DashboardState extends State<Dashboard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      context.t.dashboard.allied_services,
+                      context.t.dashboard.other_services,
                       textAlign: TextAlign.left,
                       style: const TextStyle(
                         color: Color(0xFF232F55),
@@ -403,7 +402,7 @@ class _DashboardState extends State<Dashboard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: AlliedHealthMenuItem(
+                          child: OtherServiceMenuItem(
                             imagePath: 'assets/icons/ilu_physio.webp',
                             label: context.t.dashboard.services.physiotherapy,
                             onTap: () {
@@ -411,8 +410,17 @@ class _DashboardState extends State<Dashboard> {
                             },
                           ),
                         ),
+                        Expanded(
+                          child: OtherServiceMenuItem(
+                            imagePath: 'assets/icons/ilu_2nd_opinion.webp',
+                            label: context.t.dashboard.services.second_opinion,
+                            onTap: () {
+                              context.push(AppRoutes.secondOpinionMedical);
+                            },
+                          ),
+                        ),
                         // Expanded(
-                        //   child: AlliedHealthMenuItem(
+                        //   child: OtherServiceMenuItem(
                         //     imagePath: 'assets/icons/ilu_remote_monitoring.png',
                         //     label: context
                         //         .t.dashboard.services.remote_patient_monitoring,
@@ -421,12 +429,30 @@ class _DashboardState extends State<Dashboard> {
                         //     },
                         //   ),
                         // ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Expanded(
-                          child: AlliedHealthMenuItem(
-                            imagePath: 'assets/icons/ilu_2nd_opinion.webp',
-                            label: context.t.dashboard.services.second_opinion,
+                          child: OtherServiceMenuItem(
+                            imagePath:
+                                'assets/illustration/home_health_screening.webp',
+                            label: context.t.dashboard.services.home_screening,
                             onTap: () {
-                              context.push(AppRoutes.secondOpinionMedical);
+                              context.push(AppRoutes.homeHealthScreening);
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: OtherServiceMenuItem(
+                            imagePath:
+                                'assets/illustration/homecare_elderly.webp',
+                            label: context
+                                .t.dashboard.services.homecare_for_elderly,
+                            onTap: () {
+                              context.push(AppRoutes.homecareForElderly);
                             },
                           ),
                         ),
@@ -437,7 +463,7 @@ class _DashboardState extends State<Dashboard> {
                     //   crossAxisAlignment: CrossAxisAlignment.start,
                     //   children: [
                     //     Expanded(
-                    //       child: AlliedHealthMenuItem(
+                    //       child: OtherServiceMenuItem(
                     //         imagePath: 'assets/icons/ilu_health.png',
                     //         label: context
                     //             .t.dashboard.services.health_risk_assessment,
@@ -445,14 +471,14 @@ class _DashboardState extends State<Dashboard> {
                     //       ),
                     //     ),
                     //     Expanded(
-                    //       child: AlliedHealthMenuItem(
-                    //         imagePath: 'assets/icons/ilu_dietitian.webp',
+                    //       child: OtherServiceMenuItem(
+                    //         imagePat h: 'assets/icons/ilu_dietitian.webp',
                     //         label: context.t.dashboard.services.dietitian,
                     //         onTap: showComingSoonDialog,
                     //       ),
                     //     ),
                     //     Expanded(
-                    //       child: AlliedHealthMenuItem(
+                    //       child: OtherServiceMenuItem(
                     //         imagePath: 'assets/icons/ilu_sleep.png',
                     //         label: context
                     //             .t.dashboard.services.sleep_and_mental_health,
@@ -558,12 +584,12 @@ class MainServiceMenuItem extends StatelessWidget {
   }
 }
 
-class AlliedHealthMenuItem extends StatelessWidget {
+class OtherServiceMenuItem extends StatelessWidget {
   final String imagePath;
   final String label;
   final VoidCallback onTap;
 
-  const AlliedHealthMenuItem({
+  const OtherServiceMenuItem({
     super.key,
     required this.imagePath,
     required this.label,
@@ -575,7 +601,7 @@ class AlliedHealthMenuItem extends StatelessWidget {
     return GestureDetector(
         onTap: onTap,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               decoration: BoxDecoration(
