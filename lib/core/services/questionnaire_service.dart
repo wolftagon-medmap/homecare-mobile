@@ -45,6 +45,38 @@ class QuestionnaireService {
     }
   }
 
+  /// Update an existing questionnaire response. Returns the response id.
+  Future<int> updateQuestionnaireResponse({
+    required int id,
+    required Map<String, dynamic> answers,
+    String status = 'completed',
+  }) async {
+    final token = await Utils.getSpString(Const.TOKEN);
+    try {
+      final response = await _dio.put(
+        '${Const.API_QUESTIONNAIRE_RESPONSES}/$id',
+        data: {
+          'answers': answers,
+          'status': status,
+        },
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        }),
+      );
+      final data = response.data['data'] ?? response.data;
+      return (data as Map<String, dynamic>)['id'] as int;
+    } catch (e) {
+      log('Error updating questionnaire response: $e',
+          name: 'QuestionnaireService');
+      if (e is DioException) {
+        throw BadRequestFailure(
+            e.response?.data['message'] ?? 'Failed to update questionnaire');
+      }
+      rethrow;
+    }
+  }
+
   /// Returns the most recent questionnaire response for a given code, or null.
   Future<Map<String, dynamic>?> getLatestQuestionnaireResponse(
       String questionnaireCode) async {

@@ -15,6 +15,7 @@ class SearchProfessionalPage extends StatefulWidget {
   final bool isHomeScreeningAuthorized;
   final String? serviceSubCategory;
   final Function(ProfessionalEntity) onProfessionalSelected;
+  final Widget? leading;
 
   const SearchProfessionalPage({
     super.key,
@@ -23,6 +24,7 @@ class SearchProfessionalPage extends StatefulWidget {
     this.isHomeScreeningAuthorized = false,
     this.serviceSubCategory,
     required this.onProfessionalSelected,
+    this.leading,
   });
 
   @override
@@ -84,6 +86,7 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: widget.leading,
         title: Text(
           getTitle(context, widget.role),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

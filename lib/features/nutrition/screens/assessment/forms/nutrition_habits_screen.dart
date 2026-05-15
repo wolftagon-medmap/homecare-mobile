@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
 import '../../../widgets/precision_widgets.dart';
-import '../../../bloc/nutrition_assessment_cubit.dart';
-import 'biomarker_upload_screen.dart';
+import 'package:m2health/features/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
 
 class NutritionHabitsScreen extends StatefulWidget {
-  const NutritionHabitsScreen({Key? key}) : super(key: key);
+  const NutritionHabitsScreen({super.key});
 
   @override
   State<NutritionHabitsScreen> createState() => _NutritionHabitsScreenState();
@@ -37,14 +36,14 @@ class _NutritionHabitsScreenState extends State<NutritionHabitsScreen> {
   void initState() {
     super.initState();
     final nutritionHabits =
-        context.read<NutritionAssessmentCubit>().state.nutritionHabits;
+        context.read<NutritionFlowBloc>().state.nutritionHabits;
     if (nutritionHabits == null) return;
-    _mealFrequencyController.text = nutritionHabits.mealFrequency;
-    _foodSensitivitiesController.text = nutritionHabits.foodSensitivities;
-    _favoriteFoodsController.text = nutritionHabits.favoriteFoods;
-    _avoidedFoodsController.text = nutritionHabits.avoidedFoods;
-    _waterIntakeController.text = nutritionHabits.waterIntake;
-    _pastDietsController.text = nutritionHabits.pastDiets;
+    _mealFrequencyController.text = nutritionHabits.mealFrequency ?? '';
+    _foodSensitivitiesController.text = nutritionHabits.foodSensitivities ?? '';
+    _favoriteFoodsController.text = nutritionHabits.favoriteFoods ?? '';
+    _avoidedFoodsController.text = nutritionHabits.avoidedFoods ?? '';
+    _waterIntakeController.text = nutritionHabits.waterIntake ?? '';
+    _pastDietsController.text = nutritionHabits.pastDiets ?? '';
   }
 
   void _onNextPressed() {
@@ -60,22 +59,19 @@ class _NutritionHabitsScreenState extends State<NutritionHabitsScreen> {
       );
 
       context
-          .read<NutritionAssessmentCubit>()
-          .updateNutritionHabits(nutritionHabits);
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const BiomarkerUploadScreen(),
-        ),
-      );
+          .read<NutritionFlowBloc>()
+          .add(NutritionFlowNutritionHabitsUpdated(nutritionHabits));
+      context
+          .read<NutritionFlowBloc>()
+          .add(const NutritionFlowAssessmentStepAdvanced());
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: context.l10n.precision_nutrition_habits_title),
+      appBar:
+          CustomAppBar(title: context.l10n.precision_nutrition_habits_title),
       body: Form(
         key: _formKey,
         child: Padding(
@@ -105,12 +101,14 @@ class _NutritionHabitsScreenState extends State<NutritionHabitsScreen> {
                       // Food Sensitivities Section
                       CustomTextField(
                         label: context.l10n.precision_food_sensitivities_label,
-                        hintText: context.l10n.precision_food_sensitivities_hint,
+                        hintText:
+                            context.l10n.precision_food_sensitivities_hint,
                         controller: _foodSensitivitiesController,
                         maxLines: 2,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return context.l10n.precision_food_sensitivities_error;
+                            return context
+                                .l10n.precision_food_sensitivities_error;
                           }
                           return null;
                         },

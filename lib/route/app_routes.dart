@@ -73,6 +73,9 @@ class AppRoutes {
   static const String deleteAccountSuccess =
       '/settings/account/delete-account/success';
   // Precision Nutrition Module
+  static const String nutritionAssessment = '$precisionNutrition/assessment';
+  static const String nutritionReview = '$precisionNutrition/review';
+  static const String nutritionBooking = '$precisionNutrition/booking';
   static const String precisionNutritionAssessmentForm =
       '$precisionNutrition/assessment/form';
   static const String precisionNutritionAssessmentDetail =

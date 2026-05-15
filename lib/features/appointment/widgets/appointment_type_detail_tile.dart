@@ -7,6 +7,7 @@ import 'package:m2health/features/booking_appointment/nursing/presentation/pages
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_chief_complaint_page.dart';
 import 'package:m2health/features/home_health_screening/presentation/pages/home_screening_appointment_detail_page.dart';
 import 'package:m2health/features/second_opinion_imaging/presentation/pages/second_opinion_request_detail_page.dart';
+import 'package:m2health/features/nutrition/presentation/pages/nutrition_appointment_overview_page.dart';
 import 'package:m2health/features/smoking_cessation/presentation/pages/smoking_cessation_appointment_detail_page.dart';
 import 'package:m2health/route/app_routes.dart';
 
@@ -88,11 +89,11 @@ class AppointmentTypeDetailTile extends StatelessWidget {
           ),
           usesGoRouter: false,
         ),
-      SecondOpinionDetail() => _TileConfig(
+      SecondOpinionDetail() => const _TileConfig(
           label: 'Request Detail',
           subtitle: 'Images, disease info & medical opinion',
           icon: Icons.document_scanner_rounded,
-          gradient: const LinearGradient(
+          gradient: LinearGradient(
             colors: [Color(0xFF9354B9), Color(0xFF4894FE)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -100,7 +101,22 @@ class AppointmentTypeDetailTile extends StatelessWidget {
           page: null,
           usesGoRouter: true,
         ),
-      HomecareDetail() || PhysiotherapyDetail() || NutritionDetail() => null,
+      NutritionDetail() => _TileConfig(
+          label: 'Nutrition Overview',
+          subtitle: 'Assessment & nutrition plan',
+          icon: Icons.restaurant_menu_rounded,
+          gradient: const LinearGradient(
+            colors: [Color(0xFF56AB2F), Const.aqua],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          page: NutritionAppointmentOverviewPage(
+            appointment: appointment,
+            isProvider: isProvider,
+          ),
+          usesGoRouter: false,
+        ),
+      HomecareDetail() || PhysiotherapyDetail() => null,
     };
 
     if (config == null) return const SizedBox.shrink();

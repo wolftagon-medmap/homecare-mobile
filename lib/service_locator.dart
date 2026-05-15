@@ -22,6 +22,7 @@ import 'package:m2health/core/services/fcm_service.dart';
 import 'package:m2health/features/subscription/injection.dart';
 import 'package:m2health/features/homecare_elderly/injection.dart';
 import 'package:m2health/features/physiotherapy/injection.dart';
+import 'package:m2health/features/nutrition/injection.dart';
 import 'package:m2health/features/second_opinion_imaging/injection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -69,6 +70,7 @@ Future<void> setupLocator() async {
   initSubscriptionModule(sl);
   initHomecareElderlyModule(sl);
   initPhysiotherapyModule(sl);
+  initNutritionModule(sl);
   initSecondOpinionImagingModule(sl);
   initSettingsModule(sl);
   initSmokingCessationModule(sl);

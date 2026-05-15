@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
 import '../../../widgets/precision_widgets.dart';
-import '../../../bloc/nutrition_assessment_cubit.dart';
-import 'self_rated_health_screen.dart';
+import 'package:m2health/features/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
 
 class HealthHistoryScreen extends StatefulWidget {
-  const HealthHistoryScreen({Key? key}) : super(key: key);
+  const HealthHistoryScreen({super.key});
 
   @override
   State<HealthHistoryScreen> createState() => _HealthHistoryScreenState();
@@ -15,55 +14,44 @@ class HealthHistoryScreen extends StatefulWidget {
 
 class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _ageController = TextEditingController();
-  String? _selectedGender;
   final _conditionController = TextEditingController();
   final _medicationController = TextEditingController();
   final _familyHistoryController = TextEditingController();
 
-  final List<String> _specialConsiderations = [
-    'Liver Disease',
-    'Lung Disease',
-    'Children',
-    'Kidney Disease',
-    'Aging Adult',
-    'Pregnant',
-  ];
+  /// See Questionnaire definition with code 'nutrition-abcd' in backend.
+  static const Map<String, String> _specialConsiderationOptions = {
+    'liver_disease': 'Liver Disease',
+    'lung_disease': 'Lung Disease',
+    'children': 'Children',
+    'kidney_disease': 'Kidney Disease',
+    'aging_adult': 'Aging Adult',
+    'pregnant': 'Pregnant',
+  };
 
-  final Map<String, bool> _selectedConsiderations = {};
-
-  final _availableGenders = ['Male', 'Female', 'Other'];
+  final Map<String, bool> _selectedConsiderations = {
+    for (final key in _specialConsiderationOptions.keys) key: false,
+  };
 
   @override
   void initState() {
     super.initState();
-    // Initialize all considerations as false
-    for (String consideration in _specialConsiderations) {
-      _selectedConsiderations[consideration] = false;
-    }
 
-    // Initialize all fields based on existing state if available
-    final healthProfile =
-        context.read<NutritionAssessmentCubit>().state.healthProfile;
+    final healthProfile = context.read<NutritionFlowBloc>().state.healthProfile;
     if (healthProfile == null) return;
 
-    _ageController.text = healthProfile.age.toString();
-    _selectedGender = _availableGenders.contains(healthProfile.gender)
-        ? healthProfile.gender
-        : null;
     _conditionController.text = healthProfile.knownCondition ?? '';
     _medicationController.text = healthProfile.medicationHistory ?? '';
     _familyHistoryController.text = healthProfile.familyHistory ?? '';
-    for (String consideration in healthProfile.specialConsiderations) {
-      if (_selectedConsiderations.containsKey(consideration)) {
-        _selectedConsiderations[consideration] = true;
+
+    for (final value in healthProfile.specialConsiderations) {
+      if (_selectedConsiderations.containsKey(value)) {
+        _selectedConsiderations[value] = true;
       }
     }
   }
 
   @override
   void dispose() {
-    _ageController.dispose();
     _conditionController.dispose();
     _medicationController.dispose();
     _familyHistoryController.dispose();
@@ -72,10 +60,7 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
 
   void _onNextPressed() {
     if (_formKey.currentState!.validate()) {
-      // Create HealthProfile and update cubit
       final healthProfile = HealthProfile(
-        age: int.parse(_ageController.text),
-        gender: _selectedGender!,
         knownCondition: _conditionController.text.isEmpty
             ? null
             : _conditionController.text,
@@ -92,15 +77,11 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
       );
 
       context
-          .read<NutritionAssessmentCubit>()
-          .updateHealthProfile(healthProfile);
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const SelfRatedHealthScreen(),
-        ),
-      );
+          .read<NutritionFlowBloc>()
+          .add(NutritionFlowHealthProfileUpdated(healthProfile));
+      context
+          .read<NutritionFlowBloc>()
+          .add(const NutritionFlowAssessmentStepAdvanced());
     }
   }
 
@@ -120,52 +101,6 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Age & Gender Section
-                      Text(
-                        context.l10n.profile_patient_basic_info,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-
-                      CustomTextField(
-                        label: context.l10n.precision_age_label,
-                        hintText: context.l10n.precision_age_hint,
-                        controller: _ageController,
-                        keyboardType: TextInputType.number,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return context.l10n.precision_age_error;
-                          }
-                          if (int.tryParse(value) == null) {
-                            return context.l10n.precision_age_valid_error;
-                          }
-                          return null;
-                        },
-                      ),
-
-                      CustomDropdown(
-                        label: context.l10n.precision_gender_label,
-                        value: _selectedGender,
-                        items: _availableGenders,
-                        onChanged: (value) {
-                          setState(() {
-                            _selectedGender = value;
-                          });
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return context.l10n.precision_gender_error;
-                          }
-                          return null;
-                        },
-                      ),
-
-                      const SizedBox(height: 24),
-
                       // Known Condition Section
                       Text(
                         context.l10n.precision_known_condition_label,
@@ -207,17 +142,17 @@ class _HealthHistoryScreenState extends State<HealthHistoryScreen> {
                           crossAxisSpacing: 16,
                           mainAxisSpacing: 8,
                         ),
-                        itemCount: _specialConsiderations.length,
+                        itemCount: _specialConsiderationOptions.length,
                         itemBuilder: (context, index) {
-                          final consideration = _specialConsiderations[index];
+                          final key = _specialConsiderationOptions.keys
+                              .elementAt(index);
+                          final label = _specialConsiderationOptions[key]!;
                           return CustomCheckbox(
-                            label: consideration,
-                            value:
-                                _selectedConsiderations[consideration] ?? false,
+                            label: label,
+                            value: _selectedConsiderations[key] ?? false,
                             onChanged: (value) {
                               setState(() {
-                                _selectedConsiderations[consideration] =
-                                    value ?? false;
+                                _selectedConsiderations[key] = value ?? false;
                               });
                             },
                           );

@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
 import '../../../widgets/precision_widgets.dart';
-import '../../../bloc/nutrition_assessment_cubit.dart';
-import 'nutrition_habits_screen.dart';
+import 'package:m2health/features/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
 
 class LifestyleHabitsScreen extends StatefulWidget {
-  const LifestyleHabitsScreen({Key? key}) : super(key: key);
+  const LifestyleHabitsScreen({super.key});
 
   @override
   State<LifestyleHabitsScreen> createState() => _LifestyleHabitsScreenState();
@@ -34,13 +33,13 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
   void initState() {
     super.initState();
     final lifestyleHabits =
-        context.read<NutritionAssessmentCubit>().state.lifestyleHabits;
+        context.read<NutritionFlowBloc>().state.lifestyleHabits;
     if (lifestyleHabits == null) return;
-    _sleepHours = lifestyleHabits.sleepHours;
-    _activityLevelController.text = lifestyleHabits.activityLevel;
-    _exerciseFrequencyController.text = lifestyleHabits.exerciseFrequency;
-    _stressLevelController.text = lifestyleHabits.stressLevel;
-    _smokingAlcoholController.text = lifestyleHabits.smokingAlcoholHabits;
+    _sleepHours = lifestyleHabits.sleepHours ?? 7.0;
+    _activityLevelController.text = lifestyleHabits.activityLevel ?? '';
+    _exerciseFrequencyController.text = lifestyleHabits.exerciseFrequency ?? '';
+    _stressLevelController.text = lifestyleHabits.stressLevel ?? '';
+    _smokingAlcoholController.text = lifestyleHabits.smokingAlcoholHabits ?? '';
   }
 
   void _onNextPressed() {
@@ -55,22 +54,19 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
       );
 
       context
-          .read<NutritionAssessmentCubit>()
-          .updateLifestyleHabits(lifestyleHabits);
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const NutritionHabitsScreen(),
-        ),
-      );
+          .read<NutritionFlowBloc>()
+          .add(NutritionFlowLifestyleHabitsUpdated(lifestyleHabits));
+      context
+          .read<NutritionFlowBloc>()
+          .add(const NutritionFlowAssessmentStepAdvanced());
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: context.l10n.precision_lifestyle_habits_title),
+      appBar:
+          CustomAppBar(title: context.l10n.precision_lifestyle_habits_title),
       body: Form(
         key: _formKey,
         child: Padding(
@@ -153,12 +149,14 @@ class _LifestyleHabitsScreenState extends State<LifestyleHabitsScreen> {
                       // Exercise Frequency Section
                       CustomTextField(
                         label: context.l10n.precision_exercise_frequency_label,
-                        hintText: context.l10n.precision_exercise_frequency_hint,
+                        hintText:
+                            context.l10n.precision_exercise_frequency_hint,
                         controller: _exerciseFrequencyController,
                         maxLines: 2,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return context.l10n.precision_exercise_frequency_error;
+                            return context
+                                .l10n.precision_exercise_frequency_error;
                           }
                           return null;
                         },

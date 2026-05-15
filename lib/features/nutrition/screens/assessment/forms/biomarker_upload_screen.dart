@@ -5,11 +5,9 @@ import 'package:path/path.dart' as p;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/features/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
 import '../../../widgets/precision_widgets.dart';
-import '../../../bloc/nutrition_assessment_cubit.dart';
 
 class BiomarkerUploadScreen extends StatefulWidget {
   const BiomarkerUploadScreen({super.key});
@@ -30,12 +28,11 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
     final path = result.files.single.path;
     if (path != null && mounted) {
       final file = File(path);
-      context.read<NutritionAssessmentCubit>().addFile(file);
+      context.read<NutritionFlowBloc>().add(NutritionFlowFileAdded(file));
     }
   }
 
   void _connectWearableDevice() {
-    // Simulate connecting to wearable device
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Connecting to wearable device...'),
@@ -44,37 +41,18 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
     );
   }
 
-  void _submitAssessment() async {
-    await context.read<NutritionAssessmentCubit>().submitAssessment();
-
-    if (mounted) {
-      // Show success dialog
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (dialogContext) => AlertDialog(
-          title: Text(context.l10n.precision_success_title),
-          content: Text(context.l10n.precision_success_content),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(dialogContext).pop();
-                GoRouter.of(context)
-                    .goNamed(AppRoutes.precisionNutritionAssessmentDetail);
-              },
-              child: Text(context.l10n.precision_view_details),
-            ),
-          ],
-        ),
-      );
-    }
+  void _submitAssessment() {
+    context
+        .read<NutritionFlowBloc>()
+        .add(const NutritionFlowAssessmentSubmitRequested());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: context.l10n.precision_biomarker_upload_title),
-      body: BlocBuilder<NutritionAssessmentCubit, NutritionAssessmentState>(
+      appBar:
+          CustomAppBar(title: context.l10n.precision_biomarker_upload_title),
+      body: BlocBuilder<NutritionFlowBloc, NutritionFlowState>(
         builder: (context, state) {
           final existingUrls = state.fileUrls;
           final newFiles = state.files;
@@ -232,8 +210,9 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
                                       icon: const Icon(Icons.delete_outline,
                                           color: Colors.red),
                                       onPressed: () => context
-                                          .read<NutritionAssessmentCubit>()
-                                          .removeFileUrl(url),
+                                          .read<NutritionFlowBloc>()
+                                          .add(
+                                              NutritionFlowFileUrlRemoved(url)),
                                     ),
                                   );
                                 }),
@@ -250,8 +229,8 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
                                       icon: const Icon(Icons.delete_outline,
                                           color: Colors.red),
                                       onPressed: () => context
-                                          .read<NutritionAssessmentCubit>()
-                                          .removeFile(file),
+                                          .read<NutritionFlowBloc>()
+                                          .add(NutritionFlowFileRemoved(file)),
                                     ),
                                   );
                                 }),
@@ -268,8 +247,9 @@ class _BiomarkerUploadScreenState extends State<BiomarkerUploadScreen> {
                 // Submit Button
                 PrimaryButton(
                   text: context.l10n.precision_submit_assessment,
-                  onPressed: state.isLoading ? null : _submitAssessment,
-                  isLoading: state.isLoading,
+                  onPressed:
+                      state.isSubmittingAssessment ? null : _submitAssessment,
+                  isLoading: state.isSubmittingAssessment,
                 ),
 
                 // Error Message

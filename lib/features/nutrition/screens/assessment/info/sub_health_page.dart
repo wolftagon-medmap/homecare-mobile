@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
-import 'package:m2health/features/nutrition/screens/assessment/forms/health_history_screen.dart';
+import 'package:m2health/features/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
 import 'package:m2health/features/nutrition/widgets/precision_widgets.dart';
 
 class SubHealthPage extends StatelessWidget {
@@ -100,13 +101,9 @@ class SubHealthPage extends StatelessWidget {
             const SizedBox(height: 16),
             PrimaryButton(
               text: context.l10n.common_next,
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const HealthHistoryScreen(),
-                  ),
-                );
-              },
+              onPressed: () => context
+                  .read<NutritionFlowBloc>()
+                  .add(const NutritionFlowAssessmentStepAdvanced()),
             ),
           ],
         ),

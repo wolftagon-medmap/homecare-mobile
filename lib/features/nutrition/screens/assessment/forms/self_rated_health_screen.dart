@@ -3,17 +3,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
 import '../../../widgets/precision_widgets.dart';
-import '../../../bloc/nutrition_assessment_cubit.dart';
-import 'lifestyle_habits_screen.dart';
+import 'package:m2health/features/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
 
 class SelfRatedHealthScreen extends StatelessWidget {
-  const SelfRatedHealthScreen({Key? key}) : super(key: key);
+  const SelfRatedHealthScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: context.l10n.precision_self_rated_health_title),
-      body: BlocBuilder<NutritionAssessmentCubit, NutritionAssessmentState>(
+      appBar:
+          CustomAppBar(title: context.l10n.precision_self_rated_health_title),
+      body: BlocBuilder<NutritionFlowBloc, NutritionFlowState>(
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.all(20.0),
@@ -76,9 +76,8 @@ class SelfRatedHealthScreen extends StatelessWidget {
                           max: 5.0,
                           divisions: 4,
                           onChanged: (value) {
-                            context
-                                .read<NutritionAssessmentCubit>()
-                                .updateSelfRatedHealth(value);
+                            context.read<NutritionFlowBloc>().add(
+                                NutritionFlowSelfRatedHealthUpdated(value));
                           },
                         ),
                       ),
@@ -112,12 +111,9 @@ class SelfRatedHealthScreen extends StatelessWidget {
                 // Next Button
                 PrimaryButton(
                   text: context.l10n.common_next,
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LifestyleHabitsScreen(),
-                    ),
-                  ),
+                  onPressed: () => context
+                      .read<NutritionFlowBloc>()
+                      .add(const NutritionFlowAssessmentStepAdvanced()),
                 ),
               ],
             ),

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class Const {
   static const String APPLICATION_ID = "org.medmap.homecare";
 
-    /// Enable verbose HTTP logging (Dio LogInterceptor etc.)
-    /// Keep this `true` while debugging uploads; set to `false` for release.
-    static const bool DEBUG_HTTP_LOGS = true;
+  /// Enable verbose HTTP logging (Dio LogInterceptor etc.)
+  /// Keep this `true` while debugging uploads; set to `false` for release.
+  static const bool DEBUG_HTTP_LOGS = true;
 
   /// URL backend. Pilih yang sesuai:
   /// - iOS Simulator / Chrome: http://127.0.0.1:3333
@@ -31,7 +31,7 @@ class Const {
   static const String API_PROFILE = URL_API + '/profiles';
   static const String API_MEDICAL_STORE = URL_API + '/medical-stores';
   static const String API_MEDICAL_RECORDS = URL_API + '/medical-records';
-    static const String API_FILE_UPLOADS = URL_API + '/file-uploads';
+  static const String API_FILE_UPLOADS = URL_API + '/file-uploads';
   static const String API_PERSONAL_CASES = URL_API + '/personal-cases';
   static const String API_CERTIFICATES = URL_API + '/certificates';
   static const String API_DIABETES_PROFILE = '$URL_API/diabetes-profile';
