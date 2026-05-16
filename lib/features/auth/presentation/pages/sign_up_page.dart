@@ -19,6 +19,7 @@ import 'package:m2health/core/presentation/widgets/country_picker_field.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../cubit/sign_up_cubit.dart';
+import '../widgets/registration_success_modal.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -151,25 +152,7 @@ class _SignUpPageState extends State<SignUpPage> {
         child: BlocConsumer<SignUpCubit, SignUpState>(
           listener: (context, state) {
             if (state is SignUpSuccess) {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text(context
-                        .t.auth.register.registration_success_dialog.title),
-                    content: Text(context
-                        .t.auth.register.registration_success_dialog.body),
-                    actions: <Widget>[
-                      TextButton(
-                        child: Text(context.t.global.ok),
-                        onPressed: () {
-                          context.go(AppRoutes.signIn);
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
+              RegistrationSuccessModal.show(context);
             } else if (state is SignUpSSOSuccess) {
               context.read<AuthCubit>().loggedIn();
             } else if (state is SignUpFailure) {
@@ -341,7 +324,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     const SizedBox(height: 20),
                     CountryPickerField(
                       value: _selectedCountryCode,
-                      onChanged: (v) => setState(() => _selectedCountryCode = v),
+                      onChanged: (v) =>
+                          setState(() => _selectedCountryCode = v),
                     ),
                     const SizedBox(height: 20),
                     FormField<UserRole>(
@@ -361,15 +345,16 @@ class _SignUpPageState extends State<SignUpPage> {
                               expandedInsets: EdgeInsets.zero,
                               initialSelection: _selectedRole,
                               label: Text(context.t.auth.form.label.user_role),
-                              menuHeight: 180,
+                              menuHeight: 300,
                               onSelected: (UserRole? newValue) {
                                 setState(() {
                                   _selectedRole = newValue;
                                 });
                                 fieldState.didChange(newValue);
                               },
-                              dropdownMenuEntries: ALL_USER_ROLES.map<DropdownMenuEntry<UserRole>>(
-                                  (UserRole value) {
+                              dropdownMenuEntries: ALL_USER_ROLES
+                                  .map<DropdownMenuEntry<UserRole>>(
+                                      (UserRole value) {
                                 return DropdownMenuEntry<UserRole>(
                                   value: value,
                                   label: value.getDisplayName(context),
