@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/health_coaching.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/features/smoking_cessation/presentation/bloc/smoking_cessation_flow_cubit.dart';
@@ -70,6 +71,7 @@ class PharmacyServicesPage extends StatelessWidget {
                       builder: (context) => BlocProvider(
                         create: (context) => SmokingCessationFlowCubit(
                           createPharmacyAppointment: sl(),
+                          questionnaireService: sl<QuestionnaireService>(),
                         ),
                         child: const SmokingCessationFlowPage(),
                       ),

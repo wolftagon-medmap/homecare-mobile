@@ -1520,6 +1520,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get precision_book_now => '立即预订';
 
   @override
+  String get precision_view_plan => '查看计划';
+
+  @override
   String get precision_main_concern_question => '您的主要关注点是什么？';
 
   @override

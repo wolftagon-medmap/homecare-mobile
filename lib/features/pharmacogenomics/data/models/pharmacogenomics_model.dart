@@ -26,7 +26,6 @@ class PharmacogenomicsModel extends Pharmacogenomics {
   });
 
   factory PharmacogenomicsModel.fromJson(Map<String, dynamic> json) {
-    print('[DEBUG] PharmacogenomicsModel.fromJson input: $json');
     return PharmacogenomicsModel(
       id: json['id'] is int ? json['id'] : int.tryParse(json['id'].toString()),
       userId: json['user_id'] is int

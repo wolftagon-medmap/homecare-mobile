@@ -24,7 +24,7 @@ class NursingAppointmentFlowState extends Equatable {
   // Data collected along the flow
   final List<PersonalIssue> selectedIssues;
   final HealthStatus? healthStatus;
-  final List<AddOnService> selectedAddOnServices;
+  final List<ServiceEntity> selectedAddOnServices;
   final ProfessionalEntity? selectedProfessional;
   final DateTime? selectedTimeSlot;
   final AppointmentEntity? createdAppointment;
@@ -57,7 +57,7 @@ class NursingAppointmentFlowState extends Equatable {
     NurseServiceType? serviceType,
     List<PersonalIssue>? selectedIssues,
     HealthStatus? healthStatus,
-    List<AddOnService>? selectedAddOnServices,
+    List<ServiceEntity>? selectedAddOnServices,
     ProfessionalEntity? selectedProfessional,
     DateTime? selectedTimeSlot,
     AppointmentEntity? createdAppointment,

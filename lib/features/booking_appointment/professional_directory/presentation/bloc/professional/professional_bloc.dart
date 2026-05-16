@@ -22,6 +22,7 @@ class ProfessionalBloc extends Bloc<ProfessionalEvent, ProfessionalState> {
           name: event.name,
           serviceIds: event.serviceIds,
           isHomeScreeningAuthorized: event.isHomeScreeningAuthorized,
+          serviceSubCategory: event.serviceSubCategory,
         );
         log('Fetched professionals: ${professionals.length}');
         emit(ProfessionalLoaded(professionals));

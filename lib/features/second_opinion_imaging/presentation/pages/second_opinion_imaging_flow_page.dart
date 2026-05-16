@@ -47,10 +47,12 @@ class _SecondOpinionImagingFlowPageState
         flowBloc.add(const FlowStepChanged(SecondOpinionImagingFlowStep.form));
         break;
       case SecondOpinionImagingFlowStep.viewProfessionalDetail:
-        flowBloc.add(const FlowStepChanged(SecondOpinionImagingFlowStep.searchProfessional));
+        flowBloc.add(const FlowStepChanged(
+            SecondOpinionImagingFlowStep.searchProfessional));
         break;
       case SecondOpinionImagingFlowStep.scheduling:
-        flowBloc.add(const FlowStepChanged(SecondOpinionImagingFlowStep.viewProfessionalDetail));
+        flowBloc.add(const FlowStepChanged(
+            SecondOpinionImagingFlowStep.viewProfessionalDetail));
         break;
     }
   }
@@ -115,7 +117,7 @@ class _SecondOpinionImagingFlowPageState
                     toggleFavorite: sl(),
                   ),
                   child: SearchProfessionalPage(
-                    role: 'radiologist', // Simplified: searching radiologist for both
+                    role: state.serviceType,
                     onProfessionalSelected: (prof) {
                       context
                           .read<SecondOpinionImagingFlowBloc>()
@@ -130,10 +132,11 @@ class _SecondOpinionImagingFlowPageState
                     ),
                     child: ProfessionalDetailsPage(
                       professionalId: state.selectedProfessional!.id,
-                      role: 'radiologist',
+                      role: state.serviceType,
                       onButtonPressed: () {
                         context.read<SecondOpinionImagingFlowBloc>().add(
-                            const FlowStepChanged(SecondOpinionImagingFlowStep.scheduling));
+                            const FlowStepChanged(
+                                SecondOpinionImagingFlowStep.scheduling));
                       },
                     ),
                   )

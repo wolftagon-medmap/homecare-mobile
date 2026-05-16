@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/certificate.dart';
 
@@ -17,13 +17,12 @@ class ProfessionalProfile extends Equatable {
   final String? workPlace;
   final bool isVerified;
   final DateTime? verifiedAt;
-  final bool?
-      isHomeScreeningAuthorized; // Home screening authorization for nurse
-  final int? serviceRadiusPreference; // in kilometers
+  final bool? isHomeScreeningAuthorized;
+  final int? serviceRadiusPreference;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final List<Certificate> certificates;
-  final List<AddOnService> providedServices;
+  final List<ServiceEntity> providedServices;
   final Address? workplaceAddress;
 
   const ProfessionalProfile({
@@ -92,7 +91,7 @@ class ProfessionalProfile extends Equatable {
     DateTime? createdAt,
     DateTime? updatedAt,
     List<Certificate>? certificates,
-    List<AddOnService>? providedServices,
+    List<ServiceEntity>? providedServices,
     Address? workplaceAddress,
   }) {
     return ProfessionalProfile(

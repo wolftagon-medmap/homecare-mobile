@@ -196,8 +196,8 @@ class _ProfileHeader extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: isVerified!
-                        ? Colors.green.withOpacity(0.1)
-                        : Colors.orange.withOpacity(0.1),
+                        ? Colors.green.withValues(alpha: 0.1)
+                        : Colors.orange.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(
                       color: isVerified! ? Colors.green : Colors.orange,
@@ -260,7 +260,7 @@ class _ProfileInformationSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      shadowColor: Colors.grey.withOpacity(0.2),
+      shadowColor: Colors.grey.withValues(alpha: 0.2),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -319,7 +319,7 @@ class _HealthRecordsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      shadowColor: Colors.grey.withOpacity(0.2),
+      shadowColor: Colors.grey.withValues(alpha: 0.2),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -364,7 +364,7 @@ class _AppointmentSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      shadowColor: Colors.grey.withOpacity(0.2),
+      shadowColor: Colors.grey.withValues(alpha: 0.2),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -403,7 +403,7 @@ class _ProfessionalProfileSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      shadowColor: Colors.grey.withOpacity(0.2),
+      shadowColor: Colors.grey.withValues(alpha: 0.2),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -482,7 +482,7 @@ class _AdminSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      shadowColor: Colors.grey.withOpacity(0.2),
+      shadowColor: Colors.grey.withValues(alpha: 0.2),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -503,21 +503,6 @@ class _AdminSection extends StatelessWidget {
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: () {
                 GoRouter.of(context).push(AppRoutes.manageServices);
-              },
-            ),
-            ListTile(
-              leading:
-                  const Icon(Icons.health_and_safety, color: Color(0xFF35C5CF)),
-              title: Text(
-                  context.l10n.profile_admin_manage_health_screening_services),
-              titleTextStyle: const TextStyle(
-                fontSize: 16,
-                color: Colors.black,
-                fontWeight: FontWeight.normal,
-              ),
-              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-              onTap: () {
-                context.push(AppRoutes.manageHealthScreening);
               },
             ),
             ListTile(
@@ -562,7 +547,7 @@ class _SettingSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      shadowColor: Colors.grey.withOpacity(0.2),
+      shadowColor: Colors.grey.withValues(alpha: 0.2),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

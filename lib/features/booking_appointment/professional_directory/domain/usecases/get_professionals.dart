@@ -10,12 +10,14 @@ class GetProfessionals {
       {String? role,
       String? name,
       List<int>? serviceIds,
-      bool? isHomeScreeningAuthorized}) async {
+      bool? isHomeScreeningAuthorized,
+      String? serviceSubCategory}) async {
     return await repository.getProfessionals(
       role: role,
       name: name,
       serviceIds: serviceIds,
       isHomeScreeningAuthorized: isHomeScreeningAuthorized,
+      serviceSubCategory: serviceSubCategory,
     );
   }
 }

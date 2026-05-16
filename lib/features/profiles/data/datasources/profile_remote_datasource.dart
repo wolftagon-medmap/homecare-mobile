@@ -194,7 +194,7 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
         '${Const.URL_API}/admin/professionals',
         queryParameters: {
           'status': status, // 'verified' or 'unverified'
-          'role': role, // e.g., 'nurse', 'pharmacist', etc.
+          if (role != null && role.isNotEmpty) 'role': role,
         },
         options: await _getAuthHeaders(),
       );

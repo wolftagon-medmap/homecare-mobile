@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/blocs/user_role_cubit.dart';
 import 'package:m2health/core/network/token_expiration_interceptor.dart';
 import 'package:m2health/features/auth/injection.dart';
 import 'package:m2health/features/booking_appointment/injection.dart';
@@ -17,11 +18,15 @@ import 'package:m2health/features/wellness_genomics/injection.dart';
 import 'package:m2health/core/blocs/voice_input/voice_input_cubit.dart';
 import 'package:m2health/core/services/ai_tools_service.dart';
 import 'package:m2health/core/services/appointment_service.dart';
+import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/core/services/fcm_service.dart';
 import 'package:m2health/features/subscription/injection.dart';
 import 'package:m2health/features/homecare_elderly/injection.dart';
 import 'package:m2health/features/physiotherapy/injection.dart';
+import 'package:m2health/features/nutrition/injection.dart';
 import 'package:m2health/features/second_opinion_imaging/injection.dart';
+import 'package:m2health/features/psychologist/injection.dart';
+import 'package:m2health/features/optometrist/injection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
@@ -50,9 +55,12 @@ Future<void> setupLocator() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerSingleton<SharedPreferences>(sharedPreferences);
   sl.registerLazySingleton(() => AppointmentService(sl()));
+  sl.registerLazySingleton(() => QuestionnaireService(sl()));
   sl.registerLazySingleton(() => AIToolsService(sl()));
-  sl.registerLazySingleton(() => FcmService(sl<Dio>(), sl<SharedPreferences>()));
+  sl.registerLazySingleton(
+      () => FcmService(sl<Dio>(), sl<SharedPreferences>()));
   sl.registerFactory(() => VoiceInputCubit(aiToolsService: sl()));
+  sl.registerFactory(() => UserRoleCubit());
 
   // Feature Module Injectors
   initAuthModule(sl);
@@ -67,7 +75,10 @@ Future<void> setupLocator() async {
   initSubscriptionModule(sl);
   initHomecareElderlyModule(sl);
   initPhysiotherapyModule(sl);
+  initNutritionModule(sl);
   initSecondOpinionImagingModule(sl);
+  initPsychologistModule(sl);
+  initOptometristModule(sl);
   initSettingsModule(sl);
   initSmokingCessationModule(sl);
   initChatbotModule(sl);

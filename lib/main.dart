@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:m2health/core/blocs/user_role_cubit.dart';
 import 'package:m2health/features/home_health_screening/presentation/bloc/screening_appointment_action_cubit.dart';
 import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/auth/data/datasources/google_auth_source.dart';
@@ -15,7 +16,9 @@ import 'package:m2health/features/pharmacogenomics/domain/usecases/delete_pharma
 import 'package:m2health/features/pharmacogenomics/domain/usecases/store_pharmacogenomics.dart';
 import 'package:m2health/features/pharmacogenomics/presentation/bloc/pharmacogenomics_cubit.dart';
 import 'package:m2health/features/pharmacogenomics/domain/usecases/get_pharmacogenomics.dart';
-import 'package:m2health/features/precision/bloc/nutrition_assessment_cubit.dart';
+import 'package:m2health/core/services/questionnaire_service.dart';
+import 'package:m2health/features/nutrition/domain/usecases/create_nutrition_appointment.dart';
+import 'package:m2health/features/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
 import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
@@ -84,23 +87,27 @@ void main() async {
               value: localeCubit,
             ),
           ],
-          child: const MyApp(),
+          child: const M2HealthApp(),
         ),
       ),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class M2HealthApp extends StatelessWidget {
+  const M2HealthApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => sl<AuthCubit>()),
-        BlocProvider<NutritionAssessmentCubit>(
-          create: (context) => NutritionAssessmentCubit(sl<Dio>()),
+        BlocProvider(create: (context) => sl<UserRoleCubit>()..loadUserRole()),
+        BlocProvider<NutritionFlowBloc>(
+          create: (context) => NutritionFlowBloc(
+            questionnaireService: sl<QuestionnaireService>(),
+            createNutritionAppointment: sl<CreateNutritionAppointment>(),
+          ),
         ),
         BlocProvider(create: (context) => AppointmentCubit(sl<Dio>())),
         BlocProvider(create: (context) => ProviderAppointmentCubit(sl<Dio>())),
@@ -137,7 +144,10 @@ class MyApp extends StatelessWidget {
             deleteMedicalRecord: sl<DeleteMedicalRecord>(),
           ),
         ),
-        BlocProvider(create: (context) => DiabetesFormCubit(sl<Dio>())),
+        BlocProvider(
+          create: (context) =>
+              DiabetesFormCubit(sl<Dio>(), sl<QuestionnaireService>()),
+        ),
         BlocProvider(create: (context) => sl<SubscriptionCubit>()),
       ],
       child: BlocBuilder<LocaleCubit, AppLocale>(builder: (context, locale) {

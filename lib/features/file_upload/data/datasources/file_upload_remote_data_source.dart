@@ -15,7 +15,7 @@ class FileUploadRemoteDataSourceImpl implements FileUploadRemoteDataSource {
   @override
   Future<int> uploadFile(String filePath) async {
     // Backend validator: max 10MB
-    const maxSizeBytes = 10 * 1024 * 1024;
+    const maxSizeBytes = 10 * 1024 * 1024;  
     final f = File(filePath);
     if (!await f.exists()) {
       throw Exception('Upload failed: file not found at path: $filePath');

@@ -18,18 +18,12 @@ class CreateHomecareAppointment {
 
 class CreateHomecareAppointmentParams extends Equatable {
   final String type = 'homecare';
-  final String providerType = 'caregiver';
   final int providerId;
   final DateTime startDatetime;
   final List<String> tasks;
   final BillingType billingType;
 
   String get summary => 'Homecare: ${tasks.join(', ')}';
-
-  // Logic: Hourly ($25/hr * 2 hrs = $50). Subscription = 0.
-  // Assuming 2 hours slot as per requirement.
-  // Backend recalculates payTotal, so we send 0.0 to satisfy validator.
-  double get payTotal => 0.0;
 
   const CreateHomecareAppointmentParams({
     required this.providerId,
@@ -39,12 +33,5 @@ class CreateHomecareAppointmentParams extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-        type,
-        providerType,
-        providerId,
-        startDatetime,
-        tasks,
-        billingType,
-      ];
+  List<Object?> get props => [type, providerId, startDatetime, tasks, billingType];
 }

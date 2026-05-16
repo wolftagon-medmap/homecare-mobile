@@ -13,14 +13,18 @@ class SearchProfessionalPage extends StatefulWidget {
   final String role;
   final List<int> serviceIds;
   final bool isHomeScreeningAuthorized;
+  final String? serviceSubCategory;
   final Function(ProfessionalEntity) onProfessionalSelected;
+  final Widget? leading;
 
   const SearchProfessionalPage({
     super.key,
     required this.role,
     this.serviceIds = const [],
     this.isHomeScreeningAuthorized = false,
+    this.serviceSubCategory,
     required this.onProfessionalSelected,
+    this.leading,
   });
 
   @override
@@ -51,6 +55,7 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
             name: query,
             serviceIds: widget.serviceIds,
             isHomeScreeningAuthorized: widget.isHomeScreeningAuthorized,
+            serviceSubCategory: widget.serviceSubCategory,
           ),
         );
   }
@@ -81,6 +86,7 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: widget.leading,
         title: Text(
           getTitle(context, widget.role),
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

@@ -269,7 +269,7 @@ class _DetailRow extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-                color: Const.aqua.withOpacity(0.1),
+                color: Const.aqua.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8)),
             child: Icon(icon, color: Const.aqua, size: 20),
           ),

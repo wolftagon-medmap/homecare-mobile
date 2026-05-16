@@ -14,10 +14,10 @@ class ScreeningFlowStepChanged extends HomeHealthScreeningFlowEvent {
 }
 
 class ScreeningItemsUpdated extends HomeHealthScreeningFlowEvent {
-  final List<ScreeningItem> selectedItems;
-  const ScreeningItemsUpdated(this.selectedItems);
+  final List<ServiceEntity> selectedServices;
+  const ScreeningItemsUpdated(this.selectedServices);
   @override
-  List<Object> get props => [selectedItems];
+  List<Object> get props => [selectedServices];
 }
 
 class ScreeningProfessionalSelected extends HomeHealthScreeningFlowEvent {

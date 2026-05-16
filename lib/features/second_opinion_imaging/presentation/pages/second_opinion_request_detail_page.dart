@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
+import 'package:m2health/core/domain/entities/service_request_detail.dart';
 import 'package:m2health/core/presentation/views/file_viewer_page.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/bloc/personal_issues_state.dart';
-import 'package:m2health/features/second_opinion_imaging/domain/entities/second_opinion_imaging_request_data.dart';
 import 'package:m2health/features/second_opinion_imaging/presentation/bloc/second_opinion_request_detail_cubit.dart';
 
 class SecondOpinionRequestDetailPageParams {
@@ -38,17 +38,18 @@ class _SecondOpinionRequestDetailPageState
   late TextEditingController _diagnosticController;
   late TextEditingController _recommendationController;
 
-  get appointment => widget.params.appointment;
-  get isProvider => widget.params.isProvider;
+  AppointmentEntity get appointment => widget.params.appointment;
+  bool get isProvider => widget.params.isProvider;
 
   @override
   void initState() {
     super.initState();
-    final feedback = appointment.secondOpinionImagingFeedback;
-    _diagnosticController =
-        TextEditingController(text: feedback?.diagnosticOpinion);
+    final report = appointment.diagnosticReports
+        .where((r) => r.type == 'second_opinion_imaging')
+        .firstOrNull;
+    _diagnosticController = TextEditingController(text: report?.conclusion);
     _recommendationController =
-        TextEditingController(text: feedback?.recommendationOpinion);
+        TextEditingController(text: report?.recommendation);
   }
 
   @override
@@ -76,13 +77,15 @@ class _SecondOpinionRequestDetailPageState
 
   @override
   Widget build(BuildContext context) {
-    final requestData = appointment.secondOpinionImagingRequestData;
-    if (requestData == null) {
+    final detail = appointment.serviceRequest?.detail;
+    if (detail is! SecondOpinionDetail) {
       return Scaffold(
         appBar: AppBar(title: const Text("Request Detail")),
         body: const Center(child: Text("No request data found")),
       );
     }
+
+    final report = appointment.diagnosticReports.firstOrNull;
 
     final bool canSubmitFeedback =
         isProvider && appointment.status.toLowerCase() == 'accepted';
@@ -105,7 +108,7 @@ class _SecondOpinionRequestDetailPageState
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-              "${requestData.serviceType == 'radiology' ? 'Radiology' : 'Pathology'} Detail"),
+              "${detail.serviceType == 'radiology' ? 'Radiology' : 'Pathology'} Detail"),
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -117,23 +120,21 @@ class _SecondOpinionRequestDetailPageState
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
-              _InfoSection(
-                  label: "Disease Name", value: requestData.diseaseName),
+              _InfoSection(label: "Disease Name", value: detail.diseaseName),
               _InfoSection(
                   label: "Disease History",
-                  value: requestData.diseaseHistory ?? "-"),
-              _InfoSection(
-                  label: "Biomarker", value: requestData.biomarker ?? "-"),
+                  value: detail.diseaseHistory ?? "-"),
+              _InfoSection(label: "Biomarker", value: detail.biomarker ?? "-"),
               const SizedBox(height: 24),
               Text(
-                requestData.serviceType == 'radiology'
+                detail.serviceType == 'radiology'
                     ? "Radiology Images"
                     : "Digital Pathology Images",
-                style: const TextStyle(
-                    fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
-              _ImagesList(requestData: requestData),
+              _ImagesList(images: detail.images),
               const SizedBox(height: 24),
               const Divider(),
               const SizedBox(height: 12),
@@ -189,17 +190,14 @@ class _SecondOpinionRequestDetailPageState
               ] else ...[
                 _ReadOnlyOpinion(
                   label: "Diagnostic Opinion",
-                  value: appointment
-                      .secondOpinionImagingFeedback?.diagnosticOpinion,
+                  value: report?.conclusion,
                 ),
                 const SizedBox(height: 16),
                 _ReadOnlyOpinion(
                   label: "Recommendation Opinion",
-                  value: appointment
-                      .secondOpinionImagingFeedback?.recommendationOpinion,
+                  value: report?.recommendation,
                 ),
-                if (isProvider &&
-                    appointment.status.toLowerCase() == 'pending')
+                if (isProvider && appointment.status.toLowerCase() == 'pending')
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Text(
@@ -235,10 +233,7 @@ class _InfoSection extends StatelessWidget {
         children: [
           SelectableText(
             label,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-            ),
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
           ),
           const SizedBox(height: 4),
           SelectableText(value, style: const TextStyle(fontSize: 14)),
@@ -249,38 +244,39 @@ class _InfoSection extends StatelessWidget {
 }
 
 class _ImagesList extends StatelessWidget {
-  final SecondOpinionImagingRequestData requestData;
+  final List<SecondOpinionImage> images;
 
-  const _ImagesList({required this.requestData});
+  const _ImagesList({required this.images});
 
   @override
   Widget build(BuildContext context) {
-    if (requestData.images.isEmpty) {
+    if (images.isEmpty) {
       return const Text("No images provided");
     }
     return SizedBox(
       height: 150,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: requestData.images.length,
+        itemCount: images.length,
         itemBuilder: (context, index) {
-          final img = requestData.images[index];
+          final img = images[index];
+          final url = img.fileUrl;
           return Padding(
             padding: const EdgeInsets.only(right: 12.0),
             child: Column(
               children: [
                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FileViewerPage(
-                          url: img.fileUrl,
-                          title: img.imageType ?? "Image ${index + 1}",
-                        ),
-                      ),
-                    );
-                  },
+                  onTap: url != null
+                      ? () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => FileViewerPage(
+                                url: url,
+                                title: img.imageType ?? "Image ${index + 1}",
+                              ),
+                            ),
+                          )
+                      : null,
                   child: Container(
                     width: 100,
                     height: 100,
@@ -289,12 +285,17 @@ class _ImagesList extends StatelessWidget {
                       border: Border.all(color: Colors.grey.shade300),
                     ),
                     clipBehavior: Clip.antiAlias,
-                    child: Image.network(
-                      img.fileUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) =>
-                          const Icon(Icons.broken_image, color: Colors.grey),
-                    ),
+                    child: url != null
+                        ? Image.network(
+                            url,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => const Icon(
+                                Icons.broken_image,
+                                color: Colors.grey),
+                          )
+                        : const Center(
+                            child: Icon(Icons.hourglass_empty,
+                                color: Colors.grey)),
                   ),
                 ),
                 if (img.imageType != null) ...[

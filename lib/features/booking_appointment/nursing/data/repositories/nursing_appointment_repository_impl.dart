@@ -18,23 +18,24 @@ class NursingAppointmentRepositoryImpl extends NursingAppointmentRepository {
       final payload = {
         'type': params.type,
         'provider_id': params.providerId,
-        'provider_type': params.providerType,
         'start_datetime': params.startDatetime.toIso8601String(),
         'summary': params.summary,
-        'pay_total': params.payTotal,
-        'nursing_request_data': {
-          'mobility_status': params.nursingCase.mobilityStatus?.apiValue,
-          'mobility_status_detail': params.nursingCase.mobilityStatusDetail,
-          'related_health_record_id': params.nursingCase.relatedHealthRecordId,
-          'add_on_service_ids': params.nursingCase.addOnServices
+        'request_data': {
+          'service_ids': params.nursingCase.addOnServices
               .map((service) => service.id)
               .toList(),
           'personal_issue_ids':
               params.nursingCase.issues.map((issue) => issue.id).toList(),
+          'mobility_status': params.nursingCase.mobilityStatus?.apiValue,
+          'mobility_status_detail': params.nursingCase.mobilityStatusDetail,
+          'related_health_record_id': params.nursingCase.relatedHealthRecordId,
         },
       };
       final response = await appointmentService.createAppointment(payload);
-      final result = AppointmentModel.fromJson(response);
+      final result = AppointmentModel.fromJson({
+        ...response['appointment'] as Map<String, dynamic>,
+        if (response['order'] != null) 'order': response['order'],
+      });
       return Right(result);
     } on Failure catch (failure) {
       return Left(failure);

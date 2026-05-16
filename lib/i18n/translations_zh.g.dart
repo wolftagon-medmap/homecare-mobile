@@ -90,10 +90,10 @@ class _TranslationsDashboardZh implements TranslationsDashboardEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get allied_services => '辅助医疗';
 	@override String get chat_ai_placeholder => '咨询AI医生，解答您的健康疑问';
 	@override String greeting({required Object displayName}) => '更长寿，更健康，${displayName}！';
 	@override String get main_services => '服务预约';
+	@override String get other_services => '其他服务';
 	@override late final _TranslationsDashboardServicesZh services = _TranslationsDashboardServicesZh._(_root);
 }
 
@@ -325,6 +325,10 @@ class _TranslationsAuthUserRoleZh implements TranslationsAuthUserRoleEn {
 	@override String get pharmacist => '药剂师';
 	@override String get physiotherapist => '物理治疗师';
 	@override String get radiologist => '放射科医生';
+	@override String get pathologist => '病理学家';
+	@override String get nutritionist => '营养师';
+	@override String get psychologist => '心理学家';
+	@override String get optometrist => '验光师';
 }
 
 // Path: booking.addon
@@ -448,6 +452,8 @@ class _TranslationsDashboardServicesZh implements TranslationsDashboardServicesE
 	@override String get remote_patient_monitoring => '远程健康监测';
 	@override String get second_opinion => '医学影像第二意见';
 	@override String get sleep_and_mental_health => '睡眠与心理健康';
+	@override String get psychologist => '心理学家';
+	@override String get optometrist => '验光师';
 }
 
 // Path: global.dialog
@@ -975,6 +981,10 @@ extension on TranslationsZh {
 			'auth.user_role.pharmacist' => '药剂师',
 			'auth.user_role.physiotherapist' => '物理治疗师',
 			'auth.user_role.radiologist' => '放射科医生',
+			'auth.user_role.pathologist' => '病理学家',
+			'auth.user_role.nutritionist' => '营养师',
+			'auth.user_role.psychologist' => '心理学家',
+			'auth.user_role.optometrist' => '验光师',
 			'booking.addon.empty' => '没有可用的附加服务。',
 			'booking.addon.estimated_budget' => '预计预算',
 			'booking.addon.title.kDefault' => '附加服务',
@@ -1042,10 +1052,10 @@ extension on TranslationsZh {
 			'booking.schedule.submit_button' => '提交',
 			'booking.schedule.submitting_button' => '正在提交...',
 			'booking.schedule.title' => '选择时间表',
-			'dashboard.allied_services' => '辅助医疗',
 			'dashboard.chat_ai_placeholder' => '咨询AI医生，解答您的健康疑问',
 			'dashboard.greeting' => ({required Object displayName}) => '更长寿，更健康，${displayName}！',
 			'dashboard.main_services' => '服务预约',
+			'dashboard.other_services' => '其他服务',
 			'dashboard.services.diabetic_care' => 'iRX糖尿病护理',
 			'dashboard.services.dietitian' => '营养师服务',
 			'dashboard.services.health_risk_assessment' => '健康风险评估',
@@ -1058,6 +1068,8 @@ extension on TranslationsZh {
 			'dashboard.services.remote_patient_monitoring' => '远程健康监测',
 			'dashboard.services.second_opinion' => '医学影像第二意见',
 			'dashboard.services.sleep_and_mental_health' => '睡眠与心理健康',
+			'dashboard.services.psychologist' => '心理学家',
+			'dashboard.services.optometrist' => '验光师',
 			'global.add' => '添加',
 			'global.book_now' => '立即预订',
 			'global.cancel' => '取消',

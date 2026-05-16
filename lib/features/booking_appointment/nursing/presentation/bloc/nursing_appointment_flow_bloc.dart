@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/booking_appointment/nursing/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/health_status.dart';

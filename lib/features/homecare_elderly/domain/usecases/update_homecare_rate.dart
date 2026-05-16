@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/core/error/failures.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
 import 'package:m2health/features/homecare_elderly/domain/repositories/homecare_repository.dart';
 
 class UpdateHomecareRate {
@@ -9,7 +9,7 @@ class UpdateHomecareRate {
 
   UpdateHomecareRate(this.repository);
 
-  Future<Either<Failure, AddOnService>> call(UpdateHomecareRateParams params) async {
+  Future<Either<Failure, ServiceEntity>> call(UpdateHomecareRateParams params) async {
     return await repository.updateHomecareRate(params.id, params.price);
   }
 }

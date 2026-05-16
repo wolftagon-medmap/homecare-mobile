@@ -6,11 +6,13 @@ import 'package:m2health/features/payment/data/repositories/payment_repository_i
 import 'package:m2health/features/payment/domain/repositories/feedback_repository.dart';
 import 'package:m2health/features/payment/domain/repositories/payment_repository.dart';
 import 'package:m2health/features/payment/domain/usecases/create_payment.dart';
+import 'package:m2health/features/payment/domain/usecases/pay_order.dart';
 import 'package:m2health/features/payment/domain/usecases/submit_feedback.dart';
 
 void initPaymentModule(GetIt sl) {
   // Use Cases
   sl.registerLazySingleton(() => CreatePayment(sl()));
+  sl.registerLazySingleton(() => PayOrder(sl()));
   sl.registerLazySingleton(() => SubmitFeedback(sl()));
 
   // Repository
