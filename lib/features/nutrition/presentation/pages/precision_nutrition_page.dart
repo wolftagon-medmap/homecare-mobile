@@ -76,9 +76,9 @@ class _NutritionStepTimeline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final assessmentUnlocked = true;
+    const assessmentUnlocked = true;
     final planUnlocked = state.isAssessmentSubmitted;
-    final implementationUnlocked = false;
+    const implementationUnlocked = false;
 
     return IntrinsicHeight(
       child: Row(
@@ -90,11 +90,11 @@ class _NutritionStepTimeline extends StatelessWidget {
             child: Column(
               children: [
                 const Expanded(flex: 1, child: (SizedBox())),
-                _StepBadge(step: 1, unlocked: assessmentUnlocked),
+                const _StepBadge(step: 1, unlocked: assessmentUnlocked),
                 _ConnectorLine(unlocked: planUnlocked),
                 _StepBadge(step: 2, unlocked: planUnlocked),
-                _ConnectorLine(unlocked: implementationUnlocked),
-                _StepBadge(step: 3, unlocked: implementationUnlocked),
+                const _ConnectorLine(unlocked: implementationUnlocked),
+                const _StepBadge(step: 3, unlocked: implementationUnlocked),
                 const Expanded(flex: 1, child: (SizedBox())),
               ],
             ),
@@ -226,7 +226,7 @@ class _StepCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final effectiveBg =
-        unlocked ? backgroundColor : backgroundColor.withOpacity(0.5);
+        unlocked ? backgroundColor : backgroundColor.withValues(alpha: 0.5);
 
     return Container(
       decoration: BoxDecoration(

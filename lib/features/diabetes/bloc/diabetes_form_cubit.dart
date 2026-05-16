@@ -155,7 +155,7 @@ class DiabetesFormCubit extends Cubit<DiabetesFormState> {
       const url = Const.API_DIABETES_PROFILE;
       final token = await Utils.getSpString(Const.TOKEN);
 
-      final response = await _dio.post(
+      await _dio.post(
         url,
         data: formData,
         options: Options(

@@ -104,6 +104,7 @@ class _SummaryItem extends StatelessWidget {
     required this.value,
     this.iconPath,
     this.icon,
+    // ignore: unused_element_parameter
     this.valueColor,
   });
 

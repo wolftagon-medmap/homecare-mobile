@@ -245,7 +245,7 @@ class AuthRepository {
 
   Future<AuthResult> requestOtp(String email) async {
     try {
-      final response = await dio.post(
+      await dio.post(
         Const.API_FORGOT_PASSWORD,
         data: {"email": email},
       );

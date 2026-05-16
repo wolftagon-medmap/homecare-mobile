@@ -15,7 +15,6 @@ import 'package:m2health/features/appointment/models/paginated_appointment_respo
 import 'package:m2health/core/data/models/appointment_model.dart';
 import 'package:m2health/features/profiles/data/models/profile_model.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
-import 'package:m2health/core/data/models/provider_appointment.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/utils.dart';
 
@@ -61,12 +60,8 @@ class AppointmentService {
             'Failed to accept appointment: ${response.statusCode} - ${response.data}');
       }
     } catch (e) {
-      print('Error accepting appointment: $e');
+      log('Error accepting appointment: $e', name: 'AppointmentService');
       if (e is DioException) {
-        print('DioException type: ${e.type}');
-        print('DioException message: ${e.message}');
-        print('DioException response: ${e.response?.data}');
-
         if (e.response?.statusCode == 404) {
           throw Exception(
               'Accept endpoint not found. Please check if the API supports this endpoint.');
@@ -109,22 +104,22 @@ class AppointmentService {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        log('✅ Appointment rejected successfully');
+        log('Appointment rejected successfully');
       } else if (response.statusCode == 404) {
-        log('❌ Appointment not found (404)');
+        log('Appointment not found (404)');
         throw Exception('Appointment not found or endpoint not available');
       } else if (response.statusCode == 403) {
-        log('❌ Permission denied (403)');
+        log('Permission denied (403)');
         throw Exception('Permission denied to reject this appointment');
       } else if (response.statusCode == 401) {
-        log('❌ Authentication failed (401)');
+        log('Authentication failed (401)');
         throw Exception('Authentication failed. Please login again.');
       } else if (response.statusCode == 422) {
-        log('❌ Validation error (422)');
+        log('Validation error (422)');
         final errorMessage = response.data['message'] ?? 'Validation failed';
         throw Exception('Validation error: $errorMessage');
       } else {
-        log('❌ Unexpected response: ${response.statusCode}');
+        log('Unexpected response: ${response.statusCode}');
         throw Exception(
             'Failed to reject appointment: ${response.statusCode} - ${response.data}');
       }
@@ -162,10 +157,6 @@ class AppointmentService {
     try {
       final token = await Utils.getSpString(Const.TOKEN);
 
-      print('Attempting to complete appointment $appointmentId');
-      print(
-          'Using endpoint: ${Const.URL_API}/provider/appointments/$appointmentId/complete');
-
       final response = await _dio.post(
         '${Const.URL_API}/provider/appointments/$appointmentId/complete',
         options: Options(
@@ -179,71 +170,17 @@ class AppointmentService {
         ),
       );
 
-      print('Complete appointment response status: ${response.statusCode}');
-      print('Complete appointment response data: ${response.data}');
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        print('Appointment completed successfully');
-      } else if (response.statusCode == 404) {
+      if (response.statusCode == 404) {
         throw Exception('Appointment not found or endpoint not available');
       } else {
         throw Exception(
             'Failed to complete appointment: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error completing appointment: $e');
+      log('Error completing appointment: $e', name: 'AppointmentService');
       throw Exception('Error completing appointment: $e');
     }
   }
-
-  /// Fetch provider appointments
-  Future<List<ProviderAppointment>> fetchProviderAppointments(
-      String providerType) async {
-    try {
-      final token = await Utils.getSpString(Const.TOKEN);
-
-      print('Fetching provider appointments for: $providerType');
-      print(
-          'Using endpoint: ${Const.URL_API}/provider/appointments?provider_type=$providerType');
-
-      final response = await _dio.get(
-        '${Const.URL_API}/provider/appointments',
-        queryParameters: {'provider_type': providerType},
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-            'Content-Type': 'application/json',
-          },
-          validateStatus: (status) {
-            return status != null && status < 500;
-          },
-        ),
-      );
-
-      print(
-          'Fetch provider appointments response status: ${response.statusCode}');
-      print('Fetch provider appointments response data: ${response.data}');
-
-      if (response.statusCode == 200) {
-        if (response.data == null || response.data['data'] == null) {
-          return [];
-        }
-
-        final data = response.data['data'] as List;
-        return data.map((json) => ProviderAppointment.fromJson(json)).toList();
-      } else if (response.statusCode == 404) {
-        throw Exception('Provider appointments endpoint not found');
-      } else {
-        throw Exception(
-            'Failed to load provider appointments: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error fetching provider appointments: $e');
-      throw Exception('Error fetching provider appointments: $e');
-    }
-  }
-
-  // Other existing methods...
 
   Future<PaginatedAppointmentsResponse> fetchPatientAppointments({
     String? status,
@@ -460,7 +397,7 @@ class AppointmentService {
           final errorData = e.response?.data;
           if (errorData != null && errorData['errors'] != null) {
             final errors = errorData['errors'] as List;
-            final errorDetails = errors
+            errors
                 .map((error) => '${error['field']}: ${error['message']}')
                 .join(', ');
           }
@@ -512,7 +449,6 @@ class AppointmentService {
       throw Exception('Unknown error creating appointment.');
     }
   }
-
 
   // ── v2: Order & Payment ──────────────────────────────────────────────────
 
@@ -592,8 +528,8 @@ class AppointmentService {
       return DiagnosticReportModel.fromJson(data as Map<String, dynamic>);
     } catch (e) {
       if (e is DioException) {
-        throw BadRequestFailure(
-            e.response?.data['message'] ?? 'Failed to create diagnostic report');
+        throw BadRequestFailure(e.response?.data['message'] ??
+            'Failed to create diagnostic report');
       }
       rethrow;
     }
@@ -618,8 +554,8 @@ class AppointmentService {
       return DiagnosticReportModel.fromJson(data as Map<String, dynamic>);
     } catch (e) {
       if (e is DioException) {
-        throw BadRequestFailure(
-            e.response?.data['message'] ?? 'Failed to upload diagnostic report');
+        throw BadRequestFailure(e.response?.data['message'] ??
+            'Failed to upload diagnostic report');
       }
       rethrow;
     }
@@ -634,8 +570,8 @@ class AppointmentService {
       );
     } catch (e) {
       if (e is DioException) {
-        throw BadRequestFailure(
-            e.response?.data['message'] ?? 'Failed to delete diagnostic report');
+        throw BadRequestFailure(e.response?.data['message'] ??
+            'Failed to delete diagnostic report');
       }
       rethrow;
     }
@@ -702,8 +638,6 @@ class AppointmentService {
       // Ensure user_id is included and is a number
       final dataToSend = appointmentData;
 
-      print('Updating appointment $appointmentId with data: $dataToSend');
-
       final response = await _dio.put(
         '${Const.API_APPOINTMENT}/$appointmentId',
         data: dataToSend, // Send as Map, not JSON string
@@ -715,22 +649,20 @@ class AppointmentService {
         ),
       );
 
-      print('Update appointment response status: ${response.statusCode}');
-      print('Update appointment response data: ${response.data}');
-
       if (response.statusCode == 200 || response.statusCode == 201) {
         return response.data;
       } else {
         throw Exception(
             'Failed to update appointment: ${response.statusCode} - ${response.data}');
       }
-    } catch (e) {
-      print('Error updating appointment: $e');
+    } catch (e, stackTrace) {
+      log(
+        'Error updating appointment',
+        name: 'AppointmentService',
+        error: e,
+        stackTrace: stackTrace,
+      );
       if (e is DioException) {
-        print('DioException type: ${e.type}');
-        print('DioException message: ${e.message}');
-        print('DioException response: ${e.response?.data}');
-
         if (e.response?.statusCode == 422) {
           final errorDetails = e.response?.data;
           throw Exception(

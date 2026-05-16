@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:m2health/features/settings/language/app_languages_setting.dart';
 import 'package:m2health/features/pharmacogenomics/presentation/pharmagenomical_pages.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/manage_services_cubit.dart';
@@ -140,6 +139,5 @@ class ProfileDetailRoutes {
         return const ManageServicesPage();
       },
     ),
-
   ];
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 class Const {
@@ -16,33 +18,33 @@ class Const {
   //   static const String BASE_URL = 'http://10.0.2.2:3333'; // Android emulator
   static const String BASE_URL = 'https://homecare-api.med-map.org';
 
-  static const String URL_API = BASE_URL + '/v1';
+  static const String URL_API = '$BASE_URL/v1';
   static const String URL_IMG_PLACEHOLDER = 'https://placehold.co/100x100';
 
-  static const String API_SERVICE_REQUESTS = URL_API + '/service-requests';
-  static const String API_PRODUCTS = URL_API + '/products/';
-  static const String API_LOGIN = URL_API + '/auth/login';
-  static const String API_REGISTER = URL_API + '/auth/register';
-  static const String API_COUNTRIES = URL_API + '/countries';
-  static const String API_FORGOT_PASSWORD = URL_API + '/auth/forgot-password';
-  static const String API_VERIFY_OTP = URL_API + '/auth/verify-otp';
-  static const String API_RESET_PASSWORD = URL_API + '/auth/reset-password';
-  static const String API_APPOINTMENT = URL_API + '/appointments';
-  static const String API_PROFILE = URL_API + '/profiles';
-  static const String API_MEDICAL_STORE = URL_API + '/medical-stores';
-  static const String API_MEDICAL_RECORDS = URL_API + '/medical-records';
-  static const String API_FILE_UPLOADS = URL_API + '/file-uploads';
-  static const String API_PERSONAL_CASES = URL_API + '/personal-cases';
-  static const String API_CERTIFICATES = URL_API + '/certificates';
+  static const String API_SERVICE_REQUESTS = '$URL_API/service-requests';
+  static const String API_PRODUCTS = '$URL_API/products/';
+  static const String API_LOGIN = '$URL_API/auth/login';
+  static const String API_REGISTER = '$URL_API/auth/register';
+  static const String API_COUNTRIES = '$URL_API/countries';
+  static const String API_FORGOT_PASSWORD = '$URL_API/auth/forgot-password';
+  static const String API_VERIFY_OTP = '$URL_API/auth/verify-otp';
+  static const String API_RESET_PASSWORD = '$URL_API/auth/reset-password';
+  static const String API_APPOINTMENT = '$URL_API/appointments';
+  static const String API_PROFILE = '$URL_API/profiles';
+  static const String API_MEDICAL_STORE = '$URL_API/medical-stores';
+  static const String API_MEDICAL_RECORDS = '$URL_API/medical-records';
+  static const String API_FILE_UPLOADS = '$URL_API/file-uploads';
+  static const String API_PERSONAL_CASES = '$URL_API/personal-cases';
+  static const String API_CERTIFICATES = '$URL_API/certificates';
   static const String API_DIABETES_PROFILE = '$URL_API/diabetes-profile';
 
   static const String API_PERSONAL_ISSUES = '$URL_API/personal-issues';
 
   // Personal Cases
   static const String API_NURSING_PERSONAL_CASES =
-      URL_API + '/nursing/personal-cases';
+      '$URL_API/nursing/personal-cases';
   static const String API_PHARMACIST_PERSONAL_CASES =
-      URL_API + '/pharmacist/personal-cases';
+      '$URL_API/pharmacist/personal-cases';
 
   // Pharmacogenomics
   static const String API_PHARMACOGENOMICS = '$URL_API/pharmacogenomics';
@@ -50,22 +52,22 @@ class Const {
   // Wellness Genomics
   static const String API_WELLNESS_GENOMICS = '$URL_API/wellness-genomics';
 
-  static const String API_PROFESSIONALS = URL_API + '/professionals';
+  static const String API_PROFESSIONALS = '$URL_API/professionals';
 
-  static const String API_SERVICE_TITLES = URL_API + '/service-titles';
+  static const String API_SERVICE_TITLES = '$URL_API/service-titles';
   static const String API_SCREENING_SERVICE = '$URL_API/screening-services';
   static const String API_ADMIN_SCREENING_SERVICES =
       '$URL_API/admin/screening-services';
-  static const String API_FAVORITES = URL_API + '/favorites';
+  static const String API_FAVORITES = '$URL_API/favorites';
   // Existing constants...
   static const String API_PROVIDER_APPOINTMENTS =
-      URL_API + '/provider/appointments';
+      '$URL_API/provider/appointments';
 
   // Provider appointment actions
-  static const String API_PROVIDER_ACCEPT = URL_API + '/provider/appointments';
-  static const String API_PROVIDER_REJECT = URL_API + '/provider/appointments';
+  static const String API_PROVIDER_ACCEPT = '$URL_API/provider/appointments';
+  static const String API_PROVIDER_REJECT = '$URL_API/provider/appointments';
   static const String API_PROVIDER_COMPLETE =
-      URL_API + '/provider/appointments';
+      '$URL_API/provider/appointments';
 
   static const String API_NUTRITION_ASSESSMENT =
       '$URL_API/nutrition-assessments';

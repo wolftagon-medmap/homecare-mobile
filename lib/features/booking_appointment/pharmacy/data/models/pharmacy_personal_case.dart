@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:m2health/core/data/models/service_model.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/data/models/personal_issue_model.dart';

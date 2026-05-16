@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
 import 'package:m2health/i18n/translations.g.dart';
@@ -24,7 +23,6 @@ class _DashboardState extends State<Dashboard> {
   int limitItem = 3;
   String keyword = "";
   late ScrollController _scrollController;
-  bool _isScrolledToEnd = false;
 
   @override
   void initState() {
@@ -36,11 +34,9 @@ class _DashboardState extends State<Dashboard> {
         if (_scrollController.position.pixels ==
             _scrollController.position.maxScrollExtent) {
           setState(() {
-            _isScrolledToEnd = true;
           });
         } else {
           setState(() {
-            _isScrolledToEnd = false;
           });
         }
       });
@@ -77,7 +73,7 @@ class _DashboardState extends State<Dashboard> {
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.2), // Warna shadow
+                color: Colors.black.withValues(alpha: 0.2), // Warna shadow
                 spreadRadius: 5,
                 blurRadius: 7,
                 offset: const Offset(0, 3), // Posisi shadow

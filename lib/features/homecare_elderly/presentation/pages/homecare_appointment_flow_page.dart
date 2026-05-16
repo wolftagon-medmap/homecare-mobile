@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +14,6 @@ import 'package:m2health/features/homecare_elderly/domain/entities/billing_type.
 import 'package:m2health/features/homecare_elderly/presentation/bloc/homecare_appointment_flow_bloc.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
-import 'package:m2health/features/payment/presentation/pages/payment_page.dart';
 
 import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
 import 'package:m2health/features/subscription/presentation/bloc/subscription_state.dart';
@@ -93,8 +90,7 @@ class _HomecareAppointmentFlowPageState
           if (state.submissionStatus == AppointmentSubmissionStatus.success) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content:
-                    Text(context.l10n.booking_appointment_created_success),
+                content: Text(context.l10n.booking_appointment_created_success),
                 backgroundColor: Colors.green,
               ),
             );
@@ -132,7 +128,7 @@ class _HomecareAppointmentFlowPageState
         builder: (context, state) {
           return PopScope(
             canPop: false,
-            onPopInvoked: (bool didPop) {
+            onPopInvokedWithResult: (bool didPop, Object? result) {
               if (didPop) return;
               _onBack(context);
             },
@@ -350,6 +346,7 @@ class _HomecareReviewPage extends StatelessWidget {
   Widget _buildBillingSection(BuildContext context) {
     return BlocBuilder<SubscriptionCubit, SubscriptionState>(
       builder: (context, subscriptionState) {
+        // ignore: constant_identifier_names
         const HOMECARE_DURATION_HOURS = 2;
         final subscriptionBalance = subscriptionState.totalBalance;
         final canUseSubscription =
@@ -406,11 +403,12 @@ class _HomecareReviewPage extends StatelessWidget {
                     ),
                     const Divider(height: 1),
                     RadioListTile<BillingType>(
-                      title: Text(context.l10n.homecare_use_subscription_balance,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                          )),
+                      title:
+                          Text(context.l10n.homecare_use_subscription_balance,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                              )),
                       subtitle: Text(
                         canUseSubscription
                             ? context.l10n.homecare_deduct_hours(
@@ -466,7 +464,8 @@ class _HomecareReviewPage extends StatelessWidget {
               )
             : Text(
                 context.l10n.homecare_confirm_booking_btn,
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
       ),
     );

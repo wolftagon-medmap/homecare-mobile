@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:m2health/features/chatbot/domain/entities/chat_event.dart';
 import 'package:m2health/features/chatbot/domain/entities/attachment.dart';

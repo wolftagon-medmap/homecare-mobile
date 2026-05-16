@@ -95,9 +95,10 @@ class ScreeningReportSubmissionView extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.1),
+                    color: Colors.blue.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.blue.withOpacity(0.3)),
+                    border:
+                        Border.all(color: Colors.blue.withValues(alpha: 0.3)),
                   ),
                   child: const Row(
                     children: [
@@ -149,7 +150,7 @@ class ScreeningReportSubmissionView extends StatelessWidget {
                                 leading: Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color: Const.aqua.withOpacity(0.1),
+                                    color: Const.aqua.withValues(alpha: 0.1),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: const Icon(Icons.picture_as_pdf,
@@ -247,8 +248,9 @@ class ScreeningReportSubmissionView extends StatelessWidget {
                         if (result != null) {
                           File file = File(result.files.single.path!);
                           if (context.mounted) {
-                            context.read<ScreeningReportCubit>().uploadReport(
-                                appointment!.id!, file);
+                            context
+                                .read<ScreeningReportCubit>()
+                                .uploadReport(appointment!.id!, file);
                           }
                         }
                       },
@@ -306,7 +308,7 @@ class ScreeningReportSubmissionView extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.green.withOpacity(0.1),
+                      color: Colors.green.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Column(

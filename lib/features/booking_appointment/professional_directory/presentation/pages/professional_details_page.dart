@@ -168,7 +168,7 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                 children: [
                   Text(
                     '${professional.completedAppointmentsCount}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                       color: Const.tosca,
@@ -409,10 +409,10 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
                       children: [
                         CircleAvatar(
                           backgroundColor: Colors.grey.shade200,
-                          backgroundImage: review.reviewer.avatar != null
+                          backgroundImage: review.reviewer.avatar.isEmpty
                               ? NetworkImage(review.reviewer.avatar)
                               : null,
-                          child: (review.reviewer.avatar == null)
+                          child: (review.reviewer.avatar.isEmpty)
                               ? const Icon(Icons.person,
                                   size: 30, color: Colors.grey)
                               : null,

@@ -2,17 +2,9 @@ import 'package:m2health/core/data/models/care_plan_model.dart';
 import 'package:m2health/core/data/models/diagnostic_report_model.dart';
 import 'package:m2health/core/data/models/order_model.dart';
 import 'package:m2health/core/data/models/service_request_model.dart';
-import 'package:m2health/features/home_health_screening/data/models/screening_request_data.dart';
-import 'package:m2health/features/homecare_elderly/data/model/homecare_request_data_model.dart';
-import 'package:m2health/features/payment/data/model/payment_model.dart';
-import 'package:m2health/features/booking_appointment/nursing/data/models/nursing_personal_case.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
-import 'package:m2health/features/booking_appointment/pharmacy/data/models/pharmacy_personal_case.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/data/models/professional_model.dart';
 import 'package:m2health/features/profiles/data/models/profile_model.dart';
-import 'package:m2health/features/physiotherapy/data/models/physiotherapy_request_data_model.dart';
-import 'package:m2health/features/second_opinion_imaging/data/models/second_opinion_imaging_request_data_model.dart';
-import 'package:m2health/features/second_opinion_imaging/data/models/second_opinion_imaging_feedback_model.dart';
 
 class AppointmentModel extends AppointmentEntity {
   const AppointmentModel({

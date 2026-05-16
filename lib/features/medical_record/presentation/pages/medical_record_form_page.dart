@@ -45,7 +45,7 @@ class MedicalRecordFormView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-  resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text(
           isEditMode ? 'Edit Medical Record' : 'Add New Medical Record',
@@ -290,32 +290,32 @@ class _SpecialConsiderationCheckboxes extends StatelessWidget {
   }
 }
 
-class _TreatmentInfoInput extends StatelessWidget {
-  final String? initialValue;
-  const _TreatmentInfoInput({this.initialValue});
+// class _TreatmentInfoInput extends StatelessWidget {
+//   final String? initialValue;
+//   const _TreatmentInfoInput({this.initialValue});
 
-  @override
-  Widget build(BuildContext context) {
-    // --- CHANGED ---
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const _FieldLabel('Treatment Info'),
-        TextFormField(
-          initialValue: initialValue,
-          decoration: const InputDecoration(
-            hintText: 'Describe treatment plan...',
-            border: OutlineInputBorder(),
-          ),
-          maxLines: 3,
-          onChanged: (value) => context
-              .read<MedicalRecordFormCubit>()
-              .treatmentInfoChanged(value),
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     // --- CHANGED ---
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         const _FieldLabel('Treatment Info'),
+//         TextFormField(
+//           initialValue: initialValue,
+//           decoration: const InputDecoration(
+//             hintText: 'Describe treatment plan...',
+//             border: OutlineInputBorder(),
+//           ),
+//           maxLines: 3,
+//           onChanged: (value) => context
+//               .read<MedicalRecordFormCubit>()
+//               .treatmentInfoChanged(value),
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 class _FilePicker extends StatelessWidget {
   @override
@@ -334,7 +334,6 @@ class _FilePicker extends StatelessWidget {
                     record: state.initialRecord!,
                     visibleIds: state.existingUploadedFileIds,
                   ),
-
                 OutlinedButton.icon(
                   icon: const Icon(Icons.attach_file),
                   label: const Text('Pick Files'),
@@ -359,7 +358,6 @@ class _FilePicker extends StatelessWidget {
                         );
                   },
                 ),
-
                 if (state.fileUploadStatus == FileUploadStatus.uploading)
                   const Padding(
                     padding: EdgeInsets.only(top: 8.0),
@@ -383,7 +381,6 @@ class _FilePicker extends StatelessWidget {
                       style: const TextStyle(color: Colors.red),
                     ),
                   ),
-
                 if (state.pickedFiles.isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.only(top: 12.0),
@@ -438,7 +435,7 @@ class _ExistingFilesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  final files = record.files.where((f) => visibleIds.contains(f.id)).toList();
+    final files = record.files.where((f) => visibleIds.contains(f.id)).toList();
     if (files.isEmpty) return const SizedBox.shrink();
 
     return Padding(
@@ -482,16 +479,18 @@ class _ExistingFilesList extends StatelessWidget {
 
   String _displayNameForExistingFile(dynamic f) {
     // `f` is a domain `FileUpload` (from entity). It has `path` and `url`.
-  final originalName = (f as FileUpload).originalName;
-  if (originalName != null && originalName.trim().isNotEmpty) return originalName;
+    final originalName = (f as FileUpload).originalName;
+    if (originalName != null && originalName.trim().isNotEmpty) {
+      return originalName;
+    }
 
-  final url = (f as FileUpload).url;
-  final path = (f as FileUpload).path;
+    final url = (f).url;
+    final path = (f).path;
     final value = (url is String && url.isNotEmpty)
         ? url
         : (path is String && path.isNotEmpty)
             ? path
-      : 'File #${(f as FileUpload).id}';
+            : 'File #${(f).id}';
 
     final cleaned = value.split('?').first;
     return p.basename(cleaned);
