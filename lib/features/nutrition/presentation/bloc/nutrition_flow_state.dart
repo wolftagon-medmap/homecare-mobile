@@ -1,67 +1,13 @@
 part of 'nutrition_flow_bloc.dart';
 
-class HealthProfile {
-  final String? knownCondition;
-  final List<String> specialConsiderations;
-  final String? medicationHistory;
-  final String? familyHistory;
-
-  HealthProfile({
-    this.knownCondition,
-    this.specialConsiderations = const [],
-    this.medicationHistory,
-    this.familyHistory,
-  });
-}
-
-class LifestyleHabits {
-  final double? sleepHours;
-  final String? activityLevel;
-  final String? exerciseFrequency;
-  final String? stressLevel;
-  final String? smokingAlcoholHabits;
-
-  LifestyleHabits({
-    this.sleepHours,
-    this.activityLevel,
-    this.exerciseFrequency,
-    this.stressLevel,
-    this.smokingAlcoholHabits,
-  });
-}
-
-class NutritionHabits {
-  final String? mealFrequency;
-  final String? foodSensitivities;
-  final String? favoriteFoods;
-  final String? avoidedFoods;
-  final String? waterIntake;
-  final String? pastDiets;
-
-  NutritionHabits({
-    this.mealFrequency,
-    this.foodSensitivities,
-    this.favoriteFoods,
-    this.avoidedFoods,
-    this.waterIntake,
-    this.pastDiets,
-  });
-}
-
 class NutritionFlowState extends Equatable {
   // 0=MainConcern, 1=InfoPage, 2=HealthHistory, 3=SelfRatedHealth,
   // 4=LifestyleHabits, 5=NutritionHabits, 6=BiomarkerUpload
   final int assessmentStep;
 
-  // Assessment data
+  // Assessment data (bundled)
   final int? questionnaireResponseId;
-  final String? mainConcern;
-  final double selfRatedHealth;
-  final HealthProfile? healthProfile;
-  final LifestyleHabits? lifestyleHabits;
-  final NutritionHabits? nutritionHabits;
-  final List<File> files;
-  final List<String> fileUrls;
+  final NutritionAssessmentData assessment;
 
   // Booking data
   final ProfessionalEntity? selectedProfessional;
@@ -74,6 +20,7 @@ class NutritionFlowState extends Equatable {
   final bool isBookingAppointment;
   final String? errorMessage;
 
+
   bool get isAssessmentSubmitted => questionnaireResponseId != null;
   bool get isLoading =>
       isInitializing || isSubmittingAssessment || isBookingAppointment;
@@ -81,13 +28,7 @@ class NutritionFlowState extends Equatable {
   const NutritionFlowState({
     this.assessmentStep = 0,
     this.questionnaireResponseId,
-    this.mainConcern,
-    this.selfRatedHealth = 1.0,
-    this.healthProfile,
-    this.lifestyleHabits,
-    this.nutritionHabits,
-    this.files = const [],
-    this.fileUrls = const [],
+    this.assessment = const NutritionAssessmentData(),
     this.selectedProfessional,
     this.selectedTimeSlot,
     this.createdAppointment,
@@ -100,13 +41,7 @@ class NutritionFlowState extends Equatable {
   NutritionFlowState copyWith({
     int? assessmentStep,
     int? questionnaireResponseId,
-    String? mainConcern,
-    double? selfRatedHealth,
-    HealthProfile? healthProfile,
-    LifestyleHabits? lifestyleHabits,
-    NutritionHabits? nutritionHabits,
-    List<File>? files,
-    List<String>? fileUrls,
+    NutritionAssessmentData? assessment,
     ProfessionalEntity? selectedProfessional,
     TimeSlot? selectedTimeSlot,
     AppointmentEntity? createdAppointment,
@@ -122,13 +57,7 @@ class NutritionFlowState extends Equatable {
       assessmentStep: assessmentStep ?? this.assessmentStep,
       questionnaireResponseId:
           questionnaireResponseId ?? this.questionnaireResponseId,
-      mainConcern: mainConcern ?? this.mainConcern,
-      selfRatedHealth: selfRatedHealth ?? this.selfRatedHealth,
-      healthProfile: healthProfile ?? this.healthProfile,
-      lifestyleHabits: lifestyleHabits ?? this.lifestyleHabits,
-      nutritionHabits: nutritionHabits ?? this.nutritionHabits,
-      files: files ?? this.files,
-      fileUrls: fileUrls ?? this.fileUrls,
+      assessment: assessment ?? this.assessment,
       selectedProfessional: clearSelectedProfessional
           ? null
           : (selectedProfessional ?? this.selectedProfessional),
@@ -148,13 +77,7 @@ class NutritionFlowState extends Equatable {
   List<Object?> get props => [
         assessmentStep,
         questionnaireResponseId,
-        mainConcern,
-        selfRatedHealth,
-        healthProfile,
-        lifestyleHabits,
-        nutritionHabits,
-        files,
-        fileUrls,
+        assessment,
         selectedProfessional,
         selectedTimeSlot,
         createdAppointment,

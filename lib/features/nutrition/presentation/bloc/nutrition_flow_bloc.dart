@@ -7,6 +7,7 @@ import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/domain/entities/time_slot.dart';
+import 'package:m2health/features/nutrition/domain/entities/nutrition_assessment_data.dart';
 import 'package:m2health/features/nutrition/domain/usecases/create_nutrition_appointment.dart';
 
 part 'nutrition_flow_event.dart';
@@ -45,14 +46,7 @@ class NutritionFlowBloc extends Bloc<NutritionFlowEvent, NutritionFlowState> {
     NutritionFlowStarted event,
     Emitter<NutritionFlowState> emit,
   ) async {
-    emit(state.copyWith(
-      isInitializing: true,
-      assessmentStep: 0,
-      clearSelectedProfessional: true,
-      selectedTimeSlot: null,
-      clearAppointment: true,
-      clearError: true,
-    ));
+    emit(const NutritionFlowState(isInitializing: true));
 
     try {
       final data = await _questionnaireService
@@ -68,32 +62,7 @@ class NutritionFlowBloc extends Bloc<NutritionFlowEvent, NutritionFlowState> {
 
       emit(NutritionFlowState(
         questionnaireResponseId: responseId,
-        mainConcern: answers['main_concern'] as String?,
-        selfRatedHealth:
-            (answers['self_rated_health'] as num?)?.toDouble() ?? 1.0,
-        healthProfile: HealthProfile(
-          knownCondition: answers['known_condition'] as String?,
-          specialConsiderations: answers['special_considerations'] is List
-              ? List<String>.from(answers['special_considerations'] as List)
-              : const [],
-          medicationHistory: answers['medication_history'] as String?,
-          familyHistory: answers['family_health_history'] as String?,
-        ),
-        lifestyleHabits: LifestyleHabits(
-          sleepHours: (answers['sleep_hours'] as num?)?.toDouble(),
-          activityLevel: answers['activity_level'] as String?,
-          exerciseFrequency: answers['exercise_frequency'] as String?,
-          stressLevel: answers['stress_level'] as String?,
-          smokingAlcoholHabits: answers['smoking_alcohol_habit'] as String?,
-        ),
-        nutritionHabits: NutritionHabits(
-          mealFrequency: answers['meal_frequency'] as String?,
-          foodSensitivities: answers['food_sensitivities'] as String?,
-          favoriteFoods: answers['favorite_foods'] as String?,
-          avoidedFoods: answers['avoided_foods'] as String?,
-          waterIntake: answers['water_intake'] as String?,
-          pastDiets: answers['past_diet'] as String?,
-        ),
+        assessment: NutritionAssessmentData.fromAnswers(answers),
         isInitializing: false,
       ));
     } catch (e, st) {
@@ -107,44 +76,57 @@ class NutritionFlowBloc extends Bloc<NutritionFlowEvent, NutritionFlowState> {
 
   void _onMainConcernSet(
       NutritionFlowMainConcernSet event, Emitter<NutritionFlowState> emit) {
-    emit(state.copyWith(mainConcern: event.concern));
+    emit(state.copyWith(
+        assessment: state.assessment.copyWith(mainConcern: event.concern)));
   }
 
   void _onSelfRatedHealthUpdated(NutritionFlowSelfRatedHealthUpdated event,
       Emitter<NutritionFlowState> emit) {
-    emit(state.copyWith(selfRatedHealth: event.rating));
+    emit(state.copyWith(
+        assessment: state.assessment.copyWith(selfRatedHealth: event.rating)));
   }
 
   void _onHealthProfileUpdated(NutritionFlowHealthProfileUpdated event,
       Emitter<NutritionFlowState> emit) {
-    emit(state.copyWith(healthProfile: event.profile));
+    emit(state.copyWith(
+        assessment: state.assessment.copyWith(healthProfile: event.profile)));
   }
 
   void _onLifestyleHabitsUpdated(NutritionFlowLifestyleHabitsUpdated event,
       Emitter<NutritionFlowState> emit) {
-    emit(state.copyWith(lifestyleHabits: event.habits));
+    emit(state.copyWith(
+        assessment: state.assessment.copyWith(lifestyleHabits: event.habits)));
   }
 
   void _onNutritionHabitsUpdated(NutritionFlowNutritionHabitsUpdated event,
       Emitter<NutritionFlowState> emit) {
-    emit(state.copyWith(nutritionHabits: event.habits));
+    emit(state.copyWith(
+        assessment: state.assessment.copyWith(nutritionHabits: event.habits)));
   }
 
   void _onFileAdded(
       NutritionFlowFileAdded event, Emitter<NutritionFlowState> emit) {
-    emit(state.copyWith(files: [...state.files, event.file]));
+    emit(state.copyWith(
+        assessment: state.assessment
+            .copyWith(files: [...state.assessment.files, event.file])));
   }
 
   void _onFileRemoved(
       NutritionFlowFileRemoved event, Emitter<NutritionFlowState> emit) {
     emit(state.copyWith(
-        files: state.files.where((f) => f != event.file).toList()));
+        assessment: state.assessment.copyWith(
+            files: state.assessment.files
+                .where((f) => f != event.file)
+                .toList())));
   }
 
   void _onFileUrlRemoved(
       NutritionFlowFileUrlRemoved event, Emitter<NutritionFlowState> emit) {
     emit(state.copyWith(
-        fileUrls: state.fileUrls.where((u) => u != event.url).toList()));
+        assessment: state.assessment.copyWith(
+            fileUrls: state.assessment.fileUrls
+                .where((u) => u != event.url)
+                .toList())));
   }
 
   // --- Assessment submission ---------------------------------------------------
@@ -156,24 +138,25 @@ class NutritionFlowBloc extends Bloc<NutritionFlowEvent, NutritionFlowState> {
     emit(state.copyWith(isSubmittingAssessment: true, clearError: true));
 
     try {
+      final a = state.assessment;
       final answers = <String, dynamic>{
-        'main_concern': state.mainConcern,
-        'self_rated_health': state.selfRatedHealth.round(),
-        'known_condition': state.healthProfile?.knownCondition,
-        'special_considerations': state.healthProfile?.specialConsiderations,
-        'medication_history': state.healthProfile?.medicationHistory,
-        'family_health_history': state.healthProfile?.familyHistory,
-        'sleep_hours': state.lifestyleHabits?.sleepHours,
-        'activity_level': state.lifestyleHabits?.activityLevel,
-        'exercise_frequency': state.lifestyleHabits?.exerciseFrequency,
-        'stress_level': state.lifestyleHabits?.stressLevel,
-        'smoking_alcohol_habit': state.lifestyleHabits?.smokingAlcoholHabits,
-        'meal_frequency': state.nutritionHabits?.mealFrequency,
-        'food_sensitivities': state.nutritionHabits?.foodSensitivities,
-        'favorite_foods': state.nutritionHabits?.favoriteFoods,
-        'avoided_foods': state.nutritionHabits?.avoidedFoods,
-        'water_intake': state.nutritionHabits?.waterIntake,
-        'past_diet': state.nutritionHabits?.pastDiets,
+        'main_concern': a.mainConcern,
+        'self_rated_health': a.selfRatedHealth.round(),
+        'known_condition': a.healthProfile?.knownCondition,
+        'special_considerations': a.healthProfile?.specialConsiderations,
+        'medication_history': a.healthProfile?.medicationHistory,
+        'family_health_history': a.healthProfile?.familyHistory,
+        'sleep_hours': a.lifestyleHabits?.sleepHours,
+        'activity_level': a.lifestyleHabits?.activityLevel,
+        'exercise_frequency': a.lifestyleHabits?.exerciseFrequency,
+        'stress_level': a.lifestyleHabits?.stressLevel,
+        'smoking_alcohol_habit': a.lifestyleHabits?.smokingAlcoholHabits,
+        'meal_frequency': a.nutritionHabits?.mealFrequency,
+        'food_sensitivities': a.nutritionHabits?.foodSensitivities,
+        'favorite_foods': a.nutritionHabits?.favoriteFoods,
+        'avoided_foods': a.nutritionHabits?.avoidedFoods,
+        'water_intake': a.nutritionHabits?.waterIntake,
+        'past_diet': a.nutritionHabits?.pastDiets,
       };
 
       final int responseId;

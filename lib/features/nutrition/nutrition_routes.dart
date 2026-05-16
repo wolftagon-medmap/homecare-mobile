@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:m2health/features/nutrition/bloc/nutrition_plan_cubit.dart';
-import 'package:m2health/features/nutrition/presentation/pages/nutrition_assessment_page.dart';
+import 'package:m2health/features/nutrition/presentation/bloc/nutrition_assessment_detail_cubit.dart';
+import 'package:m2health/features/nutrition/presentation/bloc/nutrition_plan_cubit.dart';
+import 'package:m2health/features/nutrition/presentation/pages/assessment/nutrition_assessment_page.dart';
 import 'package:m2health/features/nutrition/presentation/pages/nutrition_booking_flow_page.dart';
-import 'package:m2health/features/nutrition/screens/assessment/nutrition_assessment_detail_screen.dart';
-import 'package:m2health/features/nutrition/screens/implementation/implementation_journey_page.dart';
-import 'package:m2health/features/nutrition/screens/plan/nutrition_plan_page.dart';
-import 'package:m2health/features/nutrition/screens/plan/weekly_meal_plan_detail_page.dart';
-import 'package:m2health/features/nutrition/screens/plan/weekly_meal_plan_page.dart';
+import 'package:m2health/features/nutrition/presentation/pages/assessment/nutrition_assessment_detail_screen.dart';
+import 'package:m2health/features/nutrition/presentation/pages/implementation/implementation_journey_page.dart';
+import 'package:m2health/features/nutrition/presentation/pages/plan/nutrition_plan_page.dart';
+import 'package:m2health/features/nutrition/presentation/pages/plan/weekly_meal_plan_detail_page.dart';
+import 'package:m2health/features/nutrition/presentation/pages/plan/weekly_meal_plan_page.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/route/navigator_keys.dart';
+import 'package:m2health/service_locator.dart';
 
 final GlobalKey<NavigatorState> _nutritionPlanKey = GlobalKey<NavigatorState>();
 
@@ -26,7 +28,13 @@ class PrecisionNutritionRoutes {
       path: 'review',
       name: AppRoutes.nutritionReview,
       parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) => const NutritionAssessmentDetailScreen(),
+      builder: (context, state) {
+        final params = state.extra as NutritionAssessmentDetailPageParams;
+        return BlocProvider(
+          create: (_) => sl<NutritionAssessmentDetailCubit>(),
+          child: NutritionAssessmentDetailPage(params: params),
+        );
+      },
     ),
     GoRoute(
       path: 'booking',
@@ -39,8 +47,7 @@ class PrecisionNutritionRoutes {
         navigatorKey: _nutritionPlanKey,
         builder: (context, state, child) {
           return BlocProvider(
-            // Providing NutritionPlanCubit to the subtree
-            create: (context) => NutritionPlanCubit()..loadNutritionPlan(),
+            create: (_) => sl<NutritionPlanCubit>(),
             child: child,
           );
         },
@@ -49,7 +56,9 @@ class PrecisionNutritionRoutes {
               path: 'plan',
               name: AppRoutes.precisionNutritionPlan,
               builder: (context, state) {
-                return const NutritionPlanPage();
+                return NutritionPlanPage(
+                  appointmentId: state.extra as int?,
+                );
               }),
           GoRoute(
               path: 'plan/weekly',

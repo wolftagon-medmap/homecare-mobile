@@ -1336,6 +1336,8 @@
   "@precision_start_now": {},
   "precision_book_now": "Book Now",
   "@precision_book_now": {},
+  "precision_view_plan": "View Plan",
+  "@precision_view_plan": {},
   "precision_main_concern_question": "What is your main concern?",
   "@precision_main_concern_question": {},
   "precision_main_concern_subtitle": "Choose the area that best describes your primary health goal",

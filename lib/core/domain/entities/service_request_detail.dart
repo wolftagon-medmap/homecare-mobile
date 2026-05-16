@@ -227,8 +227,27 @@ class SecondOpinionImage extends Equatable {
 // ─── Nutrition ────────────────────────────────────────────────────────────────
 
 class NutritionDetail extends ServiceRequestDetail with EquatableMixin {
-  NutritionDetail();
+  final int? questionnaireResponseId;
+
+  NutritionDetail({this.questionnaireResponseId});
+
+  static NutritionDetail fromJson(Map<String, dynamic> detail) {
+    return NutritionDetail(
+      questionnaireResponseId:
+          detail['questionnaire_response_id'] as int?,
+    );
+  }
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [questionnaireResponseId];
+}
+
+// ─── Unknown ────────────────────────────────────────────────────────────────
+class UnknownDetail extends ServiceRequestDetail with EquatableMixin {
+  final Map<String, dynamic> rawDetail;
+
+  UnknownDetail(this.rawDetail);
+
+  @override
+  List<Object?> get props => [rawDetail];
 }

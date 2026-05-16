@@ -2,10 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
-import 'package:m2health/features/nutrition/domain/repositories/nutrition_appointment_repository.dart';
+import 'package:m2health/features/nutrition/domain/repositories/nutrition_repository.dart';
 
 class CreateNutritionAppointment {
-  final NutritionAppointmentRepository repository;
+  final NutritionRepository repository;
 
   CreateNutritionAppointment(this.repository);
 

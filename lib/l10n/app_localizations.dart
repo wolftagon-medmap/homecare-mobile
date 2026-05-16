@@ -2986,6 +2986,12 @@ abstract class AppLocalizations {
   /// **'Book Now'**
   String get precision_book_now;
 
+  /// No description provided for @precision_view_plan.
+  ///
+  /// In en, this message translates to:
+  /// **'View Plan'**
+  String get precision_view_plan;
+
   /// No description provided for @precision_main_concern_question.
   ///
   /// In en, this message translates to:

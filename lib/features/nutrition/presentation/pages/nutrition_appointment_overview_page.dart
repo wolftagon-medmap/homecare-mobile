@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
+import 'package:m2health/core/domain/entities/service_request_detail.dart';
+import 'package:m2health/features/nutrition/presentation/bloc/nutrition_plan_cubit.dart';
+import 'package:m2health/features/nutrition/presentation/pages/assessment/nutrition_assessment_detail_screen.dart';
+import 'package:m2health/features/nutrition/presentation/pages/plan/nutrition_plan_form_page.dart';
 import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/service_locator.dart';
 
 class NutritionAppointmentOverviewPage extends StatelessWidget {
   final AppointmentEntity appointment;
@@ -37,19 +43,17 @@ class NutritionAppointmentOverviewPage extends StatelessWidget {
               title: 'Assessment',
               subtitle: 'View the nutrition intake assessment',
               color: Const.aqua,
-              onTap: () => context.push(AppRoutes.nutritionReview),
+              onTap: () => _openAssessment(context),
             ),
             const SizedBox(height: 16),
 
-            // View Nutrition Plan — coming soon
+            // View Nutrition Plan
             _OverviewCard(
               icon: Icons.restaurant_menu_rounded,
               title: 'Nutrition Plan',
               subtitle: 'View the personalised nutrition plan',
               color: const Color(0xFF56AB2F),
-              onTap: () {
-                _showComingSoonSheet(context);
-              },
+              onTap: () => _openPlanPage(context),
             ),
 
             if (isProvider) ...[
@@ -59,9 +63,7 @@ class NutritionAppointmentOverviewPage extends StatelessWidget {
                 title: 'Submit Nutrition Plan',
                 subtitle: 'Create or update the patient\'s nutrition plan',
                 color: const Color(0xFFF79E1B),
-                onTap: () {
-                  _showComingSoonSheet(context);
-                },
+                onTap: () => _openPlanForm(context),
               ),
             ],
           ],
@@ -70,10 +72,33 @@ class NutritionAppointmentOverviewPage extends StatelessWidget {
     );
   }
 
-  void _showComingSoonSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (_) => const _ComingSoonSheet(),
+  Future<void> _openAssessment(BuildContext context) async {
+    final detail = appointment.serviceRequest?.detail as NutritionDetail?;
+    final responseId = detail!.questionnaireResponseId!;
+
+    if (context.mounted) {
+      context.push(
+        AppRoutes.nutritionReview,
+        extra: NutritionAssessmentDetailPageParams(
+          questionnaireResponseId: responseId,
+          asProvider: isProvider,
+        ),
+      );
+    }
+  }
+
+  void _openPlanPage(BuildContext context) {
+    context.push(AppRoutes.precisionNutritionPlan, extra: appointment.id);
+  }
+
+  void _openPlanForm(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => BlocProvider(
+          create: (_) => sl<NutritionPlanCubit>(),
+          child: NutritionPlanFormPage(appointmentId: appointment.id!),
+        ),
+      ),
     );
   }
 }
@@ -172,56 +197,6 @@ class _OverviewCard extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _ComingSoonSheet extends StatelessWidget {
-  const _ComingSoonSheet();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 40,
-            height: 4,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
-          const SizedBox(height: 24),
-          const Icon(Icons.hourglass_empty_rounded,
-              size: 48, color: Const.aqua),
-          const SizedBox(height: 16),
-          const Text(
-            'Coming Soon',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 8),
-          const Text(
-            'The nutrition plan feature will be available once the backend API is ready.',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.grey),
-          ),
-          const SizedBox(height: 24),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(context),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Const.aqua,
-              foregroundColor: Colors.white,
-              minimumSize: const Size(double.infinity, 48),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)),
-            ),
-            child: const Text('Got it'),
-          ),
-        ],
       ),
     );
   }

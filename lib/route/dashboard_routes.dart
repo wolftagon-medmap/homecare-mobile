@@ -6,7 +6,7 @@ import 'package:m2health/features/physiotherapy/presentation/pages/physiotherapy
 import 'package:m2health/features/nutrition/nutrition_routes.dart';
 import 'package:m2health/route/navigator_keys.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_services_page.dart';
-import 'package:m2health/features/nutrition/screens/precision_nutrition_page.dart';
+import 'package:m2health/features/nutrition/presentation/pages/precision_nutrition_page.dart';
 import 'package:m2health/features/diabetes/diabetic_care.dart';
 import 'package:m2health/features/home_health_screening/presentation/pages/home_health_screening.dart';
 import 'package:m2health/features/remote_patient_monitoring/pages/remote_patient_monitoring.dart';

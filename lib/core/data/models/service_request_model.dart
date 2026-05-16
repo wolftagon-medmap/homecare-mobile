@@ -38,9 +38,9 @@ class ServiceRequestModel extends ServiceRequestEntity {
       case 'second_opinion_imaging':
         return SecondOpinionDetail.fromJson(detail);
       case 'nutrition':
-        return NutritionDetail();
+        return NutritionDetail.fromJson(detail);
       default:
-        return NutritionDetail(); // unknown type — safe no-op subtype
+        return UnknownDetail(detail);
     }
   }
 }

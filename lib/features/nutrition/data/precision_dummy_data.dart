@@ -1,4 +1,4 @@
-import '../bloc/nutrition_plan_cubit.dart';
+import 'package:m2health/features/nutrition/domain/entities/nutrition_plan.dart';
 
 const dummyDietaryPlan = DietaryPlan(
   goal: 'Weight loss',
