@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 enum UserRole {
+  admin,
   patient,
   nurse,
   pharmacist,
@@ -13,8 +14,20 @@ enum UserRole {
   psychologist,
   optometrist;
 
+  static UserRole? fromString(String role) {
+    try {
+      return UserRole.values.firstWhere(
+        (r) => r.value.toLowerCase() == role.toLowerCase(),
+      );
+    } catch (e) {
+      return null;
+    }
+  }
+
   String get value {
     switch (this) {
+      case UserRole.admin:
+        return 'admin';
       case UserRole.patient:
         return 'patient';
       case UserRole.nurse:
@@ -40,6 +53,8 @@ enum UserRole {
 
   String getDisplayName(BuildContext context) {
     switch (this) {
+      case UserRole.admin:
+        return "Admin";
       case UserRole.patient:
         return t.auth.user_role.patient;
       case UserRole.nurse:

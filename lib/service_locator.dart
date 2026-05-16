@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/blocs/user_role_cubit.dart';
 import 'package:m2health/core/network/token_expiration_interceptor.dart';
 import 'package:m2health/features/auth/injection.dart';
 import 'package:m2health/features/booking_appointment/injection.dart';
@@ -54,8 +55,10 @@ Future<void> setupLocator() async {
   sl.registerLazySingleton(() => AppointmentService(sl()));
   sl.registerLazySingleton(() => QuestionnaireService(sl()));
   sl.registerLazySingleton(() => AIToolsService(sl()));
-  sl.registerLazySingleton(() => FcmService(sl<Dio>(), sl<SharedPreferences>()));
+  sl.registerLazySingleton(
+      () => FcmService(sl<Dio>(), sl<SharedPreferences>()));
   sl.registerFactory(() => VoiceInputCubit(aiToolsService: sl()));
+  sl.registerFactory(() => UserRoleCubit());
 
   // Feature Module Injectors
   initAuthModule(sl);
