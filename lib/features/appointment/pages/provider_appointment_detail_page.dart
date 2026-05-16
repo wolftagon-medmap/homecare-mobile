@@ -138,6 +138,7 @@ class _RequestedServicesSection extends StatelessWidget {
       SecondOpinionDetail() => <String>[],
       NutritionDetail() => <String>[],
       null => <String>[],
+      UnknownDetail() => <String>[],
     };
 
     if (names.isEmpty) return const SizedBox.shrink();

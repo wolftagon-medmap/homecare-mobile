@@ -116,7 +116,7 @@ class AppointmentTypeDetailTile extends StatelessWidget {
           ),
           usesGoRouter: false,
         ),
-      HomecareDetail() || PhysiotherapyDetail() => null,
+      HomecareDetail() || PhysiotherapyDetail() || UnknownDetail() => null,
     };
 
     if (config == null) return const SizedBox.shrink();
