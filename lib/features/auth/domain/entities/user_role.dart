@@ -79,6 +79,7 @@ enum UserRole {
   }
 }
 
+// ignore: constant_identifier_names
 const PROFESSIONAL_ROLES = [
   UserRole.nurse,
   UserRole.pharmacist,
@@ -91,6 +92,7 @@ const PROFESSIONAL_ROLES = [
   UserRole.optometrist,
 ];
 
+// ignore: constant_identifier_names
 const List<UserRole> ALL_USER_ROLES = [
   UserRole.patient,
   ...PROFESSIONAL_ROLES,
