@@ -142,9 +142,7 @@ class _OptometristBookingFlowPageState
             role: 'optometrist',
             leading: BackButton(onPressed: () => context.pop()),
             onProfessionalSelected: (prof) {
-              context
-                  .read<OptometristBookingFlowBloc>()
-                  .add(OptometristFlowProfessionalSelected(prof));
+              _flowBloc.add(OptometristFlowProfessionalSelected(prof));
               setState(() {
                 _showDetail = true;
                 _showSchedule = false;
@@ -174,9 +172,8 @@ class _OptometristBookingFlowPageState
                   professional: state.selectedProfessional!,
                   serviceType: 'optometry',
                   isSubmitting: state.isBookingAppointment,
-                  onSlotSelected: (slot) => context
-                      .read<OptometristBookingFlowBloc>()
-                      .add(OptometristFlowTimeSlotSelected(slot)),
+                  onSlotSelected: (slot) =>
+                      _flowBloc.add(OptometristFlowTimeSlotSelected(slot)),
                 ),
               ),
             ),

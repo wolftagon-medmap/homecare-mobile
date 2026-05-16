@@ -142,9 +142,7 @@ class _PsychologistBookingFlowPageState
             role: 'psychologist',
             leading: BackButton(onPressed: () => context.pop()),
             onProfessionalSelected: (prof) {
-              context
-                  .read<PsychologistBookingFlowBloc>()
-                  .add(PsychologistFlowProfessionalSelected(prof));
+              _flowBloc.add(PsychologistFlowProfessionalSelected(prof));
               setState(() {
                 _showDetail = true;
                 _showSchedule = false;
@@ -174,9 +172,8 @@ class _PsychologistBookingFlowPageState
                   professional: state.selectedProfessional!,
                   serviceType: 'psychology',
                   isSubmitting: state.isBookingAppointment,
-                  onSlotSelected: (slot) => context
-                      .read<PsychologistBookingFlowBloc>()
-                      .add(PsychologistFlowTimeSlotSelected(slot)),
+                  onSlotSelected: (slot) =>
+                      _flowBloc.add(PsychologistFlowTimeSlotSelected(slot)),
                 ),
               ),
             ),
