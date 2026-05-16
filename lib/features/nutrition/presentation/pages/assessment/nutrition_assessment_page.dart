@@ -24,24 +24,22 @@ class NutritionAssessmentPage extends StatefulWidget {
 }
 
 class _NutritionAssessmentPageState extends State<NutritionAssessmentPage> {
-  int? _responseIdAtEntry;
+  int? _submissionCountAtEntry;
 
   @override
   void initState() {
     super.initState();
     final bloc = context.read<NutritionFlowBloc>();
-    _responseIdAtEntry = bloc.state.questionnaireResponseId;
+    _submissionCountAtEntry = bloc.state.submissionCount;
     bloc.add(const NutritionFlowStarted());
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NutritionFlowBloc, NutritionFlowState>(
-      // TODO: This logic is a bit hacky, consider refactoring the flow to be more explicit about navigation
       listenWhen: (prev, curr) =>
-          prev.questionnaireResponseId != curr.questionnaireResponseId &&
-          curr.questionnaireResponseId != null &&
-          curr.questionnaireResponseId != _responseIdAtEntry,
+          curr.submissionCount > prev.submissionCount &&
+          curr.submissionCount > (_submissionCountAtEntry ?? 0),
       listener: (context, state) {
         context.pushReplacement(
           AppRoutes.nutritionReview,

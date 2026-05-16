@@ -178,6 +178,7 @@ class NutritionFlowBloc extends Bloc<NutritionFlowEvent, NutritionFlowState> {
       emit(state.copyWith(
         questionnaireResponseId: responseId,
         isSubmittingAssessment: false,
+        submissionCount: state.submissionCount + 1,
       ));
     } catch (e, st) {
       log('Error submitting assessment',

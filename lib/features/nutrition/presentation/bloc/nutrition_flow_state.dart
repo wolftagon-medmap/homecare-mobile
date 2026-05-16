@@ -20,6 +20,8 @@ class NutritionFlowState extends Equatable {
   final bool isBookingAppointment;
   final String? errorMessage;
 
+  /// Incremented on every successful assessment submission (initial or edit).
+  final int submissionCount;
 
   bool get isAssessmentSubmitted => questionnaireResponseId != null;
   bool get isLoading =>
@@ -36,6 +38,7 @@ class NutritionFlowState extends Equatable {
     this.isSubmittingAssessment = false,
     this.isBookingAppointment = false,
     this.errorMessage,
+    this.submissionCount = 0,
   });
 
   NutritionFlowState copyWith({
@@ -49,6 +52,7 @@ class NutritionFlowState extends Equatable {
     bool? isSubmittingAssessment,
     bool? isBookingAppointment,
     String? errorMessage,
+    int? submissionCount,
     bool clearError = false,
     bool clearAppointment = false,
     bool clearSelectedProfessional = false,
@@ -70,6 +74,7 @@ class NutritionFlowState extends Equatable {
           isSubmittingAssessment ?? this.isSubmittingAssessment,
       isBookingAppointment: isBookingAppointment ?? this.isBookingAppointment,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
+      submissionCount: submissionCount ?? this.submissionCount,
     );
   }
 
@@ -85,5 +90,6 @@ class NutritionFlowState extends Equatable {
         isSubmittingAssessment,
         isBookingAppointment,
         errorMessage,
+        submissionCount,
       ];
 }
