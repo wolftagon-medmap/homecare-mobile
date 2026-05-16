@@ -27,6 +27,8 @@ class AppRoutes {
   static const String precisionNutrition = '/precision-nutrition';
   static const String homecareForElderly = '/homecare-for-elderly';
   static const String physiotherapy = '/physiotherapy';
+  static const String psychologist = '/psychologist';
+  static const String optometrist = '/optometrist';
 
   // Appointment
   static const String appointmentDetail = '/appointment/detail';
@@ -58,7 +60,8 @@ class AppRoutes {
   static const String service_request = '/service-request';
   static const String chatPharmaAI = '/chat-pharma-ai';
   static const String chatDoctorAI = '/chat-doctor-ai';
-  static const String pharmacyBookAppointmentFlow = '/pharmacy-book-appointment-flow';
+  static const String pharmacyBookAppointmentFlow =
+      '/pharmacy-book-appointment-flow';
   static const String personal = '/personal';
   static const String nursing = '/nursing';
   static const String submenu = '/submenu';
@@ -102,11 +105,14 @@ class AppRoutes {
       '$remotePatientMonitoring/scan-device';
 
   // Smoking Cessation Module
-  static const String smokingCessationPlanForm = '/appointment/smoking-cessation-plan/form';
-  static const String smokingCessationPlanView = '/appointment/smoking-cessation-plan/view';
+  static const String smokingCessationPlanForm =
+      '/appointment/smoking-cessation-plan/form';
+  static const String smokingCessationPlanView =
+      '/appointment/smoking-cessation-plan/view';
 
   // Second Opinion Medical Module
-  static const String secondOpinionRequestDetail = '$secondOpinionMedical/detail';
+  static const String secondOpinionRequestDetail =
+      '$secondOpinionMedical/detail';
 
   // static const String home = '/';
   // static const String submenu = 'submenu';

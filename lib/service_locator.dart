@@ -25,6 +25,8 @@ import 'package:m2health/features/homecare_elderly/injection.dart';
 import 'package:m2health/features/physiotherapy/injection.dart';
 import 'package:m2health/features/nutrition/injection.dart';
 import 'package:m2health/features/second_opinion_imaging/injection.dart';
+import 'package:m2health/features/psychologist/injection.dart';
+import 'package:m2health/features/optometrist/injection.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
@@ -75,6 +77,8 @@ Future<void> setupLocator() async {
   initPhysiotherapyModule(sl);
   initNutritionModule(sl);
   initSecondOpinionImagingModule(sl);
+  initPsychologistModule(sl);
+  initOptometristModule(sl);
   initSettingsModule(sl);
   initSmokingCessationModule(sl);
   initChatbotModule(sl);

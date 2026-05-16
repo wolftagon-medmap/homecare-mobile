@@ -33,11 +33,9 @@ class _DashboardState extends State<Dashboard> {
       ..addListener(() {
         if (_scrollController.position.pixels ==
             _scrollController.position.maxScrollExtent) {
-          setState(() {
-          });
+          setState(() {});
         } else {
-          setState(() {
-          });
+          setState(() {});
         }
       });
   }
@@ -333,7 +331,7 @@ class _DashboardState extends State<Dashboard> {
                       children: [
                         MainServiceMenuItem(
                           onTap: () {
-                            // context.push(AppRoutes.homeHealthScreening);
+                            context.push(AppRoutes.psychologist);
                           },
                           iconPath: 'assets/icons/ic_psychologist.png',
                           title: context.t.dashboard.services.psychologist,
@@ -352,7 +350,7 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         MainServiceMenuItem(
                           onTap: () {
-                            // context.push(AppRoutes.homecareForElderly);
+                            context.push(AppRoutes.optometrist);
                           },
                           iconPath: 'assets/icons/ic_optometrist.png',
                           title: context.t.dashboard.services.optometrist,
