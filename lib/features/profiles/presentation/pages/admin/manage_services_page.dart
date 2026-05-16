@@ -160,6 +160,8 @@ class _ManageServicesPageState extends State<ManageServicesPage> {
     ('screening', 'Screening'),
     ('second_opinion_imaging', 'Second Opinion Imaging'),
     ('nutrition', 'Nutrition'),
+    ('psychology', 'Psychology'),
+    ('optometry', 'Optometry'),
   ];
 
   late AdminServicesCubit _cubit;
@@ -193,26 +195,29 @@ class _ManageServicesPageState extends State<ManageServicesPage> {
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-              child: DropdownButtonFormField<String>(
-                value: _selectedCategory,
-                decoration: const InputDecoration(
-                  labelText: 'Category',
-                  border: OutlineInputBorder(),
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                ),
-                items: _categories.map((cat) {
-                  return DropdownMenuItem(
-                    value: cat.$1,
-                    child: Text(cat.$2),
-                  );
-                }).toList(),
-                onChanged: (value) {
+              child: DropdownMenu<String>(
+                expandedInsets: EdgeInsets.zero,
+                initialSelection: _selectedCategory,
+                label: const Text('Category'),
+                menuHeight: 360,
+                onSelected: (String? value) {
                   if (value != null) {
                     setState(() => _selectedCategory = value);
                     _cubit.setCategory(value);
                   }
                 },
+                dropdownMenuEntries: _categories
+                    .map<DropdownMenuEntry<String>>((cat) {
+                  return DropdownMenuEntry<String>(
+                    value: cat.$1,
+                    label: cat.$2,
+                    style: MenuItemButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 16.0),
+                    ),
+                  );
+                }).toList(),
               ),
             ),
             Expanded(

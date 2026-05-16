@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:m2health/const.dart';
 import 'package:m2health/features/profiles/data/datasources/profile_remote_datasource.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/admin_professionals_cubit.dart';
@@ -14,15 +13,20 @@ class AdminProfessionalsPage extends StatefulWidget {
   State<AdminProfessionalsPage> createState() => _AdminProfessionalsPageState();
 }
 
-class _AdminProfessionalsPageState extends State<AdminProfessionalsPage>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+class _AdminProfessionalsPageState extends State<AdminProfessionalsPage> {
+  static const _roles = [
+    ('', 'All Roles'),
+    ('nurse', 'Nurse'),
+    ('pharmacist', 'Pharmacist'),
+    ('radiologist', 'Radiologist'),
+    ('caregiver', 'Caregiver / Helper'),
+    ('physiotherapist', 'Physiotherapist'),
+    ('nutritionist', 'Nutritionist'),
+    ('psychologist', 'Psychologist'),
+    ('optometrist', 'Optometrist'),
+  ];
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 5, vsync: this);
-  }
+  String _selectedRole = _roles[0].$1;
 
   @override
   Widget build(BuildContext context) {
@@ -35,29 +39,41 @@ class _AdminProfessionalsPageState extends State<AdminProfessionalsPage>
             fontWeight: FontWeight.bold,
           ),
         ),
-        bottom: TabBar(
-          controller: _tabController,
-          labelColor: Const.aqua,
-          indicatorColor: Const.aqua,
-          isScrollable: true,
-          tabAlignment: TabAlignment.start,
-          tabs: const [
-            Tab(text: "Nurses"),
-            Tab(text: "Pharmacists"),
-            Tab(text: "Radiologists"),
-            Tab(text: "Caregivers/Helpers"),
-            Tab(text: "Physiotherapists"),
-          ],
-        ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: const [
-          _ProfessionalListTab(role: 'nurse'),
-          _ProfessionalListTab(role: 'pharmacist'),
-          _ProfessionalListTab(role: 'radiologist'),
-          _ProfessionalListTab(role: 'caregiver'),
-          _ProfessionalListTab(role: 'physiotherapist'),
+      body: Column(
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+            child: DropdownMenu<String>(
+              expandedInsets: EdgeInsets.zero,
+              initialSelection: _selectedRole,
+              label: const Text('Role'),
+              menuHeight: 360,
+              onSelected: (String? value) {
+                if (value != null) {
+                  setState(() => _selectedRole = value);
+                }
+              },
+              dropdownMenuEntries:
+                  _roles.map<DropdownMenuEntry<String>>((role) {
+                return DropdownMenuEntry<String>(
+                  value: role.$1,
+                  label: role.$2,
+                  style: MenuItemButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          Expanded(
+            child: _ProfessionalListTab(
+              key: ValueKey(_selectedRole),
+              role: _selectedRole,
+            ),
+          ),
         ],
       ),
     );
@@ -66,7 +82,7 @@ class _AdminProfessionalsPageState extends State<AdminProfessionalsPage>
 
 class _ProfessionalListTab extends StatefulWidget {
   final String role;
-  const _ProfessionalListTab({required this.role});
+  const _ProfessionalListTab({super.key, required this.role});
 
   @override
   State<_ProfessionalListTab> createState() => _ProfessionalListTabState();
@@ -79,7 +95,8 @@ class _ProfessionalListTabState extends State<_ProfessionalListTab> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => AdminProfessionalsCubit(GetIt.I<ProfileRemoteDatasource>())
-        ..fetchProfessionals(widget.role, _statusFilter),
+        ..fetchProfessionals(
+            widget.role.isEmpty ? null : widget.role, _statusFilter),
       child: BlocConsumer<AdminProfessionalsCubit, AdminProfessionalsState>(
         listener: (context, state) {
           if (state is AdminProsActionSuccess) {
@@ -87,10 +104,8 @@ class _ProfessionalListTabState extends State<_ProfessionalListTab> {
               SnackBar(
                   content: Text(state.message), backgroundColor: Colors.green),
             );
-            // Refresh list after action
-            context
-                .read<AdminProfessionalsCubit>()
-                .fetchProfessionals(widget.role, _statusFilter);
+            context.read<AdminProfessionalsCubit>().fetchProfessionals(
+                widget.role.isEmpty ? null : widget.role, _statusFilter);
           }
         },
         builder: (context, state) {
@@ -109,7 +124,9 @@ class _ProfessionalListTabState extends State<_ProfessionalListTab> {
                         setState(() => _statusFilter = 'unverified');
                         context
                             .read<AdminProfessionalsCubit>()
-                            .fetchProfessionals(widget.role, 'unverified');
+                            .fetchProfessionals(
+                                widget.role.isEmpty ? null : widget.role,
+                                'unverified');
                       },
                     ),
                     const SizedBox(width: 12),
@@ -121,7 +138,9 @@ class _ProfessionalListTabState extends State<_ProfessionalListTab> {
                         setState(() => _statusFilter = 'verified');
                         context
                             .read<AdminProfessionalsCubit>()
-                            .fetchProfessionals(widget.role, 'verified');
+                            .fetchProfessionals(
+                                widget.role.isEmpty ? null : widget.role,
+                                'verified');
                       },
                     ),
                   ],
@@ -146,8 +165,12 @@ class _ProfessionalListTabState extends State<_ProfessionalListTab> {
                             const Icon(Icons.check_circle_outline,
                                 size: 64, color: Colors.grey),
                             const SizedBox(height: 16),
-                            Text("No ${_statusFilter} ${widget.role}s found.",
-                                style: const TextStyle(color: Colors.grey)),
+                            Text(
+                              widget.role.isEmpty
+                                  ? "No $_statusFilter professionals found."
+                                  : "No $_statusFilter ${widget.role}s found.",
+                              style: const TextStyle(color: Colors.grey),
+                            ),
                           ],
                         ),
                       );
@@ -175,7 +198,8 @@ class _ProfessionalListTabState extends State<_ProfessionalListTab> {
                               context
                                   .read<AdminProfessionalsCubit>()
                                   .fetchProfessionals(
-                                      widget.role, _statusFilter);
+                                      widget.role.isEmpty ? null : widget.role,
+                                      _statusFilter);
                             }
                           },
                         );
