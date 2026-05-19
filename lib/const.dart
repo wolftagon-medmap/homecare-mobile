@@ -91,6 +91,9 @@ class Const {
   static const String API_AI_TRANSCRIBE = '$URL_API/ai-tools/transcribe';
   static const String API_DEVICE_TOKENS = '$URL_API/device-tokens';
 
+  // App version / update check
+  static const String API_APP_CONFIG = '$URL_API/app-config';
+
   // v2 unified service catalog
   static const String API_SERVICES = '$URL_API/services';
   static const String API_ADMIN_SERVICES = '$URL_API/admin/services';

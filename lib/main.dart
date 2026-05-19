@@ -36,11 +36,14 @@ import 'package:go_router/go_router.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:device_preview_screenshot/device_preview_screenshot.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'const.dart';
+import 'core/services/app_config_service.dart';
+import 'core/presentation/widgets/app_update_dialog.dart';
 import 'core/services/fcm_service.dart';
+import 'core/utils/version_check.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseBackgroundMessageHandler(RemoteMessage message) async {
@@ -66,6 +69,8 @@ void main() async {
 
   final localeCubit = LocaleCubit();
   await localeCubit.loadSavedLocale();
+
+  WidgetsBinding.instance.addPostFrameCallback((_) => _checkForAppUpdate());
 
   runApp(
     DevicePreview(
@@ -283,22 +288,33 @@ class M2HealthApp extends StatelessWidget {
   }
 }
 
-// class AppSetting extends ChangeNotifier {
-//   bool isDarkMode;
-//   Color themeSeed = Colors.blue;
+/// Checks the installed version against server thresholds on startup and
+/// shows a forced/recommended update popup.
+Future<void> _checkForAppUpdate() async {
+  try {
+    final info = await PackageInfo.fromPlatform();
+    final currentVersion = info.version;
 
-//   AppSetting({this.isDarkMode = false});
+    final config = await sl<AppConfigService>().fetch();
+    final decision = resolveUpdate(currentVersion, config);
+    if (decision == UpdateDecision.none) return;
 
-//   void changeThemeSeed(Color color) {
-//     themeSeed = color;
-//     notifyListeners();
-//   }
+    final context = rootNavigatorKey.currentContext;
+    if (context == null || !context.mounted) return;
 
-//   void toggleTheme() {
-//     isDarkMode = !isDarkMode;
-//     notifyListeners();
-//   }
-// }
+    final forced = decision == UpdateDecision.force;
+    await showAppUpdateDialog(
+      context,
+      forced: forced,
+      updateUrl: config.updateUrl,
+      currentVersion: currentVersion,
+      latestVersion: config.latestVersion,
+      message: forced ? config.forceMessage : config.recommendMessage,
+    );
+  } catch (_) {
+    // fail-open
+  }
+}
 
 class AppShell extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
