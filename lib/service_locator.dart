@@ -17,6 +17,7 @@ import 'package:m2health/features/smoking_cessation/injection.dart';
 import 'package:m2health/features/wellness_genomics/injection.dart';
 import 'package:m2health/core/blocs/voice_input/voice_input_cubit.dart';
 import 'package:m2health/core/services/ai_tools_service.dart';
+import 'package:m2health/core/services/app_config_service.dart';
 import 'package:m2health/core/services/appointment_service.dart';
 import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/core/services/fcm_service.dart';
@@ -55,6 +56,7 @@ Future<void> setupLocator() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerSingleton<SharedPreferences>(sharedPreferences);
   sl.registerLazySingleton(() => AppointmentService(sl()));
+  sl.registerLazySingleton(() => AppConfigService(sl()));
   sl.registerLazySingleton(() => QuestionnaireService(sl()));
   sl.registerLazySingleton(() => AIToolsService(sl()));
   sl.registerLazySingleton(
