@@ -9,6 +9,9 @@ class ChatbotModels {
           ? MessageRole.assistant
           : MessageRole.user,
       content: (json['content'] as String?) ?? '',
+      status: json['status'] == 'pending'
+          ? MessageStatus.pending
+          : MessageStatus.complete,
     );
   }
 
