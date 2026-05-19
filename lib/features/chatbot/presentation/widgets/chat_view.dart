@@ -91,18 +91,19 @@ class _ChatViewState extends State<ChatView> {
           appBar: AppBar(
             title: widget.appBarTitle,
             actions: [
-              IconButton(
-                icon: const Icon(Icons.history, color: Colors.grey),
+              _ChatActionButton(
+                icon: Icons.history_rounded,
                 tooltip: 'Conversation history',
                 onPressed: _openHistory,
               ),
-              IconButton(
-                icon:
-                    const Icon(Icons.add_comment_outlined, color: Colors.grey),
+              _ChatActionButton(
+                icon: Icons.add_rounded,
                 tooltip: 'New conversation',
+                filled: true,
                 onPressed: () =>
                     context.read<ChatCubit>().startNewConversation(),
               ),
+              const SizedBox(width: 8),
             ],
           ),
           body: Column(
@@ -175,6 +176,47 @@ class _ChatViewState extends State<ChatView> {
           ),
         );
     }
+  }
+}
+
+class _ChatActionButton extends StatelessWidget {
+  final IconData icon;
+  final String tooltip;
+  final VoidCallback onPressed;
+  final bool filled;
+
+  const _ChatActionButton({
+    required this.icon,
+    required this.tooltip,
+    required this.onPressed,
+    this.filled = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 8),
+      child: Tooltip(
+        message: tooltip,
+        child: Material(
+          color: filled ? Const.aqua : Const.aqua.withValues(alpha: 0.12),
+          shape: const CircleBorder(),
+          child: InkWell(
+            customBorder: const CircleBorder(),
+            onTap: onPressed,
+            child: SizedBox(
+              width: 38,
+              height: 38,
+              child: Icon(
+                icon,
+                size: 20,
+                color: filled ? Colors.white : Const.aqua,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 
