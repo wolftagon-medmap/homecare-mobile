@@ -5,26 +5,25 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:m2health/core/blocs/voice_input/voice_input_cubit.dart';
 import 'package:m2health/core/blocs/voice_input/voice_input_state.dart';
 import 'package:m2health/core/widgets/voice_input/voice_recording_view.dart';
-import 'package:m2health/features/chatbot/domain/entities/input_configuration.dart';
 import 'package:m2health/service_locator.dart';
 
-class ChatInputFactory extends StatefulWidget {
-  final InputConfiguration? config;
-  final bool isProcessing;
-  final Function(String) onSendText;
+/// Bottom chat input bar: free text + voice dictation. Disabled while a
+/// message is in flight (the AI turn is synchronous and can take 20-40s).
+class ChatInput extends StatefulWidget {
+  final bool isSending;
+  final Function(String) onSend;
 
-  const ChatInputFactory({
+  const ChatInput({
     super.key,
-    this.config,
-    required this.isProcessing,
-    required this.onSendText,
+    required this.isSending,
+    required this.onSend,
   });
 
   @override
-  State<ChatInputFactory> createState() => _ChatInputFactoryState();
+  State<ChatInput> createState() => _ChatInputState();
 }
 
-class _ChatInputFactoryState extends State<ChatInputFactory> {
+class _ChatInputState extends State<ChatInput> {
   final TextEditingController _controller = TextEditingController();
   late final VoiceInputCubit _voiceInputCubit;
 
@@ -42,17 +41,15 @@ class _ChatInputFactoryState extends State<ChatInputFactory> {
   }
 
   void _handleSend() {
-    if (_controller.text.trim().isNotEmpty) {
-      widget.onSendText(_controller.text.trim());
+    final text = _controller.text.trim();
+    if (text.isNotEmpty && !widget.isSending) {
+      widget.onSend(text);
       _controller.clear();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final doesAcceptDialogInput =
-        widget.config?.inputType == InputType.dialogInput;
-
     return BlocProvider.value(
       value: _voiceInputCubit,
       child: BlocListener<VoiceInputCubit, VoiceInputState>(
@@ -115,7 +112,7 @@ class _ChatInputFactoryState extends State<ChatInputFactory> {
 
             return Column(
               children: [
-                if (widget.isProcessing || isTranscribing)
+                if (widget.isSending || isTranscribing)
                   const LinearProgressIndicator(color: Const.aqua),
                 Container(
                   padding:
@@ -132,8 +129,7 @@ class _ChatInputFactoryState extends State<ChatInputFactory> {
                   ),
                   child: showVoiceUI
                       ? VoiceRecordingView(cubit: _voiceInputCubit)
-                      : _buildStandardInputUI(
-                          doesAcceptDialogInput, isTranscribing),
+                      : _buildStandardInputUI(isTranscribing),
                 ),
               ],
             );
@@ -143,7 +139,9 @@ class _ChatInputFactoryState extends State<ChatInputFactory> {
     );
   }
 
-  Widget _buildStandardInputUI(bool doesAcceptDialogInput, bool isTranscribing) {
+  Widget _buildStandardInputUI(bool isTranscribing) {
+    final inputEnabled = !widget.isSending && !isTranscribing;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -156,21 +154,18 @@ class _ChatInputFactoryState extends State<ChatInputFactory> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                // Voice Input Button
                 IconButton(
                   icon: const Icon(Icons.mic_none_outlined, color: Colors.grey),
-                  onPressed: widget.isProcessing || isTranscribing
-                      ? null
-                      : () => _voiceInputCubit.startRecording(),
+                  onPressed: inputEnabled
+                      ? () => _voiceInputCubit.startRecording()
+                      : null,
                 ),
                 Expanded(
                   child: TextField(
                     controller: _controller,
                     maxLines: 7,
                     minLines: 1,
-                    enabled: doesAcceptDialogInput &&
-                        !widget.isProcessing &&
-                        !isTranscribing,
+                    enabled: inputEnabled,
                     style: const TextStyle(fontSize: 13),
                     keyboardType: TextInputType.multiline,
                     textInputAction: TextInputAction.newline,
@@ -193,17 +188,13 @@ class _ChatInputFactoryState extends State<ChatInputFactory> {
           ),
         ),
         const SizedBox(width: 8),
-        // Send Button
         Padding(
           padding: const EdgeInsets.only(bottom: 4.0),
           child: CircleAvatar(
-            backgroundColor: doesAcceptDialogInput && !isTranscribing
-                ? Const.aqua
-                : Colors.grey,
+            backgroundColor: inputEnabled ? Const.aqua : Colors.grey,
             child: IconButton(
               icon: const Icon(Icons.send_rounded, color: Colors.white),
-              onPressed:
-                  doesAcceptDialogInput && !isTranscribing ? _handleSend : null,
+              onPressed: inputEnabled ? _handleSend : null,
             ),
           ),
         ),

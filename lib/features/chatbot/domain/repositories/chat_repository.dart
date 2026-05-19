@@ -1,37 +1,25 @@
-import 'dart:io';
+import 'package:m2health/features/chatbot/domain/entities/conversation.dart';
+import 'package:m2health/features/chatbot/domain/entities/message.dart';
 
-import 'package:m2health/features/chatbot/domain/entities/chat_event.dart';
-import 'package:m2health/features/chatbot/domain/entities/chat_session.dart';
+typedef SendResult = ({Message userMessage, Message assistantMessage});
 
 abstract class ChatRepository {
-  /// Initialize new session or reconnect to existing one
-  /// Returns stream of events from the workflow
-  Stream<ChatEvent> invokeSession({
+  Future<List<ConversationSummary>> listConversations({
     required String service,
-    String? existingSessionId,
-    bool stream = true,
+    int page = 1,
   });
 
-  /// Send user input to active session
-  /// Returns stream of response events
-  Stream<ChatEvent> sendInput({
+  Future<Conversation> getConversation(int conversationId);
+
+  Future<Conversation> createConversation({
     required String service,
-    required String nodeId,
-    required String? messageId,
-    required Map<String, dynamic> input,
+    required String message,
   });
 
-  /// Upload file and return remote URL
-  Future<String> uploadFile(File file);
-
-  /// Get active session history from backend
-  /// Returns null if no active session
-  Future<ChatSession?> getActiveSession({
-    required String service,
+  Future<SendResult> sendMessage({
+    required int conversationId,
+    required String message,
   });
 
-  /// Close/stop active session
-  Future<void> closeSession({
-    required String service,
-  });
+  Future<void> deleteConversation(int conversationId);
 }

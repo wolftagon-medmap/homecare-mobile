@@ -60,6 +60,7 @@ class AppRoutes {
   static const String service_request = '/service-request';
   static const String chatPharmaAI = '/chat-pharma-ai';
   static const String chatDoctorAI = '/chat-doctor-ai';
+  static const String chatAiConversations = '/chat-ai-conversations';
   static const String pharmacyBookAppointmentFlow =
       '/pharmacy-book-appointment-flow';
   static const String personal = '/personal';

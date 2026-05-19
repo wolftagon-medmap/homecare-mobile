@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/chatbot/domain/entities/chat_event.dart';
+import 'package:m2health/features/chatbot/domain/entities/message.dart';
 
 class UserBubble extends StatelessWidget {
-  final UserInputEvent event;
-  const UserBubble({super.key, required this.event});
+  final Message message;
+  const UserBubble({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class UserBubble extends StatelessWidget {
           ),
         ),
         child: SelectableText(
-          event.textInput,
+          message.content,
           selectionColor: Colors.white30,
           cursorColor: Colors.white,
           style: const TextStyle(color: Colors.white),
