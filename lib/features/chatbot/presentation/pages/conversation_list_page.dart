@@ -24,10 +24,7 @@ class _ConversationListPageState extends State<ConversationListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Conversations',
-          style: TextStyle(color: Const.aqua, fontWeight: FontWeight.w600),
-        ),
+        title: const Text('Conversations History'),
       ),
       body: BlocBuilder<ConversationListCubit, ConversationListState>(
         builder: (context, state) {
