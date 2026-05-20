@@ -52,20 +52,42 @@ Future<void> _firebaseBackgroundMessageHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundMessageHandler);
+
+  try {
+    await Firebase.initializeApp();
+    FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundMessageHandler);
+  } catch (e, st) {
+    debugPrint('Firebase init failed: $e\n$st');
+  }
+
   await setupLocator();
-  await sl<FcmService>().init();
+
+  // FCM must not block app startup: on iOS without push entitlements /
+  // APNs setup, requestPermission/getToken can hang or throw and leave a
+  // blank screen. Treat notifications as best-effort.
+  try {
+    await sl<FcmService>().init();
+  } catch (e, st) {
+    debugPrint('FcmService init failed: $e\n$st');
+  }
 
   // Timezone setup
-  tz.initializeTimeZones();
-  final String currentTimeZone =
-      (await FlutterTimezone.getLocalTimezone()).identifier;
-  tz.setLocalLocation(tz.getLocation(currentTimeZone));
+  try {
+    tz.initializeTimeZones();
+    final String currentTimeZone =
+        (await FlutterTimezone.getLocalTimezone()).identifier;
+    tz.setLocalLocation(tz.getLocation(currentTimeZone));
+  } catch (e, st) {
+    debugPrint('Timezone setup failed: $e\n$st');
+  }
 
   // Google OAuth setup
-  final googleSource = sl<GoogleAuthSource>();
-  await googleSource.init();
+  try {
+    final googleSource = sl<GoogleAuthSource>();
+    await googleSource.init();
+  } catch (e, st) {
+    debugPrint('GoogleAuthSource init failed: $e\n$st');
+  }
 
   final localeCubit = LocaleCubit();
   await localeCubit.loadSavedLocale();
