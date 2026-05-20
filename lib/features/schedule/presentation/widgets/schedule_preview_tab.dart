@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -55,14 +53,16 @@ class _SchedulePreviewTabState extends State<SchedulePreviewTab> {
             children: [
               Text(
                 context.l10n.schedule_select_date,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               const SizedBox(height: 12),
               _buildCalendar(),
               const SizedBox(height: 24),
               Text(
                 context.l10n.schedule_available_hours,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               const SizedBox(height: 12),
               _buildTimeSlotGrid(state.isPreviewLoading, state.availableSlots),

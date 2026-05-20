@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/data/models/service_model.dart';
 import 'package:m2health/utils.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/data/model/add_on_service_model.dart';
 
 abstract class HomecareRemoteDataSource {
-  Future<List<AddOnServiceModel>> getHomecareRates();
-  Future<AddOnServiceModel> updateHomecareRate(int id, double price);
+  Future<List<ServiceModel>> getHomecareRates();
+  Future<ServiceModel> updateHomecareRate(int id, double price);
 }
 
 class HomecareRemoteDataSourceImpl implements HomecareRemoteDataSource {
@@ -14,7 +14,7 @@ class HomecareRemoteDataSourceImpl implements HomecareRemoteDataSource {
   HomecareRemoteDataSourceImpl({required this.dio});
 
   @override
-  Future<List<AddOnServiceModel>> getHomecareRates() async {
+  Future<List<ServiceModel>> getHomecareRates() async {
     final token = await Utils.getSpString(Const.TOKEN);
     final response = await dio.get(
       Const.API_SERVICE_TITLES,
@@ -23,11 +23,11 @@ class HomecareRemoteDataSourceImpl implements HomecareRemoteDataSource {
     );
 
     final data = response.data as List;
-    return data.map((json) => AddOnServiceModel.fromJson(json)).toList();
+    return data.map((json) => ServiceModel.fromJson(json as Map<String, dynamic>)).toList();
   }
 
   @override
-  Future<AddOnServiceModel> updateHomecareRate(int id, double price) async {
+  Future<ServiceModel> updateHomecareRate(int id, double price) async {
     final token = await Utils.getSpString(Const.TOKEN);
     final response = await dio.put(
       '${Const.API_SERVICE_TITLES}/$id',
@@ -35,6 +35,6 @@ class HomecareRemoteDataSourceImpl implements HomecareRemoteDataSource {
       options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
     final data = response.data;
-    return AddOnServiceModel.fromJson(data);
+    return ServiceModel.fromJson(data as Map<String, dynamic>);
   }
 }

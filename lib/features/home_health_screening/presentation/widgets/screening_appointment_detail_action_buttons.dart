@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/appointment/pages/screening_report_submission_page.dart';
+import 'package:m2health/features/home_health_screening/presentation/pages/screening_report_submission_page.dart';
 import 'package:m2health/features/appointment/widgets/provider_appointment_action_dialog.dart';
 import 'package:m2health/features/home_health_screening/presentation/bloc/screening_appointment_action_cubit.dart';
 
@@ -55,17 +55,16 @@ class ScreeningAppointmentDetailActionButtons extends StatelessWidget {
         }
       },
       child: Builder(builder: (context) {
-        final screeningData = appointment.screeningRequestData;
-        final screeningStep = screeningData?.status;
-        final screeningRequestId = screeningData!.id;
+        final screeningStep = appointment.serviceRequest?.status;
+        final appointmentId = appointment.id!;
 
         switch (screeningStep) {
           case 'request_submitted':
-            return _buildForPendingStatus(context, screeningRequestId);
+            return _buildForPendingStatus(context, appointmentId);
           case 'request_accepted':
-            return _buildForAcceptedStatus(context, screeningRequestId);
+            return _buildForAcceptedStatus(context, appointmentId);
           case 'sample_collected':
-            return _buildForSampleCollectedStatus(context, screeningRequestId);
+            return _buildForSampleCollectedStatus(context, appointmentId);
           default:
             return const SizedBox.shrink();
         }
@@ -133,7 +132,7 @@ class ScreeningAppointmentDetailActionButtons extends StatelessWidget {
                     onPressed: () {
                       context
                           .read<ScreeningAppointmentActionCubit>()
-                          .acceptScreeningRequest(
+                          .acceptRequest(
                             screeningRequestId,
                           );
                     },

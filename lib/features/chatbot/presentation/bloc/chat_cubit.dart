@@ -1,8 +1,9 @@
-// chatbot/presentation/bloc/chat_cubit.dart
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/features/chatbot/domain/entities/chat_event.dart';
+import 'package:m2health/features/chatbot/domain/chat_exception.dart';
+import 'package:m2health/features/chatbot/domain/entities/message.dart';
 import 'package:m2health/features/chatbot/domain/repositories/chat_repository.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/chat_state.dart';
 
@@ -10,231 +11,177 @@ class ChatCubit extends Cubit<ChatState> {
   final ChatRepository _repository;
   final String service;
 
+  String? _pendingRetryText;
+
+  Timer? _pollTimer;
+  int _pollsLeft = 0;
+
+  static const _pollInterval = Duration(seconds: 4);
+  static const _maxPolls = 50;
+
   ChatCubit({required ChatRepository repository, required this.service})
       : _repository = repository,
-        super(const ChatState.initial());
+        super(const ChatInitial());
 
-  StreamSubscription<ChatEvent>? _eventSubscription;
-  Timer? _throttleTimer;
-  List<ChatEvent>? _pendingEvents;
-  Future<void> Function()? _lastAction; // For retrying failed actions
+  void startNewConversation() {
+    _stopPolling();
+    _pendingRetryText = null;
+    emit(const ChatLoaded());
+  }
 
-  Future<void> initialize() async {
-    log("Initializing ChatCubit. Checking for active session...",
-        name: 'ChatCubit.initialize');
-    _lastAction = initialize;
-    emit(const ChatState.loading(message: "Loading chat..."));
+  Future<void> loadConversation(int conversationId) async {
+    _stopPolling();
+    _pendingRetryText = null;
+    emit(const ChatLoading());
     try {
-      final session = await _repository.getActiveSession(service: service);
-      if (session != null && !session.isExpired) {
-        emit(ChatState.loaded(
-          events: session.events,
-          activeInputEvent: session.activeInputEvent,
-        ));
-      } else {
-        log(
-          "No active session found. Starting new session.",
-          name: 'ChatCubit.initialize',
-        );
-        _startSession();
-      }
-    } catch (e) {
-      log("Error during initialization: $e", name: 'ChatCubit.initialize');
-      emit(const ChatState.error(
-        message: "Failed to load chat session. Please try again.",
-        isRetryable: true,
+      final conversation = await _repository.getConversation(conversationId);
+      if (isClosed) return;
+      final awaitingReply = _isAwaitingReply(conversation.messages);
+      emit(ChatLoaded(
+        conversationId: conversation.id,
+        messages: conversation.messages,
+        isSending: awaitingReply,
       ));
-    }
-  }
-
-  void _startSession() {
-    _lastAction = () async => _startSession();
-    emit(const ChatState.loading(message: "Starting new session..."));
-    _eventSubscription?.cancel();
-    _eventSubscription = _repository.invokeSession(service: service).listen(
-          _handleEvent,
-          onError: _handleStreamError,
-        );
-  }
-
-  void _handleEvent(ChatEvent event) {
-    log("Handling new event. Sender: ${event.sender},Type: ${event.type}, Node ID: ${event.nodeId}",
-        name: 'ChatCubit._handleEvent');
-
-    // First event received --> Change from loading to loaded state
-    if (state is! Loaded) {
-      emit(ChatState.loaded(events: [event]));
-      return;
-    }
-
-    state.mapOrNull(loaded: (s) {
-      final events = List<ChatEvent>.from(s.events);
-      switch (event) {
-        case InputEvent _:
-          emit(
-            s.copyWith(
-              events: [...events, event],
-              activeInputEvent: event,
-              isProcessing: false,
-            ),
-          );
-        case StreamMessageEvent streamEvent:
-          _processStreamChunk(events, streamEvent, (processedEvents) {
-            emit(
-              s.copyWith(
-                events: processedEvents,
-                isProcessing: streamEvent.streamStatus == EventStatus.stream,
-              ),
-            );
-          });
-
-        case OutputMessageEvent _:
-          emit(
-            s.copyWith(
-              events: [...events, event],
-              isProcessing: false,
-            ),
-          );
-        default:
-          break;
-      }
-    });
-  }
-
-  void _processStreamChunk(
-    List<ChatEvent> stateEvents,
-    StreamMessageEvent chunk,
-    void Function(List<ChatEvent>) onComplete,
-  ) {
-    final index = stateEvents.lastIndexWhere((e) =>
-        e is StreamMessageEvent &&
-        e.nodeExecutionId == chunk.nodeExecutionId &&
-        e.outputKey == chunk.outputKey);
-
-    if (index < 0) {
-      stateEvents.add(chunk); // No matching output message, add as new message
-      onComplete(stateEvents);
-      return;
-    }
-
-    final isOngoingStream = chunk.streamStatus == EventStatus.stream;
-    final events = _pendingEvents ?? stateEvents;
-    final existing = events[index] as StreamMessageEvent;
-    events[index] = StreamMessageEvent(
-      nodeId: existing.nodeId,
-      content: isOngoingStream
-          ? existing.content + chunk.content
-          : chunk.content, // Final replace
-      streamStatus: chunk.streamStatus,
-      nodeExecutionId: chunk.nodeExecutionId,
-      outputKey: chunk.outputKey,
-    );
-    if (isOngoingStream) {
-      // throttle updates for ongoing streams to avoid UI jank
-      _pendingEvents = events;
-      _throttleTimer ??= Timer(const Duration(milliseconds: 48), () {
-        if (_pendingEvents != null) {
-          onComplete(_pendingEvents!);
-          _pendingEvents = null;
-        }
-        _throttleTimer = null;
-      });
-    } else {
-      // end of stream: finalize immediately
-      _throttleTimer?.cancel();
-      _throttleTimer = null;
-      _pendingEvents = null;
-      onComplete(events);
+      if (awaitingReply) _startPolling(conversation.id);
+    } catch (e) {
+      emit(ChatFatalError(_messageOf(e)));
     }
   }
 
   Future<void> sendText(String text) async {
-    log("Attempting to send user text input: $text",
-        name: 'ChatCubit.sendText');
+    final trimmed = text.trim();
+    final current = state;
+    if (trimmed.isEmpty || current is! ChatLoaded || current.isSending) return;
 
-    if (state is! Loaded) {
-      log("Cannot send input. Current state is not loaded.",
-          name: 'ChatCubit.sendText');
-      return;
-    }
+    emit(current.copyWith(
+      messages: [
+        ...current.messages,
+        Message(role: MessageRole.user, content: trimmed),
+      ],
+      isSending: true,
+      clearSendError: true,
+    ));
 
-    if (state.mapOrNull(loaded: (s) => s.activeInputEvent == null) ?? true) {
-      log("No active input event. Ignoring user input.",
-          name: 'ChatCubit.sendText');
-      return;
-    }
-
-    _lastAction = () => sendText(text);
-
-    // Clear previous message-level errors when starting a new attempt
-    state.mapOrNull(
-        loaded: (s) => emit(s.copyWith(error: null, isRetryable: false)));
-
-    // 1. Local Optimistic Update
-    final activeInputEvent =
-        state.mapOrNull(loaded: (s) => s.activeInputEvent)!;
-    final userEvent = UserInputEvent(
-      textInput: text,
-      repliedMessageId: activeInputEvent.messageId,
-    );
-    state.mapOrNull(loaded: (s) {
-      emit(
-        s.copyWith(
-          events: s.events.contains(userEvent)
-              ? s.events
-              : [...s.events, userEvent],
-          isProcessing: true,
-        ),
-      );
-    });
-
-    // 2. Start Request Stream
-    _eventSubscription?.cancel();
-    _eventSubscription = _repository.sendInput(
-      service: service,
-      nodeId: activeInputEvent.nodeId,
-      messageId: activeInputEvent.messageId,
-      input: {'user_input': text},
-    ).listen(
-      _handleEvent,
-      onError: _handleStreamError,
-    );
+    await _dispatch(trimmed, current.conversationId);
   }
 
-  void _handleStreamError(dynamic e) {
-    state.maybeMap(
-      loaded: (s) => emit(s.copyWith(
-        isProcessing: false,
-        error: "Failed to send message.\nPlease try again.",
-        isRetryable: true,
-      )),
-      orElse: () => emit(const ChatState.error(
-        message: "Could not connect to AI service.\nPlease try again.",
-        isRetryable: true,
-      )),
-    );
+  /// Resends the last failed message. The optimistic user bubble is already
+  /// on screen, so this does not append it again.
+  Future<void> retry() async {
+    final text = _pendingRetryText;
+    final current = state;
+    if (text == null || current is! ChatLoaded || current.isSending) return;
+
+    emit(current.copyWith(isSending: true, clearSendError: true));
+    await _dispatch(text, current.conversationId);
   }
 
-  Future<void> resetChat() async {
-    log("Resetting chat session for service: $service",
-        name: 'ChatCubit.resetChat');
-    emit(const ChatState.loading(message: "Resetting chat..."));
+  Future<void> _dispatch(String text, int? conversationId) async {
     try {
-      _eventSubscription?.cancel();
-      await _repository.closeSession(service: service);
-      _startSession();
-    } catch (e) {
-      log("Error resetting chat: $e", name: 'ChatCubit.resetChat');
-      emit(const ChatState.error(
-        message: "Failed to reset chat. Please try again.",
-        isRetryable: true,
-      ));
+      if (conversationId == null) {
+        final conversation = await _repository.createConversation(
+            service: service, message: text);
+        _pendingRetryText = null;
+        final latest = state;
+        if (latest is ChatLoaded && latest.conversationId == null) {
+          emit(ChatLoaded(
+            conversationId: conversation.id,
+            messages: conversation.messages,
+          ));
+        }
+      } else {
+        final result = await _repository.sendMessage(
+          conversationId: conversationId,
+          message: text,
+        );
+        _pendingRetryText = null;
+        final latest = state;
+        if (latest is ChatLoaded && latest.conversationId == conversationId) {
+          // A recovery poll may have already appended the reply.
+          final alreadyPresent = latest.messages
+              .any((m) => m.id != null && m.id == result.assistantMessage.id);
+          _stopPolling();
+          emit(latest.copyWith(
+            messages: alreadyPresent
+                ? latest.messages
+                : [...latest.messages, result.assistantMessage],
+            isSending: false,
+          ));
+        }
+      }
+    } catch (e, stackTrace) {
+      log('Failed to send message',
+          name: 'ChatCubit', error: e, stackTrace: stackTrace);
+      _pendingRetryText = text;
+      final latest = state;
+      if (latest is ChatLoaded && latest.conversationId == conversationId) {
+        _stopPolling();
+        emit(latest.copyWith(isSending: false, sendError: _messageOf(e)));
+      }
     }
   }
 
-  void retry() {
-    if (_lastAction != null) {
-      _lastAction!();
+  // ===== Recovery polling =====
+
+  bool _isAwaitingReply(List<Message> messages) {
+    if (messages.isEmpty) return false;
+    final last = messages.last;
+    return last.isUser && last.isPending;
+  }
+
+  void _startPolling(int conversationId) {
+    _pollTimer?.cancel();
+    _pollsLeft = _maxPolls;
+    _pollTimer = Timer.periodic(_pollInterval, (_) => _poll(conversationId));
+  }
+
+  void _stopPolling() {
+    _pollTimer?.cancel();
+    _pollTimer = null;
+  }
+
+  Future<void> _poll(int conversationId) async {
+    // Stop once the user is no longer viewing this conversation.
+    final before = state;
+    if (before is! ChatLoaded || before.conversationId != conversationId) {
+      _stopPolling();
+      return;
     }
+    if (_pollsLeft-- <= 0) {
+      _stopPolling();
+      emit(before.copyWith(isSending: false));
+      return;
+    }
+
+    try {
+      final conversation = await _repository.getConversation(conversationId);
+      if (isClosed) return;
+
+      final after = state;
+      if (after is! ChatLoaded || after.conversationId != conversationId) {
+        _stopPolling();
+        return;
+      }
+      if (!_isAwaitingReply(conversation.messages)) {
+        _stopPolling();
+        emit(ChatLoaded(
+          conversationId: conversationId,
+          messages: conversation.messages,
+        ));
+      }
+    } catch (_) {
+      // Transient failure - keep polling until the cap is reached.
+    }
+  }
+
+  String _messageOf(Object error) {
+    if (error is ChatException) return error.message;
+    return 'Something went wrong. Please try again.';
+  }
+
+  @override
+  Future<void> close() {
+    _stopPolling();
+    return super.close();
   }
 }

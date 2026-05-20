@@ -1581,6 +1581,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get precision_book_now => 'Book Now';
 
   @override
+  String get precision_view_plan => 'View Plan';
+
+  @override
   String get precision_main_concern_question => 'What is your main concern?';
 
   @override

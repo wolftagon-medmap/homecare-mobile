@@ -80,8 +80,8 @@ class PersonalIssueDetailPage extends StatelessWidget {
                   Icon(Icons.access_time, size: 16, color: Colors.grey[600]),
                   const SizedBox(width: 8),
                   Text(
-                    context.t.booking.issue.updated_on(date:
-                        DateFormat('EEEE, MMM d, y, HH:mm')
+                    context.t.booking.issue.updated_on(
+                        date: DateFormat('EEEE, MMM d, y, HH:mm')
                             .format(issue.updatedAt!)),
                     style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                   ),
@@ -90,42 +90,6 @@ class PersonalIssueDetailPage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildRelatedSymptomsSection(BuildContext context) {
-    // Dummy Data
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text("Related Symptoms",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-        const SizedBox(height: 18),
-        Wrap(
-          spacing: 10.0,
-          runSpacing: 10.0,
-          children: <Widget>[
-            _buildChip('Swollen and red', const Color(0xFFE25B5B)),
-            _buildChip('Limited Mobility', const Color(0xFFB9A1F5)),
-          ],
-        )
-      ],
-    );
-  }
-
-  Widget _buildChip(String label, Color color) {
-    return Chip(
-      label: Text(
-        label,
-        style:
-            const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
-      ),
-      backgroundColor: color,
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      side: BorderSide.none,
     );
   }
 
@@ -188,50 +152,7 @@ class PersonalIssueDetailPage extends StatelessWidget {
     ]);
   }
 
-  Widget _buildNotes(BuildContext context) {
-    // Dummy Data
-    final List<Map<String, dynamic>> nurseNotes = [
-      {
-        'title': 'Recommended Medication',
-        'points': [
-          {
-            'point': 'Melatonin (3 mg)',
-            'description': 'helps regulate the sleep cycle',
-          },
-        ],
-      },
-      {
-        'title': 'Lifestyle Advice',
-        'points': [
-          {
-            'point': 'Sleep Hygiene',
-            'description':
-                'Go to bed and wake up at the same time every day. Avoid screens 1 hour before sleep.',
-          },
-        ],
-      }
-    ];
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          "Nurse Notes",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        ),
-        const SizedBox(height: 18),
-        Column(
-          children: nurseNotes
-              .map((note) => _buildNoteCard(
-                    title: note['title'],
-                    points: note['points'],
-                  ))
-              .toList(),
-        ),
-      ],
-    );
-  }
-
+  // ignore: unused_element
   Widget _buildNoteCard(
       {required String title, required List<dynamic> points}) {
     return Card(

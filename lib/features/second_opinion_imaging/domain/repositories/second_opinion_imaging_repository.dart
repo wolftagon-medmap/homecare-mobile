@@ -9,6 +9,16 @@ abstract class SecondOpinionImagingRepository {
   Future<Either<Failure, AppointmentEntity>> createAppointment(
       CreateSecondOpinionImagingAppointmentParams params);
 
+  // v2: creates a DiagnosticReport via POST /appointments/:id/diagnostic-reports
+  Future<Either<Failure, Unit>> createDiagnosticReport({
+    required int appointmentId,
+    required String conclusion,
+    String? recommendation,
+    int? fileUploadId,
+  });
+
+  @Deprecated(
+      'Use createDiagnosticReport(appointmentId, conclusion, recommendation). TODO: delete.')
   Future<Either<Failure, Unit>> submitFeedback({
     required int appointmentId,
     required String diagnosticOpinion,
@@ -18,7 +28,6 @@ abstract class SecondOpinionImagingRepository {
 
 class CreateSecondOpinionImagingAppointmentParams extends Equatable {
   final String type = 'second_opinion_imaging';
-  final String providerType = 'radiologist'; // For teleradiology
   final int providerId;
   final DateTime startDatetime;
   final String serviceType;
@@ -26,8 +35,6 @@ class CreateSecondOpinionImagingAppointmentParams extends Equatable {
   final String? diseaseHistory;
   final String? biomarker;
   final List<SecondOpinionImageFile> images;
-
-  double get payTotal => 50.0; // Placeholder price
 
   String get summary => 'Second Opinion of $serviceType analysis ($diseaseName)';
 
@@ -44,7 +51,6 @@ class CreateSecondOpinionImagingAppointmentParams extends Equatable {
   @override
   List<Object?> get props => [
         type,
-        providerType,
         providerId,
         startDatetime,
         serviceType,

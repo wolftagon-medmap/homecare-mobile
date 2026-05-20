@@ -1,4 +1,4 @@
-import 'package:m2health/features/booking_appointment/add_on_services/data/model/add_on_service_model.dart';
+import 'package:m2health/core/data/models/service_model.dart';
 import 'package:m2health/features/profiles/data/models/address_model.dart';
 import 'package:m2health/features/profiles/data/models/certificate_model.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
@@ -57,7 +57,7 @@ class ProfessionalProfileModel extends ProfessionalProfile {
               .toList() ??
           [],
       providedServices: (json['services'] as List<dynamic>?)
-              ?.map((e) => AddOnServiceModel.fromJson(e))
+              ?.map((e) => ServiceModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       workplaceAddress: json['workplaceAddress'] != null

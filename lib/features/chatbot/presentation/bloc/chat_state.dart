@@ -1,44 +1,62 @@
-// chatbot/presentation/bloc/chat_state.dart
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:m2health/features/chatbot/domain/entities/chat_event.dart';
-import 'package:m2health/features/chatbot/domain/entities/input_configuration.dart';
+import 'package:equatable/equatable.dart';
+import 'package:m2health/features/chatbot/domain/entities/message.dart';
 
-part 'chat_state.freezed.dart';
+sealed class ChatState extends Equatable {
+  const ChatState();
 
-@freezed
-class ChatState with _$ChatState {
-  const factory ChatState.initial() = _Initial;
-  const factory ChatState.loading({String? message}) = _Loading;
-
-  const factory ChatState.loaded({
-    required List<ChatEvent> events,
-    InputEvent?
-        activeInputEvent, // The input event that is currently active (waiting for user input)
-    @Default(false) bool isProcessing,
-    @Default(false) bool isSessionClosed,
-
-    // Message level error (e.g. failed to send input). Preserve chat history while allowing retry.
-    String? error,
-    bool? isRetryable,
-  }) = Loaded;
-
-  // Session level error (e.g. failed to load session, critical errors)
-  const factory ChatState.error({
-    required String message,
-    @Default(true) bool isRetryable,
-  }) = _Error;
+  @override
+  List<Object?> get props => [];
 }
 
-extension ChatStateX on ChatState {
-  // Filters out metadata events (like dialog_input) that shouldn't appear as bubbles
-  List<ChatEvent> get displayableEvents => maybeMap(
-        loaded: (s) => s.events.where((e) {
-          if (e is InputEvent &&
-              e.inputConfig.inputType == InputType.dialogInput) {
-            return false;
-          }
-          return e.type != EventType.close;
-        }).toList(),
-        orElse: () => [],
-      );
+class ChatInitial extends ChatState {
+  const ChatInitial();
+}
+
+/// Loading a previous conversation from the backend.
+class ChatLoading extends ChatState {
+  const ChatLoading();
+}
+
+/// Fatal, conversation-level error (e.g. failed to load a conversation).
+class ChatFatalError extends ChatState {
+  final String message;
+  const ChatFatalError(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
+
+/// The active chat. [conversationId] is null until the first message creates it.
+class ChatLoaded extends ChatState {
+  final int? conversationId;
+  final List<Message> messages;
+  final bool isSending;
+
+  /// Non-null when the last send failed; the user can retry.
+  final String? sendError;
+
+  const ChatLoaded({
+    this.conversationId,
+    this.messages = const [],
+    this.isSending = false,
+    this.sendError,
+  });
+
+  ChatLoaded copyWith({
+    int? conversationId,
+    List<Message>? messages,
+    bool? isSending,
+    String? sendError,
+    bool clearSendError = false,
+  }) {
+    return ChatLoaded(
+      conversationId: conversationId ?? this.conversationId,
+      messages: messages ?? this.messages,
+      isSending: isSending ?? this.isSending,
+      sendError: clearSendError ? null : (sendError ?? this.sendError),
+    );
+  }
+
+  @override
+  List<Object?> get props => [conversationId, messages, isSending, sendError];
 }

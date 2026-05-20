@@ -6,6 +6,7 @@ abstract class ProfessionalRepository {
     String? name,
     List<int>? serviceIds,
     bool? isHomeScreeningAuthorized,
+    String? serviceSubCategory,
   });
   Future<ProfessionalEntity> getProfessionalDetail(int id);
   Future<void> toggleFavorite(int professionalId, bool isFavorite);

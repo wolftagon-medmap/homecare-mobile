@@ -100,9 +100,6 @@ class TranslationsDashboardEn {
 
 	// Translations
 
-	/// en: 'Allied Health'
-	String get allied_services => 'Allied Health';
-
 	/// en: 'Chat With AI doctor for all your health questions'
 	String get chat_ai_placeholder => 'Chat With AI doctor for all your health questions';
 
@@ -111,6 +108,9 @@ class TranslationsDashboardEn {
 
 	/// en: 'Services Appointment'
 	String get main_services => 'Services Appointment';
+
+	/// en: 'Other Services'
+	String get other_services => 'Other Services';
 
 	late final TranslationsDashboardServicesEn services = TranslationsDashboardServicesEn._(_root);
 }
@@ -486,6 +486,18 @@ class TranslationsAuthUserRoleEn {
 
 	/// en: 'Radiologist'
 	String get radiologist => 'Radiologist';
+
+	/// en: 'Pathologist'
+	String get pathologist => 'Pathologist';
+
+	/// en: 'Nutritionist'
+	String get nutritionist => 'Nutritionist';
+
+	/// en: 'Psychologist'
+	String get psychologist => 'Psychologist';
+
+	/// en: 'Optometrist'
+	String get optometrist => 'Optometrist';
 }
 
 // Path: booking.addon
@@ -722,6 +734,12 @@ class TranslationsDashboardServicesEn {
 
 	/// en: 'Sleep & Mental Health'
 	String get sleep_and_mental_health => 'Sleep & Mental Health';
+
+	/// en: 'Psychologist'
+	String get psychologist => 'Psychologist';
+
+	/// en: 'Optometrist'
+	String get optometrist => 'Optometrist';
 }
 
 // Path: global.dialog
@@ -1443,6 +1461,10 @@ extension on Translations {
 			'auth.user_role.pharmacist' => 'Pharmacist',
 			'auth.user_role.physiotherapist' => 'Physiotherapist',
 			'auth.user_role.radiologist' => 'Radiologist',
+			'auth.user_role.pathologist' => 'Pathologist',
+			'auth.user_role.nutritionist' => 'Nutritionist',
+			'auth.user_role.psychologist' => 'Psychologist',
+			'auth.user_role.optometrist' => 'Optometrist',
 			'booking.addon.empty' => 'No add-on services available.',
 			'booking.addon.estimated_budget' => 'Estimated Budget',
 			'booking.addon.title.kDefault' => 'Add On Services',
@@ -1510,10 +1532,10 @@ extension on Translations {
 			'booking.schedule.submit_button' => 'Submit',
 			'booking.schedule.submitting_button' => 'Submitting...',
 			'booking.schedule.title' => 'Select Schedule',
-			'dashboard.allied_services' => 'Allied Health',
 			'dashboard.chat_ai_placeholder' => 'Chat With AI doctor for all your health questions',
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
 			'dashboard.main_services' => 'Services Appointment',
+			'dashboard.other_services' => 'Other Services',
 			'dashboard.services.diabetic_care' => 'iRX Diabetic Care',
 			'dashboard.services.dietitian' => 'Dietitian Service',
 			'dashboard.services.health_risk_assessment' => 'Health Risk Assessment',
@@ -1526,6 +1548,8 @@ extension on Translations {
 			'dashboard.services.remote_patient_monitoring' => 'Remote Patient Monitoring',
 			'dashboard.services.second_opinion' => '2nd Opinion for Medical Image',
 			'dashboard.services.sleep_and_mental_health' => 'Sleep & Mental Health',
+			'dashboard.services.psychologist' => 'Psychologist',
+			'dashboard.services.optometrist' => 'Optometrist',
 			'global.add' => 'Add',
 			'global.book_now' => 'Book Now',
 			'global.cancel' => 'Cancel',

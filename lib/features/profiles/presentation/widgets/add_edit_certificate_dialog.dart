@@ -1,4 +1,3 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
@@ -19,7 +18,7 @@ class AddEditCertificateDialog extends StatefulWidget {
   });
 
   @override
-  _AddEditCertificateDialogState createState() =>
+  State<AddEditCertificateDialog> createState() =>
       _AddEditCertificateDialogState();
 }
 

@@ -3,14 +3,16 @@ import 'package:m2health/features/diabetes/diabetic_care_routes.dart';
 import 'package:m2health/features/booking_appointment/nursing/presentation/pages/nursing_services_page.dart';
 import 'package:m2health/features/homecare_elderly/presentation/pages/homecare_elderly_service_page.dart';
 import 'package:m2health/features/physiotherapy/presentation/pages/physiotherapy_page.dart';
-import 'package:m2health/features/precision/precision_nutrition_routes.dart';
+import 'package:m2health/features/nutrition/nutrition_routes.dart';
 import 'package:m2health/route/navigator_keys.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_services_page.dart';
-import 'package:m2health/features/precision/screens/precision_nutrition_page.dart';
+import 'package:m2health/features/nutrition/presentation/pages/precision_nutrition_page.dart';
 import 'package:m2health/features/diabetes/diabetic_care.dart';
 import 'package:m2health/features/home_health_screening/presentation/pages/home_health_screening.dart';
 import 'package:m2health/features/remote_patient_monitoring/pages/remote_patient_monitoring.dart';
 import 'package:m2health/features/second_opinion_imaging/presentation/pages/second_opinion.dart';
+import 'package:m2health/features/psychologist/presentation/pages/psychologist_booking_flow_page.dart';
+import 'package:m2health/features/optometrist/presentation/pages/optometrist_booking_flow_page.dart';
 import 'app_routes.dart';
 
 class DashboardRoutes {
@@ -86,6 +88,20 @@ class DashboardRoutes {
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {
         return const PhysiotherapyPage();
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.psychologist,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) {
+        return const PsychologistBookingFlowPage();
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.optometrist,
+      parentNavigatorKey: rootNavigatorKey,
+      builder: (context, state) {
+        return const OptometristBookingFlowPage();
       },
     ),
   ];

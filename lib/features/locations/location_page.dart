@@ -73,7 +73,7 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     return Card(
-//       color: Colors.purple.withOpacity(0.5),
+//       color: Colors.purple.withValues(alpha: 0.5),
 //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
 //       child: Padding(
 //         padding: const EdgeInsets.all(15.0),
@@ -107,7 +107,7 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     return Card(
-//       color: Colors.purple.withOpacity(0.5),
+//       color: Colors.purple.withValues(alpha: 0.5),
 //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
 //       child: Padding(
 //         padding: const EdgeInsets.all(15.0),
@@ -141,7 +141,7 @@
 //   @override
 //   Widget build(BuildContext context) {
 //     return Card(
-//       color: Colors.purple.withOpacity(0.5),
+//       color: Colors.purple.withValues(alpha: 0.5),
 //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
 //       child: Padding(
 //         padding: const EdgeInsets.all(15.0),

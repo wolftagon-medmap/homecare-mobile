@@ -36,8 +36,10 @@ class Pharmacist {
 }
 
 class FavouritesPage extends StatefulWidget {
+  const FavouritesPage({super.key});
+
   @override
-  _FavouritesPageState createState() => _FavouritesPageState();
+  State<FavouritesPage> createState() => _FavouritesPageState();
 }
 
 class _FavouritesPageState extends State<FavouritesPage> {
@@ -206,7 +208,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
       itemCount: _pharmacists.length,
       itemBuilder: (context, index) {
         final pharmacist = _pharmacists[index];
-        return _PharmacistCard(
+        return _ProfessionalCard(
           pharmacist: pharmacist,
           onToggleFavorite: () => _toggleFavorite(pharmacist),
         );
@@ -217,15 +219,14 @@ class _FavouritesPageState extends State<FavouritesPage> {
 
 // A dedicated widget for displaying a single pharmacist card.
 // This improves readability and reusability.
-class _PharmacistCard extends StatelessWidget {
+class _ProfessionalCard extends StatelessWidget {
   final Pharmacist pharmacist;
   final VoidCallback onToggleFavorite;
 
-  const _PharmacistCard({
-    Key? key,
+  const _ProfessionalCard({
     required this.pharmacist,
     required this.onToggleFavorite,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

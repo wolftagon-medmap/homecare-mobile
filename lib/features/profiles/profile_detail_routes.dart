@@ -1,16 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:m2health/features/settings/language/app_languages_setting.dart';
 import 'package:m2health/features/pharmacogenomics/presentation/pharmagenomical_pages.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/manage_services_cubit.dart';
 import 'package:m2health/features/profiles/presentation/pages/admin/admin_professionals_page.dart';
-import 'package:m2health/features/profiles/presentation/pages/admin/manage_health_screening_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/admin/manage_services_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_lifestyle_n_selfcare_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_medical_history_n_risk_factor_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_physical_sign_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_mental_state_page.dart';
+import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/features/profiles/presentation/bloc/mental_health_state_cubit.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_professional_profile.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_basic_info_page.dart';
@@ -57,7 +56,10 @@ class ProfileDetailRoutes {
       name: AppRoutes.profileMentalState,
       builder: (context, state) {
         return BlocProvider(
-          create: (context) => MentalHealthStateCubit(repository: sl()),
+          create: (context) => MentalHealthStateCubit(
+            repository: sl(),
+            questionnaireService: sl<QuestionnaireService>(),
+          ),
           child: const EditMentalStatePage(),
         );
       },
@@ -99,7 +101,7 @@ class ProfileDetailRoutes {
         return BlocProvider(
             create: (_) => ManageServicesCubit(
                   profileRemoteDatasource: sl(),
-                  addOnRepository: sl(),
+                  servicesRepository: sl(),
                   role: args.role,
                 )..loadServices(
                     args.currentServices,
@@ -129,12 +131,13 @@ class ProfileDetailRoutes {
         return const AdminProfessionalsPage();
       },
     ),
+    // TODO: delete manageHealthScreening route after all navigation call-sites are updated.
+    // Redirecting to unified ManageServicesPage with screening pre-selected.
     GoRoute(
       path: AppRoutes.manageHealthScreening,
       builder: (context, state) {
-        return const ManageHealthScreeningPage();
+        return const ManageServicesPage();
       },
     ),
-
   ];
 }

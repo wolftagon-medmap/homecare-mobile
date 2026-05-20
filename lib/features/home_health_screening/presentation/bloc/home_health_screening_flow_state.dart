@@ -16,7 +16,7 @@ enum ScreeningSubmissionStatus {
 
 class HomeHealthScreeningFlowState extends Equatable {
   final HomeHealthScreeningStep currentStep;
-  final List<ScreeningItem> selectedItems;
+  final List<ServiceEntity> selectedServices;
   final ProfessionalEntity? selectedProfessional;
   final DateTime? selectedTimeSlot;
   final AppointmentEntity? createdAppointment;
@@ -25,7 +25,7 @@ class HomeHealthScreeningFlowState extends Equatable {
 
   const HomeHealthScreeningFlowState({
     this.currentStep = HomeHealthScreeningStep.selectServices,
-    this.selectedItems = const [],
+    this.selectedServices = const [],
     this.selectedProfessional,
     this.selectedTimeSlot,
     this.createdAppointment,
@@ -39,7 +39,7 @@ class HomeHealthScreeningFlowState extends Equatable {
 
   HomeHealthScreeningFlowState copyWith({
     HomeHealthScreeningStep? currentStep,
-    List<ScreeningItem>? selectedItems,
+    List<ServiceEntity>? selectedServices,
     ProfessionalEntity? selectedProfessional,
     DateTime? selectedTimeSlot,
     AppointmentEntity? createdAppointment,
@@ -48,7 +48,7 @@ class HomeHealthScreeningFlowState extends Equatable {
   }) {
     return HomeHealthScreeningFlowState(
       currentStep: currentStep ?? this.currentStep,
-      selectedItems: selectedItems ?? this.selectedItems,
+      selectedServices: selectedServices ?? this.selectedServices,
       selectedProfessional: selectedProfessional ?? this.selectedProfessional,
       selectedTimeSlot: selectedTimeSlot ?? this.selectedTimeSlot,
       createdAppointment: createdAppointment ?? this.createdAppointment,
@@ -60,7 +60,7 @@ class HomeHealthScreeningFlowState extends Equatable {
   @override
   List<Object?> get props => [
         currentStep,
-        selectedItems,
+        selectedServices,
         selectedProfessional,
         selectedTimeSlot,
         createdAppointment,

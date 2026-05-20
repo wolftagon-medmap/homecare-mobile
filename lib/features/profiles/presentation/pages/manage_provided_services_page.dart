@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/profiles/presentation/bloc/manage_services_cubit.dart';
 import 'package:collection/collection.dart'; // For groupBy
 
 class ManageServicesArgs {
   final String role;
-  final List<AddOnService> currentServices;
+  final List<ServiceEntity> currentServices;
   final bool isHomeScreeningAuthorized;
 
   ManageServicesArgs({
@@ -61,9 +61,9 @@ class _ManageProvidedServicesPageState
                   child: Text("No available services found for your role."));
             }
 
-            // Group services by type
+            // Group services by category (v2 field)
             final groupedServices =
-                groupBy(state.allServices, (AddOnService s) => s.serviceType);
+                groupBy(state.allServices, (ServiceEntity s) => s.category ?? '');
 
             // Check if nurse
             final isNurse = context.read<ManageServicesCubit>().role == 'nurse';
@@ -116,14 +116,14 @@ class _ManageProvidedServicesPageState
                   child: ListView.builder(
                     itemCount: groupedServices.length,
                     itemBuilder: (context, index) {
-                      final serviceType = groupedServices.keys.elementAt(index);
-                      final services = groupedServices[serviceType]!;
+                      final category = groupedServices.keys.elementAt(index);
+                      final services = groupedServices[category]!;
 
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildSectionHeader(
-                              context, serviceType, services, state),
+                              context, category, services, state),
                           ...services.map((service) {
                             final isSelected = state.selectedServices
                                 .any((s) => s.id == service.id);
@@ -189,22 +189,22 @@ class _ManageProvidedServicesPageState
     );
   }
 
-  Widget _buildSectionHeader(BuildContext context, String serviceType,
-      List<AddOnService> services, ManageServicesLoaded state) {
+  Widget _buildSectionHeader(BuildContext context, String category,
+      List<ServiceEntity> services, ManageServicesLoaded state) {
     String title = "Services";
     Color color = Colors.grey.shade200;
     Color textColor = Colors.black87;
 
-    if (serviceType == 'nursing') {
+    if (category == 'nursing') {
       title = "Primary Nursing";
       color = const Color(0xFF9AE1FF).withValues(alpha: 0.3);
-    } else if (serviceType == 'specialized_nursing') {
+    } else if (category == 'specialized_nursing') {
       title = "Specialized Nursing";
       color = const Color(0xFFB28CFF).withValues(alpha: 0.2);
-    } else if (serviceType == 'pharmacy') {
+    } else if (category == 'pharmacy') {
       title = "Pharmacy Services";
       color = const Color(0xFFF79E1B).withValues(alpha: 0.1);
-    } else if (serviceType == 'radiology') {
+    } else if (category == 'radiology') {
       title = "Radiology Services";
     }
 
@@ -235,7 +235,7 @@ class _ManageProvidedServicesPageState
                     fontSize: 12,
                     color: textColor,
                     fontWeight: FontWeight.w500),
-              ),
+            ),
               Transform.scale(
                 scale: 0.9,
                 child: Checkbox(

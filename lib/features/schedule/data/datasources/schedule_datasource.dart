@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/schedule/data/models/provider_availability_model.dart';
 import 'package:m2health/features/schedule/data/models/provider_availability_override_model.dart';
@@ -123,11 +122,10 @@ class ScheduleRemoteDatasourceImpl implements ScheduleRemoteDatasource {
 
   @override
   Future<void> updateOverride(ProviderAvailabilityOverrideModel data) async {
-    final dateStr = DateFormat('yyyy-MM-dd').format(data.date);
     try {
       final payload = data.toJson();
       await dio.put(
-        '${Const.API_SCHEDULE_OVERRIDES}',
+        Const.API_SCHEDULE_OVERRIDES,
         data: payload,
         options: await _getAuthHeaders(),
       );

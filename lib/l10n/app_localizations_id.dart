@@ -1583,6 +1583,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get precision_book_now => 'Pesan Sekarang';
 
   @override
+  String get precision_view_plan => 'Lihat Rencana';
+
+  @override
   String get precision_main_concern_question => 'Apa kekhawatiran utama Anda?';
 
   @override

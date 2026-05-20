@@ -6,7 +6,8 @@ import 'package:m2health/features/physiotherapy/domain/repositories/physiotherap
 import 'package:m2health/core/services/appointment_service.dart';
 import 'package:m2health/features/physiotherapy/domain/usecases/create_physiotherapy_appointment.dart';
 
-class PhysiotherapyAppointmentRepositoryImpl extends PhysiotherapyAppointmentRepository {
+class PhysiotherapyAppointmentRepositoryImpl
+    extends PhysiotherapyAppointmentRepository {
   final AppointmentService appointmentService;
 
   PhysiotherapyAppointmentRepositoryImpl({required this.appointmentService});
@@ -18,17 +19,18 @@ class PhysiotherapyAppointmentRepositoryImpl extends PhysiotherapyAppointmentRep
       final payload = {
         'type': params.type,
         'provider_id': params.providerId,
-        'provider_type': params.providerType,
         'start_datetime': params.startDatetime.toIso8601String(),
         'summary': params.summary,
-        'pay_total': params.payTotal,
-        'physiotherapy_request_data': {
+        'request_data': {
           'duration': params.duration,
-          'service_code': params.serviceCode,
+          'physio_type': params.physioType,
         },
       };
       final response = await appointmentService.createAppointment(payload);
-      final result = AppointmentModel.fromJson(response);
+      final result = AppointmentModel.fromJson({
+        ...response['appointment'] as Map<String, dynamic>,
+        if (response['order'] != null) 'order': response['order'],
+      });
       return Right(result);
     } on Failure catch (failure) {
       return Left(failure);

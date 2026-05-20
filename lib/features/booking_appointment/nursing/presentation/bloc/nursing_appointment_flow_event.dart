@@ -28,7 +28,7 @@ class FlowHealthStatusUpdated extends NursingAppointmentFlowEvent {
 }
 
 class FlowAddOnServicesUpdated extends NursingAppointmentFlowEvent {
-  final List<AddOnService> addOnServices;
+  final List<ServiceEntity> addOnServices;
   const FlowAddOnServicesUpdated(this.addOnServices);
   @override
   List<Object> get props => [addOnServices];

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:m2health/core/error/failures.dart';
@@ -21,7 +20,7 @@ class CreateRecordParams extends Equatable {
   final String diseaseHistory;
   final String? specialConsideration;
   final String? treatmentInfo;
-  final File? file;
+  final List<int> fileIds;
 
   const CreateRecordParams({
     required this.title,
@@ -29,7 +28,7 @@ class CreateRecordParams extends Equatable {
     required this.diseaseHistory,
     this.specialConsideration,
     this.treatmentInfo,
-    this.file,
+  this.fileIds = const <int>[],
   });
 
   @override
@@ -39,6 +38,6 @@ class CreateRecordParams extends Equatable {
         diseaseHistory,
         specialConsideration,
         treatmentInfo,
-        file
+  fileIds,
       ];
 }

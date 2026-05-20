@@ -32,7 +32,6 @@ class PharmacogenomicsRepositoryImpl implements PharmacogenomicsRepository {
     File? fullReportFile,
     Function(double progress)? onProgress,
   }) async {
-    print('[DEBUG] Repository: storing pharmacogenomics');
     final pharmacogenomicsModel = pharmacogenomics == null
         ? null
         : PharmacogenomicsModel.fromEntity(pharmacogenomics);

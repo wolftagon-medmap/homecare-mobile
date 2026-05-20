@@ -1,8 +1,8 @@
 {
-  "allied_services": "Allied Health",
   "chat_ai_placeholder": "Chat With AI doctor for all your health questions",
   "greeting": "Live Longer & Live Healthier, {displayName}!",
   "main_services": "Services Appointment",
+  "other_services": "Other Services",
   "services": {
     "diabetic_care": "iRX Diabetic Care",
     "dietitian": "Dietitian Service",
@@ -15,6 +15,8 @@
     "precision_nutrition": "Nutrition ABCD",
     "remote_patient_monitoring": "Remote Patient Monitoring",
     "second_opinion": "2nd Opinion for Medical Image",
-    "sleep_and_mental_health": "Sleep & Mental Health"
+    "sleep_and_mental_health": "Sleep & Mental Health",
+    "psychologist": "Psychologist",
+    "optometrist": "Optometrist"
   }
 }

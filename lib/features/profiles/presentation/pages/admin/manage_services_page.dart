@@ -2,41 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'dart:async';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/data/models/service_config.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
+import 'package:m2health/core/data/models/service_model.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/utils.dart';
 
-sealed class ServicesState extends Equatable {
-  const ServicesState();
+// ── State ──────────────────────────────────────────────────────────────────
+
+sealed class AdminServicesState extends Equatable {
+  const AdminServicesState();
   @override
   List<Object> get props => [];
 }
 
-class ServicesInitial extends ServicesState {}
+class AdminServicesInitial extends AdminServicesState {}
 
-class ServicesLoading extends ServicesState {}
+class AdminServicesLoading extends AdminServicesState {}
 
-class ServicesLoaded extends ServicesState {
-  final List<ServiceTitle> services;
-  const ServicesLoaded(this.services);
+class AdminServicesLoaded extends AdminServicesState {
+  final List<ServiceEntity> services;
+  const AdminServicesLoaded(this.services);
   @override
   List<Object> get props => [services];
 }
 
-class ServicesError extends ServicesState {
+class AdminServicesError extends AdminServicesState {
   final String message;
-  const ServicesError(this.message);
+  const AdminServicesError(this.message);
   @override
   List<Object> get props => [message];
 }
 
-class ServicesCubit extends Cubit<ServicesState> {
-  final String serviceType;
-  final Dio _dio = sl<Dio>();
+// ── Cubit ──────────────────────────────────────────────────────────────────
 
-  ServicesCubit(this.serviceType) : super(ServicesInitial()) {
+class AdminServicesCubit extends Cubit<AdminServicesState> {
+  final Dio _dio = sl<Dio>();
+  String _category;
+
+  AdminServicesCubit(this._category) : super(AdminServicesInitial()) {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
         final token = await Utils.getSpString(Const.TOKEN);
@@ -48,61 +52,97 @@ class ServicesCubit extends Cubit<ServicesState> {
     ));
   }
 
+  void setCategory(String category) {
+    _category = category;
+    fetchServices();
+  }
+
   Future<void> fetchServices() async {
+    emit(AdminServicesLoading());
     try {
-      emit(ServicesLoading());
       final response = await _dio.get(
-        Const.API_SERVICE_TITLES,
-        queryParameters: {'service_type': serviceType},
+        Const.API_SERVICES,
+        queryParameters: {'category': _category},
       );
       final services = (response.data as List)
-          .map((serviceJson) => ServiceTitle.fromJson(serviceJson))
+          .map((json) => ServiceModel.fromJson(json as Map<String, dynamic>))
           .toList();
-      emit(ServicesLoaded(services));
+      emit(AdminServicesLoaded(services));
     } catch (e) {
-      emit(ServicesError('Failed to fetch services: $e'));
+      emit(AdminServicesError('Failed to fetch services: $e'));
     }
   }
 
-  Future<void> addService(
-      {required String title, required double price}) async {
+  Future<void> addService({
+    required String name,
+    required double price,
+    String? subCategory,
+    String? pricingModel,
+    int? duration,
+    String? code,
+    bool isPublished = false,
+  }) async {
     try {
-      final formData = FormData.fromMap({
-        'title': title,
-        'price': price,
-        'serviceType': serviceType,
-      });
-      await _dio.post(Const.API_SERVICE_TITLES, data: formData);
+      await _dio.post(
+        Const.API_ADMIN_SERVICES,
+        data: {
+          'name': name,
+          'category': _category,
+          'price': price,
+          if (subCategory != null) 'sub_category': subCategory,
+          if (pricingModel != null) 'pricing_model': pricingModel,
+          if (duration != null) 'detail': {'duration': duration},
+          if (code != null) 'code': code,
+          'is_published': isPublished,
+        },
+      );
       fetchServices();
     } catch (e) {
-      emit(ServicesError('Failed to add service: $e'));
+      emit(AdminServicesError('Failed to add service: $e'));
     }
   }
 
-  Future<void> updateService(
-      {required int id, required String title, required double price}) async {
+  Future<void> updateService({
+    required int id,
+    required String name,
+    required double price,
+    String? subCategory,
+    String? pricingModel,
+    int? duration,
+    String? code,
+    bool isPublished = false,
+  }) async {
     try {
-      final formData = FormData.fromMap({
-        'title': title,
-        'price': price,
-        'serviceType': serviceType,
-      });
-      await _dio.put('${Const.API_SERVICE_TITLES}/$id', data: formData);
+      await _dio.put(
+        '${Const.API_ADMIN_SERVICES}/$id',
+        data: {
+          'name': name,
+          'category': _category,
+          'price': price,
+          if (subCategory != null) 'sub_category': subCategory,
+          if (pricingModel != null) 'pricing_model': pricingModel,
+          if (duration != null) 'detail': {'duration': duration},
+          if (code != null) 'code': code,
+          'is_published': isPublished,
+        },
+      );
       fetchServices();
     } catch (e) {
-      emit(ServicesError('Failed to update service: $e'));
+      emit(AdminServicesError('Failed to update service: $e'));
     }
   }
 
   Future<void> deleteService(int id) async {
     try {
-      await _dio.delete('${Const.API_SERVICE_TITLES}/$id');
+      await _dio.delete('${Const.API_ADMIN_SERVICES}/$id');
       fetchServices();
     } catch (e) {
-      emit(ServicesError('Failed to delete service: $e'));
+      emit(AdminServicesError('Failed to delete service: $e'));
     }
   }
 }
+
+// ── Page ───────────────────────────────────────────────────────────────────
 
 class ManageServicesPage extends StatefulWidget {
   const ManageServicesPage({super.key});
@@ -111,65 +151,139 @@ class ManageServicesPage extends StatefulWidget {
   State<ManageServicesPage> createState() => _ManageServicesPageState();
 }
 
-class _ManageServicesPageState extends State<ManageServicesPage>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  final List<Map<String, String>> serviceTabs = [
-    {'type': 'nursing', 'display': 'Nurse Procedure'},
-    {'type': 'specialized_nursing', 'display': 'Specialized Nurse Procudure'},
-    {'type': 'pharmacy', 'display': 'Pharmacist Service'},
-    {'type': 'radiology', 'display': 'Radiologist Service'},
+class _ManageServicesPageState extends State<ManageServicesPage> {
+  static const _categories = [
+    ('nursing', 'Nursing'),
+    ('pharmacy', 'Pharmacy'),
+    ('homecare_elderly', 'Homecare Elderly'),
+    ('physiotherapy', 'Physiotherapy'),
+    ('screening', 'Screening'),
+    ('second_opinion_imaging', 'Second Opinion Imaging'),
+    ('nutrition', 'Nutrition'),
+    ('psychology', 'Psychology'),
+    ('optometry', 'Optometry'),
   ];
+
+  late AdminServicesCubit _cubit;
+  String _selectedCategory = _categories[0].$1;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: serviceTabs.length, vsync: this);
+    _cubit = AdminServicesCubit(_selectedCategory)..fetchServices();
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _cubit.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Manage Services',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            )),
-        bottom: TabBar(
-          controller: _tabController,
-          isScrollable: true,
-          labelColor: Const.aqua,
-          indicatorColor: Const.aqua,
-          tabAlignment: TabAlignment.start,
-          tabs: serviceTabs.map((tab) => Tab(text: tab['display'])).toList(),
+    return BlocProvider.value(
+      value: _cubit,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Manage Services',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
         ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: serviceTabs.map((tab) {
-          return BlocProvider(
-            create: (context) => ServicesCubit(tab['type']!)..fetchServices(),
-            child: ServiceListTab(serviceType: tab['type']!),
-          );
-        }).toList(),
+        body: Column(
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+              child: DropdownMenu<String>(
+                expandedInsets: EdgeInsets.zero,
+                initialSelection: _selectedCategory,
+                label: const Text('Category'),
+                menuHeight: 360,
+                onSelected: (String? value) {
+                  if (value != null) {
+                    setState(() => _selectedCategory = value);
+                    _cubit.setCategory(value);
+                  }
+                },
+                dropdownMenuEntries: _categories
+                    .map<DropdownMenuEntry<String>>((cat) {
+                  return DropdownMenuEntry<String>(
+                    value: cat.$1,
+                    label: cat.$2,
+                    style: MenuItemButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 16.0),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+            Expanded(
+              child: BlocConsumer<AdminServicesCubit, AdminServicesState>(
+                listener: (context, state) {
+                  if (state is AdminServicesError) {
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(SnackBar(
+                        content: Text(state.message),
+                        backgroundColor: Colors.red,
+                      ));
+                  }
+                },
+                builder: (context, state) {
+                  if (state is AdminServicesLoading ||
+                      state is AdminServicesInitial) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (state is AdminServicesError) {
+                    return RefreshIndicator(
+                      onRefresh: () async => _cubit.fetchServices(),
+                      child: ListView(
+                        children: [
+                          Center(
+                            child: Text(state.message,
+                                textAlign: TextAlign.center),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  if (state is AdminServicesLoaded) {
+                    if (state.services.isEmpty) {
+                      return const Center(
+                          child: Text('No services found for this category.'));
+                    }
+                    return RefreshIndicator(
+                      onRefresh: () async => _cubit.fetchServices(),
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(8.0),
+                        itemCount: state.services.length,
+                        itemBuilder: (context, index) {
+                          return _ServiceCard(service: state.services[index]);
+                        },
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _showServiceFormModal(context),
+          tooltip: 'Add Service',
+          foregroundColor: Colors.white,
+          backgroundColor: Const.aqua,
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
-}
 
-class ServiceListTab extends StatelessWidget {
-  final String serviceType;
-  const ServiceListTab({super.key, required this.serviceType});
-
-  void _showServiceFormModal(BuildContext context, {ServiceTitle? service}) {
+  void _showServiceFormModal(BuildContext context, {ServiceEntity? service}) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -178,80 +292,64 @@ class ServiceListTab extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (_) => BlocProvider.value(
-        value: BlocProvider.of<ServicesCubit>(context),
-        child: ServiceFormModal(service: service),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocConsumer<ServicesCubit, ServicesState>(
-        listener: (context, state) {
-          if (state is ServicesError) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                  backgroundColor: Colors.red,
-                ),
-              );
-          }
-        },
-        builder: (context, state) {
-          if (state is ServicesLoading || state is ServicesInitial) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (state is ServicesError) {
-            return RefreshIndicator(
-              onRefresh: () async {
-                context.read<ServicesCubit>().fetchServices();
-              },
-              child: ListView(
-                children: [
-                  Center(
-                    child: Text(state.message, textAlign: TextAlign.center),
-                  ),
-                ],
-              ),
-            );
-          }
-          if (state is ServicesLoaded) {
-            if (state.services.isEmpty) {
-              return const Center(child: Text("No services found."));
-            }
-            return RefreshIndicator(
-              onRefresh: () async {
-                context.read<ServicesCubit>().fetchServices();
-              },
-              child: ListView.builder(
-                padding: const EdgeInsets.all(8.0),
-                itemCount: state.services.length,
-                itemBuilder: (context, index) {
-                  return ServiceCard(service: state.services[index]);
-                },
-              ),
-            );
-          }
-          return const SizedBox.shrink();
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _showServiceFormModal(context),
-        tooltip: 'Add Service',
-        foregroundColor: Colors.white,
-        backgroundColor: Const.aqua,
-        child: const Icon(Icons.add),
+        value: _cubit,
+        child: _ServiceFormModal(service: service),
       ),
     );
   }
 }
 
-class ServiceCard extends StatelessWidget {
-  final ServiceTitle service;
-  const ServiceCard({super.key, required this.service});
+// ── Service Card ───────────────────────────────────────────────────────────
+
+class _ServiceCard extends StatelessWidget {
+  final ServiceEntity service;
+  const _ServiceCard({required this.service});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(color: Colors.grey.shade200),
+      ),
+      child: ListTile(
+        title: Text(service.name,
+            style: const TextStyle(fontWeight: FontWeight.w600)),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Price: \$${service.price.toStringAsFixed(2)}'),
+            if (service.pricingModel != null)
+              Text('Model: ${service.pricingModel}',
+                  style: const TextStyle(fontSize: 12)),
+            if (service.code != null)
+              Text('Code: ${service.code}',
+                  style: const TextStyle(fontSize: 12)),
+          ],
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (service.isPublished == true)
+              const Icon(Icons.visibility, color: Colors.green, size: 18)
+            else
+              const Icon(Icons.visibility_off, color: Colors.grey, size: 18),
+            const SizedBox(width: 4),
+            IconButton(
+              icon: const Icon(Icons.edit, color: Const.aqua),
+              onPressed: () => _showEditModal(context),
+            ),
+            IconButton(
+              icon: const Icon(Icons.delete, color: Colors.red),
+              onPressed: () => _showDeleteDialog(context),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   void _showDeleteDialog(BuildContext context) {
     showDialog(
@@ -259,8 +357,8 @@ class ServiceCard extends StatelessWidget {
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: const Text('Confirm Deletion'),
-          content: Text('Are you sure you want to delete "${service.title}"?'),
-          actions: <Widget>[
+          content: Text('Are you sure you want to delete "${service.name}"?'),
+          actions: [
             TextButton(
               child: const Text('Cancel'),
               onPressed: () => Navigator.of(dialogContext).pop(),
@@ -268,7 +366,7 @@ class ServiceCard extends StatelessWidget {
             TextButton(
               child: const Text('Delete', style: TextStyle(color: Colors.red)),
               onPressed: () {
-                context.read<ServicesCubit>().deleteService(service.id!);
+                context.read<AdminServicesCubit>().deleteService(service.id);
                 Navigator.of(dialogContext).pop();
               },
             ),
@@ -287,139 +385,208 @@ class ServiceCard extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (_) => BlocProvider.value(
-        value: BlocProvider.of<ServicesCubit>(context),
-        child: ServiceFormModal(service: service),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-      child: ListTile(
-        title: Text(service.title,
-            style: const TextStyle(fontWeight: FontWeight.w600)),
-        subtitle: Text('Price: \$${service.price.toStringAsFixed(2)}'),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.edit, color: Const.aqua),
-              onPressed: () => _showEditModal(context),
-            ),
-            IconButton(
-              icon: const Icon(Icons.delete, color: Colors.red),
-              onPressed: () => _showDeleteDialog(context),
-            ),
-          ],
-        ),
+        value: BlocProvider.of<AdminServicesCubit>(context),
+        child: _ServiceFormModal(service: service),
       ),
     );
   }
 }
 
-class ServiceFormModal extends StatefulWidget {
-  final ServiceTitle? service;
-  const ServiceFormModal({super.key, this.service});
+// ── Service Form Modal ─────────────────────────────────────────────────────
+
+class _ServiceFormModal extends StatefulWidget {
+  final ServiceEntity? service;
+  const _ServiceFormModal({this.service});
 
   @override
-  State<ServiceFormModal> createState() => _ServiceFormModalState();
+  State<_ServiceFormModal> createState() => _ServiceFormModalState();
 }
 
-class _ServiceFormModalState extends State<ServiceFormModal> {
+class _ServiceFormModalState extends State<_ServiceFormModal> {
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController _titleController;
+  late TextEditingController _nameController;
   late TextEditingController _priceController;
+  late TextEditingController _subCategoryController;
+  late TextEditingController _durationController;
+  late TextEditingController _codeController;
+  String _pricingModel = 'per_item';
+  bool _isPublished = false;
+
   bool get _isEditing => widget.service != null;
 
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController(text: widget.service?.title ?? '');
-    _priceController =
-        TextEditingController(text: widget.service?.price.toString() ?? '');
+    final s = widget.service;
+    _nameController = TextEditingController(text: s?.name ?? '');
+    _priceController = TextEditingController(text: s?.price.toString() ?? '');
+    _subCategoryController = TextEditingController(text: s?.subCategory ?? '');
+    _durationController =
+        TextEditingController(text: s?.durationMinutes?.toString() ?? '');
+    _codeController = TextEditingController(text: s?.code ?? '');
+    _pricingModel = s?.pricingModel ?? 'per_item';
+    _isPublished = s?.isPublished ?? false;
   }
 
   @override
   void dispose() {
-    _titleController.dispose();
+    _nameController.dispose();
     _priceController.dispose();
+    _subCategoryController.dispose();
+    _durationController.dispose();
+    _codeController.dispose();
     super.dispose();
   }
 
   void _submit() {
-    if (_formKey.currentState!.validate()) {
-      final title = _titleController.text;
-      final price = double.tryParse(_priceController.text) ?? 0.0;
+    if (!_formKey.currentState!.validate()) return;
+    final name = _nameController.text.trim();
+    final price = double.tryParse(_priceController.text) ?? 0.0;
+    final subCategory = _subCategoryController.text.trim().isEmpty
+        ? null
+        : _subCategoryController.text.trim();
+    final duration = int.tryParse(_durationController.text);
+    final code = _codeController.text.trim().isEmpty
+        ? null
+        : _codeController.text.trim();
 
-      if (_isEditing) {
-        context
-            .read<ServicesCubit>()
-            .updateService(id: widget.service!.id!, title: title, price: price);
-      } else {
-        context.read<ServicesCubit>().addService(title: title, price: price);
-      }
-      Navigator.of(context).pop();
+    if (_isEditing) {
+      context.read<AdminServicesCubit>().updateService(
+            id: widget.service!.id,
+            name: name,
+            price: price,
+            subCategory: subCategory,
+            pricingModel: _pricingModel,
+            duration: duration,
+            code: code,
+            isPublished: _isPublished,
+          );
+    } else {
+      context.read<AdminServicesCubit>().addService(
+            name: name,
+            price: price,
+            subCategory: subCategory,
+            pricingModel: _pricingModel,
+            duration: duration,
+            code: code,
+            isPublished: _isPublished,
+          );
     }
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-          top: 20,
-          right: 20,
-          left: 20),
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+        top: 20,
+        left: 20,
+        right: 20,
+      ),
       child: Form(
         key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(_isEditing ? 'Edit Service' : 'Add New Service',
-                style: Theme.of(context).textTheme.headlineSmall),
-            const SizedBox(height: 20),
-            TextFormField(
-              controller: _titleController,
-              decoration: const InputDecoration(
-                  labelText: 'Title', border: OutlineInputBorder()),
-              validator: (value) => (value == null || value.isEmpty)
-                  ? 'Title cannot be empty'
-                  : null,
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _priceController,
-              decoration: const InputDecoration(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _isEditing ? 'Edit Service' : 'Add New Service',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) =>
+                    (v == null || v.isEmpty) ? 'Name is required' : null,
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: _priceController,
+                decoration: const InputDecoration(
                   labelText: 'Price',
                   prefixText: '\$',
-                  border: OutlineInputBorder()),
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Price cannot be empty';
-                }
-                if (double.tryParse(value) == null) {
-                  return 'Please enter a valid number';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _submit,
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 48),
-                backgroundColor: Const.aqua,
-                foregroundColor: Colors.white,
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                validator: (v) {
+                  if (v == null || v.isEmpty) return 'Price is required';
+                  if (double.tryParse(v) == null) {
+                    return 'Enter a valid number';
+                  }
+                  return null;
+                },
               ),
-              child: Text(_isEditing ? 'Save Changes' : 'Add Service'),
-            ),
-            const SizedBox(height: 20),
-          ],
+              const SizedBox(height: 12),
+              DropdownButtonFormField<String>(
+                value: _pricingModel,
+                decoration: const InputDecoration(
+                  labelText: 'Pricing Model',
+                  border: OutlineInputBorder(),
+                ),
+                items: const [
+                  DropdownMenuItem(value: 'per_item', child: Text('Per Item')),
+                  DropdownMenuItem(
+                      value: 'per_package', child: Text('Per Package')),
+                  DropdownMenuItem(
+                      value: 'hourly_rate', child: Text('Hourly Rate')),
+                ],
+                onChanged: (v) {
+                  if (v != null) setState(() => _pricingModel = v);
+                },
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: _subCategoryController,
+                decoration: const InputDecoration(
+                  labelText: 'Sub Category (optional)',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: _durationController,
+                decoration: const InputDecoration(
+                  labelText: 'Duration (minutes, optional)',
+                  border: OutlineInputBorder(),
+                ),
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: _codeController,
+                decoration: const InputDecoration(
+                  labelText: 'Code (optional)',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              SwitchListTile(
+                title: const Text('Published'),
+                value: _isPublished,
+                onChanged: (v) => setState(() => _isPublished = v),
+                activeColor: Const.aqua,
+                contentPadding: EdgeInsets.zero,
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: _submit,
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 48),
+                  backgroundColor: Const.aqua,
+                  foregroundColor: Colors.white,
+                ),
+                child: Text(_isEditing ? 'Save Changes' : 'Add Service'),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

@@ -18,15 +18,11 @@ class CreateNursingAppointment {
 
 class CreateNursingAppointmentParams extends Equatable {
   final String type = 'nursing';
-  final String providerType = 'nurse';
   final int providerId;
   final DateTime startDatetime;
   final NursingCase nursingCase;
 
   String get summary => nursingCase.addOnServices.map((e) => e.name).join(', ');
-  double get payTotal => nursingCase.addOnServices
-      .map((e) => e.price)
-      .fold(0.0, (previousValue, element) => previousValue + element); // Sum of prices
 
   const CreateNursingAppointmentParams({
     required this.providerId,
@@ -35,11 +31,5 @@ class CreateNursingAppointmentParams extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-        type,
-        providerType,
-        providerId,
-        startDatetime,
-        nursingCase,
-      ];
+  List<Object?> get props => [type, providerId, startDatetime, nursingCase];
 }

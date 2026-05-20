@@ -1,8 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/mobility_status.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
-import 'package:m2health/features/smoking_cessation/domain/entities/smoking_cessation_form.dart';
 
 class PharmacyCase extends Equatable {
   final int? appointmentId;
@@ -10,8 +9,7 @@ class PharmacyCase extends Equatable {
   final List<PersonalIssue> issues;
   final MobilityStatus? mobilityStatus;
   final int? relatedHealthRecordId;
-  final List<AddOnService> addOnServices;
-  final SmokingCessationForm? smokingCessationForm;
+  final List<ServiceEntity> addOnServices;
 
   const PharmacyCase({
     this.appointmentId,
@@ -20,7 +18,6 @@ class PharmacyCase extends Equatable {
     this.mobilityStatus,
     this.relatedHealthRecordId,
     this.addOnServices = const [],
-    this.smokingCessationForm,
   });
 
   @override
@@ -31,7 +28,6 @@ class PharmacyCase extends Equatable {
         mobilityStatus,
         relatedHealthRecordId,
         addOnServices,
-        smokingCessationForm,
       ];
 
   PharmacyCase copyWith({
@@ -40,8 +36,7 @@ class PharmacyCase extends Equatable {
     List<PersonalIssue>? issues,
     MobilityStatus? mobilityStatus,
     int? relatedHealthRecordId,
-    List<AddOnService>? addOnServices,
-    SmokingCessationForm? smokingCessationForm,
+    List<ServiceEntity>? addOnServices,
   }) {
     return PharmacyCase(
       appointmentId: appointmentId ?? this.appointmentId,
@@ -50,7 +45,6 @@ class PharmacyCase extends Equatable {
       mobilityStatus: mobilityStatus ?? this.mobilityStatus,
       relatedHealthRecordId: relatedHealthRecordId ?? this.relatedHealthRecordId,
       addOnServices: addOnServices ?? this.addOnServices,
-      smokingCessationForm: smokingCessationForm ?? this.smokingCessationForm,
     );
   }
 }

@@ -4,6 +4,8 @@ import 'package:m2health/features/medical_record/domain/entities/medical_record.
 
 enum FormSubmissionStatus { initial, loading, success, failure }
 
+enum FileUploadStatus { idle, uploading, failure }
+
 class MedicalRecordFormState extends Equatable {
   const MedicalRecordFormState({
     this.initialRecord,
@@ -12,7 +14,11 @@ class MedicalRecordFormState extends Equatable {
     this.diseaseHistory = '',
     this.specialConsiderations = const <String>[],
     this.treatmentInfo = '',
-    this.pickedFile,
+  this.pickedFiles = const <File>[],
+  this.uploadedFileIds = const <int>[],
+  this.existingUploadedFileIds = const <int>[],
+  this.fileUploadStatus = FileUploadStatus.idle,
+  this.fileUploadErrorMessage,
     this.status = FormSubmissionStatus.initial,
     this.errorMessage,
   });
@@ -23,7 +29,11 @@ class MedicalRecordFormState extends Equatable {
   final String diseaseHistory;
   final List<String> specialConsiderations;
   final String treatmentInfo;
-  final File? pickedFile;
+  final List<File> pickedFiles;
+  final List<int> uploadedFileIds;
+  final List<int> existingUploadedFileIds;
+  final FileUploadStatus fileUploadStatus;
+  final String? fileUploadErrorMessage;
   final FormSubmissionStatus status;
   final String? errorMessage;
 
@@ -39,7 +49,11 @@ class MedicalRecordFormState extends Equatable {
     String? diseaseHistory,
     List<String>? specialConsiderations,
     String? treatmentInfo,
-    File? pickedFile,
+    List<File>? pickedFiles,
+    List<int>? uploadedFileIds,
+    List<int>? existingUploadedFileIds,
+    FileUploadStatus? fileUploadStatus,
+    String? fileUploadErrorMessage,
     FormSubmissionStatus? status,
     String? errorMessage,
   }) {
@@ -51,7 +65,13 @@ class MedicalRecordFormState extends Equatable {
       specialConsiderations:
           specialConsiderations ?? this.specialConsiderations,
       treatmentInfo: treatmentInfo ?? this.treatmentInfo,
-      pickedFile: pickedFile ?? this.pickedFile,
+      pickedFiles: pickedFiles ?? this.pickedFiles,
+      uploadedFileIds: uploadedFileIds ?? this.uploadedFileIds,
+      existingUploadedFileIds:
+          existingUploadedFileIds ?? this.existingUploadedFileIds,
+      fileUploadStatus: fileUploadStatus ?? this.fileUploadStatus,
+      fileUploadErrorMessage:
+          fileUploadErrorMessage ?? this.fileUploadErrorMessage,
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
     );
@@ -65,7 +85,11 @@ class MedicalRecordFormState extends Equatable {
         diseaseHistory,
         specialConsiderations,
         treatmentInfo,
-        pickedFile,
+  pickedFiles,
+  uploadedFileIds,
+  existingUploadedFileIds,
+  fileUploadStatus,
+  fileUploadErrorMessage,
         status,
         errorMessage,
       ];

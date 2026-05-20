@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/home_health_screening/domain/entities/screening_service.dart';
 import 'package:m2health/features/home_health_screening/presentation/bloc/services_list/screening_services_cubit.dart';
 
 class ScreeningServicesSelectionPage extends StatefulWidget {
-  final Function(List<ScreeningItem>) onNext;
-  final List<ScreeningItem> initialSelection;
+  final Function(List<ServiceEntity>) onNext;
+  final List<ServiceEntity> initialSelection;
 
   const ScreeningServicesSelectionPage({
     super.key,
@@ -22,7 +23,7 @@ class ScreeningServicesSelectionPage extends StatefulWidget {
 
 class _ScreeningServicesSelectionPageState
     extends State<ScreeningServicesSelectionPage> {
-  final List<ScreeningItem> _selectedItems = [];
+  final List<ServiceEntity> _selectedItems = [];
 
   @override
   void initState() {
@@ -31,7 +32,7 @@ class _ScreeningServicesSelectionPageState
     context.read<ScreeningServicesCubit>().loadServices();
   }
 
-  void _toggleItem(ScreeningItem item) {
+  void _toggleItem(ServiceEntity item) {
     setState(() {
       if (_selectedItems.contains(item)) {
         _selectedItems.remove(item);
@@ -58,26 +59,30 @@ class _ScreeningServicesSelectionPageState
           }
           if (state.error != null) return Center(child: Text(state.error!));
 
+          final Map<String, List<ServiceEntity>> groupedServices = groupBy(
+              state.services, (service) => service.subCategory ?? 'Other');
+
           return Column(
             children: [
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.all(16),
-                  itemCount: state.categories.length,
+                  itemCount: groupedServices.length,
                   itemBuilder: (context, index) {
-                    final category = state.categories[index];
+                    final subCategory = groupedServices.keys.toList()[index];
+                    final services = groupedServices[subCategory]!;
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: Text(category.name,
+                          child: Text(subCategory,
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
                               )),
                         ),
-                        ...category.items.map((item) => _buildItemCard(item)),
+                        ...services.map((item) => _buildItemCard(item)),
                         const SizedBox(height: 8),
                       ],
                     );
@@ -92,7 +97,7 @@ class _ScreeningServicesSelectionPageState
     );
   }
 
-  Widget _buildItemCard(ScreeningItem item) {
+  Widget _buildItemCard(ServiceEntity item) {
     final isSelected = _selectedItems.contains(item);
     return Card(
       margin: const EdgeInsets.only(bottom: 8),

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/blocs/user_role_cubit.dart';
 import 'package:m2health/core/presentation/widgets/buttons/button_size.dart';
 import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
 import 'package:m2health/features/settings/language/locale_cubit.dart';
@@ -84,6 +85,7 @@ class _SignInPageState extends State<SignInPage> {
           listener: (context, state) {
             if (state is SignInSuccess) {
               context.read<AuthCubit>().loggedIn();
+              context.read<UserRoleCubit>().loadUserRole();
               TextInput.finishAutofillContext();
             } else if (state is SignInError) {
               showDialog(
@@ -340,14 +342,8 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
                 initialValue: selectedRole,
-                items: <UserRole>[
-                  UserRole.patient,
-                  UserRole.nurse,
-                  UserRole.pharmacist,
-                  UserRole.radiologist,
-                  UserRole.caregiver,
-                  UserRole.physiotherapist,
-                ].map<DropdownMenuItem<UserRole>>((UserRole value) {
+                items: ALL_USER_ROLES
+                    .map<DropdownMenuItem<UserRole>>((UserRole value) {
                   return DropdownMenuItem<UserRole>(
                     value: value,
                     child: Text(

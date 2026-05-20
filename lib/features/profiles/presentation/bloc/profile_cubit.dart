@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/error/failures.dart';
+import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
 import 'package:m2health/utils.dart';
@@ -33,8 +34,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       return;
     }
 
-    if (['nurse', 'pharmacist', 'radiologist', 'caregiver', 'physiotherapist']
-        .contains(role)) {
+    if (PROFESSIONAL_ROLES.map((r) => r.value).contains(role)) {
       final result = await getProfessionalProfileUseCase();
       result.fold(
         (failure) {

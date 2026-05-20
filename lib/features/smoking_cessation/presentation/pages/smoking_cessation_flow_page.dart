@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -110,7 +112,11 @@ class _SmokingCessationFlowPageState extends State<SmokingCessationFlowPage> {
                 SmokingCessationFormPage(
                   initialForm: state.form,
                   onSubmit: (form) {
-                    context.read<SmokingCessationFlowCubit>().updateForm(form);
+                    unawaited(
+                      context
+                          .read<SmokingCessationFlowCubit>()
+                          .updateForm(form),
+                    );
                   },
                 ),
                 BlocProvider(

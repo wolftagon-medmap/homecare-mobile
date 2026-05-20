@@ -39,12 +39,12 @@ class AdminProfessionalsCubit extends Cubit<AdminProfessionalsState> {
 
   AdminProfessionalsCubit(this.remoteDatasource) : super(AdminProsInitial());
 
-  Future<void> fetchProfessionals(String role, String status) async {
+  Future<void> fetchProfessionals(String? role, String status) async {
     try {
       emit(AdminProsLoading());
       final result = await remoteDatasource.getAdminProfessionals(
         status: status,
-        role: role,
+        role: role?.isEmpty == true ? null : role,
       );
       emit(AdminProsLoaded(result));
     } catch (e) {

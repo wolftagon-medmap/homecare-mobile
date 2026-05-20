@@ -47,11 +47,10 @@ class SmokingCessationPlanCubit extends Cubit<SmokingCessationPlanState> {
     );
   }
 
-  Future<void> submitPlan() async {
+  Future<void> submitCarePlan() async {
     emit(state.copyWith(submitStatus: SmokingCessationPlanStatus.loading));
 
     var planToSubmit = state.plan;
-
     if (!state.prescribeMedication) {
       planToSubmit = planToSubmit.copyWith(
         medicationName: null,
@@ -59,19 +58,16 @@ class SmokingCessationPlanCubit extends Cubit<SmokingCessationPlanState> {
       );
     }
 
-    final result = await _repository.submitSmokingCessationPlan(
+    final result = await _repository.createSmokingCessationCarePlan(
         appointmentId, planToSubmit);
 
     result.fold(
-      (failure) {
-        emit(state.copyWith(
-          submitStatus: SmokingCessationPlanStatus.failure,
-          errorMessage: failure.message,
-        ));
-      },
-      (_) {
-        emit(state.copyWith(submitStatus: SmokingCessationPlanStatus.success));
-      },
+      (failure) => emit(state.copyWith(
+        submitStatus: SmokingCessationPlanStatus.failure,
+        errorMessage: failure.message,
+      )),
+      (_) =>
+          emit(state.copyWith(submitStatus: SmokingCessationPlanStatus.success)),
     );
   }
 }
