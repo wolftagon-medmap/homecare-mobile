@@ -65,10 +65,12 @@ class _ComposerBarState extends State<ComposerBar> {
               onSubmitted: (_) => _submit(),
               decoration: InputDecoration(
                 hintText: widget.composer.placeholder ?? 'Type your message…',
-                hintStyle: const TextStyle(color: Color(0xFF8A96BC), fontSize: 14),
+                hintStyle:
+                    const TextStyle(color: Color(0xFF8A96BC), fontSize: 14),
                 filled: true,
                 fillColor: const Color(0xFFF1F3F8),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(24),
                   borderSide: BorderSide.none,
@@ -89,9 +91,11 @@ class _ComposerBarState extends State<ComposerBar> {
                 child: widget.isSending
                     ? const Padding(
                         padding: EdgeInsets.all(12),
-                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                        child: CircularProgressIndicator(
+                            strokeWidth: 2, color: Colors.white),
                       )
-                    : const Icon(Icons.send_rounded, color: Colors.white, size: 20),
+                    : const Icon(Icons.send_rounded,
+                        color: Colors.white, size: 20),
               ),
             ),
           ),

@@ -69,7 +69,9 @@ class IntakeCubit extends Cubit<IntakeState> {
   Future<void> respond({required int blockId, required String replyId}) async {
     final current = state;
     if (current is! IntakeActive) return;
-    if (current.awaitingReply || current.resolvedChoices.containsKey(blockId)) return;
+    if (current.awaitingReply || current.resolvedChoices.containsKey(blockId)) {
+      return;
+    }
 
     emit(current.copyWith(
       resolvedChoices: {...current.resolvedChoices, blockId: replyId},
@@ -78,11 +80,13 @@ class IntakeCubit extends Cubit<IntakeState> {
     ));
 
     try {
-      await _repository.sendReply(sessionId: current.sessionId, replyId: replyId);
+      await _repository.sendReply(
+          sessionId: current.sessionId, replyId: replyId);
     } catch (e) {
       final cur = state;
       if (cur is IntakeActive) {
-        final choices = Map<int, String>.from(cur.resolvedChoices)..remove(blockId);
+        final choices = Map<int, String>.from(cur.resolvedChoices)
+          ..remove(blockId);
         emit(cur.copyWith(
           resolvedChoices: choices,
           awaitingReply: false,
@@ -102,7 +106,8 @@ class IntakeCubit extends Cubit<IntakeState> {
   }) async {
     final current = state;
     if (current is! IntakeActive) return;
-    if (current.awaitingReply || current.resolvedChoices.containsKey(blockId)) return;
+    if (current.awaitingReply || current.resolvedChoices.containsKey(blockId))
+      return;
 
     emit(current.copyWith(
       resolvedChoices: {...current.resolvedChoices, blockId: 'picked'},
@@ -120,7 +125,8 @@ class IntakeCubit extends Cubit<IntakeState> {
     } catch (e) {
       final cur = state;
       if (cur is IntakeActive) {
-        final choices = Map<int, String>.from(cur.resolvedChoices)..remove(blockId);
+        final choices = Map<int, String>.from(cur.resolvedChoices)
+          ..remove(blockId);
         emit(cur.copyWith(
           resolvedChoices: choices,
           awaitingReply: false,
@@ -134,11 +140,12 @@ class IntakeCubit extends Cubit<IntakeState> {
 
   void _subscribe(String sessionId) {
     _sseSub?.cancel();
-    _sseSub = _repository.streamBlocks(sessionId, lastEventId: _lastEventId).listen(
-          _onBlock,
-          onError: (_) => _onConnectionLost(sessionId),
-          onDone: () => _onConnectionLost(sessionId),
-        );
+    _sseSub =
+        _repository.streamBlocks(sessionId, lastEventId: _lastEventId).listen(
+              _onBlock,
+              onError: (_) => _onConnectionLost(sessionId),
+              onDone: () => _onConnectionLost(sessionId),
+            );
     final current = state;
     if (current is IntakeActive) emit(current.copyWith(connected: true));
   }
@@ -170,7 +177,8 @@ class IntakeCubit extends Cubit<IntakeState> {
   void _failAction(Object error) {
     final current = state;
     if (current is IntakeActive) {
-      emit(current.copyWith(awaitingReply: false, actionError: _messageOf(error)));
+      emit(current.copyWith(
+          awaitingReply: false, actionError: _messageOf(error)));
     }
   }
 

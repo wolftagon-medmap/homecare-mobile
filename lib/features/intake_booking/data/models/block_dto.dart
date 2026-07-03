@@ -45,11 +45,20 @@ Block blockFromJson(Map<String, dynamic> json) {
         composer: composer,
       );
     case 'handoff':
-      return NoticeBlock(id: id, text: text, noticeKind: NoticeKind.handoff, composer: composer);
+      return NoticeBlock(
+          id: id,
+          text: text,
+          noticeKind: NoticeKind.handoff,
+          composer: composer);
     case 'safety_alert':
-      return NoticeBlock(id: id, text: text, noticeKind: NoticeKind.safety, composer: composer);
+      return NoticeBlock(
+          id: id,
+          text: text,
+          noticeKind: NoticeKind.safety,
+          composer: composer);
     case 'info':
-      return NoticeBlock(id: id, text: text, noticeKind: NoticeKind.info, composer: composer);
+      return NoticeBlock(
+          id: id, text: text, noticeKind: NoticeKind.info, composer: composer);
     default:
       return UnknownBlock(id: id, kind: kind, composer: composer);
   }
@@ -62,7 +71,9 @@ CandidateOption _candidateFromJson(Map<String, dynamic> json) {
     name: json['name'] as String? ?? '',
     ratingAvg: (json['ratingAvg'] as num?)?.toDouble(),
     distanceKm: (json['distanceKm'] as num?)?.toDouble() ?? 0,
-    languages: (json['languages'] as List<dynamic>? ?? []).map((e) => e.toString()).toList(),
+    languages: (json['languages'] as List<dynamic>? ?? [])
+        .map((e) => e.toString())
+        .toList(),
     score: (json['score'] as num?)?.toDouble() ?? 0,
   );
 }

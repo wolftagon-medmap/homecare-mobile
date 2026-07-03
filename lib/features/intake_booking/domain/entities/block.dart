@@ -25,7 +25,8 @@ class UserTextBlock extends Block {
 
 class AssistantTextBlock extends Block {
   final String text;
-  const AssistantTextBlock({required super.id, required this.text, super.composer});
+  const AssistantTextBlock(
+      {required super.id, required this.text, super.composer});
 
   @override
   List<Object?> get props => [...super.props, text];
@@ -63,7 +64,8 @@ class ProfessionalShortlistBlock extends Block {
 
 class LocationRequestBlock extends Block {
   final String text;
-  const LocationRequestBlock({required super.id, required this.text, super.composer});
+  const LocationRequestBlock(
+      {required super.id, required this.text, super.composer});
 
   @override
   List<Object?> get props => [...super.props, text];

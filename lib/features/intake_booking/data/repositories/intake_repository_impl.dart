@@ -11,14 +11,16 @@ class IntakeRepositoryImpl implements IntakeRepository {
   Future<String> startSession() => _remote.startSession();
 
   @override
-  Future<List<Block>> fetchHistory(String sessionId) => _remote.fetchHistory(sessionId);
+  Future<List<Block>> fetchHistory(String sessionId) =>
+      _remote.fetchHistory(sessionId);
 
   @override
   Future<void> sendText({required String sessionId, required String text}) =>
       _remote.send(sessionId: sessionId, text: text);
 
   @override
-  Future<void> sendReply({required String sessionId, required String replyId}) =>
+  Future<void> sendReply(
+          {required String sessionId, required String replyId}) =>
       _remote.send(sessionId: sessionId, replyId: replyId);
 
   @override

@@ -26,7 +26,8 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _checkConsentAndStart());
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _checkConsentAndStart());
   }
 
   @override
@@ -71,7 +72,10 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
           blockId: blockId,
           lat: result.latitude,
           lng: result.longitude,
-          address: result.formattedAddress ?? result.shortFormattedAddress ?? result.name ?? '',
+          address: result.formattedAddress ??
+              result.shortFormattedAddress ??
+              result.name ??
+              '',
         );
   }
 
@@ -86,7 +90,8 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
             bottom: (state is IntakeActive && !state.connected)
                 ? const PreferredSize(
                     preferredSize: Size.fromHeight(2),
-                    child: LinearProgressIndicator(minHeight: 2, color: Const.aqua),
+                    child: LinearProgressIndicator(
+                        minHeight: 2, color: Const.aqua),
                   )
                 : null,
           ),
@@ -124,16 +129,20 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
               : ListView.builder(
                   controller: _scrollController,
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  itemCount: state.blocks.length + (state.awaitingReply ? 1 : 0),
+                  itemCount:
+                      state.blocks.length + (state.awaitingReply ? 1 : 0),
                   itemBuilder: (context, index) {
-                    if (index >= state.blocks.length) return const ThinkingIndicator();
+                    if (index >= state.blocks.length) {
+                      return const ThinkingIndicator();
+                    }
                     final block = state.blocks[index];
                     return BlockView(
                       block: block,
                       isLast: index == state.blocks.length - 1,
                       chosenReplyId: state.resolvedChoices[block.id],
-                      onReply: (replyId) =>
-                          context.read<IntakeCubit>().respond(blockId: block.id, replyId: replyId),
+                      onReply: (replyId) => context
+                          .read<IntakeCubit>()
+                          .respond(blockId: block.id, replyId: replyId),
                       onPickLocation: () => _pickLocation(block.id),
                     );
                   },
@@ -166,7 +175,8 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
           Text(message, textAlign: TextAlign.center),
           TextButton(
             onPressed: () => context.read<IntakeCubit>().start(),
-            child: const Text('Retry', style: TextStyle(fontWeight: FontWeight.bold)),
+            child: const Text('Retry',
+                style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
       ),

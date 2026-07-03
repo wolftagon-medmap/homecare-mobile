@@ -62,7 +62,8 @@ class ConfirmRequestCard extends StatelessWidget {
               backgroundColor: Const.aqua,
               foregroundColor: Colors.white,
               elevation: 0,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
             ),
             child: const Text('Yes'),
           ),
@@ -74,7 +75,8 @@ class ConfirmRequestCard extends StatelessWidget {
             style: OutlinedButton.styleFrom(
               foregroundColor: Const.aqua,
               side: const BorderSide(color: Const.aqua),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
             ),
             child: const Text('No'),
           ),

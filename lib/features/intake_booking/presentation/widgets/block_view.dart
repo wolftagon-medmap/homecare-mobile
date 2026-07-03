@@ -37,7 +37,8 @@ class BlockView extends StatelessWidget {
     return switch (block) {
       UserTextBlock(:final text) => UserBubble(text: text),
       AssistantTextBlock(:final text) => AssistantBubble(text: text),
-      NoticeBlock(:final text, :final noticeKind) => NoticeBanner(text: text, kind: noticeKind),
+      NoticeBlock(:final text, :final noticeKind) =>
+        NoticeBanner(text: text, kind: noticeKind),
       ConfirmRequestBlock b => ConfirmRequestCard(
           block: b,
           active: active,
@@ -70,7 +71,10 @@ class BlockView extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
           child: Text(
             'Please update your app to continue this step.',
-            style: TextStyle(color: Color(0xFF8A96BC), fontSize: 11, fontStyle: FontStyle.italic),
+            style: TextStyle(
+                color: Color(0xFF8A96BC),
+                fontSize: 11,
+                fontStyle: FontStyle.italic),
           ),
         ),
       ],

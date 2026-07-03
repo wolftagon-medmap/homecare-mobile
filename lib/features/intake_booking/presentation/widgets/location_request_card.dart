@@ -38,7 +38,8 @@ class LocationRequestCard extends StatelessWidget {
       children: [
         Icon(Icons.check_circle, size: 18, color: Const.aqua),
         SizedBox(width: 6),
-        Text('Location set', style: TextStyle(color: Color(0xFF5A6485), fontSize: 13)),
+        Text('Location set',
+            style: TextStyle(color: Color(0xFF5A6485), fontSize: 13)),
       ],
     );
   }
@@ -54,7 +55,8 @@ class LocationRequestCard extends StatelessWidget {
           foregroundColor: Const.aqua,
           side: const BorderSide(color: Const.aqua),
           padding: const EdgeInsets.symmetric(vertical: 12),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
       ),
     );

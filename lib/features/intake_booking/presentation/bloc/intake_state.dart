@@ -77,6 +77,13 @@ class IntakeActive extends IntakeState {
   }
 
   @override
-  List<Object?> get props =>
-      [sessionId, blocks, composer, awaitingReply, connected, actionError, resolvedChoices];
+  List<Object?> get props => [
+        sessionId,
+        blocks,
+        composer,
+        awaitingReply,
+        connected,
+        actionError,
+        resolvedChoices
+      ];
 }

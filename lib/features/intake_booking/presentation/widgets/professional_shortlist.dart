@@ -93,18 +93,22 @@ class _ProfessionalCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      const Icon(Icons.star_rounded, size: 16, color: Color(0xFFFFB020)),
+                      const Icon(Icons.star_rounded,
+                          size: 16, color: Color(0xFFFFB020)),
                       const SizedBox(width: 2),
                       Text(
                         candidate.ratingAvg?.toStringAsFixed(1) ?? '—',
-                        style: const TextStyle(fontSize: 12, color: Color(0xFF5A6485)),
+                        style: const TextStyle(
+                            fontSize: 12, color: Color(0xFF5A6485)),
                       ),
                       const SizedBox(width: 12),
-                      const Icon(Icons.place_outlined, size: 14, color: Color(0xFF8A96BC)),
+                      const Icon(Icons.place_outlined,
+                          size: 14, color: Color(0xFF8A96BC)),
                       const SizedBox(width: 2),
                       Text(
                         '${candidate.distanceKm.toStringAsFixed(1)} km',
-                        style: const TextStyle(fontSize: 12, color: Color(0xFF5A6485)),
+                        style: const TextStyle(
+                            fontSize: 12, color: Color(0xFF5A6485)),
                       ),
                     ],
                   ),
@@ -112,7 +116,8 @@ class _ProfessionalCard extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       candidate.languages.join(', '),
-                      style: const TextStyle(fontSize: 11, color: Color(0xFF8A96BC)),
+                      style: const TextStyle(
+                          fontSize: 11, color: Color(0xFF8A96BC)),
                     ),
                   ],
                 ],
@@ -130,7 +135,8 @@ class _ProfessionalCard extends StatelessWidget {
                         foregroundColor: Colors.white,
                         elevation: 0,
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
                       ),
                       child: const Text('Select'),
                     ),
@@ -158,7 +164,11 @@ class _SelectedPill extends StatelessWidget {
         children: [
           Icon(Icons.check_circle, size: 16, color: Const.aqua),
           SizedBox(width: 4),
-          Text('Selected', style: TextStyle(color: Const.aqua, fontSize: 12, fontWeight: FontWeight.w600)),
+          Text('Selected',
+              style: TextStyle(
+                  color: Const.aqua,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600)),
         ],
       ),
     );

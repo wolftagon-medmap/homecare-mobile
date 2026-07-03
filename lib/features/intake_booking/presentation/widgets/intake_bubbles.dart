@@ -52,12 +52,14 @@ class _Bubble extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.78),
+        constraints:
+            BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.78),
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(16),
         ),
-        child: Text(text, style: TextStyle(color: textColor, fontSize: 14, height: 1.35)),
+        child: Text(text,
+            style: TextStyle(color: textColor, fontSize: 14, height: 1.35)),
       ),
     );
   }
@@ -89,13 +91,16 @@ class NoticeBanner extends StatelessWidget {
       width: double.infinity,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(12)),
+      decoration:
+          BoxDecoration(color: bg, borderRadius: BorderRadius.circular(12)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Icon(icon, color: fg, size: 20),
           const SizedBox(width: 10),
-          Expanded(child: Text(text, style: TextStyle(color: fg, fontSize: 13, height: 1.35))),
+          Expanded(
+              child: Text(text,
+                  style: TextStyle(color: fg, fontSize: 13, height: 1.35))),
         ],
       ),
     );
