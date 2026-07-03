@@ -223,7 +223,7 @@ class _DashboardState extends State<Dashboard> {
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).push(AppRoutes.chatDoctorAI);
+                      GoRouter.of(context).push(AppRoutes.intakeBooking);
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
