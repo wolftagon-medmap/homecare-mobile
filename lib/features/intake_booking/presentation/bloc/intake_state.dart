@@ -42,6 +42,10 @@ class IntakeActive extends IntakeState {
   /// Non-null when the last action failed to send.
   final String? actionError;
 
+  /// Interactive blocks already acted on: block id → chosen reply token. Used to
+  /// make buttons one-shot and highlight the chosen option.
+  final Map<int, String> resolvedChoices;
+
   const IntakeActive({
     required this.sessionId,
     this.blocks = const [],
@@ -49,6 +53,7 @@ class IntakeActive extends IntakeState {
     this.awaitingReply = false,
     this.connected = false,
     this.actionError,
+    this.resolvedChoices = const {},
   });
 
   IntakeActive copyWith({
@@ -58,6 +63,7 @@ class IntakeActive extends IntakeState {
     bool? connected,
     String? actionError,
     bool clearActionError = false,
+    Map<int, String>? resolvedChoices,
   }) {
     return IntakeActive(
       sessionId: sessionId,
@@ -66,10 +72,11 @@ class IntakeActive extends IntakeState {
       awaitingReply: awaitingReply ?? this.awaitingReply,
       connected: connected ?? this.connected,
       actionError: clearActionError ? null : (actionError ?? this.actionError),
+      resolvedChoices: resolvedChoices ?? this.resolvedChoices,
     );
   }
 
   @override
   List<Object?> get props =>
-      [sessionId, blocks, composer, awaitingReply, connected, actionError];
+      [sessionId, blocks, composer, awaitingReply, connected, actionError, resolvedChoices];
 }

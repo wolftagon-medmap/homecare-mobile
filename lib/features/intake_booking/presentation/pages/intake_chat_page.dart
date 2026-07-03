@@ -112,7 +112,14 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
                   itemCount: state.blocks.length + (state.awaitingReply ? 1 : 0),
                   itemBuilder: (context, index) {
                     if (index >= state.blocks.length) return const ThinkingIndicator();
-                    return BlockView(block: state.blocks[index]);
+                    final block = state.blocks[index];
+                    return BlockView(
+                      block: block,
+                      isLast: index == state.blocks.length - 1,
+                      chosenReplyId: state.resolvedChoices[block.id],
+                      onReply: (replyId) =>
+                          context.read<IntakeCubit>().respond(blockId: block.id, replyId: replyId),
+                    );
                   },
                 ),
         ),

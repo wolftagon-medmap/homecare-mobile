@@ -63,16 +63,32 @@ class IntakeCubit extends Cubit<IntakeState> {
     }
   }
 
-  /// A button token (confirm/abort/select). No optimistic bubble — the reply is
-  /// reflected by the next server block.
-  Future<void> sendReply(String replyId) async {
+  /// Respond to an interactive block (confirm / abort / select) by echoing its
+  /// token. Marks the block resolved so its buttons become one-shot; on failure
+  /// the block is un-resolved so the user can retry.
+  Future<void> respond({required int blockId, required String replyId}) async {
     final current = state;
     if (current is! IntakeActive) return;
-    emit(current.copyWith(awaitingReply: true, clearActionError: true));
+    if (current.awaitingReply || current.resolvedChoices.containsKey(blockId)) return;
+
+    emit(current.copyWith(
+      resolvedChoices: {...current.resolvedChoices, blockId: replyId},
+      awaitingReply: true,
+      clearActionError: true,
+    ));
+
     try {
       await _repository.sendReply(sessionId: current.sessionId, replyId: replyId);
     } catch (e) {
-      _failAction(e);
+      final cur = state;
+      if (cur is IntakeActive) {
+        final choices = Map<int, String>.from(cur.resolvedChoices)..remove(blockId);
+        emit(cur.copyWith(
+          resolvedChoices: choices,
+          awaitingReply: false,
+          actionError: _messageOf(e),
+        ));
+      }
     }
   }
 
