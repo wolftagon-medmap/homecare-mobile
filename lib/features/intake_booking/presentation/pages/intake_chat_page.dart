@@ -7,6 +7,8 @@ import 'package:m2health/features/intake_booking/presentation/bloc/intake_state.
 import 'package:m2health/features/intake_booking/presentation/widgets/block_view.dart';
 import 'package:m2health/features/intake_booking/presentation/widgets/composer_bar.dart';
 import 'package:m2health/features/intake_booking/presentation/widgets/intake_bubbles.dart';
+import 'package:m2health/features/profiles/domain/entities/address.dart';
+import 'package:m2health/features/profiles/presentation/pages/address_map_page.dart';
 import 'package:m2health/utils.dart';
 
 /// The conversational booking chat. Consent is gated locally (reusing the AI
@@ -58,6 +60,19 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
         );
       }
     });
+  }
+
+  Future<void> _pickLocation(int blockId) async {
+    final result = await Navigator.of(context).push<Address>(
+      MaterialPageRoute(builder: (_) => const AddressMapPage(pickOnly: true)),
+    );
+    if (result == null || !mounted) return;
+    context.read<IntakeCubit>().sendLocation(
+          blockId: blockId,
+          lat: result.latitude,
+          lng: result.longitude,
+          address: result.formattedAddress ?? result.shortFormattedAddress ?? result.name ?? '',
+        );
   }
 
   @override
@@ -119,6 +134,7 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
                       chosenReplyId: state.resolvedChoices[block.id],
                       onReply: (replyId) =>
                           context.read<IntakeCubit>().respond(blockId: block.id, replyId: replyId),
+                      onPickLocation: () => _pickLocation(block.id),
                     );
                   },
                 ),

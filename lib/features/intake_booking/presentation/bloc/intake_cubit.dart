@@ -92,14 +92,24 @@ class IntakeCubit extends Cubit<IntakeState> {
     }
   }
 
+  /// Send a map-picked location answering a `location_request` block. Marks the
+  /// block resolved (one-shot); un-resolves on failure so the user can retry.
   Future<void> sendLocation({
+    required int blockId,
     required double lat,
     required double lng,
     required String address,
   }) async {
     final current = state;
     if (current is! IntakeActive) return;
-    emit(current.copyWith(awaitingReply: true, clearActionError: true));
+    if (current.awaitingReply || current.resolvedChoices.containsKey(blockId)) return;
+
+    emit(current.copyWith(
+      resolvedChoices: {...current.resolvedChoices, blockId: 'picked'},
+      awaitingReply: true,
+      clearActionError: true,
+    ));
+
     try {
       await _repository.sendLocation(
         sessionId: current.sessionId,
@@ -108,7 +118,15 @@ class IntakeCubit extends Cubit<IntakeState> {
         address: address,
       );
     } catch (e) {
-      _failAction(e);
+      final cur = state;
+      if (cur is IntakeActive) {
+        final choices = Map<int, String>.from(cur.resolvedChoices)..remove(blockId);
+        emit(cur.copyWith(
+          resolvedChoices: choices,
+          awaitingReply: false,
+          actionError: _messageOf(e),
+        ));
+      }
     }
   }
 

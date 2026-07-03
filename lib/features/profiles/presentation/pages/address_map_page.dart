@@ -14,10 +14,16 @@ class AddressMapPage extends StatelessWidget {
   final Address? initialAddress;
   final bool saveAsWorkplace;
 
+  /// When true, "Confirm Location" pops the picked [Address] (in-memory, id 0)
+  /// to the caller instead of persisting it. Used by the booking flow to capture
+  /// a visit location without saving it to the account.
+  final bool pickOnly;
+
   const AddressMapPage({
     super.key,
     this.initialAddress,
     this.saveAsWorkplace = false,
+    this.pickOnly = false,
   });
 
   @override
@@ -28,13 +34,14 @@ class AddressMapPage extends StatelessWidget {
         saveWorkplaceAddressUseCase: sl(),
         saveAsWorkplace: saveAsWorkplace,
       )..initialize(initialAddress),
-      child: const _AddressMapView(),
+      child: _AddressMapView(pickOnly: pickOnly),
     );
   }
 }
 
 class _AddressMapView extends StatefulWidget {
-  const _AddressMapView();
+  final bool pickOnly;
+  const _AddressMapView({this.pickOnly = false});
 
   @override
   State<_AddressMapView> createState() => _AddressMapViewState();
@@ -179,9 +186,30 @@ class _AddressMapViewState extends State<_AddressMapView> {
           isLoading: context.watch<AddressMapCubit>().state.status ==
               AddressMapStatus.saving,
           onPressed: () {
-            context.read<AddressMapCubit>().saveAddress();
+            if (widget.pickOnly) {
+              _confirmPick(context);
+            } else {
+              context.read<AddressMapCubit>().saveAddress();
+            }
           },
         ),
+      ),
+    );
+  }
+
+  /// Pick-only: return the current map selection without persisting it.
+  void _confirmPick(BuildContext context) {
+    final state = context.read<AddressMapCubit>().state;
+    Navigator.pop<Address>(
+      context,
+      Address(
+        id: 0,
+        latitude: state.center.latitude,
+        longitude: state.center.longitude,
+        googlePlaceId: state.googlePlaceId,
+        name: state.placeName,
+        formattedAddress: state.formattedAddress,
+        shortFormattedAddress: state.shortFormattedAddress,
       ),
     );
   }

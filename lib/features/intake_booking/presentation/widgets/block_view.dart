@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:m2health/features/intake_booking/domain/entities/block.dart';
 import 'package:m2health/features/intake_booking/presentation/widgets/confirm_request_card.dart';
 import 'package:m2health/features/intake_booking/presentation/widgets/intake_bubbles.dart';
+import 'package:m2health/features/intake_booking/presentation/widgets/location_request_card.dart';
 import 'package:m2health/features/intake_booking/presentation/widgets/professional_shortlist.dart';
 
 /// Renders a single [Block]. Interactive blocks are actionable only when they're
@@ -18,12 +19,16 @@ class BlockView extends StatelessWidget {
 
   final ValueChanged<String>? onReply;
 
+  /// Open the map picker for a location_request block.
+  final VoidCallback? onPickLocation;
+
   const BlockView({
     super.key,
     required this.block,
     this.isLast = false,
     this.chosenReplyId,
     this.onReply,
+    this.onPickLocation,
   });
 
   @override
@@ -45,7 +50,12 @@ class BlockView extends StatelessWidget {
           chosenSelectId: chosenReplyId,
           onReply: onReply,
         ),
-      LocationRequestBlock(:final text) => _pending(text),
+      LocationRequestBlock b => LocationRequestCard(
+          block: b,
+          active: active,
+          resolved: chosenReplyId != null,
+          onPick: onPickLocation,
+        ),
       BookingCreatedBlock(:final text) => _pending(text),
       UnknownBlock() => const SizedBox.shrink(),
     };
