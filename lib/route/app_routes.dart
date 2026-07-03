@@ -29,6 +29,8 @@ class AppRoutes {
   static const String physiotherapy = '/physiotherapy';
   static const String psychologist = '/psychologist';
   static const String optometrist = '/optometrist';
+  static const String psychologistBooking = '/psychologist-booking';
+  static const String optometristBooking = '/optometrist-booking';
 
   // Appointment
   static const String appointmentDetail = '/appointment/detail';
