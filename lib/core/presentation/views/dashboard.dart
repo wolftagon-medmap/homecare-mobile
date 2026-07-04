@@ -350,10 +350,10 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         MainServiceMenuItem(
                           onTap: () {
-                            context.push(AppRoutes.optometrist);
+                            context.push(AppRoutes.homeHealthScreening);
                           },
-                          iconPath: 'assets/icons/ic_optometrist.png',
-                          title: context.t.dashboard.services.optometrist,
+                          iconPath: 'assets/icons/ic_home_health_screening.png',
+                          title: context.t.dashboard.services.home_screening,
                           backgroundColor:
                               const Color.fromRGBO(178, 140, 255, 0.2),
                         ),
@@ -431,11 +431,10 @@ class _DashboardState extends State<Dashboard> {
                       children: [
                         Expanded(
                           child: OtherServiceMenuItem(
-                            imagePath:
-                                'assets/illustration/home_health_screening.webp',
-                            label: context.t.dashboard.services.home_screening,
+                            imagePath: 'assets/illustration/optometrist.webp',
+                            label: context.t.dashboard.services.optometrist,
                             onTap: () {
-                              context.push(AppRoutes.homeHealthScreening);
+                              context.push(AppRoutes.optometrist);
                             },
                           ),
                         ),
@@ -593,11 +592,14 @@ class OtherServiceMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: onTap,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          AspectRatio(
+            aspectRatio: 1.69,
+            child: Container(
               decoration: BoxDecoration(
                 border: Border.all(
                   color: const Color.fromRGBO(247, 248, 248, 1),
@@ -609,19 +611,21 @@ class OtherServiceMenuItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 child: Image.asset(
                   imagePath,
-                  // height: 72,
-                  // width: 111,
                   fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            Text(
-              label,
-              style: const TextStyle(fontSize: 12),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ));
+          ),
+          const SizedBox(height: 10),
+          Text(
+            label,
+            style: const TextStyle(fontSize: 12),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
   }
 }
