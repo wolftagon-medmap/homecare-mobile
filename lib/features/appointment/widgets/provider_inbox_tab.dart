@@ -152,7 +152,9 @@ class _InboxCard extends StatelessWidget {
             if (_timeRange.isNotEmpty)
               _IconLine(icon: Icons.access_time, text: _timeRange),
             if (item.summary.location != null)
-              _IconLine(icon: Icons.location_on_outlined, text: item.summary.location!),
+              _IconLine(
+                  icon: Icons.location_on_outlined,
+                  text: item.summary.location!),
             if (item.summary.service != null &&
                 item.summary.service!.isNotEmpty) ...[
               const SizedBox(height: 8),
@@ -185,45 +187,41 @@ class _InboxCard extends StatelessWidget {
               ),
             ],
             const SizedBox(height: 12),
+            item.estimatedIncome != null
+                ? Text(
+                    'Est. income: \$${item.estimatedIncome!.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Color(0xFF35C5CF),
+                    ),
+                  )
+                : const SizedBox.shrink(),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                item.estimatedIncome != null
-                    ? Text(
-                        'Est. income: \$${item.estimatedIncome!.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Color(0xFF35C5CF),
-                        ),
-                      )
-                    : const SizedBox.shrink(),
-                Row(
-                  children: [
-                    if (decline != null)
-                      ElevatedButton(
-                        onPressed: () => _onDecline(context, decline),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                          foregroundColor: Colors.white,
-                          minimumSize: const Size(80, 36),
-                        ),
-                        child: const Text('Decline'),
-                      ),
-                    if (accept != null) ...[
-                      const SizedBox(width: 8),
-                      ElevatedButton(
-                        onPressed: () => _onAccept(context, accept),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Const.aqua,
-                          foregroundColor: Colors.white,
-                          minimumSize: const Size(80, 36),
-                        ),
-                        child: const Text('Accept'),
-                      ),
-                    ],
-                  ],
-                ),
+                const Spacer(),
+                if (decline != null)
+                  ElevatedButton(
+                    onPressed: () => _onDecline(context, decline),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(80, 36),
+                    ),
+                    child: const Text('Decline'),
+                  ),
+                if (accept != null) ...[
+                  const SizedBox(width: 8),
+                  ElevatedButton(
+                    onPressed: () => _onAccept(context, accept),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Const.aqua,
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(80, 36),
+                    ),
+                    child: const Text('Accept'),
+                  ),
+                ],
               ],
             ),
           ],
@@ -313,8 +311,10 @@ class _OriginBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final highRisk = risk == 'high';
-    final color = highRisk ? Colors.red : (isOffer ? Const.aqua : Colors.orange);
-    final label = highRisk ? 'High risk' : (isOffer ? 'AI offer' : 'Request');
+    final color =
+        highRisk ? Colors.red : (isOffer ? Const.aqua : Colors.orange);
+    final label =
+        highRisk ? 'High risk' : (isOffer ? 'System Offer' : 'Direct Request');
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
@@ -323,8 +323,8 @@ class _OriginBadge extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: TextStyle(
-            color: color, fontSize: 11, fontWeight: FontWeight.w600),
+        style:
+            TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
       ),
     );
   }
