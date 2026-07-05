@@ -2,8 +2,22 @@ import 'package:m2health/features/intake_booking/domain/entities/block.dart';
 import 'package:m2health/features/intake_booking/domain/entities/composer_state.dart';
 
 /// Parse one backend block payload into a domain [Block]. Unknown kinds map to
-/// [UnknownBlock] so a newer backend never crashes an older client.
+/// [UnknownBlock] so a newer backend never crashes an older client; a malformed
+/// field in one block degrades to [UnknownBlock] rather than aborting the whole
+/// history parse.
 Block blockFromJson(Map<String, dynamic> json) {
+  try {
+    return _parseBlock(json);
+  } catch (_) {
+    return UnknownBlock(
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      kind: json['kind'] as String? ?? 'unknown',
+      composer: null,
+    );
+  }
+}
+
+Block _parseBlock(Map<String, dynamic> json) {
   final id = (json['id'] as num?)?.toInt() ?? 0;
   final composer = json['composer'] is Map<String, dynamic>
       ? ComposerState.fromJson(json['composer'] as Map<String, dynamic>)
@@ -71,9 +85,9 @@ CandidateOption _candidateFromJson(Map<String, dynamic> json) {
     name: json['name'] as String? ?? '',
     ratingAvg: (json['ratingAvg'] as num?)?.toDouble(),
     distanceKm: (json['distanceKm'] as num?)?.toDouble() ?? 0,
-    languages: (json['languages'] as List<dynamic>? ?? [])
-        .map((e) => e.toString())
-        .toList(),
+    languages: (json['languages'] is List)
+        ? (json['languages'] as List).map((e) => e.toString()).toList()
+        : <String>[],
     score: (json['score'] as num?)?.toDouble() ?? 0,
   );
 }
