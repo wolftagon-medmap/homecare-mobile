@@ -3,6 +3,7 @@ import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/certificate.dart';
 import 'package:m2health/features/profiles/domain/entities/onboarding_status.dart';
+import 'package:m2health/features/schedule/domain/entities/provider_availability.dart';
 
 class ProfessionalProfile extends Equatable {
   final int id;
@@ -27,6 +28,7 @@ class ProfessionalProfile extends Equatable {
   final DateTime? updatedAt;
   final List<Certificate> certificates;
   final List<ServiceEntity> providedServices;
+  final List<ProviderAvailability> weeklyAvailabilities;
   final Address? workplaceAddress;
 
   const ProfessionalProfile({
@@ -52,6 +54,7 @@ class ProfessionalProfile extends Equatable {
     this.updatedAt,
     this.certificates = const [],
     this.providedServices = const [],
+    this.weeklyAvailabilities = const [],
     this.workplaceAddress,
   });
 
@@ -79,6 +82,7 @@ class ProfessionalProfile extends Equatable {
         updatedAt,
         certificates,
         providedServices,
+        weeklyAvailabilities,
         workplaceAddress,
       ];
 
@@ -105,6 +109,7 @@ class ProfessionalProfile extends Equatable {
     DateTime? updatedAt,
     List<Certificate>? certificates,
     List<ServiceEntity>? providedServices,
+    List<ProviderAvailability>? weeklyAvailabilities,
     Address? workplaceAddress,
   }) {
     return ProfessionalProfile(
@@ -132,6 +137,7 @@ class ProfessionalProfile extends Equatable {
         updatedAt: updatedAt ?? this.updatedAt,
         certificates: certificates ?? this.certificates,
         providedServices: providedServices ?? this.providedServices,
+        weeklyAvailabilities: weeklyAvailabilities ?? this.weeklyAvailabilities,
         workplaceAddress: workplaceAddress ?? this.workplaceAddress);
   }
 }

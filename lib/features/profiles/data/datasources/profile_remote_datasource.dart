@@ -29,6 +29,8 @@ abstract class ProfileRemoteDatasource {
   Future<ProfessionalProfileModel> getAdminProfessionalDetail(int id);
   Future<void> verifyProfessional(int id);
   Future<void> revokeVerification(int id);
+  Future<void> rejectProfessional(int id,
+      {required String category, String? note});
 
   // Mental Health State
   Future<MentalHealthStateModel> getMentalHealthState();
@@ -264,6 +266,23 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
       );
     } on DioException catch (e) {
       throw Exception('Failed to revoke verification: ${e.message}');
+    }
+  }
+
+  @override
+  Future<void> rejectProfessional(int id,
+      {required String category, String? note}) async {
+    try {
+      await dio.post(
+        '${Const.URL_API}/professionals/$id/reject',
+        data: {
+          'category': category,
+          if (note != null && note.isNotEmpty) 'note': note,
+        },
+        options: await _getAuthHeaders(),
+      );
+    } on DioException catch (e) {
+      throw Exception('Failed to reject professional: ${e.message}');
     }
   }
 

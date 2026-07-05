@@ -4,6 +4,7 @@ import 'package:m2health/features/profiles/data/models/certificate_model.dart';
 import 'package:m2health/features/profiles/data/models/onboarding_status_model.dart';
 import 'package:m2health/features/profiles/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
+import 'package:m2health/features/schedule/data/models/provider_availability_model.dart';
 
 class ProfessionalProfileModel extends ProfessionalProfile {
   const ProfessionalProfileModel({
@@ -29,6 +30,7 @@ class ProfessionalProfileModel extends ProfessionalProfile {
     super.updatedAt,
     super.certificates = const [],
     super.providedServices = const [],
+    super.weeklyAvailabilities = const [],
     super.workplaceAddress,
   });
 
@@ -71,6 +73,11 @@ class ProfessionalProfileModel extends ProfessionalProfile {
           [],
       providedServices: (json['services'] as List<dynamic>?)
               ?.map((e) => ServiceModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      weeklyAvailabilities: (json['availabilities'] as List<dynamic>?)
+              ?.map((e) =>
+                  ProviderAvailabilityModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       workplaceAddress: json['workplaceAddress'] != null

@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/profiles/data/datasources/profile_remote_datasource.dart';
+import 'package:m2health/features/profiles/domain/entities/onboarding_status.dart';
+import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
+import 'package:m2health/features/schedule/domain/entities/provider_availability.dart';
 import 'package:m2health/features/profiles/presentation/bloc/admin_professional_detail_cubit.dart';
 import 'package:m2health/features/profiles/presentation/pages/edit_professional_profile.dart';
+import 'package:m2health/features/profiles/presentation/widgets/certificate_preview_page.dart';
+import 'package:m2health/features/profiles/presentation/widgets/reject_professional_dialog.dart';
 
 class AdminProfessionalDetailPage extends StatelessWidget {
   final int professionalId;
@@ -38,6 +45,111 @@ class _AdminProfessionalDetailView extends StatefulWidget {
 class _AdminProfessionalDetailViewState
     extends State<_AdminProfessionalDetailView> {
   bool _isLoadingAction = false;
+
+  Widget _buildActions(
+      BuildContext context, ProfessionalProfile profile, String role) {
+    if (_isLoadingAction) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    final cubit = context.read<AdminProfessionalDetailCubit>();
+
+    switch (profile.verificationStatus) {
+      case VerificationStatus.pending:
+        return Column(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Const.aqua,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+                onPressed: () {
+                  setState(() => _isLoadingAction = true);
+                  cubit.verifyProfessional(profile.id, role);
+                },
+                child: const Text("VERIFY THIS USER",
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              ),
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.red,
+                  side: const BorderSide(color: Colors.red),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+                onPressed: () => _openRejectDialog(context, profile),
+                child: const Text("REJECT",
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              ),
+            ),
+          ],
+        );
+      case VerificationStatus.verified:
+        return SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+            ),
+            onPressed: () {
+              setState(() => _isLoadingAction = true);
+              cubit.revokeProfessional(profile.id, role);
+            },
+            child: const Text("REVOKE VERIFICATION",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          ),
+        );
+      default:
+        return Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(8)),
+          child: Text(
+            profile.verificationStatus == VerificationStatus.rejected
+                ? "This submission was rejected. The professional must fix the issues and resubmit."
+                : "This professional has not submitted for verification yet.",
+            style: TextStyle(color: Colors.grey.shade700),
+            textAlign: TextAlign.center,
+          ),
+        );
+    }
+  }
+
+  void _openRejectDialog(BuildContext context, ProfessionalProfile profile) {
+    final cubit = context.read<AdminProfessionalDetailCubit>();
+    showDialog(
+      context: context,
+      builder: (_) => RejectProfessionalDialog(
+        onSubmit: (category, note) {
+          setState(() => _isLoadingAction = true);
+          cubit.rejectProfessional(profile.id, category, note);
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +191,15 @@ class _AdminProfessionalDetailViewState
             setState(() => _isLoadingAction = false);
             // Go back and refresh list
             Navigator.pop(context, true);
+          } else if (state is AdminProDetailRejected) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Submission rejected"),
+                backgroundColor: Colors.orange,
+              ),
+            );
+            setState(() => _isLoadingAction = false);
+            Navigator.pop(context, true);
           }
         },
         builder: (context, state) {
@@ -86,11 +207,14 @@ class _AdminProfessionalDetailViewState
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (state is AdminProDetailLoaded ||
-              state is AdminProDetailVerified) {
-            final profile = (state is AdminProDetailLoaded)
-                ? state.profile
-                : (state as AdminProDetailVerified).profile;
+          final profile = switch (state) {
+            AdminProDetailLoaded s => s.profile,
+            AdminProDetailVerified s => s.profile,
+            AdminProDetailRejected s => s.profile,
+            _ => null,
+          };
+
+          if (profile != null) {
 
             return SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
@@ -118,24 +242,15 @@ class _AdminProfessionalDetailViewState
                               fontSize: 22, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 4),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: profile.isVerified
-                                ? Colors.green
-                                : Colors.orange,
-                            borderRadius: BorderRadius.circular(20),
+                        _StatusChip(status: profile.verificationStatus),
+                        if (profile.submittedAt != null) ...[
+                          const SizedBox(height: 6),
+                          Text(
+                            "Submitted ${DateFormat('MMM dd, yyyy').format(profile.submittedAt!)}",
+                            style: TextStyle(
+                                color: Colors.grey.shade600, fontSize: 12),
                           ),
-                          child: Text(
-                            profile.isVerified
-                                ? "Verified Professional"
-                                : "Verification Pending",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
+                        ],
                       ],
                     ),
                   ),
@@ -169,6 +284,20 @@ class _AdminProfessionalDetailViewState
                           TextStyle(color: Colors.grey.shade700, height: 1.5)),
 
                   const SizedBox(height: 24),
+                  const Text("Provided Services",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 12),
+                  _ServicesList(services: profile.providedServices),
+
+                  const SizedBox(height: 24),
+                  const Text("Weekly Schedule",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 12),
+                  _ScheduleList(availabilities: profile.weeklyAvailabilities),
+
+                  const SizedBox(height: 24),
                   const Text("Certificates",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -189,56 +318,26 @@ class _AdminProfessionalDetailViewState
                       ),
                     )
                   else
-                    ...profile.certificates.map((cert) => CertificateCard(
-                          certification: cert,
-                          onEdit: () {}, // Read only
-                          onRemove: () {}, // Read only
-                          withActions: false,
+                    ...profile.certificates.map((cert) => InkWell(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => CertificatePreviewPage(
+                                imageUrl: cert.fileURL,
+                                title: cert.title,
+                              ),
+                            ),
+                          ),
+                          child: CertificateCard(
+                            certification: cert,
+                            onEdit: () {}, // Read only
+                            onRemove: () {}, // Read only
+                            withActions: false,
+                          ),
                         )),
 
                   const SizedBox(height: 40),
-
-                  // --- ACTION BUTTON ---
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            profile.isVerified ? Colors.red : Const.aqua,
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
-                      ),
-                      onPressed: _isLoadingAction
-                          ? null
-                          : () {
-                              setState(() => _isLoadingAction = true);
-                              if (profile.isVerified) {
-                                context
-                                    .read<AdminProfessionalDetailCubit>()
-                                    .revokeProfessional(profile.id, role);
-                              } else {
-                                context
-                                    .read<AdminProfessionalDetailCubit>()
-                                    .verifyProfessional(profile.id, role);
-                              }
-                            },
-                      child: _isLoadingAction
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                  color: Colors.white))
-                          : Text(
-                              profile.isVerified
-                                  ? "REVOKE VERIFICATION"
-                                  : "VERIFY THIS USER",
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                    ),
-                  ),
+                  _buildActions(context, profile, role),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -248,6 +347,108 @@ class _AdminProfessionalDetailViewState
           return const Center(child: Text("Something went wrong"));
         },
       ),
+    );
+  }
+}
+
+Widget _emptyNote(String text) => Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+          color: Colors.grey.shade100, borderRadius: BorderRadius.circular(8)),
+      child: Text(text, style: TextStyle(color: Colors.grey.shade600)),
+    );
+
+class _StatusChip extends StatelessWidget {
+  final VerificationStatus status;
+  const _StatusChip({required this.status});
+
+  @override
+  Widget build(BuildContext context) {
+    final (String label, Color color) = switch (status) {
+      VerificationStatus.verified => ("Verified Professional", Colors.green),
+      VerificationStatus.pending => ("Verification Pending", Colors.orange),
+      VerificationStatus.rejected => ("Rejected", Colors.red),
+      _ => ("Not Submitted", Colors.grey),
+    };
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration:
+          BoxDecoration(color: color, borderRadius: BorderRadius.circular(20)),
+      child: Text(label,
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+    );
+  }
+}
+
+class _ServicesList extends StatelessWidget {
+  final List<ServiceEntity> services;
+  const _ServicesList({required this.services});
+
+  @override
+  Widget build(BuildContext context) {
+    if (services.isEmpty) return _emptyNote("No services selected.");
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: services
+          .map((s) => Chip(
+                label: Text(s.name),
+                backgroundColor: Const.aqua.withValues(alpha: 0.1),
+                side: BorderSide(color: Const.aqua.withValues(alpha: 0.3)),
+              ))
+          .toList(),
+    );
+  }
+}
+
+class _ScheduleList extends StatelessWidget {
+  final List<ProviderAvailability> availabilities;
+  const _ScheduleList({required this.availabilities});
+
+  static const _dayNames = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    if (availabilities.isEmpty) return _emptyNote("No weekly schedule set.");
+
+    final byDay = <int, List<ProviderAvailability>>{};
+    for (final a in availabilities) {
+      byDay.putIfAbsent(a.dayOfWeek, () => []).add(a);
+    }
+    final days = byDay.keys.toList()..sort();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: days.map((day) {
+        final blocks = byDay[day]!
+          ..sort((x, y) => x.startTime.compareTo(y.startTime));
+        final ranges =
+            blocks.map((b) => '${b.startTime} - ${b.endTime}').join(', ');
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 100,
+                child: Text(_dayNames[day],
+                    style: const TextStyle(fontWeight: FontWeight.w600)),
+              ),
+              Expanded(child: Text(ranges)),
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
 }
