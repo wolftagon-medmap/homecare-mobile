@@ -8,6 +8,7 @@ void initScheduleModule(GetIt sl) {
   // Use cases
   sl.registerLazySingleton(() => GetAvailabilities(sl()));
   sl.registerLazySingleton(() => AddAvailability(sl()));
+  sl.registerLazySingleton(() => AddAvailabilitiesBulk(sl()));
   sl.registerLazySingleton(() => UpdateAvailability(sl()));
   sl.registerLazySingleton(() => DeleteAvailability(sl()));
   sl.registerLazySingleton(() => GetAllOverrides(sl()));

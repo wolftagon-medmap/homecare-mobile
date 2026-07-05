@@ -10,6 +10,8 @@ import 'package:m2health/utils.dart';
 abstract class ScheduleRemoteDatasource {
   Future<List<ProviderAvailabilityModel>> getAvailabilities();
   Future<ProviderAvailabilityModel> addAvailability(Map<String, dynamic> data);
+  Future<List<ProviderAvailabilityModel>> addAvailabilitiesBulk(
+      Map<String, dynamic> data);
   Future<ProviderAvailabilityModel> updateAvailability(
       int id, Map<String, dynamic> data);
   Future<void> deleteAvailability(int id);
@@ -64,6 +66,19 @@ class ScheduleRemoteDatasourceImpl implements ScheduleRemoteDatasource {
       options: await _getAuthHeaders(),
     );
     return ProviderAvailabilityModel.fromJson(response.data['data']);
+  }
+
+  @override
+  Future<List<ProviderAvailabilityModel>> addAvailabilitiesBulk(
+      Map<String, dynamic> data) async {
+    final response = await dio.post(
+      '${Const.API_SCHEDULE_AVAILABILITY}/bulk',
+      data: data,
+      options: await _getAuthHeaders(),
+    );
+    return (response.data['data'] as List)
+        .map((e) => ProviderAvailabilityModel.fromJson(e))
+        .toList();
   }
 
   @override
