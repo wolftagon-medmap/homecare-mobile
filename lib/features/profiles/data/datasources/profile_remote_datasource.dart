@@ -21,6 +21,7 @@ abstract class ProfileRemoteDatasource {
       Map<String, dynamic> data, File? avatar);
   Future<void> updateProvidedServices(List<int> serviceIds,
       {bool? isHomeScreeningAuthorized});
+  Future<ProfessionalProfileModel> submitForVerification();
 
   // Admin
   Future<List<ProfessionalProfileModel>> getAdminProfessionals(
@@ -182,6 +183,27 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
       );
     } on DioException catch (e) {
       throw Exception('Failed to update services: ${e.message}');
+    }
+  }
+
+  @override
+  Future<ProfessionalProfileModel> submitForVerification() async {
+    try {
+      const endpoint = '${Const.API_PROFESSIONALS}/my-profile/submit-verification';
+      final response = await dio.post(
+        endpoint,
+        options: await _getAuthHeaders(),
+      );
+      return ProfessionalProfileModel.fromJson(response.data['data']);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        throw const UnauthorizedFailure("User is not authenticated");
+      }
+      final data = e.response?.data;
+      final String message = (data is Map && data['message'] is String)
+          ? data['message'] as String
+          : 'Failed to submit for verification. Error: ${e.message}';
+      throw ServerFailure(message);
     }
   }
 

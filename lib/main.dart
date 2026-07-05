@@ -149,6 +149,8 @@ class M2HealthApp extends StatelessWidget {
                   getProfessionalProfileUseCase: sl<GetProfessionalProfile>(),
                   updateProfessionalProfileUseCase:
                       sl<UpdateProfessionalProfile>(),
+                  submitProfessionalVerificationUseCase:
+                      sl<SubmitProfessionalVerification>(),
                 )),
         BlocProvider(
           create: (context) => CertificateCubit(

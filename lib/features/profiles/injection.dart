@@ -18,6 +18,7 @@ void initProfileModule(GetIt sl) {
   sl.registerLazySingleton(() => UpdateProfile(sl()));
   sl.registerLazySingleton(() => GetProfessionalProfile(sl()));
   sl.registerLazySingleton(() => UpdateProfessionalProfile(sl()));
+  sl.registerLazySingleton(() => SubmitProfessionalVerification(sl()));
   sl.registerLazySingleton(() => CreateCertificate(sl()));
   sl.registerLazySingleton(() => UpdateCertificate(sl()));
   sl.registerLazySingleton(() => DeleteCertificate(sl()));

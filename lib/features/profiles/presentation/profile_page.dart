@@ -129,6 +129,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           lastUpdated: formatDateTime(profile.updatedAt),
                           isVerified: profile.isVerified,
                           verifiedAt: profile.verifiedAt,
+                          verificationStatus: profile.verificationStatus,
                         ),
                         const SizedBox(height: 16),
                         if (profile.verificationStatus !=
@@ -167,6 +168,7 @@ class _ProfileHeader extends StatelessWidget {
   final String lastUpdated;
   final bool? isVerified;
   final DateTime? verifiedAt;
+  final VerificationStatus? verificationStatus;
 
   const _ProfileHeader({
     required this.name,
@@ -174,7 +176,16 @@ class _ProfileHeader extends StatelessWidget {
     required this.lastUpdated,
     this.isVerified,
     this.verifiedAt,
+    this.verificationStatus,
   });
+
+  VerificationStatus? get _status =>
+      verificationStatus ??
+      (isVerified == null
+          ? null
+          : (isVerified!
+              ? VerificationStatus.verified
+              : VerificationStatus.incomplete));
 
   @override
   Widget build(BuildContext context) {
@@ -196,44 +207,10 @@ class _ProfileHeader extends StatelessWidget {
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
-              if (isVerified != null) ...[
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: isVerified!
-                        ? Colors.green.withValues(alpha: 0.1)
-                        : Colors.orange.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(
-                      color: isVerified! ? Colors.green : Colors.orange,
-                      width: 1,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        isVerified! ? Icons.verified : Icons.pending_outlined,
-                        size: 14,
-                        color: isVerified! ? Colors.green : Colors.orange,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        isVerified!
-                            ? context.l10n.profile_professional_verified_label
-                            : context
-                                .l10n.profile_professional_unverified_label,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: isVerified! ? Colors.green : Colors.orange,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                if (isVerified! && verifiedAt != null) ...[
+              if (_status != null) ...[
+                _VerificationBadge(status: _status!),
+                if (_status == VerificationStatus.verified &&
+                    verifiedAt != null) ...[
                   const SizedBox(height: 4),
                   Text(
                     context.l10n.profile_verified_since_date(
@@ -255,6 +232,65 @@ class _ProfileHeader extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _VerificationBadge extends StatelessWidget {
+  final VerificationStatus status;
+  const _VerificationBadge({required this.status});
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color;
+    final IconData icon;
+    final String label;
+    switch (status) {
+      case VerificationStatus.verified:
+        color = Colors.green;
+        icon = Icons.verified;
+        label = context.l10n.profile_professional_verified_label;
+        break;
+      case VerificationStatus.pending:
+        color = Colors.orange;
+        icon = Icons.hourglass_top;
+        label = 'Under review';
+        break;
+      case VerificationStatus.rejected:
+        color = Colors.red;
+        icon = Icons.error_outline;
+        label = 'Needs changes';
+        break;
+      case VerificationStatus.incomplete:
+      case VerificationStatus.unknown:
+        color = Colors.orange;
+        icon = Icons.pending_outlined;
+        label = context.l10n.profile_professional_unverified_label;
+        break;
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(color: color, width: 1),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: color),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

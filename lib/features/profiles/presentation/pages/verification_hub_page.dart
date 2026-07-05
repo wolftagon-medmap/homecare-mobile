@@ -21,6 +21,10 @@ class VerificationHubPage extends StatefulWidget {
 }
 
 class _VerificationHubPageState extends State<VerificationHubPage> {
+  // Cached so the checklist stays visible while a submit is in flight (the
+  // submitting state is not a ProfessionalProfileLoaded).
+  ProfessionalProfile? _profile;
+
   @override
   void initState() {
     super.initState();
@@ -68,65 +72,99 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
         title: const Text('Get verified',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
-      body: BlocBuilder<ProfileCubit, ProfileState>(
+      body: BlocConsumer<ProfileCubit, ProfileState>(
+        listener: (context, state) {
+          if (state is ProfileVerificationSubmitted) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.green));
+            if (context.canPop()) context.pop();
+          } else if (state is ProfileError) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                  content: Text(state.message), backgroundColor: Colors.red));
+          }
+        },
         builder: (context, state) {
-          if (state is ProfileLoading || state is ProfileInitial) {
+          if (state is ProfessionalProfileLoaded) _profile = state.profile;
+          final profile = _profile;
+          final submitting = state is ProfileVerificationSubmitting;
+
+          if (profile == null) {
+            if (state is ProfileError) {
+              return const Center(child: Text('Unable to load your profile.'));
+            }
             return const Center(child: CircularProgressIndicator());
           }
-          if (state is! ProfessionalProfileLoaded) {
-            return const Center(child: Text('Unable to load your profile.'));
-          }
 
-          final profile = state.profile;
           final onboarding = profile.onboarding;
 
-          return RefreshIndicator(
-            onRefresh: () async => context.read<ProfileCubit>().loadProfile(),
-            child: ListView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(16),
-              children: [
-                const _HubHeader(),
-                const SizedBox(height: 16),
-                if (onboarding != null) _ProgressBar(onboarding: onboarding),
-                const SizedBox(height: 24),
-                _StepTile(
-                  index: 1,
-                  title: 'Professional profile',
-                  incompleteHint: _profileHint(onboarding?.profile),
-                  icon: Icons.assignment_ind_outlined,
-                  step: onboarding?.profile,
-                  onTap: () => _openProfile(profile),
+          return Column(
+            children: [
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: () async =>
+                      context.read<ProfileCubit>().loadProfile(),
+                  child: ListView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(16),
+                    children: [
+                      const _HubHeader(),
+                      const SizedBox(height: 16),
+                      if (onboarding != null)
+                        _ProgressBar(onboarding: onboarding),
+                      const SizedBox(height: 24),
+                      _StepTile(
+                        index: 1,
+                        title: 'Professional profile',
+                        incompleteHint: _profileHint(onboarding?.profile),
+                        icon: Icons.assignment_ind_outlined,
+                        step: onboarding?.profile,
+                        onTap: () => _openProfile(profile),
+                      ),
+                      _StepTile(
+                        index: 2,
+                        title: 'Certificates',
+                        incompleteHint:
+                            'Add at least one professional certificate',
+                        icon: Icons.workspace_premium_outlined,
+                        step: onboarding?.certificates,
+                        onTap: () => _openProfile(profile),
+                      ),
+                      _StepTile(
+                        index: 3,
+                        title: 'Provided services',
+                        incompleteHint:
+                            'Select the services you offer to patients',
+                        icon: Icons.medical_services_outlined,
+                        step: onboarding?.services,
+                        onTap: () => _openServices(profile),
+                      ),
+                      _StepTile(
+                        index: 4,
+                        title: 'Working schedule',
+                        incompleteHint: 'Set your weekly availability',
+                        icon: Icons.calendar_month_outlined,
+                        step: onboarding?.schedule,
+                        onTap: _openSchedule,
+                      ),
+                      const SizedBox(height: 16),
+                      _ReadinessNote(onboarding: onboarding),
+                      const SizedBox(height: 24),
+                    ],
+                  ),
                 ),
-                _StepTile(
-                  index: 2,
-                  title: 'Certificates',
-                  incompleteHint: 'Add at least one professional certificate',
-                  icon: Icons.workspace_premium_outlined,
-                  step: onboarding?.certificates,
-                  onTap: () => _openProfile(profile),
-                ),
-                _StepTile(
-                  index: 3,
-                  title: 'Provided services',
-                  incompleteHint: 'Select the services you offer to patients',
-                  icon: Icons.medical_services_outlined,
-                  step: onboarding?.services,
-                  onTap: () => _openServices(profile),
-                ),
-                _StepTile(
-                  index: 4,
-                  title: 'Working schedule',
-                  incompleteHint: 'Set your weekly availability',
-                  icon: Icons.calendar_month_outlined,
-                  step: onboarding?.schedule,
-                  onTap: _openSchedule,
-                ),
-                const SizedBox(height: 16),
-                _ReadinessNote(onboarding: onboarding),
-                const SizedBox(height: 24),
-              ],
-            ),
+              ),
+              _SubmitBar(
+                canSubmit: onboarding?.canSubmit ?? false,
+                submitting: submitting,
+                onSubmit: () =>
+                    context.read<ProfileCubit>().submitForVerification(),
+              ),
+            ],
           );
         },
       ),
@@ -267,6 +305,62 @@ class _StepTile extends StatelessWidget {
           ),
         ),
         trailing: const Icon(Icons.arrow_forward_ios, size: 14),
+      ),
+    );
+  }
+}
+
+class _SubmitBar extends StatelessWidget {
+  final bool canSubmit;
+  final bool submitting;
+  final VoidCallback onSubmit;
+
+  const _SubmitBar({
+    required this.canSubmit,
+    required this.submitting,
+    required this.onSubmit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, -5),
+          )
+        ],
+      ),
+      child: SafeArea(
+        top: false,
+        child: SizedBox(
+          width: double.infinity,
+          height: 50,
+          child: ElevatedButton(
+            onPressed: (canSubmit && !submitting) ? onSubmit : null,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Const.aqua,
+              foregroundColor: Colors.white,
+              disabledBackgroundColor: Colors.grey.shade300,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
+            ),
+            child: submitting
+                ? const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(
+                        strokeWidth: 2, color: Colors.white),
+                  )
+                : const Text('Submit for verification',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          ),
+        ),
       ),
     );
   }

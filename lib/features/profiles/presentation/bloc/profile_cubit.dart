@@ -13,6 +13,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   final UpdateProfile updateProfileUseCase;
   final GetProfessionalProfile getProfessionalProfileUseCase;
   final UpdateProfessionalProfile updateProfessionalProfileUseCase;
+  final SubmitProfessionalVerification submitProfessionalVerificationUseCase;
 
   String? _currentRole;
 
@@ -21,6 +22,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     required this.updateProfileUseCase,
     required this.getProfessionalProfileUseCase,
     required this.updateProfessionalProfileUseCase,
+    required this.submitProfessionalVerificationUseCase,
   }) : super(ProfileInitial());
 
   Future<void> loadProfile() async {
@@ -111,6 +113,23 @@ class ProfileCubit extends Cubit<ProfileState> {
       (_) {
         emit(const ProfileSuccess('Profile updated successfully!'));
         loadProfile();
+      },
+    );
+  }
+
+  Future<void> submitForVerification() async {
+    emit(ProfileVerificationSubmitting());
+    final result = await submitProfessionalVerificationUseCase();
+    result.fold(
+      (failure) {
+        emit(ProfileError(failure.message));
+        // Restore the loaded profile so the hub can rebuild its checklist.
+        loadProfile();
+      },
+      (profile) {
+        emit(const ProfileVerificationSubmitted(
+            'Your profile has been submitted for verification.'));
+        emit(ProfessionalProfileLoaded(profile));
       },
     );
   }
