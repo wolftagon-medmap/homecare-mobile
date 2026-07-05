@@ -19,6 +19,23 @@ VerificationStatus verificationStatusFromString(String? value) {
   }
 }
 
+/// Human-readable text for a backend rejection category, used when the admin
+/// left no free-text note.
+String rejectionCategoryLabel(String? category) {
+  switch (category) {
+    case 'certificate_issue':
+      return 'A certificate is missing, unclear, or expired.';
+    case 'license_invalid':
+      return 'Your license or registration could not be verified.';
+    case 'info_incomplete':
+      return 'Your profile information is incomplete or inconsistent.';
+    case 'other':
+      return 'Some changes are needed before we can verify you.';
+    default:
+      return 'Your submission needs changes before it can be verified.';
+  }
+}
+
 /// A single onboarding checklist step and, when incomplete, the fields still missing.
 class OnboardingStep extends Equatable {
   final bool complete;

@@ -21,6 +21,8 @@ class ProfessionalProfile extends Equatable {
   final DateTime? verifiedAt;
   final VerificationStatus verificationStatus;
   final DateTime? submittedAt;
+  final String? rejectionReason;
+  final String? rejectionCategory;
   final OnboardingStatus? onboarding;
   final bool? isHomeScreeningAuthorized;
   final int? serviceRadiusPreference;
@@ -47,6 +49,8 @@ class ProfessionalProfile extends Equatable {
     this.verifiedAt,
     this.verificationStatus = VerificationStatus.incomplete,
     this.submittedAt,
+    this.rejectionReason,
+    this.rejectionCategory,
     this.onboarding,
     this.isHomeScreeningAuthorized,
     this.serviceRadiusPreference,
@@ -75,6 +79,8 @@ class ProfessionalProfile extends Equatable {
         verifiedAt,
         verificationStatus,
         submittedAt,
+        rejectionReason,
+        rejectionCategory,
         onboarding,
         isHomeScreeningAuthorized,
         serviceRadiusPreference,
@@ -102,6 +108,8 @@ class ProfessionalProfile extends Equatable {
     DateTime? verifiedAt,
     VerificationStatus? verificationStatus,
     DateTime? submittedAt,
+    String? rejectionReason,
+    String? rejectionCategory,
     OnboardingStatus? onboarding,
     bool? isHomeScreeningAuthorized,
     int? serviceRadiusPreference,
@@ -127,6 +135,8 @@ class ProfessionalProfile extends Equatable {
         verifiedAt: verifiedAt ?? this.verifiedAt,
         verificationStatus: verificationStatus ?? this.verificationStatus,
         submittedAt: submittedAt ?? this.submittedAt,
+        rejectionReason: rejectionReason ?? this.rejectionReason,
+        rejectionCategory: rejectionCategory ?? this.rejectionCategory,
         onboarding: onboarding ?? this.onboarding,
         isHomeScreeningAuthorized:
             isHomeScreeningAuthorized ?? this.isHomeScreeningAuthorized,

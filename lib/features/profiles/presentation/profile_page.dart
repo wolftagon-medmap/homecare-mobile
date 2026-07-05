@@ -523,9 +523,6 @@ class _VerificationOnboardingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isPending =
-        profile.verificationStatus == VerificationStatus.pending;
-
     return Card(
       elevation: 4,
       shadowColor: Colors.grey.withValues(alpha: 0.2),
@@ -534,11 +531,62 @@ class _VerificationOnboardingCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: isPending
-              ? _buildPending(context)
-              : _buildIncomplete(context, profile.onboarding),
+          child: switch (profile.verificationStatus) {
+            VerificationStatus.pending => _buildPending(context),
+            VerificationStatus.rejected => _buildRejected(context),
+            _ => _buildIncomplete(context, profile.onboarding),
+          },
         ),
       ),
+    );
+  }
+
+  Widget _buildRejected(BuildContext context) {
+    final reason = (profile.rejectionReason?.isNotEmpty ?? false)
+        ? profile.rejectionReason!
+        : rejectionCategoryLabel(profile.rejectionCategory);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.red.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.error_outline, color: Colors.red),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Changes needed',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                  const SizedBox(height: 4),
+                  Text(reason,
+                      style:
+                          TextStyle(color: Colors.grey.shade700, fontSize: 13)),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text('Review & resubmit',
+                style:
+                    TextStyle(color: Const.aqua, fontWeight: FontWeight.w600)),
+            SizedBox(width: 4),
+            Icon(Icons.arrow_forward_ios, size: 12, color: Const.aqua),
+          ],
+        ),
+      ],
     );
   }
 

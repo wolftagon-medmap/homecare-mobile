@@ -112,6 +112,16 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
                     physics: const AlwaysScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(16),
                     children: [
+                      if (profile.verificationStatus ==
+                          VerificationStatus.rejected) ...[
+                        _RejectionBanner(
+                          reason: (profile.rejectionReason?.isNotEmpty ?? false)
+                              ? profile.rejectionReason!
+                              : rejectionCategoryLabel(
+                                  profile.rejectionCategory),
+                        ),
+                        const SizedBox(height: 16),
+                      ],
                       const _HubHeader(),
                       const SizedBox(height: 16),
                       if (onboarding != null)
@@ -192,6 +202,48 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
       default:
         return key;
     }
+  }
+}
+
+class _RejectionBanner extends StatelessWidget {
+  final String reason;
+  const _RejectionBanner({required this.reason});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.red.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.error_outline, size: 18, color: Colors.red),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Changes needed',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600, color: Colors.red)),
+                const SizedBox(height: 4),
+                Text(reason,
+                    style:
+                        TextStyle(fontSize: 13, color: Colors.grey.shade800)),
+                const SizedBox(height: 4),
+                Text('Update the steps below, then submit again.',
+                    style:
+                        TextStyle(fontSize: 12, color: Colors.grey.shade600)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 

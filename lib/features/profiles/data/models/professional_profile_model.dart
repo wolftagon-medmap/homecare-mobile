@@ -23,6 +23,8 @@ class ProfessionalProfileModel extends ProfessionalProfile {
     super.verifiedAt,
     super.verificationStatus,
     super.submittedAt,
+    super.rejectionReason,
+    super.rejectionCategory,
     super.onboarding,
     super.isHomeScreeningAuthorized,
     super.serviceRadiusPreference,
@@ -56,6 +58,8 @@ class ProfessionalProfileModel extends ProfessionalProfile {
       submittedAt: json['submitted_at'] != null
           ? DateTime.parse(json['submitted_at'])
           : null,
+      rejectionReason: json['rejection_reason'],
+      rejectionCategory: json['rejection_category'],
       onboarding: json['onboarding'] != null
           ? OnboardingStatusModel.fromJson(json['onboarding'])
           : null,
