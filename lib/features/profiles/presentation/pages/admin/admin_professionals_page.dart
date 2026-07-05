@@ -89,7 +89,7 @@ class _ProfessionalListTab extends StatefulWidget {
 }
 
 class _ProfessionalListTabState extends State<_ProfessionalListTab> {
-  String _statusFilter = 'unverified'; // 'verified', 'unverified'
+  String _statusFilter = 'pending'; // 'verified', 'pending'
 
   @override
   Widget build(BuildContext context) {
@@ -118,15 +118,15 @@ class _ProfessionalListTabState extends State<_ProfessionalListTab> {
                   children: [
                     _FilterChip(
                       label: "Waiting Verification",
-                      isSelected: _statusFilter == 'unverified',
+                      isSelected: _statusFilter == 'pending',
                       color: Colors.orange,
                       onTap: () {
-                        setState(() => _statusFilter = 'unverified');
+                        setState(() => _statusFilter = 'pending');
                         context
                             .read<AdminProfessionalsCubit>()
                             .fetchProfessionals(
                                 widget.role.isEmpty ? null : widget.role,
-                                'unverified');
+                                'pending');
                       },
                     ),
                     const SizedBox(width: 12),
