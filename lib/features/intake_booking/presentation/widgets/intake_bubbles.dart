@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/intake_booking/domain/entities/block.dart';
 
@@ -28,6 +29,7 @@ class AssistantBubble extends StatelessWidget {
       color: const Color(0xFFF1F3F8),
       textColor: const Color(0xFF232F55),
       text: text,
+      markdown: true,
     );
   }
 }
@@ -37,16 +39,19 @@ class _Bubble extends StatelessWidget {
   final Color color;
   final Color textColor;
   final String text;
+  final bool markdown;
 
   const _Bubble({
     required this.alignment,
     required this.color,
     required this.textColor,
     required this.text,
+    this.markdown = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final baseStyle = TextStyle(color: textColor, fontSize: 14, height: 1.35);
     return Align(
       alignment: alignment,
       child: Container(
@@ -58,8 +63,28 @@ class _Bubble extends StatelessWidget {
           color: color,
           borderRadius: BorderRadius.circular(16),
         ),
-        child: Text(text,
-            style: TextStyle(color: textColor, fontSize: 14, height: 1.35)),
+        child: markdown
+            ? MarkdownBody(
+                data: text,
+                shrinkWrap: true,
+                styleSheet: MarkdownStyleSheet(
+                  p: baseStyle,
+                  strong: baseStyle.copyWith(fontWeight: FontWeight.bold),
+                  em: baseStyle.copyWith(fontStyle: FontStyle.italic),
+                  listBullet: baseStyle,
+                  a: baseStyle.copyWith(
+                      color: Const.aqua,
+                      decoration: TextDecoration.underline),
+                  h1: baseStyle.copyWith(
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                  h2: baseStyle.copyWith(
+                      fontSize: 16, fontWeight: FontWeight.w600),
+                  h3: baseStyle.copyWith(
+                      fontSize: 15, fontWeight: FontWeight.w600),
+                  blockSpacing: 6,
+                ),
+              )
+            : Text(text, style: baseStyle),
       ),
     );
   }

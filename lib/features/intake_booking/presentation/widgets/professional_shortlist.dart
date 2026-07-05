@@ -3,9 +3,9 @@ import 'package:m2health/const.dart';
 import 'package:m2health/features/intake_booking/domain/entities/block.dart';
 
 /// The ranked professionals to choose from. Tapping "Select" echoes the
-/// candidate's backend token. Once a choice is made, it's highlighted and the
-/// rest are disabled.
-class ProfessionalShortlist extends StatelessWidget {
+/// candidate's backend token. Once a choice is made, the list collapses to the
+/// chosen professional, with a toggle to expand the full list again.
+class ProfessionalShortlist extends StatefulWidget {
   final ProfessionalShortlistBlock block;
   final bool active;
   final String? chosenSelectId;
@@ -20,20 +20,47 @@ class ProfessionalShortlist extends StatelessWidget {
   });
 
   @override
+  State<ProfessionalShortlist> createState() => _ProfessionalShortlistState();
+}
+
+class _ProfessionalShortlistState extends State<ProfessionalShortlist> {
+  bool _expanded = false;
+
+  @override
   Widget build(BuildContext context) {
+    final chosen = widget.chosenSelectId;
+    final resolved = chosen != null;
+    // Collapse to the chosen card only after a selection is made.
+    final collapsed = resolved && !_expanded;
+    final visible = collapsed
+        ? widget.block.candidates.where((c) => c.selectId == chosen)
+        : widget.block.candidates;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Column(
-        children: block.candidates.map((c) {
-          final resolved = chosenSelectId != null;
-          return _ProfessionalCard(
-            candidate: c,
-            selected: chosenSelectId == c.selectId,
-            dimmed: resolved && chosenSelectId != c.selectId,
-            enabled: active,
-            onSelect: () => onReply?.call(c.selectId),
-          );
-        }).toList(),
+        children: [
+          ...visible.map((c) => _ProfessionalCard(
+                candidate: c,
+                selected: chosen == c.selectId,
+                dimmed: resolved && chosen != c.selectId,
+                enabled: widget.active,
+                onSelect: () => widget.onReply?.call(c.selectId),
+              )),
+          if (resolved && widget.block.candidates.length > 1)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                onPressed: () => setState(() => _expanded = !_expanded),
+                icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more,
+                    size: 18),
+                label: Text(_expanded
+                    ? 'Hide options'
+                    : 'Show all ${widget.block.candidates.length} options'),
+                style: TextButton.styleFrom(foregroundColor: Const.aqua),
+              ),
+            ),
+        ],
       ),
     );
   }
