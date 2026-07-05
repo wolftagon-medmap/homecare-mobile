@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/certificate.dart';
+import 'package:m2health/features/profiles/domain/entities/onboarding_status.dart';
 
 class ProfessionalProfile extends Equatable {
   final int id;
@@ -17,6 +18,9 @@ class ProfessionalProfile extends Equatable {
   final String? workPlace;
   final bool isVerified;
   final DateTime? verifiedAt;
+  final VerificationStatus verificationStatus;
+  final DateTime? submittedAt;
+  final OnboardingStatus? onboarding;
   final bool? isHomeScreeningAuthorized;
   final int? serviceRadiusPreference;
   final DateTime? createdAt;
@@ -39,6 +43,9 @@ class ProfessionalProfile extends Equatable {
     this.workPlace,
     this.isVerified = false,
     this.verifiedAt,
+    this.verificationStatus = VerificationStatus.incomplete,
+    this.submittedAt,
+    this.onboarding,
     this.isHomeScreeningAuthorized,
     this.serviceRadiusPreference,
     this.createdAt,
@@ -63,6 +70,9 @@ class ProfessionalProfile extends Equatable {
         workPlace,
         isVerified,
         verifiedAt,
+        verificationStatus,
+        submittedAt,
+        onboarding,
         isHomeScreeningAuthorized,
         serviceRadiusPreference,
         createdAt,
@@ -86,6 +96,9 @@ class ProfessionalProfile extends Equatable {
     String? workPlace,
     bool? isVerified,
     DateTime? verifiedAt,
+    VerificationStatus? verificationStatus,
+    DateTime? submittedAt,
+    OnboardingStatus? onboarding,
     bool? isHomeScreeningAuthorized,
     int? serviceRadiusPreference,
     DateTime? createdAt,
@@ -107,6 +120,9 @@ class ProfessionalProfile extends Equatable {
         workPlace: workPlace ?? this.workPlace,
         isVerified: isVerified ?? this.isVerified,
         verifiedAt: verifiedAt ?? this.verifiedAt,
+        verificationStatus: verificationStatus ?? this.verificationStatus,
+        submittedAt: submittedAt ?? this.submittedAt,
+        onboarding: onboarding ?? this.onboarding,
         isHomeScreeningAuthorized:
             isHomeScreeningAuthorized ?? this.isHomeScreeningAuthorized,
         serviceRadiusPreference:

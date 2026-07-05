@@ -5,6 +5,7 @@ import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:m2health/features/profiles/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
@@ -130,6 +131,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           verifiedAt: profile.verifiedAt,
                         ),
                         const SizedBox(height: 16),
+                        if (profile.verificationStatus !=
+                            VerificationStatus.verified) ...[
+                          _VerificationOnboardingCard(profile: profile),
+                          const SizedBox(height: 16),
+                        ],
                         _ProfessionalProfileSection(profile: profile),
                         const SizedBox(height: 16),
                         const _AppointmentSection(),
@@ -471,6 +477,130 @@ class _ProfessionalProfileSection extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _VerificationOnboardingCard extends StatelessWidget {
+  final ProfessionalProfile profile;
+  const _VerificationOnboardingCard({required this.profile});
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isPending =
+        profile.verificationStatus == VerificationStatus.pending;
+
+    return Card(
+      elevation: 4,
+      shadowColor: Colors.grey.withValues(alpha: 0.2),
+      child: InkWell(
+        onTap: () => context.push(AppRoutes.verificationHub),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: isPending
+              ? _buildPending(context)
+              : _buildIncomplete(context, profile.onboarding),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPending(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.orange.withValues(alpha: 0.1),
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(Icons.hourglass_top, color: Colors.orange),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Verification under review',
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+              const SizedBox(height: 4),
+              Text(
+                "Your profile has been submitted. We'll notify you once it's reviewed.",
+                style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+              ),
+            ],
+          ),
+        ),
+        const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),
+      ],
+    );
+  }
+
+  Widget _buildIncomplete(BuildContext context, OnboardingStatus? onboarding) {
+    final completed = onboarding?.completedCount ?? 0;
+    final total = onboarding?.totalCount ?? 4;
+    final double progress = total == 0 ? 0 : completed / total;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Const.aqua.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.verified_user, color: Const.aqua),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Get verified',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Complete your profile so patients can find and book you.',
+                    style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: LinearProgressIndicator(
+            value: progress,
+            minHeight: 8,
+            backgroundColor: Colors.grey.shade200,
+            valueColor: const AlwaysStoppedAnimation(Const.aqua),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('$completed of $total steps complete',
+                style: TextStyle(color: Colors.grey.shade700, fontSize: 12)),
+            const Row(
+              children: [
+                Text('Continue',
+                    style: TextStyle(
+                        color: Const.aqua, fontWeight: FontWeight.w600)),
+                SizedBox(width: 4),
+                Icon(Icons.arrow_forward_ios, size: 12, color: Const.aqua),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

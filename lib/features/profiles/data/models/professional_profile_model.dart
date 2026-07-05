@@ -1,6 +1,8 @@
 import 'package:m2health/core/data/models/service_model.dart';
 import 'package:m2health/features/profiles/data/models/address_model.dart';
 import 'package:m2health/features/profiles/data/models/certificate_model.dart';
+import 'package:m2health/features/profiles/data/models/onboarding_status_model.dart';
+import 'package:m2health/features/profiles/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 
 class ProfessionalProfileModel extends ProfessionalProfile {
@@ -18,6 +20,9 @@ class ProfessionalProfileModel extends ProfessionalProfile {
     super.workPlace,
     super.isVerified,
     super.verifiedAt,
+    super.verificationStatus,
+    super.submittedAt,
+    super.onboarding,
     super.isHomeScreeningAuthorized,
     super.serviceRadiusPreference,
     super.createdAt,
@@ -43,6 +48,14 @@ class ProfessionalProfileModel extends ProfessionalProfile {
       isVerified: json['is_verified'] == 1 || json['is_verified'] == true,
       verifiedAt: json['verified_at'] != null
           ? DateTime.parse(json['verified_at'])
+          : null,
+      verificationStatus:
+          verificationStatusFromString(json['verification_status']),
+      submittedAt: json['submitted_at'] != null
+          ? DateTime.parse(json['submitted_at'])
+          : null,
+      onboarding: json['onboarding'] != null
+          ? OnboardingStatusModel.fromJson(json['onboarding'])
           : null,
       isHomeScreeningAuthorized: json['is_home_screening_authorized'],
       serviceRadiusPreference: json['service_radius_preference'],
