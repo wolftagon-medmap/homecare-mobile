@@ -86,7 +86,10 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Book with AI'),
+            titleSpacing: 0,
+            title: _IntakeChatHeader(
+              connected: state is IntakeActive && state.connected,
+            ),
             bottom: (state is IntakeActive && !state.connected)
                 ? const PreferredSize(
                     preferredSize: Size.fromHeight(2),
@@ -180,6 +183,53 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// Header for the intake chat: icon + agent name + live connection status.
+/// Action buttons (session history / new session) are deferred to the
+/// multiple-session work.
+class _IntakeChatHeader extends StatelessWidget {
+  final bool connected;
+  const _IntakeChatHeader({required this.connected});
+
+  @override
+  Widget build(BuildContext context) {
+    final statusColor = connected ? Colors.green : Colors.orange;
+    return Row(
+      children: [
+        CircleAvatar(
+          radius: 18,
+          backgroundColor: Const.aqua.withValues(alpha: 0.12),
+          child: const Icon(Icons.smart_toy_outlined, color: Const.aqua, size: 20),
+        ),
+        const SizedBox(width: 12),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'M2Health AI Agent',
+              style: TextStyle(
+                color: Const.aqua,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Row(
+              children: [
+                Icon(Icons.circle, color: statusColor, size: 6),
+                const SizedBox(width: 4),
+                Text(
+                  connected ? 'Online' : 'Connecting…',
+                  style: TextStyle(color: statusColor, fontSize: 13),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
