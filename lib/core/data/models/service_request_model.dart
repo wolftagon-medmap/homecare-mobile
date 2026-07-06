@@ -2,7 +2,12 @@ import 'package:m2health/core/domain/entities/service_request_detail.dart';
 import 'package:m2health/core/domain/entities/service_request_entity.dart';
 
 class ServiceRequestModel extends ServiceRequestEntity {
-  const ServiceRequestModel({super.id, super.status, super.detail});
+  const ServiceRequestModel({
+    super.id,
+    super.status,
+    super.detail,
+    super.chiefComplaint,
+  });
 
   factory ServiceRequestModel.fromJson(
       Map<String, dynamic> json, String appointmentType) {
@@ -14,6 +19,7 @@ class ServiceRequestModel extends ServiceRequestEntity {
       id: id,
       status: status,
       detail: detail != null ? _parseDetail(detail, appointmentType) : null,
+      chiefComplaint: json['chief_complaint'] as String?,
     );
   }
 

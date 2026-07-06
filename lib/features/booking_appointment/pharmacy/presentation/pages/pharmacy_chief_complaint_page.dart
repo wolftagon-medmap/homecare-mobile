@@ -16,20 +16,49 @@ class PharmacyChiefComplaintPage extends StatelessWidget {
         ? ([...detail.personalIssues]
           ..sort((a, b) => b.updatedAt!.compareTo(a.updatedAt!)))
         : <PersonalIssue>[];
+    // v2 AI bookings record the concern as free text, not personal-issue rows.
+    final complaint = appointment.serviceRequest?.chiefComplaint;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chief Complaint'),
       ),
-      body: issues.isEmpty
+      body: issues.isEmpty && (complaint == null || complaint.isEmpty)
           ? const Center(child: Text('No issues recorded'))
           : ListView.separated(
               padding: const EdgeInsets.all(16),
-              itemCount: issues.length,
+              itemCount:
+                  issues.length + (complaint != null && complaint.isNotEmpty ? 1 : 0),
               separatorBuilder: (_, __) => const Divider(height: 24),
-              itemBuilder: (context, index) =>
-                  _PersonalIssueCard(issue: issues[index]),
+              itemBuilder: (context, index) {
+                if (complaint != null && complaint.isNotEmpty) {
+                  if (index == 0) return _ComplaintCard(complaint: complaint);
+                  return _PersonalIssueCard(issue: issues[index - 1]);
+                }
+                return _PersonalIssueCard(issue: issues[index]);
+              },
             ),
+    );
+  }
+}
+
+/// The concern the patient described to the AI agent (v2 bookings).
+class _ComplaintCard extends StatelessWidget {
+  final String complaint;
+  const _ComplaintCard({required this.complaint});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Reported concern',
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        ),
+        const SizedBox(height: 8),
+        Text(complaint, style: const TextStyle(height: 1.5)),
+      ],
     );
   }
 }
