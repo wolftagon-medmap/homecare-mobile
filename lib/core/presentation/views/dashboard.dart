@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/features/notifications/presentation/bloc/notifications_cubit.dart';
-import 'package:m2health/features/notifications/presentation/pages/notification_inbox_page.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
 import 'package:m2health/i18n/translations.g.dart';
@@ -54,16 +53,11 @@ class _DashboardState extends State<Dashboard> {
   }
 
   void _openNotificationInbox() {
-    // Refresh so anything that arrived while away is present on open.
+    // Refresh so anything that arrived while away is present on open. The
+    // cubit rides along as `extra` so the inbox shares the badge state.
     _notifications.load();
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => BlocProvider.value(
-          value: _notifications,
-          child: const NotificationInboxPage(),
-        ),
-      ),
-    );
+    GoRouter.of(context)
+        .push(AppRoutes.notificationInbox, extra: _notifications);
   }
 
   Future<void> _loadUserName() async {
