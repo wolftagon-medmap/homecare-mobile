@@ -28,7 +28,9 @@ class IntakeCubit extends Cubit<IntakeState> {
   /// begins a new conversation. Dedupe state is per-session, so it resets here —
   /// a stale SSE cursor from the previous session would skip the new one's blocks.
   Future<void> start({bool fresh = false}) async {
-    await _sseSub?.cancel();
+    // Fire-and-forget: awaiting the cancel can hang on the open SSE socket
+    // (no CancelToken), which would freeze the whole restart.
+    _sseSub?.cancel();
     _sseSub = null;
     _reconnectTimer?.cancel();
     _seenIds.clear();
