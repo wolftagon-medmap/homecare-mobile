@@ -117,6 +117,7 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
   Widget _active(BuildContext context, IntakeActive state) {
     return Column(
       children: [
+        const _PrivacyNotice(),
         Expanded(
           child: state.blocks.isEmpty && !state.awaitingReply
               ? const Center(
@@ -180,6 +181,35 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
             onPressed: () => context.read<IntakeCubit>().start(),
             child: const Text('Retry',
                 style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// A persistent one-line privacy reminder at the top of the conversation.
+class _PrivacyNotice extends StatelessWidget {
+  const _PrivacyNotice();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: const Color(0xFFEFF7F8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.lock_outline, size: 14, color: Const.aqua),
+          const SizedBox(width: 6),
+          Expanded(
+            child: Text(
+              'Your conversation is private. Health details are encrypted and handled '
+              'per our Privacy Policy (PDPA / HIPAA aligned).',
+              style: TextStyle(
+                  fontSize: 11, color: Colors.grey[700], height: 1.3),
+            ),
           ),
         ],
       ),
