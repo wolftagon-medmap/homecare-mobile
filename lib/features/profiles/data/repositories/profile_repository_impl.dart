@@ -93,6 +93,22 @@ class ProfileRepositoryImpl extends ProfileRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, ProfessionalProfile>>
+      submitProfessionalVerification() async {
+    try {
+      final profile = await remoteDatasource.submitForVerification();
+      return Right(profile);
+    } catch (e, stackTrace) {
+      log('Failed to submit professional verification',
+          error: e, name: 'ProfileRepositoryImpl', stackTrace: stackTrace);
+      if (e is Failure) {
+        return Left(e);
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
   // --- Mental Health State Methods ---
 
   @override

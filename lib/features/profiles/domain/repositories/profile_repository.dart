@@ -11,6 +11,7 @@ abstract class ProfileRepository {
   Future<Either<Failure, ProfessionalProfile>> getProfessionalProfile();
   Future<Either<Failure, Unit>> updateProfessionalProfile(
       UpdateProfessionalProfileParams params);
+  Future<Either<Failure, ProfessionalProfile>> submitProfessionalVerification();
 
   // Mental Health
   Future<Either<Failure, MentalHealthState>> getMentalHealthState();

@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/certificate.dart';
+import 'package:m2health/features/profiles/domain/entities/onboarding_status.dart';
+import 'package:m2health/features/schedule/domain/entities/provider_availability.dart';
 
 class ProfessionalProfile extends Equatable {
   final int id;
@@ -17,12 +19,18 @@ class ProfessionalProfile extends Equatable {
   final String? workPlace;
   final bool isVerified;
   final DateTime? verifiedAt;
+  final VerificationStatus verificationStatus;
+  final DateTime? submittedAt;
+  final String? rejectionReason;
+  final String? rejectionCategory;
+  final OnboardingStatus? onboarding;
   final bool? isHomeScreeningAuthorized;
   final int? serviceRadiusPreference;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final List<Certificate> certificates;
   final List<ServiceEntity> providedServices;
+  final List<ProviderAvailability> weeklyAvailabilities;
   final Address? workplaceAddress;
 
   const ProfessionalProfile({
@@ -39,12 +47,18 @@ class ProfessionalProfile extends Equatable {
     this.workPlace,
     this.isVerified = false,
     this.verifiedAt,
+    this.verificationStatus = VerificationStatus.incomplete,
+    this.submittedAt,
+    this.rejectionReason,
+    this.rejectionCategory,
+    this.onboarding,
     this.isHomeScreeningAuthorized,
     this.serviceRadiusPreference,
     this.createdAt,
     this.updatedAt,
     this.certificates = const [],
     this.providedServices = const [],
+    this.weeklyAvailabilities = const [],
     this.workplaceAddress,
   });
 
@@ -63,12 +77,18 @@ class ProfessionalProfile extends Equatable {
         workPlace,
         isVerified,
         verifiedAt,
+        verificationStatus,
+        submittedAt,
+        rejectionReason,
+        rejectionCategory,
+        onboarding,
         isHomeScreeningAuthorized,
         serviceRadiusPreference,
         createdAt,
         updatedAt,
         certificates,
         providedServices,
+        weeklyAvailabilities,
         workplaceAddress,
       ];
 
@@ -86,12 +106,18 @@ class ProfessionalProfile extends Equatable {
     String? workPlace,
     bool? isVerified,
     DateTime? verifiedAt,
+    VerificationStatus? verificationStatus,
+    DateTime? submittedAt,
+    String? rejectionReason,
+    String? rejectionCategory,
+    OnboardingStatus? onboarding,
     bool? isHomeScreeningAuthorized,
     int? serviceRadiusPreference,
     DateTime? createdAt,
     DateTime? updatedAt,
     List<Certificate>? certificates,
     List<ServiceEntity>? providedServices,
+    List<ProviderAvailability>? weeklyAvailabilities,
     Address? workplaceAddress,
   }) {
     return ProfessionalProfile(
@@ -107,6 +133,11 @@ class ProfessionalProfile extends Equatable {
         workPlace: workPlace ?? this.workPlace,
         isVerified: isVerified ?? this.isVerified,
         verifiedAt: verifiedAt ?? this.verifiedAt,
+        verificationStatus: verificationStatus ?? this.verificationStatus,
+        submittedAt: submittedAt ?? this.submittedAt,
+        rejectionReason: rejectionReason ?? this.rejectionReason,
+        rejectionCategory: rejectionCategory ?? this.rejectionCategory,
+        onboarding: onboarding ?? this.onboarding,
         isHomeScreeningAuthorized:
             isHomeScreeningAuthorized ?? this.isHomeScreeningAuthorized,
         serviceRadiusPreference:
@@ -116,6 +147,7 @@ class ProfessionalProfile extends Equatable {
         updatedAt: updatedAt ?? this.updatedAt,
         certificates: certificates ?? this.certificates,
         providedServices: providedServices ?? this.providedServices,
+        weeklyAvailabilities: weeklyAvailabilities ?? this.weeklyAvailabilities,
         workplaceAddress: workplaceAddress ?? this.workplaceAddress);
   }
 }

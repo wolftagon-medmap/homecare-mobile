@@ -5,6 +5,7 @@ import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:m2health/features/profiles/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
@@ -128,8 +129,14 @@ class _ProfilePageState extends State<ProfilePage> {
                           lastUpdated: formatDateTime(profile.updatedAt),
                           isVerified: profile.isVerified,
                           verifiedAt: profile.verifiedAt,
+                          verificationStatus: profile.verificationStatus,
                         ),
                         const SizedBox(height: 16),
+                        if (profile.verificationStatus !=
+                            VerificationStatus.verified) ...[
+                          _VerificationOnboardingCard(profile: profile),
+                          const SizedBox(height: 16),
+                        ],
                         _ProfessionalProfileSection(profile: profile),
                         const SizedBox(height: 16),
                         const _AppointmentSection(),
@@ -161,6 +168,7 @@ class _ProfileHeader extends StatelessWidget {
   final String lastUpdated;
   final bool? isVerified;
   final DateTime? verifiedAt;
+  final VerificationStatus? verificationStatus;
 
   const _ProfileHeader({
     required this.name,
@@ -168,7 +176,16 @@ class _ProfileHeader extends StatelessWidget {
     required this.lastUpdated,
     this.isVerified,
     this.verifiedAt,
+    this.verificationStatus,
   });
+
+  VerificationStatus? get _status =>
+      verificationStatus ??
+      (isVerified == null
+          ? null
+          : (isVerified!
+              ? VerificationStatus.verified
+              : VerificationStatus.incomplete));
 
   @override
   Widget build(BuildContext context) {
@@ -190,44 +207,10 @@ class _ProfileHeader extends StatelessWidget {
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
-              if (isVerified != null) ...[
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: isVerified!
-                        ? Colors.green.withValues(alpha: 0.1)
-                        : Colors.orange.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(
-                      color: isVerified! ? Colors.green : Colors.orange,
-                      width: 1,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        isVerified! ? Icons.verified : Icons.pending_outlined,
-                        size: 14,
-                        color: isVerified! ? Colors.green : Colors.orange,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        isVerified!
-                            ? context.l10n.profile_professional_verified_label
-                            : context
-                                .l10n.profile_professional_unverified_label,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: isVerified! ? Colors.green : Colors.orange,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                if (isVerified! && verifiedAt != null) ...[
+              if (_status != null) ...[
+                _VerificationBadge(status: _status!),
+                if (_status == VerificationStatus.verified &&
+                    verifiedAt != null) ...[
                   const SizedBox(height: 4),
                   Text(
                     context.l10n.profile_verified_since_date(
@@ -249,6 +232,65 @@ class _ProfileHeader extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _VerificationBadge extends StatelessWidget {
+  final VerificationStatus status;
+  const _VerificationBadge({required this.status});
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color;
+    final IconData icon;
+    final String label;
+    switch (status) {
+      case VerificationStatus.verified:
+        color = Colors.green;
+        icon = Icons.verified;
+        label = context.l10n.profile_professional_verified_label;
+        break;
+      case VerificationStatus.pending:
+        color = Colors.orange;
+        icon = Icons.hourglass_top;
+        label = 'Under review';
+        break;
+      case VerificationStatus.rejected:
+        color = Colors.red;
+        icon = Icons.error_outline;
+        label = 'Needs changes';
+        break;
+      case VerificationStatus.incomplete:
+      case VerificationStatus.unknown:
+        color = Colors.orange;
+        icon = Icons.pending_outlined;
+        label = context.l10n.profile_professional_unverified_label;
+        break;
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(4),
+        border: Border.all(color: color, width: 1),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 14, color: color),
+          const SizedBox(width: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: color,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -471,6 +513,178 @@ class _ProfessionalProfileSection extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _VerificationOnboardingCard extends StatelessWidget {
+  final ProfessionalProfile profile;
+  const _VerificationOnboardingCard({required this.profile});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      shadowColor: Colors.grey.withValues(alpha: 0.2),
+      child: InkWell(
+        onTap: () => context.push(AppRoutes.verificationHub),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: switch (profile.verificationStatus) {
+            VerificationStatus.pending => _buildPending(context),
+            VerificationStatus.rejected => _buildRejected(context),
+            _ => _buildIncomplete(context, profile.onboarding),
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRejected(BuildContext context) {
+    final reason = (profile.rejectionReason?.isNotEmpty ?? false)
+        ? profile.rejectionReason!
+        : rejectionCategoryLabel(profile.rejectionCategory);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.red.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.error_outline, color: Colors.red),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Changes needed',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                  const SizedBox(height: 4),
+                  Text(reason,
+                      style:
+                          TextStyle(color: Colors.grey.shade700, fontSize: 13)),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text('Review & resubmit',
+                style:
+                    TextStyle(color: Const.aqua, fontWeight: FontWeight.w600)),
+            SizedBox(width: 4),
+            Icon(Icons.arrow_forward_ios, size: 12, color: Const.aqua),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPending(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.orange.withValues(alpha: 0.1),
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(Icons.hourglass_top, color: Colors.orange),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Verification under review',
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+              const SizedBox(height: 4),
+              Text(
+                "Your profile has been submitted. We'll notify you once it's reviewed.",
+                style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+              ),
+            ],
+          ),
+        ),
+        const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),
+      ],
+    );
+  }
+
+  Widget _buildIncomplete(BuildContext context, OnboardingStatus? onboarding) {
+    final completed = onboarding?.completedCount ?? 0;
+    final total = onboarding?.totalCount ?? 4;
+    final double progress = total == 0 ? 0 : completed / total;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Const.aqua.withValues(alpha: 0.1),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.verified_user, color: Const.aqua),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Get verified',
+                      style:
+                          TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Complete your profile so patients can find and book you.',
+                    style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: LinearProgressIndicator(
+            value: progress,
+            minHeight: 8,
+            backgroundColor: Colors.grey.shade200,
+            valueColor: const AlwaysStoppedAnimation(Const.aqua),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('$completed of $total steps complete',
+                style: TextStyle(color: Colors.grey.shade700, fontSize: 12)),
+            const Row(
+              children: [
+                Text('Continue',
+                    style: TextStyle(
+                        color: Const.aqua, fontWeight: FontWeight.w600)),
+                SizedBox(width: 4),
+                Icon(Icons.arrow_forward_ios, size: 12, color: Const.aqua),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
