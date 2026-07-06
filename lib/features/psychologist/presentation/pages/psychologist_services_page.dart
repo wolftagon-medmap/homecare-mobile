@@ -28,6 +28,8 @@ class PsychologistServicesPage extends StatelessWidget {
                     'relationships, and your overall mental well-being. Book a '
                     'private one-on-one session at a time that suits you.',
                 imagePath: 'assets/icons/ic_psychologist.png',
+                imageHeight: 100,
+                imageWidth: 100,
                 backgroundColor: const Color(0xFFB28CFF).withValues(alpha: 0.2),
                 onTap: () {
                   GoRouter.of(context).push(AppRoutes.psychologistBooking);
