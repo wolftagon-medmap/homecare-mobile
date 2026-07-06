@@ -203,6 +203,8 @@ class _IssueFormPageState extends State<IssueFormPage> {
                   body: Stack(
                     children: [
                       SingleChildScrollView(
+                        keyboardDismissBehavior:
+                            ScrollViewKeyboardDismissBehavior.onDrag,
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -322,37 +324,41 @@ class _IssueFormPageState extends State<IssueFormPage> {
                       ],
                     ],
                   ),
-                  bottomNavigationBar: BottomAppBar(
-                    color: Colors.white,
-                    child: SizedBox(
-                      width: 352,
-                      height: 58,
-                      child: ElevatedButton(
-                        onPressed: (state.createStatus ==
-                                    ActionStatus.loading ||
-                                state.updateStatus == ActionStatus.loading ||
-                                showVoiceUI ||
-                                isTranscribing)
-                            ? null
-                            : _submitData,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Const.aqua,
-                        ),
-                        child: (state.createStatus == ActionStatus.loading ||
-                                state.updateStatus == ActionStatus.loading)
-                            ? const CircularProgressIndicator(
-                                valueColor:
-                                    AlwaysStoppedAnimation<Color>(Colors.white))
-                            : Text(
-                                isEditMode
-                                    ? context.t.global.update
-                                    : context.t.global.add,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                  bottomNavigationBar: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: BottomAppBar(
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: 352,
+                        height: 58,
+                        child: ElevatedButton(
+                          onPressed: (state.createStatus ==
+                                      ActionStatus.loading ||
+                                  state.updateStatus == ActionStatus.loading ||
+                                  showVoiceUI ||
+                                  isTranscribing)
+                              ? null
+                              : _submitData,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Const.aqua,
+                          ),
+                          child: (state.createStatus == ActionStatus.loading ||
+                                  state.updateStatus == ActionStatus.loading)
+                              ? const CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white))
+                              : Text(
+                                  isEditMode
+                                      ? context.t.global.update
+                                      : context.t.global.add,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
+                        ),
                       ),
                     ),
                   ),
