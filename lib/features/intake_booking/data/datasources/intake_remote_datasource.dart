@@ -5,13 +5,17 @@ import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/intake_booking/data/models/block_dto.dart';
 import 'package:m2health/features/intake_booking/domain/entities/block.dart';
+import 'package:m2health/features/intake_booking/domain/entities/session_summary.dart';
 import 'package:m2health/utils.dart';
 
 /// Talks to `/v2/intake/*`. The client is deliberately thin: start a session,
 /// load history, open the SSE stream, and post user actions (text / replyId /
 /// location). All rendering meaning lives in the [Block]s the backend sends.
 abstract class IntakeRemoteDataSource {
-  Future<String> startSession();
+  /// Start or resume the active session; [fresh] archives the current one first.
+  Future<String> startSession({bool fresh = false});
+  Future<List<IntakeSessionSummary>> listSessions();
+  Future<void> deleteSession(String sessionId);
   Future<List<Block>> fetchHistory(String sessionId);
   Future<void> send({
     required String sessionId,
@@ -41,14 +45,48 @@ class IntakeRemoteDataSourceImpl implements IntakeRemoteDataSource {
   }
 
   @override
-  Future<String> startSession() async {
+  Future<String> startSession({bool fresh = false}) async {
     final response = await _dio.post(
       '$_base/sessions',
+      data: {if (fresh) 'fresh': true},
       options: Options(headers: await _authHeaders()),
     );
     final data = response.data as Map<String, dynamic>;
     return data['conversationId'] as String;
   }
+
+  @override
+  Future<List<IntakeSessionSummary>> listSessions() async {
+    final response = await _dio.get(
+      '$_base/sessions',
+      options: Options(headers: await _authHeaders()),
+    );
+    final data = response.data as Map<String, dynamic>;
+    return (data['sessions'] as List<dynamic>? ?? [])
+        .whereType<Map<String, dynamic>>()
+        .map(_sessionFromJson)
+        .toList();
+  }
+
+  @override
+  Future<void> deleteSession(String sessionId) async {
+    await _dio.delete(
+      '$_base/sessions/$sessionId',
+      options: Options(headers: await _authHeaders()),
+    );
+  }
+
+  IntakeSessionSummary _sessionFromJson(Map<String, dynamic> json) =>
+      IntakeSessionSummary(
+        id: json['id'] as String? ?? '',
+        active: json['active'] as bool? ?? false,
+        preview: json['preview'] as String?,
+        lastMessageAt: _parseDate(json['lastMessageAt']),
+        createdAt: _parseDate(json['createdAt']),
+      );
+
+  static DateTime? _parseDate(dynamic value) =>
+      value is String ? DateTime.tryParse(value) : null;
 
   @override
   Future<List<Block>> fetchHistory(String sessionId) async {

@@ -1,5 +1,6 @@
 import 'package:m2health/features/intake_booking/data/datasources/intake_remote_datasource.dart';
 import 'package:m2health/features/intake_booking/domain/entities/block.dart';
+import 'package:m2health/features/intake_booking/domain/entities/session_summary.dart';
 import 'package:m2health/features/intake_booking/domain/repositories/intake_repository.dart';
 
 class IntakeRepositoryImpl implements IntakeRepository {
@@ -8,7 +9,15 @@ class IntakeRepositoryImpl implements IntakeRepository {
   IntakeRepositoryImpl(this._remote);
 
   @override
-  Future<String> startSession() => _remote.startSession();
+  Future<String> startSession({bool fresh = false}) =>
+      _remote.startSession(fresh: fresh);
+
+  @override
+  Future<List<IntakeSessionSummary>> listSessions() => _remote.listSessions();
+
+  @override
+  Future<void> deleteSession(String sessionId) =>
+      _remote.deleteSession(sessionId);
 
   @override
   Future<List<Block>> fetchHistory(String sessionId) =>

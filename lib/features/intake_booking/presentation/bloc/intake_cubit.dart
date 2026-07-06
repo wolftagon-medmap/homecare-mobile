@@ -24,10 +24,19 @@ class IntakeCubit extends Cubit<IntakeState> {
       : _repository = repository,
         super(const IntakeInitial());
 
-  Future<void> start() async {
+  /// Start/resume the active session; [fresh] archives the current one and
+  /// begins a new conversation. Dedupe state is per-session, so it resets here —
+  /// a stale SSE cursor from the previous session would skip the new one's blocks.
+  Future<void> start({bool fresh = false}) async {
+    await _sseSub?.cancel();
+    _sseSub = null;
+    _reconnectTimer?.cancel();
+    _seenIds.clear();
+    _lastEventId = 0;
+
     emit(const IntakeConnecting());
     try {
-      final sessionId = await _repository.startSession();
+      final sessionId = await _repository.startSession(fresh: fresh);
       final history = await _repository.fetchHistory(sessionId);
       for (final b in history) {
         _seenIds.add(b.id);

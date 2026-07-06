@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/ai_data_consent.dart';
+import 'package:m2health/features/intake_booking/domain/entities/session_summary.dart';
 import 'package:m2health/features/intake_booking/presentation/bloc/intake_cubit.dart';
+import 'package:m2health/features/intake_booking/presentation/bloc/intake_sessions_cubit.dart';
 import 'package:m2health/features/intake_booking/presentation/bloc/intake_state.dart';
+import 'package:m2health/features/intake_booking/presentation/pages/intake_session_viewer_page.dart';
+import 'package:m2health/features/intake_booking/presentation/pages/intake_sessions_page.dart';
 import 'package:m2health/features/intake_booking/presentation/widgets/block_view.dart';
 import 'package:m2health/features/intake_booking/presentation/widgets/composer_bar.dart';
 import 'package:m2health/features/intake_booking/presentation/widgets/intake_bubbles.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/presentation/pages/address_map_page.dart';
+import 'package:m2health/service_locator.dart';
 import 'package:m2health/utils.dart';
 
 /// The conversational booking chat. Consent is gated locally (reusing the AI
@@ -79,6 +84,54 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
         );
   }
 
+  /// Session history: pop with the tapped session — active one is this chat,
+  /// a previous one opens read-only.
+  Future<void> _openHistory() async {
+    final currentSessionId = switch (context.read<IntakeCubit>().state) {
+      IntakeActive(:final sessionId) => sessionId,
+      _ => null,
+    };
+    final picked = await Navigator.of(context).push<IntakeSessionSummary>(
+      MaterialPageRoute(
+        builder: (_) => BlocProvider(
+          create: (_) => IntakeSessionsCubit(repository: sl())..load(),
+          child: const IntakeSessionsPage(),
+        ),
+      ),
+    );
+    if (picked == null || !mounted) return;
+    if (picked.active || picked.id == currentSessionId) return;
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => IntakeSessionViewerPage(sessionId: picked.id),
+      ),
+    );
+  }
+
+  Future<void> _startNewSession() async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Start a new conversation?'),
+        content: const Text(
+            'Your current conversation will be kept in history as read-only.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('Start new',
+                style: TextStyle(color: Const.aqua)),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    context.read<IntakeCubit>().start(fresh: true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<IntakeCubit, IntakeState>(
@@ -90,6 +143,18 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
             title: _IntakeChatHeader(
               connected: state is IntakeActive && state.connected,
             ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.history, color: Const.aqua),
+                tooltip: 'Conversation history',
+                onPressed: state is IntakeActive ? _openHistory : null,
+              ),
+              IconButton(
+                icon: const Icon(Icons.add_comment_outlined, color: Const.aqua),
+                tooltip: 'New conversation',
+                onPressed: state is IntakeActive ? _startNewSession : null,
+              ),
+            ],
             bottom: (state is IntakeActive && !state.connected)
                 ? const PreferredSize(
                     preferredSize: Size.fromHeight(2),
@@ -243,8 +308,6 @@ class _PrivacyNotice extends StatelessWidget {
 }
 
 /// Header for the intake chat: icon + agent name + live connection status.
-/// Action buttons (session history / new session) are deferred to the
-/// multiple-session work.
 class _IntakeChatHeader extends StatelessWidget {
   final bool connected;
   const _IntakeChatHeader({required this.connected});
