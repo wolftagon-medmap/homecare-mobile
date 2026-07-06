@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,13 +7,14 @@ import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
-import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/appointment/bloc/appointment_cubit.dart';
+import 'package:m2health/features/appointment/bloc/patient_inbox_cubit.dart';
+import 'package:m2health/features/appointment/widgets/booking_card.dart';
 import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
+import 'package:m2health/features/appointment/widgets/patient_inbox_tab.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
-import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
-import 'package:intl/intl.dart';
+import 'package:m2health/service_locator.dart';
 
 class AppointmentPage extends StatefulWidget {
   static const String route = '/appointment';
@@ -42,6 +44,9 @@ class _AppointmentPageState extends State<AppointmentPage>
       return;
     }
     final selectedTab = _tabs[_tabController.index];
+    // The Pending tab is the unified inbox (self-fetching cubit), not
+    // AppointmentCubit-sourced.
+    if (selectedTab == AppointmentStatus.pending) return;
     final tabData =
         context.read<AppointmentCubit>().state.tabData[selectedTab]!;
 
@@ -126,22 +131,31 @@ class _AppointmentPageState extends State<AppointmentPage>
           ),
         ),
       ),
-      body: BlocBuilder<AppointmentCubit, AppointmentState>(
-        builder: (context, state) {
-          return TabBarView(
-            controller: _tabController,
-            children: _tabs.map((tab) {
-              final tabData = state.tabData[tab]!;
-              return AppointmentListView(
-                key: PageStorageKey('tab_$tab'),
-                status: tab,
-                tabData: tabData,
-                onRefresh: () async => _fetchDataForTab(tab, isRefresh: true),
-                onLoadMore: () => _fetchDataForTab(tab),
-              );
-            }).toList(),
-          );
-        },
+      // The Pending tab is the unified inbox: v1 pending appointments + v2
+      // pre-acceptance care tasks. The other tabs stay pure v1.
+      body: BlocProvider<PatientInboxCubit>(
+        create: (_) => PatientInboxCubit(sl<Dio>())..fetchInbox(),
+        child: BlocBuilder<AppointmentCubit, AppointmentState>(
+          builder: (context, state) {
+            return TabBarView(
+              controller: _tabController,
+              children: _tabs.map((tab) {
+                if (tab == AppointmentStatus.pending) {
+                  return const PatientInboxTab(
+                      key: PageStorageKey('tab_pending_inbox'));
+                }
+                final tabData = state.tabData[tab]!;
+                return AppointmentListView(
+                  key: PageStorageKey('tab_$tab'),
+                  status: tab,
+                  tabData: tabData,
+                  onRefresh: () async => _fetchDataForTab(tab, isRefresh: true),
+                  onLoadMore: () => _fetchDataForTab(tab),
+                );
+              }).toList(),
+            );
+          },
+        ),
       ),
     );
   }
@@ -491,128 +505,43 @@ class _AppointmentListItem extends StatelessWidget {
       ),
     );
 
-    return GestureDetector(
+    return BookingCard(
+      avatarUrl: avatarUrl,
+      title: providerName,
+      subtitle: appointment.provider?.jobTitle?.toTitleCase(),
+      statusLabel: _getStatusLabel(appointment.status, context),
+      statusColor: statusColor,
+      scheduledStart: appointment.startDatetime,
       onTap: () {
         // Navigate to detail page, passing only the ID
         context.push(AppRoutes.appointmentDetail, extra: appointment.id);
       },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12.withValues(alpha: 0.08),
-              spreadRadius: 0,
-              blurRadius: 40,
-              offset: const Offset(0, 8),
-            ),
-          ],
-        ),
-        margin: const EdgeInsets.all(10),
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Colors.grey.shade200,
-                      backgroundImage:
-                          (avatarUrl != null && avatarUrl.isNotEmpty)
-                              ? NetworkImage(avatarUrl)
-                              : null,
-                      child: (avatarUrl == null || avatarUrl.isEmpty)
-                          ? const Icon(Icons.person,
-                              size: 30, color: Colors.grey)
-                          : null,
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            providerName,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                  '${appointment.provider?.jobTitle!.toTitleCase()} |'),
-                              const SizedBox(width: 5),
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 4),
-                                decoration: BoxDecoration(
-                                  color: statusColor.withValues(alpha: 0.1),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  _getStatusLabel(appointment.status, context),
-                                  style: TextStyle(color: statusColor),
-                                ),
-                              ),
-                            ],
-                          ),
-                          BlocBuilder<LocaleCubit, AppLocale>(
-                            builder: (context, locale) {
-                              final localStartTime =
-                                  appointment.startDatetime.toLocal();
-                              final date = DateFormat.yMMMd(locale.languageCode)
-                                  .format(localStartTime);
-                              final hour = DateFormat.jm(locale.languageCode)
-                                  .format(localStartTime);
-                              return Text(
-                                '$date | $hour',
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-              // --- Action Buttons ---
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  if (appointmentStatusLower == 'completed') ...[
-                    Expanded(child: ratingButton),
-                    const SizedBox(width: 10),
-                    Expanded(child: bookAgainButton),
-                  ],
-                  if (appointmentStatusLower == 'cancelled')
-                    Expanded(child: bookAgainButton),
-                  if (appointmentStatusLower == 'missed') ...[
-                    Expanded(child: cancelButton),
-                    const SizedBox(width: 10),
-                    Expanded(child: rescheduleButton),
-                  ],
-                  if (appointmentStatusLower == 'waiting_for_payment') ...[
-                    Expanded(child: cancelButton),
-                    const SizedBox(width: 10),
-                    Expanded(child: payButton),
-                  ],
-                  if (appointmentStatusLower == 'pending' ||
-                      appointmentStatusLower == 'accepted' ||
-                      appointmentStatusLower == 'upcoming') ...[
-                    Expanded(child: cancelButton),
-                    const SizedBox(width: 10),
-                    Expanded(child: rescheduleButton),
-                  ],
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+      actions: [
+        if (appointmentStatusLower == 'completed') ...[
+          Expanded(child: ratingButton),
+          const SizedBox(width: 10),
+          Expanded(child: bookAgainButton),
+        ],
+        if (appointmentStatusLower == 'cancelled')
+          Expanded(child: bookAgainButton),
+        if (appointmentStatusLower == 'missed') ...[
+          Expanded(child: cancelButton),
+          const SizedBox(width: 10),
+          Expanded(child: rescheduleButton),
+        ],
+        if (appointmentStatusLower == 'waiting_for_payment') ...[
+          Expanded(child: cancelButton),
+          const SizedBox(width: 10),
+          Expanded(child: payButton),
+        ],
+        if (appointmentStatusLower == 'pending' ||
+            appointmentStatusLower == 'accepted' ||
+            appointmentStatusLower == 'upcoming') ...[
+          Expanded(child: cancelButton),
+          const SizedBox(width: 10),
+          Expanded(child: rescheduleButton),
+        ],
+      ],
     );
   }
 }
