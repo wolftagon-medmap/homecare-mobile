@@ -96,7 +96,9 @@ class FcmService {
     final isOffer = message.data['careTaskId'] != null ||
         (deepLink?.startsWith('m2health://offers/') ?? false);
     if (isOffer) {
-      context.push(AppRoutes.appointment);
+      // `/appointment` is a bottom-nav shell branch: switch to it with `go` —
+      // pushing a branch route duplicates the shell page key and crashes.
+      context.go(AppRoutes.appointment);
       return;
     }
 

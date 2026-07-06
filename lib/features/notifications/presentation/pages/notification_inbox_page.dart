@@ -301,8 +301,10 @@ class _NotificationTile extends StatelessWidget {
 
     final type = notification.type ?? '';
     // Nurse offer → the Pending inbox tab (same target as the FCM tap).
+    // `/appointment` is a bottom-nav shell branch: switch to it with `go` —
+    // pushing a branch route duplicates the shell page key and crashes.
     if (type == 'offer.received') {
-      context.push(AppRoutes.appointment);
+      context.go(AppRoutes.appointment);
       return;
     }
     if (notification.appointmentId != null) {
