@@ -8,6 +8,7 @@ class AppRoutes {
   static const String medicalStore = '/medical-store';
   static const String favourite = '/favourite';
   static const String profile = '/profile';
+  static const String notificationInbox = '/notification-inbox';
 
   // Auth
   static const String signIn = '/sign-in';
