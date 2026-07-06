@@ -1,7 +1,10 @@
 import 'package:m2health/core/data/models/service_model.dart';
 import 'package:m2health/features/profiles/data/models/address_model.dart';
 import 'package:m2health/features/profiles/data/models/certificate_model.dart';
+import 'package:m2health/features/profiles/data/models/onboarding_status_model.dart';
+import 'package:m2health/features/profiles/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
+import 'package:m2health/features/schedule/data/models/provider_availability_model.dart';
 
 class ProfessionalProfileModel extends ProfessionalProfile {
   const ProfessionalProfileModel({
@@ -18,12 +21,18 @@ class ProfessionalProfileModel extends ProfessionalProfile {
     super.workPlace,
     super.isVerified,
     super.verifiedAt,
+    super.verificationStatus,
+    super.submittedAt,
+    super.rejectionReason,
+    super.rejectionCategory,
+    super.onboarding,
     super.isHomeScreeningAuthorized,
     super.serviceRadiusPreference,
     super.createdAt,
     super.updatedAt,
     super.certificates = const [],
     super.providedServices = const [],
+    super.weeklyAvailabilities = const [],
     super.workplaceAddress,
   });
 
@@ -44,6 +53,16 @@ class ProfessionalProfileModel extends ProfessionalProfile {
       verifiedAt: json['verified_at'] != null
           ? DateTime.parse(json['verified_at'])
           : null,
+      verificationStatus:
+          verificationStatusFromString(json['verification_status']),
+      submittedAt: json['submitted_at'] != null
+          ? DateTime.parse(json['submitted_at'])
+          : null,
+      rejectionReason: json['rejection_reason'],
+      rejectionCategory: json['rejection_category'],
+      onboarding: json['onboarding'] != null
+          ? OnboardingStatusModel.fromJson(json['onboarding'])
+          : null,
       isHomeScreeningAuthorized: json['is_home_screening_authorized'],
       serviceRadiusPreference: json['service_radius_preference'],
       createdAt: json['created_at'] != null
@@ -58,6 +77,11 @@ class ProfessionalProfileModel extends ProfessionalProfile {
           [],
       providedServices: (json['services'] as List<dynamic>?)
               ?.map((e) => ServiceModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      weeklyAvailabilities: (json['availabilities'] as List<dynamic>?)
+              ?.map((e) =>
+                  ProviderAvailabilityModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       workplaceAddress: json['workplaceAddress'] != null

@@ -6,8 +6,9 @@ export 'save_workplace_address.dart';
 export 'search_places.dart';
 export 'get_place_details.dart';
 
-export 'get_professional_profile.dart'; 
+export 'get_professional_profile.dart';
 export 'update_professional_profile.dart';
+export 'submit_professional_verification.dart';
 
 export 'create_certificate.dart';
 export 'update_certificate.dart';

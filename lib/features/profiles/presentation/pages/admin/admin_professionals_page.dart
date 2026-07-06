@@ -89,7 +89,7 @@ class _ProfessionalListTab extends StatefulWidget {
 }
 
 class _ProfessionalListTabState extends State<_ProfessionalListTab> {
-  String _statusFilter = 'unverified'; // 'verified', 'unverified'
+  String _statusFilter = 'pending'; // 'verified', 'pending'
 
   @override
   Widget build(BuildContext context) {
@@ -118,15 +118,15 @@ class _ProfessionalListTabState extends State<_ProfessionalListTab> {
                   children: [
                     _FilterChip(
                       label: "Waiting Verification",
-                      isSelected: _statusFilter == 'unverified',
+                      isSelected: _statusFilter == 'pending',
                       color: Colors.orange,
                       onTap: () {
-                        setState(() => _statusFilter = 'unverified');
+                        setState(() => _statusFilter = 'pending');
                         context
                             .read<AdminProfessionalsCubit>()
                             .fetchProfessionals(
                                 widget.role.isEmpty ? null : widget.role,
-                                'unverified');
+                                'pending');
                       },
                     ),
                     const SizedBox(width: 12),
@@ -254,6 +254,13 @@ class _FilterChip extends StatelessWidget {
   }
 }
 
+String _submittedAgo(DateTime submittedAt) {
+  final days = DateTime.now().difference(submittedAt).inDays;
+  if (days <= 0) return 'today';
+  if (days == 1) return 'yesterday';
+  return '$days days ago';
+}
+
 class _ProfessionalCard extends StatelessWidget {
   final ProfessionalProfile profile;
   final String role;
@@ -298,6 +305,14 @@ class _ProfessionalCard extends StatelessWidget {
                       style:
                           TextStyle(color: Colors.grey.shade600, fontSize: 13),
                     ),
+                    if (profile.submittedAt != null) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        "Submitted ${_submittedAgo(profile.submittedAt!)}",
+                        style: TextStyle(
+                            color: Colors.grey.shade500, fontSize: 11),
+                      ),
+                    ],
                   ],
                 ),
               ),

@@ -15,6 +15,7 @@ import 'package:m2health/features/profiles/presentation/pages/edit_professional_
 import 'package:m2health/features/profiles/presentation/pages/edit_basic_info_page.dart';
 import 'package:m2health/features/medical_record/presentation/pages/medical_records_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/manage_provided_services_page.dart';
+import 'package:m2health/features/profiles/presentation/pages/verification_hub_page.dart';
 import 'package:m2health/features/schedule/presentation/pages/working_schedule_page.dart';
 import 'package:m2health/features/wellness_genomics/presentation/pages/wellness_genomics_page.dart';
 import 'package:m2health/route/app_routes.dart';
@@ -115,6 +116,13 @@ class ProfileDetailRoutes {
       name: AppRoutes.workingSchedule,
       builder: (context, state) {
         return const WorkingSchedulePage();
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.verificationHub,
+      name: AppRoutes.verificationHub,
+      builder: (context, state) {
+        return const VerificationHubPage();
       },
     ),
 

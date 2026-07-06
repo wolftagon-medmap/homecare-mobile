@@ -21,6 +21,7 @@ abstract class ProfileRemoteDatasource {
       Map<String, dynamic> data, File? avatar);
   Future<void> updateProvidedServices(List<int> serviceIds,
       {bool? isHomeScreeningAuthorized});
+  Future<ProfessionalProfileModel> submitForVerification();
 
   // Admin
   Future<List<ProfessionalProfileModel>> getAdminProfessionals(
@@ -28,6 +29,8 @@ abstract class ProfileRemoteDatasource {
   Future<ProfessionalProfileModel> getAdminProfessionalDetail(int id);
   Future<void> verifyProfessional(int id);
   Future<void> revokeVerification(int id);
+  Future<void> rejectProfessional(int id,
+      {required String category, String? note});
 
   // Mental Health State
   Future<MentalHealthStateModel> getMentalHealthState();
@@ -185,6 +188,27 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
     }
   }
 
+  @override
+  Future<ProfessionalProfileModel> submitForVerification() async {
+    try {
+      const endpoint = '${Const.API_PROFESSIONALS}/my-profile/submit-verification';
+      final response = await dio.post(
+        endpoint,
+        options: await _getAuthHeaders(),
+      );
+      return ProfessionalProfileModel.fromJson(response.data['data']);
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        throw const UnauthorizedFailure("User is not authenticated");
+      }
+      final data = e.response?.data;
+      final String message = (data is Map && data['message'] is String)
+          ? data['message'] as String
+          : 'Failed to submit for verification. Error: ${e.message}';
+      throw ServerFailure(message);
+    }
+  }
+
   // --- Admin Methods ---
   @override
   Future<List<ProfessionalProfileModel>> getAdminProfessionals(
@@ -242,6 +266,23 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
       );
     } on DioException catch (e) {
       throw Exception('Failed to revoke verification: ${e.message}');
+    }
+  }
+
+  @override
+  Future<void> rejectProfessional(int id,
+      {required String category, String? note}) async {
+    try {
+      await dio.post(
+        '${Const.URL_API}/professionals/$id/reject',
+        data: {
+          'category': category,
+          if (note != null && note.isNotEmpty) 'note': note,
+        },
+        options: await _getAuthHeaders(),
+      );
+    } on DioException catch (e) {
+      throw Exception('Failed to reject professional: ${e.message}');
     }
   }
 

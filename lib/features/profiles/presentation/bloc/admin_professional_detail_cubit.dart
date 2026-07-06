@@ -28,6 +28,13 @@ class AdminProDetailVerified extends AdminProfessionalDetailState {
   List<Object> get props => [profile];
 }
 
+class AdminProDetailRejected extends AdminProfessionalDetailState {
+  final ProfessionalProfile profile;
+  const AdminProDetailRejected(this.profile);
+  @override
+  List<Object> get props => [profile];
+}
+
 class AdminProDetailError extends AdminProfessionalDetailState {
   final String message;
   const AdminProDetailError(this.message);
@@ -87,6 +94,22 @@ class AdminProfessionalDetailCubit extends Cubit<AdminProfessionalDetailState> {
         // Reuse Verified state or create a new one if distinct UI behavior is needed
         // For simplicity, we treat it as a status update
         emit(AdminProDetailVerified(updatedProfile));
+      } catch (e) {
+        emit(AdminProDetailError(e.toString()));
+        emit(AdminProDetailLoaded(currentState.profile));
+      }
+    }
+  }
+
+  Future<void> rejectProfessional(int id, String category, String? note) async {
+    final currentState = state;
+    if (currentState is AdminProDetailLoaded) {
+      try {
+        await remoteDatasource
+            .rejectProfessional(id, category: category, note: note);
+        final updatedProfile =
+            await remoteDatasource.getAdminProfessionalDetail(id);
+        emit(AdminProDetailRejected(updatedProfile));
       } catch (e) {
         emit(AdminProDetailError(e.toString()));
         emit(AdminProDetailLoaded(currentState.profile));
