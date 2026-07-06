@@ -1,10 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/features/notifications/presentation/bloc/notifications_cubit.dart';
+import 'package:m2health/features/notifications/presentation/pages/notification_inbox_page.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:m2health/const.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,12 +27,14 @@ class _DashboardState extends State<Dashboard> {
   int limitItem = 3;
   String keyword = "";
   late ScrollController _scrollController;
+  late final NotificationsCubit _notifications;
 
   @override
   void initState() {
     super.initState();
     _loadUserName();
     context.read<ProfileCubit>().loadProfile();
+    _notifications = NotificationsCubit(sl<Dio>())..load();
     _scrollController = ScrollController()
       ..addListener(() {
         if (_scrollController.position.pixels ==
@@ -38,6 +44,26 @@ class _DashboardState extends State<Dashboard> {
           setState(() {});
         }
       });
+  }
+
+  @override
+  void dispose() {
+    _notifications.close();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _openNotificationInbox() {
+    // Refresh so anything that arrived while away is present on open.
+    _notifications.load();
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => BlocProvider.value(
+          value: _notifications,
+          child: const NotificationInboxPage(),
+        ),
+      ),
+    );
   }
 
   Future<void> _loadUserName() async {
@@ -164,6 +190,11 @@ class _DashboardState extends State<Dashboard> {
                         height: 36,
                       ),
                       const Spacer(),
+                      _NotificationBell(
+                        cubit: _notifications,
+                        onTap: _openNotificationInbox,
+                      ),
+                      const SizedBox(width: 10),
                       GestureDetector(
                         onTap: () {
                           context.go(AppRoutes.profile);
@@ -508,6 +539,70 @@ class _DashboardState extends State<Dashboard> {
                   style: const TextStyle(color: Const.aqua)),
             ),
           ],
+        );
+      },
+    );
+  }
+}
+
+/// The header notification bell: matches the avatar's rounded-square style and
+/// carries an unread-count badge fed by the shared [NotificationsCubit].
+class _NotificationBell extends StatelessWidget {
+  final NotificationsCubit cubit;
+  final VoidCallback onTap;
+
+  const _NotificationBell({required this.cubit, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NotificationsCubit, NotificationsState>(
+      bloc: cubit,
+      builder: (context, state) {
+        final unread = state.unreadCount;
+        return GestureDetector(
+          onTap: onTap,
+          child: Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.25),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                const Icon(Icons.notifications_none,
+                    color: Colors.white, size: 28),
+                if (unread > 0)
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 4, vertical: 1),
+                      constraints:
+                          const BoxConstraints(minWidth: 16, minHeight: 16),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.white, width: 1),
+                      ),
+                      child: Center(
+                        child: Text(
+                          unread > 9 ? '9+' : '$unread',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w700,
+                            height: 1.2,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
         );
       },
     );
