@@ -188,27 +188,52 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
   }
 }
 
-/// A persistent one-line privacy reminder at the top of the conversation.
+/// A privacy label matching the chatbot's, with an info `(!)` on the right that
+/// reveals the detailed privacy statement on tap or hover.
 class _PrivacyNotice extends StatelessWidget {
   const _PrivacyNotice();
+
+  static const _detail =
+      'Your conversation is private. Health details are encrypted and handled '
+      'in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or '
+      'delete this chat anytime.';
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: const Color(0xFFEFF7F8),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          const Icon(Icons.lock_outline, size: 14, color: Const.aqua),
-          const SizedBox(width: 6),
-          Expanded(
-            child: Text(
-              'Your conversation is private. Health details are encrypted and handled '
-              'per our Privacy Policy (PDPA / HIPAA aligned).',
-              style: TextStyle(
-                  fontSize: 11, color: Colors.grey[700], height: 1.3),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/icons/ic_lock.png', width: 24, height: 24),
+              const SizedBox(width: 8),
+              const Text(
+                '(HIPAA Privacy)',
+                style: TextStyle(color: Color(0xFF5782F1), fontSize: 12),
+              ),
+            ],
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Tooltip(
+              message: _detail,
+              triggerMode: TooltipTriggerMode.tap,
+              showDuration: const Duration(seconds: 8),
+              preferBelow: true,
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.symmetric(horizontal: 24),
+              decoration: BoxDecoration(
+                color: const Color(0xFF232F55),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              textStyle: const TextStyle(
+                  color: Colors.white, fontSize: 12, height: 1.35),
+              child: const Icon(Icons.info_outline,
+                  size: 18, color: Color(0xFF5782F1)),
             ),
           ),
         ],
@@ -229,11 +254,7 @@ class _IntakeChatHeader extends StatelessWidget {
     final statusColor = connected ? Colors.green : Colors.orange;
     return Row(
       children: [
-        CircleAvatar(
-          radius: 18,
-          backgroundColor: Const.aqua.withValues(alpha: 0.12),
-          child: const Icon(Icons.smart_toy_outlined, color: Const.aqua, size: 20),
-        ),
+        Image.asset('assets/icons/ic_doctor_ai.png', width: 34, height: 34),
         const SizedBox(width: 12),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
