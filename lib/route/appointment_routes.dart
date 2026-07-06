@@ -25,6 +25,15 @@ class AppointmentRoutes {
     ),
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
+      path: 'care-task-detail',
+      name: AppRoutes.careTaskDetail,
+      builder: (context, state) {
+        final careTaskId = state.extra as int;
+        return CareTaskDetailPage(careTaskId: careTaskId, key: UniqueKey());
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
       path: 'provider-detail',
       name: AppRoutes.providerAppointmentDetail,
       builder: (context, state) {

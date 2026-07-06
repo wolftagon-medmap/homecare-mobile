@@ -34,10 +34,17 @@ class AppointmentTypeDetailTile extends StatelessWidget {
     final detail = appointment.serviceRequest?.detail;
     if (detail == null) return const SizedBox.shrink();
 
+    // v2 AI bookings carry the concern as chief_complaint text — preview it on
+    // the tile instead of the v1 personal-issues wording.
+    final complaint = appointment.serviceRequest?.chiefComplaint;
+    final complaintSubtitle = (complaint != null && complaint.isNotEmpty)
+        ? complaint
+        : 'Personal issues reported by the patient';
+
     final config = switch (detail) {
       NursingDetail() => _TileConfig(
           label: 'Chief Complaint',
-          subtitle: 'Personal issues reported by the patient',
+          subtitle: complaintSubtitle,
           icon: Icons.healing_rounded,
           gradient: const LinearGradient(
             colors: [Color(0xFF35C5CF), Color(0xFF00B0A7)],
@@ -49,7 +56,7 @@ class AppointmentTypeDetailTile extends StatelessWidget {
         ),
       PharmacyGeneralDetail() => _TileConfig(
           label: 'Chief Complaint',
-          subtitle: 'Personal issues reported by the patient',
+          subtitle: complaintSubtitle,
           icon: Icons.local_pharmacy_rounded,
           gradient: const LinearGradient(
             colors: [Color(0xFF35C5CF), Color(0xFF00B0A7)],
@@ -228,6 +235,8 @@ class _DetailCard extends StatelessWidget {
                       const SizedBox(height: 3),
                       Text(
                         config.subtitle,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontSize: 12,
                           color: Color(0xFF6A7282),

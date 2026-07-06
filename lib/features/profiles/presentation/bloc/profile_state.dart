@@ -52,3 +52,14 @@ class ProfileError extends ProfileState {
 }
 
 class ProfileUnauthenticated extends ProfileState {}
+
+class ProfileVerificationSubmitting extends ProfileState {}
+
+class ProfileVerificationSubmitted extends ProfileState {
+  final String message;
+
+  const ProfileVerificationSubmitted(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}

@@ -1,5 +1,6 @@
 export 'get_availabilities.dart';
 export 'add_availability.dart';
+export 'add_availabilities_bulk.dart';
 export 'update_availability.dart';
 export 'delete_availability.dart';
 export 'get_all_overrides.dart';

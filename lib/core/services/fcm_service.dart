@@ -87,14 +87,26 @@ class FcmService {
   }
 
   void _navigateToAppointment(RemoteMessage message) {
+    final context = rootNavigatorKey.currentContext;
+    if (context == null) return;
+
+    // v2 care-task offer (ADR-0006): no appointment exists yet — open the
+    // provider Pending inbox, which lists outstanding offers.
+    final deepLink = message.data['deepLink'] as String?;
+    final isOffer = message.data['careTaskId'] != null ||
+        (deepLink?.startsWith('m2health://offers/') ?? false);
+    if (isOffer) {
+      // `/appointment` is a bottom-nav shell branch: switch to it with `go` —
+      // pushing a branch route duplicates the shell page key and crashes.
+      context.go(AppRoutes.appointment);
+      return;
+    }
+
     final appointmentIdStr = message.data['appointmentId'];
     if (appointmentIdStr == null) return;
 
     final appointmentId = int.tryParse(appointmentIdStr);
     if (appointmentId == null) return;
-
-    final context = rootNavigatorKey.currentContext;
-    if (context == null) return;
 
     context.push(AppRoutes.appointmentDetail, extra: appointmentId);
   }

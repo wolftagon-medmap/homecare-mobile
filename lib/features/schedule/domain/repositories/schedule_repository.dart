@@ -9,6 +9,8 @@ abstract class ScheduleRepository {
   Future<Either<Failure, List<ProviderAvailability>>> getAvailabilities();
   Future<Either<Failure, ProviderAvailability>> addAvailability(
       AddAvailabilityParams params);
+  Future<Either<Failure, List<ProviderAvailability>>> addAvailabilitiesBulk(
+      AddAvailabilitiesBulkParams params);
   Future<Either<Failure, ProviderAvailability>> updateAvailability(
       UpdateAvailabilityParams params);
   Future<Either<Failure, Unit>> deleteAvailability(int id);

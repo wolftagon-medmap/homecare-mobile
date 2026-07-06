@@ -5,6 +5,7 @@
 export 'bloc/appointment_cubit.dart';
 export 'pages/appointment_page.dart';
 export 'pages/appointment_detail.dart';
+export 'pages/care_task_detail_page.dart';
 
 // Provider appointment functionality
 export 'bloc/provider_appointment_cubit.dart';

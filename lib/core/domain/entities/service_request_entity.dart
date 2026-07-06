@@ -7,8 +7,17 @@ class ServiceRequestEntity extends Equatable {
   final String? status;
   final ServiceRequestDetail? detail;
 
-  const ServiceRequestEntity({this.id, this.status, this.detail});
+  /// The patient's main concern as told to the AI agent (v2 bookings); v1
+  /// manual bookings carry personal issues inside [detail] instead.
+  final String? chiefComplaint;
+
+  const ServiceRequestEntity({
+    this.id,
+    this.status,
+    this.detail,
+    this.chiefComplaint,
+  });
 
   @override
-  List<Object?> get props => [id, status, detail];
+  List<Object?> get props => [id, status, detail, chiefComplaint];
 }

@@ -8,6 +8,7 @@ class AppRoutes {
   static const String medicalStore = '/medical-store';
   static const String favourite = '/favourite';
   static const String profile = '/profile';
+  static const String notificationInbox = '/notification-inbox';
 
   // Auth
   static const String signIn = '/sign-in';
@@ -29,9 +30,12 @@ class AppRoutes {
   static const String physiotherapy = '/physiotherapy';
   static const String psychologist = '/psychologist';
   static const String optometrist = '/optometrist';
+  static const String psychologistBooking = '/psychologist-booking';
+  static const String optometristBooking = '/optometrist-booking';
 
   // Appointment
   static const String appointmentDetail = '/appointment/detail';
+  static const String careTaskDetail = '/appointment/care-task-detail';
   static const String providerAppointmentDetail =
       '/appointment/provider-detail';
   static const String scheduleAppoointment = '/schedule-appointment';
@@ -50,6 +54,7 @@ class AppRoutes {
   static const String editProfessionalProfile = '/edit-professional-profile';
   static const String editProfessionalServices = '/edit-professional-services';
   static const String workingSchedule = '/working-schedule';
+  static const String verificationHub = '/verification-hub';
   static const String manageServices = '/manage-services';
   static const String adminProfessionals = '/admin-professionals';
   static const String manageHealthScreening = '/manage-health-screening';
@@ -61,6 +66,7 @@ class AppRoutes {
   static const String chatPharmaAI = '/chat-pharma-ai';
   static const String chatDoctorAI = '/chat-doctor-ai';
   static const String chatAiConversations = '/chat-ai-conversations';
+  static const String intakeBooking = '/intake-booking';
   static const String pharmacyBookAppointmentFlow =
       '/pharmacy-book-appointment-flow';
   static const String personal = '/personal';
