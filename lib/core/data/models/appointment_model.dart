@@ -54,8 +54,11 @@ class AppointmentModel extends AppointmentEntity {
         ? ProfessionalModel.fromJson(json['provider'] as Map<String, dynamic>)
         : null;
 
-    final patient = json['patient'] != null
-        ? ProfileModel.fromJson(json['patient'] as Map<String, dynamic>)
+    // Prefer the booking's patient profile (the dependent the visit is for);
+    // `patient` is the account holder's primary profile (a computed fallback).
+    final patientJson = json['patient_profile'] ?? json['patient'];
+    final patient = patientJson != null
+        ? ProfileModel.fromJson(patientJson as Map<String, dynamic>)
         : null;
 
     // v2: order is returned alongside appointment

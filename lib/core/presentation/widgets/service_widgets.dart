@@ -9,6 +9,8 @@ class ServiceSelectionCard extends StatelessWidget {
   final Color backgroundColor;
   final VoidCallback onTap;
   final bool isLoading;
+  final double? imageWidth;
+  final double? imageHeight;
 
   const ServiceSelectionCard({
     super.key,
@@ -18,6 +20,8 @@ class ServiceSelectionCard extends StatelessWidget {
     required this.backgroundColor,
     required this.onTap,
     this.isLoading = false,
+    this.imageWidth = 160,
+    this.imageHeight = 120,
   });
 
   @override
@@ -41,8 +45,8 @@ class ServiceSelectionCard extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 16.0),
                 child: Image.asset(
                   imagePath,
-                  width: 160,
-                  height: 120,
+                  width: imageWidth,
+                  height: imageHeight,
                   fit: BoxFit.contain,
                   alignment: Alignment.bottomRight,
                 ),

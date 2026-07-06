@@ -3,6 +3,7 @@ import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/pharmacy_routes.dart';
 import 'package:m2health/features/chatbot/chatbot_routes.dart';
+import 'package:m2health/features/intake_booking/intake_booking_routes.dart';
 import 'package:m2health/features/payment/domain/usecases/pay_order.dart';
 import 'package:m2health/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:m2health/features/payment/presentation/pages/payment_page.dart';
@@ -98,6 +99,7 @@ final GoRouter router = GoRouter(
     ...AuthRoutes.routes,
     ...ProfileDetailRoutes.routes,
     ...ChatbotRoutes.routes,
+    ...IntakeBookingRoutes.routes,
     ...SettingsRoutes.routes,
     ...PharmacyRoutes.routes,
     ...RemotePatientMonitoringRoutes.routes,
