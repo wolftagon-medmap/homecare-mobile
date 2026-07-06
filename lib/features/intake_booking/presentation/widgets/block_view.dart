@@ -3,6 +3,7 @@ import 'package:m2health/features/intake_booking/domain/entities/block.dart';
 import 'package:m2health/features/intake_booking/presentation/widgets/confirm_request_card.dart';
 import 'package:m2health/features/intake_booking/presentation/widgets/intake_bubbles.dart';
 import 'package:m2health/features/intake_booking/presentation/widgets/location_request_card.dart';
+import 'package:m2health/features/intake_booking/presentation/widgets/location_set_bubble.dart';
 import 'package:m2health/features/intake_booking/presentation/widgets/professional_shortlist.dart';
 
 /// Renders a single [Block]. Interactive blocks are actionable only when they're
@@ -57,6 +58,7 @@ class BlockView extends StatelessWidget {
           resolved: chosenReplyId != null,
           onPick: onPickLocation,
         ),
+      LocationSetBlock b => LocationSetBubble(block: b),
       BookingCreatedBlock(:final text) => _pending(text),
       UnknownBlock() => const SizedBox.shrink(),
     };

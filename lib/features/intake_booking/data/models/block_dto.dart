@@ -51,6 +51,15 @@ Block _parseBlock(Map<String, dynamic> json) {
       );
     case 'location_request':
       return LocationRequestBlock(id: id, text: text, composer: composer);
+    case 'user_location':
+      return LocationSetBlock(
+        id: id,
+        text: text,
+        lat: (json['lat'] as num?)?.toDouble(),
+        lng: (json['lng'] as num?)?.toDouble(),
+        address: json['address'] as String?,
+        composer: composer,
+      );
     case 'booking_created':
       return BookingCreatedBlock(
         id: id,

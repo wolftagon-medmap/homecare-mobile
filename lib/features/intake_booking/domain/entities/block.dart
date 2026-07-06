@@ -71,6 +71,25 @@ class LocationRequestBlock extends Block {
   List<Object?> get props => [...super.props, text];
 }
 
+/// A map-picked visit location, rendered as a mini-map in the transcript.
+class LocationSetBlock extends Block {
+  final String text;
+  final double? lat;
+  final double? lng;
+  final String? address;
+  const LocationSetBlock({
+    required super.id,
+    required this.text,
+    required this.lat,
+    required this.lng,
+    required this.address,
+    super.composer,
+  });
+
+  @override
+  List<Object?> get props => [...super.props, text, lat, lng, address];
+}
+
 class BookingCreatedBlock extends Block {
   final String text;
   final int appointmentId;
