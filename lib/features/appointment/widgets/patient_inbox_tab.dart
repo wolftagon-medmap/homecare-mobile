@@ -131,8 +131,11 @@ class _PatientInboxCard extends StatelessWidget {
           ? 'Est. \$${item.estimatedPrice!.toStringAsFixed(2)}'
           : null;
 
-  void _openCareTaskDetail(BuildContext context) {
-    // Care-task detail page arrives with the detail phase; keep tap inert until then.
+  Future<void> _openCareTaskDetail(BuildContext context) async {
+    final cubit = context.read<PatientInboxCubit>();
+    await context.push(AppRoutes.careTaskDetail, extra: item.careTaskId);
+    // Status may have moved (accepted/cancelled) while the detail was open.
+    await cubit.fetchInbox();
   }
 
   List<Widget> _appointmentActions(BuildContext context) {

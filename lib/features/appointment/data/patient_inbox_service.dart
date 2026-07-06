@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/features/appointment/data/models/patient_care_task_detail.dart';
 import 'package:m2health/features/appointment/data/models/patient_inbox_item.dart';
 import 'package:m2health/utils.dart';
 
@@ -28,5 +29,14 @@ class PatientInboxService {
         .whereType<Map<String, dynamic>>()
         .map(PatientInboxItem.fromJson)
         .toList();
+  }
+
+  Future<PatientCareTaskDetail> fetchCareTaskDetail(int careTaskId) async {
+    final response = await _dio.get(
+      '${Const.URL_API_V2}/care-tasks/$careTaskId',
+      options: await _authOptions(),
+    );
+    return PatientCareTaskDetail.fromJson(
+        response.data['item'] as Map<String, dynamic>);
   }
 }
