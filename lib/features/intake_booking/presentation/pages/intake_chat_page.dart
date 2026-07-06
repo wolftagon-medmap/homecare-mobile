@@ -185,15 +185,9 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
         const _PrivacyNotice(),
         Expanded(
           child: state.blocks.isEmpty && !state.awaitingReply
-              ? const Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 32),
-                    child: Text(
-                      'Tell me what care you need, and I\'ll help you book it.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
+              ? _EmptyChatWelcome(
+                  onPrompt: (text) =>
+                      context.read<IntakeCubit>().sendText(text),
                 )
               : ListView.builder(
                   controller: _scrollController,
@@ -248,6 +242,77 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
                 style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Friendly empty state: what the agent can do, plus one-tap starter prompts
+/// covering both booking and health Q&A.
+class _EmptyChatWelcome extends StatelessWidget {
+  final ValueChanged<String> onPrompt;
+  const _EmptyChatWelcome({required this.onPrompt});
+
+  static const _suggestions = [
+    'I need a home nurse visit',
+    'What services and prices do you offer?',
+    'I have a health question',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/icons/ic_doctor_ai.png',
+                width: 64, height: 64),
+            const SizedBox(height: 16),
+            const Text(
+              'Hi! How can I help you today?',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF232F55),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'I can book home healthcare visits, help you prepare for '
+              'appointments, and answer your health questions.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 13,
+                color: Colors.grey[600],
+                height: 1.4,
+              ),
+            ),
+            const SizedBox(height: 24),
+            ..._suggestions.map(
+              (suggestion) => Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: OutlinedButton(
+                  onPressed: () => onPrompt(suggestion),
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(
+                        color: Const.aqua.withValues(alpha: 0.5)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 8),
+                  ),
+                  child: Text(
+                    suggestion,
+                    style: const TextStyle(color: Const.aqua, fontSize: 13),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
