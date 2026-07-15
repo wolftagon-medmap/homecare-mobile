@@ -4,12 +4,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/i18n/translations.g.dart';
+import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/profiles/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
+import 'package:m2health/features/profiles/presentation/bloc/professional_profile_cubit.dart';
+import 'package:m2health/features/profiles/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/features/profiles/presentation/pages/manage_provided_services_page.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/utils.dart';
@@ -37,8 +40,17 @@ class _ProfilePageState extends State<ProfilePage> {
     _fetchData();
   }
 
-  void _fetchData() {
-    context.read<ProfileCubit>().loadProfile();
+  // Resolves the role (mirrors the check the unified ProfileCubit used to do
+  // internally) and loads from the matching split cubit.
+  void _fetchData() async {
+    final role = await Utils.getSpString(Const.ROLE);
+    if (!mounted) return;
+    if (role != null &&
+        PROFESSIONAL_ROLES.map((r) => r.value).contains(role)) {
+      context.read<ProfessionalProfileCubit>().loadProfile();
+    } else {
+      context.read<PatientProfileCubit>().loadProfile();
+    }
   }
 
   @override
@@ -66,96 +78,116 @@ class _ProfilePageState extends State<ProfilePage> {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          body: BlocConsumer<ProfileCubit, ProfileState>(
-            listener: (context, state) {
-              if (state is ProfileUnauthenticated) {
-                showAuthGuardDialog(context);
-              }
-            },
-            builder: (context, state) {
-              if (state is ProfileLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is PatientProfileLoaded) {
-                final Profile profile = state.profile;
-                return RefreshIndicator(
-                  onRefresh: () async {
-                    _fetchData();
+          body: (isPatient || isAdmin)
+              ? BlocConsumer<PatientProfileCubit, PatientProfileState>(
+                  listener: (context, state) {
+                    if (state is PatientProfileUnauthenticated) {
+                      showAuthGuardDialog(context);
+                    }
                   },
-                  child: SingleChildScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        _ProfileHeader(
-                          name: profile.name,
-                          avatarUrl: profile.avatar,
-                          lastUpdated: formatDateTime(profile.updatedAt),
+                  builder: (context, state) {
+                    if (state is PatientProfileLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is PatientProfileLoaded) {
+                      final Profile profile = state.profile;
+                      return RefreshIndicator(
+                        onRefresh: () async {
+                          _fetchData();
+                        },
+                        child: SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              _ProfileHeader(
+                                name: profile.name,
+                                avatarUrl: profile.avatar,
+                                lastUpdated: formatDateTime(profile.updatedAt),
+                              ),
+                              const SizedBox(height: 16),
+                              if (isAdmin) ...[
+                                const _AdminSection(),
+                                const SizedBox(height: 16),
+                              ],
+                              if (isPatient) ...[
+                                const _ProfileInformationSection(),
+                                const SizedBox(height: 16),
+                                const _HealthRecordsSection(),
+                                const SizedBox(height: 16),
+                                const _AppointmentSection(),
+                                const SizedBox(height: 16),
+                              ],
+                              const _SettingSection(),
+                              const SizedBox(height: 16),
+                              const _LogoutButton(),
+                              const SizedBox(height: 80)
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 16),
-                        if (isAdmin) ...[
-                          const _AdminSection(),
-                          const SizedBox(height: 16),
-                        ],
-                        if (isPatient) ...[
-                          const _ProfileInformationSection(),
-                          const SizedBox(height: 16),
-                          const _HealthRecordsSection(),
-                          const SizedBox(height: 16),
-                          const _AppointmentSection(),
-                          const SizedBox(height: 16),
-                        ],
-                        const _SettingSection(),
-                        const SizedBox(height: 16),
-                        const _LogoutButton(),
-                        const SizedBox(height: 80)
-                      ],
-                    ),
-                  ),
-                );
-              } else if (state is ProfessionalProfileLoaded) {
-                final ProfessionalProfile profile = state.profile;
-                return RefreshIndicator(
-                  onRefresh: () async {
-                    _fetchData();
+                      );
+                    } else if (state is PatientProfileError) {
+                      return Center(child: Text(state.message));
+                    } else {
+                      return Center(
+                          child: Text(context.l10n.profile_not_found));
+                    }
                   },
-                  child: SingleChildScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        _ProfileHeader(
-                          name: profile.name ?? context.l10n.none,
-                          avatarUrl: profile.avatar,
-                          lastUpdated: formatDateTime(profile.updatedAt),
-                          isVerified: profile.isVerified,
-                          verifiedAt: profile.verifiedAt,
-                          verificationStatus: profile.verificationStatus,
+                )
+              : BlocConsumer<ProfessionalProfileCubit,
+                  ProfessionalProfileState>(
+                  listener: (context, state) {
+                    if (state is ProfessionalProfileUnauthenticated) {
+                      showAuthGuardDialog(context);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is ProfessionalProfileLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is ProfessionalProfileLoaded) {
+                      final ProfessionalProfile profile = state.profile;
+                      return RefreshIndicator(
+                        onRefresh: () async {
+                          _fetchData();
+                        },
+                        child: SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              _ProfileHeader(
+                                name: profile.name ?? context.l10n.none,
+                                avatarUrl: profile.avatar,
+                                lastUpdated: formatDateTime(profile.updatedAt),
+                                isVerified: profile.isVerified,
+                                verifiedAt: profile.verifiedAt,
+                                verificationStatus: profile.verificationStatus,
+                              ),
+                              const SizedBox(height: 16),
+                              if (profile.verificationStatus !=
+                                  VerificationStatus.verified) ...[
+                                _VerificationOnboardingCard(profile: profile),
+                                const SizedBox(height: 16),
+                              ],
+                              _ProfessionalProfileSection(profile: profile),
+                              const SizedBox(height: 16),
+                              const _AppointmentSection(),
+                              const SizedBox(height: 16),
+                              const _SettingSection(),
+                              const SizedBox(height: 16),
+                              const _LogoutButton(),
+                              const SizedBox(height: 80)
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 16),
-                        if (profile.verificationStatus !=
-                            VerificationStatus.verified) ...[
-                          _VerificationOnboardingCard(profile: profile),
-                          const SizedBox(height: 16),
-                        ],
-                        _ProfessionalProfileSection(profile: profile),
-                        const SizedBox(height: 16),
-                        const _AppointmentSection(),
-                        const SizedBox(height: 16),
-                        const _SettingSection(),
-                        const SizedBox(height: 16),
-                        const _LogoutButton(),
-                        const SizedBox(height: 80)
-                      ],
-                    ),
-                  ),
-                );
-              } else if (state is ProfileError) {
-                return Center(child: Text(state.message));
-              } else {
-                return Center(child: Text(context.l10n.profile_not_found));
-              }
-            },
-          ),
+                      );
+                    } else if (state is ProfessionalProfileError) {
+                      return Center(child: Text(state.message));
+                    } else {
+                      return Center(
+                          child: Text(context.l10n.profile_not_found));
+                    }
+                  },
+                ),
         );
       },
     );
@@ -493,7 +525,7 @@ class _ProfessionalProfileSection extends StatelessWidget {
                   ),
                 );
 
-                context.read<ProfileCubit>().loadProfile();
+                context.read<ProfessionalProfileCubit>().loadProfile();
               },
             ),
             ListTile(

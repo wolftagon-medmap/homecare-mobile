@@ -9,8 +9,8 @@ import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'dart:io';
 import 'package:m2health/features/profiles/domain/usecases/update_profile.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
 import 'package:m2health/features/profiles/presentation/pages/address_map_page.dart';
 
 class EditBasicInfoPage extends StatefulWidget {
@@ -41,8 +41,10 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
   @override
   void initState() {
     super.initState();
-    profile = context.read<ProfileCubit>().state is PatientProfileLoaded
-        ? (context.read<ProfileCubit>().state as PatientProfileLoaded).profile
+    profile = context.read<PatientProfileCubit>().state
+            is PatientProfileLoaded
+        ? (context.read<PatientProfileCubit>().state as PatientProfileLoaded)
+            .profile
         : null;
     _nameController = TextEditingController(text: profile?.name);
     _ageController = TextEditingController(text: profile?.age?.toString());
@@ -127,15 +129,15 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
         drugAllergy: _drugAllergyController.text,
         avatar: _selectedImage,
       );
-      context.read<ProfileCubit>().updateProfile(params);
+      context.read<PatientProfileCubit>().updateProfile(params);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProfileCubit, ProfileState>(
+    return BlocListener<PatientProfileCubit, PatientProfileState>(
       listener: (context, state) {
-        if (state is ProfileSuccess) {
+        if (state is PatientProfileSuccess) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
@@ -144,7 +146,7 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
               behavior: SnackBarBehavior.floating,
             ));
           Navigator.pop(context);
-        } else if (state is ProfileError) {
+        } else if (state is PatientProfileError) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
@@ -397,9 +399,9 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
         ),
               ),
               // Save button — selalu di atas keyboard
-              BlocBuilder<ProfileCubit, ProfileState>(
+              BlocBuilder<PatientProfileCubit, PatientProfileState>(
                 builder: (context, state) {
-                  final isUpdating = state is ProfileSaving;
+                  final isUpdating = state is PatientProfileSaving;
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
                     child: ElevatedButton(
