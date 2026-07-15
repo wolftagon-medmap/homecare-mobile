@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 class Const {
   static const String APPLICATION_ID = "org.medmap.homecare";
 
-  /// Enable verbose HTTP logging (Dio LogInterceptor etc.)
-  /// Keep this `true` while debugging uploads; set to `false` for release.
+  /// Enable verbose HTTP logging (Dio LogInterceptor etc.) during development.
+  /// Only takes effect in non-release builds (service_locator.dart also checks
+  /// `!kReleaseMode`), so a release build never logs request/response data
+  /// (tokens, patient details) even if this is accidentally left `true`.
   static const bool DEBUG_HTTP_LOGS = true;
 
   /// URL backend. Pilih yang sesuai:
