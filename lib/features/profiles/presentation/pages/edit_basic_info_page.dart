@@ -41,11 +41,8 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
   @override
   void initState() {
     super.initState();
-    profile = context.read<PatientProfileCubit>().state
-            is PatientProfileLoaded
-        ? (context.read<PatientProfileCubit>().state as PatientProfileLoaded)
-            .profile
-        : null;
+    // Edits whichever profile is active, not necessarily the account holder's.
+    profile = context.read<PatientProfileCubit>().activeProfile;
     _nameController = TextEditingController(text: profile?.name);
     _ageController = TextEditingController(text: profile?.age?.toString());
     _weightController =
@@ -115,9 +112,13 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
   }
 
   void _submitForm() {
+    final editedProfile = profile;
+    if (editedProfile == null) return;
+
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       final params = UpdateProfileParams(
+        profileId: editedProfile.id,
         name: _nameController.text,
         countryCode: _selectedCountryCode,
         age: int.tryParse(_ageController.text),

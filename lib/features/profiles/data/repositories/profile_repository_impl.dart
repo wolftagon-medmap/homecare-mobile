@@ -15,12 +15,15 @@ class ProfileRepositoryImpl extends ProfileRepository {
   ProfileRepositoryImpl({required this.remoteDatasource});
 
   @override
-  Future<Either<Failure, Profile>> get() async {
+  Future<Either<Failure, List<Profile>>> getProfiles() async {
     try {
-      final profile = await remoteDatasource.getProfile();
-      return Right(profile);
+      final profiles = await remoteDatasource.getProfiles();
+      // Hand back a real List<Profile>: the datasource's List<ProfileModel> only
+      // *looks* like one, and List.firstWhere would then reject an orElse
+      // returning the supertype.
+      return Right(List<Profile>.from(profiles));
     } catch (e, stackTrace) {
-      log('Failed to fetch profile: $e',
+      log('Failed to fetch profiles: $e',
           name: 'ProfileRepositoryImpl', stackTrace: stackTrace);
       if (e is Failure) {
         return Left(e);
@@ -44,7 +47,8 @@ class ProfileRepositoryImpl extends ProfileRepository {
         'drug_allergy': params.drugAllergy,
       };
 
-      await remoteDatasource.updateProfile(profileData, params.avatar);
+      await remoteDatasource.updateProfile(
+          params.profileId, profileData, params.avatar);
       return const Right(unit);
     } catch (e) {
       return Left(ServerFailure(e.toString()));

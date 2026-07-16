@@ -12,8 +12,9 @@ import 'package:path/path.dart' as p;
 
 abstract class ProfileRemoteDatasource {
   // Patient
-  Future<ProfileModel> getProfile();
-  Future<void> updateProfile(Map<String, dynamic> profile, File? avatar);
+  Future<List<ProfileModel>> getProfiles();
+  Future<void> updateProfile(
+      int profileId, Map<String, dynamic> profile, File? avatar);
 
   // Professional
   Future<ProfessionalProfileModel> getProfessionalProfile();
@@ -61,14 +62,16 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   // }
 
   @override
-  Future<ProfileModel> getProfile() async {
+  Future<List<ProfileModel>> getProfiles() async {
     try {
       final response = await dio.get(
         Const.API_PROFILE, // /v1/profiles
         options: await _getAuthHeaders(),
       );
-      final data = response.data['data'];
-      return ProfileModel.fromJson(data);
+      final data = response.data['data'] as List<dynamic>;
+      return data
+          .map((json) => ProfileModel.fromJson(json as Map<String, dynamic>))
+          .toList();
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         throw const UnauthorizedFailure("User is not authenticated");
@@ -78,7 +81,8 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   }
 
   @override
-  Future<void> updateProfile(Map<String, dynamic> profile, File? avatar) async {
+  Future<void> updateProfile(
+      int profileId, Map<String, dynamic> profile, File? avatar) async {
     try {
       final formData = FormData();
       profile.forEach((key, value) {
@@ -98,7 +102,7 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
       }
 
       await dio.put(
-        Const.API_PROFILE, // /v1/profiles
+        '${Const.API_PROFILE}/$profileId', // /v1/profiles/:id
         data: formData,
         options: (await _getAuthHeaders())..contentType = 'multipart/form-data',
       );

@@ -90,7 +90,7 @@ class _DashboardState extends State<Dashboard> {
     if (isProfessional) {
       context.read<ProfessionalProfileCubit>().loadProfile();
     } else {
-      context.read<PatientProfileCubit>().loadProfile();
+      context.read<PatientProfileCubit>().loadProfiles();
     }
   }
 
@@ -138,10 +138,13 @@ class _DashboardState extends State<Dashboard> {
 
                   if (_isProfessional == false &&
                       patientState is PatientProfileLoaded) {
-                    displayName = patientState.profile.name.isNotEmpty
-                        ? patientState.profile.name
+                    // The header follows the active profile, so switching to a
+                    // family member is reflected here too.
+                    final activeProfile = patientState.activeProfile;
+                    displayName = activeProfile.name.isNotEmpty
+                        ? activeProfile.name
                         : userName ?? 'User';
-                    avatarUrl = patientState.profile.avatar;
+                    avatarUrl = activeProfile.avatar;
                   } else if (_isProfessional == true &&
                       professionalState is ProfessionalProfileLoaded) {
                     displayName = professionalState.profile.name != null &&

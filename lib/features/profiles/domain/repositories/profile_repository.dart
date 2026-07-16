@@ -6,7 +6,8 @@ import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
 
 abstract class ProfileRepository {
-  Future<Either<Failure, Profile>> get();
+  /// The account holder's own profile plus any family members, primary first.
+  Future<Either<Failure, List<Profile>>> getProfiles();
   Future<Either<Failure, Unit>> update(UpdateProfileParams profile);
   Future<Either<Failure, ProfessionalProfile>> getProfessionalProfile();
   Future<Either<Failure, Unit>> updateProfessionalProfile(

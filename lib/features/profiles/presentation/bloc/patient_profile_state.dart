@@ -15,12 +15,31 @@ class PatientProfileLoading extends PatientProfileState {}
 class PatientProfileSaving extends PatientProfileState {}
 
 class PatientProfileLoaded extends PatientProfileState {
-  final Profile profile;
+  /// The account holder's own profile plus any family members, primary first.
+  final List<Profile> profiles;
 
-  const PatientProfileLoaded(this.profile);
+  /// Which profile the app is currently acting for.
+  final int activeProfileId;
+
+  const PatientProfileLoaded(this.profiles, this.activeProfileId);
+
+  /// The profile the app is acting for, falling back to the first one when the
+  /// active id no longer resolves (e.g. it was just removed).
+  Profile get activeProfile => profiles.firstWhere(
+        (profile) => profile.id == activeProfileId,
+        orElse: () => profiles.first,
+      );
+
+  /// The account holder's own profile.
+  Profile get primaryProfile => profiles.firstWhere(
+        (profile) => profile.isPrimary,
+        orElse: () => profiles.first,
+      );
+
+  bool get isActiveProfilePrimary => activeProfile.isPrimary;
 
   @override
-  List<Object?> get props => [profile];
+  List<Object?> get props => [profiles, activeProfileId];
 }
 
 class PatientProfileSuccess extends PatientProfileState {

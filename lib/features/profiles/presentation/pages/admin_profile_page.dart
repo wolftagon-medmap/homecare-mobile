@@ -30,7 +30,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
   }
 
   void _fetchData() {
-    context.read<PatientProfileCubit>().loadProfile();
+    context.read<PatientProfileCubit>().loadProfiles();
   }
 
   @override
@@ -55,7 +55,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
           if (state is PatientProfileLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is PatientProfileLoaded) {
-            final Profile profile = state.profile;
+            final Profile profile = state.activeProfile;
             return RefreshIndicator(
               onRefresh: () async {
                 _fetchData();

@@ -14,7 +14,7 @@ import 'package:m2health/features/profiles/domain/usecases/index.dart';
 
 void initProfileModule(GetIt sl) {
   // Use cases
-  sl.registerLazySingleton(() => GetProfile(sl()));
+  sl.registerLazySingleton(() => GetProfiles(sl()));
   sl.registerLazySingleton(() => UpdateProfile(sl()));
   sl.registerLazySingleton(() => GetProfessionalProfile(sl()));
   sl.registerLazySingleton(() => UpdateProfessionalProfile(sl()));

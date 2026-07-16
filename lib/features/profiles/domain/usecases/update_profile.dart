@@ -15,6 +15,8 @@ class UpdateProfile {
 }
 
 class UpdateProfileParams {
+  /// Which profile to edit — the account holder's own or a family member's.
+  final int profileId;
   final String? name;
   final String? countryCode;
   final int? age;
@@ -27,6 +29,7 @@ class UpdateProfileParams {
   final File? avatar;
 
   UpdateProfileParams({
+    required this.profileId,
     this.name,
     this.countryCode,
     this.age,
@@ -40,6 +43,7 @@ class UpdateProfileParams {
   });
 
   UpdateProfileParams copyWith({
+    int? profileId,
     String? name,
     String? countryCode,
     int? age,
@@ -52,6 +56,7 @@ class UpdateProfileParams {
     File? avatar,
   }) {
     return UpdateProfileParams(
+      profileId: profileId ?? this.profileId,
       name: name ?? this.name,
       countryCode: countryCode ?? this.countryCode,
       age: age ?? this.age,
