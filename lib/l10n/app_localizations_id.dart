@@ -2622,4 +2622,24 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get profile_relation_other => 'Lainnya';
+
+  @override
+  String get profile_form_add_title => 'Tambah Profil';
+
+  @override
+  String get profile_form_date_of_birth => 'Tanggal Lahir';
+
+  @override
+  String get profile_form_relationship => 'Hubungan';
+
+  @override
+  String get profile_form_field_required => 'Wajib diisi';
+
+  @override
+  String get profile_form_remove => 'Hapus Profil';
+
+  @override
+  String profile_form_remove_confirm(String name) {
+    return 'Hapus $name dari daftar profil Anda? Tindakan ini tidak dapat dibatalkan.';
+  }
 }

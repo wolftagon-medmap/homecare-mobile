@@ -8,7 +8,10 @@ import 'package:m2health/features/profiles/domain/usecases/index.dart';
 abstract class ProfileRepository {
   /// The account holder's own profile plus any family members, primary first.
   Future<Either<Failure, List<Profile>>> getProfiles();
+  /// Returns the created profile so callers can make it active.
+  Future<Either<Failure, Profile>> create(CreateProfileParams profile);
   Future<Either<Failure, Unit>> update(UpdateProfileParams profile);
+  Future<Either<Failure, Unit>> delete(int profileId);
   Future<Either<Failure, ProfessionalProfile>> getProfessionalProfile();
   Future<Either<Failure, Unit>> updateProfessionalProfile(
       UpdateProfessionalProfileParams params);

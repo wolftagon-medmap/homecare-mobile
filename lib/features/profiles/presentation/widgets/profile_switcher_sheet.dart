@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/profile_widget.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
+import 'package:m2health/route/app_routes.dart';
 
 /// The profile list the account can act for, opened from the dashboard header
 /// and the patient profile page. Picking one switches the active profile.
@@ -160,17 +162,22 @@ class _NewProfileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Disabled until SCRUM-72 builds the create page.
     return Align(
       alignment: Alignment.centerLeft,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
-        child: Text(
-          context.l10n.profile_switcher_new_profile,
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-            color: Colors.grey.shade400,
+      child: TextButton(
+        onPressed: () {
+          Navigator.pop(context);
+          context.push(AppRoutes.profileBasicInfo, extra: true);
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          child: Text(
+            context.l10n.profile_switcher_new_profile,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: Const.aqua,
+            ),
           ),
         ),
       ),

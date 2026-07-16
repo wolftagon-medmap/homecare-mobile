@@ -2500,4 +2500,24 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get profile_relation_other => '其他';
+
+  @override
+  String get profile_form_add_title => '添加档案';
+
+  @override
+  String get profile_form_date_of_birth => '出生日期';
+
+  @override
+  String get profile_form_relationship => '关系';
+
+  @override
+  String get profile_form_field_required => '此项为必填';
+
+  @override
+  String get profile_form_remove => '删除档案';
+
+  @override
+  String profile_form_remove_confirm(String name) {
+    return '确定从档案中删除 $name？此操作无法撤销。';
+  }
 }

@@ -8,11 +8,15 @@ import 'package:m2health/features/profiles/presentation/bloc/patient_profile_sta
 
 class PatientProfileCubit extends Cubit<PatientProfileState> {
   final GetProfiles getProfilesUseCase;
+  final CreateProfile createProfileUseCase;
   final UpdateProfile updateProfileUseCase;
+  final DeleteProfile deleteProfileUseCase;
 
   PatientProfileCubit({
     required this.getProfilesUseCase,
+    required this.createProfileUseCase,
     required this.updateProfileUseCase,
+    required this.deleteProfileUseCase,
   }) : super(PatientProfileInitial());
 
   /// Survives Loading/Saving/Success, which would otherwise erase the choice:
@@ -63,6 +67,21 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
     emit(PatientProfileLoaded(current.profiles, profileId));
   }
 
+  Future<void> createProfile(CreateProfileParams params) async {
+    emit(PatientProfileSaving());
+    final result = await createProfileUseCase(params);
+    result.fold(
+      (failure) => emit(PatientProfileError(failure.message)),
+      (created) {
+        // Adding someone from the switcher means you want to act as them, so
+        // don't leave the app pointed at whoever happened to be active.
+        _activeProfileId = created.id;
+        emit(const PatientProfileSuccess('Profile added successfully!'));
+        loadProfiles();
+      },
+    );
+  }
+
   Future<void> updateProfile(UpdateProfileParams params) async {
     emit(PatientProfileSaving());
     final result = await updateProfileUseCase(params);
@@ -70,6 +89,21 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
       (failure) => emit(PatientProfileError(failure.message)),
       (_) {
         emit(const PatientProfileSuccess('Profile updated successfully!'));
+        loadProfiles();
+      },
+    );
+  }
+
+  Future<void> deleteProfile(int profileId) async {
+    emit(PatientProfileSaving());
+    final result = await deleteProfileUseCase(profileId);
+    result.fold(
+      (failure) => emit(PatientProfileError(failure.message)),
+      (_) {
+        // The removed profile can't stay active; _resolveActiveId falls back to
+        // the account holder once the id is gone from the list.
+        if (_activeProfileId == profileId) _activeProfileId = null;
+        emit(const PatientProfileSuccess('Profile removed successfully!'));
         loadProfiles();
       },
     );

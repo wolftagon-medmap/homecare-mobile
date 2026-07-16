@@ -4863,6 +4863,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get profile_relation_other;
+
+  /// Title of the profile form when creating a family profile
+  ///
+  /// In en, this message translates to:
+  /// **'Add Profile'**
+  String get profile_form_add_title;
+
+  /// No description provided for @profile_form_date_of_birth.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of Birth'**
+  String get profile_form_date_of_birth;
+
+  /// No description provided for @profile_form_relationship.
+  ///
+  /// In en, this message translates to:
+  /// **'Relationship'**
+  String get profile_form_relationship;
+
+  /// No description provided for @profile_form_field_required.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get profile_form_field_required;
+
+  /// No description provided for @profile_form_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Profile'**
+  String get profile_form_remove;
+
+  /// No description provided for @profile_form_remove_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name} from your profiles? This can\'t be undone.'**
+  String profile_form_remove_confirm(String name);
 }
 
 class _AppLocalizationsDelegate

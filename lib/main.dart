@@ -146,7 +146,9 @@ class M2HealthApp extends StatelessWidget {
         BlocProvider(
             create: (context) => PatientProfileCubit(
                   getProfilesUseCase: sl<GetProfiles>(),
+                  createProfileUseCase: sl<CreateProfile>(),
                   updateProfileUseCase: sl<UpdateProfile>(),
+                  deleteProfileUseCase: sl<DeleteProfile>(),
                 )),
         BlocProvider(
             create: (context) => ProfessionalProfileCubit(

@@ -2617,4 +2617,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profile_relation_other => 'Other';
+
+  @override
+  String get profile_form_add_title => 'Add Profile';
+
+  @override
+  String get profile_form_date_of_birth => 'Date of Birth';
+
+  @override
+  String get profile_form_relationship => 'Relationship';
+
+  @override
+  String get profile_form_field_required => 'This field is required';
+
+  @override
+  String get profile_form_remove => 'Remove Profile';
+
+  @override
+  String profile_form_remove_confirm(String name) {
+    return 'Remove $name from your profiles? This can\'t be undone.';
+  }
 }

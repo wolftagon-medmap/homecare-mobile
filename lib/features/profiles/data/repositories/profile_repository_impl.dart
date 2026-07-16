@@ -33,18 +33,41 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
+  Future<Either<Failure, Profile>> create(CreateProfileParams params) async {
+    try {
+      final profileData = {
+        'name': params.name,
+        'country_code': params.countryCode,
+        'date_of_birth': _formatDate(params.dateOfBirth),
+        'gender': params.gender,
+        'relation': params.relation,
+        'weight': params.weight,
+        'height': params.height,
+        'phone_number': params.phoneNumber,
+      };
+
+      final created =
+          await remoteDatasource.createProfile(profileData, params.avatar);
+      return Right(created);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, Unit>> update(UpdateProfileParams params) async {
     try {
       final profileData = {
         'name': params.name,
         'country_code': params.countryCode,
-        'age': params.age,
+        'date_of_birth': params.dateOfBirth != null
+            ? _formatDate(params.dateOfBirth!)
+            : null,
         'weight': params.weight,
         'height': params.height,
         'phone_number': params.phoneNumber,
-        'home_address': params.homeAddress,
         'gender': params.gender,
-        'drug_allergy': params.drugAllergy,
+        'relation': params.relation,
       };
 
       await remoteDatasource.updateProfile(
@@ -54,6 +77,22 @@ class ProfileRepositoryImpl extends ProfileRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> delete(int profileId) async {
+    try {
+      await remoteDatasource.deleteProfile(profileId);
+      return const Right(unit);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  /// The API validates date_of_birth as YYYY-MM-DD.
+  String _formatDate(DateTime date) =>
+      '${date.year.toString().padLeft(4, '0')}-'
+      '${date.month.toString().padLeft(2, '0')}-'
+      '${date.day.toString().padLeft(2, '0')}';
 
   // --- Professional Profile Methods ---
 
