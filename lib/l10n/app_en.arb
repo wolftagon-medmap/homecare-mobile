@@ -2090,6 +2090,26 @@
             "type": "int"
           }
         }
-      }
+      },
+  "common_close": "Close",
+  "@common_close": {},
+  "profile_switcher_new_profile": "+ New Profile",
+  "@profile_switcher_new_profile": {
+    "description": "Shortcut in the profile switcher sheet for creating a family profile"
+  },
+  "profile_relation_self": "Personal",
+  "@profile_relation_self": {
+    "description": "Label for the account holder's own profile in the switcher"
+  },
+  "profile_relation_spouse": "Spouse",
+  "@profile_relation_spouse": {},
+  "profile_relation_parent": "Parent",
+  "@profile_relation_parent": {},
+  "profile_relation_child": "Child",
+  "@profile_relation_child": {},
+  "profile_relation_sibling": "Sibling",
+  "@profile_relation_sibling": {},
+  "profile_relation_other": "Other",
+  "@profile_relation_other": {}
     }
     

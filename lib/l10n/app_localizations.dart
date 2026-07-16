@@ -4815,6 +4815,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Physiotherapy Session ({duration} mins)'**
   String physiotherapy_summary(int duration);
+
+  /// No description provided for @common_close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get common_close;
+
+  /// Shortcut in the profile switcher sheet for creating a family profile
+  ///
+  /// In en, this message translates to:
+  /// **'+ New Profile'**
+  String get profile_switcher_new_profile;
+
+  /// Label for the account holder's own profile in the switcher
+  ///
+  /// In en, this message translates to:
+  /// **'Personal'**
+  String get profile_relation_self;
+
+  /// No description provided for @profile_relation_spouse.
+  ///
+  /// In en, this message translates to:
+  /// **'Spouse'**
+  String get profile_relation_spouse;
+
+  /// No description provided for @profile_relation_parent.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent'**
+  String get profile_relation_parent;
+
+  /// No description provided for @profile_relation_child.
+  ///
+  /// In en, this message translates to:
+  /// **'Child'**
+  String get profile_relation_child;
+
+  /// No description provided for @profile_relation_sibling.
+  ///
+  /// In en, this message translates to:
+  /// **'Sibling'**
+  String get profile_relation_sibling;
+
+  /// No description provided for @profile_relation_other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get profile_relation_other;
 }
 
 class _AppLocalizationsDelegate

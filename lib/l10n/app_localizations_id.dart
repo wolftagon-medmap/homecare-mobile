@@ -2598,4 +2598,28 @@ class AppLocalizationsId extends AppLocalizations {
   String physiotherapy_summary(int duration) {
     return 'Sesi Fisioterapi ($duration menit)';
   }
+
+  @override
+  String get common_close => 'Tutup';
+
+  @override
+  String get profile_switcher_new_profile => '+ Profil Baru';
+
+  @override
+  String get profile_relation_self => 'Pribadi';
+
+  @override
+  String get profile_relation_spouse => 'Pasangan';
+
+  @override
+  String get profile_relation_parent => 'Orang Tua';
+
+  @override
+  String get profile_relation_child => 'Anak';
+
+  @override
+  String get profile_relation_sibling => 'Saudara';
+
+  @override
+  String get profile_relation_other => 'Lainnya';
 }

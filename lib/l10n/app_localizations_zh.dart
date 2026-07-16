@@ -2476,4 +2476,28 @@ class AppLocalizationsZh extends AppLocalizations {
   String physiotherapy_summary(int duration) {
     return '物理治疗课 ($duration 分钟)';
   }
+
+  @override
+  String get common_close => '关闭';
+
+  @override
+  String get profile_switcher_new_profile => '+ 新建档案';
+
+  @override
+  String get profile_relation_self => '本人';
+
+  @override
+  String get profile_relation_spouse => '配偶';
+
+  @override
+  String get profile_relation_parent => '父母';
+
+  @override
+  String get profile_relation_child => '子女';
+
+  @override
+  String get profile_relation_sibling => '兄弟姐妹';
+
+  @override
+  String get profile_relation_other => '其他';
 }

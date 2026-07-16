@@ -15,6 +15,11 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
     required this.updateProfileUseCase,
   }) : super(PatientProfileInitial());
 
+  /// Survives Loading/Saving/Success, which would otherwise erase the choice:
+  /// saving an edit emits Success before reloading, and reading the selection
+  /// back off the state at that point would find no Loaded state to read.
+  int? _activeProfileId;
+
   /// The profile the app is acting for, or null before the first load.
   /// Lets any feature read the active profile without depending on the state type.
   Profile? get activeProfile {
@@ -23,9 +28,6 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
   }
 
   Future<void> loadProfiles() async {
-    // Remember the choice across reloads, otherwise a refresh would silently
-    // drop the user back onto their own profile mid-task.
-    final previousActiveId = activeProfile?.id;
     emit(PatientProfileLoading());
 
     final result = await getProfilesUseCase();
@@ -44,10 +46,8 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
           emit(const PatientProfileError('No profile found for this account'));
           return;
         }
-        emit(PatientProfileLoaded(
-          profiles,
-          _resolveActiveId(profiles, previousActiveId),
-        ));
+        _activeProfileId = _resolveActiveId(profiles, _activeProfileId);
+        emit(PatientProfileLoaded(profiles, _activeProfileId!));
       },
     );
   }
@@ -59,6 +59,7 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
     if (!current.profiles.any((profile) => profile.id == profileId)) return;
     if (current.activeProfileId == profileId) return;
 
+    _activeProfileId = profileId;
     emit(PatientProfileLoaded(current.profiles, profileId));
   }
 

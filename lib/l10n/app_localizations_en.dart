@@ -2593,4 +2593,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String physiotherapy_summary(int duration) {
     return 'Physiotherapy Session ($duration mins)';
   }
+
+  @override
+  String get common_close => 'Close';
+
+  @override
+  String get profile_switcher_new_profile => '+ New Profile';
+
+  @override
+  String get profile_relation_self => 'Personal';
+
+  @override
+  String get profile_relation_spouse => 'Spouse';
+
+  @override
+  String get profile_relation_parent => 'Parent';
+
+  @override
+  String get profile_relation_child => 'Child';
+
+  @override
+  String get profile_relation_sibling => 'Sibling';
+
+  @override
+  String get profile_relation_other => 'Other';
 }

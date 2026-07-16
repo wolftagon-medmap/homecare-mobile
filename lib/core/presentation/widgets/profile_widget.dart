@@ -30,9 +30,12 @@ class ProfileAvatarWidget extends StatelessWidget {
           errorBuilder: (context, error, stackTrace) {
             return Container(
               color: Colors.grey.shade200,
-              child: const Icon(
+              alignment: Alignment.center,
+              child: Icon(
                 Icons.person,
-                size: 60,
+                // Scales with the avatar: a fixed size overflowed and sat
+                // off-centre once the widget was used smaller than 100.
+                size: size * 0.6,
                 color: Colors.grey,
               ),
             );

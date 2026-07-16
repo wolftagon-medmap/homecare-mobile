@@ -940,6 +940,22 @@
                     "type": "int"
                   }
                 }
-              }
+              },
+  "common_close": "关闭",
+  "@common_close": {},
+  "profile_switcher_new_profile": "+ 新建档案",
+  "@profile_switcher_new_profile": {},
+  "profile_relation_self": "本人",
+  "@profile_relation_self": {},
+  "profile_relation_spouse": "配偶",
+  "@profile_relation_spouse": {},
+  "profile_relation_parent": "父母",
+  "@profile_relation_parent": {},
+  "profile_relation_child": "子女",
+  "@profile_relation_child": {},
+  "profile_relation_sibling": "兄弟姐妹",
+  "@profile_relation_sibling": {},
+  "profile_relation_other": "其他",
+  "@profile_relation_other": {}
             }
         
