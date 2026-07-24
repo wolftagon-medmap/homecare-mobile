@@ -26,6 +26,7 @@ Never put several tickets in one file. One file per ticket is what lets someone 
 # Short title, written as an instruction
 
 Status: needs-triage
+Priority: P0
 Size: M
 Depends on: 03-some-other-issue
 
