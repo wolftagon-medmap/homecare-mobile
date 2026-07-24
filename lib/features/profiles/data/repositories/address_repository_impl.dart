@@ -55,4 +55,57 @@ class AddressRepositoryImpl implements AddressRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Address>>> getAddresses() async {
+    try {
+      final addresses = await remoteDatasource.getAddresses();
+      return Right(List<Address>.from(addresses));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Address>> createAddress(
+      CreateAddressParams params) async {
+    try {
+      final address = await remoteDatasource.createAddress(params.toJson());
+      return Right(address);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Address>> updateAddress(
+      UpdateAddressParams params) async {
+    try {
+      final address =
+          await remoteDatasource.updateAddress(params.id, params.toJson());
+      return Right(address);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteAddress(int id) async {
+    try {
+      await remoteDatasource.deleteAddress(id);
+      return const Right(unit);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Address>> setDefaultAddress(int id) async {
+    try {
+      final address = await remoteDatasource.setDefaultAddress(id);
+      return Right(address);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

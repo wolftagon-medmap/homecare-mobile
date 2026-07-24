@@ -186,7 +186,11 @@ class AppointmentSection extends StatelessWidget {
 }
 
 class SettingSection extends StatelessWidget {
-  const SettingSection({super.key});
+  /// Saved addresses are a patient concept (home, parent's house, etc.) — admins
+  /// and professionals have no visit locations to manage here.
+  final bool showSavedAddresses;
+
+  const SettingSection({super.key, this.showSavedAddresses = false});
 
   @override
   Widget build(BuildContext context) {
@@ -228,6 +232,20 @@ class SettingSection extends StatelessWidget {
                 context.pushNamed(AppRoutes.appLanguageSetting);
               },
             ),
+            if (showSavedAddresses)
+              ListTile(
+                leading: const Icon(Icons.location_on_outlined, color: Const.aqua),
+                title: Text(context.l10n.settings_saved_addresses),
+                titleTextStyle: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                  fontWeight: FontWeight.normal,
+                ),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                onTap: () {
+                  context.pushNamed(AppRoutes.savedAddresses);
+                },
+              ),
           ],
         ),
       ),

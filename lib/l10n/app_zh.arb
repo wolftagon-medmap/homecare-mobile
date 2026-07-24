@@ -974,6 +974,36 @@
         "type": "String"
       }
     }
+  },
+  "settings_saved_addresses": "已保存的地址",
+  "@settings_saved_addresses": {},
+  "address_form_add_title": "添加地址",
+  "@address_form_add_title": {},
+  "address_form_edit_title": "编辑地址",
+  "@address_form_edit_title": {},
+  "address_form_label": "标签",
+  "@address_form_label": {},
+  "address_form_label_hint": "例如：家、父母家",
+  "@address_form_label_hint": {},
+  "address_form_location": "位置",
+  "@address_form_location": {},
+  "address_form_location_hint": "点击在地图上选择位置",
+  "@address_form_location_hint": {},
+  "address_form_set_default": "设为默认地址",
+  "@address_form_set_default": {},
+  "address_default_badge": "默认",
+  "@address_default_badge": {},
+  "address_empty_state": "暂无已保存的地址。点击 + 添加。",
+  "@address_empty_state": {},
+  "address_remove": "删除地址",
+  "@address_remove": {},
+  "address_remove_confirm": "删除“{label}”？此操作无法撤销。",
+  "@address_remove_confirm": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
   }
             }
         

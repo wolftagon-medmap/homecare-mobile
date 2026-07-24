@@ -4899,6 +4899,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remove {name} from your profiles? This can\'t be undone.'**
   String profile_form_remove_confirm(String name);
+
+  /// Entry in profile Settings section leading to the saved addresses list
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Addresses'**
+  String get settings_saved_addresses;
+
+  /// No description provided for @address_form_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Address'**
+  String get address_form_add_title;
+
+  /// No description provided for @address_form_edit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Address'**
+  String get address_form_edit_title;
+
+  /// e.g. Home, Parent's House
+  ///
+  /// In en, this message translates to:
+  /// **'Label'**
+  String get address_form_label;
+
+  /// No description provided for @address_form_label_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Home, Parent\'s House'**
+  String get address_form_label_hint;
+
+  /// No description provided for @address_form_location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get address_form_location;
+
+  /// No description provided for @address_form_location_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to pick a location on the map'**
+  String get address_form_location_hint;
+
+  /// No description provided for @address_form_set_default.
+  ///
+  /// In en, this message translates to:
+  /// **'Set as default'**
+  String get address_form_set_default;
+
+  /// No description provided for @address_default_badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get address_default_badge;
+
+  /// No description provided for @address_empty_state.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved addresses yet. Tap + to add one.'**
+  String get address_empty_state;
+
+  /// No description provided for @address_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Address'**
+  String get address_remove;
+
+  /// No description provided for @address_remove_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove \"{label}\"? This can\'t be undone.'**
+  String address_remove_confirm(String label);
 }
 
 class _AppLocalizationsDelegate

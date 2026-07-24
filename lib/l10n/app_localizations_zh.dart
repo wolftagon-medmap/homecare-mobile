@@ -2520,4 +2520,42 @@ class AppLocalizationsZh extends AppLocalizations {
   String profile_form_remove_confirm(String name) {
     return '确定从档案中删除 $name？此操作无法撤销。';
   }
+
+  @override
+  String get settings_saved_addresses => '已保存的地址';
+
+  @override
+  String get address_form_add_title => '添加地址';
+
+  @override
+  String get address_form_edit_title => '编辑地址';
+
+  @override
+  String get address_form_label => '标签';
+
+  @override
+  String get address_form_label_hint => '例如：家、父母家';
+
+  @override
+  String get address_form_location => '位置';
+
+  @override
+  String get address_form_location_hint => '点击在地图上选择位置';
+
+  @override
+  String get address_form_set_default => '设为默认地址';
+
+  @override
+  String get address_default_badge => '默认';
+
+  @override
+  String get address_empty_state => '暂无已保存的地址。点击 + 添加。';
+
+  @override
+  String get address_remove => '删除地址';
+
+  @override
+  String address_remove_confirm(String label) {
+    return '删除“$label”？此操作无法撤销。';
+  }
 }

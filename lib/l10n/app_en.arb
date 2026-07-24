@@ -2130,6 +2130,40 @@
         "type": "String"
       }
     }
+  },
+  "settings_saved_addresses": "Saved Addresses",
+  "@settings_saved_addresses": {
+    "description": "Entry in profile Settings section leading to the saved addresses list"
+  },
+  "address_form_add_title": "Add Address",
+  "@address_form_add_title": {},
+  "address_form_edit_title": "Edit Address",
+  "@address_form_edit_title": {},
+  "address_form_label": "Label",
+  "@address_form_label": {
+    "description": "e.g. Home, Parent's House"
+  },
+  "address_form_label_hint": "e.g. Home, Parent's House",
+  "@address_form_label_hint": {},
+  "address_form_location": "Location",
+  "@address_form_location": {},
+  "address_form_location_hint": "Tap to pick a location on the map",
+  "@address_form_location_hint": {},
+  "address_form_set_default": "Set as default",
+  "@address_form_set_default": {},
+  "address_default_badge": "Default",
+  "@address_default_badge": {},
+  "address_empty_state": "No saved addresses yet. Tap + to add one.",
+  "@address_empty_state": {},
+  "address_remove": "Remove Address",
+  "@address_remove": {},
+  "address_remove_confirm": "Remove \"{label}\"? This can't be undone.",
+  "@address_remove_confirm": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
   }
     }
     

@@ -973,6 +973,36 @@
         "type": "String"
       }
     }
+  },
+  "settings_saved_addresses": "Alamat Tersimpan",
+  "@settings_saved_addresses": {},
+  "address_form_add_title": "Tambah Alamat",
+  "@address_form_add_title": {},
+  "address_form_edit_title": "Ubah Alamat",
+  "@address_form_edit_title": {},
+  "address_form_label": "Label",
+  "@address_form_label": {},
+  "address_form_label_hint": "mis. Rumah, Rumah Orang Tua",
+  "@address_form_label_hint": {},
+  "address_form_location": "Lokasi",
+  "@address_form_location": {},
+  "address_form_location_hint": "Ketuk untuk pilih lokasi di peta",
+  "@address_form_location_hint": {},
+  "address_form_set_default": "Jadikan alamat utama",
+  "@address_form_set_default": {},
+  "address_default_badge": "Utama",
+  "@address_default_badge": {},
+  "address_empty_state": "Belum ada alamat tersimpan. Ketuk + untuk menambahkan.",
+  "@address_empty_state": {},
+  "address_remove": "Hapus Alamat",
+  "@address_remove": {},
+  "address_remove_confirm": "Hapus \"{label}\"? Tindakan ini tidak dapat dibatalkan.",
+  "@address_remove_confirm": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
   }
 }
         

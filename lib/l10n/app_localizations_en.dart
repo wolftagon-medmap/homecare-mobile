@@ -2637,4 +2637,42 @@ class AppLocalizationsEn extends AppLocalizations {
   String profile_form_remove_confirm(String name) {
     return 'Remove $name from your profiles? This can\'t be undone.';
   }
+
+  @override
+  String get settings_saved_addresses => 'Saved Addresses';
+
+  @override
+  String get address_form_add_title => 'Add Address';
+
+  @override
+  String get address_form_edit_title => 'Edit Address';
+
+  @override
+  String get address_form_label => 'Label';
+
+  @override
+  String get address_form_label_hint => 'e.g. Home, Parent\'s House';
+
+  @override
+  String get address_form_location => 'Location';
+
+  @override
+  String get address_form_location_hint => 'Tap to pick a location on the map';
+
+  @override
+  String get address_form_set_default => 'Set as default';
+
+  @override
+  String get address_default_badge => 'Default';
+
+  @override
+  String get address_empty_state => 'No saved addresses yet. Tap + to add one.';
+
+  @override
+  String get address_remove => 'Remove Address';
+
+  @override
+  String address_remove_confirm(String label) {
+    return 'Remove \"$label\"? This can\'t be undone.';
+  }
 }

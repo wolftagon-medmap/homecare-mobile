@@ -15,6 +15,10 @@ import 'package:m2health/features/profiles/presentation/pages/edit_professional_
 import 'package:m2health/features/profiles/presentation/pages/edit_basic_info_page.dart';
 import 'package:m2health/features/medical_record/presentation/pages/medical_records_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/manage_provided_services_page.dart';
+import 'package:m2health/features/profiles/presentation/pages/saved_addresses_page.dart';
+import 'package:m2health/features/profiles/presentation/pages/saved_address_form_page.dart';
+import 'package:m2health/features/profiles/presentation/bloc/saved_addresses_cubit.dart';
+import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/presentation/pages/verification_hub_page.dart';
 import 'package:m2health/features/schedule/presentation/pages/working_schedule_page.dart';
 import 'package:m2health/features/wellness_genomics/presentation/pages/wellness_genomics_page.dart';
@@ -32,6 +36,40 @@ class ProfileDetailRoutes {
         // active profile.
         final isCreate = state.extra as bool? ?? false;
         return EditBasicInfoPage(isCreate: isCreate);
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.savedAddresses,
+      name: AppRoutes.savedAddresses,
+      builder: (context, state) {
+        return BlocProvider(
+          create: (_) => SavedAddressesCubit(
+            getAddressesUseCase: sl(),
+            createAddressUseCase: sl(),
+            updateAddressUseCase: sl(),
+            deleteAddressUseCase: sl(),
+            setDefaultAddressUseCase: sl(),
+          ),
+          child: const SavedAddressesPage(),
+        );
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.savedAddressForm,
+      name: AppRoutes.savedAddressForm,
+      builder: (context, state) {
+        // Present when editing; absent means adding a new one.
+        final existing = state.extra as Address?;
+        return BlocProvider(
+          create: (_) => SavedAddressesCubit(
+            getAddressesUseCase: sl(),
+            createAddressUseCase: sl(),
+            updateAddressUseCase: sl(),
+            deleteAddressUseCase: sl(),
+            setDefaultAddressUseCase: sl(),
+          ),
+          child: SavedAddressFormPage(existing: existing),
+        );
       },
     ),
     GoRoute(

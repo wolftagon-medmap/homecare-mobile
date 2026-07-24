@@ -2642,4 +2642,43 @@ class AppLocalizationsId extends AppLocalizations {
   String profile_form_remove_confirm(String name) {
     return 'Hapus $name dari daftar profil Anda? Tindakan ini tidak dapat dibatalkan.';
   }
+
+  @override
+  String get settings_saved_addresses => 'Alamat Tersimpan';
+
+  @override
+  String get address_form_add_title => 'Tambah Alamat';
+
+  @override
+  String get address_form_edit_title => 'Ubah Alamat';
+
+  @override
+  String get address_form_label => 'Label';
+
+  @override
+  String get address_form_label_hint => 'mis. Rumah, Rumah Orang Tua';
+
+  @override
+  String get address_form_location => 'Lokasi';
+
+  @override
+  String get address_form_location_hint => 'Ketuk untuk pilih lokasi di peta';
+
+  @override
+  String get address_form_set_default => 'Jadikan alamat utama';
+
+  @override
+  String get address_default_badge => 'Utama';
+
+  @override
+  String get address_empty_state =>
+      'Belum ada alamat tersimpan. Ketuk + untuk menambahkan.';
+
+  @override
+  String get address_remove => 'Hapus Alamat';
+
+  @override
+  String address_remove_confirm(String label) {
+    return 'Hapus \"$label\"? Tindakan ini tidak dapat dibatalkan.';
+  }
 }
