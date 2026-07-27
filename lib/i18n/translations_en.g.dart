@@ -660,6 +660,7 @@ class TranslationsBookingProfessionalSearchEn {
 	String filter_text({required Object count}) => 'Filtering by ${count} selected services';
 
 	late final TranslationsBookingProfessionalSearchTitleEn title = TranslationsBookingProfessionalSearchTitleEn._(_root);
+	late final TranslationsBookingProfessionalSearchVisitAddressEn visit_address = TranslationsBookingProfessionalSearchVisitAddressEn._(_root);
 }
 
 // Path: booking.schedule
@@ -1286,6 +1287,30 @@ class TranslationsBookingProfessionalSearchTitleEn {
 	String get radiologist => 'Search Radiologist';
 }
 
+// Path: booking.professional_search.visit_address
+class TranslationsBookingProfessionalSearchVisitAddressEn {
+	TranslationsBookingProfessionalSearchVisitAddressEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Add new address'
+	String get add_new => 'Add new address';
+
+	/// en: 'Add an address'
+	String get empty => 'Add an address';
+
+	/// en: 'Loading address...'
+	String get loading => 'Loading address...';
+
+	/// en: 'Choose visit address'
+	String get picker_title => 'Choose visit address';
+
+	/// en: 'Visit at'
+	String get title => 'Visit at';
+}
+
 // Path: booking.schedule.messages
 class TranslationsBookingScheduleMessagesEn {
 	TranslationsBookingScheduleMessagesEn._(this._root);
@@ -1524,6 +1549,11 @@ extension on Translations {
 			'booking.professional_search.title.nurse' => 'Search Nurse',
 			'booking.professional_search.title.pharmacist' => 'Search Pharmacist',
 			'booking.professional_search.title.radiologist' => 'Search Radiologist',
+			'booking.professional_search.visit_address.add_new' => 'Add new address',
+			'booking.professional_search.visit_address.empty' => 'Add an address',
+			'booking.professional_search.visit_address.loading' => 'Loading address...',
+			'booking.professional_search.visit_address.picker_title' => 'Choose visit address',
+			'booking.professional_search.visit_address.title' => 'Visit at',
 			'booking.schedule.empty_slots' => 'No available slots for this day.',
 			'booking.schedule.messages.reschedule_failed' => 'Rescheduling failed.',
 			'booking.schedule.messages.reschedule_success' => 'Appointment rescheduled successfully',

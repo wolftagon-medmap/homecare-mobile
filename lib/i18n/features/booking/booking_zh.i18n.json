@@ -78,6 +78,13 @@
       "nurse": "搜索护士",
       "pharmacist": "搜索药剂师",
       "radiologist": "搜索放射科医生"
+    },
+    "visit_address": {
+      "add_new": "添加新地址",
+      "empty": "添加地址",
+      "loading": "正在加载地址...",
+      "picker_title": "选择上门地址",
+      "title": "上门地址"
     }
   },
   "schedule": {

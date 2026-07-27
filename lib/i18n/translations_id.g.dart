@@ -415,6 +415,7 @@ class _TranslationsBookingProfessionalSearchId implements TranslationsBookingPro
 	@override String get empty => 'Tidak ditemukan profesional yang cocok dengan kriteria Anda.';
 	@override String filter_text({required Object count}) => 'Difilter berdasarkan ${count} layanan terpilih';
 	@override late final _TranslationsBookingProfessionalSearchTitleId title = _TranslationsBookingProfessionalSearchTitleId._(_root);
+	@override late final _TranslationsBookingProfessionalSearchVisitAddressId visit_address = _TranslationsBookingProfessionalSearchVisitAddressId._(_root);
 }
 
 // Path: booking.schedule
@@ -834,6 +835,20 @@ class _TranslationsBookingProfessionalSearchTitleId implements TranslationsBooki
 	@override String get radiologist => 'Cari Radiolog';
 }
 
+// Path: booking.professional_search.visit_address
+class _TranslationsBookingProfessionalSearchVisitAddressId implements TranslationsBookingProfessionalSearchVisitAddressEn {
+	_TranslationsBookingProfessionalSearchVisitAddressId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get add_new => 'Tambah alamat baru';
+	@override String get empty => 'Tambahkan alamat';
+	@override String get loading => 'Memuat alamat...';
+	@override String get picker_title => 'Pilih alamat kunjungan';
+	@override String get title => 'Kunjungan ke';
+}
+
 // Path: booking.schedule.messages
 class _TranslationsBookingScheduleMessagesId implements TranslationsBookingScheduleMessagesEn {
 	_TranslationsBookingScheduleMessagesId._(this._root);
@@ -1044,6 +1059,11 @@ extension on TranslationsId {
 			'booking.professional_search.title.nurse' => 'Cari Perawat',
 			'booking.professional_search.title.pharmacist' => 'Cari Apoteker',
 			'booking.professional_search.title.radiologist' => 'Cari Radiolog',
+			'booking.professional_search.visit_address.add_new' => 'Tambah alamat baru',
+			'booking.professional_search.visit_address.empty' => 'Tambahkan alamat',
+			'booking.professional_search.visit_address.loading' => 'Memuat alamat...',
+			'booking.professional_search.visit_address.picker_title' => 'Pilih alamat kunjungan',
+			'booking.professional_search.visit_address.title' => 'Kunjungan ke',
 			'booking.schedule.empty_slots' => 'Tidak ada slot tersedia untuk hari ini.',
 			'booking.schedule.messages.reschedule_failed' => 'Penjadwalan ulang gagal.',
 			'booking.schedule.messages.reschedule_success' => 'Janji temu berhasil dijadwalkan ulang',

@@ -14,6 +14,8 @@ class ProfessionalRepositoryImpl implements ProfessionalRepository {
     List<int>? serviceIds,
     bool? isHomeScreeningAuthorized,
     String? serviceSubCategory,
+    double? latitude,
+    double? longitude,
   }) async {
     final professionals = await remoteDataSource.getProfessionals(
       role: role,
@@ -21,6 +23,8 @@ class ProfessionalRepositoryImpl implements ProfessionalRepository {
       serviceIds: serviceIds,
       isHomeScreeningAuthorized: isHomeScreeningAuthorized,
       serviceSubCategory: serviceSubCategory,
+      latitude: latitude,
+      longitude: longitude,
     );
     return professionals;
   }

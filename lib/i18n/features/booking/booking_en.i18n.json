@@ -78,6 +78,13 @@
       "nurse": "Search Nurse",
       "pharmacist": "Search Pharmacist",
       "radiologist": "Search Radiologist"
+    },
+    "visit_address": {
+      "add_new": "Add new address",
+      "empty": "Add an address",
+      "loading": "Loading address...",
+      "picker_title": "Choose visit address",
+      "title": "Visit at"
     }
   },
   "schedule": {

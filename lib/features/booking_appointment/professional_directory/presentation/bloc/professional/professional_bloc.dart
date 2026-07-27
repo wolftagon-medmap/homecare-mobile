@@ -23,6 +23,8 @@ class ProfessionalBloc extends Bloc<ProfessionalEvent, ProfessionalState> {
           serviceIds: event.serviceIds,
           isHomeScreeningAuthorized: event.isHomeScreeningAuthorized,
           serviceSubCategory: event.serviceSubCategory,
+          latitude: event.latitude,
+          longitude: event.longitude,
         );
         log('Fetched professionals: ${professionals.length}');
         emit(ProfessionalLoaded(professionals));
