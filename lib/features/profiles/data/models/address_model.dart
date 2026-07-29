@@ -9,6 +9,8 @@ class AddressModel extends Address {
     super.name,
     super.formattedAddress,
     super.shortFormattedAddress,
+    super.label,
+    super.isDefault,
   });
 
   factory AddressModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,8 @@ class AddressModel extends Address {
       name: json['name'],
       formattedAddress: json['formatted_address'],
       shortFormattedAddress: json['short_formatted_address'],
+      label: json['label'],
+      isDefault: json['is_default'] == true,
     );
   }
 
@@ -32,6 +36,8 @@ class AddressModel extends Address {
       'name': name,
       'formatted_address': formattedAddress,
       'short_formatted_address': shortFormattedAddress,
+      'label': label,
+      'is_default': isDefault,
     };
   }
 }

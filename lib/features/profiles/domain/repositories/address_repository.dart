@@ -10,4 +10,11 @@ abstract class AddressRepository {
   Future<Either<Failure, Address>> saveWorkplaceAddress(SaveAddressParams params);
   Future<Either<Failure, List<PlaceSuggestion>>> searchPlaces(String query, String sessionToken);
   Future<Either<Failure, PlaceDetail>> getPlaceDetails(String placeId, String sessionToken);
+
+  /// The account's saved addresses, default first.
+  Future<Either<Failure, List<Address>>> getAddresses();
+  Future<Either<Failure, Address>> createAddress(CreateAddressParams params);
+  Future<Either<Failure, Address>> updateAddress(UpdateAddressParams params);
+  Future<Either<Failure, Unit>> deleteAddress(int id);
+  Future<Either<Failure, Address>> setDefaultAddress(int id);
 }

@@ -98,7 +98,7 @@ class _PatientProfilePageState extends State<PatientProfilePage> {
                     ],
                     const AppointmentSection(),
                     const SizedBox(height: 16),
-                    const SettingSection(),
+                    const SettingSection(showSavedAddresses: true),
                     const SizedBox(height: 16),
                     const LogoutButton(),
                     const SizedBox(height: 80)
