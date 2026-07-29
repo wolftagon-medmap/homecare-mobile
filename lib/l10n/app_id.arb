@@ -939,6 +939,40 @@
         "type": "int"
       }
     }
+  },
+  "common_close": "Tutup",
+  "@common_close": {},
+  "profile_switcher_new_profile": "+ Profil Baru",
+  "@profile_switcher_new_profile": {},
+  "profile_relation_self": "Pribadi",
+  "@profile_relation_self": {},
+  "profile_relation_spouse": "Pasangan",
+  "@profile_relation_spouse": {},
+  "profile_relation_parent": "Orang Tua",
+  "@profile_relation_parent": {},
+  "profile_relation_child": "Anak",
+  "@profile_relation_child": {},
+  "profile_relation_sibling": "Saudara",
+  "@profile_relation_sibling": {},
+  "profile_relation_other": "Lainnya",
+  "@profile_relation_other": {},
+  "profile_form_add_title": "Tambah Profil",
+  "@profile_form_add_title": {},
+  "profile_form_date_of_birth": "Tanggal Lahir",
+  "@profile_form_date_of_birth": {},
+  "profile_form_relationship": "Hubungan",
+  "@profile_form_relationship": {},
+  "profile_form_field_required": "Wajib diisi",
+  "@profile_form_field_required": {},
+  "profile_form_remove": "Hapus Profil",
+  "@profile_form_remove": {},
+  "profile_form_remove_confirm": "Hapus {name} dari daftar profil Anda? Tindakan ini tidak dapat dibatalkan.",
+  "@profile_form_remove_confirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
   }
 }
         

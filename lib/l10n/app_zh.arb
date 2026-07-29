@@ -940,6 +940,40 @@
                     "type": "int"
                   }
                 }
-              }
+              },
+  "common_close": "关闭",
+  "@common_close": {},
+  "profile_switcher_new_profile": "+ 新建档案",
+  "@profile_switcher_new_profile": {},
+  "profile_relation_self": "本人",
+  "@profile_relation_self": {},
+  "profile_relation_spouse": "配偶",
+  "@profile_relation_spouse": {},
+  "profile_relation_parent": "父母",
+  "@profile_relation_parent": {},
+  "profile_relation_child": "子女",
+  "@profile_relation_child": {},
+  "profile_relation_sibling": "兄弟姐妹",
+  "@profile_relation_sibling": {},
+  "profile_relation_other": "其他",
+  "@profile_relation_other": {},
+  "profile_form_add_title": "添加档案",
+  "@profile_form_add_title": {},
+  "profile_form_date_of_birth": "出生日期",
+  "@profile_form_date_of_birth": {},
+  "profile_form_relationship": "关系",
+  "@profile_form_relationship": {},
+  "profile_form_field_required": "此项为必填",
+  "@profile_form_field_required": {},
+  "profile_form_remove": "删除档案",
+  "@profile_form_remove": {},
+  "profile_form_remove_confirm": "确定从档案中删除 {name}？此操作无法撤销。",
+  "@profile_form_remove_confirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
             }
         

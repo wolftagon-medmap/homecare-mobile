@@ -6,6 +6,7 @@ import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/notifications/presentation/bloc/notifications_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
+import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
 import 'package:m2health/features/profiles/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/i18n/translations.g.dart';
@@ -37,6 +38,10 @@ class _DashboardState extends State<Dashboard> {
   // have a Loaded state") so a stale Loaded state left over in the other
   // cubit from a previous account/role never gets shown.
   bool? _isProfessional;
+
+  /// Only patients pick which profile the app acts for — admins and
+  /// professionals have no family profiles to switch between.
+  bool _isPatient = false;
 
   @override
   void initState() {
@@ -86,11 +91,16 @@ class _DashboardState extends State<Dashboard> {
     if (!mounted) return;
     final isProfessional = role != null &&
         PROFESSIONAL_ROLES.map((r) => r.value).contains(role);
-    setState(() => _isProfessional = isProfessional);
+    setState(() {
+      _isProfessional = isProfessional;
+      // Admin isn't in PROFESSIONAL_ROLES but has no family profiles either,
+      // so "not professional" is not the same as "patient" here.
+      _isPatient = !isProfessional && role != 'admin';
+    });
     if (isProfessional) {
       context.read<ProfessionalProfileCubit>().loadProfile();
     } else {
-      context.read<PatientProfileCubit>().loadProfile();
+      context.read<PatientProfileCubit>().loadProfiles();
     }
   }
 
@@ -138,10 +148,13 @@ class _DashboardState extends State<Dashboard> {
 
                   if (_isProfessional == false &&
                       patientState is PatientProfileLoaded) {
-                    displayName = patientState.profile.name.isNotEmpty
-                        ? patientState.profile.name
+                    // The header follows the active profile, so switching to a
+                    // family member is reflected here too.
+                    final activeProfile = patientState.activeProfile;
+                    displayName = activeProfile.name.isNotEmpty
+                        ? activeProfile.name
                         : userName ?? 'User';
-                    avatarUrl = patientState.profile.avatar;
+                    avatarUrl = activeProfile.avatar;
                   } else if (_isProfessional == true &&
                       professionalState is ProfessionalProfileLoaded) {
                     displayName = professionalState.profile.name != null &&
@@ -222,18 +235,46 @@ class _DashboardState extends State<Dashboard> {
                       const SizedBox(width: 10),
                       GestureDetector(
                         onTap: () {
-                          context.go(AppRoutes.profile);
+                          if (_isPatient) {
+                            showProfileSwitcherSheet(context);
+                          } else {
+                            context.go(AppRoutes.profile);
+                          }
                         },
-                        child: Container(
-                          width: 56,
-                          height: 56,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: avatarWidget,
-                          ),
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            Container(
+                              width: 56,
+                              height: 56,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: avatarWidget,
+                              ),
+                            ),
+                            if (_isPatient)
+                              Positioned(
+                                right: -2,
+                                top: -2,
+                                child: Container(
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                        color: Colors.white, width: 1),
+                                  ),
+                                  child: const Icon(
+                                    Icons.keyboard_arrow_down,
+                                    size: 16,
+                                    color: Const.aqua,
+                                  ),
+                                ),
+                              ),
+                          ],
                         ),
                       ),
                     ],

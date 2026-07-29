@@ -1,5 +1,7 @@
 export 'get_profile.dart';
+export 'create_profile.dart';
 export 'update_profile.dart';
+export 'delete_profile.dart';
 
 export 'save_address.dart';
 export 'save_workplace_address.dart';

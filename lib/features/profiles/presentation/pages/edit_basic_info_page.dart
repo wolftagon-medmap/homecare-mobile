@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
 import 'package:m2health/core/presentation/widgets/country_picker_field.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'dart:io';
+import 'package:m2health/features/profiles/domain/usecases/create_profile.dart';
 import 'package:m2health/features/profiles/domain/usecases/update_profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
-import 'package:m2health/features/profiles/presentation/pages/address_map_page.dart';
+import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
 
+/// Edits the active profile, or adds a family member when [isCreate] is set.
 class EditBasicInfoPage extends StatefulWidget {
-  const EditBasicInfoPage({super.key});
+  final bool isCreate;
+
+  const EditBasicInfoPage({super.key, this.isCreate = false});
 
   @override
   State<EditBasicInfoPage> createState() => _EditBasicInfoPageState();
@@ -26,55 +30,57 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
   File? _selectedImage;
 
   late TextEditingController _nameController;
-  late TextEditingController _ageController;
   late TextEditingController _weightController;
   late TextEditingController _heightController;
   late TextEditingController _phoneController;
-  late TextEditingController _addressController;
-  late TextEditingController _drugAllergyController;
   String? _selectedGender;
-  Address? _address;
   String? _selectedCountryCode;
+  DateTime? _dateOfBirth;
+  String? _selectedRelation;
 
   final List<String> genderItems = ['Male', 'Female'];
+
+  /// 'self' belongs to the account holder's profile, which registration creates.
+  static const List<String> _relationItems = [
+    'spouse',
+    'parent',
+    'child',
+    'sibling',
+    'other',
+  ];
+
+  bool get _isCreate => widget.isCreate;
+
+  /// The account holder's own profile: its relation is fixed at 'self' and it
+  /// can't be removed.
+  bool get _isAccountHolder => !_isCreate && (profile?.isPrimary ?? false);
 
   @override
   void initState() {
     super.initState();
-    profile = context.read<PatientProfileCubit>().state
-            is PatientProfileLoaded
-        ? (context.read<PatientProfileCubit>().state as PatientProfileLoaded)
-            .profile
-        : null;
+    // Edits whichever profile is active, not necessarily the account holder's.
+    profile = _isCreate ? null : context.read<PatientProfileCubit>().activeProfile;
     _nameController = TextEditingController(text: profile?.name);
-    _ageController = TextEditingController(text: profile?.age?.toString());
     _weightController =
         TextEditingController(text: profile?.weight?.toString());
     _heightController =
         TextEditingController(text: profile?.height?.toString());
     _phoneController = TextEditingController(text: profile?.phoneNumber);
-    _drugAllergyController = TextEditingController(text: profile?.drugAllergy);
     _selectedGender = genderItems.contains(profile?.gender?.toTitleCase())
         ? profile?.gender?.toTitleCase()
         : null;
-
-    _addressController = TextEditingController();
-    if (profile?.address != null) {
-      _address = profile!.address;
-      _addressController.text = _buildHomeAddressText(_address!);
-    }
     _selectedCountryCode = profile?.countryCode;
+    _dateOfBirth = profile?.dateOfBirth;
+    _selectedRelation =
+        _relationItems.contains(profile?.relation) ? profile?.relation : null;
   }
 
   @override
   void dispose() {
     _nameController.dispose();
-    _ageController.dispose();
     _weightController.dispose();
     _heightController.dispose();
     _phoneController.dispose();
-    _addressController.dispose();
-    _drugAllergyController.dispose();
     super.dispose();
   }
 
@@ -108,29 +114,106 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
     });
   }
 
-  String _buildHomeAddressText(Address address) {
-    return [address.name, address.formattedAddress]
-        .where((part) => part != null && part.isNotEmpty)
-        .join(', ');
+  Future<void> _selectDateOfBirth() async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: _dateOfBirth ?? DateTime(DateTime.now().year - 30),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Const.aqua,
+              onPrimary: Colors.white,
+              onSurface: Colors.black,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (picked != null) {
+      setState(() => _dateOfBirth = picked);
+    }
   }
 
   void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      final params = UpdateProfileParams(
+    if (!_formKey.currentState!.validate()) return;
+    _formKey.currentState!.save();
+
+    final cubit = context.read<PatientProfileCubit>();
+
+    if (_isCreate) {
+      cubit.createProfile(CreateProfileParams(
         name: _nameController.text,
-        countryCode: _selectedCountryCode,
-        age: int.tryParse(_ageController.text),
+        countryCode: _selectedCountryCode!,
+        dateOfBirth: _dateOfBirth!,
+        gender: _selectedGender!,
+        relation: _selectedRelation!,
         weight: double.tryParse(_weightController.text),
         height: double.tryParse(_heightController.text),
         phoneNumber: _phoneController.text,
-        homeAddress: _addressController.text,
-        gender: _selectedGender,
-        drugAllergy: _drugAllergyController.text,
         avatar: _selectedImage,
-      );
-      context.read<PatientProfileCubit>().updateProfile(params);
+      ));
+      return;
     }
+
+    final editedProfile = profile;
+    if (editedProfile == null) return;
+
+    cubit.updateProfile(UpdateProfileParams(
+      profileId: editedProfile.id,
+      name: _nameController.text,
+      countryCode: _selectedCountryCode,
+      dateOfBirth: _dateOfBirth,
+      weight: double.tryParse(_weightController.text),
+      height: double.tryParse(_heightController.text),
+      phoneNumber: _phoneController.text,
+      gender: _selectedGender,
+      // The account holder stays 'self'; sending it back would be rejected for
+      // anyone else, and the dropdown is hidden for them anyway.
+      relation: _isAccountHolder ? null : _selectedRelation,
+      avatar: _selectedImage,
+    ));
+  }
+
+  Future<void> _confirmRemove() async {
+    final removedProfile = profile;
+    if (removedProfile == null) return;
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(context.l10n.profile_form_remove),
+        content: Text(
+            context.l10n.profile_form_remove_confirm(removedProfile.name)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: Text(context.l10n.common_cancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: Text(
+              context.l10n.common_delete,
+              style: const TextStyle(color: Colors.red),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && mounted) {
+      context.read<PatientProfileCubit>().deleteProfile(removedProfile.id);
+    }
+  }
+
+  String? _requiredValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return context.l10n.profile_form_field_required;
+    }
+    return null;
   }
 
   @override
@@ -160,7 +243,9 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: Text(
-            context.l10n.profile_info_title,
+            _isCreate
+                ? context.l10n.profile_form_add_title
+                : context.l10n.profile_info_title,
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
         ),
@@ -172,231 +257,154 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Form(
                     key: _formKey,
+                    // Deliberately not set here: on the Form it revalidates
+                    // every field as soon as any one of them is touched, so
+                    // typing a name would flag the fields not filled in yet.
+                    // Each field opts in for itself instead.
                     child: ListView(
                       padding: const EdgeInsets.only(top: 16, bottom: 16),
                       children: [
-                Text(
-                  context.l10n.profile_info_profile_image,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Center(
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(60),
-                          border:
-                              Border.all(color: Colors.grey.shade300, width: 2),
+                        Text(
+                          context.l10n.profile_info_profile_image,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(58),
-                          child: _selectedImage != null
-                              ? Image.file(
-                                  _selectedImage!,
-                                  fit: BoxFit.cover,
-                                )
-                              : profile != null && profile!.avatar != null
-                                  ? Image.network(
-                                      profile!.avatar!,
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return Container(
-                                          color: Colors.grey.shade200,
-                                          child: const Icon(
-                                            Icons.person,
-                                            size: 60,
-                                            color: Colors.grey,
-                                          ),
-                                        );
-                                      },
-                                    )
-                                  : Container(
-                                      color: Colors.grey.shade200,
-                                      child: const Icon(
-                                        Icons.person,
-                                        size: 60,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: GestureDetector(
-                          onTap: _pickImage,
-                          child: Container(
-                            width: 36,
-                            height: 36,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF40E0D0),
-                              borderRadius: BorderRadius.circular(18),
-                              border: Border.all(color: Colors.white, width: 2),
+                        const SizedBox(height: 10),
+                        _buildAvatarPicker(),
+                        if (_selectedImage != null)
+                          Center(
+                            child: TextButton(
+                              onPressed: _removeImage,
+                              child: Text(
+                                context.l10n.profile_info_remove_image,
+                                style: const TextStyle(color: Colors.red),
+                              ),
                             ),
-                            child: const Icon(
-                              Icons.camera_alt,
-                              color: Colors.white,
-                              size: 20,
+                          ),
+                        const SizedBox(height: 30),
+                        TextFormField(
+                          controller: _nameController,
+                          validator: _requiredValidator,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          decoration: InputDecoration(
+                            labelText: context.l10n.name,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                if (_selectedImage != null)
-                  Center(
-                    child: TextButton(
-                      onPressed: _removeImage,
-                      child: Text(
-                        context.l10n.profile_info_remove_image,
-                        style: const TextStyle(color: Colors.red),
-                      ),
-                    ),
-                  ),
-                const SizedBox(height: 30),
-                TextFormField(
-                  controller: _nameController,
-                  decoration: InputDecoration(
-                    labelText: context.l10n.name,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                CountryPickerField(
-                  value: _selectedCountryCode,
-                  onChanged: (v) => setState(() => _selectedCountryCode = v),
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: _ageController,
-                  decoration: InputDecoration(
-                    labelText: context.l10n.age,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-                const SizedBox(height: 20),
-                DropdownButtonFormField<String?>(
-                  decoration: InputDecoration(
-                    labelText: context.l10n.gender,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  dropdownColor: Colors.white,
-                  items: genderItems.map((String value) {
-                    return DropdownMenuItem<String?>(
-                      value: value,
-                      child: Text(
-                        value,
-                        style: const TextStyle(fontWeight: FontWeight.normal),
-                      ),
-                    );
-                  }).toList(),
-                  initialValue: _selectedGender,
-                  onChanged: (newValue) {
-                    setState(() {
-                      _selectedGender = newValue;
-                    });
-                  },
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: _weightController,
-                  decoration: InputDecoration(
-                    labelText: '${context.l10n.weight} (KG)',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: _heightController,
-                  decoration: InputDecoration(
-                    labelText: '${context.l10n.height} (CM)',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: _phoneController,
-                  decoration: InputDecoration(
-                    labelText: context.l10n.contact_number,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  keyboardType: TextInputType.phone,
-                ),
-                const SizedBox(height: 20),
-                GestureDetector(
-                  onTap: () async {
-                    final result = await Navigator.push<Address>(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddressMapPage(
-                          initialAddress: _address,
+                        const SizedBox(height: 20),
+                        FormField<String>(
+                          initialValue: _selectedCountryCode,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (_) => _isCreate
+                              ? _requiredValidator(_selectedCountryCode)
+                              : null,
+                          builder: (field) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CountryPickerField(
+                                value: _selectedCountryCode,
+                                onChanged: (v) {
+                                  setState(() => _selectedCountryCode = v);
+                                  field.didChange(v);
+                                },
+                              ),
+                              if (field.hasError)
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 8, left: 12),
+                                  child: Text(
+                                    field.errorText!,
+                                    style: TextStyle(
+                                        color: Theme.of(context).colorScheme.error,
+                                        fontSize: 12),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                    if (result != null && context.mounted) {
-                      setState(() {
-                        _address = result;
-                        _addressController.text =
-                            _buildHomeAddressText(_address!);
-                      });
-                    }
-                  },
-                  child: AbsorbPointer(
-                    child: TextFormField(
-                      controller: _addressController,
-                      decoration: InputDecoration(
-                        labelText: context.l10n.profile_info_home_address,
-                        hintText:
-                            context.l10n.profile_info_select_map_location_hint,
-                        suffixIcon: const Icon(Icons.map, color: Const.aqua),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
+                        const SizedBox(height: 20),
+                        _buildDateOfBirthField(),
+                        const SizedBox(height: 20),
+                        DropdownButtonFormField<String?>(
+                          decoration: InputDecoration(
+                            labelText: context.l10n.gender,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          dropdownColor: Colors.white,
+                          items: genderItems.map((String value) {
+                            return DropdownMenuItem<String?>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.normal),
+                              ),
+                            );
+                          }).toList(),
+                          initialValue: _selectedGender,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) =>
+                              _isCreate ? _requiredValidator(value) : null,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _selectedGender = newValue;
+                            });
+                          },
                         ),
-                      ),
-                      maxLines: 3,
+                        // The account holder is always 'self', so offering the
+                        // dropdown would only let them mislabel themselves.
+                        if (!_isAccountHolder) ...[
+                          const SizedBox(height: 20),
+                          _buildRelationField(),
+                        ],
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          controller: _weightController,
+                          decoration: InputDecoration(
+                            labelText: '${context.l10n.weight} (KG)',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          keyboardType: TextInputType.number,
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          controller: _heightController,
+                          decoration: InputDecoration(
+                            labelText: '${context.l10n.height} (CM)',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          keyboardType: TextInputType.number,
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          controller: _phoneController,
+                          decoration: InputDecoration(
+                            labelText: context.l10n.contact_number,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          keyboardType: TextInputType.phone,
+                        ),
+                        if (!_isCreate && !_isAccountHolder) ...[
+                          const SizedBox(height: 28),
+                          _buildRemoveButton(),
+                        ],
+                        const SizedBox(height: 16),
+                      ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: _drugAllergyController,
-                  decoration: InputDecoration(
-                    labelText: context.l10n.profile_info_drug_allergies,
-                    hintText: 'e.g. Penicillin, Aspirin',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  maxLines: 3,
-                ),
-                const SizedBox(height: 16),
-              ],
-            ),
-          ),
-        ),
               ),
               // Save button — selalu di atas keyboard
               BlocBuilder<PatientProfileCubit, PatientProfileState>(
@@ -438,6 +446,174 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildAvatarPicker() {
+    return Center(
+      child: Stack(
+        children: [
+          Container(
+            width: 120,
+            height: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(60),
+              border: Border.all(color: Colors.grey.shade300, width: 2),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(58),
+              child: _selectedImage != null
+                  ? Image.file(
+                      _selectedImage!,
+                      fit: BoxFit.cover,
+                    )
+                  : profile != null && profile!.avatar != null
+                      ? Image.network(
+                          profile!.avatar!,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return _avatarPlaceholder();
+                          },
+                        )
+                      : _avatarPlaceholder(),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: GestureDetector(
+              onTap: _pickImage,
+              child: Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF40E0D0),
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+                child: const Icon(
+                  Icons.camera_alt,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _avatarPlaceholder() {
+    return Container(
+      color: Colors.grey.shade200,
+      alignment: Alignment.center,
+      child: const Icon(
+        Icons.person,
+        size: 60,
+        color: Colors.grey,
+      ),
+    );
+  }
+
+  Widget _buildDateOfBirthField() {
+    return FormField<DateTime>(
+      initialValue: _dateOfBirth,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      // Existing profiles predate this field, so only a new profile has to
+      // supply one — otherwise renaming yourself would demand a birth date.
+      validator: (_) => _isCreate && _dateOfBirth == null
+          ? context.l10n.profile_form_field_required
+          : null,
+      builder: (field) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GestureDetector(
+            onTap: () async {
+              await _selectDateOfBirth();
+              field.didChange(_dateOfBirth);
+            },
+            child: AbsorbPointer(
+              child: TextFormField(
+                controller: TextEditingController(
+                  text: _dateOfBirth != null
+                      ? DateFormat('MMM dd, yyyy').format(_dateOfBirth!)
+                      : '',
+                ),
+                decoration: InputDecoration(
+                  labelText: context.l10n.profile_form_date_of_birth,
+                  suffixIcon:
+                      const Icon(Icons.calendar_today, color: Const.aqua),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          if (field.hasError)
+            Padding(
+              padding: const EdgeInsets.only(top: 8, left: 12),
+              child: Text(
+                field.errorText!,
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.error, fontSize: 12),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRelationField() {
+    return DropdownButtonFormField<String?>(
+      decoration: InputDecoration(
+        labelText: context.l10n.profile_form_relationship,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+      dropdownColor: Colors.white,
+      items: _relationItems.map((String value) {
+        return DropdownMenuItem<String?>(
+          value: value,
+          child: Text(
+            relationLabel(context, value),
+            style: const TextStyle(fontWeight: FontWeight.normal),
+          ),
+        );
+      }).toList(),
+      initialValue: _selectedRelation,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: (value) => _isCreate ? _requiredValidator(value) : null,
+      onChanged: (newValue) {
+        setState(() {
+          _selectedRelation = newValue;
+        });
+      },
+    );
+  }
+
+  Widget _buildRemoveButton() {
+    return BlocBuilder<PatientProfileCubit, PatientProfileState>(
+      builder: (context, state) {
+        final isBusy = state is PatientProfileSaving;
+        return OutlinedButton.icon(
+          onPressed: isBusy ? null : _confirmRemove,
+          icon: const Icon(Icons.delete_outline, color: Colors.red),
+          label: Text(
+            context.l10n.profile_form_remove,
+            style: const TextStyle(color: Colors.red),
+          ),
+          style: OutlinedButton.styleFrom(
+            minimumSize: const Size(double.infinity, 48),
+            side: const BorderSide(color: Colors.red),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        );
+      },
     );
   }
 }

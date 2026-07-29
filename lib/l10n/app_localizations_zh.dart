@@ -2476,4 +2476,48 @@ class AppLocalizationsZh extends AppLocalizations {
   String physiotherapy_summary(int duration) {
     return '物理治疗课 ($duration 分钟)';
   }
+
+  @override
+  String get common_close => '关闭';
+
+  @override
+  String get profile_switcher_new_profile => '+ 新建档案';
+
+  @override
+  String get profile_relation_self => '本人';
+
+  @override
+  String get profile_relation_spouse => '配偶';
+
+  @override
+  String get profile_relation_parent => '父母';
+
+  @override
+  String get profile_relation_child => '子女';
+
+  @override
+  String get profile_relation_sibling => '兄弟姐妹';
+
+  @override
+  String get profile_relation_other => '其他';
+
+  @override
+  String get profile_form_add_title => '添加档案';
+
+  @override
+  String get profile_form_date_of_birth => '出生日期';
+
+  @override
+  String get profile_form_relationship => '关系';
+
+  @override
+  String get profile_form_field_required => '此项为必填';
+
+  @override
+  String get profile_form_remove => '删除档案';
+
+  @override
+  String profile_form_remove_confirm(String name) {
+    return '确定从档案中删除 $name？此操作无法撤销。';
+  }
 }

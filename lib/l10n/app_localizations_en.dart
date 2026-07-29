@@ -2593,4 +2593,48 @@ class AppLocalizationsEn extends AppLocalizations {
   String physiotherapy_summary(int duration) {
     return 'Physiotherapy Session ($duration mins)';
   }
+
+  @override
+  String get common_close => 'Close';
+
+  @override
+  String get profile_switcher_new_profile => '+ New Profile';
+
+  @override
+  String get profile_relation_self => 'Personal';
+
+  @override
+  String get profile_relation_spouse => 'Spouse';
+
+  @override
+  String get profile_relation_parent => 'Parent';
+
+  @override
+  String get profile_relation_child => 'Child';
+
+  @override
+  String get profile_relation_sibling => 'Sibling';
+
+  @override
+  String get profile_relation_other => 'Other';
+
+  @override
+  String get profile_form_add_title => 'Add Profile';
+
+  @override
+  String get profile_form_date_of_birth => 'Date of Birth';
+
+  @override
+  String get profile_form_relationship => 'Relationship';
+
+  @override
+  String get profile_form_field_required => 'This field is required';
+
+  @override
+  String get profile_form_remove => 'Remove Profile';
+
+  @override
+  String profile_form_remove_confirm(String name) {
+    return 'Remove $name from your profiles? This can\'t be undone.';
+  }
 }
