@@ -16,6 +16,8 @@ class ProfessionalRemoteDatasource {
     List<int>? serviceIds,
     bool? isHomeScreeningAuthorized,
     String? serviceSubCategory,
+    double? latitude,
+    double? longitude,
   }) async {
     try {
       final token = await Utils.getSpString(Const.TOKEN);
@@ -28,6 +30,8 @@ class ProfessionalRemoteDatasource {
           'is_home_screening_authorized': isHomeScreeningAuthorized,
         if (serviceSubCategory != null)
           'service_sub_category': serviceSubCategory,
+        if (latitude != null) 'latitude': latitude,
+        if (longitude != null) 'longitude': longitude,
       };
       log('Fetching professionals with params: $queryParams',
           name: 'ProfessionalRemoteDatasource');

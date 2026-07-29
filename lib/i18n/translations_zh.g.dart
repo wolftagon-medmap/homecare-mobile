@@ -415,6 +415,7 @@ class _TranslationsBookingProfessionalSearchZh implements TranslationsBookingPro
 	@override String get empty => '未找到符合您标准的专业人员。';
 	@override String filter_text({required Object count}) => '按 ${count} 个选定服务过滤';
 	@override late final _TranslationsBookingProfessionalSearchTitleZh title = _TranslationsBookingProfessionalSearchTitleZh._(_root);
+	@override late final _TranslationsBookingProfessionalSearchVisitAddressZh visit_address = _TranslationsBookingProfessionalSearchVisitAddressZh._(_root);
 }
 
 // Path: booking.schedule
@@ -834,6 +835,20 @@ class _TranslationsBookingProfessionalSearchTitleZh implements TranslationsBooki
 	@override String get radiologist => '搜索放射科医生';
 }
 
+// Path: booking.professional_search.visit_address
+class _TranslationsBookingProfessionalSearchVisitAddressZh implements TranslationsBookingProfessionalSearchVisitAddressEn {
+	_TranslationsBookingProfessionalSearchVisitAddressZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get add_new => '添加新地址';
+	@override String get empty => '添加地址';
+	@override String get loading => '正在加载地址...';
+	@override String get picker_title => '选择上门地址';
+	@override String get title => '上门地址';
+}
+
 // Path: booking.schedule.messages
 class _TranslationsBookingScheduleMessagesZh implements TranslationsBookingScheduleMessagesEn {
 	_TranslationsBookingScheduleMessagesZh._(this._root);
@@ -1044,6 +1059,11 @@ extension on TranslationsZh {
 			'booking.professional_search.title.nurse' => '搜索护士',
 			'booking.professional_search.title.pharmacist' => '搜索药剂师',
 			'booking.professional_search.title.radiologist' => '搜索放射科医生',
+			'booking.professional_search.visit_address.add_new' => '添加新地址',
+			'booking.professional_search.visit_address.empty' => '添加地址',
+			'booking.professional_search.visit_address.loading' => '正在加载地址...',
+			'booking.professional_search.visit_address.picker_title' => '选择上门地址',
+			'booking.professional_search.visit_address.title' => '上门地址',
 			'booking.schedule.empty_slots' => '该日没有可用的时段。',
 			'booking.schedule.messages.reschedule_failed' => '重新安排失败。',
 			'booking.schedule.messages.reschedule_success' => '预约重新安排成功',

@@ -78,6 +78,13 @@
       "nurse": "Cari Perawat",
       "pharmacist": "Cari Apoteker",
       "radiologist": "Cari Radiolog"
+    },
+    "visit_address": {
+      "add_new": "Tambah alamat baru",
+      "empty": "Tambahkan alamat",
+      "loading": "Memuat alamat...",
+      "picker_title": "Pilih alamat kunjungan",
+      "title": "Kunjungan ke"
     }
   },
   "schedule": {
