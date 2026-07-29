@@ -2,15 +2,19 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/notifications/presentation/bloc/notifications_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
+import 'package:m2health/features/profiles/presentation/bloc/professional_profile_cubit.dart';
+import 'package:m2health/features/profiles/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:m2health/const.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/utils.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({
@@ -28,11 +32,17 @@ class _DashboardState extends State<Dashboard> {
   late ScrollController _scrollController;
   late final NotificationsCubit _notifications;
 
+  // Which cubit is authoritative for the header, resolved once from the
+  // logged-in role. Explicit (not inferred from "whichever cubit happens to
+  // have a Loaded state") so a stale Loaded state left over in the other
+  // cubit from a previous account/role never gets shown.
+  bool? _isProfessional;
+
   @override
   void initState() {
     super.initState();
     _loadUserName();
-    context.read<ProfileCubit>().loadProfile();
+    _loadProfileForRole();
     _notifications = NotificationsCubit(sl<Dio>())..load();
     _scrollController = ScrollController()
       ..addListener(() {
@@ -68,6 +78,22 @@ class _DashboardState extends State<Dashboard> {
     debugPrint('Username loaded: $userName');
   }
 
+  // Loads the header's name/avatar from the cubit matching the account's
+  // role (mirrors the role check the unified ProfileCubit used to do
+  // internally, now resolved here since the cubit is split by role).
+  Future<void> _loadProfileForRole() async {
+    final role = await Utils.getSpString(Const.ROLE);
+    if (!mounted) return;
+    final isProfessional = role != null &&
+        PROFESSIONAL_ROLES.map((r) => r.value).contains(role);
+    setState(() => _isProfessional = isProfessional);
+    if (isProfessional) {
+      context.read<ProfessionalProfileCubit>().loadProfile();
+    } else {
+      context.read<PatientProfileCubit>().loadProfile();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,27 +127,32 @@ class _DashboardState extends State<Dashboard> {
         ),
         title: Padding(
           padding: const EdgeInsets.only(bottom: 25.0),
-          child: BlocBuilder<ProfileCubit, ProfileState>(
-            builder: (context, state) {
-              Widget avatarWidget;
-              String displayName = userName ?? 'User';
-              String? avatarUrl;
+          child: BlocBuilder<PatientProfileCubit, PatientProfileState>(
+            builder: (context, patientState) {
+              return BlocBuilder<ProfessionalProfileCubit,
+                  ProfessionalProfileState>(
+                builder: (context, professionalState) {
+                  Widget avatarWidget;
+                  String displayName = userName ?? 'User';
+                  String? avatarUrl;
 
-              if (state is PatientProfileLoaded) {
-                displayName = state.profile.name.isNotEmpty
-                    ? state.profile.name
-                    : userName ?? 'User';
-                avatarUrl = state.profile.avatar;
-              } else if (state is ProfessionalProfileLoaded) {
-                displayName =
-                    state.profile.name != null && state.profile.name!.isNotEmpty
-                        ? state.profile.name!
+                  if (_isProfessional == false &&
+                      patientState is PatientProfileLoaded) {
+                    displayName = patientState.profile.name.isNotEmpty
+                        ? patientState.profile.name
                         : userName ?? 'User';
-                avatarUrl = state.profile.avatar;
-              } else {
-                displayName = userName ?? 'User';
-                avatarUrl = null;
-              }
+                    avatarUrl = patientState.profile.avatar;
+                  } else if (_isProfessional == true &&
+                      professionalState is ProfessionalProfileLoaded) {
+                    displayName = professionalState.profile.name != null &&
+                            professionalState.profile.name!.isNotEmpty
+                        ? professionalState.profile.name!
+                        : userName ?? 'User';
+                    avatarUrl = professionalState.profile.avatar;
+                  } else {
+                    displayName = userName ?? 'User';
+                    avatarUrl = null;
+                  }
 
               if (avatarUrl != null && avatarUrl.isNotEmpty) {
                 avatarWidget = Image.network(
@@ -212,7 +243,11 @@ class _DashboardState extends State<Dashboard> {
                     alignment: Alignment.centerLeft,
                     child: Row(
                       children: [
-                        if (state is ProfileLoading) ...[
+                        if ((_isProfessional == false &&
+                                patientState is PatientProfileLoading) ||
+                            (_isProfessional == true &&
+                                professionalState
+                                    is ProfessionalProfileLoading)) ...[
                           const SizedBox(
                             width: 16,
                             height: 16,
@@ -285,6 +320,8 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                 ],
+              );
+                },
               );
             },
           ),

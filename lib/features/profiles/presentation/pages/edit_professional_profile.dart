@@ -14,8 +14,8 @@ import 'package:m2health/features/profiles/domain/entities/professional_profile.
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
 import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/certificate_state.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
+import 'package:m2health/features/profiles/presentation/bloc/professional_profile_cubit.dart';
+import 'package:m2health/features/profiles/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/features/profiles/presentation/pages/address_map_page.dart';
 import 'package:m2health/features/profiles/presentation/widgets/add_edit_certificate_dialog.dart';
 
@@ -101,7 +101,7 @@ class _EditProfessionalProfilePageState
         experience: int.tryParse(_experienceController.text),
         serviceRadiusPreference: _serviceRadiusPreference,
       );
-      context.read<ProfileCubit>().updateProfessionalProfile(params);
+      context.read<ProfessionalProfileCubit>().updateProfessionalProfile(params);
     }
   }
 
@@ -125,7 +125,7 @@ class _EditProfessionalProfilePageState
                   ..showSnackBar(SnackBar(
                       content: Text(state.message),
                       backgroundColor: Colors.green));
-                context.read<ProfileCubit>().loadProfile();
+                context.read<ProfessionalProfileCubit>().loadProfile();
               } else if (state is CertificateError) {
                 ScaffoldMessenger.of(context)
                   ..hideCurrentSnackBar()
@@ -135,15 +135,16 @@ class _EditProfessionalProfilePageState
               }
             },
           ),
-          BlocListener<ProfileCubit, ProfileState>(listener: (context, state) {
-            if (state is ProfileSuccess) {
+          BlocListener<ProfessionalProfileCubit, ProfessionalProfileState>(
+              listener: (context, state) {
+            if (state is ProfessionalProfileSuccess) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
                     content: Text(state.message),
                     backgroundColor: Colors.green));
               Navigator.of(context).pop();
-            } else if (state is ProfileError) {
+            } else if (state is ProfessionalProfileError) {
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(SnackBar(
@@ -284,7 +285,7 @@ class _EditProfessionalProfilePageState
                 ),
               ),
               const SizedBox(height: 24),
-              BlocBuilder<ProfileCubit, ProfileState>(
+              BlocBuilder<ProfessionalProfileCubit, ProfessionalProfileState>(
                   builder: (context, state) {
                 List<Certificate> certifications = [];
                 if (state is ProfessionalProfileLoaded) {
