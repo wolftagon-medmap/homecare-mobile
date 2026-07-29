@@ -10,6 +10,7 @@ import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
 import 'package:m2health/features/profiles/presentation/widgets/profile_shared_widgets.dart';
+import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class PatientProfilePage extends StatefulWidget {
@@ -32,7 +33,7 @@ class _PatientProfilePageState extends State<PatientProfilePage> {
   }
 
   void _fetchData() {
-    context.read<PatientProfileCubit>().loadProfile();
+    context.read<PatientProfileCubit>().loadProfiles();
   }
 
   @override
@@ -40,9 +41,23 @@ class _PatientProfilePageState extends State<PatientProfilePage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(
-          context.l10n.profile_patient_title,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+        title: InkWell(
+          onTap: () => showProfileSwitcherSheet(context),
+          borderRadius: BorderRadius.circular(8),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  context.l10n.profile_patient_title,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(width: 4),
+                const Icon(Icons.keyboard_arrow_down, size: 22),
+              ],
+            ),
+          ),
         ),
       ),
       body: BlocConsumer<PatientProfileCubit, PatientProfileState>(
@@ -55,7 +70,7 @@ class _PatientProfilePageState extends State<PatientProfilePage> {
           if (state is PatientProfileLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is PatientProfileLoaded) {
-            final Profile profile = state.profile;
+            final Profile profile = state.activeProfile;
             return RefreshIndicator(
               onRefresh: () async {
                 _fetchData();
@@ -71,10 +86,16 @@ class _PatientProfilePageState extends State<PatientProfilePage> {
                       lastUpdated: formatDateTime(profile.updatedAt),
                     ),
                     const SizedBox(height: 16),
-                    const _ProfileInformationSection(),
+                    _ProfileInformationSection(
+                        isAccountHolder: profile.isPrimary),
                     const SizedBox(height: 16),
-                    const _HealthRecordsSection(),
-                    const SizedBox(height: 16),
+                    // Clinical records belong to the account, not to a single
+                    // profile, so showing them under a family member's name
+                    // would attribute the account holder's data to them.
+                    if (profile.isPrimary) ...[
+                      const _HealthRecordsSection(),
+                      const SizedBox(height: 16),
+                    ],
                     const AppointmentSection(),
                     const SizedBox(height: 16),
                     const SettingSection(),
@@ -97,7 +118,11 @@ class _PatientProfilePageState extends State<PatientProfilePage> {
 }
 
 class _ProfileInformationSection extends StatelessWidget {
-  const _ProfileInformationSection();
+  /// The clinical pages below read account-level records, so a family member
+  /// gets basic info only rather than the account holder's data under their name.
+  final bool isAccountHolder;
+
+  const _ProfileInformationSection({required this.isAccountHolder});
 
   @override
   Widget build(BuildContext context) {
@@ -120,34 +145,37 @@ class _ProfileInformationSection extends StatelessWidget {
                 context.push(AppRoutes.profileBasicInfo);
               },
             ),
-            _CustomListTile(
-              title: context.l10n.profile_patient_medical_history_n_risk_factor,
-              svgAsset: 'assets/icons/medical_report.svg',
-              onTap: () {
-                context.push(AppRoutes.profileMedicalHistory);
-              },
-            ),
-            _CustomListTile(
-              title: context.l10n.profile_patient_lifestyle_n_selfcare,
-              svgAsset: 'assets/icons/muscle.svg',
-              onTap: () {
-                context.push(AppRoutes.profileLifestyle);
-              },
-            ),
-            _CustomListTile(
-              title: context.l10n.profile_patient_physical_sign,
-              svgAsset: 'assets/icons/physical_sign.svg',
-              onTap: () {
-                context.push(AppRoutes.profilePhysicalSigns);
-              },
-            ),
-            _CustomListTile(
-              title: context.l10n.profile_patient_mental_state,
-              svgAsset: 'assets/icons/mental_health.svg',
-              onTap: () {
-                context.push(AppRoutes.profileMentalState);
-              },
-            ),
+            if (isAccountHolder) ...[
+              _CustomListTile(
+                title:
+                    context.l10n.profile_patient_medical_history_n_risk_factor,
+                svgAsset: 'assets/icons/medical_report.svg',
+                onTap: () {
+                  context.push(AppRoutes.profileMedicalHistory);
+                },
+              ),
+              _CustomListTile(
+                title: context.l10n.profile_patient_lifestyle_n_selfcare,
+                svgAsset: 'assets/icons/muscle.svg',
+                onTap: () {
+                  context.push(AppRoutes.profileLifestyle);
+                },
+              ),
+              _CustomListTile(
+                title: context.l10n.profile_patient_physical_sign,
+                svgAsset: 'assets/icons/physical_sign.svg',
+                onTap: () {
+                  context.push(AppRoutes.profilePhysicalSigns);
+                },
+              ),
+              _CustomListTile(
+                title: context.l10n.profile_patient_mental_state,
+                svgAsset: 'assets/icons/mental_health.svg',
+                onTap: () {
+                  context.push(AppRoutes.profileMentalState);
+                },
+              ),
+            ],
           ],
         ),
       ),

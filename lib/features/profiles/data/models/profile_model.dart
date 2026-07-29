@@ -8,11 +8,14 @@ class ProfileModel extends Profile {
     required super.name,
     super.countryCode,
     super.age,
+    super.dateOfBirth,
     super.weight,
     super.height,
     super.phoneNumber,
     super.homeAddress,
     super.gender,
+    super.relation,
+    super.isPrimary,
     super.drugAllergy,
     super.avatar,
     super.address,
@@ -25,6 +28,9 @@ class ProfileModel extends Profile {
       id: json['id'] ?? 0,
       userId: json['user_id'] ?? 0,
       age: json['age'] ?? 0,
+      dateOfBirth: json['date_of_birth'] != null
+          ? DateTime.tryParse(json['date_of_birth'].toString())
+          : null,
       weight: (json['weight'] as num?)?.toDouble() ?? 0.0,
       height: (json['height'] as num?)?.toDouble() ?? 0.0,
       phoneNumber: json['phone_number'] ?? '',
@@ -32,6 +38,8 @@ class ProfileModel extends Profile {
       countryCode: json['country_code']?.toString().toUpperCase(),
       homeAddress: json['home_address'],
       gender: json['gender'],
+      relation: json['relation'],
+      isPrimary: json['is_primary'] == true,
       drugAllergy: json['drug_allergy'],
       avatar: json['avatar'],
       address: json['address'] != null

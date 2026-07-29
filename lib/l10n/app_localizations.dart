@@ -4815,6 +4815,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Physiotherapy Session ({duration} mins)'**
   String physiotherapy_summary(int duration);
+
+  /// No description provided for @common_close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get common_close;
+
+  /// Shortcut in the profile switcher sheet for creating a family profile
+  ///
+  /// In en, this message translates to:
+  /// **'+ New Profile'**
+  String get profile_switcher_new_profile;
+
+  /// Label for the account holder's own profile in the switcher
+  ///
+  /// In en, this message translates to:
+  /// **'Personal'**
+  String get profile_relation_self;
+
+  /// No description provided for @profile_relation_spouse.
+  ///
+  /// In en, this message translates to:
+  /// **'Spouse'**
+  String get profile_relation_spouse;
+
+  /// No description provided for @profile_relation_parent.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent'**
+  String get profile_relation_parent;
+
+  /// No description provided for @profile_relation_child.
+  ///
+  /// In en, this message translates to:
+  /// **'Child'**
+  String get profile_relation_child;
+
+  /// No description provided for @profile_relation_sibling.
+  ///
+  /// In en, this message translates to:
+  /// **'Sibling'**
+  String get profile_relation_sibling;
+
+  /// No description provided for @profile_relation_other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get profile_relation_other;
+
+  /// Title of the profile form when creating a family profile
+  ///
+  /// In en, this message translates to:
+  /// **'Add Profile'**
+  String get profile_form_add_title;
+
+  /// No description provided for @profile_form_date_of_birth.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of Birth'**
+  String get profile_form_date_of_birth;
+
+  /// No description provided for @profile_form_relationship.
+  ///
+  /// In en, this message translates to:
+  /// **'Relationship'**
+  String get profile_form_relationship;
+
+  /// No description provided for @profile_form_field_required.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get profile_form_field_required;
+
+  /// No description provided for @profile_form_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Profile'**
+  String get profile_form_remove;
+
+  /// No description provided for @profile_form_remove_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name} from your profiles? This can\'t be undone.'**
+  String profile_form_remove_confirm(String name);
 }
 
 class _AppLocalizationsDelegate

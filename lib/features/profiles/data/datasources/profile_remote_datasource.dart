@@ -12,8 +12,11 @@ import 'package:path/path.dart' as p;
 
 abstract class ProfileRemoteDatasource {
   // Patient
-  Future<ProfileModel> getProfile();
-  Future<void> updateProfile(Map<String, dynamic> profile, File? avatar);
+  Future<List<ProfileModel>> getProfiles();
+  Future<ProfileModel> createProfile(Map<String, dynamic> profile, File? avatar);
+  Future<void> updateProfile(
+      int profileId, Map<String, dynamic> profile, File? avatar);
+  Future<void> deleteProfile(int profileId);
 
   // Professional
   Future<ProfessionalProfileModel> getProfessionalProfile();
@@ -61,14 +64,16 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   // }
 
   @override
-  Future<ProfileModel> getProfile() async {
+  Future<List<ProfileModel>> getProfiles() async {
     try {
       final response = await dio.get(
         Const.API_PROFILE, // /v1/profiles
         options: await _getAuthHeaders(),
       );
-      final data = response.data['data'];
-      return ProfileModel.fromJson(data);
+      final data = response.data['data'] as List<dynamic>;
+      return data
+          .map((json) => ProfileModel.fromJson(json as Map<String, dynamic>))
+          .toList();
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         throw const UnauthorizedFailure("User is not authenticated");
@@ -78,35 +83,89 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   }
 
   @override
-  Future<void> updateProfile(Map<String, dynamic> profile, File? avatar) async {
+  Future<ProfileModel> createProfile(
+      Map<String, dynamic> profile, File? avatar) async {
     try {
-      final formData = FormData();
-      profile.forEach((key, value) {
-        if (value != null) {
-          formData.fields.add(MapEntry(key, value.toString()));
-        }
-      });
-
-      if (avatar != null) {
-        formData.files.add(MapEntry(
-          'avatar',
-          await MultipartFile.fromFile(
-            avatar.path,
-            filename: p.basename(avatar.path),
-          ),
-        ));
-      }
-
-      await dio.put(
+      final response = await dio.post(
         Const.API_PROFILE, // /v1/profiles
-        data: formData,
+        data: await _buildFormData(profile, avatar),
         options: (await _getAuthHeaders())..contentType = 'multipart/form-data',
       );
+      // Returned so the caller can make the new profile active.
+      return ProfileModel.fromJson(response.data['data'] as Map<String, dynamic>);
     } on DioException catch (e) {
-      throw Exception('Failed to update profile data. Error: ${e.message}');
+      throw Exception(_serverMessage(e) ?? 'Failed to create profile');
     } catch (e) {
       throw Exception('An unexpected error occurred: $e');
     }
+  }
+
+  @override
+  Future<void> updateProfile(
+      int profileId, Map<String, dynamic> profile, File? avatar) async {
+    try {
+      await dio.put(
+        '${Const.API_PROFILE}/$profileId', // /v1/profiles/:id
+        data: await _buildFormData(profile, avatar),
+        options: (await _getAuthHeaders())..contentType = 'multipart/form-data',
+      );
+    } on DioException catch (e) {
+      throw Exception(
+          _serverMessage(e) ?? 'Failed to update profile data. Error: ${e.message}');
+    } catch (e) {
+      throw Exception('An unexpected error occurred: $e');
+    }
+  }
+
+  @override
+  Future<void> deleteProfile(int profileId) async {
+    try {
+      await dio.delete(
+        '${Const.API_PROFILE}/$profileId', // /v1/profiles/:id
+        options: await _getAuthHeaders(),
+      );
+    } on DioException catch (e) {
+      throw Exception(_serverMessage(e) ?? 'Failed to remove profile');
+    } catch (e) {
+      throw Exception('An unexpected error occurred: $e');
+    }
+  }
+
+  Future<FormData> _buildFormData(
+      Map<String, dynamic> profile, File? avatar) async {
+    final formData = FormData();
+    profile.forEach((key, value) {
+      if (value != null) {
+        formData.fields.add(MapEntry(key, value.toString()));
+      }
+    });
+
+    if (avatar != null) {
+      formData.files.add(MapEntry(
+        'avatar',
+        await MultipartFile.fromFile(
+          avatar.path,
+          filename: p.basename(avatar.path),
+        ),
+      ));
+    }
+    return formData;
+  }
+
+  /// The API explains refusals in the body ("The primary profile cannot be
+  /// removed", field validation errors); Dio's own message would hide them.
+  String? _serverMessage(DioException e) {
+    final data = e.response?.data;
+    if (data is! Map) return null;
+
+    final errors = data['errors'];
+    if (errors is List && errors.isNotEmpty) {
+      final first = errors.first;
+      if (first is Map && first['message'] != null) {
+        return first['message'].toString();
+      }
+    }
+    return data['message']?.toString();
   }
 
   // --- Professional Profile Methods ---

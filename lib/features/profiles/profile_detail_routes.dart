@@ -28,7 +28,10 @@ class ProfileDetailRoutes {
       path: AppRoutes.profileBasicInfo,
       name: AppRoutes.profileBasicInfo,
       builder: (context, state) {
-        return const EditBasicInfoPage();
+        // Set from the switcher's "+ New Profile"; absent means edit the
+        // active profile.
+        final isCreate = state.extra as bool? ?? false;
+        return EditBasicInfoPage(isCreate: isCreate);
       },
     ),
     GoRoute(
