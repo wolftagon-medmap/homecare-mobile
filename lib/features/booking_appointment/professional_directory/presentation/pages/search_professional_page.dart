@@ -24,6 +24,7 @@ class SearchProfessionalPage extends StatefulWidget {
   final String? serviceSubCategory;
   final Function(ProfessionalEntity) onProfessionalSelected;
   final Widget? leading;
+  final void Function(Address)? onLocationSelected;
 
   const SearchProfessionalPage({
     super.key,
@@ -33,6 +34,7 @@ class SearchProfessionalPage extends StatefulWidget {
     this.serviceSubCategory,
     required this.onProfessionalSelected,
     this.leading,
+    this.onLocationSelected,
   });
 
   @override
@@ -77,12 +79,14 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
       orElse: () => state.addresses.first,
     );
     setState(() => _selectedAddress = defaultAddress);
+    widget.onLocationSelected?.call(defaultAddress);
     _fetchProfessionals(query: _searchController.text);
   }
 
   void _onAddressSelected(Address address) {
     Navigator.pop(context);
     setState(() => _selectedAddress = address);
+    widget.onLocationSelected?.call(address);
     _fetchProfessionals(query: _searchController.text);
   }
 
@@ -265,7 +269,19 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
                 ),
               ),
             Expanded(
-              child: BlocBuilder<ProfessionalBloc, ProfessionalState>(
+              child: BlocConsumer<ProfessionalBloc, ProfessionalState>(
+                listenWhen: (previous, current) =>
+                    current is ProfessionalLoaded && current.actionError != null,
+                listener: (context, state) {
+                  final message = (state as ProfessionalLoaded).actionError!;
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(SnackBar(
+                      content: Text(message),
+                      backgroundColor: Colors.red,
+                      behavior: SnackBarBehavior.floating,
+                    ));
+                },
                 builder: (context, state) {
                   if (state is ProfessionalLoading) {
                     return const Center(child: CircularProgressIndicator());

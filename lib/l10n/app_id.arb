@@ -74,6 +74,7 @@
   "appointment_detail_title": "Detail Janji Temu",
   "appointment_detail_schedule_title": "Jadwal Janji Temu",
   "appointment_detail_patient_title": "Informasi Pasien",
+  "appointment_detail_visit_address_title": "Alamat Kunjungan",
   "appointment_detail_lab_test_title": "Informasi Tes Lab",
   "appointment_detail_report": "{count, plural, =0{Tidak Ada Laporan} =1{Laporan} other{Laporan}}",
   "appointment_detail_requested_homecare_task": "Tugas Homecare yang Diminta",

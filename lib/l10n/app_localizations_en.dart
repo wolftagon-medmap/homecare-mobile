@@ -232,6 +232,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appointment_detail_patient_title => 'Patient Information';
 
   @override
+  String get appointment_detail_visit_address_title => 'Visit Address';
+
+  @override
   String get appointment_detail_lab_test_title => 'Lab Test Information';
 
   @override

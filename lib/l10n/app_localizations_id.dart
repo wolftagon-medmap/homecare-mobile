@@ -232,6 +232,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get appointment_detail_patient_title => 'Informasi Pasien';
 
   @override
+  String get appointment_detail_visit_address_title => 'Alamat Kunjungan';
+
+  @override
   String get appointment_detail_lab_test_title => 'Informasi Tes Lab';
 
   @override

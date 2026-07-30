@@ -85,6 +85,7 @@ class TranslationsBookingEn {
 	/// en: 'Book Appointment'
 	String get book_appointment => 'Book Appointment';
 
+	late final TranslationsBookingConfirmationEn confirmation = TranslationsBookingConfirmationEn._(_root);
 	late final TranslationsBookingHealthStatusEn health_status = TranslationsBookingHealthStatusEn._(_root);
 	late final TranslationsBookingIssueEn issue = TranslationsBookingIssueEn._(_root);
 	late final TranslationsBookingProfessionalDetailEn professional_detail = TranslationsBookingProfessionalDetailEn._(_root);
@@ -515,6 +516,45 @@ class TranslationsBookingAddonEn {
 	String get estimated_budget => 'Estimated Budget';
 
 	late final TranslationsBookingAddonTitleEn title = TranslationsBookingAddonTitleEn._(_root);
+}
+
+// Path: booking.confirmation
+class TranslationsBookingConfirmationEn {
+	TranslationsBookingConfirmationEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Visit Address'
+	String get address_label => 'Visit Address';
+
+	/// en: 'Change'
+	String get change_button => 'Change';
+
+	/// en: 'Confirm Booking'
+	String get confirm_button => 'Confirm Booking';
+
+	/// en: 'No address selected'
+	String get no_address => 'No address selected';
+
+	/// en: 'Patient'
+	String get patient_label => 'Patient';
+
+	/// en: 'Professional'
+	String get professional_label => 'Professional';
+
+	/// en: 'Services'
+	String get services_label => 'Services';
+
+	/// en: 'Time'
+	String get time_label => 'Time';
+
+	/// en: 'Confirm Booking'
+	String get title => 'Confirm Booking';
+
+	/// en: 'Total'
+	String get total_label => 'Total';
 }
 
 // Path: booking.health_status
@@ -1498,6 +1538,16 @@ extension on Translations {
 			'booking.addon.title.radiology' => 'Radiology Services',
 			'booking.addon.title.specialized_nursing' => 'Specialized Nursing Procedures',
 			'booking.book_appointment' => 'Book Appointment',
+			'booking.confirmation.address_label' => 'Visit Address',
+			'booking.confirmation.change_button' => 'Change',
+			'booking.confirmation.confirm_button' => 'Confirm Booking',
+			'booking.confirmation.no_address' => 'No address selected',
+			'booking.confirmation.patient_label' => 'Patient',
+			'booking.confirmation.professional_label' => 'Professional',
+			'booking.confirmation.services_label' => 'Services',
+			'booking.confirmation.time_label' => 'Time',
+			'booking.confirmation.title' => 'Confirm Booking',
+			'booking.confirmation.total_label' => 'Total',
 			'booking.health_status.empty_record' => 'No medical records available.',
 			'booking.health_status.mobility_detail_hint' => 'e.g. walking stick, walking frame, other',
 			'booking.health_status.mobility_label' => 'Select your mobility status',

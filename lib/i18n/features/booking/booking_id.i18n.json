@@ -11,6 +11,18 @@
     }
   },
   "book_appointment": "Buat Janji Temu",
+  "confirmation": {
+    "address_label": "Alamat Kunjungan",
+    "change_button": "Ganti",
+    "confirm_button": "Konfirmasi Booking",
+    "no_address": "Belum ada alamat dipilih",
+    "patient_label": "Pasien",
+    "professional_label": "Profesional",
+    "services_label": "Layanan",
+    "time_label": "Waktu",
+    "title": "Konfirmasi Booking",
+    "total_label": "Total"
+  },
   "health_status": {
     "empty_record": "Tidak ada rekam medis yang tersedia.",
     "mobility_detail_hint": "contoh: tongkat jalan, alat bantu jalan, lainnya",

@@ -265,6 +265,10 @@
   "@appointment_detail_patient_title": {
     "description": "Title for the patient information section in the appointment detail page"
   },
+  "appointment_detail_visit_address_title": "Visit Address",
+  "@appointment_detail_visit_address_title": {
+    "description": "Title for the visit address section in the appointment detail page"
+  },
   "appointment_detail_lab_test_title": "Lab Test Information",
   "@appointment_detail_lab_test_title": {
     "description": "Title for the lab test information section in the appointment detail page"
