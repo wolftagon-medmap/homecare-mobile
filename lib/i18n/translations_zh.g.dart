@@ -76,6 +76,7 @@ class _TranslationsBookingZh implements TranslationsBookingEn {
 	// Translations
 	@override late final _TranslationsBookingAddonZh addon = _TranslationsBookingAddonZh._(_root);
 	@override String get book_appointment => '预约';
+	@override late final _TranslationsBookingConfirmationZh confirmation = _TranslationsBookingConfirmationZh._(_root);
 	@override late final _TranslationsBookingHealthStatusZh health_status = _TranslationsBookingHealthStatusZh._(_root);
 	@override late final _TranslationsBookingIssueZh issue = _TranslationsBookingIssueZh._(_root);
 	@override late final _TranslationsBookingProfessionalDetailZh professional_detail = _TranslationsBookingProfessionalDetailZh._(_root);
@@ -341,6 +342,25 @@ class _TranslationsBookingAddonZh implements TranslationsBookingAddonEn {
 	@override String get empty => '没有可用的附加服务。';
 	@override String get estimated_budget => '预计预算';
 	@override late final _TranslationsBookingAddonTitleZh title = _TranslationsBookingAddonTitleZh._(_root);
+}
+
+// Path: booking.confirmation
+class _TranslationsBookingConfirmationZh implements TranslationsBookingConfirmationEn {
+	_TranslationsBookingConfirmationZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get address_label => '上门地址';
+	@override String get change_button => '更改';
+	@override String get confirm_button => '确认预约';
+	@override String get no_address => '尚未选择地址';
+	@override String get patient_label => '患者';
+	@override String get professional_label => '专业人员';
+	@override String get services_label => '服务';
+	@override String get time_label => '时间';
+	@override String get title => '确认预约';
+	@override String get total_label => '总计';
 }
 
 // Path: booking.health_status
@@ -1008,6 +1028,16 @@ extension on TranslationsZh {
 			'booking.addon.title.radiology' => 'Radiologist Services',
 			'booking.addon.title.specialized_nursing' => '专业护理程序',
 			'booking.book_appointment' => '预约',
+			'booking.confirmation.address_label' => '上门地址',
+			'booking.confirmation.change_button' => '更改',
+			'booking.confirmation.confirm_button' => '确认预约',
+			'booking.confirmation.no_address' => '尚未选择地址',
+			'booking.confirmation.patient_label' => '患者',
+			'booking.confirmation.professional_label' => '专业人员',
+			'booking.confirmation.services_label' => '服务',
+			'booking.confirmation.time_label' => '时间',
+			'booking.confirmation.title' => '确认预约',
+			'booking.confirmation.total_label' => '总计',
 			'booking.health_status.empty_record' => '没有可用的医疗记录。',
 			'booking.health_status.mobility_detail_hint' => '例如：拐杖、助行架、其他',
 			'booking.health_status.mobility_label' => '选择您的行动状态',

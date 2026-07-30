@@ -229,6 +229,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get appointment_detail_patient_title => '患者信息';
 
   @override
+  String get appointment_detail_visit_address_title => '上门地址';
+
+  @override
   String get appointment_detail_lab_test_title => '实验室测试信息';
 
   @override

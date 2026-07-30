@@ -11,6 +11,18 @@
     }
   },
   "book_appointment": "Book Appointment",
+  "confirmation": {
+    "address_label": "Visit Address",
+    "change_button": "Change",
+    "confirm_button": "Confirm Booking",
+    "no_address": "No address selected",
+    "patient_label": "Patient",
+    "professional_label": "Professional",
+    "services_label": "Services",
+    "time_label": "Time",
+    "title": "Confirm Booking",
+    "total_label": "Total"
+  },
   "health_status": {
     "empty_record": "No medical records available.",
     "mobility_detail_hint": "e.g. walking stick, walking frame, other",

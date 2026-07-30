@@ -48,4 +48,11 @@ class FlowTimeSlotSelected extends NursingAppointmentFlowEvent {
   List<Object> get props => [timeSlot];
 }
 
+class FlowLocationSelected extends NursingAppointmentFlowEvent {
+  final Address location;
+  const FlowLocationSelected(this.location);
+  @override
+  List<Object> get props => [location];
+}
+
 class FlowSubmitAppointment extends NursingAppointmentFlowEvent {}

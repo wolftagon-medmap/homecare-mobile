@@ -520,6 +520,12 @@ abstract class AppLocalizations {
   /// **'Patient Information'**
   String get appointment_detail_patient_title;
 
+  /// Title for the visit address section in the appointment detail page
+  ///
+  /// In en, this message translates to:
+  /// **'Visit Address'**
+  String get appointment_detail_visit_address_title;
+
   /// Title for the lab test information section in the appointment detail page
   ///
   /// In en, this message translates to:

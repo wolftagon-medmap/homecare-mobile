@@ -11,6 +11,18 @@
     }
   },
   "book_appointment": "预约",
+  "confirmation": {
+    "address_label": "上门地址",
+    "change_button": "更改",
+    "confirm_button": "确认预约",
+    "no_address": "尚未选择地址",
+    "patient_label": "患者",
+    "professional_label": "专业人员",
+    "services_label": "服务",
+    "time_label": "时间",
+    "title": "确认预约",
+    "total_label": "总计"
+  },
   "health_status": {
     "empty_record": "没有可用的医疗记录。",
     "mobility_detail_hint": "例如：拐杖、助行架、其他",

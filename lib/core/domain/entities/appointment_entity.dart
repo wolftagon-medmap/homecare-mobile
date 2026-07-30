@@ -37,6 +37,12 @@ class AppointmentEntity extends Equatable {
   final ProfessionalEntity? provider;
   final Profile? patientProfile;
 
+  /// Visit-location snapshot recorded on this appointment (SCRUM-79), distinct
+  /// from the patient profile's own home address.
+  final String? locationAddress;
+  final double? locationLat;
+  final double? locationLng;
+
   // TODO: Remove in next refactor cycle — replaced by order.total
   @Deprecated('Use order.total instead. TODO: delete after migration.')
   final double payTotal;
@@ -94,6 +100,9 @@ class AppointmentEntity extends Equatable {
     this.diagnosticReports = const [],
     this.provider,
     this.patientProfile,
+    this.locationAddress,
+    this.locationLat,
+    this.locationLng,
     // ignore: deprecated_member_use_from_same_package
     this.nursingCase,
     // ignore: deprecated_member_use_from_same_package
@@ -134,6 +143,9 @@ class AppointmentEntity extends Equatable {
         diagnosticReports,
         provider,
         patientProfile,
+        locationAddress,
+        locationLat,
+        locationLng,
         // ignore: deprecated_member_use_from_same_package
         nursingCase,
         // ignore: deprecated_member_use_from_same_package
