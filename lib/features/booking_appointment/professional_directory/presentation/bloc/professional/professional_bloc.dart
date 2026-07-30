@@ -34,8 +34,32 @@ class ProfessionalBloc extends Bloc<ProfessionalEvent, ProfessionalState> {
     });
 
     on<ToggleFavoriteEvent>((event, emit) async {
-      await toggleFavorite(event.professionalId, event.isFavorite);
-      // TODO: Refresh the professionals list after toggling favorite
+      final current = state;
+      if (current is! ProfessionalLoaded) return;
+
+      // Optimistic: flip the icon immediately so a fast second tap reads the
+      // just-updated value instead of racing the still-in-flight request.
+      final optimistic = current.professionals
+          .map((p) => p.id == event.professionalId
+              ? p.copyWith(isFavorite: event.isFavorite)
+              : p)
+          .toList();
+      emit(ProfessionalLoaded(optimistic));
+
+      try {
+        await toggleFavorite(event.professionalId, event.isFavorite);
+      } catch (e) {
+        log('Failed to toggle favorite: $e');
+        final reverted = optimistic
+            .map((p) => p.id == event.professionalId
+                ? p.copyWith(isFavorite: !event.isFavorite)
+                : p)
+            .toList();
+        emit(ProfessionalLoaded(
+          reverted,
+          actionError: e.toString().replaceFirst('Exception: ', ''),
+        ));
+      }
     });
   }
 }

@@ -15,10 +15,14 @@ class ProfessionalLoading extends ProfessionalState {}
 class ProfessionalLoaded extends ProfessionalState {
   final List<ProfessionalEntity> professionals;
 
-  const ProfessionalLoaded(this.professionals);
+  /// Set when a per-row action (e.g. favouriting) failed, so the page can
+  /// surface it without tearing down the list.
+  final String? actionError;
+
+  const ProfessionalLoaded(this.professionals, {this.actionError});
 
   @override
-  List<Object> get props => [professionals];
+  List<Object> get props => [professionals, actionError ?? ''];
 }
 
 class ProfessionalError extends ProfessionalState {
