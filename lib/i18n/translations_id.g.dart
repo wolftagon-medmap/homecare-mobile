@@ -76,6 +76,7 @@ class _TranslationsBookingId implements TranslationsBookingEn {
 	// Translations
 	@override late final _TranslationsBookingAddonId addon = _TranslationsBookingAddonId._(_root);
 	@override String get book_appointment => 'Buat Janji Temu';
+	@override late final _TranslationsBookingConfirmationId confirmation = _TranslationsBookingConfirmationId._(_root);
 	@override late final _TranslationsBookingHealthStatusId health_status = _TranslationsBookingHealthStatusId._(_root);
 	@override late final _TranslationsBookingIssueId issue = _TranslationsBookingIssueId._(_root);
 	@override late final _TranslationsBookingProfessionalDetailId professional_detail = _TranslationsBookingProfessionalDetailId._(_root);
@@ -343,6 +344,25 @@ class _TranslationsBookingAddonId implements TranslationsBookingAddonEn {
 	@override late final _TranslationsBookingAddonTitleId title = _TranslationsBookingAddonTitleId._(_root);
 }
 
+// Path: booking.confirmation
+class _TranslationsBookingConfirmationId implements TranslationsBookingConfirmationEn {
+	_TranslationsBookingConfirmationId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get address_label => 'Alamat Kunjungan';
+	@override String get change_button => 'Ganti';
+	@override String get confirm_button => 'Konfirmasi Booking';
+	@override String get no_address => 'Belum ada alamat dipilih';
+	@override String get patient_label => 'Pasien';
+	@override String get professional_label => 'Profesional';
+	@override String get services_label => 'Layanan';
+	@override String get time_label => 'Waktu';
+	@override String get title => 'Konfirmasi Booking';
+	@override String get total_label => 'Total';
+}
+
 // Path: booking.health_status
 class _TranslationsBookingHealthStatusId implements TranslationsBookingHealthStatusEn {
 	_TranslationsBookingHealthStatusId._(this._root);
@@ -415,6 +435,7 @@ class _TranslationsBookingProfessionalSearchId implements TranslationsBookingPro
 	@override String get empty => 'Tidak ditemukan profesional yang cocok dengan kriteria Anda.';
 	@override String filter_text({required Object count}) => 'Difilter berdasarkan ${count} layanan terpilih';
 	@override late final _TranslationsBookingProfessionalSearchTitleId title = _TranslationsBookingProfessionalSearchTitleId._(_root);
+	@override late final _TranslationsBookingProfessionalSearchVisitAddressId visit_address = _TranslationsBookingProfessionalSearchVisitAddressId._(_root);
 }
 
 // Path: booking.schedule
@@ -834,6 +855,20 @@ class _TranslationsBookingProfessionalSearchTitleId implements TranslationsBooki
 	@override String get radiologist => 'Cari Radiolog';
 }
 
+// Path: booking.professional_search.visit_address
+class _TranslationsBookingProfessionalSearchVisitAddressId implements TranslationsBookingProfessionalSearchVisitAddressEn {
+	_TranslationsBookingProfessionalSearchVisitAddressId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get add_new => 'Tambah alamat baru';
+	@override String get empty => 'Tambahkan alamat';
+	@override String get loading => 'Memuat alamat...';
+	@override String get picker_title => 'Pilih alamat kunjungan';
+	@override String get title => 'Kunjungan ke';
+}
+
 // Path: booking.schedule.messages
 class _TranslationsBookingScheduleMessagesId implements TranslationsBookingScheduleMessagesEn {
 	_TranslationsBookingScheduleMessagesId._(this._root);
@@ -993,6 +1028,16 @@ extension on TranslationsId {
 			'booking.addon.title.radiology' => 'Layanan Radiologi',
 			'booking.addon.title.specialized_nursing' => 'Prosedur Keperawatan Khusus',
 			'booking.book_appointment' => 'Buat Janji Temu',
+			'booking.confirmation.address_label' => 'Alamat Kunjungan',
+			'booking.confirmation.change_button' => 'Ganti',
+			'booking.confirmation.confirm_button' => 'Konfirmasi Booking',
+			'booking.confirmation.no_address' => 'Belum ada alamat dipilih',
+			'booking.confirmation.patient_label' => 'Pasien',
+			'booking.confirmation.professional_label' => 'Profesional',
+			'booking.confirmation.services_label' => 'Layanan',
+			'booking.confirmation.time_label' => 'Waktu',
+			'booking.confirmation.title' => 'Konfirmasi Booking',
+			'booking.confirmation.total_label' => 'Total',
 			'booking.health_status.empty_record' => 'Tidak ada rekam medis yang tersedia.',
 			'booking.health_status.mobility_detail_hint' => 'contoh: tongkat jalan, alat bantu jalan, lainnya',
 			'booking.health_status.mobility_label' => 'Pilih status mobilitas Anda',
@@ -1044,6 +1089,11 @@ extension on TranslationsId {
 			'booking.professional_search.title.nurse' => 'Cari Perawat',
 			'booking.professional_search.title.pharmacist' => 'Cari Apoteker',
 			'booking.professional_search.title.radiologist' => 'Cari Radiolog',
+			'booking.professional_search.visit_address.add_new' => 'Tambah alamat baru',
+			'booking.professional_search.visit_address.empty' => 'Tambahkan alamat',
+			'booking.professional_search.visit_address.loading' => 'Memuat alamat...',
+			'booking.professional_search.visit_address.picker_title' => 'Pilih alamat kunjungan',
+			'booking.professional_search.visit_address.title' => 'Kunjungan ke',
 			'booking.schedule.empty_slots' => 'Tidak ada slot tersedia untuk hari ini.',
 			'booking.schedule.messages.reschedule_failed' => 'Penjadwalan ulang gagal.',
 			'booking.schedule.messages.reschedule_success' => 'Janji temu berhasil dijadwalkan ulang',

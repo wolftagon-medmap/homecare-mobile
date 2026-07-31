@@ -26,6 +26,9 @@ class AppointmentModel extends AppointmentEntity {
     super.diagnosticReports,
     super.provider,
     super.patientProfile,
+    super.locationAddress,
+    super.locationLat,
+    super.locationLng,
     // // ignore: deprecated_member_use_from_same_package
     // super.payTotal,
     // // ignore: deprecated_member_use_from_same_package
@@ -194,6 +197,13 @@ class AppointmentModel extends AppointmentEntity {
       diagnosticReports: diagnosticReports,
       provider: provider,
       patientProfile: patient,
+      locationAddress: json['location_address'] as String?,
+      locationLat: json['location_lat'] != null
+          ? double.parse(json['location_lat'].toString())
+          : null,
+      locationLng: json['location_lng'] != null
+          ? double.parse(json['location_lng'].toString())
+          : null,
       // payTotal: payTotal,
       // nursingCase: nursingCase,
       // pharmacyCase: pharmacyCase,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/features/booking_appointment/booking_confirmation/presentation/pages/booking_confirmation_page.dart';
 import 'package:m2health/features/booking_appointment/services_selection/presentation/pages/services_selection_page.dart';
 import 'package:m2health/features/booking_appointment/nursing/const.dart';
 import 'package:m2health/features/booking_appointment/nursing/presentation/bloc/nursing_appointment_flow_bloc.dart';
@@ -14,6 +15,9 @@ import 'package:m2health/features/booking_appointment/personal_issue/presentatio
 import 'package:m2health/features/booking_appointment/personal_issue/presentation/pages/personal_issues_page.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/pages/search_professional_page.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/pages/professional_details_page.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
+import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
@@ -62,6 +66,9 @@ class _NursingAppointmentFlowPageState
       case NursingFlowStep.scheduling:
         flowBloc
             .add(const FlowStepChanged(NursingFlowStep.viewProfessionalDetail));
+        break;
+      case NursingFlowStep.confirmation:
+        flowBloc.add(const FlowStepChanged(NursingFlowStep.scheduling));
         break;
     }
   }
@@ -172,6 +179,11 @@ class _NursingAppointmentFlowPageState
                           .read<NursingAppointmentFlowBloc>()
                           .add(FlowProfessionalSelected(prof));
                     },
+                    onLocationSelected: (address) {
+                      context
+                          .read<NursingAppointmentFlowBloc>()
+                          .add(FlowLocationSelected(address));
+                    },
                   ),
                 ),
                 if (state.selectedProfessional != null)
@@ -206,6 +218,31 @@ class _NursingAppointmentFlowPageState
                       },
                     )),
                   ), // Placeholder
+                if (state.selectedProfessional != null &&
+                    state.selectedTimeSlot != null)
+                  BlocBuilder<PatientProfileCubit, PatientProfileState>(
+                    builder: (context, profileState) {
+                      final patientName = profileState is PatientProfileLoaded
+                          ? profileState.activeProfile.name
+                          : '';
+                      return BookingConfirmationPage(
+                        patientName: patientName,
+                        onChangePatient: () => showProfileSwitcherSheet(context),
+                        address: state.selectedLocation,
+                        services: state.selectedAddOnServices,
+                        professionalName: state.selectedProfessional!.name,
+                        professionalRole: state.selectedProfessional!.role,
+                        timeSlot: state.selectedTimeSlot!,
+                        isSubmitting: state.submissionStatus ==
+                            AppointmentSubmissionStatus.submitting,
+                        onConfirm: () {
+                          context
+                              .read<NursingAppointmentFlowBloc>()
+                              .add(FlowSubmitAppointment());
+                        },
+                      );
+                    },
+                  ),
               ],
             ),
           ),

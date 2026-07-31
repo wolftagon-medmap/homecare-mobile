@@ -85,6 +85,7 @@ class TranslationsBookingEn {
 	/// en: 'Book Appointment'
 	String get book_appointment => 'Book Appointment';
 
+	late final TranslationsBookingConfirmationEn confirmation = TranslationsBookingConfirmationEn._(_root);
 	late final TranslationsBookingHealthStatusEn health_status = TranslationsBookingHealthStatusEn._(_root);
 	late final TranslationsBookingIssueEn issue = TranslationsBookingIssueEn._(_root);
 	late final TranslationsBookingProfessionalDetailEn professional_detail = TranslationsBookingProfessionalDetailEn._(_root);
@@ -517,6 +518,45 @@ class TranslationsBookingAddonEn {
 	late final TranslationsBookingAddonTitleEn title = TranslationsBookingAddonTitleEn._(_root);
 }
 
+// Path: booking.confirmation
+class TranslationsBookingConfirmationEn {
+	TranslationsBookingConfirmationEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Visit Address'
+	String get address_label => 'Visit Address';
+
+	/// en: 'Change'
+	String get change_button => 'Change';
+
+	/// en: 'Confirm Booking'
+	String get confirm_button => 'Confirm Booking';
+
+	/// en: 'No address selected'
+	String get no_address => 'No address selected';
+
+	/// en: 'Patient'
+	String get patient_label => 'Patient';
+
+	/// en: 'Professional'
+	String get professional_label => 'Professional';
+
+	/// en: 'Services'
+	String get services_label => 'Services';
+
+	/// en: 'Time'
+	String get time_label => 'Time';
+
+	/// en: 'Confirm Booking'
+	String get title => 'Confirm Booking';
+
+	/// en: 'Total'
+	String get total_label => 'Total';
+}
+
 // Path: booking.health_status
 class TranslationsBookingHealthStatusEn {
 	TranslationsBookingHealthStatusEn._(this._root);
@@ -660,6 +700,7 @@ class TranslationsBookingProfessionalSearchEn {
 	String filter_text({required Object count}) => 'Filtering by ${count} selected services';
 
 	late final TranslationsBookingProfessionalSearchTitleEn title = TranslationsBookingProfessionalSearchTitleEn._(_root);
+	late final TranslationsBookingProfessionalSearchVisitAddressEn visit_address = TranslationsBookingProfessionalSearchVisitAddressEn._(_root);
 }
 
 // Path: booking.schedule
@@ -1286,6 +1327,30 @@ class TranslationsBookingProfessionalSearchTitleEn {
 	String get radiologist => 'Search Radiologist';
 }
 
+// Path: booking.professional_search.visit_address
+class TranslationsBookingProfessionalSearchVisitAddressEn {
+	TranslationsBookingProfessionalSearchVisitAddressEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Add new address'
+	String get add_new => 'Add new address';
+
+	/// en: 'Add an address'
+	String get empty => 'Add an address';
+
+	/// en: 'Loading address...'
+	String get loading => 'Loading address...';
+
+	/// en: 'Choose visit address'
+	String get picker_title => 'Choose visit address';
+
+	/// en: 'Visit at'
+	String get title => 'Visit at';
+}
+
 // Path: booking.schedule.messages
 class TranslationsBookingScheduleMessagesEn {
 	TranslationsBookingScheduleMessagesEn._(this._root);
@@ -1473,6 +1538,16 @@ extension on Translations {
 			'booking.addon.title.radiology' => 'Radiology Services',
 			'booking.addon.title.specialized_nursing' => 'Specialized Nursing Procedures',
 			'booking.book_appointment' => 'Book Appointment',
+			'booking.confirmation.address_label' => 'Visit Address',
+			'booking.confirmation.change_button' => 'Change',
+			'booking.confirmation.confirm_button' => 'Confirm Booking',
+			'booking.confirmation.no_address' => 'No address selected',
+			'booking.confirmation.patient_label' => 'Patient',
+			'booking.confirmation.professional_label' => 'Professional',
+			'booking.confirmation.services_label' => 'Services',
+			'booking.confirmation.time_label' => 'Time',
+			'booking.confirmation.title' => 'Confirm Booking',
+			'booking.confirmation.total_label' => 'Total',
 			'booking.health_status.empty_record' => 'No medical records available.',
 			'booking.health_status.mobility_detail_hint' => 'e.g. walking stick, walking frame, other',
 			'booking.health_status.mobility_label' => 'Select your mobility status',
@@ -1524,6 +1599,11 @@ extension on Translations {
 			'booking.professional_search.title.nurse' => 'Search Nurse',
 			'booking.professional_search.title.pharmacist' => 'Search Pharmacist',
 			'booking.professional_search.title.radiologist' => 'Search Radiologist',
+			'booking.professional_search.visit_address.add_new' => 'Add new address',
+			'booking.professional_search.visit_address.empty' => 'Add an address',
+			'booking.professional_search.visit_address.loading' => 'Loading address...',
+			'booking.professional_search.visit_address.picker_title' => 'Choose visit address',
+			'booking.professional_search.visit_address.title' => 'Visit at',
 			'booking.schedule.empty_slots' => 'No available slots for this day.',
 			'booking.schedule.messages.reschedule_failed' => 'Rescheduling failed.',
 			'booking.schedule.messages.reschedule_success' => 'Appointment rescheduled successfully',

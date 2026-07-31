@@ -67,4 +67,28 @@ class ProfessionalEntity extends Equatable {
         providerType,
         completedAppointmentsCount,
       ];
+
+  ProfessionalEntity copyWith({bool? isFavorite}) {
+    return ProfessionalEntity(
+      id: id,
+      name: name,
+      avatar: avatar,
+      experience: experience,
+      rating: rating,
+      about: about,
+      workingInformation: workingInformation,
+      jobTitle: jobTitle,
+      workingHours: workingHours,
+      workplace: workplace,
+      certificates: certificates,
+      reviews: reviews,
+      userId: userId,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      isFavorite: isFavorite ?? this.isFavorite,
+      role: role,
+      providerType: providerType,
+      completedAppointmentsCount: completedAppointmentsCount,
+    );
+  }
 }

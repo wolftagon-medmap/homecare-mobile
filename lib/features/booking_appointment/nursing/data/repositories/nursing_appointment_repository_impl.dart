@@ -20,6 +20,16 @@ class NursingAppointmentRepositoryImpl extends NursingAppointmentRepository {
         'provider_id': params.providerId,
         'start_datetime': params.startDatetime.toIso8601String(),
         'summary': params.summary,
+        if (params.patientProfileId != null)
+          'patient_profile_id': params.patientProfileId,
+        if (params.location != null)
+          'location': {
+            'address_id': params.location!.id,
+            'lat': params.location!.latitude,
+            'lng': params.location!.longitude,
+            'address': params.location!.formattedAddress,
+            'place_id': params.location!.googlePlaceId,
+          },
         'request_data': {
           'service_ids': params.nursingCase.addOnServices
               .map((service) => service.id)

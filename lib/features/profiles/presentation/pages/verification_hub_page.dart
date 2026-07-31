@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/profiles/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
+import 'package:m2health/features/profiles/presentation/bloc/professional_profile_cubit.dart';
+import 'package:m2health/features/profiles/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/features/profiles/presentation/pages/manage_provided_services_page.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/utils.dart';
@@ -30,15 +30,15 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
     super.initState();
     // Ensure a fresh profile (and onboarding checklist) is loaded when arriving
     // here directly.
-    final state = context.read<ProfileCubit>().state;
+    final state = context.read<ProfessionalProfileCubit>().state;
     if (state is! ProfessionalProfileLoaded) {
-      context.read<ProfileCubit>().loadProfile();
+      context.read<ProfessionalProfileCubit>().loadProfile();
     }
   }
 
   Future<void> _openAndRefresh(Future<void> Function() navigate) async {
     await navigate();
-    if (mounted) context.read<ProfileCubit>().loadProfile();
+    if (mounted) context.read<ProfessionalProfileCubit>().loadProfile();
   }
 
   void _openProfile(ProfessionalProfile profile) {
@@ -72,16 +72,16 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
         title: const Text('Get verified',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
       ),
-      body: BlocConsumer<ProfileCubit, ProfileState>(
+      body: BlocConsumer<ProfessionalProfileCubit, ProfessionalProfileState>(
         listener: (context, state) {
-          if (state is ProfileVerificationSubmitted) {
+          if (state is ProfessionalProfileVerificationSubmitted) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
                   content: Text(state.message),
                   backgroundColor: Colors.green));
             if (context.canPop()) context.pop();
-          } else if (state is ProfileError) {
+          } else if (state is ProfessionalProfileError) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
@@ -91,10 +91,11 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
         builder: (context, state) {
           if (state is ProfessionalProfileLoaded) _profile = state.profile;
           final profile = _profile;
-          final submitting = state is ProfileVerificationSubmitting;
+          final submitting =
+              state is ProfessionalProfileVerificationSubmitting;
 
           if (profile == null) {
-            if (state is ProfileError) {
+            if (state is ProfessionalProfileError) {
               return const Center(child: Text('Unable to load your profile.'));
             }
             return const Center(child: CircularProgressIndicator());
@@ -107,7 +108,7 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: () async =>
-                      context.read<ProfileCubit>().loadProfile(),
+                      context.read<ProfessionalProfileCubit>().loadProfile(),
                   child: ListView(
                     physics: const AlwaysScrollableScrollPhysics(),
                     padding: const EdgeInsets.all(16),
@@ -171,8 +172,9 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
               _SubmitBar(
                 canSubmit: onboarding?.canSubmit ?? false,
                 submitting: submitting,
-                onSubmit: () =>
-                    context.read<ProfileCubit>().submitForVerification(),
+                onSubmit: () => context
+                    .read<ProfessionalProfileCubit>()
+                    .submitForVerification(),
               ),
             ],
           );

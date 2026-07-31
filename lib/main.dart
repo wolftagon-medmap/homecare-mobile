@@ -21,7 +21,8 @@ import 'package:m2health/features/nutrition/domain/usecases/create_nutrition_app
 import 'package:m2health/features/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
 import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/profiles/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/l10n/app_localizations.dart';
@@ -143,9 +144,14 @@ class M2HealthApp extends StatelessWidget {
               ScreeningAppointmentActionCubit(repository: sl()),
         ),
         BlocProvider(
-            create: (context) => ProfileCubit(
-                  getProfileUseCase: sl<GetProfile>(),
+            create: (context) => PatientProfileCubit(
+                  getProfilesUseCase: sl<GetProfiles>(),
+                  createProfileUseCase: sl<CreateProfile>(),
                   updateProfileUseCase: sl<UpdateProfile>(),
+                  deleteProfileUseCase: sl<DeleteProfile>(),
+                )),
+        BlocProvider(
+            create: (context) => ProfessionalProfileCubit(
                   getProfessionalProfileUseCase: sl<GetProfessionalProfile>(),
                   updateProfessionalProfileUseCase:
                       sl<UpdateProfessionalProfile>(),

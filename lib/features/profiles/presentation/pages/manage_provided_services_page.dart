@@ -51,7 +51,12 @@ class _ManageProvidedServicesPageState
           }
         },
         builder: (context, state) {
-          if (state is ManageServicesLoading) {
+          // Saving and Success are transient — Success is popped away by the
+          // listener right after this frame, so both just show the spinner
+          // instead of briefly flashing the generic error text below.
+          if (state is ManageServicesLoading ||
+              state is ManageServicesSaving ||
+              state is ManageServicesSuccess) {
             return const Center(child: CircularProgressIndicator());
           }
 
