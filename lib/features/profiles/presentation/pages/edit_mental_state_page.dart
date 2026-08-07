@@ -201,26 +201,30 @@ class _EditMentalStatePageState extends State<EditMentalStatePage> {
           );
         },
       ),
-      bottomNavigationBar: BottomAppBar(
-        elevation: 8,
-        color: Colors.white,
-        child: BlocBuilder<MentalHealthStateCubit, MentalHealthStateState>(
-          builder: (context, state) {
-            final bool isSaving = state is MentalHealthStateSaving;
-            return PrimaryButton(
-              text: isSaving
-                  ? context.l10n.common_saving
-                  : context.l10n.common_save,
-              isLoading: isSaving,
-              onPressed: () {
-                if (_formData != null) {
-                  context
-                      .read<MentalHealthStateCubit>()
-                      .saveMentalHealthState(_formData!);
-                }
-              },
-            );
-          },
+      bottomNavigationBar: Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: BottomAppBar(
+          elevation: 8,
+          color: Colors.white,
+          child: BlocBuilder<MentalHealthStateCubit, MentalHealthStateState>(
+            builder: (context, state) {
+              final bool isSaving = state is MentalHealthStateSaving;
+              return PrimaryButton(
+                text: isSaving
+                    ? context.l10n.common_saving
+                    : context.l10n.common_save,
+                isLoading: isSaving,
+                onPressed: () {
+                  if (_formData != null) {
+                    context
+                        .read<MentalHealthStateCubit>()
+                        .saveMentalHealthState(_formData!);
+                  }
+                },
+              );
+            },
+          ),
         ),
       ),
     );
