@@ -740,8 +740,8 @@ class TranslationsDashboardServicesEn {
 
 	// Translations
 
-	/// en: 'iRX Diabetic Care'
-	String get diabetic_care => 'iRX Diabetic Care';
+	/// en: 'Diabetic Care'
+	String get diabetic_care => 'Diabetic Care';
 
 	/// en: 'Dietitian Service'
 	String get dietitian => 'Dietitian Service';
@@ -749,8 +749,8 @@ class TranslationsDashboardServicesEn {
 	/// en: 'Health Risk Assessment'
 	String get health_risk_assessment => 'Health Risk Assessment';
 
-	/// en: 'Home Health Screening'
-	String get home_screening => 'Home Health Screening';
+	/// en: 'Health Screening'
+	String get home_screening => 'Health Screening';
 
 	/// en: 'Home Care for Elderly'
 	String get homecare_for_elderly => 'Home Care for Elderly';
@@ -1616,10 +1616,10 @@ extension on Translations {
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
 			'dashboard.main_services' => 'Services Appointment',
 			'dashboard.other_services' => 'Other Services',
-			'dashboard.services.diabetic_care' => 'iRX Diabetic Care',
+			'dashboard.services.diabetic_care' => 'Diabetic Care',
 			'dashboard.services.dietitian' => 'Dietitian Service',
 			'dashboard.services.health_risk_assessment' => 'Health Risk Assessment',
-			'dashboard.services.home_screening' => 'Home Health Screening',
+			'dashboard.services.home_screening' => 'Health Screening',
 			'dashboard.services.homecare_for_elderly' => 'Home Care for Elderly',
 			'dashboard.services.nursing' => 'Home Nursing',
 			'dashboard.services.pharmacist' => 'iRX Pharmacist Service',
