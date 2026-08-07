@@ -153,7 +153,8 @@ class RiskFactorsPageState extends State<RiskFactorsFormPage> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0) +
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: PrimaryButton(
           text: widget.saveButtonText,
           onPressed: () {
