@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
@@ -38,7 +39,10 @@ Future<void> setupLocator() async {
   sl.registerLazySingleton<Dio>(() {
     final dio = Dio();
 
-    if (Const.DEBUG_HTTP_LOGS) {
+    // kReleaseMode is a compile-time constant, so this can never leak request/
+    // response data (tokens, patient details) in a release build even if
+    // DEBUG_HTTP_LOGS is left on by mistake.
+    if (Const.DEBUG_HTTP_LOGS && !kReleaseMode) {
       dio.interceptors.add(
         LogInterceptor(
           request: true,

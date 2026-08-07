@@ -4,10 +4,10 @@
   "main_services": "Services Appointment",
   "other_services": "Other Services",
   "services": {
-    "diabetic_care": "iRX Diabetic Care",
+    "diabetic_care": "Diabetic Care",
     "dietitian": "Dietitian Service",
     "health_risk_assessment": "Health Risk Assessment",
-    "home_screening": "Home Health Screening",
+    "home_screening": "Health Screening",
     "homecare_for_elderly": "Home Care for Elderly",
     "nursing": "Home Nursing",
     "pharmacist": "iRX Pharmacist Service",

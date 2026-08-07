@@ -45,11 +45,16 @@ app.*.map.json
 # FVM Version Cache
 .fvm/
 
-# Agents
+# AI agent management
+# Tracked (long-term, shared): AGENTS.md, CLAUDE.md, CONTEXT.md (domain language),
+#   docs/agents/** (reference + skill config), .scratch/** (the issue tracker — markdown, in git).
+# Ignored (ephemeral, per-dev): docs/temp/** (incl. SESSION.md), and legacy Gemini files below.
+docs/temp/
 .gemini/
 gemini.md
 flutter.md
 .tasks/
+.claude/settings.local.json
 
 # Screenshots
 screenshots/

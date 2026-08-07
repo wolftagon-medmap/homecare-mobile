@@ -11,13 +11,17 @@ class GetProfessionals {
       String? name,
       List<int>? serviceIds,
       bool? isHomeScreeningAuthorized,
-      String? serviceSubCategory}) async {
+      String? serviceSubCategory,
+      double? latitude,
+      double? longitude}) async {
     return await repository.getProfessionals(
       role: role,
       name: name,
       serviceIds: serviceIds,
       isHomeScreeningAuthorized: isHomeScreeningAuthorized,
       serviceSubCategory: serviceSubCategory,
+      latitude: latitude,
+      longitude: longitude,
     );
   }
 }

@@ -74,6 +74,7 @@
   "appointment_detail_title": "预约详情",
   "appointment_detail_schedule_title": "预约时间表",
   "appointment_detail_patient_title": "患者信息",
+  "appointment_detail_visit_address_title": "上门地址",
   "appointment_detail_lab_test_title": "实验室测试信息",
   "appointment_detail_report": "{count, plural, =0{无报告} =1{份报告} other{份报告}}",
   "appointment_detail_requested_homecare_task": "请求的居家护理任务",
@@ -940,6 +941,70 @@
                     "type": "int"
                   }
                 }
-              }
+              },
+  "common_close": "关闭",
+  "@common_close": {},
+  "profile_switcher_new_profile": "+ 新建档案",
+  "@profile_switcher_new_profile": {},
+  "profile_relation_self": "本人",
+  "@profile_relation_self": {},
+  "profile_relation_spouse": "配偶",
+  "@profile_relation_spouse": {},
+  "profile_relation_parent": "父母",
+  "@profile_relation_parent": {},
+  "profile_relation_child": "子女",
+  "@profile_relation_child": {},
+  "profile_relation_sibling": "兄弟姐妹",
+  "@profile_relation_sibling": {},
+  "profile_relation_other": "其他",
+  "@profile_relation_other": {},
+  "profile_form_add_title": "添加档案",
+  "@profile_form_add_title": {},
+  "profile_form_date_of_birth": "出生日期",
+  "@profile_form_date_of_birth": {},
+  "profile_form_relationship": "关系",
+  "@profile_form_relationship": {},
+  "profile_form_field_required": "此项为必填",
+  "@profile_form_field_required": {},
+  "profile_form_remove": "删除档案",
+  "@profile_form_remove": {},
+  "profile_form_remove_confirm": "确定从档案中删除 {name}？此操作无法撤销。",
+  "@profile_form_remove_confirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_saved_addresses": "已保存的地址",
+  "@settings_saved_addresses": {},
+  "address_form_add_title": "添加地址",
+  "@address_form_add_title": {},
+  "address_form_edit_title": "编辑地址",
+  "@address_form_edit_title": {},
+  "address_form_label": "标签",
+  "@address_form_label": {},
+  "address_form_label_hint": "例如：家、父母家",
+  "@address_form_label_hint": {},
+  "address_form_location": "位置",
+  "@address_form_location": {},
+  "address_form_location_hint": "点击在地图上选择位置",
+  "@address_form_location_hint": {},
+  "address_form_set_default": "设为默认地址",
+  "@address_form_set_default": {},
+  "address_default_badge": "默认",
+  "@address_default_badge": {},
+  "address_empty_state": "暂无已保存的地址。点击 + 添加。",
+  "@address_empty_state": {},
+  "address_remove": "删除地址",
+  "@address_remove": {},
+  "address_remove_confirm": "删除“{label}”？此操作无法撤销。",
+  "@address_remove_confirm": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  }
             }
         

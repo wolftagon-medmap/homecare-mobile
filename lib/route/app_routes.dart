@@ -51,6 +51,8 @@ class AppRoutes {
   static const String profileLifestyle = '/lifestyle';
   static const String profilePhysicalSigns = '/physical-signs';
   static const String profileMentalState = '/mental-state';
+  static const String savedAddresses = '/saved-addresses';
+  static const String savedAddressForm = '/saved-addresses/form';
   static const String editProfessionalProfile = '/edit-professional-profile';
   static const String editProfessionalServices = '/edit-professional-services';
   static const String workingSchedule = '/working-schedule';

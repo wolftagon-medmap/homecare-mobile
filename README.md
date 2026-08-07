@@ -1,16 +1,44 @@
-# m2health
+# M2Health mobile
 
-A new Flutter project.
+The Flutter client for M2Health, a home healthcare platform. It serves both patients and professionals, covering booking, clinical records, screening, questionnaires, and the clinical programs. It talks to the AdonisJS backend.
 
-## Getting Started
+If you are an AI coding assistant, start with [AGENTS.md](AGENTS.md).
 
-This project is a starting point for a Flutter application.
+## Documentation
 
-A few resources to get you started if this is your first Flutter project:
+| Document | Covers |
+| --- | --- |
+| [AGENTS.md](AGENTS.md) | The rules to follow when changing this code |
+| [CONTEXT.md](CONTEXT.md) | What the words mean |
+| [docs/agents/backend-api-reference.md](docs/agents/backend-api-reference.md) | The API this app calls |
+| [.scratch](.scratch/) | Specs, plans, and open issues |
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The system architecture lives in the backend repository, in `docs/agents/ARCHITECTURE.md`.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Getting set up
+
+Flutter is pinned with [FVM](https://fvm.app/), so install that first and prefix every Flutter and Dart command with `fvm`. The pinned version is in `.fvmrc`.
+
+Run everything from the repository root, the folder that contains `pubspec.yaml`. Running from a parent folder picks up stale code, and your changes will not appear.
+
+```bash
+fvm flutter pub get
+fvm flutter run
+```
+
+## Everyday commands
+
+```bash
+fvm flutter analyze     # static analysis, must be clean before you commit
+fvm dart format .       # format
+fvm flutter test        # tests
+fvm flutter gen-l10n    # regenerate localization after editing an .arb file
+```
+
+Release builds are `fvm flutter build apk` and `fvm flutter build ios`.
+
+## Contributing
+
+Read [AGENTS.md](AGENTS.md) first. In short: `fvm flutter analyze` must be clean, `dart format` must be applied, commit messages are a single conventional line, and you branch before you commit rather than working on `develop` directly.
+
+Single sign-on setup is documented in [SSO_README.md](SSO_README.md).

@@ -13,12 +13,16 @@ class GetProfessionalsEvent extends ProfessionalEvent {
   final List<int>? serviceIds;
   final bool? isHomeScreeningAuthorized;
   final String? serviceSubCategory;
+  final double? latitude;
+  final double? longitude;
 
   const GetProfessionalsEvent(this.role,
       {this.name,
       this.serviceIds,
       this.isHomeScreeningAuthorized,
-      this.serviceSubCategory});
+      this.serviceSubCategory,
+      this.latitude,
+      this.longitude});
 
   @override
   List<Object> get props => [
@@ -27,6 +31,8 @@ class GetProfessionalsEvent extends ProfessionalEvent {
         serviceIds ?? [],
         isHomeScreeningAuthorized ?? false,
         serviceSubCategory ?? '',
+        latitude ?? 0,
+        longitude ?? 0,
       ];
 }
 

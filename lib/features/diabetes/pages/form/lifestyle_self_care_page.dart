@@ -77,9 +77,12 @@ class LifestyleSelfCarePageState extends State<LifestyleSelfCareFormPage> {
             FormRadioGroup(
               icon: Icons.bloodtype,
               title: context.l10n.recent_hypoglycemia_question,
-              options: HypoglycemiaLevel.values.map((e) => e.label(context)).toList(),
-              groupValue: HypoglycemiaLevel.fromValue(_currentData.recentHypoglycemia)
-                  ?.label(context),
+              options: HypoglycemiaLevel.values
+                  .map((e) => e.label(context))
+                  .toList(),
+              groupValue:
+                  HypoglycemiaLevel.fromValue(_currentData.recentHypoglycemia)
+                      ?.label(context),
               onChanged: (label) {
                 final option = HypoglycemiaLevel.values
                     .firstWhere((e) => e.label(context) == label);
@@ -107,8 +110,8 @@ class LifestyleSelfCarePageState extends State<LifestyleSelfCareFormPage> {
               icon: Icons.restaurant,
               title: context.l10n.diet_quality_question,
               options: DietQuality.values.map((e) => e.label(context)).toList(),
-              groupValue:
-                  DietQuality.fromValue(_currentData.dietQuality)?.label(context),
+              groupValue: DietQuality.fromValue(_currentData.dietQuality)
+                  ?.label(context),
               onChanged: (label) {
                 final option = DietQuality.values
                     .firstWhere((e) => e.label(context) == label);
@@ -119,7 +122,8 @@ class LifestyleSelfCarePageState extends State<LifestyleSelfCareFormPage> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0) +
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: PrimaryButton(
           text: widget.saveButtonText,
           onPressed: () {

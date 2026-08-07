@@ -4,6 +4,7 @@ import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/booking_appointment/nursing/domain/entities/nursing_case.dart';
 import 'package:m2health/features/booking_appointment/nursing/domain/repositories/nursing_appointment_repository.dart';
+import 'package:m2health/features/profiles/domain/entities/address.dart';
 
 class CreateNursingAppointment {
   final NursingAppointmentRepository repository;
@@ -20,6 +21,8 @@ class CreateNursingAppointmentParams extends Equatable {
   final String type = 'nursing';
   final int providerId;
   final DateTime startDatetime;
+  final int? patientProfileId;
+  final Address? location;
   final NursingCase nursingCase;
 
   String get summary => nursingCase.addOnServices.map((e) => e.name).join(', ');
@@ -27,9 +30,12 @@ class CreateNursingAppointmentParams extends Equatable {
   const CreateNursingAppointmentParams({
     required this.providerId,
     required this.startDatetime,
+    this.patientProfileId,
+    this.location,
     required this.nursingCase,
   });
 
   @override
-  List<Object?> get props => [type, providerId, startDatetime, nursingCase];
+  List<Object?> get props =>
+      [type, providerId, startDatetime, patientProfileId, location, nursingCase];
 }

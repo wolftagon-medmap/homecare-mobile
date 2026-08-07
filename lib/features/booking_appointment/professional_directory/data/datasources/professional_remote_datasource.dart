@@ -16,6 +16,8 @@ class ProfessionalRemoteDatasource {
     List<int>? serviceIds,
     bool? isHomeScreeningAuthorized,
     String? serviceSubCategory,
+    double? latitude,
+    double? longitude,
   }) async {
     try {
       final token = await Utils.getSpString(Const.TOKEN);
@@ -28,6 +30,8 @@ class ProfessionalRemoteDatasource {
           'is_home_screening_authorized': isHomeScreeningAuthorized,
         if (serviceSubCategory != null)
           'service_sub_category': serviceSubCategory,
+        if (latitude != null) 'latitude': latitude,
+        if (longitude != null) 'longitude': longitude,
       };
       log('Fetching professionals with params: $queryParams',
           name: 'ProfessionalRemoteDatasource');
@@ -76,47 +80,63 @@ class ProfessionalRemoteDatasource {
     }
   }
 
-  Future<void> toggleFavorite(int professionalId, bool isFavorite) async {
+  Future<void> toggleFavorite(
+    int professionalId,
+    bool isFavorite, {
+    String itemType = 'nurse',
+  }) async {
     final userId = await Utils.getSpString(Const.USER_ID);
     final token = await Utils.getSpString(Const.TOKEN);
 
-    if (isFavorite) {
-      final data = {
-        'user_id': userId,
-        'item_id': professionalId,
-        'item_type': 'nurse',
-        'highlighted': 1,
-      };
-      final response = await dio.post(
-        Const.API_FAVORITES,
-        data: data,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
+    try {
+      if (isFavorite) {
+        await dio.post(
+          Const.API_FAVORITES,
+          data: {
+            'user_id': userId,
+            'item_id': professionalId,
+            'item_type': itemType,
+            'highlighted': 1,
           },
-        ),
-      );
-      if (response.statusCode != 200) {
-        throw Exception('Failed to update favorite status');
+          options: Options(headers: {'Authorization': 'Bearer $token'}),
+        );
+      } else {
+        await dio.delete(
+          Const.API_FAVORITES,
+          data: {
+            'user_id': userId,
+            'item_id': professionalId,
+            'item_type': itemType,
+          },
+          options: Options(headers: {'Authorization': 'Bearer $token'}),
+        );
       }
-    } else {
-      final data = {
-        'user_id': userId,
-        'item_id': professionalId,
-        'item_type': 'nurse',
-      };
-      final response = await dio.delete(
-        Const.API_FAVORITES,
-        data: data,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $token',
-          },
-        ),
+    } on DioException catch (e) {
+      log(
+        'Favorite toggle failed: status=${e.response?.statusCode} body=${e.response?.data}',
+        name: 'ProfessionalRemoteDatasource',
       );
-      if (response.statusCode != 200) {
-        throw Exception('Failed to delete favorite');
+      throw Exception(_serverMessage(e) ??
+          (isFavorite
+              ? 'Failed to update favorite status'
+              : 'Failed to delete favorite'));
+    }
+  }
+
+  /// Surfaces the API's own validation/error message instead of Dio's raw dump.
+  String? _serverMessage(DioException e) {
+    final data = e.response?.data;
+    if (data is Map) {
+      final message = data['message'];
+      if (message is String && message.isNotEmpty) return message;
+      final errors = data['errors'];
+      if (errors is List && errors.isNotEmpty) {
+        final first = errors.first;
+        if (first is Map && first['message'] is String) {
+          return first['message'] as String;
+        }
       }
     }
+    return null;
   }
 }

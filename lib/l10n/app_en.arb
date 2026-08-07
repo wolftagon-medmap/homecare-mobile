@@ -265,6 +265,10 @@
   "@appointment_detail_patient_title": {
     "description": "Title for the patient information section in the appointment detail page"
   },
+  "appointment_detail_visit_address_title": "Visit Address",
+  "@appointment_detail_visit_address_title": {
+    "description": "Title for the visit address section in the appointment detail page"
+  },
   "appointment_detail_lab_test_title": "Lab Test Information",
   "@appointment_detail_lab_test_title": {
     "description": "Title for the lab test information section in the appointment detail page"
@@ -2090,6 +2094,80 @@
             "type": "int"
           }
         }
+      },
+  "common_close": "Close",
+  "@common_close": {},
+  "profile_switcher_new_profile": "+ New Profile",
+  "@profile_switcher_new_profile": {
+    "description": "Shortcut in the profile switcher sheet for creating a family profile"
+  },
+  "profile_relation_self": "Personal",
+  "@profile_relation_self": {
+    "description": "Label for the account holder's own profile in the switcher"
+  },
+  "profile_relation_spouse": "Spouse",
+  "@profile_relation_spouse": {},
+  "profile_relation_parent": "Parent",
+  "@profile_relation_parent": {},
+  "profile_relation_child": "Child",
+  "@profile_relation_child": {},
+  "profile_relation_sibling": "Sibling",
+  "@profile_relation_sibling": {},
+  "profile_relation_other": "Other",
+  "@profile_relation_other": {},
+  "profile_form_add_title": "Add Profile",
+  "@profile_form_add_title": {
+    "description": "Title of the profile form when creating a family profile"
+  },
+  "profile_form_date_of_birth": "Date of Birth",
+  "@profile_form_date_of_birth": {},
+  "profile_form_relationship": "Relationship",
+  "@profile_form_relationship": {},
+  "profile_form_field_required": "This field is required",
+  "@profile_form_field_required": {},
+  "profile_form_remove": "Remove Profile",
+  "@profile_form_remove": {},
+  "profile_form_remove_confirm": "Remove {name} from your profiles? This can't be undone.",
+  "@profile_form_remove_confirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
       }
+    }
+  },
+  "settings_saved_addresses": "Saved Addresses",
+  "@settings_saved_addresses": {
+    "description": "Entry in profile Settings section leading to the saved addresses list"
+  },
+  "address_form_add_title": "Add Address",
+  "@address_form_add_title": {},
+  "address_form_edit_title": "Edit Address",
+  "@address_form_edit_title": {},
+  "address_form_label": "Label",
+  "@address_form_label": {
+    "description": "e.g. Home, Parent's House"
+  },
+  "address_form_label_hint": "e.g. Home, Parent's House",
+  "@address_form_label_hint": {},
+  "address_form_location": "Location",
+  "@address_form_location": {},
+  "address_form_location_hint": "Tap to pick a location on the map",
+  "@address_form_location_hint": {},
+  "address_form_set_default": "Set as default",
+  "@address_form_set_default": {},
+  "address_default_badge": "Default",
+  "@address_default_badge": {},
+  "address_empty_state": "No saved addresses yet. Tap + to add one.",
+  "@address_empty_state": {},
+  "address_remove": "Remove Address",
+  "@address_remove": {},
+  "address_remove_confirm": "Remove \"{label}\"? This can't be undone.",
+  "@address_remove_confirm": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  }
     }
     

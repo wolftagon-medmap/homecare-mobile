@@ -99,6 +99,10 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
             const SizedBox(height: 16),
             _CancellationInfoCard(appointment: appointment),
           ],
+          if (appointment.locationAddress != null) ...[
+            const SizedBox(height: 16),
+            _VisitAddressSection(address: appointment.locationAddress!),
+          ],
           const SizedBox(height: 16),
           _PatientInfoSection(profile: appointment.patientProfile!),
           const SizedBox(height: 16),
@@ -415,6 +419,29 @@ class _PatientInfoSection extends StatelessWidget {
                 mapType: MapType.normal,
               ),
             ),
+        ],
+      ),
+    );
+  }
+}
+
+class _VisitAddressSection extends StatelessWidget {
+  final String address;
+  const _VisitAddressSection({required this.address});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            context.l10n.appointment_detail_visit_address_title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          const SizedBox(height: 16),
+          _InfoRow(text: address, isFlexible: true),
         ],
       ),
     );

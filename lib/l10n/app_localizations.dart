@@ -520,6 +520,12 @@ abstract class AppLocalizations {
   /// **'Patient Information'**
   String get appointment_detail_patient_title;
 
+  /// Title for the visit address section in the appointment detail page
+  ///
+  /// In en, this message translates to:
+  /// **'Visit Address'**
+  String get appointment_detail_visit_address_title;
+
   /// Title for the lab test information section in the appointment detail page
   ///
   /// In en, this message translates to:
@@ -4815,6 +4821,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Physiotherapy Session ({duration} mins)'**
   String physiotherapy_summary(int duration);
+
+  /// No description provided for @common_close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get common_close;
+
+  /// Shortcut in the profile switcher sheet for creating a family profile
+  ///
+  /// In en, this message translates to:
+  /// **'+ New Profile'**
+  String get profile_switcher_new_profile;
+
+  /// Label for the account holder's own profile in the switcher
+  ///
+  /// In en, this message translates to:
+  /// **'Personal'**
+  String get profile_relation_self;
+
+  /// No description provided for @profile_relation_spouse.
+  ///
+  /// In en, this message translates to:
+  /// **'Spouse'**
+  String get profile_relation_spouse;
+
+  /// No description provided for @profile_relation_parent.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent'**
+  String get profile_relation_parent;
+
+  /// No description provided for @profile_relation_child.
+  ///
+  /// In en, this message translates to:
+  /// **'Child'**
+  String get profile_relation_child;
+
+  /// No description provided for @profile_relation_sibling.
+  ///
+  /// In en, this message translates to:
+  /// **'Sibling'**
+  String get profile_relation_sibling;
+
+  /// No description provided for @profile_relation_other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get profile_relation_other;
+
+  /// Title of the profile form when creating a family profile
+  ///
+  /// In en, this message translates to:
+  /// **'Add Profile'**
+  String get profile_form_add_title;
+
+  /// No description provided for @profile_form_date_of_birth.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of Birth'**
+  String get profile_form_date_of_birth;
+
+  /// No description provided for @profile_form_relationship.
+  ///
+  /// In en, this message translates to:
+  /// **'Relationship'**
+  String get profile_form_relationship;
+
+  /// No description provided for @profile_form_field_required.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get profile_form_field_required;
+
+  /// No description provided for @profile_form_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Profile'**
+  String get profile_form_remove;
+
+  /// No description provided for @profile_form_remove_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name} from your profiles? This can\'t be undone.'**
+  String profile_form_remove_confirm(String name);
+
+  /// Entry in profile Settings section leading to the saved addresses list
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Addresses'**
+  String get settings_saved_addresses;
+
+  /// No description provided for @address_form_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Address'**
+  String get address_form_add_title;
+
+  /// No description provided for @address_form_edit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Address'**
+  String get address_form_edit_title;
+
+  /// e.g. Home, Parent's House
+  ///
+  /// In en, this message translates to:
+  /// **'Label'**
+  String get address_form_label;
+
+  /// No description provided for @address_form_label_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Home, Parent\'s House'**
+  String get address_form_label_hint;
+
+  /// No description provided for @address_form_location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get address_form_location;
+
+  /// No description provided for @address_form_location_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to pick a location on the map'**
+  String get address_form_location_hint;
+
+  /// No description provided for @address_form_set_default.
+  ///
+  /// In en, this message translates to:
+  /// **'Set as default'**
+  String get address_form_set_default;
+
+  /// No description provided for @address_default_badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get address_default_badge;
+
+  /// No description provided for @address_empty_state.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved addresses yet. Tap + to add one.'**
+  String get address_empty_state;
+
+  /// No description provided for @address_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Address'**
+  String get address_remove;
+
+  /// No description provided for @address_remove_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove \"{label}\"? This can\'t be undone.'**
+  String address_remove_confirm(String label);
 }
 
 class _AppLocalizationsDelegate

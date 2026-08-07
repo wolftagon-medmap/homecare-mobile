@@ -7,6 +7,7 @@ enum NursingFlowStep {
   searchProfessional,
   viewProfessionalDetail,
   scheduling,
+  confirmation,
 }
 
 enum AppointmentSubmissionStatus {
@@ -27,6 +28,7 @@ class NursingAppointmentFlowState extends Equatable {
   final List<ServiceEntity> selectedAddOnServices;
   final ProfessionalEntity? selectedProfessional;
   final DateTime? selectedTimeSlot;
+  final Address? selectedLocation;
   final AppointmentEntity? createdAppointment;
 
   // Submission status
@@ -41,6 +43,7 @@ class NursingAppointmentFlowState extends Equatable {
     this.selectedAddOnServices = const [],
     this.selectedProfessional,
     this.selectedTimeSlot,
+    this.selectedLocation,
     this.createdAppointment,
     this.submissionStatus = AppointmentSubmissionStatus.initial,
     this.errorMessage,
@@ -60,6 +63,7 @@ class NursingAppointmentFlowState extends Equatable {
     List<ServiceEntity>? selectedAddOnServices,
     ProfessionalEntity? selectedProfessional,
     DateTime? selectedTimeSlot,
+    Address? selectedLocation,
     AppointmentEntity? createdAppointment,
     AppointmentSubmissionStatus? submissionStatus,
     String? errorMessage,
@@ -73,6 +77,7 @@ class NursingAppointmentFlowState extends Equatable {
           selectedAddOnServices ?? this.selectedAddOnServices,
       selectedProfessional: selectedProfessional ?? this.selectedProfessional,
       selectedTimeSlot: selectedTimeSlot ?? this.selectedTimeSlot,
+      selectedLocation: selectedLocation ?? this.selectedLocation,
       createdAppointment: createdAppointment ?? this.createdAppointment,
       submissionStatus: submissionStatus ?? this.submissionStatus,
       errorMessage: errorMessage ?? this.errorMessage,
@@ -88,6 +93,7 @@ class NursingAppointmentFlowState extends Equatable {
         selectedAddOnServices,
         selectedProfessional,
         selectedTimeSlot,
+        selectedLocation,
         createdAppointment,
         submissionStatus,
         errorMessage,
