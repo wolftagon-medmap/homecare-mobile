@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/professional_profile/domain/care_dna.dart';
+import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
 
 /// The entry pattern for leveled catalogues.
 ///
@@ -11,60 +11,41 @@ import 'package:m2health/features/professional_profile/domain/care_dna.dart';
 class SelectThenRate extends StatelessWidget {
   const SelectThenRate({
     super.key,
-    required this.tags,
+    required this.entries,
     required this.scale,
     required this.onChanged,
     this.emptyHint = 'Nothing selected yet — tap above to add.',
   });
 
-  final List<LeveledTag> tags;
+  final List<LeveledEntry> entries;
   final LevelScale scale;
-  final ValueChanged<List<LeveledTag>> onChanged;
+  final ValueChanged<List<LeveledEntry>> onChanged;
   final String emptyHint;
 
-  void _setLevel(String id, int level) {
+  void _setLevel(String code, int level) {
     onChanged([
-      for (final t in tags)
-        if (t.id == id) t.copyWith(level: level) else t,
+      for (final e in entries)
+        if (e.code == code) e.copyWith(level: level) else e,
     ]);
   }
 
   @override
   Widget build(BuildContext context) {
-    final claimed = tags.where((t) => t.isClaimed).toList();
-    final available = tags.where((t) => !t.isClaimed).toList();
-    final groups = <String?, List<LeveledTag>>{};
-    for (final t in available) {
-      groups.putIfAbsent(t.group, () => []).add(t);
-    }
+    final claimed = entries.where((e) => e.isClaimed).toList();
+    final available = entries.where((e) => !e.isClaimed).toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (final entry in groups.entries) ...[
-          if (entry.key != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 4, bottom: 8),
-              child: Text(
-                entry.key!,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.grey.shade600,
-                  letterSpacing: 0.4,
-                ),
-              ),
-            ),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              for (final t in entry.value)
-                _AddChip(label: t.label, onTap: () => _setLevel(t.id, 3)),
-            ],
-          ),
-          const SizedBox(height: 16),
-        ],
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final e in available)
+              _AddChip(label: e.label, onTap: () => _setLevel(e.code, 3)),
+          ],
+        ),
+        const SizedBox(height: 16),
         const Divider(height: 24),
         Text(
           'Your selection',
@@ -84,12 +65,12 @@ class SelectThenRate extends StatelessWidget {
             ),
           )
         else
-          for (final t in claimed)
+          for (final e in claimed)
             _RatedRow(
-              tag: t,
+              entry: e,
               scale: scale,
-              onLevel: (lvl) => _setLevel(t.id, lvl),
-              onRemove: () => _setLevel(t.id, 0),
+              onLevel: (lvl) => _setLevel(e.code, lvl),
+              onRemove: () => _setLevel(e.code, 0),
             ),
       ],
     );
@@ -131,13 +112,13 @@ class _AddChip extends StatelessWidget {
 
 class _RatedRow extends StatelessWidget {
   const _RatedRow({
-    required this.tag,
+    required this.entry,
     required this.scale,
     required this.onLevel,
     required this.onRemove,
   });
 
-  final LeveledTag tag;
+  final LeveledEntry entry;
   final LevelScale scale;
   final ValueChanged<int> onLevel;
   final VoidCallback onRemove;
@@ -153,13 +134,13 @@ class _RatedRow extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  tag.label,
+                  entry.label,
                   style: const TextStyle(
                       fontWeight: FontWeight.w600, fontSize: 14),
                 ),
               ),
               Text(
-                '${scale.prefix}${tag.level} · ${scale.labelFor(tag.level)}',
+                '${scale.prefix}${entry.level} · ${scale.labelFor(entry.level)}',
                 style: const TextStyle(
                   color: Const.tosca,
                   fontWeight: FontWeight.w600,
@@ -178,7 +159,7 @@ class _RatedRow extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          LevelPills(level: tag.level, onChanged: onLevel),
+          LevelPills(level: entry.level, onChanged: onLevel),
         ],
       ),
     );

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/professional_profile/data/care_dna_catalog.dart';
 import 'package:m2health/features/professional_profile/data/care_dna_store.dart';
-import 'package:m2health/features/professional_profile/domain/care_dna.dart';
+import 'package:m2health/features/professional_profile/domain/care_dna.dart'
+    hide LevelScale, LevelScaleX;
+import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
 import 'package:m2health/features/professional_profile/presentation/widgets/select_then_rate.dart';
 
 /// Chapter 4: how the professional communicates. Language is the single most
@@ -47,9 +49,11 @@ class LanguagesStylePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       SelectThenRate(
-                        tags: dna.languages,
+                        entries: _asEntries(dna.languages),
                         scale: LevelScale.language,
-                        onChanged: CareDnaStore.instance.setLanguages,
+                        onChanged: (next) => CareDnaStore.instance.setLanguages(
+                          _applyLevels(dna.languages, next),
+                        ),
                         emptyHint: 'No languages added yet.',
                       ),
                       const SizedBox(height: 40),
@@ -108,4 +112,18 @@ class LanguagesStylePage extends StatelessWidget {
       ),
     );
   }
+}
+
+// Temporary. This screen still runs on CareDnaStore; F4 replaces it and these
+// two go with it.
+List<LeveledEntry> _asEntries(List<LeveledTag> tags) => [
+      for (final t in tags)
+        LeveledEntry(code: t.id, label: t.label, level: t.level),
+    ];
+
+List<LeveledTag> _applyLevels(List<LeveledTag> tags, List<LeveledEntry> next) {
+  final levels = {for (final e in next) e.code: e.level};
+  return [
+    for (final t in tags) t.copyWith(level: levels[t.id] ?? t.level),
+  ];
 }
