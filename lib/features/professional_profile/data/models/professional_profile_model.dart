@@ -1,7 +1,11 @@
 import 'package:m2health/core/data/models/service_model.dart';
 import 'package:m2health/features/profiles/data/models/address_model.dart';
 import 'package:m2health/features/professional_profile/data/models/certificate_model.dart';
+import 'package:m2health/features/professional_profile/data/models/emergency_contact_model.dart';
+import 'package:m2health/features/professional_profile/data/models/expertise_model.dart';
 import 'package:m2health/features/professional_profile/data/models/onboarding_status_model.dart';
+import 'package:m2health/features/professional_profile/data/models/service_area_model.dart';
+import 'package:m2health/features/professional_profile/data/models/work_preferences_model.dart';
 import 'package:m2health/features/professional_profile/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
 import 'package:m2health/features/schedule/data/models/provider_availability_model.dart';
@@ -34,7 +38,21 @@ class ProfessionalProfileModel extends ProfessionalProfile {
     super.providedServices = const [],
     super.weeklyAvailabilities = const [],
     super.workplaceAddress,
+    super.gender,
+    super.conditionExperience,
+    super.languages,
+    super.careStyle,
+    super.workPreferences,
+    super.serviceAreas,
+    super.residentialArea,
+    super.emergencyContact,
+    super.serviceProficiency,
   });
+
+  static List<LeveledEntryModel> _leveled(dynamic raw) =>
+      (raw as List<dynamic>? ?? [])
+          .map((e) => LeveledEntryModel.fromJson(e as Map<String, dynamic>))
+          .toList();
 
   factory ProfessionalProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfessionalProfileModel(
@@ -84,6 +102,30 @@ class ProfessionalProfileModel extends ProfessionalProfile {
                   ProviderAvailabilityModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      gender: json['gender'] as String?,
+      conditionExperience: _leveled(json['condition_experience']),
+      languages: _leveled(json['languages']),
+      careStyle: (json['care_style'] as List<dynamic>? ?? [])
+          .map((e) => CareStyleTraitModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      workPreferences: WorkPreferencesModel.fromJson(
+          (json['work_preferences'] as Map<String, dynamic>?) ?? const {}),
+      serviceAreas: (json['service_areas'] as List<dynamic>? ?? [])
+          .map((e) => ServiceAreaModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      residentialArea: json['residential_area'] != null
+          ? ServiceAreaModel.fromJson(
+              json['residential_area'] as Map<String, dynamic>)
+          : null,
+      emergencyContact: json['emergency_contact'] != null
+          ? EmergencyContactModel.fromJson(
+              json['emergency_contact'] as Map<String, dynamic>)
+          : const EmergencyContactModel(),
+      serviceProficiency: {
+        for (final s in (json['services'] as List<dynamic>? ?? []))
+          if ((s as Map<String, dynamic>)['proficiency_level'] != null)
+            s['id'] as int: (s['proficiency_level'] as num).toInt(),
+      },
       workplaceAddress: json['workplaceAddress'] != null
           ? AddressModel.fromJson(json['workplaceAddress'])
           : (json['workplace_address'] != null

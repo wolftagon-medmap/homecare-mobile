@@ -1,5 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
+import 'package:m2health/features/professional_profile/domain/entities/care_style.dart';
+import 'package:m2health/features/professional_profile/domain/entities/emergency_contact.dart';
+import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
+import 'package:m2health/features/professional_profile/domain/entities/service_area.dart';
+import 'package:m2health/features/professional_profile/domain/entities/work_preferences.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/professional_profile/domain/entities/certificate.dart';
 import 'package:m2health/features/professional_profile/domain/entities/onboarding_status.dart';
@@ -32,6 +37,19 @@ class ProfessionalProfile extends Equatable {
   final List<ServiceEntity> providedServices;
   final List<ProviderAvailability> weeklyAvailabilities;
   final Address? workplaceAddress;
+  final String? gender;
+  final List<LeveledEntry> conditionExperience;
+  final List<LeveledEntry> languages;
+  final List<CareStyleTrait> careStyle;
+  final WorkPreferences workPreferences;
+  final List<ServiceArea> serviceAreas;
+  final ServiceArea? residentialArea;
+  final EmergencyContact emergencyContact;
+
+  /// Level claimed per service the professional offers, keyed by service id.
+  /// Kept off ServiceEntity, which booking shares and which has no business
+  /// carrying one professional's claim about itself.
+  final Map<int, int> serviceProficiency;
 
   const ProfessionalProfile({
     required this.id,
@@ -60,6 +78,15 @@ class ProfessionalProfile extends Equatable {
     this.providedServices = const [],
     this.weeklyAvailabilities = const [],
     this.workplaceAddress,
+    this.gender,
+    this.conditionExperience = const [],
+    this.languages = const [],
+    this.careStyle = const [],
+    this.workPreferences = const WorkPreferences(),
+    this.serviceAreas = const [],
+    this.residentialArea,
+    this.emergencyContact = const EmergencyContact(),
+    this.serviceProficiency = const {},
   });
 
   @override
@@ -90,6 +117,15 @@ class ProfessionalProfile extends Equatable {
         providedServices,
         weeklyAvailabilities,
         workplaceAddress,
+        gender,
+        conditionExperience,
+        languages,
+        careStyle,
+        workPreferences,
+        serviceAreas,
+        residentialArea,
+        emergencyContact,
+        serviceProficiency,
       ];
 
   ProfessionalProfile copyWith({
@@ -119,6 +155,16 @@ class ProfessionalProfile extends Equatable {
     List<ServiceEntity>? providedServices,
     List<ProviderAvailability>? weeklyAvailabilities,
     Address? workplaceAddress,
+    String? gender,
+    List<LeveledEntry>? conditionExperience,
+    List<LeveledEntry>? languages,
+    List<CareStyleTrait>? careStyle,
+    WorkPreferences? workPreferences,
+    List<ServiceArea>? serviceAreas,
+    ServiceArea? residentialArea,
+    bool clearResidentialArea = false,
+    EmergencyContact? emergencyContact,
+    Map<int, int>? serviceProficiency,
   }) {
     return ProfessionalProfile(
         id: id ?? this.id,
@@ -148,6 +194,17 @@ class ProfessionalProfile extends Equatable {
         certificates: certificates ?? this.certificates,
         providedServices: providedServices ?? this.providedServices,
         weeklyAvailabilities: weeklyAvailabilities ?? this.weeklyAvailabilities,
-        workplaceAddress: workplaceAddress ?? this.workplaceAddress);
+        workplaceAddress: workplaceAddress ?? this.workplaceAddress,
+        gender: gender ?? this.gender,
+        conditionExperience: conditionExperience ?? this.conditionExperience,
+        languages: languages ?? this.languages,
+        careStyle: careStyle ?? this.careStyle,
+        workPreferences: workPreferences ?? this.workPreferences,
+        serviceAreas: serviceAreas ?? this.serviceAreas,
+        residentialArea: clearResidentialArea
+            ? null
+            : residentialArea ?? this.residentialArea,
+        emergencyContact: emergencyContact ?? this.emergencyContact,
+        serviceProficiency: serviceProficiency ?? this.serviceProficiency);
   }
 }
