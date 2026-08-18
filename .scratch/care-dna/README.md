@@ -4,6 +4,16 @@ Prototype for the Professional & Client Digital Profile Upgrade PRD. Branch
 `proto/professional-360`, worktree `D:\Wolftagon\Homecare\codebase\worktrees\professional-360`.
 Source PRD: `D:\Wolftagon\Homecare\M2Health_Professional_Client_Digital_Profile_Upgrade_PRD.pdf`.
 
+> **The backend now exists.** Every field these screens hold in memory has real storage and
+> endpoints — see `.scratch/professional-profile/spec.md` in `homecare-backend`, branch
+> `feat/professional-expertise`. Read that before wiring anything here.
+>
+> Two things will bite during integration. **The naming differs**: this side says
+> `care_dna` throughout, the backend deliberately does not — it uses expertise, work
+> preference and service area, because Care DNA is PRD language rather than a system
+> concept. And **the skills catalogue here is wrong**: the backend puts proficiency on the
+> services a professional already offers, per ADR 0006, with no separate skills table.
+
 Read this file first. The others go deeper:
 
 | File | Covers |
