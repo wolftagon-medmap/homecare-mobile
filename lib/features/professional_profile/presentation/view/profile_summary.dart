@@ -1,6 +1,8 @@
+import 'package:m2health/core/domain/entities/service_entity.dart';
+import 'package:m2health/features/professional_profile/domain/entities/care_style.dart';
 import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
+import 'package:m2health/features/professional_profile/domain/entities/service_area.dart';
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
-import 'package:m2health/features/professional_profile/domain/entities/work_preferences.dart';
 
 /// What the PRD calls Care DNA: the professional profile seen whole. It is a
 /// view over fields other chapters own, so it lives here rather than as an
@@ -24,7 +26,30 @@ class ProfileSummary {
       services: _ratedServices(profile),
       styleTraits: [for (final t in profile.careStyle) t.label],
       serviceAreas: [for (final a in profile.serviceAreas) a.name],
-      preferenceHighlights: _highlights(profile.workPreferences),
+      preferenceHighlights: profile.preferenceHighlights,
+    );
+  }
+
+  /// The same view assembled from what the public endpoint serves, so a patient
+  /// and the professional previewing themselves see the same thing.
+  factory ProfileSummary.public({
+    required String role,
+    required List<LeveledEntry> languages,
+    required List<LeveledEntry> conditions,
+    required List<ServiceEntity> services,
+    required Map<int, int> serviceProficiency,
+    required List<CareStyleTrait> careStyle,
+    required List<ServiceArea> serviceAreas,
+    required List<String> preferenceHighlights,
+  }) {
+    return ProfileSummary._(
+      role: role,
+      languages: _claimed(languages),
+      conditions: _claimed(conditions),
+      services: _rate(services, serviceProficiency),
+      styleTraits: [for (final t in careStyle) t.label],
+      serviceAreas: [for (final a in serviceAreas) a.name],
+      preferenceHighlights: preferenceHighlights,
     );
   }
 
@@ -74,27 +99,22 @@ class ProfileSummary {
     return claimed;
   }
 
-  static List<LeveledEntry> _ratedServices(ProfessionalProfile profile) {
+  static List<LeveledEntry> _ratedServices(ProfessionalProfile profile) =>
+      _rate(profile.providedServices, profile.serviceProficiency);
+
+  static List<LeveledEntry> _rate(
+    List<ServiceEntity> services,
+    Map<int, int> proficiency,
+  ) {
     final rated = [
-      for (final service in profile.providedServices)
-        if (profile.serviceProficiency[service.id] != null)
+      for (final service in services)
+        if (proficiency[service.id] != null)
           LeveledEntry(
             code: '${service.id}',
             label: service.name,
-            level: profile.serviceProficiency[service.id]!,
+            level: proficiency[service.id]!,
           ),
     ]..sort((a, b) => b.level.compareTo(a.level));
     return rated;
   }
-
-  /// F10 moves this rule to the server so the patient view and this preview
-  /// cannot drift apart.
-  static List<String> _highlights(WorkPreferences p) => [
-        if (p.longTermClient) 'Long-term clients',
-        if (p.hospitalEscort) 'Hospital escort',
-        if (p.emergencyReplacement) 'Emergency cover',
-        if (p.nightShift) 'Night shift' else 'Day shift',
-        if (p.weekendPublicHoliday) 'Weekends & holidays',
-        if (p.petFriendly) 'Pet-friendly',
-      ];
 }

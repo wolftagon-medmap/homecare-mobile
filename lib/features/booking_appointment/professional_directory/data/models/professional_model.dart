@@ -1,3 +1,6 @@
+import 'package:m2health/core/data/models/service_model.dart';
+import 'package:m2health/features/professional_profile/data/models/expertise_model.dart';
+import 'package:m2health/features/professional_profile/data/models/service_area_model.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/data/models/review_model.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/professional_profile/data/models/certificate_model.dart';
@@ -23,7 +26,19 @@ class ProfessionalModel extends ProfessionalEntity {
     required super.role,
     required super.providerType,
     required super.completedAppointmentsCount,
+    super.conditionExperience,
+    super.languages,
+    super.careStyle,
+    super.serviceAreas,
+    super.preferenceHighlights,
+    super.services,
+    super.serviceProficiency,
   });
+
+  static List<LeveledEntryModel> _leveled(dynamic raw) =>
+      (raw as List<dynamic>? ?? [])
+          .map((e) => LeveledEntryModel.fromJson(e as Map<String, dynamic>))
+          .toList();
 
   factory ProfessionalModel.fromJson(Map<String, dynamic> json) {
     return ProfessionalModel(
@@ -53,6 +68,26 @@ class ProfessionalModel extends ProfessionalEntity {
       providerType: json['provider_type'] ?? json['role'],
       completedAppointmentsCount:
           (json['completed_appointments_count'] as num?)?.toInt() ?? 0,
+      conditionExperience: _leveled(json['condition_experience']),
+      languages: _leveled(json['languages']),
+      careStyle: (json['care_style'] as List<dynamic>? ?? [])
+          .map((e) => CareStyleTraitModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      serviceAreas: (json['service_areas'] as List<dynamic>? ?? [])
+          .map((e) => ServiceAreaModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      preferenceHighlights: [
+        for (final h in (json['preference_highlights'] as List<dynamic>? ?? []))
+          h.toString(),
+      ],
+      services: (json['services'] as List<dynamic>? ?? [])
+          .map((e) => ServiceModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      serviceProficiency: {
+        for (final s in (json['services'] as List<dynamic>? ?? []))
+          if ((s as Map<String, dynamic>)['proficiency_level'] != null)
+            s['id'] as int: (s['proficiency_level'] as num).toInt(),
+      },
     );
   }
 }

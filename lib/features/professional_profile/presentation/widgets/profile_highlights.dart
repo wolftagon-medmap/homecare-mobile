@@ -209,3 +209,56 @@ class ProfileHighlightStrip extends StatelessWidget {
     );
   }
 }
+
+/// A patient scanning a profile wants the strip, not forty chips. The detail
+/// stays one tap away rather than on the page by default.
+class CollapsibleProfileHighlights extends StatefulWidget {
+  const CollapsibleProfileHighlights({super.key, required this.summary});
+
+  final ProfileSummary summary;
+
+  @override
+  State<CollapsibleProfileHighlights> createState() =>
+      _CollapsibleProfileHighlightsState();
+}
+
+class _CollapsibleProfileHighlightsState
+    extends State<CollapsibleProfileHighlights> {
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        InkWell(
+          onTap: () => setState(() => _expanded = !_expanded),
+          borderRadius: BorderRadius.circular(8),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Row(
+              children: [
+                const Expanded(
+                  child: Text(
+                    'Care DNA details',
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+                  ),
+                ),
+                Text(
+                  _expanded ? 'Hide' : 'Show',
+                  style: const TextStyle(fontSize: 13, color: Const.tosca),
+                ),
+                Icon(
+                  _expanded ? Icons.expand_less : Icons.expand_more,
+                  size: 20,
+                  color: Const.tosca,
+                ),
+              ],
+            ),
+          ),
+        ),
+        if (_expanded) ProfileHighlightSections(summary: widget.summary),
+      ],
+    );
+  }
+}

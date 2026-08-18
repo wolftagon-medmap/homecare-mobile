@@ -50,6 +50,7 @@ class ProfessionalProfile extends Equatable {
   /// Kept off ServiceEntity, which booking shares and which has no business
   /// carrying one professional's claim about itself.
   final Map<int, int> serviceProficiency;
+  final List<String> preferenceHighlights;
 
   const ProfessionalProfile({
     required this.id,
@@ -87,6 +88,7 @@ class ProfessionalProfile extends Equatable {
     this.residentialArea,
     this.emergencyContact = const EmergencyContact(),
     this.serviceProficiency = const {},
+    this.preferenceHighlights = const [],
   });
 
   @override
@@ -126,6 +128,7 @@ class ProfessionalProfile extends Equatable {
         residentialArea,
         emergencyContact,
         serviceProficiency,
+        preferenceHighlights,
       ];
 
   ProfessionalProfile copyWith({
@@ -165,6 +168,7 @@ class ProfessionalProfile extends Equatable {
     bool clearResidentialArea = false,
     EmergencyContact? emergencyContact,
     Map<int, int>? serviceProficiency,
+    List<String>? preferenceHighlights,
   }) {
     return ProfessionalProfile(
         id: id ?? this.id,
@@ -205,6 +209,8 @@ class ProfessionalProfile extends Equatable {
             ? null
             : residentialArea ?? this.residentialArea,
         emergencyContact: emergencyContact ?? this.emergencyContact,
-        serviceProficiency: serviceProficiency ?? this.serviceProficiency);
+        serviceProficiency: serviceProficiency ?? this.serviceProficiency,
+        preferenceHighlights:
+            preferenceHighlights ?? this.preferenceHighlights);
   }
 }

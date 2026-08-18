@@ -47,6 +47,7 @@ class ProfessionalProfileModel extends ProfessionalProfile {
     super.residentialArea,
     super.emergencyContact,
     super.serviceProficiency,
+    super.preferenceHighlights,
   });
 
   static List<LeveledEntryModel> _leveled(dynamic raw) =>
@@ -126,6 +127,10 @@ class ProfessionalProfileModel extends ProfessionalProfile {
           if ((s as Map<String, dynamic>)['proficiency_level'] != null)
             s['id'] as int: (s['proficiency_level'] as num).toInt(),
       },
+      preferenceHighlights: [
+        for (final h in (json['preference_highlights'] as List<dynamic>? ?? []))
+          h.toString(),
+      ],
       workplaceAddress: json['workplaceAddress'] != null
           ? AddressModel.fromJson(json['workplaceAddress'])
           : (json['workplace_address'] != null

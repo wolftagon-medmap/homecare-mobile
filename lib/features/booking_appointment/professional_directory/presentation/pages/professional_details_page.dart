@@ -5,6 +5,8 @@ import 'package:m2health/features/booking_appointment/professional_directory/dom
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional_detail/professional_detail_cubit.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional_detail/professional_detail_state.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/features/professional_profile/presentation/view/profile_summary.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/profile_highlights.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 class ProfessionalDetailsPage extends StatefulWidget {
@@ -89,6 +91,10 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
           _buildProfileHeader(professional),
           const SizedBox(height: 16),
           _buildStatsRow(context, professional),
+          const SizedBox(height: 20),
+          ProfileHighlightStrip(summary: _summaryOf(professional)),
+          const SizedBox(height: 8),
+          CollapsibleProfileHighlights(summary: _summaryOf(professional)),
           const SizedBox(height: 32),
           _buildAboutMe(context, professional),
           const SizedBox(height: 32),
@@ -488,3 +494,15 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
     );
   }
 }
+
+ProfileSummary _summaryOf(ProfessionalEntity professional) =>
+    ProfileSummary.public(
+      role: professional.jobTitle ?? professional.role,
+      languages: professional.languages,
+      conditions: professional.conditionExperience,
+      services: professional.services,
+      serviceProficiency: professional.serviceProficiency,
+      careStyle: professional.careStyle,
+      serviceAreas: professional.serviceAreas,
+      preferenceHighlights: professional.preferenceHighlights,
+    );
