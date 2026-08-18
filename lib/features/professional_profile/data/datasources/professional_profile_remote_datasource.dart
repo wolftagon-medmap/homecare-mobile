@@ -12,8 +12,11 @@ abstract class ProfessionalProfileRemoteDatasource {
   Future<ProfessionalProfileModel> getProfessionalProfile();
   Future<void> updateProfessionalProfile(
       Map<String, dynamic> data, File? avatar);
-  Future<void> updateProvidedServices(List<int> serviceIds,
-      {bool? isHomeScreeningAuthorized});
+  Future<void> updateProvidedServices(
+    List<int> serviceIds, {
+    bool? isHomeScreeningAuthorized,
+    Map<int, int>? proficiency,
+  });
   Future<ProfessionalProfileModel> submitForVerification();
 
   // Admin
@@ -94,14 +97,25 @@ class ProfessionalProfileRemoteDatasourceImpl
     }
   }
 
+  /// Omitting `proficiency` keeps the levels already recorded, which is what
+  /// the server does with a missing key.
   @override
-  Future<void> updateProvidedServices(List<int> serviceIds,
-      {bool? isHomeScreeningAuthorized}) async {
+  Future<void> updateProvidedServices(
+    List<int> serviceIds, {
+    bool? isHomeScreeningAuthorized,
+    Map<int, int>? proficiency,
+  }) async {
     try {
       const endpoint = '${Const.API_PROFESSIONALS}/my-services';
       final Map<String, dynamic> data = {'service_ids': serviceIds};
       if (isHomeScreeningAuthorized != null) {
         data['is_home_screening_authorized'] = isHomeScreeningAuthorized;
+      }
+      if (proficiency != null && proficiency.isNotEmpty) {
+        data['proficiency'] = [
+          for (final entry in proficiency.entries)
+            {'service_id': entry.key, 'level': entry.value},
+        ];
       }
 
       await dio.put(
