@@ -1,7 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/condition_experience_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/manage_services_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/admin/admin_professionals_page.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/care_dna_preview_page.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/condition_experience_page.dart';
@@ -59,7 +62,16 @@ class ProfessionalProfileRoutes {
     GoRoute(
       path: AppRoutes.professionalConditions,
       name: AppRoutes.professionalConditions,
-      builder: (context, state) => const ConditionExperiencePage(),
+      builder: (context, state) {
+        final profile = context.read<ProfessionalProfileCubit>().state;
+        return BlocProvider(
+          create: (_) => ConditionExperienceCubit(repository: sl())
+            ..load(profile is ProfessionalProfileLoaded
+                ? profile.profile.conditionExperience
+                : const []),
+          child: const ConditionExperiencePage(),
+        );
+      },
     ),
     GoRoute(
       path: AppRoutes.professionalLanguages,

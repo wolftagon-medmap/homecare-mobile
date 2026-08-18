@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/error/failures.dart';
+import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
 import 'package:m2health/features/professional_profile/domain/usecases/index.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/utils.dart';
@@ -72,5 +73,17 @@ class ProfessionalProfileCubit extends Cubit<ProfessionalProfileState> {
         emit(ProfessionalProfileLoaded(profile));
       },
     );
+  }
+
+  /// Folds a saved list back into the profile already in memory. Reloading
+  /// instead would emit Loading and flash a spinner on the hub behind the
+  /// screen that just saved.
+  void applyConditionExperience(List<LeveledEntry> entries) {
+    final current = state;
+    if (current is! ProfessionalProfileLoaded) return;
+
+    emit(ProfessionalProfileLoaded(
+      current.profile.copyWith(conditionExperience: entries),
+    ));
   }
 }
