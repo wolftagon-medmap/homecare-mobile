@@ -208,18 +208,27 @@ class LevelPills extends StatelessWidget {
   }
 }
 
+/// One pickable row. Carries the code the server stores alongside the label a
+/// professional reads, because the two are never the same string.
+class TagOption {
+  const TagOption({required this.code, required this.label});
+
+  final String code;
+  final String label;
+}
+
 /// Unleveled multi-select, used for style traits and service areas.
 class TagMultiSelect extends StatelessWidget {
   const TagMultiSelect({
     super.key,
     required this.options,
-    required this.selected,
+    required this.selectedCodes,
     required this.onChanged,
   });
 
-  final List<String> options;
-  final List<String> selected;
-  final ValueChanged<List<String>> onChanged;
+  final List<TagOption> options;
+  final Set<String> selectedCodes;
+  final ValueChanged<Set<String>> onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -228,50 +237,64 @@ class TagMultiSelect extends StatelessWidget {
       runSpacing: 8,
       children: [
         for (final o in options)
-          GestureDetector(
+          _SelectableChip(
+            label: o.label,
+            selected: selectedCodes.contains(o.code),
             onTap: () {
-              final next = [...selected];
-              next.contains(o) ? next.remove(o) : next.add(o);
+              final next = {...selectedCodes};
+              next.contains(o.code) ? next.remove(o.code) : next.add(o.code);
               onChanged(next);
             },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              decoration: BoxDecoration(
-                color: selected.contains(o) ? Const.aqua : Colors.transparent,
-                border: Border.all(
-                  color:
-                      selected.contains(o) ? Const.aqua : Colors.grey.shade300,
-                ),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    selected.contains(o) ? Icons.check : Icons.add,
-                    size: 14,
-                    color: selected.contains(o)
-                        ? Colors.white
-                        : Colors.grey.shade600,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    o,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: selected.contains(o)
-                          ? FontWeight.w600
-                          : FontWeight.w400,
-                      color: selected.contains(o)
-                          ? Colors.white
-                          : Colors.grey.shade800,
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ),
       ],
+    );
+  }
+}
+
+class _SelectableChip extends StatelessWidget {
+  const _SelectableChip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: selected ? Const.aqua : Colors.transparent,
+          border: Border.all(
+            color: selected ? Const.aqua : Colors.grey.shade300,
+          ),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              selected ? Icons.check : Icons.add,
+              size: 14,
+              color: selected ? Colors.white : Colors.grey.shade600,
+            ),
+            const SizedBox(width: 4),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+                color: selected ? Colors.white : Colors.grey.shade800,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

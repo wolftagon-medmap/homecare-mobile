@@ -127,9 +127,10 @@ class _WhereIWorkPageState extends State<WhereIWorkPage> {
                   ),
                   const SizedBox(height: 12),
                   TagMultiSelect(
-                    options: CareDnaCatalog.serviceAreas,
-                    selected: dna.serviceAreas,
-                    onChanged: CareDnaStore.instance.setServiceAreas,
+                    options: _districtOptions(),
+                    selectedCodes: dna.serviceAreas.toSet(),
+                    onChanged: (codes) =>
+                        CareDnaStore.instance.setServiceAreas(codes.toList()),
                   ),
                   const SizedBox(height: 40),
                 ],
@@ -257,3 +258,10 @@ class _Hint extends StatelessWidget {
     );
   }
 }
+
+// Temporary. Districts are still hardcoded labels held in CareDnaStore; F6
+// replaces this screen with the searchable picker over the real areas.
+List<TagOption> _districtOptions() => [
+      for (final name in CareDnaCatalog.serviceAreas)
+        TagOption(code: name, label: name),
+    ];
