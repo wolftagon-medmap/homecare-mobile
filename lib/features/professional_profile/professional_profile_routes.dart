@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/condition_experience_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/languages_care_style_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/manage_services_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
@@ -76,7 +77,19 @@ class ProfessionalProfileRoutes {
     GoRoute(
       path: AppRoutes.professionalLanguages,
       name: AppRoutes.professionalLanguages,
-      builder: (context, state) => const LanguagesStylePage(),
+      builder: (context, state) {
+        final loaded = context.read<ProfessionalProfileCubit>().state;
+        final profile =
+            loaded is ProfessionalProfileLoaded ? loaded.profile : null;
+        return BlocProvider(
+          create: (_) => LanguagesCareStyleCubit(repository: sl())
+            ..load(
+              claimedLanguages: profile?.languages ?? const [],
+              claimedTraits: profile?.careStyle ?? const [],
+            ),
+          child: const LanguagesStylePage(),
+        );
+      },
     ),
     GoRoute(
       path: AppRoutes.professionalCoverage,
