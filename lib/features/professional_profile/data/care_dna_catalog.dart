@@ -52,21 +52,6 @@ class CareDnaCatalog {
     'Cultural Sensitivity',
   ];
 
-  /// Still read by the residential-area field on Personal details. F7 replaces
-  /// that with the real area catalogue and deletes this.
-  static const List<String> serviceAreas = [
-    'Jakarta Selatan',
-    'Jakarta Pusat',
-    'Jakarta Barat',
-    'Jakarta Timur',
-    'Jakarta Utara',
-    'Kota Depok',
-    'Kota Bekasi',
-    'Kota Tangerang',
-    'Kota Tangerang Selatan',
-    'Kota Bogor',
-  ];
-
   static const List<String> genderPreferences = [
     'No preference',
     'Female clients only',

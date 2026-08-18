@@ -4,6 +4,7 @@ import 'package:m2health/features/professional_profile/domain/entities/professio
 import 'package:m2health/features/professional_profile/presentation/bloc/condition_experience_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/coverage_area_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/languages_care_style_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/personal_details_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/manage_services_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
@@ -25,8 +26,11 @@ class ProfessionalProfileRoutes {
     GoRoute(
       path: AppRoutes.editProfessionalProfile,
       builder: (context, state) {
-        ProfessionalProfile profile = state.extra as ProfessionalProfile;
-        return EditProfessionalProfilePage(profile: profile);
+        final profile = state.extra as ProfessionalProfile;
+        return BlocProvider(
+          create: (_) => PersonalDetailsCubit(repository: sl()),
+          child: EditProfessionalProfilePage(profile: profile),
+        );
       },
     ),
     GoRoute(

@@ -6,9 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/professional_profile/data/care_dna_catalog.dart';
-import 'package:m2health/features/professional_profile/data/care_dna_store.dart';
-import 'package:m2health/features/professional_profile/domain/care_dna.dart';
 import 'package:m2health/core/presentation/widgets/country_picker_field.dart';
 import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/professional_profile/domain/entities/certificate.dart';
@@ -16,6 +13,9 @@ import 'package:m2health/features/professional_profile/domain/entities/professio
 import 'package:m2health/features/professional_profile/domain/usecases/index.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/certificate_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/certificate_state.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/personal_details_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/coverage_area_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/pages/area_picker_page.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/features/professional_profile/presentation/widgets/add_edit_certificate_dialog.dart';
@@ -40,6 +40,10 @@ class _EditProfessionalProfilePageState
   late TextEditingController _experienceController;
   String? _selectedJobTitle;
   String? _selectedCountryCode;
+  String? _gender;
+  late final TextEditingController _emergencyName;
+  late final TextEditingController _emergencyRelationship;
+  late final TextEditingController _emergencyPhone;
 
   @override
   void initState() {
@@ -51,6 +55,16 @@ class _EditProfessionalProfilePageState
         TextEditingController(text: p.experience?.toString() ?? '');
     _selectedJobTitle = p.jobTitle;
     _selectedCountryCode = p.countryCode;
+    _gender = p.gender;
+    _emergencyName = TextEditingController(text: p.emergencyContact.name);
+    _emergencyRelationship =
+        TextEditingController(text: p.emergencyContact.relationship);
+    _emergencyPhone = TextEditingController(text: p.emergencyContact.phone);
+
+    context.read<PersonalDetailsCubit>().load(
+          countryCode: p.countryCode,
+          residentialArea: p.residentialArea,
+        );
   }
 
   @override
@@ -58,6 +72,9 @@ class _EditProfessionalProfilePageState
     _nameController.dispose();
     _aboutMeController.dispose();
     _experienceController.dispose();
+    _emergencyName.dispose();
+    _emergencyRelationship.dispose();
+    _emergencyPhone.dispose();
     super.dispose();
   }
 
@@ -70,20 +87,24 @@ class _EditProfessionalProfilePageState
   }
 
   void _onSavePressed() {
-    if (_formKey.currentState!.validate()) {
-      final params = UpdateProfessionalProfileParams(
-        role: '',
-        name: _nameController.text,
-        countryCode: _selectedCountryCode,
-        avatar: _selectedAvatar,
-        jobTitle: _selectedJobTitle,
-        about: _aboutMeController.text,
-        experience: int.tryParse(_experienceController.text),
-      );
-      context
-          .read<ProfessionalProfileCubit>()
-          .updateProfessionalProfile(params);
-    }
+    if (!_formKey.currentState!.validate()) return;
+
+    final params = UpdateProfessionalProfileParams(
+      role: '',
+      name: _nameController.text,
+      countryCode: _selectedCountryCode,
+      avatar: _selectedAvatar,
+      jobTitle: _selectedJobTitle,
+      about: _aboutMeController.text,
+      experience: int.tryParse(_experienceController.text),
+      gender: _gender,
+      emergencyContactName: _emergencyName.text,
+      emergencyContactRelationship: _emergencyRelationship.text,
+      emergencyContactPhone: _emergencyPhone.text,
+    );
+
+    context.read<PersonalDetailsCubit>().save();
+    context.read<ProfessionalProfileCubit>().updateProfessionalProfile(params);
   }
 
   @override
@@ -179,7 +200,15 @@ class _EditProfessionalProfilePageState
                 maxLines: 5,
               ),
               const SizedBox(height: 24),
-              const _PrdIdentityFields(),
+              _IdentityFields(
+                gender: _gender,
+                onGenderChanged: (value) => setState(() => _gender = value),
+                emergencyName: _emergencyName,
+                emergencyRelationship: _emergencyRelationship,
+                emergencyPhone: _emergencyPhone,
+                countryChanged:
+                    _selectedCountryCode != widget.profile.countryCode,
+              ),
               const SizedBox(height: 24),
               BlocBuilder<ProfessionalProfileCubit, ProfessionalProfileState>(
                   builder: (context, state) {
@@ -648,91 +677,180 @@ class CertificateCard extends StatelessWidget {
   }
 }
 
-/// PRD section 3 identity fields the backend has no columns for yet, so the
-/// prototype keeps them in the Care DNA store. They belong on this screen, not
-/// in a separate one — a professional thinks of all of this as "my details".
-class _PrdIdentityFields extends StatelessWidget {
-  const _PrdIdentityFields();
+/// PRD section 3 identity fields. They belong on this screen, not in a separate
+/// one -- a professional thinks of all of this as "my details".
+class _IdentityFields extends StatelessWidget {
+  const _IdentityFields({
+    required this.gender,
+    required this.onGenderChanged,
+    required this.emergencyName,
+    required this.emergencyRelationship,
+    required this.emergencyPhone,
+    required this.countryChanged,
+  });
 
-  static const _genders = ['Female', 'Male', 'Prefer not to say'];
+  final String? gender;
+  final ValueChanged<String?> onGenderChanged;
+  final TextEditingController emergencyName;
+  final TextEditingController emergencyRelationship;
+  final TextEditingController emergencyPhone;
+  final bool countryChanged;
+
+  static const _genders = ['Male', 'Female', 'Other'];
+
+  Future<void> _pickArea(
+      BuildContext context, PersonalDetailsState state) async {
+    final cubit = context.read<PersonalDetailsCubit>();
+    final selection = await Navigator.push<Set<String>>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => AreaPickerPage(
+          areas: state.areas,
+          initialSelection: {
+            if (state.selectedCode != null) state.selectedCode!,
+          },
+          title: 'Residential area',
+          singleSelect: true,
+        ),
+      ),
+    );
+
+    if (selection != null) cubit.select(selection.firstOrNull);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<CareDnaProfile>(
-      valueListenable: CareDnaStore.instance,
-      builder: (context, dna, _) {
-        final ec = dna.emergencyContact;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Gender',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-            const SizedBox(height: 6),
-            DropdownButtonFormField<String>(
-              initialValue: dna.gender.isEmpty ? null : dna.gender,
-              hint: const Text('Select'),
-              decoration: const InputDecoration(border: OutlineInputBorder()),
-              items: [
-                for (final g in _genders)
-                  DropdownMenuItem(value: g, child: Text(g)),
-              ],
-              onChanged: (v) =>
-                  v == null ? null : CareDnaStore.instance.setGender(v),
-            ),
-            const SizedBox(height: 16),
-            const Text('Residential area',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-            const SizedBox(height: 6),
-            DropdownButtonFormField<String>(
-              initialValue:
-                  dna.residentialArea.isEmpty ? null : dna.residentialArea,
-              hint: const Text('Select the district you live in'),
-              isExpanded: true,
-              decoration: const InputDecoration(border: OutlineInputBorder()),
-              items: [
-                for (final a in CareDnaCatalog.serviceAreas)
-                  DropdownMenuItem(value: a, child: Text(a)),
-              ],
-              onChanged: (v) => v == null
-                  ? null
-                  : CareDnaStore.instance.setResidentialArea(v),
-            ),
-            const SizedBox(height: 24),
-            const Text('Emergency contact',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-            const SizedBox(height: 4),
-            Text(
-              'Who we contact if something happens to you during a visit.',
-              style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
-            ),
-            const SizedBox(height: 10),
-            TextFormField(
-              initialValue: ec.name,
-              decoration: const InputDecoration(
-                  labelText: 'Full name', border: OutlineInputBorder()),
-              onChanged: (v) => CareDnaStore.instance
-                  .setEmergencyContact(ec.copyWith(name: v)),
-            ),
-            const SizedBox(height: 12),
-            TextFormField(
-              initialValue: ec.relationship,
-              decoration: const InputDecoration(
-                  labelText: 'Relationship', border: OutlineInputBorder()),
-              onChanged: (v) => CareDnaStore.instance
-                  .setEmergencyContact(ec.copyWith(relationship: v)),
-            ),
-            const SizedBox(height: 12),
-            TextFormField(
-              initialValue: ec.phone,
-              keyboardType: TextInputType.phone,
-              decoration: const InputDecoration(
-                  labelText: 'Phone number', border: OutlineInputBorder()),
-              onChanged: (v) => CareDnaStore.instance
-                  .setEmergencyContact(ec.copyWith(phone: v)),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Gender',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+        const SizedBox(height: 6),
+        DropdownButtonFormField<String>(
+          initialValue: gender,
+          hint: const Text('Not set'),
+          decoration: const InputDecoration(border: OutlineInputBorder()),
+          items: [
+            const DropdownMenuItem(value: null, child: Text('Not set')),
+            for (final g in _genders)
+              DropdownMenuItem(value: g, child: Text(g)),
           ],
-        );
-      },
+          onChanged: onGenderChanged,
+        ),
+        const SizedBox(height: 16),
+        const Text('Residential area',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+        const SizedBox(height: 6),
+        BlocBuilder<PersonalDetailsCubit, PersonalDetailsState>(
+          builder: (context, state) {
+            if (countryChanged) {
+              return const _AreaNote('Save your country first to choose a '
+                  'residential area.');
+            }
+            return switch (state.availability) {
+              CoverageAvailability.countryUnknown =>
+                const _AreaNote('Choose a country first.'),
+              CoverageAvailability.noAreasForCountry => const _AreaNote(
+                  'No districts are available for your country yet.'),
+              CoverageAvailability.ready => _AreaField(
+                  label: state.selectedArea?.name,
+                  onTap: () => _pickArea(context, state),
+                  onClear: state.selectedCode == null
+                      ? null
+                      : () => context.read<PersonalDetailsCubit>().select(null),
+                ),
+            };
+          },
+        ),
+        const SizedBox(height: 24),
+        const Text('Emergency contact',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+        const SizedBox(height: 4),
+        Text(
+          'Who we contact if something happens to you during a visit.',
+          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: emergencyName,
+          decoration: const InputDecoration(
+              labelText: 'Full name', border: OutlineInputBorder()),
+        ),
+        const SizedBox(height: 12),
+        TextFormField(
+          controller: emergencyRelationship,
+          decoration: const InputDecoration(
+              labelText: 'Relationship', border: OutlineInputBorder()),
+        ),
+        const SizedBox(height: 12),
+        TextFormField(
+          controller: emergencyPhone,
+          keyboardType: TextInputType.phone,
+          decoration: const InputDecoration(
+              labelText: 'Phone number', border: OutlineInputBorder()),
+        ),
+      ],
+    );
+  }
+}
+
+class _AreaField extends StatelessWidget {
+  const _AreaField({required this.label, required this.onTap, this.onClear});
+
+  final String? label;
+  final VoidCallback onTap;
+  final VoidCallback? onClear;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(4),
+      child: InputDecorator(
+        decoration: const InputDecoration(border: OutlineInputBorder()),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                label ?? 'Select the district you live in',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: label == null ? Colors.grey.shade500 : null,
+                ),
+              ),
+            ),
+            if (onClear != null)
+              GestureDetector(
+                onTap: onClear,
+                child: Icon(Icons.close, size: 18, color: Colors.grey.shade500),
+              ),
+            const SizedBox(width: 4),
+            Icon(Icons.search, size: 18, color: Colors.grey.shade600),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AreaNote extends StatelessWidget {
+  const _AreaNote(this.text);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        text,
+        style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+      ),
     );
   }
 }
