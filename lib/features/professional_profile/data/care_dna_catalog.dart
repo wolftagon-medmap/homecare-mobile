@@ -9,43 +9,6 @@ import 'package:m2health/features/professional_profile/domain/care_dna.dart';
 class CareDnaCatalog {
   const CareDnaCatalog._();
 
-  /// What a visit in each category includes, whatever else is booked.
-  ///
-  /// This is where the PRD's Daily Care group lives (it is the task list of the
-  /// hourly elderly homecare service, not a skill), along with the competencies
-  /// every nursing visit covers and so nobody is rated on separately.
-  static const Map<String, List<String>> serviceScope = {
-    'nursing': [
-      'Vital signs',
-      'Medication support',
-      'Clinical documentation',
-    ],
-    'homecare_elderly': [
-      'Personal hygiene',
-      'Feeding assistance',
-      'Toileting',
-      'Companionship',
-      'Family communication',
-    ],
-    'physiotherapy': [
-      'Mobility assessment',
-      'Exercise programme',
-      'Progress notes',
-    ],
-  };
-
-  static const Map<String, String> categoryLabels = {
-    'nursing': 'Nursing',
-    'homecare_elderly': 'Elderly homecare',
-    'physiotherapy': 'Physiotherapy',
-    'pharmacy': 'Pharmacy',
-    'screening': 'Health screening',
-    'nutrition': 'Nutrition',
-    'psychology': 'Psychology',
-    'optometry': 'Optometry',
-    'second_opinion_imaging': 'Second opinion',
-  };
-
   /// PRD section 4.
   static const List<LeveledTag> languages = [
     LeveledTag(id: 'en', label: 'English'),

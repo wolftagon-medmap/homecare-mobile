@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/error/failures.dart';
+import 'package:m2health/core/data/models/service_model.dart';
 import 'package:m2health/features/professional_profile/data/models/professional_profile_model.dart';
+import 'package:m2health/features/professional_profile/domain/entities/provided_services.dart';
 import 'package:m2health/utils.dart';
 import 'package:path/path.dart' as p;
 
@@ -12,7 +14,7 @@ abstract class ProfessionalProfileRemoteDatasource {
   Future<ProfessionalProfileModel> getProfessionalProfile();
   Future<void> updateProfessionalProfile(
       Map<String, dynamic> data, File? avatar);
-  Future<void> updateProvidedServices(
+  Future<ProvidedServices> updateProvidedServices(
     List<int> serviceIds, {
     bool? isHomeScreeningAuthorized,
     Map<int, int>? proficiency,
@@ -97,10 +99,11 @@ class ProfessionalProfileRemoteDatasourceImpl
     }
   }
 
-  /// Omitting `proficiency` keeps the levels already recorded, which is what
-  /// the server does with a missing key.
+  /// `service_ids` is always sent: the server rebuilds the whole pivot from it,
+  /// so a request without it unsubscribes the professional from everything.
+  /// Omitting `proficiency` keeps the levels already recorded.
   @override
-  Future<void> updateProvidedServices(
+  Future<ProvidedServices> updateProvidedServices(
     List<int> serviceIds, {
     bool? isHomeScreeningAuthorized,
     Map<int, int>? proficiency,
@@ -118,10 +121,22 @@ class ProfessionalProfileRemoteDatasourceImpl
         ];
       }
 
-      await dio.put(
+      final response = await dio.put(
         endpoint,
         data: data,
         options: await _getAuthHeaders(),
+      );
+
+      final saved = response.data['data'] as List<dynamic>? ?? [];
+      return ProvidedServices(
+        services: saved
+            .map((e) => ServiceModel.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        proficiency: {
+          for (final e in saved)
+            if ((e as Map<String, dynamic>)['proficiency_level'] != null)
+              e['id'] as int: (e['proficiency_level'] as num).toInt(),
+        },
       );
     } on DioException catch (e) {
       throw Exception('Failed to update services: ${e.message}');
