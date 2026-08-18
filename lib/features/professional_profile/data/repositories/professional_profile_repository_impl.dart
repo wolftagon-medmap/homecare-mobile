@@ -59,10 +59,12 @@ class ProfessionalProfileRepositoryImpl extends ProfessionalProfileRepository {
         'country_code': params.countryCode,
         'about': params.about,
         'job_title': params.jobTitle,
-        'working_hours': params.workHours,
-        'workplace': params.workPlace,
         'experience': params.experience,
         'service_radius_preference': params.serviceRadiusPreference,
+        'gender': params.gender,
+        'emergency_contact_name': params.emergencyContactName,
+        'emergency_contact_relationship': params.emergencyContactRelationship,
+        'emergency_contact_phone': params.emergencyContactPhone,
       };
 
       await remoteDatasource.updateProfessionalProfile(

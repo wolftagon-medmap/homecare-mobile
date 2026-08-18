@@ -26,6 +26,10 @@ class UpdateProfessionalProfileParams extends Equatable {
   final int? experience;
   final File? avatar;
   final int? serviceRadiusPreference;
+  final String? gender;
+  final String? emergencyContactName;
+  final String? emergencyContactRelationship;
+  final String? emergencyContactPhone;
 
   const UpdateProfessionalProfileParams({
     required this.role,
@@ -38,6 +42,10 @@ class UpdateProfessionalProfileParams extends Equatable {
     this.experience,
     this.avatar,
     this.serviceRadiusPreference,
+    this.gender,
+    this.emergencyContactName,
+    this.emergencyContactRelationship,
+    this.emergencyContactPhone,
   });
 
   @override
@@ -51,7 +59,11 @@ class UpdateProfessionalProfileParams extends Equatable {
         workPlace,
         experience,
         avatar,
-        serviceRadiusPreference
+        serviceRadiusPreference,
+        gender,
+        emergencyContactName,
+        emergencyContactRelationship,
+        emergencyContactPhone,
       ];
 
   UpdateProfessionalProfileParams copyWith({
@@ -65,6 +77,10 @@ class UpdateProfessionalProfileParams extends Equatable {
     int? experience,
     File? avatar,
     int? serviceRadiusPreference,
+    String? gender,
+    String? emergencyContactName,
+    String? emergencyContactRelationship,
+    String? emergencyContactPhone,
   }) {
     return UpdateProfessionalProfileParams(
       role: role ?? this.role,
@@ -78,6 +94,12 @@ class UpdateProfessionalProfileParams extends Equatable {
       avatar: avatar ?? this.avatar,
       serviceRadiusPreference:
           serviceRadiusPreference ?? this.serviceRadiusPreference,
+      gender: gender ?? this.gender,
+      emergencyContactName: emergencyContactName ?? this.emergencyContactName,
+      emergencyContactRelationship:
+          emergencyContactRelationship ?? this.emergencyContactRelationship,
+      emergencyContactPhone:
+          emergencyContactPhone ?? this.emergencyContactPhone,
     );
   }
 }
