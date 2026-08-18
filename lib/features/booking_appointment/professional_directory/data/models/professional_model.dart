@@ -1,6 +1,6 @@
 import 'package:m2health/features/booking_appointment/professional_directory/data/models/review_model.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
-import 'package:m2health/features/profiles/data/models/certificate_model.dart';
+import 'package:m2health/features/professional_profile/data/models/certificate_model.dart';
 
 class ProfessionalModel extends ProfessionalEntity {
   const ProfessionalModel({

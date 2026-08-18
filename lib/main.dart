@@ -19,10 +19,11 @@ import 'package:m2health/features/pharmacogenomics/domain/usecases/get_pharmacog
 import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/features/nutrition/domain/usecases/create_nutrition_appointment.dart';
 import 'package:m2health/features/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
+import 'package:m2health/features/professional_profile/domain/usecases/index.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
-import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/certificate_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/professional_profile_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/l10n/app_localizations.dart';

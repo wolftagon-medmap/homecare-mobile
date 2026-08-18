@@ -8,7 +8,8 @@ class GetPlaceDetails {
 
   GetPlaceDetails(this.repository);
 
-  Future<Either<Failure, PlaceDetail>> call(String placeId, String sessionToken) async {
+  Future<Either<Failure, PlaceDetail>> call(
+      String placeId, String sessionToken) async {
     return await repository.getPlaceDetails(placeId, sessionToken);
   }
 }

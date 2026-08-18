@@ -59,7 +59,8 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
   void initState() {
     super.initState();
     // Edits whichever profile is active, not necessarily the account holder's.
-    profile = _isCreate ? null : context.read<PatientProfileCubit>().activeProfile;
+    profile =
+        _isCreate ? null : context.read<PatientProfileCubit>().activeProfile;
     _nameController = TextEditingController(text: profile?.name);
     _weightController =
         TextEditingController(text: profile?.weight?.toString());
@@ -186,8 +187,8 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: Text(context.l10n.profile_form_remove),
-        content: Text(
-            context.l10n.profile_form_remove_confirm(removedProfile.name)),
+        content:
+            Text(context.l10n.profile_form_remove_confirm(removedProfile.name)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
@@ -319,7 +320,8 @@ class _EditBasicInfoPageState extends State<EditBasicInfoPage> {
                                   child: Text(
                                     field.errorText!,
                                     style: TextStyle(
-                                        color: Theme.of(context).colorScheme.error,
+                                        color:
+                                            Theme.of(context).colorScheme.error,
                                         fontSize: 12),
                                   ),
                                 ),

@@ -7,8 +7,8 @@ import 'package:m2health/features/notifications/presentation/bloc/notifications_
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
 import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
-import 'package:m2health/features/profiles/presentation/bloc/professional_profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/professional_profile_state.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';

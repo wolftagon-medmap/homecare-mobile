@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/reviewer.dart';
-import 'package:m2health/features/profiles/domain/entities/certificate.dart';
+import 'package:m2health/features/professional_profile/domain/entities/certificate.dart';
 
 class ProfessionalEntity extends Equatable {
   final int id;

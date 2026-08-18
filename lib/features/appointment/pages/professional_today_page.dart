@@ -10,8 +10,8 @@ import 'package:m2health/features/appointment/bloc/provider_inbox_cubit.dart';
 import 'package:m2health/features/appointment/data/models/inbox_item.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:m2health/features/notifications/presentation/bloc/notifications_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/professional_profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/professional_profile_state.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 

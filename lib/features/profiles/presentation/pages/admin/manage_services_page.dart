@@ -206,15 +206,14 @@ class _ManageServicesPageState extends State<ManageServicesPage> {
                     _cubit.setCategory(value);
                   }
                 },
-                dropdownMenuEntries: _categories
-                    .map<DropdownMenuEntry<String>>((cat) {
+                dropdownMenuEntries:
+                    _categories.map<DropdownMenuEntry<String>>((cat) {
                   return DropdownMenuEntry<String>(
                     value: cat.$1,
                     label: cat.$2,
                     style: MenuItemButton.styleFrom(
                       backgroundColor: Colors.white,
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     ),
                   );
                 }).toList(),
