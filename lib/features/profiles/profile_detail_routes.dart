@@ -1,5 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/features/care_dna/presentation/pages/care_dna_preview_page.dart';
+import 'package:m2health/features/care_dna/presentation/pages/condition_experience_page.dart';
+import 'package:m2health/features/care_dna/presentation/pages/languages_style_page.dart';
+import 'package:m2health/features/care_dna/presentation/pages/services_expertise_page.dart';
+import 'package:m2health/features/care_dna/presentation/pages/where_i_work_page.dart';
+import 'package:m2health/features/care_dna/presentation/pages/work_preferences_page.dart';
 import 'package:m2health/features/pharmacogenomics/presentation/pharmagenomical_pages.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/manage_services_cubit.dart';
@@ -165,6 +171,51 @@ class ProfileDetailRoutes {
       builder: (context, state) {
         return const VerificationHubPage();
       },
+    ),
+
+    // Care DNA (prototype)
+    GoRoute(
+      path: AppRoutes.careDnaServices,
+      name: AppRoutes.careDnaServices,
+      builder: (context, state) {
+        final args = state.extra as ManageServicesArgs;
+        return BlocProvider(
+          create: (_) => ManageServicesCubit(
+            profileRemoteDatasource: sl(),
+            servicesRepository: sl(),
+            role: args.role,
+          )..loadServices(
+              args.currentServices,
+              isHomeScreeningAuthorized: args.isHomeScreeningAuthorized,
+            ),
+          child: const ServicesExpertisePage(),
+        );
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.careDnaConditions,
+      name: AppRoutes.careDnaConditions,
+      builder: (context, state) => const ConditionExperiencePage(),
+    ),
+    GoRoute(
+      path: AppRoutes.careDnaLanguages,
+      name: AppRoutes.careDnaLanguages,
+      builder: (context, state) => const LanguagesStylePage(),
+    ),
+    GoRoute(
+      path: AppRoutes.careDnaWhereIWork,
+      name: AppRoutes.careDnaWhereIWork,
+      builder: (context, state) => const WhereIWorkPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.careDnaPreferences,
+      name: AppRoutes.careDnaPreferences,
+      builder: (context, state) => const WorkPreferencesPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.careDnaPreview,
+      name: AppRoutes.careDnaPreview,
+      builder: (context, state) => const CareDnaPreviewPage(),
     ),
 
     // Admin Panel

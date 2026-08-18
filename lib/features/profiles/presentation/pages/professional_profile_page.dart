@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/auth_guard_dialog.dart';
+import 'package:m2health/features/care_dna/presentation/widgets/care_dna_card.dart';
 import 'package:m2health/features/profiles/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/professional_profile_cubit.dart';
@@ -82,6 +83,8 @@ class _ProfessionalProfilePageState extends State<ProfessionalProfilePage> {
                       _VerificationOnboardingCard(profile: profile),
                       const SizedBox(height: 16),
                     ],
+                    const CareDnaCard(),
+                    const SizedBox(height: 16),
                     _ProfessionalProfileSection(profile: profile),
                     const SizedBox(height: 16),
                     const AppointmentSection(),
@@ -105,9 +108,106 @@ class _ProfessionalProfilePageState extends State<ProfessionalProfilePage> {
   }
 }
 
+/// The profile hub, grouped rather than listed.
+///
+/// A flat list of editors is a settings page. Three groups answer three
+/// different questions — who you are, what you do, and how you work — which is
+/// also why the location and schedule screens sit together instead of being
+/// scattered between Edit Profile and here.
 class _ProfessionalProfileSection extends StatelessWidget {
   final ProfessionalProfile profile;
   const _ProfessionalProfileSection({required this.profile});
+
+  Future<void> _openServices(BuildContext context) async {
+    final role = await Utils.getSpString(Const.ROLE);
+    if (role == null || !context.mounted) return;
+
+    await context.push(
+      AppRoutes.careDnaServices,
+      extra: ManageServicesArgs(
+        role: role,
+        isHomeScreeningAuthorized: profile.isHomeScreeningAuthorized ?? false,
+        currentServices: profile.providedServices,
+      ),
+    );
+
+    if (context.mounted) {
+      context.read<ProfessionalProfileCubit>().loadProfile();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        _HubGroup(
+          title: 'Profile',
+          rows: [
+            _HubRow(
+              icon: Icons.assignment_ind,
+              title: 'Personal details',
+              onTap: () => context.push(AppRoutes.editProfessionalProfile,
+                  extra: profile),
+            ),
+            _HubRow(
+              icon: Icons.workspace_premium_outlined,
+              title: 'Credentials',
+              onTap: () => context.push(AppRoutes.verificationHub),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        _HubGroup(
+          title: 'Practice',
+          rows: [
+            _HubRow(
+              icon: Icons.medical_services_outlined,
+              title: 'Services & expertise',
+              onTap: () => _openServices(context),
+            ),
+            _HubRow(
+              icon: Icons.favorite_outline,
+              title: 'Condition experience',
+              onTap: () => context.push(AppRoutes.careDnaConditions),
+            ),
+            _HubRow(
+              icon: Icons.translate,
+              title: 'Languages & care style',
+              onTap: () => context.push(AppRoutes.careDnaLanguages),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        _HubGroup(
+          title: 'Availability',
+          rows: [
+            _HubRow(
+              icon: Icons.calendar_month,
+              title: 'Working hours',
+              onTap: () => context.push(AppRoutes.workingSchedule),
+            ),
+            _HubRow(
+              icon: Icons.map_outlined,
+              title: 'Coverage area',
+              onTap: () => context.push(AppRoutes.careDnaWhereIWork),
+            ),
+            _HubRow(
+              icon: Icons.tune,
+              title: 'Work preferences',
+              onTap: () => context.push(AppRoutes.careDnaPreferences),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _HubGroup extends StatelessWidget {
+  const _HubGroup({required this.title, required this.rows});
+
+  final String title;
+  final List<_HubRow> rows;
 
   @override
   Widget build(BuildContext context) {
@@ -115,72 +215,41 @@ class _ProfessionalProfileSection extends StatelessWidget {
       elevation: 4,
       shadowColor: Colors.grey.withValues(alpha: 0.2),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              context.l10n.profile_professional_panel_section,
+              title,
               style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
-            ListTile(
-              leading: const Icon(
-                Icons.assignment_ind,
-                color: Color(0xFF35C5CF),
-              ),
-              title: Text(context.l10n.profile_professional_edit_profile),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-              ),
-              onTap: () {
-                context.push(AppRoutes.editProfessionalProfile, extra: profile);
-              },
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.list_alt,
-                color: Color(0xFF35C5CF),
-              ),
-              title: Text(context.l10n.profile_professional_my_services),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-              ),
-              onTap: () async {
-                final role = await Utils.getSpString(Const.ROLE);
-                if (role == null) return;
-
-                await GoRouter.of(context).pushNamed(
-                  AppRoutes.editProfessionalServices,
-                  extra: ManageServicesArgs(
-                    role: role,
-                    isHomeScreeningAuthorized:
-                        profile.isHomeScreeningAuthorized ?? false,
-                    currentServices: profile.providedServices,
-                  ),
-                );
-
-                context.read<ProfessionalProfileCubit>().loadProfile();
-              },
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.calendar_month,
-                color: Color(0xFF35C5CF),
-              ),
-              title: Text(context.l10n.profile_professional_my_schedule),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-              ),
-              onTap: () {
-                context.push(AppRoutes.workingSchedule);
-              },
-            ),
+            ...rows,
           ],
         ),
       ),
+    );
+  }
+}
+
+class _HubRow extends StatelessWidget {
+  const _HubRow({
+    required this.icon,
+    required this.title,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      leading: Icon(icon, color: Const.aqua),
+      title: Text(title),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+      onTap: onTap,
     );
   }
 }

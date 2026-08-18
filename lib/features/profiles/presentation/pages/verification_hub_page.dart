@@ -51,7 +51,7 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
     if (role == null || !mounted) return;
     await _openAndRefresh(
       () => GoRouter.of(context).pushNamed(
-        AppRoutes.editProfessionalServices,
+        AppRoutes.careDnaServices,
         extra: ManageServicesArgs(
           role: role,
           isHomeScreeningAuthorized: profile.isHomeScreeningAuthorized ?? false,
@@ -63,6 +63,10 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
 
   void _openSchedule() {
     _openAndRefresh(() => context.push(AppRoutes.workingSchedule));
+  }
+
+  void _openCoverage() {
+    _openAndRefresh(() => context.push(AppRoutes.careDnaWhereIWork));
   }
 
   @override
@@ -78,8 +82,7 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(SnackBar(
-                  content: Text(state.message),
-                  backgroundColor: Colors.green));
+                  content: Text(state.message), backgroundColor: Colors.green));
             if (context.canPop()) context.pop();
           } else if (state is ProfessionalProfileError) {
             ScaffoldMessenger.of(context)
@@ -91,8 +94,7 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
         builder: (context, state) {
           if (state is ProfessionalProfileLoaded) _profile = state.profile;
           final profile = _profile;
-          final submitting =
-              state is ProfessionalProfileVerificationSubmitting;
+          final submitting = state is ProfessionalProfileVerificationSubmitting;
 
           if (profile == null) {
             if (state is ProfessionalProfileError) {
@@ -130,7 +132,7 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
                       const SizedBox(height: 24),
                       _StepTile(
                         index: 1,
-                        title: 'Professional profile',
+                        title: 'Personal details',
                         incompleteHint: _profileHint(onboarding?.profile),
                         icon: Icons.assignment_ind_outlined,
                         step: onboarding?.profile,
@@ -138,7 +140,7 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
                       ),
                       _StepTile(
                         index: 2,
-                        title: 'Certificates',
+                        title: 'Credentials',
                         incompleteHint:
                             'Add at least one professional certificate',
                         icon: Icons.workspace_premium_outlined,
@@ -147,7 +149,7 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
                       ),
                       _StepTile(
                         index: 3,
-                        title: 'Provided services',
+                        title: 'Services',
                         incompleteHint:
                             'Select the services you offer to patients',
                         icon: Icons.medical_services_outlined,
@@ -156,11 +158,26 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
                       ),
                       _StepTile(
                         index: 4,
-                        title: 'Working schedule',
+                        title: 'Working hours',
                         incompleteHint: 'Set your weekly availability',
                         icon: Icons.calendar_month_outlined,
                         step: onboarding?.schedule,
                         onTap: _openSchedule,
+                      ),
+                      // The base address left Edit Profile for Coverage area, so
+                      // it needs its own step. The server still folds it into
+                      // the profile step; until that splits, this is derived
+                      // here so the checklist points at the right screen.
+                      _StepTile(
+                        index: 5,
+                        title: 'Coverage area',
+                        incompleteHint: 'Set the address you travel from',
+                        icon: Icons.map_outlined,
+                        step: OnboardingStep(
+                          complete: profile.workplaceAddress != null,
+                          missing: const [],
+                        ),
+                        onTap: _openCoverage,
                       ),
                       const SizedBox(height: 16),
                       _ReadinessNote(onboarding: onboarding),

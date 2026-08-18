@@ -5,6 +5,9 @@ import 'package:m2health/features/booking_appointment/professional_directory/dom
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional_detail/professional_detail_cubit.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional_detail/professional_detail_state.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/features/care_dna/data/care_dna_store.dart';
+import 'package:m2health/features/care_dna/domain/care_dna.dart';
+import 'package:m2health/features/care_dna/presentation/widgets/care_dna_public_sections.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 class ProfessionalDetailsPage extends StatefulWidget {
@@ -89,9 +92,18 @@ class _ProfessionalDetailsPageState extends State<ProfessionalDetailsPage> {
           _buildProfileHeader(professional),
           const SizedBox(height: 16),
           _buildStatsRow(context, professional),
+          const SizedBox(height: 20),
+          ValueListenableBuilder<CareDnaProfile>(
+            valueListenable: CareDnaStore.instance,
+            builder: (context, dna, _) => CareDnaStrip(dna: dna),
+          ),
           const SizedBox(height: 32),
           _buildAboutMe(context, professional),
           const SizedBox(height: 32),
+          ValueListenableBuilder<CareDnaProfile>(
+            valueListenable: CareDnaStore.instance,
+            builder: (context, dna, _) => CareDnaPublicSections(dna: dna),
+          ),
           _buildWorkingInfo(context, professional),
           const SizedBox(height: 32),
           _buildCertificates(context, professional),

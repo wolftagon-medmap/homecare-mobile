@@ -57,6 +57,13 @@ class AppRoutes {
   static const String editProfessionalServices = '/edit-professional-services';
   static const String workingSchedule = '/working-schedule';
   static const String verificationHub = '/verification-hub';
+  static const String availability = '/availability';
+  static const String careDnaServices = '/care-dna/services';
+  static const String careDnaConditions = '/care-dna/conditions';
+  static const String careDnaLanguages = '/care-dna/languages';
+  static const String careDnaWhereIWork = '/care-dna/where-i-work';
+  static const String careDnaPreferences = '/care-dna/preferences';
+  static const String careDnaPreview = '/care-dna/preview';
   static const String manageServices = '/manage-services';
   static const String adminProfessionals = '/admin-professionals';
   static const String manageHealthScreening = '/manage-health-screening';

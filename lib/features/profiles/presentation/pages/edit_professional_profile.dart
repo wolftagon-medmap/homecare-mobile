@@ -6,9 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/features/care_dna/data/care_dna_catalog.dart';
+import 'package:m2health/features/care_dna/data/care_dna_store.dart';
+import 'package:m2health/features/care_dna/domain/care_dna.dart';
 import 'package:m2health/core/presentation/widgets/country_picker_field.dart';
 import 'package:m2health/features/auth/domain/entities/user_role.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/profiles/domain/entities/certificate.dart';
 import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
@@ -16,7 +18,6 @@ import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.d
 import 'package:m2health/features/profiles/presentation/bloc/certificate_state.dart';
 import 'package:m2health/features/profiles/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/professional_profile_state.dart';
-import 'package:m2health/features/profiles/presentation/pages/address_map_page.dart';
 import 'package:m2health/features/profiles/presentation/widgets/add_edit_certificate_dialog.dart';
 
 class EditProfessionalProfilePage extends StatefulWidget {
@@ -36,13 +37,9 @@ class _EditProfessionalProfilePageState
   // Controllers
   late TextEditingController _nameController;
   late TextEditingController _aboutMeController;
-  late TextEditingController _workHoursController;
-  late TextEditingController _workplaceController;
   late TextEditingController _experienceController;
   String? _selectedJobTitle;
   String? _selectedCountryCode;
-  Address? _workplaceAddress;
-  int? _serviceRadiusPreference;
 
   @override
   void initState() {
@@ -50,31 +47,16 @@ class _EditProfessionalProfilePageState
     final p = widget.profile;
     _nameController = TextEditingController(text: p.name ?? '');
     _aboutMeController = TextEditingController(text: p.about ?? '');
-    _workHoursController = TextEditingController(text: p.workingHours ?? '');
-    _workplaceAddress = p.workplaceAddress;
-    _workplaceController = TextEditingController(
-      text: _buildWorkplaceText(p.workplaceAddress, fallback: p.workPlace),
-    );
     _experienceController =
         TextEditingController(text: p.experience?.toString() ?? '');
     _selectedJobTitle = p.jobTitle;
     _selectedCountryCode = p.countryCode;
-    _serviceRadiusPreference = p.serviceRadiusPreference;
-  }
-
-  String _buildWorkplaceText(Address? address, {String? fallback}) {
-    if (address == null) return fallback ?? '';
-    return [address.name, address.formattedAddress]
-        .where((part) => part != null && part.isNotEmpty)
-        .join(', ');
   }
 
   @override
   void dispose() {
     _nameController.dispose();
     _aboutMeController.dispose();
-    _workHoursController.dispose();
-    _workplaceController.dispose();
     _experienceController.dispose();
     super.dispose();
   }
@@ -96,12 +78,11 @@ class _EditProfessionalProfilePageState
         avatar: _selectedAvatar,
         jobTitle: _selectedJobTitle,
         about: _aboutMeController.text,
-        workHours: _workHoursController.text,
-        workPlace: _workplaceController.text,
         experience: int.tryParse(_experienceController.text),
-        serviceRadiusPreference: _serviceRadiusPreference,
       );
-      context.read<ProfessionalProfileCubit>().updateProfessionalProfile(params);
+      context
+          .read<ProfessionalProfileCubit>()
+          .updateProfessionalProfile(params);
     }
   }
 
@@ -198,92 +179,7 @@ class _EditProfessionalProfilePageState
                 maxLines: 5,
               ),
               const SizedBox(height: 24),
-              const Text('Working Information',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-              const SizedBox(height: 16),
-              _TextFieldWidget(
-                  controller: _workHoursController,
-                  label: 'Working Hours',
-                  hint: 'E.g: Monday - Friday, 09.00AM - 05.00 PM'),
-              const SizedBox(height: 16),
-              GestureDetector(
-                onTap: () async {
-                  final result = await Navigator.push<Address>(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AddressMapPage(
-                        initialAddress: _workplaceAddress,
-                        saveAsWorkplace: true,
-                      ),
-                    ),
-                  );
-
-                  if (result != null && context.mounted) {
-                    setState(() {
-                      _workplaceAddress = result;
-                      _workplaceController.text = _buildWorkplaceText(result);
-                    });
-                  }
-                },
-                child: AbsorbPointer(
-                  child: _TextFieldWidget(
-                    controller: _workplaceController,
-                    label: 'Workplace',
-                    hint: 'Type or search building or places here',
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Row(
-                children: [
-                  Text(
-                    "Service Radius Preference",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(width: 4),
-                  Tooltip(
-                    message:
-                        'This setting indicates the maximum distance you are willing to travel for providing homecare services.'
-                        ' Setting a larger radius may increase your chances of getting more appointments, but also means you may have to travel farther.',
-                    child: Icon(Icons.info_outline, size: 16),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  const Text('1 km', style: TextStyle(fontSize: 12)),
-                  Expanded(
-                    child: Slider(
-                      value: _serviceRadiusPreference?.toDouble() ?? 30,
-                      min: 1,
-                      max: 50,
-                      divisions: 49,
-                      activeColor: Const.aqua,
-                      label: '${_serviceRadiusPreference ?? 30} km',
-                      onChanged: (value) {
-                        setState(() {
-                          _serviceRadiusPreference = value.toInt();
-                        });
-                      },
-                    ),
-                  ),
-                  const Text('50 km', style: TextStyle(fontSize: 12)),
-                ],
-              ),
-              Center(
-                child: Text(
-                  '${_serviceRadiusPreference ?? 30} km',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Const.aqua,
-                  ),
-                ),
-              ),
+              const _PrdIdentityFields(),
               const SizedBox(height: 24),
               BlocBuilder<ProfessionalProfileCubit, ProfessionalProfileState>(
                   builder: (context, state) {
@@ -748,6 +644,95 @@ class CertificateCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// PRD section 3 identity fields the backend has no columns for yet, so the
+/// prototype keeps them in the Care DNA store. They belong on this screen, not
+/// in a separate one — a professional thinks of all of this as "my details".
+class _PrdIdentityFields extends StatelessWidget {
+  const _PrdIdentityFields();
+
+  static const _genders = ['Female', 'Male', 'Prefer not to say'];
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<CareDnaProfile>(
+      valueListenable: CareDnaStore.instance,
+      builder: (context, dna, _) {
+        final ec = dna.emergencyContact;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Gender',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+            const SizedBox(height: 6),
+            DropdownButtonFormField<String>(
+              initialValue: dna.gender.isEmpty ? null : dna.gender,
+              hint: const Text('Select'),
+              decoration: const InputDecoration(border: OutlineInputBorder()),
+              items: [
+                for (final g in _genders)
+                  DropdownMenuItem(value: g, child: Text(g)),
+              ],
+              onChanged: (v) =>
+                  v == null ? null : CareDnaStore.instance.setGender(v),
+            ),
+            const SizedBox(height: 16),
+            const Text('Residential area',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+            const SizedBox(height: 6),
+            DropdownButtonFormField<String>(
+              initialValue:
+                  dna.residentialArea.isEmpty ? null : dna.residentialArea,
+              hint: const Text('Select the district you live in'),
+              isExpanded: true,
+              decoration: const InputDecoration(border: OutlineInputBorder()),
+              items: [
+                for (final a in CareDnaCatalog.serviceAreas)
+                  DropdownMenuItem(value: a, child: Text(a)),
+              ],
+              onChanged: (v) => v == null
+                  ? null
+                  : CareDnaStore.instance.setResidentialArea(v),
+            ),
+            const SizedBox(height: 24),
+            const Text('Emergency contact',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            const SizedBox(height: 4),
+            Text(
+              'Who we contact if something happens to you during a visit.',
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+            ),
+            const SizedBox(height: 10),
+            TextFormField(
+              initialValue: ec.name,
+              decoration: const InputDecoration(
+                  labelText: 'Full name', border: OutlineInputBorder()),
+              onChanged: (v) => CareDnaStore.instance
+                  .setEmergencyContact(ec.copyWith(name: v)),
+            ),
+            const SizedBox(height: 12),
+            TextFormField(
+              initialValue: ec.relationship,
+              decoration: const InputDecoration(
+                  labelText: 'Relationship', border: OutlineInputBorder()),
+              onChanged: (v) => CareDnaStore.instance
+                  .setEmergencyContact(ec.copyWith(relationship: v)),
+            ),
+            const SizedBox(height: 12),
+            TextFormField(
+              initialValue: ec.phone,
+              keyboardType: TextInputType.phone,
+              decoration: const InputDecoration(
+                  labelText: 'Phone number', border: OutlineInputBorder()),
+              onChanged: (v) => CareDnaStore.instance
+                  .setEmergencyContact(ec.copyWith(phone: v)),
+            ),
+          ],
+        );
+      },
     );
   }
 }
