@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/auth_guard_dialog.dart';
-import 'package:m2health/features/professional_profile/presentation/widgets/care_dna_card.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/profile_summary_card.dart';
 import 'package:m2health/features/professional_profile/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
@@ -83,7 +83,7 @@ class _ProfessionalProfilePageState extends State<ProfessionalProfilePage> {
                       _VerificationOnboardingCard(profile: profile),
                       const SizedBox(height: 16),
                     ],
-                    const CareDnaCard(),
+                    ProfileSummaryCard(profile: profile),
                     const SizedBox(height: 16),
                     _ProfessionalProfileSection(profile: profile),
                     const SizedBox(height: 16),

@@ -3,8 +3,8 @@ import 'package:m2health/const.dart';
 
 /// Read-only chip used on both the Care DNA card and the patient-facing
 /// profile. Filled when it carries a level, outlined when it is a plain tag.
-class DnaChip extends StatelessWidget {
-  const DnaChip({
+class ProfileChip extends StatelessWidget {
+  const ProfileChip({
     super.key,
     required this.label,
     this.filled = false,

@@ -11,7 +11,7 @@ import 'package:m2health/features/professional_profile/presentation/bloc/manage_
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/admin/admin_professionals_page.dart';
-import 'package:m2health/features/professional_profile/presentation/pages/care_dna_preview_page.dart';
+import 'package:m2health/features/professional_profile/presentation/pages/profile_preview_page.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/condition_experience_page.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/edit_professional_profile.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/languages_style_page.dart';
@@ -137,7 +137,7 @@ class ProfessionalProfileRoutes {
     GoRoute(
       path: AppRoutes.professionalPreview,
       name: AppRoutes.professionalPreview,
-      builder: (context, state) => const CareDnaPreviewPage(),
+      builder: (context, state) => const ProfilePreviewPage(),
     ),
     GoRoute(
       path: AppRoutes.adminProfessionals,

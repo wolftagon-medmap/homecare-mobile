@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/professional_profile/domain/care_dna.dart';
-import 'package:m2health/features/professional_profile/presentation/widgets/dna_chip.dart';
+import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
+import 'package:m2health/features/professional_profile/presentation/view/profile_summary.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/profile_chip.dart';
 
 /// The Care DNA as a patient sees it.
 ///
 /// Curated rather than exhaustive: a patient scanning for "speaks Hokkien,
 /// knows dementia" should get that in the first screenful, so each section
 /// shows its strongest few and hides the rest behind "show all".
-class CareDnaPublicSections extends StatelessWidget {
-  const CareDnaPublicSections({super.key, required this.dna});
+class ProfileHighlightSections extends StatelessWidget {
+  const ProfileHighlightSections({super.key, required this.summary});
 
-  final CareDnaProfile dna;
+  final ProfileSummary summary;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +23,8 @@ class CareDnaPublicSections extends StatelessWidget {
           title: 'Speaks',
           icon: Icons.translate,
           items: [
-            for (final t in dna.claimedLanguages)
-              '${t.label} · ${LevelScale.language.labelFor(t.level)}',
+            for (final e in summary.languages)
+              '${e.label} · ${LevelScale.language.labelFor(e.level)}',
           ],
           emptyText: 'No languages listed.',
         ),
@@ -31,8 +32,7 @@ class CareDnaPublicSections extends StatelessWidget {
           title: 'Experienced with',
           icon: Icons.favorite_outline,
           items: [
-            for (final t in dna.claimedConditions)
-              '${t.label} ${LevelScale.experience.prefix}${t.level}',
+            for (final e in summary.conditions) e.badge(LevelScale.experience),
           ],
           emptyText: 'No condition experience listed.',
         ),
@@ -40,28 +40,27 @@ class CareDnaPublicSections extends StatelessWidget {
           title: 'Services & expertise',
           icon: Icons.medical_services_outlined,
           items: [
-            for (final t in dna.ratedServices)
-              '${t.label} ${LevelScale.proficiency.prefix}${t.level}',
+            for (final e in summary.services) e.badge(LevelScale.proficiency),
           ],
           emptyText: 'No services rated yet.',
         ),
         _ChipSection(
           title: 'Care style',
           icon: Icons.handshake_outlined,
-          items: dna.styleTraits,
+          items: summary.styleTraits,
           emptyText: 'No care style listed.',
         ),
         _ChipSection(
           title: 'Works with',
           icon: Icons.schedule,
-          items: dna.preferences.publicHighlights,
+          items: summary.preferenceHighlights,
           emptyText: 'No preferences listed.',
         ),
-        if (dna.serviceAreas.isNotEmpty)
+        if (summary.serviceAreas.isNotEmpty)
           _ChipSection(
             title: 'Covers',
             icon: Icons.map_outlined,
-            items: dna.serviceAreas,
+            items: summary.serviceAreas,
             emptyText: '',
           ),
       ],
@@ -131,7 +130,7 @@ class _ChipSectionState extends State<_ChipSection> {
               spacing: 8,
               runSpacing: 8,
               children: [
-                for (final i in shown) DnaChip(label: i, filled: true)
+                for (final i in shown) ProfileChip(label: i, filled: true)
               ],
             ),
           if (hasMore)
@@ -156,10 +155,10 @@ class _ChipSectionState extends State<_ChipSection> {
 }
 
 /// The one-line identity strip: the PRD's Care DNA summary, patient-facing.
-class CareDnaStrip extends StatelessWidget {
-  const CareDnaStrip({super.key, required this.dna});
+class ProfileHighlightStrip extends StatelessWidget {
+  const ProfileHighlightStrip({super.key, required this.summary});
 
-  final CareDnaProfile dna;
+  final ProfileSummary summary;
 
   @override
   Widget build(BuildContext context) {
@@ -201,8 +200,8 @@ class CareDnaStrip extends StatelessWidget {
             spacing: 6,
             runSpacing: 6,
             children: [
-              for (final c in dna.summaryChips(perCategory: 3))
-                DnaChip(label: c, filled: true, dense: true),
+              for (final c in summary.summaryChips(perCategory: 3))
+                ProfileChip(label: c, filled: true, dense: true),
             ],
           ),
         ],
