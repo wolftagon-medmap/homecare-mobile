@@ -51,10 +51,4 @@ class CareDnaCatalog {
     'Documentation Quality',
     'Cultural Sensitivity',
   ];
-
-  static const List<String> genderPreferences = [
-    'No preference',
-    'Female clients only',
-    'Male clients only',
-  ];
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/professional_profile/data/care_dna_catalog.dart';
-import 'package:m2health/features/professional_profile/data/care_dna_store.dart';
-import 'package:m2health/features/professional_profile/domain/care_dna.dart';
+import 'package:m2health/features/professional_profile/domain/entities/work_preferences.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/work_preferences_cubit.dart';
 
 /// Chapter 6: coverage and preferences.
 ///
@@ -12,169 +13,240 @@ import 'package:m2health/features/professional_profile/domain/care_dna.dart';
 class WorkPreferencesPage extends StatelessWidget {
   const WorkPreferencesPage({super.key});
 
+  static const _genderLabels = {
+    ClientGenderPreference.any: 'No preference',
+    ClientGenderPreference.female: 'Female clients only',
+    ClientGenderPreference.male: 'Male clients only',
+  };
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Work preferences',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: ValueListenableBuilder<CareDnaProfile>(
-        valueListenable: CareDnaStore.instance,
-        builder: (context, dna, _) {
-          final p = dna.preferences;
-          final store = CareDnaStore.instance;
-
-          return ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              const _SectionTitle('Capacity'),
-              _Stepper(
-                label: 'Target hours per week',
-                value: p.targetWeeklyHours,
-                suffix: 'h',
-                step: 5,
-                min: 5,
-                max: 60,
-                onChanged: (v) =>
-                    store.setPreferences(p.copyWith(targetWeeklyHours: v)),
-              ),
-              _Stepper(
-                label: 'Maximum travel time',
-                value: p.maxTravelMinutes,
-                suffix: 'min',
-                step: 15,
-                min: 15,
-                max: 120,
-                onChanged: (v) =>
-                    store.setPreferences(p.copyWith(maxTravelMinutes: v)),
-              ),
-              _Toggle(
-                label: 'Night & overnight shifts',
-                value: p.nightShift,
-                onChanged: (v) =>
-                    store.setPreferences(p.copyWith(nightShift: v)),
-              ),
-              _Toggle(
-                label: 'Weekends & public holidays',
-                value: p.weekendPublicHoliday,
-                onChanged: (v) =>
-                    store.setPreferences(p.copyWith(weekendPublicHoliday: v)),
-              ),
-              const SizedBox(height: 16),
-              const _SectionTitle('Types of work'),
-              _Toggle(
-                label: 'Long-term clients',
-                value: p.longTermClient,
-                onChanged: (v) =>
-                    store.setPreferences(p.copyWith(longTermClient: v)),
-              ),
-              _Toggle(
-                label: 'Hospital escort',
-                value: p.hospitalEscort,
-                onChanged: (v) =>
-                    store.setPreferences(p.copyWith(hospitalEscort: v)),
-              ),
-              _Toggle(
-                label: 'Emergency replacement',
-                value: p.emergencyReplacement,
-                onChanged: (v) =>
-                    store.setPreferences(p.copyWith(emergencyReplacement: v)),
-              ),
-              const SizedBox(height: 16),
-              const _SectionTitle('Client & household'),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Row(
-                  children: [
-                    const Expanded(
-                        child: Text('Client gender',
-                            style: TextStyle(fontSize: 14))),
-                    DropdownButton<String>(
-                      value: p.clientGenderPreference,
-                      underline: const SizedBox.shrink(),
-                      items: [
-                        for (final g in CareDnaCatalog.genderPreferences)
-                          DropdownMenuItem(
-                            value: g,
-                            child:
-                                Text(g, style: const TextStyle(fontSize: 13)),
-                          ),
-                      ],
-                      onChanged: (v) => v == null
-                          ? null
-                          : store.setPreferences(
-                              p.copyWith(clientGenderPreference: v)),
-                    ),
-                  ],
-                ),
-              ),
-              _Toggle(
-                label: 'Dementia clients',
-                value: p.dementiaClients,
-                onChanged: (v) =>
-                    store.setPreferences(p.copyWith(dementiaClients: v)),
-              ),
-              _Toggle(
-                label: 'Palliative clients',
-                value: p.palliativeClients,
-                onChanged: (v) =>
-                    store.setPreferences(p.copyWith(palliativeClients: v)),
-              ),
-              _Toggle(
-                label: 'Bedbound clients',
-                value: p.bedboundClients,
-                onChanged: (v) =>
-                    store.setPreferences(p.copyWith(bedboundClients: v)),
-              ),
-              _Toggle(
-                label: 'Lift transfer',
-                value: p.liftTransfer,
-                onChanged: (v) =>
-                    store.setPreferences(p.copyWith(liftTransfer: v)),
-              ),
-              _Toggle(
-                label: 'Pet-friendly household',
-                value: p.petFriendly,
-                onChanged: (v) =>
-                    store.setPreferences(p.copyWith(petFriendly: v)),
-              ),
-              _Toggle(
-                label: 'Smoking household',
-                value: p.smokingHousehold,
-                onChanged: (v) =>
-                    store.setPreferences(p.copyWith(smokingHousehold: v)),
-              ),
-              const SizedBox(height: 24),
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(Icons.info_outline,
-                        size: 18, color: Colors.grey.shade600),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Text(
-                        'Saved to your profile and shown to patients. These do not filter job '
-                        'offers yet.',
-                        style: TextStyle(
-                            fontSize: 12, color: Colors.grey.shade700),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 40),
-            ],
+    return BlocConsumer<WorkPreferencesCubit, WorkPreferencesState>(
+      listener: (context, state) {
+        if (state.saved != null) {
+          context
+              .read<ProfessionalProfileCubit>()
+              .applyWorkPreferences(state.saved!);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Work preferences saved')),
           );
-        },
+        }
+        if (state.error != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.error!)),
+          );
+        }
+      },
+      builder: (context, state) {
+        final p = state.preferences;
+        final cubit = context.read<WorkPreferencesCubit>();
+
+        return PopScope(
+          canPop: !state.isDirty,
+          onPopInvokedWithResult: (didPop, _) {
+            if (!didPop) _confirmDiscard(context);
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              title: const Text(
+                'Work preferences',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            body: ListView(
+              padding: const EdgeInsets.all(16),
+              children: [
+                const _SectionTitle('Capacity'),
+                _TargetHours(
+                  hours: p.targetWeeklyHours,
+                  onChanged: (value) => cubit.update(
+                    p.copyWith(
+                      targetWeeklyHours: value,
+                      clearTargetWeeklyHours: value == null,
+                    ),
+                  ),
+                ),
+                _Toggle(
+                  label: 'Night & overnight shifts',
+                  value: p.nightShift,
+                  onChanged: (v) => cubit.update(p.copyWith(nightShift: v)),
+                ),
+                _Toggle(
+                  label: 'Weekends & public holidays',
+                  value: p.weekendPublicHoliday,
+                  onChanged: (v) =>
+                      cubit.update(p.copyWith(weekendPublicHoliday: v)),
+                ),
+                const SizedBox(height: 16),
+                const _SectionTitle('Types of work'),
+                _Toggle(
+                  label: 'Long-term clients',
+                  value: p.longTermClient,
+                  onChanged: (v) => cubit.update(p.copyWith(longTermClient: v)),
+                ),
+                _Toggle(
+                  label: 'Hospital escort',
+                  value: p.hospitalEscort,
+                  onChanged: (v) => cubit.update(p.copyWith(hospitalEscort: v)),
+                ),
+                _Toggle(
+                  label: 'Emergency replacement',
+                  value: p.emergencyReplacement,
+                  onChanged: (v) =>
+                      cubit.update(p.copyWith(emergencyReplacement: v)),
+                ),
+                const SizedBox(height: 16),
+                const _SectionTitle('Client & household'),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Row(
+                    children: [
+                      const Expanded(
+                        child: Text('Client gender',
+                            style: TextStyle(fontSize: 14)),
+                      ),
+                      DropdownButton<String>(
+                        value: p.clientGenderPreference,
+                        underline: const SizedBox.shrink(),
+                        items: [
+                          for (final entry in _genderLabels.entries)
+                            DropdownMenuItem(
+                              value: entry.key,
+                              child: Text(entry.value,
+                                  style: const TextStyle(fontSize: 13)),
+                            ),
+                        ],
+                        onChanged: (v) => v == null
+                            ? null
+                            : cubit
+                                .update(p.copyWith(clientGenderPreference: v)),
+                      ),
+                    ],
+                  ),
+                ),
+                _Toggle(
+                  label: 'Dementia clients',
+                  value: p.dementiaClients,
+                  onChanged: (v) =>
+                      cubit.update(p.copyWith(dementiaClients: v)),
+                ),
+                _Toggle(
+                  label: 'Palliative clients',
+                  value: p.palliativeClients,
+                  onChanged: (v) =>
+                      cubit.update(p.copyWith(palliativeClients: v)),
+                ),
+                _Toggle(
+                  label: 'Bedbound clients',
+                  value: p.bedboundClients,
+                  onChanged: (v) =>
+                      cubit.update(p.copyWith(bedboundClients: v)),
+                ),
+                _Toggle(
+                  label: 'Lift transfer',
+                  value: p.liftTransfer,
+                  onChanged: (v) => cubit.update(p.copyWith(liftTransfer: v)),
+                ),
+                _Toggle(
+                  label: 'Pet-friendly household',
+                  value: p.petFriendly,
+                  onChanged: (v) => cubit.update(p.copyWith(petFriendly: v)),
+                ),
+                _Toggle(
+                  label: 'Smoking household',
+                  value: p.smokingHousehold,
+                  onChanged: (v) =>
+                      cubit.update(p.copyWith(smokingHousehold: v)),
+                ),
+                const SizedBox(height: 24),
+                const _Note(
+                  'Saved to your profile and shown to patients. These do not '
+                  'filter job offers yet.',
+                ),
+                const SizedBox(height: 40),
+              ],
+            ),
+            bottomNavigationBar: _SaveBar(state: state),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _confirmDiscard(BuildContext context) async {
+    final discard = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Discard changes?'),
+        content: const Text('Your work preferences have not been saved.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Keep editing'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Discard'),
+          ),
+        ],
+      ),
+    );
+
+    if (discard == true && context.mounted) Navigator.pop(context);
+  }
+}
+
+class _TargetHours extends StatelessWidget {
+  const _TargetHours({required this.hours, required this.onChanged});
+
+  final int? hours;
+  final ValueChanged<int?> onChanged;
+
+  static const int _min = 5;
+  static const int _max = 60;
+  static const int _step = 5;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        children: [
+          const Expanded(
+            child:
+                Text('Target hours per week', style: TextStyle(fontSize: 14)),
+          ),
+          if (hours == null)
+            TextButton(
+              onPressed: () => onChanged(30),
+              child: const Text('Set', style: TextStyle(fontSize: 13)),
+            )
+          else ...[
+            IconButton(
+              onPressed: () =>
+                  onChanged(hours! <= _min ? null : hours! - _step),
+              icon: const Icon(Icons.remove_circle_outline, size: 20),
+              color: Const.aqua,
+              visualDensity: VisualDensity.compact,
+            ),
+            SizedBox(
+              width: 52,
+              child: Text(
+                '${hours}h',
+                textAlign: TextAlign.center,
+                style:
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+              ),
+            ),
+            IconButton(
+              onPressed:
+                  hours! >= _max ? null : () => onChanged(hours! + _step),
+              icon: const Icon(Icons.add_circle_outline, size: 20),
+              color: Const.aqua,
+              visualDensity: VisualDensity.compact,
+            ),
+          ],
+        ],
       ),
     );
   }
@@ -182,6 +254,7 @@ class WorkPreferencesPage extends StatelessWidget {
 
 class _SectionTitle extends StatelessWidget {
   const _SectionTitle(this.text);
+
   final String text;
 
   @override
@@ -197,8 +270,11 @@ class _SectionTitle extends StatelessWidget {
 }
 
 class _Toggle extends StatelessWidget {
-  const _Toggle(
-      {required this.label, required this.value, required this.onChanged});
+  const _Toggle({
+    required this.label,
+    required this.value,
+    required this.onChanged,
+  });
 
   final String label;
   final bool value;
@@ -222,53 +298,74 @@ class _Toggle extends StatelessWidget {
   }
 }
 
-class _Stepper extends StatelessWidget {
-  const _Stepper({
-    required this.label,
-    required this.value,
-    required this.suffix,
-    required this.step,
-    required this.min,
-    required this.max,
-    required this.onChanged,
-  });
+class _Note extends StatelessWidget {
+  const _Note(this.text);
 
-  final String label;
-  final int value;
-  final String suffix;
-  final int step;
-  final int min;
-  final int max;
-  final ValueChanged<int> onChanged;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(child: Text(label, style: const TextStyle(fontSize: 14))),
-          IconButton(
-            onPressed: value <= min ? null : () => onChanged(value - step),
-            icon: const Icon(Icons.remove_circle_outline, size: 20),
-            color: Const.aqua,
-            visualDensity: VisualDensity.compact,
-          ),
-          SizedBox(
-            width: 52,
+          Icon(Icons.info_outline, size: 18, color: Colors.grey.shade600),
+          const SizedBox(width: 10),
+          Expanded(
             child: Text(
-              '$value$suffix',
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+              text,
+              style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
             ),
           ),
-          IconButton(
-            onPressed: value >= max ? null : () => onChanged(value + step),
-            icon: const Icon(Icons.add_circle_outline, size: 20),
-            color: Const.aqua,
-            visualDensity: VisualDensity.compact,
+        ],
+      ),
+    );
+  }
+}
+
+class _SaveBar extends StatelessWidget {
+  const _SaveBar({required this.state});
+
+  final WorkPreferencesState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 10, 16, 20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.06),
+            blurRadius: 8,
+            offset: const Offset(0, -2),
           ),
         ],
+      ),
+      child: ElevatedButton(
+        onPressed: !state.isDirty || state.isSaving
+            ? null
+            : () => context.read<WorkPreferencesCubit>().save(),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Const.aqua,
+          foregroundColor: Colors.white,
+          minimumSize: const Size.fromHeight(48),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+        child: state.isSaving
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                    strokeWidth: 2, color: Colors.white),
+              )
+            : const Text('Save'),
       ),
     );
   }
