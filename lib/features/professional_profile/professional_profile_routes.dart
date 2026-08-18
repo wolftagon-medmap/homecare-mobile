@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/condition_experience_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/coverage_area_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/languages_care_style_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/manage_services_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
@@ -95,7 +96,21 @@ class ProfessionalProfileRoutes {
     GoRoute(
       path: AppRoutes.professionalCoverage,
       name: AppRoutes.professionalCoverage,
-      builder: (context, state) => const WhereIWorkPage(),
+      builder: (context, state) {
+        final loaded = context.read<ProfessionalProfileCubit>().state;
+        final profile =
+            loaded is ProfessionalProfileLoaded ? loaded.profile : null;
+        return BlocProvider(
+          create: (_) =>
+              CoverageAreaCubit(repository: sl(), updateProfile: sl())
+                ..load(
+                  countryCode: profile?.countryCode,
+                  selected: profile?.serviceAreas ?? const [],
+                  radiusKm: profile?.serviceRadiusPreference,
+                ),
+          child: const WhereIWorkPage(),
+        );
+      },
     ),
     GoRoute(
       path: AppRoutes.professionalPreferences,

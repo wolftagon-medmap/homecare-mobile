@@ -52,8 +52,8 @@ class CareDnaCatalog {
     'Cultural Sensitivity',
   ];
 
-  /// Admin-level-2 regions. Indonesian kabupaten/kota granularity, which is the
-  /// agreed target tier; the real list gets seeded from the shared dataset.
+  /// Still read by the residential-area field on Personal details. F7 replaces
+  /// that with the real area catalogue and deletes this.
   static const List<String> serviceAreas = [
     'Jakarta Selatan',
     'Jakarta Pusat',

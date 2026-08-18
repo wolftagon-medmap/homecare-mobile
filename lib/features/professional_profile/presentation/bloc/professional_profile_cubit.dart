@@ -4,6 +4,7 @@ import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/features/professional_profile/domain/entities/care_style.dart';
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
 import 'package:m2health/features/professional_profile/domain/entities/provided_services.dart';
+import 'package:m2health/features/professional_profile/domain/entities/service_area.dart';
 import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
 import 'package:m2health/features/professional_profile/domain/usecases/index.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
@@ -96,6 +97,12 @@ class ProfessionalProfileCubit extends Cubit<ProfessionalProfileState> {
           serviceProficiency: saved.proficiency,
         ),
       );
+
+  void applyServiceAreas(List<ServiceArea> areas) =>
+      _patch((profile) => profile.copyWith(serviceAreas: areas));
+
+  void applyServiceRadius(int km) =>
+      _patch((profile) => profile.copyWith(serviceRadiusPreference: km));
 
   void _patch(ProfessionalProfile Function(ProfessionalProfile) change) {
     final current = state;
