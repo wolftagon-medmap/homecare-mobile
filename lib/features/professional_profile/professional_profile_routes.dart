@@ -7,7 +7,6 @@ import 'package:m2health/features/professional_profile/presentation/pages/care_d
 import 'package:m2health/features/professional_profile/presentation/pages/condition_experience_page.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/edit_professional_profile.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/languages_style_page.dart';
-import 'package:m2health/features/professional_profile/presentation/pages/manage_provided_services_page.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/services_expertise_page.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/verification_hub_page.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/where_i_work_page.dart';
@@ -23,23 +22,6 @@ class ProfessionalProfileRoutes {
       builder: (context, state) {
         ProfessionalProfile profile = state.extra as ProfessionalProfile;
         return EditProfessionalProfilePage(profile: profile);
-      },
-    ),
-    GoRoute(
-      path: AppRoutes.editProfessionalServices,
-      name: AppRoutes.editProfessionalServices,
-      builder: (context, state) {
-        final args = state.extra as ManageServicesArgs;
-        return BlocProvider(
-            create: (_) => ManageServicesCubit(
-                  professionalProfileRemoteDatasource: sl(),
-                  servicesRepository: sl(),
-                  role: args.role,
-                )..loadServices(
-                    args.currentServices,
-                    isHomeScreeningAuthorized: args.isHomeScreeningAuthorized,
-                  ),
-            child: const ManageProvidedServicesPage());
       },
     ),
     GoRoute(

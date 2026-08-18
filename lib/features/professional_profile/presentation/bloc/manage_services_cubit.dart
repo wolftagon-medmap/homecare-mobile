@@ -6,6 +6,18 @@ import 'package:m2health/features/booking_appointment/nursing/const.dart';
 import 'package:m2health/features/booking_appointment/services_selection/domain/repositories/services_repository.dart';
 import 'package:m2health/features/professional_profile/data/datasources/professional_profile_remote_datasource.dart';
 
+class ManageServicesArgs {
+  final String role;
+  final List<ServiceEntity> currentServices;
+  final bool isHomeScreeningAuthorized;
+
+  ManageServicesArgs({
+    required this.role,
+    required this.currentServices,
+    this.isHomeScreeningAuthorized = false,
+  });
+}
+
 // --- STATE ---
 abstract class ManageServicesState extends Equatable {
   @override

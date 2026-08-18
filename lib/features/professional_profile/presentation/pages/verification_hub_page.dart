@@ -6,7 +6,7 @@ import 'package:m2health/features/professional_profile/domain/entities/onboardin
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
-import 'package:m2health/features/professional_profile/presentation/pages/manage_provided_services_page.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/manage_services_cubit.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/utils.dart';
 

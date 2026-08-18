@@ -54,7 +54,6 @@ class AppRoutes {
   static const String savedAddresses = '/saved-addresses';
   static const String savedAddressForm = '/saved-addresses/form';
   static const String editProfessionalProfile = '/edit-professional-profile';
-  static const String editProfessionalServices = '/edit-professional-services';
   static const String workingSchedule = '/working-schedule';
   static const String verificationHub = '/verification-hub';
   static const String availability = '/availability';
