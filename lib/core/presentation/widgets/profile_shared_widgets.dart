@@ -6,7 +6,7 @@ import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/profile_widget.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:m2health/features/profiles/domain/entities/onboarding_status.dart';
+import 'package:m2health/features/professional_profile/domain/entities/onboarding_status.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 
@@ -234,7 +234,8 @@ class SettingSection extends StatelessWidget {
             ),
             if (showSavedAddresses)
               ListTile(
-                leading: const Icon(Icons.location_on_outlined, color: Const.aqua),
+                leading:
+                    const Icon(Icons.location_on_outlined, color: Const.aqua),
                 title: Text(context.l10n.settings_saved_addresses),
                 titleTextStyle: const TextStyle(
                   fontSize: 16,

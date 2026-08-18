@@ -11,7 +11,7 @@ import 'package:m2health/features/profiles/domain/entities/professional_profile.
 import 'package:m2health/features/profiles/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/features/profiles/presentation/pages/manage_provided_services_page.dart';
-import 'package:m2health/features/profiles/presentation/widgets/profile_shared_widgets.dart';
+import 'package:m2health/core/presentation/widgets/profile_shared_widgets.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/utils.dart';
 

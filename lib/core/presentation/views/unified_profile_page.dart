@@ -3,7 +3,7 @@ import 'package:m2health/const.dart';
 import 'package:m2health/features/auth/domain/entities/user_role.dart';
 import 'package:m2health/features/profiles/presentation/pages/admin_profile_page.dart';
 import 'package:m2health/features/profiles/presentation/pages/patient_profile_page.dart';
-import 'package:m2health/features/profiles/presentation/pages/professional_profile_page.dart';
+import 'package:m2health/features/professional_profile/presentation/pages/professional_profile_page.dart';
 import 'package:m2health/utils.dart';
 
 // Thin entry widget that resolves the logged-in role once and hands off to
@@ -30,8 +30,7 @@ class _UnifiedProfilePageState extends State<UnifiedProfilePage> {
     if (role == 'admin') {
       return const AdminProfilePage();
     }
-    if (role != null &&
-        PROFESSIONAL_ROLES.map((r) => r.value).contains(role)) {
+    if (role != null && PROFESSIONAL_ROLES.map((r) => r.value).contains(role)) {
       return const ProfessionalProfilePage();
     }
     return const PatientProfilePage();
