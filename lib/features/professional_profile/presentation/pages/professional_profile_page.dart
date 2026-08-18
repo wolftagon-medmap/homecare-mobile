@@ -128,6 +128,7 @@ class _ProfessionalProfileSection extends StatelessWidget {
         role: role,
         isHomeScreeningAuthorized: profile.isHomeScreeningAuthorized ?? false,
         currentServices: profile.providedServices,
+        proficiency: profile.serviceProficiency,
       ),
     );
 

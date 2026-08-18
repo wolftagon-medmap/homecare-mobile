@@ -54,6 +54,7 @@ class ProfessionalProfileRoutes {
             role: args.role,
           )..loadServices(
               args.currentServices,
+              proficiency: args.proficiency,
               isHomeScreeningAuthorized: args.isHomeScreeningAuthorized,
             ),
           child: const ServicesExpertisePage(),

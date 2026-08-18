@@ -5,15 +5,18 @@ import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/booking_appointment/nursing/const.dart';
 import 'package:m2health/features/booking_appointment/services_selection/domain/repositories/services_repository.dart';
 import 'package:m2health/features/professional_profile/data/datasources/professional_profile_remote_datasource.dart';
+import 'package:m2health/features/professional_profile/domain/entities/provided_services.dart';
 
 class ManageServicesArgs {
   final String role;
   final List<ServiceEntity> currentServices;
+  final Map<int, int> proficiency;
   final bool isHomeScreeningAuthorized;
 
   ManageServicesArgs({
     required this.role,
     required this.currentServices,
+    this.proficiency = const {},
     this.isHomeScreeningAuthorized = false,
   });
 }
@@ -31,22 +34,54 @@ class ManageServicesLoading extends ManageServicesState {}
 class ManageServicesLoaded extends ManageServicesState {
   final List<ServiceEntity> allServices;
   final List<ServiceEntity> selectedServices;
+
+  final Map<int, int> proficiency;
   final bool isHomeScreeningAuthorized;
+  final bool isDirty;
 
   ManageServicesLoaded(
     this.allServices,
     this.selectedServices, {
+    this.proficiency = const {},
     this.isHomeScreeningAuthorized = false,
+    this.isDirty = false,
   });
 
+  ManageServicesLoaded copyWith({
+    List<ServiceEntity>? selectedServices,
+    Map<int, int>? proficiency,
+    bool? isHomeScreeningAuthorized,
+    bool? isDirty,
+  }) =>
+      ManageServicesLoaded(
+        allServices,
+        selectedServices ?? this.selectedServices,
+        proficiency: proficiency ?? this.proficiency,
+        isHomeScreeningAuthorized:
+            isHomeScreeningAuthorized ?? this.isHomeScreeningAuthorized,
+        isDirty: isDirty ?? this.isDirty,
+      );
+
   @override
-  List<Object> get props =>
-      [allServices, selectedServices, isHomeScreeningAuthorized];
+  List<Object> get props => [
+        allServices,
+        selectedServices,
+        proficiency,
+        isHomeScreeningAuthorized,
+        isDirty,
+      ];
 }
 
 class ManageServicesSaving extends ManageServicesState {}
 
-class ManageServicesSuccess extends ManageServicesState {}
+class ManageServicesSuccess extends ManageServicesState {
+  final ProvidedServices saved;
+
+  ManageServicesSuccess(this.saved);
+
+  @override
+  List<Object> get props => [saved];
+}
 
 class ManageServicesError extends ManageServicesState {
   final String message;
@@ -65,8 +100,11 @@ class ManageServicesCubit extends Cubit<ManageServicesState> {
     required this.role,
   }) : super(ManageServicesInitial());
 
-  Future<void> loadServices(List<ServiceEntity> currentServices,
-      {bool isHomeScreeningAuthorized = false}) async {
+  Future<void> loadServices(
+    List<ServiceEntity> currentServices, {
+    Map<int, int> proficiency = const {},
+    bool isHomeScreeningAuthorized = false,
+  }) async {
     emit(ManageServicesLoading());
 
     try {
@@ -106,6 +144,7 @@ class ManageServicesCubit extends Cubit<ManageServicesState> {
       emit(ManageServicesLoaded(
         allAvailableServices,
         currentServices,
+        proficiency: proficiency,
         isHomeScreeningAuthorized: isHomeScreeningAuthorized,
       ));
     } catch (e) {
@@ -115,83 +154,94 @@ class ManageServicesCubit extends Cubit<ManageServicesState> {
   }
 
   void toggleService(ServiceEntity service) {
-    if (state is ManageServicesLoaded) {
-      final currentState = state as ManageServicesLoaded;
-      final currentSelected =
-          List<ServiceEntity>.from(currentState.selectedServices);
+    final current = state;
+    if (current is! ManageServicesLoaded) return;
 
-      if (currentSelected.any((s) => s.id == service.id)) {
-        currentSelected.removeWhere((s) => s.id == service.id);
-      } else {
-        currentSelected.add(service);
-      }
+    final selected = List<ServiceEntity>.from(current.selectedServices);
+    final proficiency = Map<int, int>.from(current.proficiency);
 
-      emit(ManageServicesLoaded(
-        currentState.allServices,
-        currentSelected,
-        isHomeScreeningAuthorized: currentState.isHomeScreeningAuthorized,
-      ));
+    if (selected.any((s) => s.id == service.id)) {
+      selected.removeWhere((s) => s.id == service.id);
+      proficiency.remove(service.id);
+    } else {
+      selected.add(service);
     }
+
+    emit(current.copyWith(
+      selectedServices: selected,
+      proficiency: proficiency,
+      isDirty: true,
+    ));
   }
 
   void toggleCategoryServices(
       List<ServiceEntity> categoryServices, bool select) {
-    if (state is ManageServicesLoaded) {
-      final currentState = state as ManageServicesLoaded;
-      final currentSelected =
-          List<ServiceEntity>.from(currentState.selectedServices);
+    final current = state;
+    if (current is! ManageServicesLoaded) return;
 
-      if (select) {
-        for (var service in categoryServices) {
-          if (!currentSelected.any((s) => s.id == service.id)) {
-            currentSelected.add(service);
-          }
-        }
-      } else {
-        final idsToRemove = categoryServices.map((s) => s.id).toSet();
-        currentSelected.removeWhere((s) => idsToRemove.contains(s.id));
+    final selected = List<ServiceEntity>.from(current.selectedServices);
+    final proficiency = Map<int, int>.from(current.proficiency);
+
+    if (select) {
+      for (final service in categoryServices) {
+        if (!selected.any((s) => s.id == service.id)) selected.add(service);
       }
-
-      emit(ManageServicesLoaded(
-        currentState.allServices,
-        currentSelected,
-        isHomeScreeningAuthorized: currentState.isHomeScreeningAuthorized,
-      ));
+    } else {
+      final removed = categoryServices.map((s) => s.id).toSet();
+      selected.removeWhere((s) => removed.contains(s.id));
+      proficiency.removeWhere((id, _) => removed.contains(id));
     }
+
+    emit(current.copyWith(
+      selectedServices: selected,
+      proficiency: proficiency,
+      isDirty: true,
+    ));
+  }
+
+  void setLevel(int serviceId, int level) {
+    final current = state;
+    if (current is! ManageServicesLoaded) return;
+
+    final proficiency = Map<int, int>.from(current.proficiency);
+    level <= 0 ? proficiency.remove(serviceId) : proficiency[serviceId] = level;
+
+    emit(current.copyWith(proficiency: proficiency, isDirty: true));
   }
 
   void toggleHomeScreeningAuthorization(bool value) {
-    if (state is ManageServicesLoaded) {
-      final currentState = state as ManageServicesLoaded;
-      emit(ManageServicesLoaded(
-        currentState.allServices,
-        currentState.selectedServices,
-        isHomeScreeningAuthorized: value,
-      ));
-    }
+    final current = state;
+    if (current is! ManageServicesLoaded) return;
+
+    emit(current.copyWith(isHomeScreeningAuthorized: value, isDirty: true));
   }
 
   Future<void> saveServices() async {
-    if (state is ManageServicesLoaded) {
-      final currentState = state as ManageServicesLoaded;
-      emit(ManageServicesSaving());
+    final current = state;
+    if (current is! ManageServicesLoaded) return;
 
-      try {
-        final ids = currentState.selectedServices.map((e) => e.id).toList();
-        await professionalProfileRemoteDatasource.updateProvidedServices(
-          ids,
-          isHomeScreeningAuthorized:
-              role == 'nurse' ? currentState.isHomeScreeningAuthorized : null,
-        );
-        emit(ManageServicesSuccess());
-      } catch (e) {
-        emit(ManageServicesError(e.toString()));
-        emit(ManageServicesLoaded(
-          currentState.allServices,
-          currentState.selectedServices,
-          isHomeScreeningAuthorized: currentState.isHomeScreeningAuthorized,
-        ));
-      }
+    emit(ManageServicesSaving());
+
+    try {
+      final saved =
+          await professionalProfileRemoteDatasource.updateProvidedServices(
+        current.selectedServices.map((s) => s.id).toList(),
+        proficiency: current.proficiency,
+        isHomeScreeningAuthorized:
+            role == 'nurse' ? current.isHomeScreeningAuthorized : null,
+      );
+
+      emit(ManageServicesSuccess(saved));
+      emit(current.copyWith(
+        selectedServices: saved.services,
+        proficiency: saved.proficiency,
+        isDirty: false,
+      ));
+    } catch (e, stackTrace) {
+      log('Failed to save services',
+          error: e, name: 'professional.services', stackTrace: stackTrace);
+      emit(ManageServicesError(e.toString()));
+      emit(current);
     }
   }
 }

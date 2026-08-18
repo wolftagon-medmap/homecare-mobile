@@ -56,6 +56,7 @@ class _VerificationHubPageState extends State<VerificationHubPage> {
           role: role,
           isHomeScreeningAuthorized: profile.isHomeScreeningAuthorized ?? false,
           currentServices: profile.providedServices,
+          proficiency: profile.serviceProficiency,
         ),
       ),
     );

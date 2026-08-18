@@ -3,105 +3,125 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
-import 'package:m2health/features/professional_profile/data/care_dna_catalog.dart';
-import 'package:m2health/features/professional_profile/data/care_dna_store.dart';
-import 'package:m2health/features/professional_profile/domain/care_dna.dart';
-import 'package:m2health/features/professional_profile/presentation/widgets/select_then_rate.dart';
+import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/manage_services_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/select_then_rate.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/service_category_copy.dart';
 
 /// Choosing what you offer and rating it are the same job, so they are one
 /// screen. Turning a service on reveals its rating straight away, which is the
 /// select-then-rate pattern used for languages and conditions.
-///
-/// Service names run long in some categories, so this is a list rather than a
-/// chip grid — the name and price both need room to stay readable.
 class ServicesExpertisePage extends StatelessWidget {
   const ServicesExpertisePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Services & expertise',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: BlocConsumer<ManageServicesCubit, ManageServicesState>(
-        listener: (context, state) {
-          if (state is ManageServicesSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Services saved')),
-            );
-          }
-          if (state is ManageServicesError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
-            );
-          }
-        },
-        builder: (context, state) {
-          if (state is ManageServicesLoading ||
-              state is ManageServicesInitial) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (state is! ManageServicesLoaded) {
-            return const Center(child: Text('Could not load services.'));
-          }
-          if (state.allServices.isEmpty) {
-            return const Center(child: Text('No services available yet.'));
-          }
-
-          final selectedIds = state.selectedServices.map((s) => s.id).toSet();
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            CareDnaStore.instance.syncServices(state.selectedServices);
-          });
-
-          final byCategory = groupBy(
-            state.allServices,
-            (ServiceEntity s) => s.category ?? '',
+    return BlocConsumer<ManageServicesCubit, ManageServicesState>(
+      listener: (context, state) {
+        if (state is ManageServicesSuccess) {
+          context.read<ProfessionalProfileCubit>().applyServices(state.saved);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Services saved')),
           );
+        }
+        if (state is ManageServicesError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
+        }
+      },
+      builder: (context, state) {
+        final loaded = state is ManageServicesLoaded ? state : null;
 
-          return ValueListenableBuilder<CareDnaProfile>(
-            valueListenable: CareDnaStore.instance,
-            builder: (context, dna, _) {
-              final levels = {
-                for (final t in dna.serviceExpertise) t.id: t.level,
-              };
-
-              return Column(
-                children: [
-                  Expanded(
-                    child: ListView(
-                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
-                      children: [
-                        Text(
-                          'Turn on what you offer, then rate your expertise. '
-                          'Patients compare these when several professionals '
-                          'provide the same service.',
-                          style: TextStyle(
-                              fontSize: 13, color: Colors.grey.shade600),
-                        ),
-                        const SizedBox(height: 16),
-                        for (final entry in byCategory.entries) ...[
-                          _CategoryBlock(
-                            category: entry.key,
-                            services: entry.value,
-                            selectedIds: selectedIds,
-                            levels: levels,
-                          ),
-                          const SizedBox(height: 20),
-                        ],
-                      ],
-                    ),
-                  ),
-                  _SaveBar(saving: state is ManageServicesSaving),
-                ],
-              );
+        return PopScope(
+          canPop: !(loaded?.isDirty ?? false),
+          onPopInvokedWithResult: (didPop, _) {
+            if (!didPop) _confirmDiscard(context);
+          },
+          child: Scaffold(
+            appBar: AppBar(
+              title: const Text(
+                'Services & expertise',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            body: switch (state) {
+              ManageServicesLoading() ||
+              ManageServicesInitial() ||
+              ManageServicesSaving() =>
+                const Center(child: CircularProgressIndicator()),
+              ManageServicesError() when loaded == null =>
+                const Center(child: Text('Could not load services.')),
+              _ => _Catalogue(state: loaded),
             },
-          );
-        },
+            bottomNavigationBar:
+                loaded == null ? null : _SaveBar(state: loaded),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _confirmDiscard(BuildContext context) async {
+    final discard = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Discard changes?'),
+        content: const Text('Your services have not been saved.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            child: const Text('Keep editing'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Discard'),
+          ),
+        ],
       ),
+    );
+
+    if (discard == true && context.mounted) Navigator.pop(context);
+  }
+}
+
+class _Catalogue extends StatelessWidget {
+  const _Catalogue({required this.state});
+
+  final ManageServicesLoaded? state;
+
+  @override
+  Widget build(BuildContext context) {
+    final loaded = state;
+    if (loaded == null) return const SizedBox.shrink();
+    if (loaded.allServices.isEmpty) {
+      return const Center(child: Text('No services available yet.'));
+    }
+
+    final selectedIds = loaded.selectedServices.map((s) => s.id).toSet();
+    final byCategory =
+        groupBy(loaded.allServices, (ServiceEntity s) => s.category ?? '');
+
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+      children: [
+        Text(
+          'Turn on what you offer, then rate your expertise. Patients compare '
+          'these when several professionals provide the same service.',
+          style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
+        ),
+        const SizedBox(height: 16),
+        for (final entry in byCategory.entries) ...[
+          _CategoryBlock(
+            category: entry.key,
+            services: entry.value,
+            selectedIds: selectedIds,
+            proficiency: loaded.proficiency,
+          ),
+          const SizedBox(height: 20),
+        ],
+      ],
     );
   }
 }
@@ -111,18 +131,18 @@ class _CategoryBlock extends StatelessWidget {
     required this.category,
     required this.services,
     required this.selectedIds,
-    required this.levels,
+    required this.proficiency,
   });
 
   final String category;
   final List<ServiceEntity> services;
   final Set<int> selectedIds;
-  final Map<String, int> levels;
+  final Map<int, int> proficiency;
 
   @override
   Widget build(BuildContext context) {
-    final label = CareDnaCatalog.categoryLabels[category] ?? category;
-    final scope = CareDnaCatalog.serviceScope[category];
+    final label = ServiceCategoryCopy.labels[category] ?? category;
+    final scope = ServiceCategoryCopy.scope[category];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,26 +153,23 @@ class _CategoryBlock extends StatelessWidget {
         ),
         if (scope != null && scope.isNotEmpty) ...[
           const SizedBox(height: 6),
-          _ScopeNote(label: label, tasks: scope),
+          _ScopeNote(tasks: scope),
         ],
         const SizedBox(height: 10),
         for (final s in services)
           _ServiceTile(
             service: s,
             selected: selectedIds.contains(s.id),
-            level: levels['${s.id}'] ?? 0,
+            level: proficiency[s.id] ?? 0,
           ),
       ],
     );
   }
 }
 
-/// What every visit in this category covers, whatever else is booked. Read-only
-/// because it belongs to the category rather than to the professional.
 class _ScopeNote extends StatelessWidget {
-  const _ScopeNote({required this.label, required this.tasks});
+  const _ScopeNote({required this.tasks});
 
-  final String label;
   final List<String> tasks;
 
   @override
@@ -193,6 +210,8 @@ class _ServiceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ManageServicesCubit>();
+
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -237,8 +256,7 @@ class _ServiceTile extends StatelessWidget {
               Switch(
                 value: selected,
                 activeThumbColor: Const.aqua,
-                onChanged: (_) =>
-                    context.read<ManageServicesCubit>().toggleService(service),
+                onChanged: (_) => cubit.toggleService(service),
               ),
             ],
           ),
@@ -267,7 +285,7 @@ class _ServiceTile extends StatelessWidget {
             const SizedBox(height: 6),
             LevelPills(
               level: level,
-              onChanged: (lvl) => _setLevel(service, lvl),
+              onChanged: (lvl) => cubit.setLevel(service.id, lvl),
             ),
           ],
         ],
@@ -283,30 +301,12 @@ class _ServiceTile extends StatelessWidget {
       _ => price,
     };
   }
-
-  void _setLevel(ServiceEntity service, int level) {
-    final store = CareDnaStore.instance;
-    final existing = store.value.serviceExpertise;
-    final has = existing.any((t) => t.id == '${service.id}');
-
-    store.setServiceExpertise([
-      if (!has)
-        LeveledTag(
-          id: '${service.id}',
-          label: service.name,
-          group: service.category,
-          level: level,
-        ),
-      for (final t in existing)
-        if (t.id == '${service.id}') t.copyWith(level: level) else t,
-    ]);
-  }
 }
 
 class _SaveBar extends StatelessWidget {
-  const _SaveBar({required this.saving});
+  const _SaveBar({required this.state});
 
-  final bool saving;
+  final ManageServicesLoaded state;
 
   @override
   Widget build(BuildContext context) {
@@ -323,7 +323,7 @@ class _SaveBar extends StatelessWidget {
         ],
       ),
       child: ElevatedButton(
-        onPressed: saving
+        onPressed: !state.isDirty
             ? null
             : () => context.read<ManageServicesCubit>().saveServices(),
         style: ElevatedButton.styleFrom(
@@ -333,14 +333,7 @@ class _SaveBar extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
-        child: saving
-            ? const SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(
-                    strokeWidth: 2, color: Colors.white),
-              )
-            : const Text('Save'),
+        child: const Text('Save'),
       ),
     );
   }
