@@ -10,6 +10,7 @@ import 'package:m2health/features/professional_profile/domain/entities/professio
 class ProfileSummary {
   ProfileSummary._({
     required this.role,
+    required this.countryCode,
     required this.languages,
     required this.conditions,
     required this.services,
@@ -21,11 +22,12 @@ class ProfileSummary {
   factory ProfileSummary.of(ProfessionalProfile profile) {
     return ProfileSummary._(
       role: profile.jobTitle ?? '',
+      countryCode: profile.countryCode ?? '',
       languages: _claimed(profile.languages),
       conditions: _claimed(profile.conditionExperience),
       services: _ratedServices(profile),
       styleTraits: [for (final t in profile.careStyle) t.label],
-      serviceAreas: [for (final a in profile.serviceAreas) a.name],
+      serviceAreas: profile.serviceAreas,
       preferenceHighlights: profile.preferenceHighlights,
     );
   }
@@ -34,6 +36,7 @@ class ProfileSummary {
   /// and the professional previewing themselves see the same thing.
   factory ProfileSummary.public({
     required String role,
+    required String countryCode,
     required List<LeveledEntry> languages,
     required List<LeveledEntry> conditions,
     required List<ServiceEntity> services,
@@ -44,21 +47,26 @@ class ProfileSummary {
   }) {
     return ProfileSummary._(
       role: role,
+      countryCode: countryCode,
       languages: _claimed(languages),
       conditions: _claimed(conditions),
       services: _rate(services, serviceProficiency),
       styleTraits: [for (final t in careStyle) t.label],
-      serviceAreas: [for (final a in serviceAreas) a.name],
+      serviceAreas: serviceAreas,
       preferenceHighlights: preferenceHighlights,
     );
   }
 
   final String role;
+
+  /// Which country the declared areas belong to. Service areas are set for one
+  /// country at a time, so it is a property of the list, not of each area.
+  final String countryCode;
   final List<LeveledEntry> languages;
   final List<LeveledEntry> conditions;
   final List<LeveledEntry> services;
   final List<String> styleTraits;
-  final List<String> serviceAreas;
+  final List<ServiceArea> serviceAreas;
   final List<String> preferenceHighlights;
 
   static const int totalChapters = 6;
@@ -89,7 +97,7 @@ class ProfileSummary {
             .take(perCategory)
             .map((e) => e.badge(LevelScale.proficiency)),
         ...styleTraits.take(1),
-        ...serviceAreas.take(1),
+        ...serviceAreas.take(1).map((a) => a.name),
         ...preferenceHighlights.take(1),
       ];
 

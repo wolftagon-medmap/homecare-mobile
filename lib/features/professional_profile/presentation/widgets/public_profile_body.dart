@@ -18,6 +18,7 @@ class PublicProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final summary = ProfileSummary.public(
       role: professional.jobTitle ?? professional.role,
+      countryCode: professional.countryCode ?? '',
       languages: professional.languages,
       conditions: professional.conditionExperience,
       services: professional.services,

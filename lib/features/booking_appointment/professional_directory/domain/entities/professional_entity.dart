@@ -11,6 +11,7 @@ class ProfessionalEntity extends Equatable {
   final int id;
   final String name;
   final String? avatar;
+  final String? countryCode;
   final int? experience;
   final double? rating;
   final String? about;
@@ -40,6 +41,7 @@ class ProfessionalEntity extends Equatable {
     required this.id,
     required this.name,
     this.avatar,
+    this.countryCode,
     required this.experience,
     required this.rating,
     this.about,
@@ -71,6 +73,7 @@ class ProfessionalEntity extends Equatable {
         id,
         name,
         avatar,
+        countryCode,
         experience,
         rating,
         about,
@@ -102,6 +105,7 @@ class ProfessionalEntity extends Equatable {
       id: id,
       name: name,
       avatar: avatar,
+      countryCode: countryCode,
       experience: experience,
       rating: rating,
       about: about,

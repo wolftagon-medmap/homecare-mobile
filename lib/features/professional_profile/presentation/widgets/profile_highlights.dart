@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
+import 'package:m2health/features/professional_profile/domain/entities/service_area.dart';
 import 'package:m2health/features/professional_profile/presentation/view/profile_summary.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/guidance_sheet.dart';
 import 'package:m2health/features/professional_profile/presentation/widgets/profile_chip.dart';
 
 /// The Care DNA as a patient sees it.
@@ -20,8 +22,12 @@ class ProfileHighlightSections extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _ChipSection(
-          title: 'Speaks',
+          title: 'Language Proficiency',
           icon: Icons.translate,
+          guide: const _ScaleGuide(
+            LevelScale.language,
+            'How well this professional speaks each language they have added.',
+          ),
           items: [
             for (final e in summary.languages)
               '${e.label} · ${LevelScale.language.labelFor(e.level)}',
@@ -31,14 +37,24 @@ class ProfileHighlightSections extends StatelessWidget {
         _ChipSection(
           title: 'Experienced with',
           icon: Icons.favorite_outline,
+          guide: const _ScaleGuide(
+            LevelScale.experience,
+            'How much hands-on experience this professional has with each '
+            'condition.',
+          ),
           items: [
             for (final e in summary.conditions) e.badge(LevelScale.experience),
           ],
           emptyText: 'No condition experience listed.',
         ),
         _ChipSection(
-          title: 'Services & expertise',
+          title: 'Clinical & Service Skills',
           icon: Icons.medical_services_outlined,
+          guide: const _ScaleGuide(
+            LevelScale.proficiency,
+            'How much expertise this professional claims in each service they '
+            'offer.',
+          ),
           items: [
             for (final e in summary.services) e.badge(LevelScale.proficiency),
           ],
@@ -57,11 +73,9 @@ class ProfileHighlightSections extends StatelessWidget {
           emptyText: 'No preferences listed.',
         ),
         if (summary.serviceAreas.isNotEmpty)
-          _ChipSection(
-            title: 'Covers',
-            icon: Icons.map_outlined,
-            items: summary.serviceAreas,
-            emptyText: '',
+          _ServiceAreaSection(
+            areas: summary.serviceAreas,
+            countryCode: summary.countryCode,
           ),
       ],
     );
@@ -71,6 +85,100 @@ class ProfileHighlightSections extends StatelessWidget {
 /// How many chips a section shows before collapsing the rest behind "show all".
 const int _kVisibleChips = 5;
 
+/// The seeded markets. Country names belong beside the area catalogue on the
+/// server; this stands in until they are served, and falls back to the code.
+const Map<String, String> _kCountryNames = {
+  'SG': 'Singapore',
+  'MY': 'Malaysia',
+  'ID': 'Indonesia',
+  'CN': 'China',
+};
+
+/// What an `(i)` next to a levelled section explains. Only levelled sections
+/// get one -- an icon elsewhere promises a scale that does not exist.
+class _ScaleGuide {
+  const _ScaleGuide(this.scale, this.intro);
+
+  final LevelScale scale;
+  final String intro;
+
+  /// Labels come from the scale itself, so the sheet and the chips cannot
+  /// disagree about what a level means.
+  List<String> get points => [
+        intro,
+        for (var level = LevelScaleX.minLevel;
+            level <= LevelScaleX.maxLevel;
+            level++)
+          '${scale.prefix}$level — ${scale.labelFor(level)}',
+      ];
+}
+
+class _SectionHeader extends StatelessWidget {
+  const _SectionHeader({required this.title, required this.icon, this.guide});
+
+  final String title;
+  final IconData icon;
+  final _ScaleGuide? guide;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, size: 18, color: Const.tosca),
+        const SizedBox(width: 8),
+        Flexible(child: Text(title, style: ProText.sectionTitle)),
+        if (guide != null)
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => showGuidanceSheet(
+              context,
+              title: title,
+              points: guide!.points,
+            ),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+              child: Icon(
+                Icons.info_outline,
+                size: 16,
+                color: Const.contentTextColor,
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class _ShowAllToggle extends StatelessWidget {
+  const _ShowAllToggle({
+    required this.expanded,
+    required this.total,
+    required this.onTap,
+  });
+
+  final bool expanded;
+  final int total;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Text(
+          expanded ? 'Show less' : 'Show all $total',
+          style: const TextStyle(
+            color: Const.aqua,
+            fontWeight: FontWeight.w600,
+            fontSize: 13,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 /// A titled block of chips that collapses past [_kVisibleChips].
 class _ChipSection extends StatefulWidget {
   const _ChipSection({
@@ -78,12 +186,14 @@ class _ChipSection extends StatefulWidget {
     required this.icon,
     required this.items,
     required this.emptyText,
+    this.guide,
   });
 
   final String title;
   final IconData icon;
   final List<String> items;
   final String emptyText;
+  final _ScaleGuide? guide;
 
   @override
   State<_ChipSection> createState() => _ChipSectionState();
@@ -108,16 +218,10 @@ class _ChipSectionState extends State<_ChipSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(widget.icon, size: 18, color: Const.tosca),
-              const SizedBox(width: 8),
-              Text(
-                widget.title,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-            ],
+          _SectionHeader(
+            title: widget.title,
+            icon: widget.icon,
+            guide: widget.guide,
           ),
           const SizedBox(height: 10),
           if (widget.items.isEmpty)
@@ -134,23 +238,101 @@ class _ChipSectionState extends State<_ChipSection> {
               ],
             ),
           if (hasMore)
-            Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: GestureDetector(
-                onTap: () => setState(() => _expanded = !_expanded),
-                child: Text(
-                  _expanded ? 'Show less' : 'Show all ${widget.items.length}',
-                  style: const TextStyle(
-                    color: Const.aqua,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13,
-                  ),
-                ),
-              ),
+            _ShowAllToggle(
+              expanded: _expanded,
+              total: widget.items.length,
+              onTap: () => setState(() => _expanded = !_expanded),
             ),
         ],
       ),
     );
+  }
+}
+
+/// Districts read as a flat wall of names, so they are grouped under the
+/// country and the region above them.
+class _ServiceAreaSection extends StatefulWidget {
+  const _ServiceAreaSection({required this.areas, required this.countryCode});
+
+  final List<ServiceArea> areas;
+  final String countryCode;
+
+  @override
+  State<_ServiceAreaSection> createState() => _ServiceAreaSectionState();
+}
+
+class _ServiceAreaSectionState extends State<_ServiceAreaSection> {
+  bool _expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final hasMore = widget.areas.length > _kVisibleChips;
+    final shown = _expanded || !hasMore
+        ? widget.areas
+        : widget.areas.take(_kVisibleChips).toList();
+    final country = widget.countryCode.isEmpty
+        ? null
+        : _kCountryNames[widget.countryCode.toUpperCase()] ??
+            widget.countryCode.toUpperCase();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const _SectionHeader(title: 'Service Area', icon: Icons.map_outlined),
+          const SizedBox(height: 10),
+          if (country != null) ...[
+            Text(country, style: ProText.bodyStrong),
+            const SizedBox(height: 8),
+          ],
+          for (final region in _byRegion(shown))
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (region.key.isNotEmpty) ...[
+                    Text(region.key, style: ProText.hint),
+                    const SizedBox(height: 6),
+                  ],
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      for (final area in region.value)
+                        ProfileChip(label: area.name, filled: true)
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          if (hasMore)
+            _ShowAllToggle(
+              expanded: _expanded,
+              total: widget.areas.length,
+              onTap: () => setState(() => _expanded = !_expanded),
+            ),
+        ],
+      ),
+    );
+  }
+
+  /// Areas with no parent fall into one unnamed group, kept last.
+  static List<MapEntry<String, List<ServiceArea>>> _byRegion(
+    List<ServiceArea> areas,
+  ) {
+    final groups = <String, List<ServiceArea>>{};
+    for (final area in areas) {
+      groups.putIfAbsent(area.parentName ?? '', () => []).add(area);
+    }
+
+    return groups.entries.toList()
+      ..sort((a, b) {
+        if (a.key.isEmpty) return 1;
+        if (b.key.isEmpty) return -1;
+        return a.key.compareTo(b.key);
+      });
   }
 }
 
