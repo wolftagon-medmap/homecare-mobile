@@ -5,7 +5,6 @@ class ServiceModel extends ServiceEntity {
     required super.id,
     required super.name,
     required super.price,
-    super.description,
     super.category,
     super.subCategory,
     super.pricingModel,
@@ -20,7 +19,6 @@ class ServiceModel extends ServiceEntity {
       // v2 uses 'name'; legacy used 'title'
       name: (json['name'] ?? json['title']) as String? ?? '',
       price: double.parse((json['price'] ?? 0).toString()),
-      description: json['description'] as String?,
       // v2 uses 'category'; legacy used 'service_type'
       category: (json['category'] ?? json['service_type']) as String?,
       subCategory: json['sub_category'] as String?,

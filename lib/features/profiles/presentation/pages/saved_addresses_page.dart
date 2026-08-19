@@ -128,8 +128,7 @@ class _AddressCard extends StatelessWidget {
                 address.label?.isNotEmpty == true
                     ? address.label!
                     : context.l10n.address_form_label,
-                style:
-                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -156,8 +155,7 @@ class _AddressCard extends StatelessWidget {
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 4),
           child: Text(
-            address.formattedAddress ??
-                '${address.latitude}, ${address.longitude}',
+            address.formattedAddress ?? '${address.latitude}, ${address.longitude}',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
@@ -174,9 +172,7 @@ class _AddressCard extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
                   onPressed: () {
-                    context
-                        .read<SavedAddressesCubit>()
-                        .setDefaultAddress(address.id);
+                    context.read<SavedAddressesCubit>().setDefaultAddress(address.id);
                   },
                 )
               : const Icon(Icons.check_circle, color: Const.aqua, size: 20),

@@ -6,10 +6,10 @@ import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/route/appointment_routes.dart';
 import 'package:m2health/route/dashboard_routes.dart';
 import 'package:m2health/route/navigator_keys.dart';
+import 'package:m2health/core/presentation/views/dashboard.dart';
 import 'package:m2health/core/presentation/views/favourites.dart';
-import 'package:m2health/core/presentation/views/unified_home_page.dart';
 import 'package:m2health/features/medical_store/presentation/pages/medical_store_page.dart';
-import 'package:m2health/core/presentation/views/unified_profile_page.dart';
+import 'package:m2health/features/profiles/presentation/pages/unified_profile_page.dart';
 
 class CoreRoutes {
   static List<RouteBase> routes = [
@@ -24,7 +24,7 @@ class CoreRoutes {
             GoRoute(
               path: AppRoutes.dashboard,
               routes: DashboardRoutes.routes,
-              builder: (context, state) => const UnifiedHomePage(),
+              builder: (context, state) => const Dashboard(),
             ),
           ],
         ),
@@ -50,7 +50,7 @@ class CoreRoutes {
           routes: [
             GoRoute(
               path: AppRoutes.favourite,
-              builder: (context, state) => const FavouritesPage(),
+              builder: (context, state) => FavouritesPage(),
             ),
           ],
         ),

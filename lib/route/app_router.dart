@@ -17,7 +17,6 @@ import 'package:m2health/route/core_routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/route/go_router_refresh_stream.dart';
 import 'package:m2health/route/navigator_keys.dart';
-import 'package:m2health/features/professional_profile/professional_profile_routes.dart';
 import 'package:m2health/features/profiles/profile_detail_routes.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/core/presentation/views/splashscreen.dart';
@@ -99,7 +98,6 @@ final GoRouter router = GoRouter(
     ...CoreRoutes.routes, // NavBar Routes
     ...AuthRoutes.routes,
     ...ProfileDetailRoutes.routes,
-    ...ProfessionalProfileRoutes.routes,
     ...ChatbotRoutes.routes,
     ...IntakeBookingRoutes.routes,
     ...SettingsRoutes.routes,

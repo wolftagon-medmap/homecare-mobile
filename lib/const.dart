@@ -149,11 +149,6 @@ class Const {
   static const Color colorSelect = Color(0xFF4894FE);
   static const Color colorUnselect = Color(0xFF8696BB);
   static const Color colorDashboard = Color(0xFFF5EEFA);
-
-  /// Surfaces and hairlines for the professional profile screens.
-  static const Color surfaceMuted = Color(0xFFF5F5F5);
-  static const Color borderSubtle = Color(0xFFE0E0E0);
-  static const Color placeholderTextColor = Color(0xFF9E9E9E);
   static const String submenu_report = 'assets/icons/submenu_report.png';
   static const String submenu_event = ' assets/icons/submenu_event.png';
   static const String submenu_design = 'assets/icons/submenu_design.png';
@@ -170,38 +165,4 @@ class Const {
       'assets/images/menu_registrations.png';
   static const String imgMenuDrugs = 'assets/images/menu_phar.png';
   static const String imgMenuServices = 'assets/images/menu_services.png';
-}
-
-/// One type scale for the professional profile screens, so headings and
-/// supporting text do not drift apart per screen. The app-wide fix is to fill
-/// in ThemeData.textTheme, which changes every screen and is not this.
-class ProText {
-  const ProText._();
-
-  static const TextStyle pageTitle =
-      TextStyle(fontSize: 18, fontWeight: FontWeight.w700);
-
-  static const TextStyle sectionTitle =
-      TextStyle(fontSize: 16, fontWeight: FontWeight.w700);
-
-  static const TextStyle body =
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
-
-  static const TextStyle bodyStrong =
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w600);
-
-  static const TextStyle caption =
-      TextStyle(fontSize: 13, color: Const.contentTextColor);
-
-  static const TextStyle captionStrong = TextStyle(
-      fontSize: 13, fontWeight: FontWeight.w600, color: Const.primaryTextColor);
-
-  static const TextStyle hint =
-      TextStyle(fontSize: 12, color: Const.contentTextColor);
-
-  static const TextStyle overline = TextStyle(
-    fontSize: 11,
-    fontWeight: FontWeight.w700,
-    letterSpacing: 1.1,
-  );
 }

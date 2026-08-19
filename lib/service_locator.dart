@@ -12,7 +12,6 @@ import 'package:m2health/features/home_health_screening/injection.dart';
 import 'package:m2health/features/medical_record/injection.dart';
 import 'package:m2health/features/payment/injection.dart';
 import 'package:m2health/features/pharmacogenomics/injection.dart';
-import 'package:m2health/features/professional_profile/injection.dart';
 import 'package:m2health/features/profiles/injection.dart';
 import 'package:m2health/features/schedule/injection.dart';
 import 'package:m2health/features/settings/injection.dart';
@@ -77,7 +76,6 @@ Future<void> setupLocator() async {
   initPaymentModule(sl);
   initMedicalRecordModule(sl);
   initProfileModule(sl);
-  initProfessionalProfileModule(sl);
   initPharmacogenomicsModule(sl);
   initWellnessGenomicsModule(sl);
   initScheduleModule(sl);

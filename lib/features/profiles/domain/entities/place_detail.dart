@@ -18,14 +18,7 @@ class PlaceDetail extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-        placeId,
-        latitude,
-        longitude,
-        formattedAddress,
-        shortFormattedAddress,
-        name
-      ];
+  List<Object?> get props => [placeId, latitude, longitude, formattedAddress, shortFormattedAddress, name];
 
   PlaceDetail copyWith({
     String? placeId,
@@ -40,8 +33,7 @@ class PlaceDetail extends Equatable {
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
       formattedAddress: formattedAddress ?? this.formattedAddress,
-      shortFormattedAddress:
-          shortFormattedAddress ?? this.shortFormattedAddress,
+      shortFormattedAddress: shortFormattedAddress ?? this.shortFormattedAddress,
       name: name ?? this.name,
     );
   }

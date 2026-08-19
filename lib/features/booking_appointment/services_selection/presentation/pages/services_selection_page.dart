@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
-import 'package:m2health/core/presentation/widgets/service_detail_sheet.dart';
 import 'package:m2health/features/booking_appointment/services_selection/presentation/bloc/services_selection_cubit.dart';
 import 'package:m2health/features/booking_appointment/services_selection/presentation/bloc/services_selection_state.dart';
 import 'package:m2health/i18n/translations.g.dart';
@@ -161,11 +160,8 @@ class ServicesSelectionViewState extends State<ServicesSelectionView> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.info_outline_rounded,
-                          color: Colors.grey),
-                      onPressed: () => showServiceDetailSheet(context, service),
-                    ),
+                    trailing: const Icon(Icons.info_outline_rounded,
+                        color: Colors.grey),
                   ),
                 );
               },

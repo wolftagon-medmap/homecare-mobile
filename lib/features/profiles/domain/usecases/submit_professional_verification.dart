@@ -1,0 +1,14 @@
+import 'package:dartz/dartz.dart';
+import 'package:m2health/core/error/failures.dart';
+import 'package:m2health/features/profiles/domain/entities/professional_profile.dart';
+import 'package:m2health/features/profiles/domain/repositories/profile_repository.dart';
+
+class SubmitProfessionalVerification {
+  final ProfileRepository repository;
+
+  SubmitProfessionalVerification(this.repository);
+
+  Future<Either<Failure, ProfessionalProfile>> call() async {
+    return await repository.submitProfessionalVerification();
+  }
+}

@@ -26,8 +26,7 @@ class AddressRepositoryImpl implements AddressRepository {
   Future<Either<Failure, Address>> saveWorkplaceAddress(
       SaveAddressParams params) async {
     try {
-      final address =
-          await remoteDatasource.saveWorkplaceAddress(params.toJson());
+      final address = await remoteDatasource.saveWorkplaceAddress(params.toJson());
       return Right(address);
     } catch (e) {
       return Left(ServerFailure(e.toString()));

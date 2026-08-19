@@ -215,8 +215,7 @@ class _SavedAddressFormPageState extends State<SavedAddressFormPage> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(Icons.map_outlined,
-                                    color: Const.aqua),
+                                const Icon(Icons.map_outlined, color: Const.aqua),
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(

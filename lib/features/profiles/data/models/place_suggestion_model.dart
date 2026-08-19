@@ -11,7 +11,7 @@ class PlaceSuggestionModel extends PlaceSuggestion {
     // Parsing Google Places API (New) Response Structure
     final prediction = json['placePrediction'] ?? json;
     final structuredFormat = prediction['structuredFormat'] ?? {};
-
+    
     return PlaceSuggestionModel(
       placeId: prediction['placeId'] ?? prediction['place_id'] ?? '',
       mainText: structuredFormat['mainText']?['text'] ?? '',
