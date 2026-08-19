@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional_detail/professional_detail_cubit.dart';
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
 import 'package:m2health/features/professional_profile/domain/entities/work_preferences.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/condition_experience_cubit.dart';
@@ -137,7 +138,19 @@ class ProfessionalProfileRoutes {
     GoRoute(
       path: AppRoutes.professionalPreview,
       name: AppRoutes.professionalPreview,
-      builder: (context, state) => const ProfilePreviewPage(),
+      builder: (context, state) {
+        final loaded = context.read<ProfessionalProfileCubit>().state;
+        final profile =
+            loaded is ProfessionalProfileLoaded ? loaded.profile : null;
+        return BlocProvider(
+          create: (_) {
+            final cubit = ProfessionalDetailCubit(getProfessionalDetail: sl());
+            if (profile != null) cubit.fetchProfessionalDetail(profile.id);
+            return cubit;
+          },
+          child: const ProfilePreviewPage(),
+        );
+      },
     ),
     GoRoute(
       path: AppRoutes.adminProfessionals,
