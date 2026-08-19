@@ -56,7 +56,6 @@ class AppRoutes {
   static const String editProfessionalProfile = '/edit-professional-profile';
   static const String workingSchedule = '/working-schedule';
   static const String verificationHub = '/verification-hub';
-  static const String availability = '/availability';
   static const String professionalServices = '/professional/services';
   static const String professionalConditions = '/professional/conditions';
   static const String professionalLanguages = '/professional/languages';

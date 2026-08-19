@@ -8,7 +8,6 @@ import 'package:m2health/route/dashboard_routes.dart';
 import 'package:m2health/route/navigator_keys.dart';
 import 'package:m2health/core/presentation/views/favourites.dart';
 import 'package:m2health/core/presentation/views/unified_home_page.dart';
-import 'package:m2health/features/schedule/presentation/pages/working_schedule_page.dart';
 import 'package:m2health/features/medical_store/presentation/pages/medical_store_page.dart';
 import 'package:m2health/core/presentation/views/unified_profile_page.dart';
 
@@ -60,16 +59,6 @@ class CoreRoutes {
             GoRoute(
               path: AppRoutes.profile,
               builder: (context, state) => const UnifiedProfilePage(),
-            ),
-          ],
-        ),
-        // Professional-only. Patients never navigate here, so this branch stays
-        // idle for them rather than being hidden.
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: AppRoutes.availability,
-              builder: (context, state) => const WorkingSchedulePage(),
             ),
           ],
         ),

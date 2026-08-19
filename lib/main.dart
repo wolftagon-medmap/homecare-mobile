@@ -377,20 +377,16 @@ class AppShell extends StatelessWidget {
     return BlocBuilder<UserRoleCubit, UserRoleState>(
       builder: (context, roleState) {
         // Professionals get their own destinations. Branch 2 (store) and 3
-        // (favourites) have nothing to offer someone who delivers care, and
-        // branch 5 (availability) is theirs alone. Patients are untouched.
+        // (favourites) have nothing to offer someone who delivers care.
+        // Patients are untouched.
         final destinations = roleState.isProvider
             ? const [
                 _NavDestination(
-                    branch: 0, icon: Icons.today_outlined, label: 'Today'),
+                    branch: 0, icon: Icons.home_outlined, label: 'Home'),
                 _NavDestination(
                     branch: 1,
-                    icon: Icons.event_note_outlined,
-                    label: 'Visits'),
-                _NavDestination(
-                    branch: 5,
-                    icon: Icons.schedule_outlined,
-                    label: 'Availability'),
+                    icon: Icons.calendar_month_outlined,
+                    label: 'Appointments'),
                 _NavDestination(
                     branch: 4, icon: Icons.person_outline, label: 'Profile'),
               ]

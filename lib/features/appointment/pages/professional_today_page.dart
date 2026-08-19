@@ -552,7 +552,7 @@ class _EmptyToday extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             OutlinedButton(
-              onPressed: () => context.go(AppRoutes.availability),
+              onPressed: () => context.push(AppRoutes.workingSchedule),
               style: OutlinedButton.styleFrom(
                 foregroundColor: Const.tosca,
                 side: const BorderSide(color: Const.aqua),
