@@ -76,6 +76,7 @@ class AdminServicesCubit extends Cubit<AdminServicesState> {
   Future<void> addService({
     required String name,
     required double price,
+    String? description,
     String? subCategory,
     String? pricingModel,
     int? duration,
@@ -89,6 +90,7 @@ class AdminServicesCubit extends Cubit<AdminServicesState> {
           'name': name,
           'category': _category,
           'price': price,
+          if (description != null) 'description': description,
           if (subCategory != null) 'sub_category': subCategory,
           if (pricingModel != null) 'pricing_model': pricingModel,
           if (duration != null) 'detail': {'duration': duration},
@@ -106,6 +108,7 @@ class AdminServicesCubit extends Cubit<AdminServicesState> {
     required int id,
     required String name,
     required double price,
+    String? description,
     String? subCategory,
     String? pricingModel,
     int? duration,
@@ -119,6 +122,7 @@ class AdminServicesCubit extends Cubit<AdminServicesState> {
           'name': name,
           'category': _category,
           'price': price,
+          if (description != null) 'description': description,
           if (subCategory != null) 'sub_category': subCategory,
           if (pricingModel != null) 'pricing_model': pricingModel,
           if (duration != null) 'detail': {'duration': duration},
@@ -405,6 +409,7 @@ class _ServiceFormModalState extends State<_ServiceFormModal> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _nameController;
   late TextEditingController _priceController;
+  late TextEditingController _descriptionController;
   late TextEditingController _subCategoryController;
   late TextEditingController _durationController;
   late TextEditingController _codeController;
@@ -419,6 +424,7 @@ class _ServiceFormModalState extends State<_ServiceFormModal> {
     final s = widget.service;
     _nameController = TextEditingController(text: s?.name ?? '');
     _priceController = TextEditingController(text: s?.price.toString() ?? '');
+    _descriptionController = TextEditingController(text: s?.description ?? '');
     _subCategoryController = TextEditingController(text: s?.subCategory ?? '');
     _durationController =
         TextEditingController(text: s?.durationMinutes?.toString() ?? '');
@@ -431,6 +437,7 @@ class _ServiceFormModalState extends State<_ServiceFormModal> {
   void dispose() {
     _nameController.dispose();
     _priceController.dispose();
+    _descriptionController.dispose();
     _subCategoryController.dispose();
     _durationController.dispose();
     _codeController.dispose();
@@ -441,6 +448,9 @@ class _ServiceFormModalState extends State<_ServiceFormModal> {
     if (!_formKey.currentState!.validate()) return;
     final name = _nameController.text.trim();
     final price = double.tryParse(_priceController.text) ?? 0.0;
+    final description = _descriptionController.text.trim().isEmpty
+        ? null
+        : _descriptionController.text.trim();
     final subCategory = _subCategoryController.text.trim().isEmpty
         ? null
         : _subCategoryController.text.trim();
@@ -454,6 +464,7 @@ class _ServiceFormModalState extends State<_ServiceFormModal> {
             id: widget.service!.id,
             name: name,
             price: price,
+            description: description,
             subCategory: subCategory,
             pricingModel: _pricingModel,
             duration: duration,
@@ -464,6 +475,7 @@ class _ServiceFormModalState extends State<_ServiceFormModal> {
       context.read<AdminServicesCubit>().addService(
             name: name,
             price: price,
+            description: description,
             subCategory: subCategory,
             pricingModel: _pricingModel,
             duration: duration,
@@ -503,6 +515,16 @@ class _ServiceFormModalState extends State<_ServiceFormModal> {
                 ),
                 validator: (v) =>
                     (v == null || v.isEmpty) ? 'Name is required' : null,
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: _descriptionController,
+                decoration: const InputDecoration(
+                  labelText: 'Description (optional)',
+                  border: OutlineInputBorder(),
+                ),
+                minLines: 2,
+                maxLines: 4,
               ),
               const SizedBox(height: 12),
               TextFormField(

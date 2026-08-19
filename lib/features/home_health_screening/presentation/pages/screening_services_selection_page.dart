@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/core/presentation/widgets/service_detail_sheet.dart';
 import 'package:m2health/features/home_health_screening/presentation/bloc/services_list/screening_services_cubit.dart';
 
 class ScreeningServicesSelectionPage extends StatefulWidget {
@@ -128,7 +129,10 @@ class _ScreeningServicesSelectionPageState
               fontWeight: FontWeight.bold,
             ),
           ),
-          trailing: Icon(Icons.info_outline, color: Colors.grey.shade400),
+          trailing: IconButton(
+            icon: Icon(Icons.info_outline, color: Colors.grey.shade400),
+            onPressed: () => showServiceDetailSheet(context, item),
+          ),
           onTap: () => _toggleItem(item),
         ),
       ),
