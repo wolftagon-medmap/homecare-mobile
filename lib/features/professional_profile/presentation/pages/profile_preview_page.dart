@@ -20,7 +20,7 @@ class ProfilePreviewPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Preview',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: ProText.pageTitle,
         ),
       ),
       body: BlocBuilder<ProfessionalProfileCubit, ProfessionalProfileState>(

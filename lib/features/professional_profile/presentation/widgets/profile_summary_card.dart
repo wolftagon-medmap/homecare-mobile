@@ -49,13 +49,12 @@ class ProfileSummaryCard extends StatelessWidget {
                     children: [
                       Text(
                         'Care DNA',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 16),
+                        style: ProText.sectionTitle,
                       ),
                       SizedBox(height: 2),
                       Text(
                         'How patients see your strengths',
-                        style: TextStyle(fontSize: 12, color: Colors.grey),
+                        style: ProText.hint,
                       ),
                     ],
                   ),
@@ -67,16 +66,16 @@ class ProfileSummaryCard extends StatelessWidget {
                     minimumSize: Size.zero,
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                  child: const Text('Preview', style: TextStyle(fontSize: 13)),
+                  child: const Text('Preview', style: ProText.caption),
                 ),
               ],
             ),
             const SizedBox(height: 14),
             if (chips.isEmpty)
-              Text(
+              const Text(
                 'Nothing to show yet. Fill in your practice details and they '
                 'appear here.',
-                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                style: ProText.hint,
               )
             else
               Wrap(
@@ -101,7 +100,7 @@ class ProfileSummaryCard extends StatelessWidget {
             Text(
               '${summary.completedChapters} of ${ProfileSummary.totalChapters} '
               'profile areas filled in',
-              style: TextStyle(color: Colors.grey.shade700, fontSize: 12),
+              style: ProText.hint,
             ),
           ],
         ),

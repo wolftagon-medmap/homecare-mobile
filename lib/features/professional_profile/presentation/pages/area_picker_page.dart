@@ -56,7 +56,7 @@ class _AreaPickerPageState extends State<AreaPickerPage> {
       appBar: AppBar(
         title: Text(
           widget.title,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: ProText.pageTitle,
         ),
         actions: [
           TextButton(
@@ -104,8 +104,7 @@ class _AreaPickerPageState extends State<AreaPickerPage> {
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
-                      child:
-                          const Text('Clear', style: TextStyle(fontSize: 12)),
+                      child: const Text('Clear', style: ProText.hint),
                     ),
                 ],
               ),
@@ -116,8 +115,7 @@ class _AreaPickerPageState extends State<AreaPickerPage> {
                 ? Center(
                     child: Text(
                       'No district matches "$_query".',
-                      style:
-                          TextStyle(fontSize: 13, color: Colors.grey.shade600),
+                      style: ProText.caption,
                     ),
                   )
                 : ListView(
@@ -133,7 +131,7 @@ class _AreaPickerPageState extends State<AreaPickerPage> {
                             controlAffinity: ListTileControlAffinity.leading,
                             title: Text(
                               area.name,
-                              style: const TextStyle(fontSize: 14),
+                              style: ProText.body,
                             ),
                           ),
                       ],

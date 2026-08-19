@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/guidance_sheet.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/manage_services_cubit.dart';
@@ -43,8 +44,18 @@ class ServicesExpertisePage extends StatelessWidget {
             appBar: AppBar(
               title: const Text(
                 'Services & expertise',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: ProText.pageTitle,
               ),
+              actions: const [
+                GuidanceAction(
+                  title: 'Services & expertise',
+                  points: [
+                    'Turn on what you offer, then rate your expertise in each.',
+                    'Patients compare these levels when several professionals provide the same service.',
+                    'Every visit in a category includes its listed tasks, whatever else is booked.',
+                  ],
+                ),
+              ],
             ),
             body: switch (state) {
               ManageServicesLoading() ||
@@ -106,12 +117,6 @@ class _Catalogue extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
       children: [
-        Text(
-          'Turn on what you offer, then rate your expertise. Patients compare '
-          'these when several professionals provide the same service.',
-          style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
-        ),
-        const SizedBox(height: 16),
         for (final entry in byCategory.entries) ...[
           _CategoryBlock(
             category: entry.key,
@@ -149,7 +154,7 @@ class _CategoryBlock extends StatelessWidget {
       children: [
         Text(
           label,
-          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+          style: ProText.sectionTitle,
         ),
         if (scope != null && scope.isNotEmpty) ...[
           const SizedBox(height: 6),
@@ -188,7 +193,7 @@ class _ScopeNote extends StatelessWidget {
           Expanded(
             child: Text(
               'Every visit includes ${tasks.join(', ').toLowerCase()}.',
-              style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+              style: ProText.hint,
             ),
           ),
         ],
@@ -246,8 +251,7 @@ class _ServiceTile extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       _priceLabel(service),
-                      style:
-                          TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                      style: ProText.hint,
                     ),
                   ],
                 ),
@@ -264,9 +268,9 @@ class _ServiceTile extends StatelessWidget {
             const Divider(height: 18),
             Row(
               children: [
-                Text(
+                const Text(
                   'Your expertise',
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                  style: ProText.hint,
                 ),
                 const Spacer(),
                 Text(

@@ -113,7 +113,7 @@ class _EditProfessionalProfilePageState
       appBar: AppBar(
         title: const Text(
           'My Profile',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: ProText.pageTitle,
         ),
       ),
       body: MultiBlocListener(
@@ -167,8 +167,7 @@ class _EditProfessionalProfilePageState
               const SizedBox(height: 24),
               _TextFieldWidget(controller: _nameController, label: 'Full Name'),
               const SizedBox(height: 16),
-              const Text("Country",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+              const Text("Country", style: ProText.bodyStrong),
               const SizedBox(height: 8),
               CountryPickerField(
                 value: _selectedCountryCode,
@@ -416,7 +415,7 @@ class _TextFieldWidget extends StatelessWidget {
         TextFormField(
           controller: controller,
           maxLines: maxLines,
-          style: const TextStyle(fontSize: 14),
+          style: ProText.body,
           decoration: InputDecoration(hintText: hint),
           keyboardType: keyboardType,
           inputFormatters: inputFormatters,
@@ -723,8 +722,7 @@ class _IdentityFields extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Gender',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+        const Text('Gender', style: ProText.bodyStrong),
         const SizedBox(height: 6),
         DropdownButtonFormField<String>(
           initialValue: gender,
@@ -738,8 +736,7 @@ class _IdentityFields extends StatelessWidget {
           onChanged: onGenderChanged,
         ),
         const SizedBox(height: 16),
-        const Text('Residential area',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+        const Text('Residential area', style: ProText.bodyStrong),
         const SizedBox(height: 6),
         BlocBuilder<PersonalDetailsCubit, PersonalDetailsState>(
           builder: (context, state) {
@@ -766,9 +763,9 @@ class _IdentityFields extends StatelessWidget {
         const Text('Emergency contact',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
         const SizedBox(height: 4),
-        Text(
+        const Text(
           'Who we contact if something happens to you during a visit.',
-          style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+          style: ProText.hint,
         ),
         const SizedBox(height: 10),
         TextFormField(
@@ -849,7 +846,7 @@ class _AreaNote extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+        style: ProText.hint,
       ),
     );
   }

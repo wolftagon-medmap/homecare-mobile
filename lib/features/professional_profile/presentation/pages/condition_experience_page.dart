@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/guidance_sheet.dart';
 import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/condition_experience_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
@@ -45,8 +46,18 @@ class ConditionExperiencePage extends StatelessWidget {
             appBar: AppBar(
               title: const Text(
                 'Condition experience',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: ProText.pageTitle,
               ),
+              actions: const [
+                GuidanceAction(
+                  title: 'Condition experience',
+                  points: [
+                    'Add the conditions you have cared for, then rate how much experience you have with each.',
+                    'Families search on this more than anything else when choosing someone.',
+                    'Anything you do not add stays off your profile.',
+                  ],
+                ),
+              ],
             ),
             body: switch (state) {
               ConditionExperienceLoading() =>
@@ -97,12 +108,6 @@ class _Editor extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Which conditions have you cared for? This is what families '
-            'search on most when they are choosing someone.',
-            style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
-          ),
-          const SizedBox(height: 16),
           SelectThenRate(
             entries: entries,
             scale: LevelScale.experience,
@@ -134,7 +139,7 @@ class _Unavailable extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
+              style: ProText.caption,
             ),
             const SizedBox(height: 16),
             OutlinedButton(

@@ -186,12 +186,7 @@ class ProfileHighlightStrip extends StatelessWidget {
               const SizedBox(width: 6),
               Text(
                 'CARE DNA',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1.1,
-                  color: Const.tosca.withValues(alpha: 0.9),
-                ),
+                style: ProText.overline.copyWith(color: Const.tosca),
               ),
             ],
           ),
@@ -241,7 +236,7 @@ class _CollapsibleProfileHighlightsState
                 const Expanded(
                   child: Text(
                     'Care DNA details',
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+                    style: ProText.sectionTitle,
                   ),
                 ),
                 Text(

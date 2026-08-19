@@ -222,7 +222,7 @@ class _HubGroup extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+              style: ProText.sectionTitle,
             ),
             ...rows,
           ],

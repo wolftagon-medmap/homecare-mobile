@@ -49,7 +49,7 @@ class WhereIWorkPage extends StatelessWidget {
             appBar: AppBar(
               title: const Text(
                 'Coverage area',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: ProText.pageTitle,
               ),
             ),
             body: switch (state) {
@@ -192,7 +192,7 @@ class _DistrictSummary extends StatelessWidget {
         if (selected.isEmpty)
           Text(
             'No districts chosen yet.',
-            style: TextStyle(fontSize: 13, color: Colors.grey.shade500),
+            style: ProText.caption.copyWith(color: Const.placeholderTextColor),
           )
         else
           Wrap(
@@ -250,7 +250,7 @@ class _DistrictsBlocked extends StatelessWidget {
               Expanded(
                 child: Text(
                   message,
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+                  style: ProText.hint,
                 ),
               ),
             ],
@@ -333,7 +333,7 @@ class _RadiusSlider extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text('1 km', style: TextStyle(fontSize: 12)),
+            const Text('1 km', style: ProText.hint),
             Expanded(
               child: Slider(
                 value: km.toDouble(),
@@ -345,7 +345,7 @@ class _RadiusSlider extends StatelessWidget {
                 onChanged: (v) => onChanged(v.toInt()),
               ),
             ),
-            const Text('50 km', style: TextStyle(fontSize: 12)),
+            const Text('50 km', style: ProText.hint),
           ],
         ),
         Text(
@@ -379,7 +379,7 @@ class _Unavailable extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
+              style: ProText.caption,
             ),
             const SizedBox(height: 16),
             OutlinedButton(
@@ -415,7 +415,7 @@ class _SectionTitle extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 4),
       child: Text(
         text,
-        style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+        style: ProText.sectionTitle,
       ),
     );
   }
@@ -430,7 +430,7 @@ class _Hint extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+      style: ProText.hint,
     );
   }
 }

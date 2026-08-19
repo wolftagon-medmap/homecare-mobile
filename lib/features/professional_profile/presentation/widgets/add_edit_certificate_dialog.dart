@@ -135,7 +135,7 @@ class _AddEditCertificateDialogState extends State<AddEditCertificateDialog> {
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
               ),
               TextFormField(
-                style: const TextStyle(fontSize: 14),
+                style: ProText.body,
                 controller: _titleController,
                 decoration: const InputDecoration(
                     hintText: 'E.g: International Standard Nursing'),
@@ -148,7 +148,7 @@ class _AddEditCertificateDialogState extends State<AddEditCertificateDialog> {
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
               ),
               TextFormField(
-                style: const TextStyle(fontSize: 14),
+                style: ProText.body,
                 controller: _registrationNumberController,
                 decoration: const InputDecoration(hintText: 'E.g: GOV98919XV '),
                 validator: (value) =>

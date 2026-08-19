@@ -50,7 +50,7 @@ class WorkPreferencesPage extends StatelessWidget {
             appBar: AppBar(
               title: const Text(
                 'Work preferences',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: ProText.pageTitle,
               ),
             ),
             body: ListView(
@@ -102,8 +102,7 @@ class WorkPreferencesPage extends StatelessWidget {
                   child: Row(
                     children: [
                       const Expanded(
-                        child: Text('Client gender',
-                            style: TextStyle(fontSize: 14)),
+                        child: Text('Client gender', style: ProText.body),
                       ),
                       DropdownButton<String>(
                         value: p.clientGenderPreference,
@@ -112,8 +111,7 @@ class WorkPreferencesPage extends StatelessWidget {
                           for (final entry in _genderLabels.entries)
                             DropdownMenuItem(
                               value: entry.key,
-                              child: Text(entry.value,
-                                  style: const TextStyle(fontSize: 13)),
+                              child: Text(entry.value, style: ProText.caption),
                             ),
                         ],
                         onChanged: (v) => v == null
@@ -213,13 +211,12 @@ class _TargetHours extends StatelessWidget {
       child: Row(
         children: [
           const Expanded(
-            child:
-                Text('Target hours per week', style: TextStyle(fontSize: 14)),
+            child: Text('Target hours per week', style: ProText.body),
           ),
           if (hours == null)
             TextButton(
               onPressed: () => onChanged(30),
-              child: const Text('Set', style: TextStyle(fontSize: 13)),
+              child: const Text('Set', style: ProText.caption),
             )
           else ...[
             IconButton(
@@ -234,8 +231,7 @@ class _TargetHours extends StatelessWidget {
               child: Text(
                 '${hours}h',
                 textAlign: TextAlign.center,
-                style:
-                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                style: ProText.bodyStrong,
               ),
             ),
             IconButton(
@@ -263,7 +259,7 @@ class _SectionTitle extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 6),
       child: Text(
         text,
-        style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+        style: ProText.sectionTitle,
       ),
     );
   }
@@ -286,7 +282,7 @@ class _Toggle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
         children: [
-          Expanded(child: Text(label, style: const TextStyle(fontSize: 14))),
+          Expanded(child: Text(label, style: ProText.body)),
           Switch(
             value: value,
             activeThumbColor: Const.aqua,
@@ -319,7 +315,7 @@ class _Note extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+              style: ProText.hint,
             ),
           ),
         ],

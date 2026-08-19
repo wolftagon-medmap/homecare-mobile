@@ -277,7 +277,7 @@ class _HubHeader extends StatelessWidget {
       children: [
         const Text(
           'Complete these steps to get verified',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: ProText.pageTitle,
         ),
         const SizedBox(height: 8),
         Text(

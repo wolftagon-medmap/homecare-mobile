@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/guidance_sheet.dart';
 import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/languages_care_style_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
@@ -31,8 +32,18 @@ class LanguagesStylePage extends StatelessWidget {
               appBar: AppBar(
                 title: const Text(
                   'Languages & care style',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: ProText.pageTitle,
                 ),
+                actions: const [
+                  GuidanceAction(
+                    title: 'Languages & care style',
+                    points: [
+                      'Add every language you can hold a care conversation in, then rate each one.',
+                      'Language is the first thing many families filter on.',
+                      'Care style traits describe how you work. Patients see them on your profile.',
+                    ],
+                  ),
+                ],
                 bottom: const TabBar(
                   labelColor: Const.tosca,
                   indicatorColor: Const.aqua,
@@ -117,11 +128,6 @@ class _LanguagesTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Add every language you can hold a care conversation in.',
-            style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
-          ),
-          const SizedBox(height: 16),
           SelectThenRate(
             entries: languages,
             scale: LevelScale.language,
@@ -149,12 +155,6 @@ class _CareStyleTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Pick the qualities that describe how you work. Patients see these '
-            'on your profile.',
-            style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
-          ),
-          const SizedBox(height: 16),
           TagMultiSelect(
             options: [
               for (final t in traits) TagOption(code: t.code, label: t.label),
@@ -195,7 +195,7 @@ class _Note extends StatelessWidget {
           Expanded(
             child: Text(
               text,
-              style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+              style: ProText.hint,
             ),
           ),
         ],
@@ -222,7 +222,7 @@ class _Unavailable extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
+              style: ProText.caption,
             ),
             const SizedBox(height: 16),
             OutlinedButton(
