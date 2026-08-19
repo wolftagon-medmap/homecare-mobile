@@ -4,6 +4,7 @@ class ServiceEntity extends Equatable {
   final int id;
   final String name;
   final double price;
+  final String? description;
 
   // Fields added in API v2 unified service catalog
   // nursing | pharmacy | homecare_elderly | physiotherapy | screening | second_opinion_imaging | nutrition
@@ -19,6 +20,7 @@ class ServiceEntity extends Equatable {
     required this.id,
     required this.name,
     required this.price,
+    this.description,
     this.category,
     this.subCategory,
     this.pricingModel,
@@ -32,6 +34,7 @@ class ServiceEntity extends Equatable {
         id,
         name,
         price,
+        description,
         category,
         subCategory,
         pricingModel,

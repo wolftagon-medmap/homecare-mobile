@@ -9,7 +9,7 @@ import 'package:m2health/core/presentation/widgets/auth_guard_dialog.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
-import 'package:m2health/features/profiles/presentation/widgets/profile_shared_widgets.dart';
+import 'package:m2health/core/presentation/widgets/profile_shared_widgets.dart';
 import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
 import 'package:m2health/route/app_routes.dart';
 

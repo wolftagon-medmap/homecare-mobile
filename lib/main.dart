@@ -19,10 +19,11 @@ import 'package:m2health/features/pharmacogenomics/domain/usecases/get_pharmacog
 import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/features/nutrition/domain/usecases/create_nutrition_appointment.dart';
 import 'package:m2health/features/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
+import 'package:m2health/features/professional_profile/domain/usecases/index.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
-import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/certificate_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/professional_profile_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/l10n/app_localizations.dart';
@@ -373,66 +374,130 @@ class AppShell extends StatelessWidget {
   }
 
   Widget _buildFloatingNavBar(BuildContext context) {
-    final currentIndex = navigationShell.currentIndex;
+    return BlocBuilder<UserRoleCubit, UserRoleState>(
+      builder: (context, roleState) {
+        // Professionals get their own destinations. Branch 2 (store) and 3
+        // (favourites) have nothing to offer someone who delivers care.
+        // Patients are untouched.
+        final destinations = roleState.isProvider
+            ? const [
+                _NavDestination(
+                    branch: 0, icon: Icons.home_outlined, label: 'Home'),
+                _NavDestination(
+                    branch: 1,
+                    icon: Icons.calendar_month_outlined,
+                    label: 'Appointments'),
+                _NavDestination(
+                    branch: 4, icon: Icons.person_outline, label: 'Profile'),
+              ]
+            : const [
+                _NavDestination(
+                    branch: 0, icon: Icons.home_outlined, label: 'Home'),
+                _NavDestination(
+                    branch: 1,
+                    icon: Icons.calendar_month_outlined,
+                    label: 'Appointments'),
+                _NavDestination(
+                    branch: 2,
+                    icon: Icons.add_shopping_cart_outlined,
+                    label: 'Store'),
+                _NavDestination(
+                    branch: 3,
+                    icon: Icons.favorite_border_outlined,
+                    label: 'Favourites'),
+                _NavDestination(
+                    branch: 4, icon: Icons.person_outline, label: 'Profile'),
+              ];
 
-    return Container(
-      height: 80,
-      margin: const EdgeInsets.only(bottom: 20, left: 24, right: 24),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+        return Container(
+          height: 80,
+          margin: const EdgeInsets.only(bottom: 20, left: 24, right: 24),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(
-            onPressed: () => navigationShell.goBranch(0),
-            icon: const Icon(Icons.home_outlined),
-            iconSize: 28,
-            color: currentIndex == 0
-                ? const Color(0xFF40E0D0)
-                : const Color(0xFF8A96BC),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              for (final d in destinations)
+                _NavButton(
+                  destination: d,
+                  selected: navigationShell.currentIndex == d.branch,
+                  // Labels only for professionals. The patient bar has always
+                  // been icon-only and changing it is not worth the churn.
+                  showLabel: roleState.isProvider,
+                  onTap: () => navigationShell.goBranch(d.branch),
+                ),
+            ],
           ),
-          IconButton(
-            onPressed: () => navigationShell.goBranch(1),
-            icon: const Icon(Icons.calendar_month_outlined),
-            iconSize: 28,
-            color: currentIndex == 1
-                ? const Color(0xFF40E0D0)
-                : const Color(0xFF8A96BC),
-          ),
-          IconButton(
-            onPressed: () => navigationShell.goBranch(2),
-            icon: const Icon(Icons.add_shopping_cart_outlined),
-            iconSize: 28,
-            color: currentIndex == 2
-                ? const Color(0xFF40E0D0)
-                : const Color(0xFF8A96BC),
-          ),
-          IconButton(
-            onPressed: () => navigationShell.goBranch(3),
-            icon: const Icon(Icons.favorite_border_outlined),
-            iconSize: 28,
-            color: currentIndex == 3
-                ? const Color(0xFF40E0D0)
-                : const Color(0xFF8A96BC),
-          ),
-          IconButton(
-            onPressed: () => navigationShell.goBranch(4),
-            icon: const Icon(Icons.person_outline),
-            iconSize: 28,
-            color: currentIndex == 4
-                ? const Color(0xFF40E0D0)
-                : const Color(0xFF8A96BC),
-          ),
-        ],
+        );
+      },
+    );
+  }
+}
+
+class _NavDestination {
+  const _NavDestination({
+    required this.branch,
+    required this.icon,
+    required this.label,
+  });
+
+  final int branch;
+  final IconData icon;
+  final String label;
+}
+
+class _NavButton extends StatelessWidget {
+  const _NavButton({
+    required this.destination,
+    required this.selected,
+    required this.showLabel,
+    required this.onTap,
+  });
+
+  final _NavDestination destination;
+  final bool selected;
+  final bool showLabel;
+  final VoidCallback onTap;
+
+  static const _active = Color(0xFF40E0D0);
+  static const _inactive = Color(0xFF8A96BC);
+
+  @override
+  Widget build(BuildContext context) {
+    final color = selected ? _active : _inactive;
+
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(destination.icon, size: showLabel ? 24 : 28, color: color),
+            if (showLabel) ...[
+              const SizedBox(height: 2),
+              Text(
+                destination.label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 10,
+                  color: color,
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                ),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }

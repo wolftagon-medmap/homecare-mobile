@@ -151,8 +151,9 @@ class _ProfileTile extends StatelessWidget {
         relationLabel(context, profile.relation),
         style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
       ),
-      trailing:
-          isActive ? const Icon(Icons.check, color: Const.aqua, size: 20) : null,
+      trailing: isActive
+          ? const Icon(Icons.check, color: Const.aqua, size: 20)
+          : null,
     );
   }
 }

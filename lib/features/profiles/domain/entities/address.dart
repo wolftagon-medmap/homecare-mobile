@@ -45,7 +45,8 @@ class Address extends Equatable {
       googlePlaceId: googlePlaceId ?? this.googlePlaceId,
       name: name ?? this.name,
       formattedAddress: formattedAddress ?? this.formattedAddress,
-      shortFormattedAddress: shortFormattedAddress ?? this.shortFormattedAddress,
+      shortFormattedAddress:
+          shortFormattedAddress ?? this.shortFormattedAddress,
       label: label ?? this.label,
       isDefault: isDefault ?? this.isDefault,
     );

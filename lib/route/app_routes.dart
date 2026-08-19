@@ -54,9 +54,14 @@ class AppRoutes {
   static const String savedAddresses = '/saved-addresses';
   static const String savedAddressForm = '/saved-addresses/form';
   static const String editProfessionalProfile = '/edit-professional-profile';
-  static const String editProfessionalServices = '/edit-professional-services';
   static const String workingSchedule = '/working-schedule';
   static const String verificationHub = '/verification-hub';
+  static const String professionalServices = '/professional/services';
+  static const String professionalConditions = '/professional/conditions';
+  static const String professionalLanguages = '/professional/languages';
+  static const String professionalCoverage = '/professional/coverage';
+  static const String professionalPreferences = '/professional/preferences';
+  static const String professionalPreview = '/professional/preview';
   static const String manageServices = '/manage-services';
   static const String adminProfessionals = '/admin-professionals';
   static const String manageHealthScreening = '/manage-health-screening';
