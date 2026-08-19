@@ -154,59 +154,8 @@ class _ChipSectionState extends State<_ChipSection> {
   }
 }
 
-/// The one-line identity strip: the PRD's Care DNA summary, patient-facing.
-class ProfileHighlightStrip extends StatelessWidget {
-  const ProfileHighlightStrip({super.key, required this.summary});
-
-  final ProfileSummary summary;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Const.aqua.withValues(alpha: 0.10),
-            Const.tosca.withValues(alpha: 0.04),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Const.aqua.withValues(alpha: 0.25)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.fingerprint, size: 16, color: Const.tosca),
-              const SizedBox(width: 6),
-              Text(
-                'CARE DNA',
-                style: ProText.overline.copyWith(color: Const.tosca),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            children: [
-              for (final c in summary.summaryChips(perCategory: 3))
-                ProfileChip(label: c, filled: true, dense: true),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// A patient scanning a profile wants the strip, not forty chips. The detail
-/// stays one tap away rather than on the page by default.
+/// Care DNA is the thing that tells two nurses apart, but it is long. The
+/// header carries a preview so the row is not a blind door.
 class CollapsibleProfileHighlights extends StatefulWidget {
   const CollapsibleProfileHighlights({super.key, required this.summary});
 
@@ -223,37 +172,63 @@ class _CollapsibleProfileHighlightsState
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        InkWell(
-          onTap: () => setState(() => _expanded = !_expanded),
-          borderRadius: BorderRadius.circular(8),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-              children: [
-                const Expanded(
-                  child: Text(
-                    'Care DNA details',
-                    style: ProText.sectionTitle,
+    final chips = widget.summary.summaryChips(perCategory: 1)
+      ..remove(widget.summary.role);
+    final preview = chips.take(3).join(' · ');
+    final remaining = chips.length - 3;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Const.surfaceMuted,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: () => setState(() => _expanded = !_expanded),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Row(
+                children: [
+                  const Icon(Icons.fingerprint, size: 20, color: Const.tosca),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Care DNA', style: ProText.bodyStrong),
+                        if (preview.isNotEmpty) ...[
+                          const SizedBox(height: 2),
+                          Text(
+                            remaining > 0
+                                ? '$preview  +$remaining more'
+                                : preview,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: ProText.hint,
+                          ),
+                        ],
+                      ],
+                    ),
                   ),
-                ),
-                Text(
-                  _expanded ? 'Hide' : 'Show',
-                  style: const TextStyle(fontSize: 13, color: Const.tosca),
-                ),
-                Icon(
-                  _expanded ? Icons.expand_less : Icons.expand_more,
-                  size: 20,
-                  color: Const.tosca,
-                ),
-              ],
+                  Icon(
+                    _expanded ? Icons.expand_less : Icons.expand_more,
+                    size: 22,
+                    color: Const.tosca,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        if (_expanded) ProfileHighlightSections(summary: widget.summary),
-      ],
+          if (_expanded) ...[
+            const Divider(height: 1),
+            const SizedBox(height: 12),
+            ProfileHighlightSections(summary: widget.summary),
+          ],
+        ],
+      ),
     );
   }
 }

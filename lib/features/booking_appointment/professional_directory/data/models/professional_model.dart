@@ -1,4 +1,5 @@
 import 'package:m2health/core/data/models/service_model.dart';
+import 'package:m2health/features/profiles/data/models/address_model.dart';
 import 'package:m2health/features/professional_profile/data/models/expertise_model.dart';
 import 'package:m2health/features/professional_profile/data/models/service_area_model.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/data/models/review_model.dart';
@@ -33,6 +34,7 @@ class ProfessionalModel extends ProfessionalEntity {
     super.preferenceHighlights,
     super.services,
     super.serviceProficiency,
+    super.workplaceAddress,
   });
 
   static List<LeveledEntryModel> _leveled(dynamic raw) =>
@@ -88,6 +90,13 @@ class ProfessionalModel extends ProfessionalEntity {
           if ((s as Map<String, dynamic>)['proficiency_level'] != null)
             s['id'] as int: (s['proficiency_level'] as num).toInt(),
       },
+      workplaceAddress: json['workplaceAddress'] != null
+          ? AddressModel.fromJson(
+              json['workplaceAddress'] as Map<String, dynamic>)
+          : (json['workplace_address'] != null
+              ? AddressModel.fromJson(
+                  json['workplace_address'] as Map<String, dynamic>)
+              : null),
     );
   }
 }

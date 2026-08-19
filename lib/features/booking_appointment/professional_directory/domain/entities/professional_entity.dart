@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/reviewer.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
+import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/professional_profile/domain/entities/care_style.dart';
 import 'package:m2health/features/professional_profile/domain/entities/certificate.dart';
 import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
@@ -33,6 +34,7 @@ class ProfessionalEntity extends Equatable {
   final List<String> preferenceHighlights;
   final List<ServiceEntity> services;
   final Map<int, int> serviceProficiency;
+  final Address? workplaceAddress;
 
   const ProfessionalEntity({
     required this.id,
@@ -61,6 +63,7 @@ class ProfessionalEntity extends Equatable {
     this.preferenceHighlights = const [],
     this.services = const [],
     this.serviceProficiency = const {},
+    this.workplaceAddress,
   });
 
   @override
@@ -91,6 +94,7 @@ class ProfessionalEntity extends Equatable {
         preferenceHighlights,
         services,
         serviceProficiency,
+        workplaceAddress,
       ];
 
   ProfessionalEntity copyWith({bool? isFavorite}) {
@@ -121,6 +125,7 @@ class ProfessionalEntity extends Equatable {
       preferenceHighlights: preferenceHighlights,
       services: services,
       serviceProficiency: serviceProficiency,
+      workplaceAddress: workplaceAddress,
     );
   }
 }
