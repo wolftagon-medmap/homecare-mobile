@@ -111,14 +111,16 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
               padding: const EdgeInsets.all(16),
               child: BlocBuilder<SavedAddressesCubit, SavedAddressesState>(
                 builder: (context, state) {
-                  final addresses =
-                      state is SavedAddressesLoaded ? state.addresses : const <Address>[];
+                  final addresses = state is SavedAddressesLoaded
+                      ? state.addresses
+                      : const <Address>[];
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        context.t.booking.professional_search.visit_address.picker_title,
+                        context.t.booking.professional_search.visit_address
+                            .picker_title,
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -135,7 +137,8 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
                             itemCount: addresses.length,
                             itemBuilder: (context, index) {
                               final address = addresses[index];
-                              final isSelected = address.id == _selectedAddress?.id;
+                              final isSelected =
+                                  address.id == _selectedAddress?.id;
                               return ListTile(
                                 leading: Icon(
                                   isSelected
@@ -147,12 +150,14 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
                                   address.label?.isNotEmpty == true
                                       ? address.label!
                                       : (address.formattedAddress ?? ''),
-                                  style: const TextStyle(fontWeight: FontWeight.w600),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 subtitle: address.formattedAddress != null &&
                                         address.label?.isNotEmpty == true
                                     ? Text(address.formattedAddress!,
-                                        maxLines: 1, overflow: TextOverflow.ellipsis)
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis)
                                     : null,
                                 onTap: () => _onAddressSelected(address),
                               );
@@ -163,7 +168,8 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
                       ListTile(
                         leading: const Icon(Icons.add, color: Const.aqua),
                         title: Text(
-                          context.t.booking.professional_search.visit_address.add_new,
+                          context.t.booking.professional_search.visit_address
+                              .add_new,
                           style: const TextStyle(
                               color: Const.aqua, fontWeight: FontWeight.w600),
                         ),
@@ -235,7 +241,8 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
               builder: (context, state) {
                 return VisitAddressBar(
                   selectedAddress: _selectedAddress,
-                  isLoading: state is SavedAddressesLoading || state is SavedAddressesInitial,
+                  isLoading: state is SavedAddressesLoading ||
+                      state is SavedAddressesInitial,
                   onTap: _showAddressPicker,
                 );
               },
@@ -271,7 +278,8 @@ class _SearchProfessionalPageState extends State<SearchProfessionalPage> {
             Expanded(
               child: BlocConsumer<ProfessionalBloc, ProfessionalState>(
                 listenWhen: (previous, current) =>
-                    current is ProfessionalLoaded && current.actionError != null,
+                    current is ProfessionalLoaded &&
+                    current.actionError != null,
                 listener: (context, state) {
                   final message = (state as ProfessionalLoaded).actionError!;
                   ScaffoldMessenger.of(context)

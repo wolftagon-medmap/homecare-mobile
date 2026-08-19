@@ -13,4 +13,3 @@ class SaveWorkplaceAddress {
     return await repository.saveWorkplaceAddress(params);
   }
 }
-
