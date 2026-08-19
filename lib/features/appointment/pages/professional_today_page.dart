@@ -479,8 +479,10 @@ class _VisitCard extends StatelessWidget {
       accent: Const.aqua,
       onTap: appointment.id == null
           ? null
-          : () => context.push(
-              '${AppRoutes.appointment}/provider-detail/${appointment.id}'),
+          : () => context.pushNamed(
+                AppRoutes.providerAppointmentDetail,
+                extra: appointment.id,
+              ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
