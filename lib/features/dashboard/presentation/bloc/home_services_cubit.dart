@@ -7,8 +7,7 @@ import 'package:m2health/features/dashboard/domain/usecases/index.dart';
 
 part 'home_services_state.dart';
 
-/// Owns the grid/list choice for the home services block while the client is
-/// comparing the two layouts.
+/// Owns the grid/list choice while the client compares the two layouts.
 class HomeServicesCubit extends Cubit<HomeServicesState> {
   final GetHomeLayout getHomeLayout;
   final SetHomeLayout setHomeLayout;
@@ -27,8 +26,8 @@ class HomeServicesCubit extends Cubit<HomeServicesState> {
     );
   }
 
-  /// Flips immediately and persists afterwards — a write failure costs the
-  /// preference on next launch, not the interaction.
+  /// Flips first, persists after, so a write failure costs the preference on
+  /// next launch rather than the interaction.
   Future<void> toggle() async {
     final next = state.layout == HomeServicesLayout.grid
         ? HomeServicesLayout.list

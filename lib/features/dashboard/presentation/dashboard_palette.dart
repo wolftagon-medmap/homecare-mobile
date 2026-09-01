@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Home page text and chrome colours. Per-service accents and tints live with
-/// the service visuals in `home_service_view.dart`.
+/// Per-service accents and tints live in `home_service_view.dart`.
 class DashboardPalette {
   const DashboardPalette._();
 

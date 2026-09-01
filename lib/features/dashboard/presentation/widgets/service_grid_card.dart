@@ -52,9 +52,8 @@ class ServiceGridCard extends StatelessWidget {
             ),
             SvgPicture.asset(visuals.iconPath, width: 34, height: 34),
             const SizedBox(height: 10),
-            // 11.5px with tightened tracking so "Physiotherapy" stays on one
-            // line at 360dp. Loosening the size, tracking or card padding
-            // breaks it mid-word.
+            // Size, tracking and card padding are tuned so "Physiotherapy"
+            // stays on one line at 360dp. Loosening any breaks it mid-word.
             Text(
               service.title,
               textAlign: TextAlign.center,

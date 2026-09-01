@@ -3,8 +3,7 @@ import 'package:m2health/features/dashboard/domain/entities/home_service.dart';
 import 'package:m2health/features/dashboard/domain/home_service_catalogue.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
-/// Icon and palette for one catalogue entry. Sampled from the client's mock
-/// rather than chosen, so treat the values as data, not as theme colours.
+/// Sampled from the client's mock, so these are data rather than theme colours.
 class HomeServiceVisuals {
   final String iconPath;
   final Color accent;
@@ -17,7 +16,6 @@ class HomeServiceVisuals {
   });
 }
 
-/// A catalogue entry with its display text and palette resolved.
 class HomeServiceView {
   final HomeService service;
   final String title;
@@ -35,8 +33,7 @@ class HomeServiceView {
   bool get isNew => service.isNew;
 }
 
-/// The catalogue resolved for display. [all] includes the services that sit
-/// behind All Services rather than on the home grid.
+/// [all] includes the services that sit behind All Services.
 List<HomeServiceView> homeServiceViews(BuildContext context,
     {bool all = false}) {
   final services = all ? homeServiceCatalogue : homeGridServices;
@@ -51,8 +48,7 @@ List<HomeServiceView> homeServiceViews(BuildContext context,
   ];
 }
 
-// Switches rather than a map so a new HomeServiceId fails analysis here
-// instead of throwing at runtime.
+// Switches rather than maps so a new HomeServiceId fails analysis here.
 
 HomeServiceVisuals visualsFor(HomeServiceId id) => switch (id) {
       HomeServiceId.pharmacist => const HomeServiceVisuals(

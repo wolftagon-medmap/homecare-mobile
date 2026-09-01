@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-/// Stable identity for a catalogue entry. An enum rather than a string so the
-/// i18n lookup and the icon/colour table are both exhaustively checked.
+/// An enum rather than a string so the i18n and icon tables are checked
+/// exhaustively.
 enum HomeServiceId {
   pharmacist,
   physiotherapy,
@@ -15,18 +15,13 @@ enum HomeServiceId {
   secondOpinion,
 }
 
-/// How the services block is arranged. The client is comparing both before
-/// choosing one, so the choice is persisted per device.
 enum HomeServicesLayout { grid, list }
 
 class HomeService extends Equatable {
   final HomeServiceId id;
-
-  /// Destination path, an `AppRoutes` constant.
   final String route;
 
-  /// Whether the service appears on the home page. The rest are reachable
-  /// through All Services only.
+  /// Services that are not on the home grid are reachable from All Services.
   final bool onHome;
 
   final bool isNew;

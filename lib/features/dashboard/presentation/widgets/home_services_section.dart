@@ -10,8 +10,6 @@ import 'package:m2health/features/dashboard/presentation/widgets/service_list_ca
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 
-/// The home page services block. Renders the grid or the single-column list;
-/// the client can compare both from the toggle in the section header.
 class HomeServicesSection extends StatelessWidget {
   const HomeServicesSection({super.key});
 

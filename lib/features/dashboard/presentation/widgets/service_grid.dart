@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:m2health/features/dashboard/presentation/home_service_view.dart';
 import 'package:m2health/features/dashboard/presentation/widgets/service_grid_card.dart';
 
-/// Rows of equal-width cards, each row as tall as its tallest card so the
-/// descriptions are never clipped. A GridView would force one aspect ratio on
-/// every cell and truncate the longer descriptors.
+/// Each row is as tall as its tallest card. A GridView would force one aspect
+/// ratio on every cell and truncate the longer descriptors.
 class ServiceGrid extends StatelessWidget {
   final List<HomeServiceView> services;
   final int columns;
@@ -34,8 +33,7 @@ class ServiceGrid extends StatelessWidget {
               children: [
                 for (var i = 0; i < columns; i++) ...[
                   if (i > 0) const SizedBox(width: _gap),
-                  // Empty slots keep a short last row's cards the same width
-                  // as every other row's.
+                  // Empty slots keep a short last row's cards full width.
                   Expanded(
                     child: i < rows[r].length
                         ? ServiceGridCard(service: rows[r][i])

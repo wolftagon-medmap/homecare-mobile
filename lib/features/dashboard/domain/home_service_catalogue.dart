@@ -1,11 +1,8 @@
 import 'package:m2health/features/dashboard/domain/entities/home_service.dart';
 import 'package:m2health/route/app_routes.dart';
 
-/// The services the home page offers, in display order.
-///
-/// Nine sit on the home grid so it fills three rows evenly; 2nd Opinion
-/// Imaging is reachable through All Services. Names, descriptions and icons
-/// are resolved in the presentation layer.
+/// Nine services sit on the home grid so it fills three rows evenly; 2nd
+/// Opinion Imaging is reachable from All Services.
 const List<HomeService> homeServiceCatalogue = [
   HomeService(
     id: HomeServiceId.pharmacist,
@@ -51,6 +48,5 @@ const List<HomeService> homeServiceCatalogue = [
   ),
 ];
 
-/// The subset shown on the home page.
 List<HomeService> get homeGridServices =>
     homeServiceCatalogue.where((service) => service.onHome).toList();
