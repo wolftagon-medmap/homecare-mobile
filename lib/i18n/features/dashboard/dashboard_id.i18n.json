@@ -18,5 +18,32 @@
     "sleep_and_mental_health": "Tidur & Kesehatan Mental",
     "psychologist": "Psikolog",
     "optometrist": "Optometris"
+  },
+  "home": {
+    "section_title": "Layanan Kesehatan",
+    "section_subtitle": "Perawatan profesional untuk Anda dan keluarga.",
+    "view_all": "Lihat Semua Layanan",
+    "all_services_title": "Semua Layanan",
+    "badge_new": "BARU",
+    "name_pharmacist": "Konsultasi Apoteker",
+    "name_physiotherapy": "Fisioterapi",
+    "name_psychologist": "Psikologi",
+    "name_dietitian": "Ahli Gizi",
+    "name_optometrist": "Optometris",
+    "name_nursing": "Perawat di Rumah",
+    "name_diabetic_care": "Skrining Diabetes",
+    "name_home_screening": "Skrining Kesehatan di Rumah",
+    "name_second_opinion": "Opini Kedua Citra Medis",
+    "name_homecare_elderly": "Perawatan Lansia di Rumah",
+    "desc_pharmacist": "Saran ahli untuk obat Anda dan dukungan berhenti merokok.",
+    "desc_physiotherapy": "Atasi nyeri, tingkatkan mobilitas, dan pulih lebih baik.",
+    "desc_psychologist": "Dukungan untuk stres, emosi, dan kesehatan mental.",
+    "desc_dietitian": "Dukungan nutrisi personal untuk hidup lebih sehat.",
+    "desc_optometrist": "Perawatan mata, pemeriksaan penglihatan, dan saran ahli.",
+    "desc_nursing": "Perawatan profesional dengan nyaman di rumah Anda.",
+    "desc_diabetic_care": "Periksa mata dan kaki untuk komplikasi terkait diabetes.",
+    "desc_home_screening": "Pemeriksaan kesehatan praktis di rumah Anda.",
+    "desc_second_opinion": "Dapatkan pembacaan kedua dari ahli untuk hasil pencitraan Anda.",
+    "desc_homecare_elderly": "Bantuan aktivitas harian dan pendampingan di rumah."
   }
 }

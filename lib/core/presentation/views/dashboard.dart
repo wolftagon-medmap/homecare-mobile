@@ -9,6 +9,7 @@ import 'package:m2health/features/profiles/presentation/bloc/patient_profile_sta
 import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
+import 'package:m2health/core/presentation/widgets/home_services.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
@@ -89,8 +90,8 @@ class _DashboardState extends State<Dashboard> {
   Future<void> _loadProfileForRole() async {
     final role = await Utils.getSpString(Const.ROLE);
     if (!mounted) return;
-    final isProfessional = role != null &&
-        PROFESSIONAL_ROLES.map((r) => r.value).contains(role);
+    final isProfessional =
+        role != null && PROFESSIONAL_ROLES.map((r) => r.value).contains(role);
     setState(() {
       _isProfessional = isProfessional;
       // Admin isn't in PROFESSIONAL_ROLES but has no family profiles either,
@@ -167,14 +168,44 @@ class _DashboardState extends State<Dashboard> {
                     avatarUrl = null;
                   }
 
-              if (avatarUrl != null && avatarUrl.isNotEmpty) {
-                avatarWidget = Image.network(
-                  avatarUrl,
-                  width: 56,
-                  height: 56,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
+                  if (avatarUrl != null && avatarUrl.isNotEmpty) {
+                    avatarWidget = Image.network(
+                      avatarUrl,
+                      width: 56,
+                      height: 56,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          width: 56,
+                          height: 56,
+                          color: Colors.grey.shade200,
+                          child: const Icon(
+                            Icons.person,
+                            size: 40,
+                            color: Colors.grey,
+                          ),
+                        );
+                      },
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return SizedBox(
+                          width: 56,
+                          height: 56,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    // Default avatar
+                    avatarWidget = Container(
                       width: 56,
                       height: 56,
                       color: Colors.grey.shade200,
@@ -184,184 +215,173 @@ class _DashboardState extends State<Dashboard> {
                         color: Colors.grey,
                       ),
                     );
-                  },
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return SizedBox(
-                      width: 56,
-                      height: 56,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                              : null,
-                        ),
-                      ),
-                    );
-                  },
-                );
-              } else {
-                // Default avatar
-                avatarWidget = Container(
-                  width: 56,
-                  height: 56,
-                  color: Colors.grey.shade200,
-                  child: const Icon(
-                    Icons.person,
-                    size: 40,
-                    color: Colors.grey,
-                  ),
-                );
-              }
+                  }
 
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
+                  return Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SvgPicture.asset(
-                        Const.banner,
-                        fit: BoxFit.contain,
-                        height: 36,
-                      ),
-                      const Spacer(),
-                      _NotificationBell(
-                        cubit: _notifications,
-                        onTap: _openNotificationInbox,
-                      ),
-                      const SizedBox(width: 10),
-                      GestureDetector(
-                        onTap: () {
-                          if (_isPatient) {
-                            showProfileSwitcherSheet(context);
-                          } else {
-                            context.go(AppRoutes.profile);
-                          }
-                        },
-                        child: Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            Container(
-                              width: 56,
-                              height: 56,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: avatarWidget,
-                              ),
-                            ),
-                            if (_isPatient)
-                              Positioned(
-                                right: -2,
-                                top: -2,
-                                child: Container(
-                                  padding: const EdgeInsets.all(2),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset(
+                            Const.banner,
+                            fit: BoxFit.contain,
+                            height: 36,
+                          ),
+                          const Spacer(),
+                          _NotificationBell(
+                            cubit: _notifications,
+                            onTap: _openNotificationInbox,
+                          ),
+                          const SizedBox(width: 10),
+                          GestureDetector(
+                            onTap: () {
+                              if (_isPatient) {
+                                showProfileSwitcherSheet(context);
+                              } else {
+                                context.go(AppRoutes.profile);
+                              }
+                            },
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Container(
+                                  width: 56,
+                                  height: 56,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: Colors.white, width: 1),
+                                    borderRadius: BorderRadius.circular(15),
                                   ),
-                                  child: const Icon(
-                                    Icons.keyboard_arrow_down,
-                                    size: 16,
-                                    color: Const.aqua,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: avatarWidget,
+                                  ),
+                                ),
+                                if (_isPatient)
+                                  Positioned(
+                                    right: -2,
+                                    top: -2,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                            color: Colors.white, width: 1),
+                                      ),
+                                      child: const Icon(
+                                        Icons.keyboard_arrow_down,
+                                        size: 16,
+                                        color: Const.aqua,
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          children: [
+                            if ((_isProfessional == false &&
+                                    patientState is PatientProfileLoading) ||
+                                (_isProfessional == true &&
+                                    professionalState
+                                        is ProfessionalProfileLoading)) ...[
+                              const SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              const Text(
+                                "Loading...",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ] else
+                              Expanded(
+                                child: Text(
+                                  context.t.dashboard.greeting(
+                                      displayName: displayName),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ),
                           ],
                         ),
                       ),
+                      const SizedBox(height: 20),
+                      GestureDetector(
+                        onTap: () {
+                          GoRouter.of(context).push(AppRoutes.intakeBooking);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.fromLTRB(12, 9, 9, 9),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(18),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.06),
+                                blurRadius: 12,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              SvgPicture.asset(
+                                'assets/icons/ic_ai_robot.svg',
+                                width: 30,
+                                height: 30,
+                              ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  context.t.dashboard.chat_ai_placeholder,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Color(0xFF7C8AA5),
+                                    fontSize: 11,
+                                    height: 1.25,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Container(
+                                width: 34,
+                                height: 34,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFF038E9F),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Icon(
+                                  Icons.arrow_forward,
+                                  size: 17,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
-                  ),
-                  const SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        if ((_isProfessional == false &&
-                                patientState is PatientProfileLoading) ||
-                            (_isProfessional == true &&
-                                professionalState
-                                    is ProfessionalProfileLoading)) ...[
-                          const SizedBox(
-                            width: 16,
-                            height: 16,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          const Text(
-                            "Loading...",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ] else
-                          Expanded(
-                            child: Text(
-                              context.t.dashboard
-                                  .greeting(displayName: displayName),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  GestureDetector(
-                    onTap: () {
-                      GoRouter.of(context).push(AppRoutes.intakeBooking);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            'assets/icons/ic_doctor.png',
-                            width: 24,
-                            height: 24,
-                            color: const Color.fromARGB(255, 0, 0, 0),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: TextField(
-                              enabled: false,
-                              decoration: InputDecoration(
-                                hintText:
-                                    context.t.dashboard.chat_ai_placeholder,
-                                hintStyle: const TextStyle(
-                                    color: Color(0xFF8A96BC), fontSize: 11),
-                                border: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              );
+                  );
                 },
               );
             },
@@ -373,219 +393,9 @@ class _DashboardState extends State<Dashboard> {
         color: Colors.white,
         child: SingleChildScrollView(
           controller: _scrollController,
-          child: Column(
+          child: const Column(
             children: [
-              // MAIN SERVICES
-              Padding(
-                padding: const EdgeInsets.only(top: 40, right: 24, left: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      context.t.dashboard.main_services,
-                      textAlign: TextAlign.left,
-                      style: const TextStyle(
-                        color: Color(0xFF232F55),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: 10,
-                      children: [
-                        MainServiceMenuItem(
-                          onTap: () {
-                            context.push(AppRoutes.pharmaServices);
-                          },
-                          iconPath: 'assets/icons/ic_pharma_service.png',
-                          title: context.t.dashboard.services.pharmacist,
-                          backgroundColor:
-                              const Color.fromRGBO(142, 244, 220, 0.4),
-                        ),
-                        MainServiceMenuItem(
-                          onTap: () {
-                            context.push(AppRoutes.nursingServices);
-                          },
-                          iconPath: 'assets/icons/ic_nurse.png',
-                          title: context.t.dashboard.services.nursing,
-                          backgroundColor:
-                              const Color.fromRGBO(154, 225, 255, 0.35),
-                        ),
-                        MainServiceMenuItem(
-                          onTap: () {
-                            context.push(AppRoutes.diabeticCare);
-                          },
-                          iconPath: 'assets/icons/ic_diabetic.png',
-                          title: context.t.dashboard.services.diabetic_care,
-                          backgroundColor:
-                              const Color.fromRGBO(142, 244, 220, 0.4),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: 10,
-                      children: [
-                        MainServiceMenuItem(
-                          onTap: () {
-                            context.push(AppRoutes.psychologist);
-                          },
-                          iconPath: 'assets/icons/ic_psychologist.png',
-                          title: context.t.dashboard.services.psychologist,
-                          backgroundColor:
-                              const Color.fromRGBO(178, 140, 255, 0.2),
-                        ),
-                        MainServiceMenuItem(
-                          onTap: () {
-                            context.push(AppRoutes.precisionNutrition);
-                          },
-                          iconPath: 'assets/icons/ic_precision_nutrition.webp',
-                          title:
-                              context.t.dashboard.services.precision_nutrition,
-                          backgroundColor:
-                              const Color.fromRGBO(154, 225, 255, 0.33),
-                        ),
-                        MainServiceMenuItem(
-                          onTap: () {
-                            context.push(AppRoutes.homeHealthScreening);
-                          },
-                          iconPath: 'assets/icons/ic_home_health_screening.png',
-                          title: context.t.dashboard.services.home_screening,
-                          backgroundColor:
-                              const Color.fromRGBO(178, 140, 255, 0.2),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 30),
-              const Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Divider(
-                      color: Color.fromRGBO(244, 244, 244, 1),
-                      thickness: 8,
-                    ),
-                  ),
-                ],
-              ),
-
-              // OTHER SERVICES
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 40, right: 24, left: 24, bottom: 40),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      context.t.dashboard.other_services,
-                      textAlign: TextAlign.left,
-                      style: const TextStyle(
-                        color: Color(0xFF232F55),
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        height: 0,
-                      ),
-                    ),
-                    const SizedBox(height: 28),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: OtherServiceMenuItem(
-                            imagePath: 'assets/icons/ilu_physio.webp',
-                            label: context.t.dashboard.services.physiotherapy,
-                            onTap: () {
-                              context.push(AppRoutes.physiotherapy);
-                            },
-                          ),
-                        ),
-                        Expanded(
-                          child: OtherServiceMenuItem(
-                            imagePath: 'assets/icons/ilu_2nd_opinion.webp',
-                            label: context.t.dashboard.services.second_opinion,
-                            onTap: () {
-                              context.push(AppRoutes.secondOpinionMedical);
-                            },
-                          ),
-                        ),
-                        // Expanded(
-                        //   child: OtherServiceMenuItem(
-                        //     imagePath: 'assets/icons/ilu_remote_monitoring.png',
-                        //     label: context
-                        //         .t.dashboard.services.remote_patient_monitoring,
-                        //     onTap: () {
-                        //       context.push(AppRoutes.remotePatientMonitoring);
-                        //     },
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: OtherServiceMenuItem(
-                            imagePath: 'assets/illustration/optometrist.webp',
-                            label: context.t.dashboard.services.optometrist,
-                            onTap: () {
-                              context.push(AppRoutes.optometrist);
-                            },
-                          ),
-                        ),
-                        Expanded(
-                          child: OtherServiceMenuItem(
-                            imagePath:
-                                'assets/illustration/homecare_elderly.webp',
-                            label: context
-                                .t.dashboard.services.homecare_for_elderly,
-                            onTap: () {
-                              context.push(AppRoutes.homecareForElderly);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    // Row(
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: [
-                    //     Expanded(
-                    //       child: OtherServiceMenuItem(
-                    //         imagePath: 'assets/icons/ilu_health.png',
-                    //         label: context
-                    //             .t.dashboard.services.health_risk_assessment,
-                    //         onTap: showComingSoonDialog,
-                    //       ),
-                    //     ),
-                    //     Expanded(
-                    //       child: OtherServiceMenuItem(
-                    //         imagePat h: 'assets/icons/ilu_dietitian.webp',
-                    //         label: context.t.dashboard.services.dietitian,
-                    //         onTap: showComingSoonDialog,
-                    //       ),
-                    //     ),
-                    //     Expanded(
-                    //       child: OtherServiceMenuItem(
-                    //         imagePath: 'assets/icons/ilu_sleep.png',
-                    //         label: context
-                    //             .t.dashboard.services.sleep_and_mental_health,
-                    //         onTap: showComingSoonDialog,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                  ],
-                ),
-              ),
+              HomeServicesSection(),
             ],
           ),
         ),
@@ -677,122 +487,6 @@ class _NotificationBell extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class MainServiceMenuItem extends StatelessWidget {
-  final String iconPath;
-  final String title;
-  final Color backgroundColor;
-  final VoidCallback onTap;
-
-  const MainServiceMenuItem({
-    super.key,
-    required this.iconPath,
-    required this.title,
-    required this.backgroundColor,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              border: Border.all(
-                color: const Color.fromRGBO(247, 248, 248, 1),
-                width: 2,
-              ),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Center(
-              child: Image.asset(
-                iconPath,
-                width: 50,
-                height: 50,
-              ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          SizedBox(
-            width: 100,
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              maxLines: 3,
-              softWrap: true,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                // height: 13.25 / 12,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class OtherServiceMenuItem extends StatelessWidget {
-  final String imagePath;
-  final String label;
-  final VoidCallback onTap;
-
-  const OtherServiceMenuItem({
-    super.key,
-    required this.imagePath,
-    required this.label,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          AspectRatio(
-            aspectRatio: 1.69,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: const Color.fromRGBO(247, 248, 248, 1),
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: double.infinity,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            label,
-            style: const TextStyle(fontSize: 12),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
     );
   }
 }

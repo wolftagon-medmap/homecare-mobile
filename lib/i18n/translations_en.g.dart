@@ -114,6 +114,7 @@ class TranslationsDashboardEn {
 	String get other_services => 'Other Services';
 
 	late final TranslationsDashboardServicesEn services = TranslationsDashboardServicesEn._(_root);
+	late final TranslationsDashboardHomeEn home = TranslationsDashboardHomeEn._(_root);
 }
 
 // Path: global
@@ -214,6 +215,90 @@ class TranslationsGlobalEn {
 
 	/// en: 'Yes'
 	String get yes => 'Yes';
+}
+
+// Path: dashboard.home
+class TranslationsDashboardHomeEn {
+	TranslationsDashboardHomeEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Healthcare Services'
+	String get section_title => 'Healthcare Services';
+
+	/// en: 'Professional care for you and your loved ones.'
+	String get section_subtitle => 'Professional care for you and your loved ones.';
+
+	/// en: 'View All Services'
+	String get view_all => 'View All Services';
+
+	/// en: 'All Services'
+	String get all_services_title => 'All Services';
+
+	/// en: 'NEW'
+	String get badge_new => 'NEW';
+
+	/// en: 'Pharmacist Review'
+	String get name_pharmacist => 'Pharmacist Review';
+
+	/// en: 'Physiotherapy'
+	String get name_physiotherapy => 'Physiotherapy';
+
+	/// en: 'Psychology'
+	String get name_psychologist => 'Psychology';
+
+	/// en: 'Dietitian'
+	String get name_dietitian => 'Dietitian';
+
+	/// en: 'Optometrist'
+	String get name_optometrist => 'Optometrist';
+
+	/// en: 'Home Nursing'
+	String get name_nursing => 'Home Nursing';
+
+	/// en: 'Diabetes Screening'
+	String get name_diabetic_care => 'Diabetes Screening';
+
+	/// en: 'Home Health Screening'
+	String get name_home_screening => 'Home Health Screening';
+
+	/// en: '2nd Opinion Imaging'
+	String get name_second_opinion => '2nd Opinion Imaging';
+
+	/// en: 'Homecare for Elderly'
+	String get name_homecare_elderly => 'Homecare for Elderly';
+
+	/// en: 'Expert advice on your medications and support to help you quit smoking.'
+	String get desc_pharmacist => 'Expert advice on your medications and support to help you quit smoking.';
+
+	/// en: 'Manage pain, improve mobility and recover better.'
+	String get desc_physiotherapy => 'Manage pain, improve mobility and recover better.';
+
+	/// en: 'Get support for stress, emotions and mental well-being.'
+	String get desc_psychologist => 'Get support for stress, emotions and mental well-being.';
+
+	/// en: 'Personalised nutrition support for a healthier you.'
+	String get desc_dietitian => 'Personalised nutrition support for a healthier you.';
+
+	/// en: 'Eye care, vision checks and professional advice.'
+	String get desc_optometrist => 'Eye care, vision checks and professional advice.';
+
+	/// en: 'Professional nursing care in the comfort of your home.'
+	String get desc_nursing => 'Professional nursing care in the comfort of your home.';
+
+	/// en: 'Check your eyes and feet for diabetes-related complications.'
+	String get desc_diabetic_care => 'Check your eyes and feet for diabetes-related complications.';
+
+	/// en: 'Convenient health checks in the comfort of your home.'
+	String get desc_home_screening => 'Convenient health checks in the comfort of your home.';
+
+	/// en: 'Get an expert second read of your medical scans.'
+	String get desc_second_opinion => 'Get an expert second read of your medical scans.';
+
+	/// en: 'Daily living support and companionship at home.'
+	String get desc_homecare_elderly => 'Daily living support and companionship at home.';
 }
 
 // Path: nursing
@@ -1616,6 +1701,31 @@ extension on Translations {
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
 			'dashboard.main_services' => 'Services Appointment',
 			'dashboard.other_services' => 'Other Services',
+			'dashboard.home.section_title' => 'Healthcare Services',
+			'dashboard.home.section_subtitle' => 'Professional care for you and your loved ones.',
+			'dashboard.home.view_all' => 'View All Services',
+			'dashboard.home.all_services_title' => 'All Services',
+			'dashboard.home.badge_new' => 'NEW',
+			'dashboard.home.name_pharmacist' => 'Pharmacist Review',
+			'dashboard.home.name_physiotherapy' => 'Physiotherapy',
+			'dashboard.home.name_psychologist' => 'Psychology',
+			'dashboard.home.name_dietitian' => 'Dietitian',
+			'dashboard.home.name_optometrist' => 'Optometrist',
+			'dashboard.home.name_nursing' => 'Home Nursing',
+			'dashboard.home.name_diabetic_care' => 'Diabetes Screening',
+			'dashboard.home.name_home_screening' => 'Home Health Screening',
+			'dashboard.home.name_second_opinion' => '2nd Opinion Imaging',
+			'dashboard.home.name_homecare_elderly' => 'Homecare for Elderly',
+			'dashboard.home.desc_pharmacist' => 'Expert advice on your medications and support to help you quit smoking.',
+			'dashboard.home.desc_physiotherapy' => 'Manage pain, improve mobility and recover better.',
+			'dashboard.home.desc_psychologist' => 'Get support for stress, emotions and mental well-being.',
+			'dashboard.home.desc_dietitian' => 'Personalised nutrition support for a healthier you.',
+			'dashboard.home.desc_optometrist' => 'Eye care, vision checks and professional advice.',
+			'dashboard.home.desc_nursing' => 'Professional nursing care in the comfort of your home.',
+			'dashboard.home.desc_diabetic_care' => 'Check your eyes and feet for diabetes-related complications.',
+			'dashboard.home.desc_home_screening' => 'Convenient health checks in the comfort of your home.',
+			'dashboard.home.desc_second_opinion' => 'Get an expert second read of your medical scans.',
+			'dashboard.home.desc_homecare_elderly' => 'Daily living support and companionship at home.',
 			'dashboard.services.diabetic_care' => 'Diabetic Care',
 			'dashboard.services.dietitian' => 'Dietitian Service',
 			'dashboard.services.health_risk_assessment' => 'Health Risk Assessment',

@@ -20,6 +20,7 @@ import 'package:m2health/features/psychologist/presentation/pages/psychologist_b
 import 'package:m2health/features/optometrist/presentation/pages/optometrist_services_page.dart';
 import 'package:m2health/features/optometrist/presentation/pages/optometrist_booking_flow_page.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:m2health/core/presentation/widgets/home_services.dart';
 import 'app_routes.dart';
 
 class DashboardRoutes {
@@ -43,6 +44,13 @@ class DashboardRoutes {
           create: (_) => NotificationsCubit(sl<Dio>())..load(),
           child: const NotificationInboxPage(),
         );
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
+      path: AppRoutes.allServices,
+      builder: (context, state) {
+        return const AllServicesPage();
       },
     ),
     GoRoute(
