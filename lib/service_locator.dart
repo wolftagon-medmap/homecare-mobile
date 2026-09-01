@@ -7,6 +7,7 @@ import 'package:m2health/core/network/token_expiration_interceptor.dart';
 import 'package:m2health/features/auth/injection.dart';
 import 'package:m2health/features/booking_appointment/injection.dart';
 import 'package:m2health/features/chatbot/injection.dart';
+import 'package:m2health/features/dashboard/injection.dart';
 import 'package:m2health/features/intake_booking/injection.dart';
 import 'package:m2health/features/home_health_screening/injection.dart';
 import 'package:m2health/features/medical_record/injection.dart';
@@ -72,6 +73,7 @@ Future<void> setupLocator() async {
 
   // Feature Module Injectors
   initAuthModule(sl);
+  initDashboardModule(sl);
   initBookingAppointmentModule(sl);
   initHomeHealthScreeningModule(sl);
   initPaymentModule(sl);
