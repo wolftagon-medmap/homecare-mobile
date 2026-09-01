@@ -44,7 +44,8 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     }
     emit(current.copyWith(loadingMore: true));
     try {
-      final next = await _service.fetch(page: current.page + 1, limit: _pageSize);
+      final next =
+          await _service.fetch(page: current.page + 1, limit: _pageSize);
       final items = [...current.items, ...next.items];
       emit(NotificationsLoaded(
         items: items,
@@ -68,8 +69,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
 
     emit(current.copyWith(
       items: [
-        for (final n in current.items)
-          n.id == notification.id ? n.asRead() : n,
+        for (final n in current.items) n.id == notification.id ? n.asRead() : n,
       ],
       unread: current.unread > 0 ? current.unread - 1 : 0,
     ));

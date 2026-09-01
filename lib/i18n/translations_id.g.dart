@@ -93,6 +93,9 @@ class _TranslationsDashboardId implements TranslationsDashboardEn {
 	// Translations
 	@override String get chat_ai_placeholder => 'Tanya dokter AI seputar kesehatan Anda';
 	@override String greeting({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!';
+	@override String get greeting_generic => 'Hidup Lebih Lama & Sehat!';
+	@override String get header_error => 'Profil Anda gagal dimuat.';
+	@override String get retry => 'Coba lagi';
 	@override String get main_services => 'Layanan Janji Temu';
 	@override String get other_services => 'Layanan Kesehatan Lainnya';
 	@override late final _TranslationsDashboardServicesId services = _TranslationsDashboardServicesId._(_root);
@@ -137,40 +140,6 @@ class _TranslationsGlobalId implements TranslationsGlobalEn {
 	@override String get unknown_location => 'Lokasi Tidak Diketahui';
 	@override String get update => 'Perbarui';
 	@override String get yes => 'Ya';
-}
-
-// Path: dashboard.home
-class _TranslationsDashboardHomeId implements TranslationsDashboardHomeEn {
-	_TranslationsDashboardHomeId._(this._root);
-
-	final TranslationsId _root; // ignore: unused_field
-
-	// Translations
-	@override String get section_title => 'Layanan Kesehatan';
-	@override String get section_subtitle => 'Perawatan profesional untuk Anda dan keluarga.';
-	@override String get view_all => 'Lihat Semua Layanan';
-	@override String get all_services_title => 'Semua Layanan';
-	@override String get badge_new => 'BARU';
-	@override String get name_pharmacist => 'Konsultasi Apoteker';
-	@override String get name_physiotherapy => 'Fisioterapi';
-	@override String get name_psychologist => 'Psikologi';
-	@override String get name_dietitian => 'Ahli Gizi';
-	@override String get name_optometrist => 'Optometris';
-	@override String get name_nursing => 'Perawat di Rumah';
-	@override String get name_diabetic_care => 'Skrining Diabetes';
-	@override String get name_home_screening => 'Skrining Kesehatan di Rumah';
-	@override String get name_second_opinion => 'Opini Kedua Citra Medis';
-	@override String get name_homecare_elderly => 'Perawatan Lansia di Rumah';
-	@override String get desc_pharmacist => 'Saran ahli untuk obat Anda dan dukungan berhenti merokok.';
-	@override String get desc_physiotherapy => 'Atasi nyeri, tingkatkan mobilitas, dan pulih lebih baik.';
-	@override String get desc_psychologist => 'Dukungan untuk stres, emosi, dan kesehatan mental.';
-	@override String get desc_dietitian => 'Dukungan nutrisi personal untuk hidup lebih sehat.';
-	@override String get desc_optometrist => 'Perawatan mata, pemeriksaan penglihatan, dan saran ahli.';
-	@override String get desc_nursing => 'Perawatan profesional dengan nyaman di rumah Anda.';
-	@override String get desc_diabetic_care => 'Periksa mata dan kaki untuk komplikasi terkait diabetes.';
-	@override String get desc_home_screening => 'Pemeriksaan kesehatan praktis di rumah Anda.';
-	@override String get desc_second_opinion => 'Dapatkan pembacaan kedua dari ahli untuk hasil pencitraan Anda.';
-	@override String get desc_homecare_elderly => 'Bantuan aktivitas harian dan pendampingan di rumah.';
 }
 
 // Path: nursing
@@ -510,6 +479,40 @@ class _TranslationsDashboardServicesId implements TranslationsDashboardServicesE
 	@override String get sleep_and_mental_health => 'Tidur & Kesehatan Mental';
 	@override String get psychologist => 'Psikolog';
 	@override String get optometrist => 'Optometris';
+}
+
+// Path: dashboard.home
+class _TranslationsDashboardHomeId implements TranslationsDashboardHomeEn {
+	_TranslationsDashboardHomeId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get section_title => 'Layanan Kesehatan';
+	@override String get section_subtitle => 'Perawatan profesional untuk Anda dan keluarga.';
+	@override String get view_all => 'Lihat Semua Layanan';
+	@override String get all_services_title => 'Semua Layanan';
+	@override String get badge_new => 'BARU';
+	@override String get name_pharmacist => 'Konsultasi Apoteker';
+	@override String get name_physiotherapy => 'Fisioterapi';
+	@override String get name_psychologist => 'Psikologi';
+	@override String get name_dietitian => 'Ahli Gizi';
+	@override String get name_optometrist => 'Optometris';
+	@override String get name_nursing => 'Perawat di Rumah';
+	@override String get name_diabetic_care => 'Skrining Diabetes';
+	@override String get name_home_screening => 'Skrining Kesehatan di Rumah';
+	@override String get name_second_opinion => 'Opini Kedua Citra Medis';
+	@override String get name_homecare_elderly => 'Perawatan Lansia di Rumah';
+	@override String get desc_pharmacist => 'Saran ahli untuk obat Anda dan dukungan berhenti merokok.';
+	@override String get desc_physiotherapy => 'Atasi nyeri, tingkatkan mobilitas, dan pulih lebih baik.';
+	@override String get desc_psychologist => 'Dukungan untuk stres, emosi, dan kesehatan mental.';
+	@override String get desc_dietitian => 'Dukungan nutrisi personal untuk hidup lebih sehat.';
+	@override String get desc_optometrist => 'Perawatan mata, pemeriksaan penglihatan, dan saran ahli.';
+	@override String get desc_nursing => 'Perawatan profesional dengan nyaman di rumah Anda.';
+	@override String get desc_diabetic_care => 'Periksa mata dan kaki untuk komplikasi terkait diabetes.';
+	@override String get desc_home_screening => 'Pemeriksaan kesehatan praktis di rumah Anda.';
+	@override String get desc_second_opinion => 'Dapatkan pembacaan kedua dari ahli untuk hasil pencitraan Anda.';
+	@override String get desc_homecare_elderly => 'Bantuan aktivitas harian dan pendampingan di rumah.';
 }
 
 // Path: global.dialog
@@ -1139,8 +1142,25 @@ extension on TranslationsId {
 			'booking.schedule.title' => 'Pilih Jadwal',
 			'dashboard.chat_ai_placeholder' => 'Tanya dokter AI seputar kesehatan Anda',
 			'dashboard.greeting' => ({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!',
+			'dashboard.greeting_generic' => 'Hidup Lebih Lama & Sehat!',
+			'dashboard.header_error' => 'Profil Anda gagal dimuat.',
+			'dashboard.retry' => 'Coba lagi',
 			'dashboard.main_services' => 'Layanan Janji Temu',
 			'dashboard.other_services' => 'Layanan Kesehatan Lainnya',
+			'dashboard.services.diabetic_care' => 'Perawatan Diabetes iRX',
+			'dashboard.services.dietitian' => 'Layanan Ahli Gizi',
+			'dashboard.services.health_risk_assessment' => 'Penilaian Risiko Kesehatan',
+			'dashboard.services.home_screening' => 'Skrining Kesehatan di Rumah',
+			'dashboard.services.homecare_for_elderly' => 'Perawatan Lansia di Rumah',
+			'dashboard.services.nursing' => 'Layanan Keperawatan di Rumah',
+			'dashboard.services.pharmacist' => 'Layanan Apoteker iRX',
+			'dashboard.services.physiotherapy' => 'Janji Temu Fisioterapi',
+			'dashboard.services.precision_nutrition' => 'Nutrisi ABCD',
+			'dashboard.services.remote_patient_monitoring' => 'Pemantauan Kesehatan Jarak Jauh',
+			'dashboard.services.second_opinion' => 'Second Opinion Citra Medis',
+			'dashboard.services.sleep_and_mental_health' => 'Tidur & Kesehatan Mental',
+			'dashboard.services.psychologist' => 'Psikolog',
+			'dashboard.services.optometrist' => 'Optometris',
 			'dashboard.home.section_title' => 'Layanan Kesehatan',
 			'dashboard.home.section_subtitle' => 'Perawatan profesional untuk Anda dan keluarga.',
 			'dashboard.home.view_all' => 'Lihat Semua Layanan',
@@ -1166,20 +1186,6 @@ extension on TranslationsId {
 			'dashboard.home.desc_home_screening' => 'Pemeriksaan kesehatan praktis di rumah Anda.',
 			'dashboard.home.desc_second_opinion' => 'Dapatkan pembacaan kedua dari ahli untuk hasil pencitraan Anda.',
 			'dashboard.home.desc_homecare_elderly' => 'Bantuan aktivitas harian dan pendampingan di rumah.',
-			'dashboard.services.diabetic_care' => 'Perawatan Diabetes iRX',
-			'dashboard.services.dietitian' => 'Layanan Ahli Gizi',
-			'dashboard.services.health_risk_assessment' => 'Penilaian Risiko Kesehatan',
-			'dashboard.services.home_screening' => 'Skrining Kesehatan di Rumah',
-			'dashboard.services.homecare_for_elderly' => 'Perawatan Lansia di Rumah',
-			'dashboard.services.nursing' => 'Layanan Keperawatan di Rumah',
-			'dashboard.services.pharmacist' => 'Layanan Apoteker iRX',
-			'dashboard.services.physiotherapy' => 'Janji Temu Fisioterapi',
-			'dashboard.services.precision_nutrition' => 'Nutrisi ABCD',
-			'dashboard.services.remote_patient_monitoring' => 'Pemantauan Kesehatan Jarak Jauh',
-			'dashboard.services.second_opinion' => 'Second Opinion Citra Medis',
-			'dashboard.services.sleep_and_mental_health' => 'Tidur & Kesehatan Mental',
-			'dashboard.services.psychologist' => 'Psikolog',
-			'dashboard.services.optometrist' => 'Optometris',
 			'global.add' => 'Tambah',
 			'global.book_now' => 'Pesan Sekarang',
 			'global.cancel' => 'Batal',

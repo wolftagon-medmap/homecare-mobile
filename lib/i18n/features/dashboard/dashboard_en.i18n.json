@@ -1,6 +1,9 @@
 {
   "chat_ai_placeholder": "Chat With AI doctor for all your health questions",
   "greeting": "Live Longer & Live Healthier, {displayName}!",
+  "greeting_generic": "Live Longer & Live Healthier!",
+  "header_error": "We couldn't load your profile.",
+  "retry": "Retry",
   "main_services": "Services Appointment",
   "other_services": "Other Services",
   "services": {

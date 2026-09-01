@@ -1,6 +1,9 @@
 {
   "chat_ai_placeholder": "Tanya dokter AI seputar kesehatan Anda",
   "greeting": "Hidup Lebih Lama & Sehat, {displayName}!",
+  "greeting_generic": "Hidup Lebih Lama & Sehat!",
+  "header_error": "Profil Anda gagal dimuat.",
+  "retry": "Coba lagi",
   "main_services": "Layanan Janji Temu",
   "other_services": "Layanan Kesehatan Lainnya",
   "services": {
