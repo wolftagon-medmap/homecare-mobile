@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/messaging/thread_ref.dart';
+import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
+
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/domain/entities/service_request_detail.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
@@ -483,14 +486,33 @@ class _ActionButtons extends StatelessWidget {
         final appointmentId = appointment.id!;
 
         if (status == 'pending') {
-          return _buildForPendingStatus(context, appointmentId);
+          return _withMessage(
+              appointmentId, _buildForPendingStatus(context, appointmentId));
         } else if (status == 'accepted' || status == 'upcoming') {
-          return _buildForUpcomingStatus(context, appointmentId);
+          return _withMessage(
+              appointmentId, _buildForUpcomingStatus(context, appointmentId));
         } else if (status == 'completed') {
           return _buildForCompletedStatus(context, appointmentId);
         }
         return const SizedBox.shrink();
       }),
+    );
+  }
+
+  /// Prepends the conversation to whichever action bar this status uses. It
+  /// renders nothing when there is no thread, so the bar is untouched then.
+  Widget _withMessage(int appointmentId, Widget actions) {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 8),
+          child: MessageActionButton(
+            threadRef: ThreadRef.forAppointment(appointmentId),
+            style: MessageActionStyle.icon,
+          ),
+        ),
+        Expanded(child: actions),
+      ],
     );
   }
 

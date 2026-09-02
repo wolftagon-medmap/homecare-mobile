@@ -1,3 +1,30 @@
 {
-  "namespace_title": "消息"
+  "title": "消息",
+  "emptyTitle": "暂无对话",
+  "emptyBody": "发送预约请求后，您可以在此与专业人员沟通。",
+  "composerHint": "输入消息",
+  "threadClosed": "此对话已结束。",
+  "sayHello": "打个招呼",
+  "timeProposal": {
+    "title": "已提议其他时间",
+    "youAskedFor": "您原本要求",
+    "proposed": "建议时间",
+    "accept": "接受",
+    "chooseAnother": "另选时间",
+    "heldFor": "此时段将保留有限时间",
+    "suggestAnother": "建议其他时间",
+    "sheetTitleProfessional": "建议其他时间",
+    "sheetTitlePatient": "哪个时间方便？",
+    "sendSuggestion": "发送建议",
+    "sendTime": "发送此时间",
+    "reasonLabel": "原因？（选填）",
+    "reasonHint": "简短说明有助于对方同意。"
+  },
+  "estimateRevision": {
+    "title": "修订后的费用估算",
+    "newTotal": "新的预估总额",
+    "approve": "批准",
+    "approved": "已批准",
+    "withdrawn": "已撤回"
+  }
 }

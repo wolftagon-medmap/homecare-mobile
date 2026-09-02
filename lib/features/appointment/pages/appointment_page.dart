@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/messaging/thread_ref.dart';
+import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
+
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
@@ -517,6 +520,15 @@ class _AppointmentListItem extends StatelessWidget {
         context.push(AppRoutes.appointmentDetail, extra: appointment.id);
       },
       actions: [
+        // Only while a visit is still ahead: a completed or cancelled booking
+        // has nothing left to arrange.
+        if (appointment.id != null &&
+            const ['pending', 'accepted', 'upcoming']
+                .contains(appointmentStatusLower))
+          MessageActionButton(
+            threadRef: ThreadRef.forAppointment(appointment.id!),
+            style: MessageActionStyle.icon,
+          ),
         if (appointmentStatusLower == 'completed') ...[
           Expanded(child: ratingButton),
           const SizedBox(width: 10),

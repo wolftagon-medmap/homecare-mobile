@@ -3,7 +3,7 @@
 // defensive so one malformed item can never crash the whole list.
 
 class InboxAction {
-  final String kind; // 'accept' | 'decline'
+  final String kind; // 'accept' | 'decline' | 'propose_time'
   final String entity; // 'offer' | 'appointment'
   final int entityId; // careTaskId for offers, appointmentId for appointments
   final bool requiresReason;
@@ -29,9 +29,11 @@ class InboxItemSummary {
   final String? location;
   final String? risk; // 'low' | 'high' | null
 
-  const InboxItemSummary({this.service, this.patientLabel, this.location, this.risk});
+  const InboxItemSummary(
+      {this.service, this.patientLabel, this.location, this.risk});
 
-  factory InboxItemSummary.fromJson(Map<String, dynamic> json) => InboxItemSummary(
+  factory InboxItemSummary.fromJson(Map<String, dynamic> json) =>
+      InboxItemSummary(
         service: json['service'] as String?,
         patientLabel: json['patientLabel'] as String?,
         location: json['location'] as String?,
@@ -65,6 +67,11 @@ class InboxItem {
   });
 
   bool get isOffer => origin == 'v2_offer';
+
+  /// The entity a conversation hangs off: the care task for an offer, the
+  /// appointment for a v1 row. Read from the actions rather than parsed out of
+  /// `key`, so it stays right if the key format ever changes.
+  int get summaryEntityId => actions.isEmpty ? 0 : actions.first.entityId;
 
   InboxAction? actionOfKind(String kind) {
     for (final a in actions) {

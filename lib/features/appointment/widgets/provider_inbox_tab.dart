@@ -6,6 +6,9 @@ import 'package:m2health/features/appointment/bloc/provider_appointment_cubit.da
 import 'package:m2health/features/appointment/bloc/provider_inbox_cubit.dart';
 import 'package:m2health/features/appointment/data/models/inbox_item.dart';
 import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
+import 'package:m2health/core/messaging/thread_ref.dart';
+import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
+import 'package:m2health/core/presentation/widgets/messaging/propose_time_sheet.dart';
 
 /// The provider Pending tab (ADR-0006): the unified inbox of v1 pending
 /// appointments + v2 care-task offers. Accepted/completed/cancelled stay on the
@@ -99,6 +102,7 @@ class _InboxCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final accept = item.actionOfKind('accept');
     final decline = item.actionOfKind('decline');
+    final proposeTime = item.actionOfKind('propose_time');
 
     return Card(
       margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
@@ -197,6 +201,42 @@ class _InboxCard extends StatelessWidget {
                     ),
                   )
                 : const SizedBox.shrink(),
+            // The conversation and the counter-proposal sit with the offer,
+            // because they are what the accept/decline decision is made from.
+            if (item.isOffer)
+              Row(
+                children: [
+                  MessageActionButton(
+                    threadRef: ThreadRef.forCareTask(item.summaryEntityId),
+                    label: 'Message',
+                  ),
+                  if (proposeTime != null) ...[
+                    const SizedBox(width: 8),
+                    Flexible(
+                      child: OutlinedButton(
+                        onPressed: () => _onProposeTime(context, proposeTime),
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Const.tosca),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                        ),
+                        child: const Text(
+                          'Suggest another time',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Const.tosca,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
             Row(
               children: [
                 const Spacer(),
@@ -228,6 +268,18 @@ class _InboxCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _onProposeTime(BuildContext context, InboxAction action) async {
+    final cubit = context.read<ProviderInboxCubit>();
+    final slot = await showProposeTimeSheet(
+      context,
+      title: 'Suggest another time',
+      confirmLabel: 'Send suggestion',
+      initial: item.scheduledStart?.toLocal(),
+    );
+    if (slot == null) return;
+    await cubit.respond(item, action);
   }
 
   void _onAccept(BuildContext context, InboxAction action) {

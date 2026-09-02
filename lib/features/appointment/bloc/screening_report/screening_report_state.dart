@@ -18,7 +18,8 @@ class ScreeningReportActionSuccess extends ScreeningReportState {
   final String message;
   final AppointmentEntity? updatedAppointment;
   final ScreeningReportAction action;
-  ScreeningReportActionSuccess(this.message, {this.updatedAppointment, required this.action});
+  ScreeningReportActionSuccess(this.message,
+      {this.updatedAppointment, required this.action});
 }
 
 class ScreeningReportError extends ScreeningReportState {

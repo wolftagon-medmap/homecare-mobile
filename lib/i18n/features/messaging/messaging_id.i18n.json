@@ -1,3 +1,30 @@
 {
-  "namespace_title": "Pesan"
+  "title": "Pesan",
+  "emptyTitle": "Belum ada percakapan",
+  "emptyBody": "Setelah Anda mengirim permintaan, Anda bisa berbicara dengan tenaga kesehatan di sini.",
+  "composerHint": "Tulis pesan",
+  "threadClosed": "Percakapan ini sudah ditutup.",
+  "sayHello": "Sapa dulu",
+  "timeProposal": {
+    "title": "Usulan waktu lain",
+    "youAskedFor": "Anda meminta",
+    "proposed": "Diusulkan",
+    "accept": "Terima",
+    "chooseAnother": "Pilih Lain",
+    "heldFor": "Slot ini ditahan untuk waktu terbatas",
+    "suggestAnother": "Usulkan waktu lain",
+    "sheetTitleProfessional": "Usulkan waktu lain",
+    "sheetTitlePatient": "Waktu mana yang cocok?",
+    "sendSuggestion": "Kirim usulan",
+    "sendTime": "Kirim waktu ini",
+    "reasonLabel": "Alasan? (opsional)",
+    "reasonHint": "Alasan singkat membantu mereka menyetujui."
+  },
+  "estimateRevision": {
+    "title": "Perkiraan biaya direvisi",
+    "newTotal": "Perkiraan total baru",
+    "approve": "Setujui",
+    "approved": "Disetujui",
+    "withdrawn": "Dibatalkan"
+  }
 }

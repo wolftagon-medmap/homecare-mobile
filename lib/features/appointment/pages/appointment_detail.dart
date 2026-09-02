@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/messaging/thread_ref.dart';
+import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
@@ -238,7 +241,17 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
         buttons = [];
     }
 
-    if (buttons.isEmpty) return const SizedBox.shrink();
+    // Renders nothing unless a conversation exists for this appointment, so it
+    // never widens the bar on a booking that has none.
+    final message = appointment.id == null ||
+            !const ['pending', 'accepted', 'upcoming'].contains(status)
+        ? null
+        : MessageActionButton(
+            threadRef: ThreadRef.forAppointment(appointment.id!),
+            style: MessageActionStyle.icon,
+          );
+
+    if (buttons.isEmpty && message == null) return const SizedBox.shrink();
 
     return BottomAppBar(
       color: Colors.white,
@@ -246,8 +259,10 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
       child: isHorizontalLayout
           ? Row(
               spacing: 16,
-              children:
-                  buttons.map((button) => Expanded(child: button)).toList(),
+              children: [
+                if (message != null) message,
+                ...buttons.map((button) => Expanded(child: button)),
+              ],
             )
           : Column(
               mainAxisSize: MainAxisSize.min,
