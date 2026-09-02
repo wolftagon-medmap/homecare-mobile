@@ -1,3 +1,89 @@
 {
-  "namespace_title": "Book a service"
+  "namespace_title": "Book a service",
+  "sub_service": {
+    "title": "Which service do you need?",
+    "subtitle": "Pick the one that fits best.",
+    "empty": "No services are available here yet."
+  },
+  "issues": {
+    "title": "What can we help you with?",
+    "subtitle": "Pick everything that applies. You can choose more than one.",
+    "remarks_label": "Remarks (optional)",
+    "remarks_hint": "Anything else you would like our healthcare professional to know?",
+    "add_ons_link": "Add procedures or extras",
+    "error": "We could not load the issue list.",
+    "empty": "No reasons are listed for this service yet."
+  },
+  "add_ons": {
+    "title": "Anything else to add?",
+    "subtitle": "Optional extras, priced individually. Skip if you are not sure.",
+    "empty": "No extras are available for this service.",
+    "selected": "{count} added"
+  },
+  "professional": {
+    "title": "Choose a professional",
+    "subtitle": "Everyone here covers your visit address.",
+    "location_label": "Visit address",
+    "location_empty": "Add an address to see who is available",
+    "location_loading": "Finding your saved addresses",
+    "change_location": "Change",
+    "picker_title": "Where should we visit?",
+    "add_address": "Add a new address",
+    "loading": "Finding professionals near you",
+    "empty": "No professionals cover this address yet. Try another address.",
+    "error": "We could not load the professional list.",
+    "years": "{years} yrs experience",
+    "reviews": "({count})"
+  },
+  "schedule": {
+    "title": "When suits you?",
+    "subtitle": "Pick a preferred time. We will confirm it with your professional.",
+    "loading": "Checking availability",
+    "empty": "No open times on this day. Try another date.",
+    "error": "We could not load the available times.",
+    "no_days": "This professional has no open times right now."
+  },
+  "review": {
+    "title": "Review your request",
+    "subtitle": "Check everything over, then send it.",
+    "service": "Service",
+    "issues": "Reasons for the visit",
+    "remarks": "Remarks",
+    "add_ons": "Extras",
+    "location": "Visit address",
+    "professional": "Professional",
+    "schedule": "Preferred time",
+    "estimate": "Estimated total",
+    "estimate_note": "An estimate only. Nothing is charged now — payment happens at the visit.",
+    "edit": "Edit",
+    "none": "None",
+    "send": "Send request"
+  },
+  "sent": {
+    "title": "Request sent",
+    "body": "We have passed your request to {name}. We will notify you as soon as they respond.",
+    "body_generic": "We have passed your request on. We will notify you as soon as it is picked up.",
+    "message": "Message your professional",
+    "view_status": "View request status",
+    "done": "Back to home"
+  },
+  "status": {
+    "title": "Your request",
+    "reference": "Request #{id}",
+    "submitted": "Sent {date}",
+    "preferred": "You asked for",
+    "proposed": "They suggested",
+    "pending_body": "Your request is with {name}. We will let you know as soon as they respond.",
+    "confirmed_body": "{name} confirmed your visit. See you then.",
+    "proposed_body": "{name} is not free then and suggested another time.",
+    "cancelled_body": "This request was cancelled. You can start a new one whenever you are ready.",
+    "accept_time": "Accept this time",
+    "choose_another": "Choose another time",
+    "cancel_request": "Cancel request",
+    "message": "Message"
+  },
+  "cta": {
+    "continue": "Continue",
+    "skip": "Skip"
+  }
 }

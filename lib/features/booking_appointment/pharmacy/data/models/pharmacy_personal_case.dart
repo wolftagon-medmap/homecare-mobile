@@ -1,4 +1,3 @@
-
 import 'package:m2health/core/data/models/service_model.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/data/models/personal_issue_model.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/mobility_status.dart';
@@ -9,6 +8,7 @@ class PharmacyPersonalCaseModel extends PharmacyCase {
     super.appointmentId,
     super.issues,
     super.serviceType,
+    super.coachingTopic,
     super.mobilityStatus,
     super.relatedHealthRecordId,
     super.addOnServices,
@@ -18,6 +18,7 @@ class PharmacyPersonalCaseModel extends PharmacyCase {
     return PharmacyPersonalCaseModel(
       appointmentId: json['appointment_id'],
       serviceType: json['service_type'] ?? 'general_counseling',
+      coachingTopic: json['coaching_topic'],
       issues: json['personal_issues'] != null
           ? (json['personal_issues'] as List)
               .map((issue) => PersonalIssueModel.fromJson(issue))

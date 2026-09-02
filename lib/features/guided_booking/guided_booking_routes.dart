@@ -1,12 +1,84 @@
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_cubit.dart';
+import 'package:m2health/features/guided_booking/presentation/pages/add_on_page.dart';
+import 'package:m2health/features/guided_booking/presentation/pages/guided_booking_entry_page.dart';
+import 'package:m2health/features/guided_booking/presentation/pages/issue_selection_page.dart';
+import 'package:m2health/features/guided_booking/presentation/pages/preferred_datetime_page.dart';
+import 'package:m2health/features/guided_booking/presentation/pages/professional_select_page.dart';
+import 'package:m2health/features/guided_booking/presentation/pages/request_sent_page.dart';
+import 'package:m2health/features/guided_booking/presentation/pages/request_status_page.dart';
+import 'package:m2health/features/guided_booking/presentation/pages/review_and_send_page.dart';
+import 'package:m2health/features/guided_booking/presentation/pages/sub_service_page.dart';
 import 'package:m2health/route/app_routes.dart';
 
-/// Routes for the guided booking flow. Owned by A1.
-///
-/// Registered once in `app_router.dart` — do not open that file. Add internal
-/// paths as constants here; `AppRoutes` carries only the entry point.
+class GuidedBookingArgs {
+  final String category;
+  final String? subCategory;
+
+  const GuidedBookingArgs({required this.category, this.subCategory});
+}
+
+/// Every step after the entry receives the one [GuidedBookingCubit] created
+/// there — that is what makes back-and-edit work without a step refetching.
+/// [returnToReview] flips a step's CTA from "push the next step" to "pop back
+/// to review", so an edit link never stacks a second copy of the flow.
+class GuidedBookingStepArgs {
+  final GuidedBookingCubit cubit;
+  final bool returnToReview;
+
+  const GuidedBookingStepArgs(this.cubit, {this.returnToReview = false});
+}
+
 class GuidedBookingRoutes {
   static const String entry = AppRoutes.guidedBooking;
+  static const String subService = '/guided-booking/sub-service';
+  static const String issues = '/guided-booking/issues';
+  static const String addOns = '/guided-booking/add-ons';
+  static const String professional = '/guided-booking/professional';
+  static const String dateTime = '/guided-booking/date-time';
+  static const String review = '/guided-booking/review';
+  static const String sent = '/guided-booking/sent';
+  static const String status = '/guided-booking/status';
 
-  static List<RouteBase> routes = [];
+  static List<RouteBase> routes = [
+    GoRoute(
+      path: entry,
+      builder: (context, state) {
+        final args = state.extra as GuidedBookingArgs?;
+        return GuidedBookingEntryPage(
+          args: args ?? const GuidedBookingArgs(category: 'pharmacy'),
+        );
+      },
+    ),
+    _step(subService, (_) => const SubServicePage()),
+    _step(issues, (args) => IssueSelectionPage(args: args)),
+    _step(addOns, (args) => AddOnPage(args: args)),
+    _step(professional, (args) => ProfessionalSelectPage(args: args)),
+    _step(dateTime, (args) => PreferredDateTimePage(args: args)),
+    _step(review, (_) => const ReviewAndSendPage()),
+    _step(sent, (_) => const RequestSentPage()),
+    GoRoute(
+      path: status,
+      builder: (context, state) =>
+          RequestStatusPage(requestId: state.extra as int? ?? 9001),
+    ),
+  ];
+
+  static GoRoute _step(
+    String path,
+    Widget Function(GuidedBookingStepArgs args) build,
+  ) {
+    return GoRoute(
+      path: path,
+      builder: (context, state) {
+        final args = state.extra as GuidedBookingStepArgs;
+        return BlocProvider<GuidedBookingCubit>.value(
+          value: args.cubit,
+          child: build(args),
+        );
+      },
+    );
+  }
 }
