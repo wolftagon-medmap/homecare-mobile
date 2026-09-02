@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/core/blocs/user_role_cubit.dart';
+import 'package:m2health/core/presentation/app_shell_metrics.dart';
 import 'package:m2health/features/dashboard/presentation/bloc/home_services_cubit.dart';
 import 'package:m2health/features/dashboard/presentation/dashboard_palette.dart';
 import 'package:m2health/features/dashboard/presentation/widgets/dashboard_header_bar.dart';
@@ -74,7 +75,7 @@ class _DashboardViewState extends State<_DashboardView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 180,
+        toolbarHeight: DashboardHeaderBar.heightOf(context),
         elevation: 2,
         automaticallyImplyLeading: false,
         flexibleSpace: const _HeaderBackground(),
@@ -86,20 +87,20 @@ class _DashboardViewState extends State<_DashboardView> {
           ),
         ),
       ),
-      body: Container(
-        margin: const EdgeInsets.fromLTRB(0, 0, 0, 60),
-        color: Colors.white,
-        child: RefreshIndicator(
-          onRefresh: _refresh,
-          color: DashboardPalette.link,
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              children: [
-                DashboardNoticeBanner(onRetry: _refresh),
-                const HomeServicesSection(),
-              ],
-            ),
+      body: RefreshIndicator(
+        onRefresh: _refresh,
+        color: DashboardPalette.link,
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: EdgeInsets.only(
+            bottom: AppShellMetrics.contentBottomClearance +
+                MediaQuery.viewPaddingOf(context).bottom,
+          ),
+          child: Column(
+            children: [
+              DashboardNoticeBanner(onRetry: _refresh),
+              const HomeServicesSection(),
+            ],
           ),
         ),
       ),

@@ -7,57 +7,57 @@ import 'package:m2health/route/app_routes.dart';
 class AiAssistantBar extends StatelessWidget {
   const AiAssistantBar({super.key});
 
+  static const textSize = 11.0;
+  static const textLineHeight = 1.25;
+  static const textMaxLines = 2;
+
   @override
   Widget build(BuildContext context) {
     return Semantics(
       button: true,
-      child: GestureDetector(
-        onTap: () => context.push(AppRoutes.intakeBooking),
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(12, 9, 9, 9),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(18),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.06),
-                blurRadius: 12,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Row(
-            children: [
-              SvgPicture.asset(
-                'assets/icons/ic_ai_robot.svg',
-                width: 30,
-                height: 30,
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  context.t.dashboard.chat_ai_placeholder,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF7C8AA5),
-                    fontSize: 11,
-                    height: 1.25,
+      child: Material(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        clipBehavior: Clip.antiAlias,
+        elevation: 3,
+        shadowColor: Colors.black.withValues(alpha: 0.18),
+        child: InkWell(
+          onTap: () => context.push(AppRoutes.intakeBooking),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(12, 9, 9, 9),
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  'assets/icons/ic_ai_robot.svg',
+                  width: 30,
+                  height: 30,
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    context.t.dashboard.chat_ai_placeholder,
+                    maxLines: textMaxLines,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      color: Color(0xFF7C8AA5),
+                      fontSize: textSize,
+                      height: textLineHeight,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              Container(
-                width: 34,
-                height: 34,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF038E9F),
-                  shape: BoxShape.circle,
+                const SizedBox(width: 8),
+                Container(
+                  width: 34,
+                  height: 34,
+                  decoration: const BoxDecoration(
+                    color: Color(0xFF038E9F),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.arrow_forward,
+                      size: 17, color: Colors.white),
                 ),
-                child: const Icon(Icons.arrow_forward,
-                    size: 17, color: Colors.white),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

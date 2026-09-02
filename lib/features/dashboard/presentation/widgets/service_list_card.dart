@@ -14,90 +14,98 @@ class ServiceListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final visuals = service.visuals;
 
-    return GestureDetector(
-      onTap: () => context.push(service.route),
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: Colors.white,
+    return Semantics(
+      button: true,
+      label: service.title,
+      child: Material(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: DashboardPalette.cardBorder),
+          side: const BorderSide(color: DashboardPalette.cardBorder),
         ),
-        child: Row(
-          children: [
-            Container(
-              width: 56,
-              height: 56,
-              decoration: BoxDecoration(
-                color: visuals.tint,
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Center(
-                child:
-                    SvgPicture.asset(visuals.iconPath, width: 30, height: 30),
-              ),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: () => context.push(service.route),
+          child: Padding(
+            padding: const EdgeInsets.all(14),
+            child: Row(
+              children: [
+                Container(
+                  width: 56,
+                  height: 56,
+                  decoration: BoxDecoration(
+                    color: visuals.tint,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Center(
+                    child: SvgPicture.asset(visuals.iconPath,
+                        width: 30, height: 30),
+                  ),
+                ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Flexible(
-                        child: Text(
-                          service.title,
-                          style: const TextStyle(
-                            color: DashboardPalette.navy,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      if (service.isNew) ...[
-                        const SizedBox(width: 6),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 7, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: visuals.accent,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            context.t.dashboard.home.badge_new,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 8.5,
-                              fontWeight: FontWeight.w700,
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              service.title,
+                              style: const TextStyle(
+                                color: DashboardPalette.navy,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
+                          if (service.isNew) ...[
+                            const SizedBox(width: 6),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 7, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: visuals.accent,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(
+                                context.t.dashboard.home.badge_new,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8.5,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        service.description,
+                        style: const TextStyle(
+                          color: DashboardPalette.muted,
+                          fontSize: 12,
+                          height: 1.35,
                         ),
-                      ],
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    service.description,
-                    style: const TextStyle(
-                      color: DashboardPalette.muted,
-                      fontSize: 12,
-                      height: 1.35,
-                    ),
+                ),
+                const SizedBox(width: 10),
+                Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: visuals.accent.withValues(alpha: 0.12),
+                    shape: BoxShape.circle,
                   ),
-                ],
-              ),
+                  child: Icon(Icons.arrow_forward,
+                      size: 15, color: visuals.accent),
+                ),
+              ],
             ),
-            const SizedBox(width: 10),
-            Container(
-              width: 30,
-              height: 30,
-              decoration: BoxDecoration(
-                color: visuals.accent.withValues(alpha: 0.12),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(Icons.arrow_forward, size: 15, color: visuals.accent),
-            ),
-          ],
+          ),
         ),
       ),
     );

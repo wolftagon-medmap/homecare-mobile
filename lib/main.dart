@@ -42,6 +42,7 @@ import 'package:device_preview_screenshot/device_preview_screenshot.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'const.dart';
+import 'core/presentation/app_shell_metrics.dart';
 import 'core/services/app_config_service.dart';
 import 'core/presentation/widgets/app_update_dialog.dart';
 import 'core/services/fcm_service.dart';
@@ -361,7 +362,8 @@ class AppShell extends StatelessWidget {
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 32),
+            padding: const EdgeInsets.only(
+                bottom: AppShellMetrics.shellBottomPadding),
             child: navigationShell,
           ),
           Align(
@@ -410,8 +412,12 @@ class AppShell extends StatelessWidget {
               ];
 
         return Container(
-          height: 68,
-          margin: const EdgeInsets.only(bottom: 16, left: 14, right: 14),
+          height: AppShellMetrics.navBarHeight,
+          margin: const EdgeInsets.only(
+            bottom: AppShellMetrics.navBarBottomMargin,
+            left: AppShellMetrics.navBarSideMargin,
+            right: AppShellMetrics.navBarSideMargin,
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
             color: Colors.white,
