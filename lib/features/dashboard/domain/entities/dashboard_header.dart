@@ -11,15 +11,21 @@ class DashboardHeader extends Equatable {
     this.canSwitchProfile = false,
   });
 
-  static const empty = DashboardHeader();
+  /// Built from primitives rather than a Profile so the dashboard's domain
+  /// doesn't depend on another feature's entities.
+  factory DashboardHeader.from({
+    String? fullName,
+    String? avatarUrl,
+    bool canSwitchProfile = false,
+  }) {
+    return DashboardHeader(
+      firstName: firstNameOf(fullName),
+      avatarUrl: avatarUrl,
+      canSwitchProfile: canSwitchProfile,
+    );
+  }
 
   bool get hasName => firstName != null && firstName!.isNotEmpty;
-
-  DashboardHeader copyWith({bool? canSwitchProfile}) => DashboardHeader(
-        firstName: firstName,
-        avatarUrl: avatarUrl,
-        canSwitchProfile: canSwitchProfile ?? this.canSwitchProfile,
-      );
 
   /// Greets people by their first name only. Accounts created from an email
   /// can carry the address as the name, so the domain is dropped rather than
