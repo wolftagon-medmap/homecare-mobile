@@ -59,8 +59,6 @@ class ProfileAvatar extends StatelessWidget {
     final url = avatarUrl;
     if (url == null || url.isEmpty) return const _AvatarPlaceholder();
 
-    // No progress spinner: the placeholder holds the same box, so a slow avatar
-    // settles in place instead of flashing a loader inside the header.
     return Image.network(
       url,
       width: _size,

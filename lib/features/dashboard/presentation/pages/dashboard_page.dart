@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/core/blocs/user_role_cubit.dart';
 import 'package:m2health/features/dashboard/presentation/bloc/home_services_cubit.dart';
+import 'package:m2health/features/dashboard/presentation/dashboard_palette.dart';
 import 'package:m2health/features/dashboard/presentation/widgets/dashboard_header_bar.dart';
+import 'package:m2health/features/dashboard/presentation/widgets/dashboard_notice_banner.dart';
 import 'package:m2health/features/dashboard/presentation/widgets/home_services_section.dart';
 import 'package:m2health/features/notifications/presentation/bloc/notifications_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
@@ -35,12 +37,19 @@ class _DashboardView extends StatefulWidget {
 }
 
 class _DashboardViewState extends State<_DashboardView> {
+  late final AppLifecycleListener _lifecycle;
+
   @override
   void initState() {
     super.initState();
-    // Post-frame: PatientProfileCubit is app-scoped, so emitting from it during
-    // this build would rebuild listeners that are already building.
+    _lifecycle = AppLifecycleListener(onResume: _refreshNotifications);
     WidgetsBinding.instance.addPostFrameCallback((_) => _loadProfiles());
+  }
+
+  @override
+  void dispose() {
+    _lifecycle.dispose();
+    super.dispose();
   }
 
   void _loadProfiles() {
@@ -48,6 +57,17 @@ class _DashboardViewState extends State<_DashboardView> {
     final profiles = context.read<PatientProfileCubit>();
     if (profiles.state is PatientProfileLoaded) return;
     profiles.loadProfiles();
+  }
+
+  void _refreshNotifications() {
+    if (!mounted) return;
+    context.read<NotificationsCubit>().load();
+  }
+
+  Future<void> _refresh() async {
+    final profiles = context.read<PatientProfileCubit>();
+    final notifications = context.read<NotificationsCubit>();
+    await Future.wait([profiles.loadProfiles(), notifications.load()]);
   }
 
   @override
@@ -69,21 +89,29 @@ class _DashboardViewState extends State<_DashboardView> {
       body: Container(
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 60),
         color: Colors.white,
-        child: const SingleChildScrollView(
-          child: Column(
-            children: [
-              HomeServicesSection(),
-            ],
+        child: RefreshIndicator(
+          onRefresh: _refresh,
+          color: DashboardPalette.link,
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                DashboardNoticeBanner(onRetry: _refresh),
+                const HomeServicesSection(),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  void _openNotificationInbox() {
+  Future<void> _openNotificationInbox() async {
     final notifications = context.read<NotificationsCubit>();
     notifications.load();
-    context.push(AppRoutes.notificationInbox, extra: notifications);
+    await context.push(AppRoutes.notificationInbox, extra: notifications);
+    if (!mounted) return;
+    notifications.load();
   }
 
   void _openProfile() {

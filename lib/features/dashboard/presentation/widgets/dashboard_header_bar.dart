@@ -23,9 +23,6 @@ class DashboardHeaderBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Selected one value at a time so the header only rebuilds when the piece
-    // it actually shows changes. lastActiveProfile survives reloads and saves,
-    // so none of these blank out mid-refresh.
     final fullName = context.select<PatientProfileCubit, String?>(
         (cubit) => cubit.state.lastActiveProfile?.name);
     final avatarUrl = context.select<PatientProfileCubit, String?>(
@@ -77,8 +74,6 @@ class DashboardHeaderBar extends StatelessWidget {
     );
   }
 
-  /// Greets without a name until one resolves, so the header never shows a
-  /// spinner or a placeholder that is then replaced.
   String _greeting(BuildContext context, DashboardHeader header) {
     final t = context.t.dashboard;
     if (!header.hasName) return t.greeting_generic;

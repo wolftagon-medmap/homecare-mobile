@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Per-service accents and tints live in `home_service_view.dart`.
 class DashboardPalette {
   const DashboardPalette._();
 
@@ -9,4 +8,7 @@ class DashboardPalette {
   static const hairline = Color(0xFFE3E7EE);
   static const cardBorder = Color(0xFFEDEFF3);
   static const link = Color(0xFF0F9AA8);
+  static const noticeBg = Color(0xFFFDF6E7);
+  static const noticeBorder = Color(0xFFF0DFB8);
+  static const noticeInk = Color(0xFF8A6314);
 }
