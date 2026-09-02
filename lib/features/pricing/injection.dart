@@ -1,10 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:m2health/core/config/feature_flags.dart';
+import 'package:m2health/features/pricing/data/datasources/floor_price_datasource.dart';
 import 'package:m2health/features/pricing/data/datasources/price_table_datasource.dart';
+import 'package:m2health/features/pricing/data/datasources/provider_rate_datasource.dart';
 import 'package:m2health/features/pricing/data/repositories/pricing_repository_impl.dart';
 import 'package:m2health/features/pricing/domain/repositories/pricing_repository.dart';
+import 'package:m2health/features/pricing/presentation/bloc/floor_price_cubit.dart';
 import 'package:m2health/features/pricing/presentation/bloc/price_table_cubit.dart';
+import 'package:m2health/features/pricing/presentation/bloc/provider_rates_cubit.dart';
 
 /// Dependency registrations for pricing and estimates. Owned by A3.
 ///
@@ -18,11 +22,35 @@ void initPricingModule(GetIt sl) {
         : const PriceTableLocalDataSource(),
   );
 
+  sl.registerLazySingleton<ProviderRateDataSource>(
+    () => AppFlags.remote(Feature.professionalPricing)
+        ? ProviderRateRemoteDataSource(dio: sl<Dio>())
+        : ProviderRateLocalDataSource(sl<PriceTableDataSource>()),
+  );
+
+  // The admin floor shares the professionalPricing flag: both write the same
+  // price columns and there is no case for cutting one over without the other.
+  sl.registerLazySingleton<FloorPriceDataSource>(
+    () => AppFlags.remote(Feature.professionalPricing)
+        ? FloorPriceRemoteDataSource(dio: sl<Dio>())
+        : FloorPriceLocalDataSource(sl<PriceTableDataSource>()),
+  );
+
   sl.registerLazySingleton<PricingRepository>(
-    () => PricingRepositoryImpl(sl<PriceTableDataSource>()),
+    () => PricingRepositoryImpl(
+      priceTableSource: sl<PriceTableDataSource>(),
+      providerRates: sl<ProviderRateDataSource>(),
+      floorPriceSource: sl<FloorPriceDataSource>(),
+    ),
   );
 
   sl.registerFactory<PriceTableCubit>(
     () => PriceTableCubit(sl<PricingRepository>()),
+  );
+  sl.registerFactory<ProviderRatesCubit>(
+    () => ProviderRatesCubit(sl<PricingRepository>()),
+  );
+  sl.registerFactory<FloorPriceCubit>(
+    () => FloorPriceCubit(sl<PricingRepository>()),
   );
 }
