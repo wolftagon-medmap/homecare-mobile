@@ -37,6 +37,7 @@ class DashboardHeader extends Equatable {
     if (name.isEmpty) return null;
 
     final at = name.indexOf('@');
+    if (at == 0) return null;
     if (at > 0) name = name.substring(0, at);
 
     final token = name

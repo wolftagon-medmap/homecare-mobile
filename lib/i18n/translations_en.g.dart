@@ -116,13 +116,6 @@ class TranslationsDashboardEn {
 	/// en: 'Retry'
 	String get retry => 'Retry';
 
-	/// en: 'Services Appointment'
-	String get main_services => 'Services Appointment';
-
-	/// en: 'Other Services'
-	String get other_services => 'Other Services';
-
-	late final TranslationsDashboardServicesEn services = TranslationsDashboardServicesEn._(_root);
 	late final TranslationsDashboardHomeEn home = TranslationsDashboardHomeEn._(_root);
 }
 
@@ -740,57 +733,6 @@ class TranslationsBookingScheduleEn {
 
 	/// en: 'Select Schedule'
 	String get title => 'Select Schedule';
-}
-
-// Path: dashboard.services
-class TranslationsDashboardServicesEn {
-	TranslationsDashboardServicesEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-
-	/// en: 'Diabetic Care'
-	String get diabetic_care => 'Diabetic Care';
-
-	/// en: 'Dietitian Service'
-	String get dietitian => 'Dietitian Service';
-
-	/// en: 'Health Risk Assessment'
-	String get health_risk_assessment => 'Health Risk Assessment';
-
-	/// en: 'Health Screening'
-	String get home_screening => 'Health Screening';
-
-	/// en: 'Home Care for Elderly'
-	String get homecare_for_elderly => 'Home Care for Elderly';
-
-	/// en: 'Home Nursing'
-	String get nursing => 'Home Nursing';
-
-	/// en: 'iRX Pharmacist Service'
-	String get pharmacist => 'iRX Pharmacist Service';
-
-	/// en: 'Physiotherapy Appointment'
-	String get physiotherapy => 'Physiotherapy Appointment';
-
-	/// en: 'Nutrition ABCD'
-	String get precision_nutrition => 'Nutrition ABCD';
-
-	/// en: 'Remote Patient Monitoring'
-	String get remote_patient_monitoring => 'Remote Patient Monitoring';
-
-	/// en: '2nd Opinion for Medical Image'
-	String get second_opinion => '2nd Opinion for Medical Image';
-
-	/// en: 'Sleep & Mental Health'
-	String get sleep_and_mental_health => 'Sleep & Mental Health';
-
-	/// en: 'Psychologist'
-	String get psychologist => 'Psychologist';
-
-	/// en: 'Optometrist'
-	String get optometrist => 'Optometrist';
 }
 
 // Path: dashboard.home
@@ -1711,22 +1653,6 @@ extension on Translations {
 			'dashboard.greeting_generic' => 'Live Longer & Live Healthier!',
 			'dashboard.header_error' => 'We couldn\'t load your profile.',
 			'dashboard.retry' => 'Retry',
-			'dashboard.main_services' => 'Services Appointment',
-			'dashboard.other_services' => 'Other Services',
-			'dashboard.services.diabetic_care' => 'Diabetic Care',
-			'dashboard.services.dietitian' => 'Dietitian Service',
-			'dashboard.services.health_risk_assessment' => 'Health Risk Assessment',
-			'dashboard.services.home_screening' => 'Health Screening',
-			'dashboard.services.homecare_for_elderly' => 'Home Care for Elderly',
-			'dashboard.services.nursing' => 'Home Nursing',
-			'dashboard.services.pharmacist' => 'iRX Pharmacist Service',
-			'dashboard.services.physiotherapy' => 'Physiotherapy Appointment',
-			'dashboard.services.precision_nutrition' => 'Nutrition ABCD',
-			'dashboard.services.remote_patient_monitoring' => 'Remote Patient Monitoring',
-			'dashboard.services.second_opinion' => '2nd Opinion for Medical Image',
-			'dashboard.services.sleep_and_mental_health' => 'Sleep & Mental Health',
-			'dashboard.services.psychologist' => 'Psychologist',
-			'dashboard.services.optometrist' => 'Optometrist',
 			'dashboard.home.section_title' => 'Healthcare Services',
 			'dashboard.home.section_subtitle' => 'Professional care for you and your loved ones.',
 			'dashboard.home.view_all' => 'View All Services',

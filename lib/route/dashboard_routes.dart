@@ -83,13 +83,6 @@ class DashboardRoutes {
       },
     ),
     GoRoute(
-      path: AppRoutes.homeHealthScreening,
-      parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) {
-        return const HomeHealth();
-      },
-    ),
-    GoRoute(
       path: AppRoutes.remotePatientMonitoring,
       parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) {

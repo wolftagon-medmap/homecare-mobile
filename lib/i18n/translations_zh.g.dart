@@ -96,9 +96,6 @@ class _TranslationsDashboardZh implements TranslationsDashboardEn {
 	@override String get greeting_generic => '更长寿，更健康！';
 	@override String get header_error => '无法加载您的个人资料。';
 	@override String get retry => '重试';
-	@override String get main_services => '服务预约';
-	@override String get other_services => '其他服务';
-	@override late final _TranslationsDashboardServicesZh services = _TranslationsDashboardServicesZh._(_root);
 	@override late final _TranslationsDashboardHomeZh home = _TranslationsDashboardHomeZh._(_root);
 }
 
@@ -456,29 +453,6 @@ class _TranslationsBookingScheduleZh implements TranslationsBookingScheduleEn {
 	@override String get submit_button => '提交';
 	@override String get submitting_button => '正在提交...';
 	@override String get title => '选择时间表';
-}
-
-// Path: dashboard.services
-class _TranslationsDashboardServicesZh implements TranslationsDashboardServicesEn {
-	_TranslationsDashboardServicesZh._(this._root);
-
-	final TranslationsZh _root; // ignore: unused_field
-
-	// Translations
-	@override String get diabetic_care => 'iRX糖尿病护理';
-	@override String get dietitian => '营养师服务';
-	@override String get health_risk_assessment => '健康风险评估';
-	@override String get home_screening => '居家健康筛查';
-	@override String get homecare_for_elderly => '长者家政维修';
-	@override String get nursing => ' 上门护士';
-	@override String get pharmacist => 'iRX 药师服务';
-	@override String get physiotherapy => '理疗预约';
-	@override String get precision_nutrition => '营养ABCD';
-	@override String get remote_patient_monitoring => '远程健康监测';
-	@override String get second_opinion => '医学影像第二意见';
-	@override String get sleep_and_mental_health => '睡眠与心理健康';
-	@override String get psychologist => '心理学家';
-	@override String get optometrist => '验光师';
 }
 
 // Path: dashboard.home
@@ -1145,22 +1119,6 @@ extension on TranslationsZh {
 			'dashboard.greeting_generic' => '更长寿，更健康！',
 			'dashboard.header_error' => '无法加载您的个人资料。',
 			'dashboard.retry' => '重试',
-			'dashboard.main_services' => '服务预约',
-			'dashboard.other_services' => '其他服务',
-			'dashboard.services.diabetic_care' => 'iRX糖尿病护理',
-			'dashboard.services.dietitian' => '营养师服务',
-			'dashboard.services.health_risk_assessment' => '健康风险评估',
-			'dashboard.services.home_screening' => '居家健康筛查',
-			'dashboard.services.homecare_for_elderly' => '长者家政维修',
-			'dashboard.services.nursing' => ' 上门护士',
-			'dashboard.services.pharmacist' => 'iRX 药师服务',
-			'dashboard.services.physiotherapy' => '理疗预约',
-			'dashboard.services.precision_nutrition' => '营养ABCD',
-			'dashboard.services.remote_patient_monitoring' => '远程健康监测',
-			'dashboard.services.second_opinion' => '医学影像第二意见',
-			'dashboard.services.sleep_and_mental_health' => '睡眠与心理健康',
-			'dashboard.services.psychologist' => '心理学家',
-			'dashboard.services.optometrist' => '验光师',
 			'dashboard.home.section_title' => '医疗服务',
 			'dashboard.home.section_subtitle' => '为您和家人提供专业照护。',
 			'dashboard.home.view_all' => '查看全部服务',
