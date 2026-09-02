@@ -42,6 +42,7 @@ import 'package:device_preview_screenshot/device_preview_screenshot.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'const.dart';
+import 'core/presentation/app_shell_metrics.dart';
 import 'core/services/app_config_service.dart';
 import 'core/presentation/widgets/app_update_dialog.dart';
 import 'core/services/fcm_service.dart';
@@ -361,7 +362,8 @@ class AppShell extends StatelessWidget {
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 32),
+            padding: const EdgeInsets.only(
+                bottom: AppShellMetrics.shellBottomPadding),
             child: navigationShell,
           ),
           Align(
@@ -382,7 +384,7 @@ class AppShell extends StatelessWidget {
         final destinations = roleState.isProvider
             ? const [
                 _NavDestination(
-                    branch: 0, icon: Icons.home_outlined, label: 'Home'),
+                    branch: 0, icon: Icons.home_rounded, label: 'Home'),
                 _NavDestination(
                     branch: 1,
                     icon: Icons.calendar_month_outlined,
@@ -392,7 +394,7 @@ class AppShell extends StatelessWidget {
               ]
             : const [
                 _NavDestination(
-                    branch: 0, icon: Icons.home_outlined, label: 'Home'),
+                    branch: 0, icon: Icons.home_rounded, label: 'Home'),
                 _NavDestination(
                     branch: 1,
                     icon: Icons.calendar_month_outlined,
@@ -410,16 +412,21 @@ class AppShell extends StatelessWidget {
               ];
 
         return Container(
-          height: 80,
-          margin: const EdgeInsets.only(bottom: 20, left: 24, right: 24),
+          height: AppShellMetrics.navBarHeight,
+          margin: const EdgeInsets.only(
+            bottom: AppShellMetrics.navBarBottomMargin,
+            left: AppShellMetrics.navBarSideMargin,
+            right: AppShellMetrics.navBarSideMargin,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
+                color: const Color(0xFF232F55).withValues(alpha: 0.10),
+                blurRadius: 18,
+                offset: const Offset(0, 6),
               ),
             ],
           ),
@@ -430,9 +437,7 @@ class AppShell extends StatelessWidget {
                 _NavButton(
                   destination: d,
                   selected: navigationShell.currentIndex == d.branch,
-                  // Labels only for professionals. The patient bar has always
-                  // been icon-only and changing it is not worth the churn.
-                  showLabel: roleState.isProvider,
+                  showLabel: true,
                   onTap: () => navigationShell.goBranch(d.branch),
                 ),
             ],
@@ -468,8 +473,8 @@ class _NavButton extends StatelessWidget {
   final bool showLabel;
   final VoidCallback onTap;
 
-  static const _active = Color(0xFF40E0D0);
-  static const _inactive = Color(0xFF8A96BC);
+  static const _active = Color(0xFF12B3C7);
+  static const _inactive = Color(0xFF97A2BC);
 
   @override
   Widget build(BuildContext context) {
@@ -478,19 +483,22 @@ class _NavButton extends StatelessWidget {
     return Expanded(
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(destination.icon, size: showLabel ? 24 : 28, color: color),
+            Icon(destination.icon, size: showLabel ? 23 : 27, color: color),
             if (showLabel) ...[
-              const SizedBox(height: 2),
+              const SizedBox(height: 4),
               Text(
                 destination.label,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 9,
+                  height: 1.1,
+                  letterSpacing: -0.2,
                   color: color,
                   fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                 ),

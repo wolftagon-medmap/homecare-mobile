@@ -19,7 +19,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
         super(const NotificationsInitial());
 
   Future<void> load() async {
-    emit(const NotificationsLoading());
+    emit(NotificationsLoading(unread: state.unreadCount));
     try {
       final page = await _service.fetch(page: 1, limit: _pageSize);
       emit(NotificationsLoaded(
@@ -31,7 +31,8 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     } catch (e, stackTrace) {
       log('Error loading notifications: $e',
           name: 'NotificationsCubit', error: e, stackTrace: stackTrace);
-      emit(const NotificationsError('Failed to load notifications'));
+      emit(NotificationsError('Failed to load notifications',
+          unread: state.unreadCount));
     }
   }
 
@@ -44,7 +45,8 @@ class NotificationsCubit extends Cubit<NotificationsState> {
     }
     emit(current.copyWith(loadingMore: true));
     try {
-      final next = await _service.fetch(page: current.page + 1, limit: _pageSize);
+      final next =
+          await _service.fetch(page: current.page + 1, limit: _pageSize);
       final items = [...current.items, ...next.items];
       emit(NotificationsLoaded(
         items: items,
@@ -68,8 +70,7 @@ class NotificationsCubit extends Cubit<NotificationsState> {
 
     emit(current.copyWith(
       items: [
-        for (final n in current.items)
-          n.id == notification.id ? n.asRead() : n,
+        for (final n in current.items) n.id == notification.id ? n.asRead() : n,
       ],
       unread: current.unread > 0 ? current.unread - 1 : 0,
     ));

@@ -17,7 +17,7 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
     required this.createProfileUseCase,
     required this.updateProfileUseCase,
     required this.deleteProfileUseCase,
-  }) : super(PatientProfileInitial());
+  }) : super(const PatientProfileInitial());
 
   /// Survives Loading/Saving/Success, which would otherwise erase the choice:
   /// saving an edit emits Success before reloading, and reading the selection
@@ -25,14 +25,12 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
   int? _activeProfileId;
 
   /// The profile the app is acting for, or null before the first load.
-  /// Lets any feature read the active profile without depending on the state type.
-  Profile? get activeProfile {
-    final current = state;
-    return current is PatientProfileLoaded ? current.activeProfile : null;
-  }
+  /// Reads through to the retained profile so a caller during a save or a
+  /// reload still gets an answer.
+  Profile? get activeProfile => state.lastActiveProfile;
 
   Future<void> loadProfiles() async {
-    emit(PatientProfileLoading());
+    emit(PatientProfileLoading(lastActiveProfile: activeProfile));
 
     final result = await getProfilesUseCase();
     result.fold(
@@ -40,14 +38,16 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
         log('Failed to load profiles: ${failure.message}',
             name: 'PatientProfileCubit');
         if (failure is UnauthorizedFailure) {
-          emit(PatientProfileUnauthenticated());
+          emit(const PatientProfileUnauthenticated());
         } else {
-          emit(PatientProfileError(failure.message));
+          emit(PatientProfileError(failure.message,
+              lastActiveProfile: activeProfile));
         }
       },
       (profiles) {
         if (profiles.isEmpty) {
-          emit(const PatientProfileError('No profile found for this account'));
+          emit(PatientProfileError('No profile found for this account',
+              lastActiveProfile: activeProfile));
           return;
         }
         _activeProfileId = _resolveActiveId(profiles, _activeProfileId);
@@ -68,42 +68,48 @@ class PatientProfileCubit extends Cubit<PatientProfileState> {
   }
 
   Future<void> createProfile(CreateProfileParams params) async {
-    emit(PatientProfileSaving());
+    emit(PatientProfileSaving(lastActiveProfile: activeProfile));
     final result = await createProfileUseCase(params);
     result.fold(
-      (failure) => emit(PatientProfileError(failure.message)),
+      (failure) => emit(PatientProfileError(failure.message,
+          lastActiveProfile: activeProfile)),
       (created) {
         // Adding someone from the switcher means you want to act as them, so
         // don't leave the app pointed at whoever happened to be active.
         _activeProfileId = created.id;
-        emit(const PatientProfileSuccess('Profile added successfully!'));
+        emit(PatientProfileSuccess('Profile added successfully!',
+            lastActiveProfile: activeProfile));
         loadProfiles();
       },
     );
   }
 
   Future<void> updateProfile(UpdateProfileParams params) async {
-    emit(PatientProfileSaving());
+    emit(PatientProfileSaving(lastActiveProfile: activeProfile));
     final result = await updateProfileUseCase(params);
     result.fold(
-      (failure) => emit(PatientProfileError(failure.message)),
+      (failure) => emit(PatientProfileError(failure.message,
+          lastActiveProfile: activeProfile)),
       (_) {
-        emit(const PatientProfileSuccess('Profile updated successfully!'));
+        emit(PatientProfileSuccess('Profile updated successfully!',
+            lastActiveProfile: activeProfile));
         loadProfiles();
       },
     );
   }
 
   Future<void> deleteProfile(int profileId) async {
-    emit(PatientProfileSaving());
+    emit(PatientProfileSaving(lastActiveProfile: activeProfile));
     final result = await deleteProfileUseCase(profileId);
     result.fold(
-      (failure) => emit(PatientProfileError(failure.message)),
+      (failure) => emit(PatientProfileError(failure.message,
+          lastActiveProfile: activeProfile)),
       (_) {
         // The removed profile can't stay active; _resolveActiveId falls back to
         // the account holder once the id is gone from the list.
         if (_activeProfileId == profileId) _activeProfileId = null;
-        emit(const PatientProfileSuccess('Profile removed successfully!'));
+        emit(PatientProfileSuccess('Profile removed successfully!',
+            lastActiveProfile: activeProfile));
         loadProfiles();
       },
     );

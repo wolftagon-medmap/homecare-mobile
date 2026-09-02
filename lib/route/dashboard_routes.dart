@@ -20,6 +20,7 @@ import 'package:m2health/features/psychologist/presentation/pages/psychologist_b
 import 'package:m2health/features/optometrist/presentation/pages/optometrist_services_page.dart';
 import 'package:m2health/features/optometrist/presentation/pages/optometrist_booking_flow_page.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:m2health/features/dashboard/presentation/pages/all_services_page.dart';
 import 'app_routes.dart';
 
 class DashboardRoutes {
@@ -47,6 +48,13 @@ class DashboardRoutes {
     ),
     GoRoute(
       parentNavigatorKey: rootNavigatorKey,
+      path: AppRoutes.allServices,
+      builder: (context, state) {
+        return const AllServicesPage();
+      },
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavigatorKey,
       path: AppRoutes.pharmaServices,
       builder: (context, state) {
         return const PharmacyServicesPage();
@@ -65,13 +73,6 @@ class DashboardRoutes {
       routes: DiabeticCareRoutes.routes,
       builder: (context, state) {
         return const DiabeticCare();
-      },
-    ),
-    GoRoute(
-      path: AppRoutes.homeHealthScreening,
-      parentNavigatorKey: rootNavigatorKey,
-      builder: (context, state) {
-        return const HomeHealth();
       },
     ),
     GoRoute(
