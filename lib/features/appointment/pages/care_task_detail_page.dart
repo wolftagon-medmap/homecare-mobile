@@ -2,6 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/features/messaging/domain/entities/message_thread.dart';
+import 'package:m2health/features/messaging/presentation/widgets/message_action_button.dart';
+
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
@@ -68,19 +71,34 @@ class CareTaskDetailPage extends StatelessWidget {
           color: Colors.white,
           height: 80,
           child: Builder(
-            builder: (context) => GradientButton(
-              text: 'Continue in AI Chat',
-              gradient: const LinearGradient(
-                colors: [Color(0xFF35C5CF), Color(0xFF9DCEFF)],
-                begin: Alignment.bottomRight,
-                end: Alignment.topLeft,
-              ),
-              onPressed: () async {
-                await GoRouter.of(context).push(AppRoutes.intakeBooking);
-                if (context.mounted) {
-                  context.read<CareTaskDetailCubit>().fetchDetail(careTaskId);
-                }
-              },
+            // The assistant and the professional are two different
+            // conversations. Putting them side by side is the clearest way to
+            // say so.
+            builder: (context) => Row(
+              children: [
+                MessageActionButton(
+                  threadRef: ThreadRef.forCareTask(careTaskId),
+                  style: MessageActionStyle.icon,
+                ),
+                Expanded(
+                  child: GradientButton(
+                    text: 'Continue in AI Chat',
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF35C5CF), Color(0xFF9DCEFF)],
+                      begin: Alignment.bottomRight,
+                      end: Alignment.topLeft,
+                    ),
+                    onPressed: () async {
+                      await GoRouter.of(context).push(AppRoutes.intakeBooking);
+                      if (context.mounted) {
+                        context
+                            .read<CareTaskDetailCubit>()
+                            .fetchDetail(careTaskId);
+                      }
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -148,10 +166,10 @@ class _ProviderCard extends StatelessWidget {
           CircleAvatar(
             radius: 40,
             backgroundColor: Colors.grey.shade200,
-            backgroundImage: (provider?.avatar != null &&
-                    provider!.avatar!.isNotEmpty)
-                ? NetworkImage(provider.avatar!)
-                : null,
+            backgroundImage:
+                (provider?.avatar != null && provider!.avatar!.isNotEmpty)
+                    ? NetworkImage(provider.avatar!)
+                    : null,
             child: (provider?.avatar == null || provider!.avatar!.isEmpty)
                 ? Icon(provider == null ? Icons.person_search : Icons.person,
                     size: 40, color: Colors.grey)
@@ -194,7 +212,8 @@ class _ScheduleSection extends StatelessWidget {
         if (detail.scheduledStart != null) {
           final localStart = detail.scheduledStart!.toLocal();
           date = DateFormat.yMMMMEEEEd(locale.languageCode).format(localStart);
-          final startHour = DateFormat.jm(locale.languageCode).format(localStart);
+          final startHour =
+              DateFormat.jm(locale.languageCode).format(localStart);
           final localEnd = detail.scheduledEnd?.toLocal();
           hour = localEnd != null
               ? '$startHour - ${DateFormat.jm(locale.languageCode).format(localEnd)}'

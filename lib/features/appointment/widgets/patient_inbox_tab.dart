@@ -10,6 +10,10 @@ import 'package:m2health/features/appointment/data/models/patient_inbox_item.dar
 import 'package:m2health/features/appointment/widgets/booking_card.dart';
 import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
+import 'package:m2health/features/messaging/domain/entities/message_thread.dart';
+import 'package:m2health/features/messaging/presentation/widgets/message_action_button.dart';
+import 'package:m2health/features/messaging/presentation/widgets/propose_time_sheet.dart';
+import 'package:m2health/features/messaging/presentation/widgets/time_proposal_alert.dart';
 import 'package:m2health/route/app_routes.dart';
 
 /// The patient Pending tab: the unified inbox of v1 pending appointments +
@@ -55,8 +59,9 @@ class PatientInboxTab extends StatelessWidget {
             onRetry: () => context.read<PatientInboxCubit>().fetchInbox(),
           );
         }
-        final items =
-            state is PatientInboxLoaded ? state.items : const <PatientInboxItem>[];
+        final items = state is PatientInboxLoaded
+            ? state.items
+            : const <PatientInboxItem>[];
         return RefreshIndicator(
           onRefresh: () => context.read<PatientInboxCubit>().fetchInbox(),
           backgroundColor: Colors.white,
@@ -88,6 +93,8 @@ class _PatientInboxCard extends StatelessWidget {
       case 'pending':
       case 'matched':
         return const Color(0xFFE59500); // Orange
+      case 'time_proposed':
+        return Const.primaryBlue;
       default:
         return Colors.grey;
     }
@@ -96,17 +103,43 @@ class _PatientInboxCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (item.isCareTask) {
-      return BookingCard(
-        avatarUrl: item.provider?.avatar,
-        title: item.provider?.name ?? item.serviceLabel,
-        subtitle: item.provider != null
-            ? item.serviceLabel
-            : (item.patientName != null ? 'For ${item.patientName}' : null),
-        statusLabel: item.statusLabel,
-        statusColor: _statusColor,
-        scheduledStart: item.scheduledStart,
-        priceLabel: _estimateLabel,
-        onTap: item.careTaskId != null ? () => _openCareTaskDetail(context) : null,
+      return Column(
+        children: [
+          BookingCard(
+            avatarUrl: item.provider?.avatar,
+            title: item.provider?.name ?? item.serviceLabel,
+            subtitle: item.provider != null
+                ? item.serviceLabel
+                : (item.patientName != null ? 'For ${item.patientName}' : null),
+            statusLabel: item.statusLabel,
+            statusColor: _statusColor,
+            scheduledStart: item.scheduledStart,
+            priceLabel: _estimateLabel,
+            onTap: item.careTaskId != null
+                ? () => _openCareTaskDetail(context)
+                : null,
+            actions: [
+              if (item.careTaskId != null)
+                MessageActionButton(
+                  threadRef: ThreadRef.forCareTask(item.careTaskId!),
+                  label: 'Message ${item.provider?.name ?? 'professional'}',
+                ),
+            ],
+          ),
+          // A proposal is answered without opening the conversation, because
+          // the answer is a decision, not a reply.
+          if (item.hasTimeProposal)
+            TimeProposalAlert(
+              proposedStart: item.proposal!.proposedStart,
+              proposedEnd: item.proposal!.proposedEnd,
+              originalStart: item.scheduledStart,
+              expiresAt: item.proposal!.expiresAt,
+              reason: item.proposal!.reason,
+              professionalName: item.provider?.name,
+              onAccept: () => _acceptProposal(context),
+              onChooseAnother: () => _chooseAnother(context),
+            ),
+        ],
       );
     }
 
@@ -130,6 +163,25 @@ class _PatientInboxCard extends StatelessWidget {
       item.estimatedPrice != null && item.estimatedPrice! > 0
           ? 'Est. \$${item.estimatedPrice!.toStringAsFixed(2)}'
           : null;
+
+  Future<void> _acceptProposal(BuildContext context) async {
+    await context
+        .read<PatientInboxCubit>()
+        .respondToProposal('New time accepted. Your booking is confirmed.');
+  }
+
+  Future<void> _chooseAnother(BuildContext context) async {
+    final cubit = context.read<PatientInboxCubit>();
+    final slot = await showProposeTimeSheet(
+      context,
+      title: 'Which time suits you?',
+      confirmLabel: 'Send this time',
+      initial: item.scheduledStart?.toLocal(),
+      askReason: false,
+    );
+    if (slot == null) return;
+    await cubit.respondToProposal('Your preferred time has been sent.');
+  }
 
   Future<void> _openCareTaskDetail(BuildContext context) async {
     final cubit = context.read<PatientInboxCubit>();
@@ -241,8 +293,8 @@ class _GradientButton extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold),
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),

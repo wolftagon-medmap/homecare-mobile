@@ -10,6 +10,7 @@ class AppNotification extends Equatable {
   final DateTime? createdAt;
   final int? appointmentId;
   final int? careTaskId;
+  final int? threadId;
 
   const AppNotification({
     required this.id,
@@ -20,6 +21,7 @@ class AppNotification extends Equatable {
     required this.createdAt,
     required this.appointmentId,
     required this.careTaskId,
+    this.threadId,
   });
 
   AppNotification asRead() => AppNotification(
@@ -31,6 +33,7 @@ class AppNotification extends Equatable {
         createdAt: createdAt,
         appointmentId: appointmentId,
         careTaskId: careTaskId,
+        threadId: threadId,
       );
 
   factory AppNotification.fromJson(Map<String, dynamic> json) {
@@ -48,10 +51,22 @@ class AppNotification extends Equatable {
       careTaskId: data is Map<String, dynamic>
           ? (data['care_task_id'] as num?)?.toInt()
           : null,
+      threadId: data is Map<String, dynamic>
+          ? (data['threadId'] as num?)?.toInt()
+          : null,
     );
   }
 
   @override
-  List<Object?> get props =>
-      [id, type, title, body, isRead, createdAt, appointmentId, careTaskId];
+  List<Object?> get props => [
+        id,
+        type,
+        title,
+        body,
+        isRead,
+        createdAt,
+        appointmentId,
+        careTaskId,
+        threadId
+      ];
 }

@@ -2,7 +2,9 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
+import 'package:m2health/core/config/feature_flags.dart';
 import 'package:m2health/core/services/appointment_service.dart';
+import 'package:m2health/features/messaging/data/fixtures/inbox_demo_fixture.dart';
 import 'package:m2health/features/appointment/data/models/inbox_item.dart';
 import 'package:m2health/features/appointment/data/provider_inbox_service.dart';
 
@@ -20,14 +22,25 @@ class ProviderInboxCubit extends Cubit<ProviderInboxState> {
         _appointments = AppointmentService(dio),
         super(ProviderInboxInitial());
 
+  /// True while the counter-propose demo is on fixtures. Dead the moment the
+  /// flag flips: no demo row is merged and a failure is an error again.
+  bool get _demo => !AppFlags.remote(Feature.timeProposal);
+
+  List<InboxItem> get _demoItems =>
+      kProviderInboxDemoFixture().map(InboxItem.fromJson).toList();
+
   Future<void> fetchInbox() async {
     try {
       emit(ProviderInboxLoading());
       final items = await _inbox.fetchInbox();
-      emit(ProviderInboxLoaded(items));
+      emit(ProviderInboxLoaded(_demo ? [..._demoItems, ...items] : items));
     } catch (e, stackTrace) {
       log('Error fetching provider inbox: $e',
           name: 'ProviderInboxCubit', error: e, stackTrace: stackTrace);
+      if (_demo) {
+        emit(ProviderInboxLoaded(_demoItems));
+        return;
+      }
       emit(ProviderInboxError('Failed to load pending requests'));
     }
   }
@@ -39,6 +52,13 @@ class ProviderInboxCubit extends Cubit<ProviderInboxState> {
     String? otherReason,
   }) async {
     try {
+      if (_demo) {
+        // Nothing to call: the scripted offer is a fixture. The conversation is
+        // where the counter-proposal actually happens in the demo.
+        emit(ProviderInboxActionSucceed(_demoLabel(action.kind)));
+        await fetchInbox();
+        return;
+      }
       if (action.entity == 'offer') {
         if (action.kind == 'accept') {
           await _inbox.acceptOffer(action.entityId);
@@ -56,9 +76,7 @@ class ProviderInboxCubit extends Cubit<ProviderInboxState> {
           );
         }
       }
-      emit(ProviderInboxActionSucceed(
-        action.kind == 'accept' ? 'Request accepted' : 'Request declined',
-      ));
+      emit(ProviderInboxActionSucceed(_demoLabel(action.kind)));
       await fetchInbox();
     } catch (e, stackTrace) {
       log('Error responding to inbox item: $e',
@@ -66,4 +84,10 @@ class ProviderInboxCubit extends Cubit<ProviderInboxState> {
       emit(ProviderInboxError('Action failed. Please try again.'));
     }
   }
+
+  static String _demoLabel(String kind) => switch (kind) {
+        'accept' => 'Request accepted',
+        'propose_time' => 'Suggestion sent',
+        _ => 'Request declined',
+      };
 }
