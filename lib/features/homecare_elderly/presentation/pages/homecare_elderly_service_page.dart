@@ -6,6 +6,7 @@ import 'package:m2health/features/homecare_elderly/presentation/pages/homecare_p
 import 'package:m2health/features/homecare_elderly/presentation/pages/house_cleaning_page.dart';
 import 'package:m2health/features/homecare_elderly/presentation/pages/kitchen_bathroom_repair_page.dart';
 import 'package:m2health/features/homecare_elderly/presentation/pages/living_security_page.dart';
+import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
 import 'package:m2health/features/subscription/presentation/bloc/subscription_state.dart';
 
@@ -42,6 +43,7 @@ class _HomecareElderlyServicePageState
             children: [
               _buildSubscriptionHeader(context),
               ServiceSelectionCard(
+                priceTag: const StartingFromPrice(category: 'homecare_elderly'),
                 title: context.l10n.homecare_house_bedding_cleaning,
                 description: context.l10n.homecare_house_bedding_cleaning_desc,
                 imagePath: 'assets/illustration/house_n_bedding_cleaning.png',
@@ -56,6 +58,7 @@ class _HomecareElderlyServicePageState
                 },
               ),
               ServiceSelectionCard(
+                priceTag: const StartingFromPrice(category: 'homecare_elderly'),
                 title: context.l10n.homecare_safety,
                 description: context.l10n.homecare_safety_desc,
                 imagePath: 'assets/illustration/living_security_n_safety.png',
@@ -70,6 +73,7 @@ class _HomecareElderlyServicePageState
                 },
               ),
               ServiceSelectionCard(
+                priceTag: const StartingFromPrice(category: 'homecare_elderly'),
                 title: context.l10n.homecare_kitchen_bathroom_repair,
                 description: context.l10n.homecare_kitchen_bathroom_repair_desc,
                 imagePath: 'assets/illustration/kitchen_n_bathroom_repair.png',

@@ -10,17 +10,27 @@ class StartingFromPrice extends StatelessWidget {
     super.key,
     required this.category,
     this.dense = false,
+    this.padding,
   });
 
   final String category;
   final bool dense;
+
+  /// Applied only when there is a price, so an unpriced category leaves no gap.
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
     final amount = PriceTableCubit.of(context).startingFromFor(category);
     if (amount == null) return const SizedBox.shrink();
 
-    return PricePill(amount: amount, dense: dense);
+    final pill = PricePill(amount: amount, dense: dense);
+    if (padding == null) return pill;
+
+    return Padding(
+      padding: padding!,
+      child: Align(alignment: Alignment.centerLeft, child: pill),
+    );
   }
 }
 
