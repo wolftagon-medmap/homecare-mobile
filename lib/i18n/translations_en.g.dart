@@ -352,8 +352,95 @@ class TranslationsPricingEn {
 
 	// Translations
 
-	/// en: 'Pricing'
-	String get namespace_title => 'Pricing';
+	/// en: 'Estimate'
+	String get estimate_title => 'Estimate';
+
+	/// en: 'Estimated total'
+	String get estimate_total => 'Estimated total';
+
+	/// en: 'This is an estimate. You pay the professional at the visit.'
+	String get estimate_disclaimer => 'This is an estimate. You pay the professional at the visit.';
+
+	/// en: 'Pick a service to see an estimate.'
+	String get estimate_empty => 'Pick a service to see an estimate.';
+
+	/// en: 'Add-ons'
+	String get add_ons => 'Add-ons';
+
+	/// en: '{count} hours'
+	String hours({required Object count}) => '${count} hours';
+
+	/// en: '{price} per hour'
+	String per_hour({required Object price}) => '${price} per hour';
+
+	/// en: 'My service rates'
+	String get rates_title => 'My service rates';
+
+	/// en: 'Set what you charge for each service. You can charge above the standard price, never below it.'
+	String get rates_subtitle => 'Set what you charge for each service. You can charge above the standard price, never below it.';
+
+	/// en: 'You have not added any services yet.'
+	String get rates_empty => 'You have not added any services yet.';
+
+	/// en: 'We could not load your rates.'
+	String get rates_error => 'We could not load your rates.';
+
+	/// en: 'Your rates were saved.'
+	String get rates_saved => 'Your rates were saved.';
+
+	/// en: 'Your price'
+	String get your_price => 'Your price';
+
+	/// en: 'Standard price {price}'
+	String standard_price({required Object price}) => 'Standard price ${price}';
+
+	/// en: 'Must be at least {price}'
+	String at_least({required Object price}) => 'Must be at least ${price}';
+
+	/// en: 'Enter a price'
+	String get not_a_number => 'Enter a price';
+
+	/// en: 'Charging the standard price'
+	String get charging_standard => 'Charging the standard price';
+
+	/// en: 'Save'
+	String get save => 'Save';
+
+	/// en: 'Standard prices'
+	String get floor_title => 'Standard prices';
+
+	/// en: 'The floor every professional charges from. Raising it lifts anyone charging below.'
+	String get floor_subtitle => 'The floor every professional charges from. Raising it lifts anyone charging below.';
+
+	/// en: 'We could not load the standard prices.'
+	String get floor_error => 'We could not load the standard prices.';
+
+	/// en: 'Standard price updated.'
+	String get floor_saved => 'Standard price updated.';
+
+	/// en: '{count} professional rates were lifted to the new price.'
+	String floor_lifted({required Object count}) => '${count} professional rates were lifted to the new price.';
+
+	/// en: 'New standard price'
+	String get floor_new_price => 'New standard price';
+
+	/// en: 'Revised estimate'
+	String get revision_title => 'Revised estimate';
+
+	/// en: 'Revision proposed'
+	String get revision_proposed => 'Revision proposed';
+
+	/// en: 'Approved'
+	String get revision_approved => 'Approved';
+
+	/// en: 'Declined'
+	String get revision_rejected => 'Declined';
+
+	/// en: 'Was {price}'
+	String revision_was({required Object price}) => 'Was ${price}';
+
+	/// en: 'Now {price}'
+	String revision_now({required Object price}) => 'Now ${price}';
 }
 
 // Path: settings
@@ -1878,7 +1965,36 @@ extension on Translations {
 			'pharmacy.services.smoking_cessation.description' => 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.',
 			'pharmacy.services.smoking_cessation.title' => 'Smoking Cessation',
 			'pharmacy.title' => 'iRX Pharmacist Service',
-			'pricing.namespace_title' => 'Pricing',
+			'pricing.estimate_title' => 'Estimate',
+			'pricing.estimate_total' => 'Estimated total',
+			'pricing.estimate_disclaimer' => 'This is an estimate. You pay the professional at the visit.',
+			'pricing.estimate_empty' => 'Pick a service to see an estimate.',
+			'pricing.add_ons' => 'Add-ons',
+			'pricing.hours' => ({required Object count}) => '${count} hours',
+			'pricing.per_hour' => ({required Object price}) => '${price} per hour',
+			'pricing.rates_title' => 'My service rates',
+			'pricing.rates_subtitle' => 'Set what you charge for each service. You can charge above the standard price, never below it.',
+			'pricing.rates_empty' => 'You have not added any services yet.',
+			'pricing.rates_error' => 'We could not load your rates.',
+			'pricing.rates_saved' => 'Your rates were saved.',
+			'pricing.your_price' => 'Your price',
+			'pricing.standard_price' => ({required Object price}) => 'Standard price ${price}',
+			'pricing.at_least' => ({required Object price}) => 'Must be at least ${price}',
+			'pricing.not_a_number' => 'Enter a price',
+			'pricing.charging_standard' => 'Charging the standard price',
+			'pricing.save' => 'Save',
+			'pricing.floor_title' => 'Standard prices',
+			'pricing.floor_subtitle' => 'The floor every professional charges from. Raising it lifts anyone charging below.',
+			'pricing.floor_error' => 'We could not load the standard prices.',
+			'pricing.floor_saved' => 'Standard price updated.',
+			'pricing.floor_lifted' => ({required Object count}) => '${count} professional rates were lifted to the new price.',
+			'pricing.floor_new_price' => 'New standard price',
+			'pricing.revision_title' => 'Revised estimate',
+			'pricing.revision_proposed' => 'Revision proposed',
+			'pricing.revision_approved' => 'Approved',
+			'pricing.revision_rejected' => 'Declined',
+			'pricing.revision_was' => ({required Object price}) => 'Was ${price}',
+			'pricing.revision_now' => ({required Object price}) => 'Now ${price}',
 			'settings.account' => 'Account',
 			'settings.app_language' => 'App Language',
 			'settings.settings' => 'Settings',

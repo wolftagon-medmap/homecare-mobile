@@ -240,7 +240,36 @@ class _TranslationsPricingZh implements TranslationsPricingEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get namespace_title => '价格';
+	@override String get estimate_title => '费用估算';
+	@override String get estimate_total => '预计总额';
+	@override String get estimate_disclaimer => '此为估算金额。您将在上门服务时向专业人员付款。';
+	@override String get estimate_empty => '请选择服务以查看估算。';
+	@override String get add_ons => '附加项目';
+	@override String hours({required Object count}) => '${count} 小时';
+	@override String per_hour({required Object price}) => '每小时 ${price}';
+	@override String get rates_title => '我的服务价格';
+	@override String get rates_subtitle => '设定您每项服务的收费。可高于标准价，但不可低于标准价。';
+	@override String get rates_empty => '您还没有添加任何服务。';
+	@override String get rates_error => '无法加载您的价格。';
+	@override String get rates_saved => '价格已保存。';
+	@override String get your_price => '您的价格';
+	@override String standard_price({required Object price}) => '标准价 ${price}';
+	@override String at_least({required Object price}) => '不得低于 ${price}';
+	@override String get not_a_number => '请输入价格';
+	@override String get charging_standard => '按标准价收费';
+	@override String get save => '保存';
+	@override String get floor_title => '标准价格';
+	@override String get floor_subtitle => '所有专业人员的收费下限。上调后，低于此价的收费将一并上调。';
+	@override String get floor_error => '无法加载标准价格。';
+	@override String get floor_saved => '标准价格已更新。';
+	@override String floor_lifted({required Object count}) => '已有 ${count} 项专业人员价格上调至新标准价。';
+	@override String get floor_new_price => '新标准价';
+	@override String get revision_title => '修订后估算';
+	@override String get revision_proposed => '已提出修订';
+	@override String get revision_approved => '已批准';
+	@override String get revision_rejected => '已拒绝';
+	@override String revision_was({required Object price}) => '原为 ${price}';
+	@override String revision_now({required Object price}) => '现为 ${price}';
 }
 
 // Path: settings
@@ -1313,7 +1342,36 @@ extension on TranslationsZh {
 			'pharmacy.services.smoking_cessation.description' => '戒烟是指通过咨询、药物治疗和支持计划等策略停止吸烟，以改善健康状况并降低患吸烟相关疾病的风险。',
 			'pharmacy.services.smoking_cessation.title' => '戒烟',
 			'pharmacy.title' => 'iRX 药师服务',
-			'pricing.namespace_title' => '价格',
+			'pricing.estimate_title' => '费用估算',
+			'pricing.estimate_total' => '预计总额',
+			'pricing.estimate_disclaimer' => '此为估算金额。您将在上门服务时向专业人员付款。',
+			'pricing.estimate_empty' => '请选择服务以查看估算。',
+			'pricing.add_ons' => '附加项目',
+			'pricing.hours' => ({required Object count}) => '${count} 小时',
+			'pricing.per_hour' => ({required Object price}) => '每小时 ${price}',
+			'pricing.rates_title' => '我的服务价格',
+			'pricing.rates_subtitle' => '设定您每项服务的收费。可高于标准价，但不可低于标准价。',
+			'pricing.rates_empty' => '您还没有添加任何服务。',
+			'pricing.rates_error' => '无法加载您的价格。',
+			'pricing.rates_saved' => '价格已保存。',
+			'pricing.your_price' => '您的价格',
+			'pricing.standard_price' => ({required Object price}) => '标准价 ${price}',
+			'pricing.at_least' => ({required Object price}) => '不得低于 ${price}',
+			'pricing.not_a_number' => '请输入价格',
+			'pricing.charging_standard' => '按标准价收费',
+			'pricing.save' => '保存',
+			'pricing.floor_title' => '标准价格',
+			'pricing.floor_subtitle' => '所有专业人员的收费下限。上调后，低于此价的收费将一并上调。',
+			'pricing.floor_error' => '无法加载标准价格。',
+			'pricing.floor_saved' => '标准价格已更新。',
+			'pricing.floor_lifted' => ({required Object count}) => '已有 ${count} 项专业人员价格上调至新标准价。',
+			'pricing.floor_new_price' => '新标准价',
+			'pricing.revision_title' => '修订后估算',
+			'pricing.revision_proposed' => '已提出修订',
+			'pricing.revision_approved' => '已批准',
+			'pricing.revision_rejected' => '已拒绝',
+			'pricing.revision_was' => ({required Object price}) => '原为 ${price}',
+			'pricing.revision_now' => ({required Object price}) => '现为 ${price}',
 			'settings.account' => '帐户',
 			'settings.app_language' => '语言设置',
 			'settings.settings' => '设置',

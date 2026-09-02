@@ -240,7 +240,36 @@ class _TranslationsPricingId implements TranslationsPricingEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get namespace_title => 'Harga';
+	@override String get estimate_title => 'Perkiraan biaya';
+	@override String get estimate_total => 'Perkiraan total';
+	@override String get estimate_disclaimer => 'Ini perkiraan. Anda membayar tenaga kesehatan saat kunjungan.';
+	@override String get estimate_empty => 'Pilih layanan untuk melihat perkiraan biaya.';
+	@override String get add_ons => 'Layanan tambahan';
+	@override String hours({required Object count}) => '${count} jam';
+	@override String per_hour({required Object price}) => '${price} per jam';
+	@override String get rates_title => 'Tarif layanan saya';
+	@override String get rates_subtitle => 'Tentukan tarif Anda untuk setiap layanan. Anda boleh menetapkan di atas harga standar, tidak boleh di bawahnya.';
+	@override String get rates_empty => 'Anda belum menambahkan layanan apa pun.';
+	@override String get rates_error => 'Tarif Anda tidak dapat dimuat.';
+	@override String get rates_saved => 'Tarif Anda tersimpan.';
+	@override String get your_price => 'Tarif Anda';
+	@override String standard_price({required Object price}) => 'Harga standar ${price}';
+	@override String at_least({required Object price}) => 'Minimal ${price}';
+	@override String get not_a_number => 'Masukkan tarif';
+	@override String get charging_standard => 'Mengikuti harga standar';
+	@override String get save => 'Simpan';
+	@override String get floor_title => 'Harga standar';
+	@override String get floor_subtitle => 'Batas bawah tarif semua tenaga kesehatan. Menaikkannya akan menaikkan tarif yang berada di bawahnya.';
+	@override String get floor_error => 'Harga standar tidak dapat dimuat.';
+	@override String get floor_saved => 'Harga standar diperbarui.';
+	@override String floor_lifted({required Object count}) => '${count} tarif tenaga kesehatan dinaikkan ke harga baru.';
+	@override String get floor_new_price => 'Harga standar baru';
+	@override String get revision_title => 'Perkiraan revisi';
+	@override String get revision_proposed => 'Revisi diajukan';
+	@override String get revision_approved => 'Disetujui';
+	@override String get revision_rejected => 'Ditolak';
+	@override String revision_was({required Object price}) => 'Sebelumnya ${price}';
+	@override String revision_now({required Object price}) => 'Menjadi ${price}';
 }
 
 // Path: settings
@@ -1313,7 +1342,36 @@ extension on TranslationsId {
 			'pharmacy.services.smoking_cessation.description' => 'Program berhenti merokok melibatkan penghentian kebiasaan merokok melalui strategi seperti konseling, pengobatan, dan program dukungan untuk meningkatkan kesehatan serta mengurangi risiko penyakit terkait rokok.',
 			'pharmacy.services.smoking_cessation.title' => 'Berhenti Merokok',
 			'pharmacy.title' => 'Layanan iRX Pharmacist',
-			'pricing.namespace_title' => 'Harga',
+			'pricing.estimate_title' => 'Perkiraan biaya',
+			'pricing.estimate_total' => 'Perkiraan total',
+			'pricing.estimate_disclaimer' => 'Ini perkiraan. Anda membayar tenaga kesehatan saat kunjungan.',
+			'pricing.estimate_empty' => 'Pilih layanan untuk melihat perkiraan biaya.',
+			'pricing.add_ons' => 'Layanan tambahan',
+			'pricing.hours' => ({required Object count}) => '${count} jam',
+			'pricing.per_hour' => ({required Object price}) => '${price} per jam',
+			'pricing.rates_title' => 'Tarif layanan saya',
+			'pricing.rates_subtitle' => 'Tentukan tarif Anda untuk setiap layanan. Anda boleh menetapkan di atas harga standar, tidak boleh di bawahnya.',
+			'pricing.rates_empty' => 'Anda belum menambahkan layanan apa pun.',
+			'pricing.rates_error' => 'Tarif Anda tidak dapat dimuat.',
+			'pricing.rates_saved' => 'Tarif Anda tersimpan.',
+			'pricing.your_price' => 'Tarif Anda',
+			'pricing.standard_price' => ({required Object price}) => 'Harga standar ${price}',
+			'pricing.at_least' => ({required Object price}) => 'Minimal ${price}',
+			'pricing.not_a_number' => 'Masukkan tarif',
+			'pricing.charging_standard' => 'Mengikuti harga standar',
+			'pricing.save' => 'Simpan',
+			'pricing.floor_title' => 'Harga standar',
+			'pricing.floor_subtitle' => 'Batas bawah tarif semua tenaga kesehatan. Menaikkannya akan menaikkan tarif yang berada di bawahnya.',
+			'pricing.floor_error' => 'Harga standar tidak dapat dimuat.',
+			'pricing.floor_saved' => 'Harga standar diperbarui.',
+			'pricing.floor_lifted' => ({required Object count}) => '${count} tarif tenaga kesehatan dinaikkan ke harga baru.',
+			'pricing.floor_new_price' => 'Harga standar baru',
+			'pricing.revision_title' => 'Perkiraan revisi',
+			'pricing.revision_proposed' => 'Revisi diajukan',
+			'pricing.revision_approved' => 'Disetujui',
+			'pricing.revision_rejected' => 'Ditolak',
+			'pricing.revision_was' => ({required Object price}) => 'Sebelumnya ${price}',
+			'pricing.revision_now' => ({required Object price}) => 'Menjadi ${price}',
 			'settings.account' => 'Akun',
 			'settings.app_language' => 'Bahasa Aplikasi',
 			'settings.settings' => 'Pengaturan',
