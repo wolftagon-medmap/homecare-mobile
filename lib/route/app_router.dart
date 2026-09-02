@@ -3,6 +3,10 @@ import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/pharmacy_routes.dart';
 import 'package:m2health/features/chatbot/chatbot_routes.dart';
+import 'package:m2health/features/guided_booking/guided_booking_routes.dart';
+import 'package:m2health/features/health_profile/health_profile_routes.dart';
+import 'package:m2health/features/messaging/messaging_routes.dart';
+import 'package:m2health/features/pricing/pricing_routes.dart';
 import 'package:m2health/features/intake_booking/intake_booking_routes.dart';
 import 'package:m2health/features/payment/domain/usecases/pay_order.dart';
 import 'package:m2health/features/payment/presentation/cubit/payment_cubit.dart';
@@ -107,6 +111,14 @@ final GoRouter router = GoRouter(
     ...RemotePatientMonitoringRoutes.routes,
     ...SmokingCessationRoutes.routes,
     ...SecondOpinionRoutes.routes,
+
+    // === Client-feedback build — feature seams (A0 owns this block) ===
+    // Each list is filled in by that feature's owning agent, in its own
+    // <slug>_routes.dart. An empty list is a legal no-op.
+    ...GuidedBookingRoutes.routes,
+    ...MessagingRoutes.routes,
+    ...PricingRoutes.routes,
+    ...HealthProfileRoutes.routes,
 
     GoRoute(
       path: AppRoutes.payment,

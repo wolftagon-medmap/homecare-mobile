@@ -39,12 +39,18 @@ class TranslationsZh with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override late final _TranslationsAuthZh auth = _TranslationsAuthZh._(_root);
 	@override late final _TranslationsBookingZh booking = _TranslationsBookingZh._(_root);
+	@override late final _TranslationsChatbotZh chatbot = _TranslationsChatbotZh._(_root);
 	@override late final _TranslationsDashboardZh dashboard = _TranslationsDashboardZh._(_root);
 	@override late final _TranslationsGlobalZh global = _TranslationsGlobalZh._(_root);
+	@override late final _TranslationsGuidedBookingZh guidedBooking = _TranslationsGuidedBookingZh._(_root);
+	@override late final _TranslationsHealthProfileZh healthProfile = _TranslationsHealthProfileZh._(_root);
+	@override late final _TranslationsMessagingZh messaging = _TranslationsMessagingZh._(_root);
 	@override late final _TranslationsNursingZh nursing = _TranslationsNursingZh._(_root);
 	@override late final _TranslationsPaymentZh payment = _TranslationsPaymentZh._(_root);
 	@override late final _TranslationsPharmacyZh pharmacy = _TranslationsPharmacyZh._(_root);
+	@override late final _TranslationsPricingZh pricing = _TranslationsPricingZh._(_root);
 	@override late final _TranslationsSettingsZh settings = _TranslationsSettingsZh._(_root);
+	@override late final _TranslationsSharedBookingZh sharedBooking = _TranslationsSharedBookingZh._(_root);
 	@override late final _TranslationsStoreZh store = _TranslationsStoreZh._(_root);
 }
 
@@ -82,6 +88,16 @@ class _TranslationsBookingZh implements TranslationsBookingEn {
 	@override late final _TranslationsBookingProfessionalDetailZh professional_detail = _TranslationsBookingProfessionalDetailZh._(_root);
 	@override late final _TranslationsBookingProfessionalSearchZh professional_search = _TranslationsBookingProfessionalSearchZh._(_root);
 	@override late final _TranslationsBookingScheduleZh schedule = _TranslationsBookingScheduleZh._(_root);
+}
+
+// Path: chatbot
+class _TranslationsChatbotZh implements TranslationsChatbotEn {
+	_TranslationsChatbotZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get namespace_title => 'AI 助手';
 }
 
 // Path: dashboard
@@ -139,6 +155,36 @@ class _TranslationsGlobalZh implements TranslationsGlobalEn {
 	@override String get yes => '是';
 }
 
+// Path: guidedBooking
+class _TranslationsGuidedBookingZh implements TranslationsGuidedBookingEn {
+	_TranslationsGuidedBookingZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get namespace_title => '预约服务';
+}
+
+// Path: healthProfile
+class _TranslationsHealthProfileZh implements TranslationsHealthProfileEn {
+	_TranslationsHealthProfileZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get namespace_title => '健康档案';
+}
+
+// Path: messaging
+class _TranslationsMessagingZh implements TranslationsMessagingEn {
+	_TranslationsMessagingZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get namespace_title => '消息';
+}
+
 // Path: nursing
 class _TranslationsNursingZh implements TranslationsNursingEn {
 	_TranslationsNursingZh._(this._root);
@@ -187,6 +233,16 @@ class _TranslationsPharmacyZh implements TranslationsPharmacyEn {
 	@override String get title => 'iRX 药师服务';
 }
 
+// Path: pricing
+class _TranslationsPricingZh implements TranslationsPricingEn {
+	_TranslationsPricingZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get namespace_title => '价格';
+}
+
 // Path: settings
 class _TranslationsSettingsZh implements TranslationsSettingsEn {
 	_TranslationsSettingsZh._(this._root);
@@ -197,6 +253,22 @@ class _TranslationsSettingsZh implements TranslationsSettingsEn {
 	@override String get account => '帐户';
 	@override String get app_language => '语言设置';
 	@override String get settings => '设置';
+}
+
+// Path: sharedBooking
+class _TranslationsSharedBookingZh implements TranslationsSharedBookingEn {
+	_TranslationsSharedBookingZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String starting_from({required Object price}) => '起价 ${price}';
+	@override String from_price({required Object price}) => '起 ${price}';
+	@override String step_of({required Object current, required Object total}) => '第 ${current} 步，共 ${total} 步';
+	@override String get empty_title => '这里还没有内容';
+	@override String get error_title => '出了点问题';
+	@override String get retry => '重试';
+	@override late final _TranslationsSharedBookingStatusZh status = _TranslationsSharedBookingStatusZh._(_root);
 }
 
 // Path: store
@@ -630,6 +702,19 @@ class _TranslationsPharmacyServicesZh implements TranslationsPharmacyServicesEn 
 	@override late final _TranslationsPharmacyServicesHealthCoachingZh health_coaching = _TranslationsPharmacyServicesHealthCoachingZh._(_root);
 	@override late final _TranslationsPharmacyServicesReviewAndCounselingZh review_and_counseling = _TranslationsPharmacyServicesReviewAndCounselingZh._(_root);
 	@override late final _TranslationsPharmacyServicesSmokingCessationZh smoking_cessation = _TranslationsPharmacyServicesSmokingCessationZh._(_root);
+}
+
+// Path: sharedBooking.status
+class _TranslationsSharedBookingStatusZh implements TranslationsSharedBookingStatusEn {
+	_TranslationsSharedBookingStatusZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get pending => '等待确认';
+	@override String get confirmed => '已确认';
+	@override String get proposed => '已提议其他时间';
+	@override String get cancelled => '已取消';
 }
 
 // Path: store.messages
@@ -1114,6 +1199,7 @@ extension on TranslationsZh {
 			'booking.schedule.submit_button' => '提交',
 			'booking.schedule.submitting_button' => '正在提交...',
 			'booking.schedule.title' => '选择时间表',
+			'chatbot.namespace_title' => 'AI 助手',
 			'dashboard.chat_ai_placeholder' => '咨询AI医生，解答您的健康疑问',
 			'dashboard.greeting' => ({required Object displayName}) => '更长寿，更健康，${displayName}！',
 			'dashboard.greeting_generic' => '更长寿，更健康！',
@@ -1177,6 +1263,9 @@ extension on TranslationsZh {
 			'global.unknown_location' => '未知位置',
 			'global.update' => '更新',
 			'global.yes' => '是',
+			'guidedBooking.namespace_title' => '预约服务',
+			'healthProfile.namespace_title' => '健康档案',
+			'messaging.namespace_title' => '消息',
 			'nursing.services.primary_nursing.description' => '监测并执行从身体检查、给药、管饲和吸痰到注射及伤口护理的各项护理程序。',
 			'nursing.services.primary_nursing.title' => '基础护理',
 			'nursing.services.specialized_nursing.description' => '您只需专注于康复，将复杂的护理工作交给经验丰富的专业护理人员 。',
@@ -1224,9 +1313,20 @@ extension on TranslationsZh {
 			'pharmacy.services.smoking_cessation.description' => '戒烟是指通过咨询、药物治疗和支持计划等策略停止吸烟，以改善健康状况并降低患吸烟相关疾病的风险。',
 			'pharmacy.services.smoking_cessation.title' => '戒烟',
 			'pharmacy.title' => 'iRX 药师服务',
+			'pricing.namespace_title' => '价格',
 			'settings.account' => '帐户',
 			'settings.app_language' => '语言设置',
 			'settings.settings' => '设置',
+			'sharedBooking.starting_from' => ({required Object price}) => '起价 ${price}',
+			'sharedBooking.from_price' => ({required Object price}) => '起 ${price}',
+			'sharedBooking.step_of' => ({required Object current, required Object total}) => '第 ${current} 步，共 ${total} 步',
+			'sharedBooking.empty_title' => '这里还没有内容',
+			'sharedBooking.error_title' => '出了点问题',
+			'sharedBooking.retry' => '重试',
+			'sharedBooking.status.pending' => '等待确认',
+			'sharedBooking.status.confirmed' => '已确认',
+			'sharedBooking.status.proposed' => '已提议其他时间',
+			'sharedBooking.status.cancelled' => '已取消',
 			'store.consumable' => '医疗耗材',
 			'store.messages.load_failed' => '加载产品失败',
 			'store.no_products' => '暂无产品',

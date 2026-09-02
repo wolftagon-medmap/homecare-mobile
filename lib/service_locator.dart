@@ -8,6 +8,10 @@ import 'package:m2health/features/auth/injection.dart';
 import 'package:m2health/features/booking_appointment/injection.dart';
 import 'package:m2health/features/chatbot/injection.dart';
 import 'package:m2health/features/dashboard/injection.dart';
+import 'package:m2health/features/guided_booking/injection.dart';
+import 'package:m2health/features/health_profile/injection.dart';
+import 'package:m2health/features/messaging/injection.dart';
+import 'package:m2health/features/pricing/injection.dart';
 import 'package:m2health/features/intake_booking/injection.dart';
 import 'package:m2health/features/home_health_screening/injection.dart';
 import 'package:m2health/features/medical_record/injection.dart';
@@ -96,4 +100,11 @@ Future<void> setupLocator() async {
   initSmokingCessationModule(sl);
   initChatbotModule(sl);
   initIntakeBookingModule(sl);
+
+  // === Client-feedback build — feature seams (A0 owns this block) ===
+  // Each module registers its own dependencies in lib/features/<slug>/injection.dart.
+  initGuidedBookingModule(sl);
+  initMessagingModule(sl);
+  initPricingModule(sl);
+  initHealthProfileModule(sl);
 }

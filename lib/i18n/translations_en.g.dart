@@ -42,12 +42,18 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	// Translations
 	late final TranslationsAuthEn auth = TranslationsAuthEn._(_root);
 	late final TranslationsBookingEn booking = TranslationsBookingEn._(_root);
+	late final TranslationsChatbotEn chatbot = TranslationsChatbotEn._(_root);
 	late final TranslationsDashboardEn dashboard = TranslationsDashboardEn._(_root);
 	late final TranslationsGlobalEn global = TranslationsGlobalEn._(_root);
+	late final TranslationsGuidedBookingEn guidedBooking = TranslationsGuidedBookingEn._(_root);
+	late final TranslationsHealthProfileEn healthProfile = TranslationsHealthProfileEn._(_root);
+	late final TranslationsMessagingEn messaging = TranslationsMessagingEn._(_root);
 	late final TranslationsNursingEn nursing = TranslationsNursingEn._(_root);
 	late final TranslationsPaymentEn payment = TranslationsPaymentEn._(_root);
 	late final TranslationsPharmacyEn pharmacy = TranslationsPharmacyEn._(_root);
+	late final TranslationsPricingEn pricing = TranslationsPricingEn._(_root);
 	late final TranslationsSettingsEn settings = TranslationsSettingsEn._(_root);
+	late final TranslationsSharedBookingEn sharedBooking = TranslationsSharedBookingEn._(_root);
 	late final TranslationsStoreEn store = TranslationsStoreEn._(_root);
 }
 
@@ -91,6 +97,18 @@ class TranslationsBookingEn {
 	late final TranslationsBookingProfessionalDetailEn professional_detail = TranslationsBookingProfessionalDetailEn._(_root);
 	late final TranslationsBookingProfessionalSearchEn professional_search = TranslationsBookingProfessionalSearchEn._(_root);
 	late final TranslationsBookingScheduleEn schedule = TranslationsBookingScheduleEn._(_root);
+}
+
+// Path: chatbot
+class TranslationsChatbotEn {
+	TranslationsChatbotEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'AI Assistant'
+	String get namespace_title => 'AI Assistant';
 }
 
 // Path: dashboard
@@ -219,6 +237,42 @@ class TranslationsGlobalEn {
 	String get yes => 'Yes';
 }
 
+// Path: guidedBooking
+class TranslationsGuidedBookingEn {
+	TranslationsGuidedBookingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Book a service'
+	String get namespace_title => 'Book a service';
+}
+
+// Path: healthProfile
+class TranslationsHealthProfileEn {
+	TranslationsHealthProfileEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Health profile'
+	String get namespace_title => 'Health profile';
+}
+
+// Path: messaging
+class TranslationsMessagingEn {
+	TranslationsMessagingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Messages'
+	String get namespace_title => 'Messages';
+}
+
 // Path: nursing
 class TranslationsNursingEn {
 	TranslationsNursingEn._(this._root);
@@ -290,6 +344,18 @@ class TranslationsPharmacyEn {
 	String get title => 'iRX Pharmacist Service';
 }
 
+// Path: pricing
+class TranslationsPricingEn {
+	TranslationsPricingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Pricing'
+	String get namespace_title => 'Pricing';
+}
+
 // Path: settings
 class TranslationsSettingsEn {
 	TranslationsSettingsEn._(this._root);
@@ -306,6 +372,35 @@ class TranslationsSettingsEn {
 
 	/// en: 'Settings'
 	String get settings => 'Settings';
+}
+
+// Path: sharedBooking
+class TranslationsSharedBookingEn {
+	TranslationsSharedBookingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Starting from {price}'
+	String starting_from({required Object price}) => 'Starting from ${price}';
+
+	/// en: 'from {price}'
+	String from_price({required Object price}) => 'from ${price}';
+
+	/// en: 'Step {current} of {total}'
+	String step_of({required Object current, required Object total}) => 'Step ${current} of ${total}';
+
+	/// en: 'Nothing here yet'
+	String get empty_title => 'Nothing here yet';
+
+	/// en: 'Something went wrong'
+	String get error_title => 'Something went wrong';
+
+	/// en: 'Try again'
+	String get retry => 'Try again';
+
+	late final TranslationsSharedBookingStatusEn status = TranslationsSharedBookingStatusEn._(_root);
 }
 
 // Path: store
@@ -1022,6 +1117,27 @@ class TranslationsPharmacyServicesEn {
 	late final TranslationsPharmacyServicesSmokingCessationEn smoking_cessation = TranslationsPharmacyServicesSmokingCessationEn._(_root);
 }
 
+// Path: sharedBooking.status
+class TranslationsSharedBookingStatusEn {
+	TranslationsSharedBookingStatusEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Pending approval'
+	String get pending => 'Pending approval';
+
+	/// en: 'Confirmed'
+	String get confirmed => 'Confirmed';
+
+	/// en: 'Alternative proposed'
+	String get proposed => 'Alternative proposed';
+
+	/// en: 'Cancelled'
+	String get cancelled => 'Cancelled';
+}
+
 // Path: store.messages
 class TranslationsStoreMessagesEn {
 	TranslationsStoreMessagesEn._(this._root);
@@ -1648,6 +1764,7 @@ extension on Translations {
 			'booking.schedule.submit_button' => 'Submit',
 			'booking.schedule.submitting_button' => 'Submitting...',
 			'booking.schedule.title' => 'Select Schedule',
+			'chatbot.namespace_title' => 'AI Assistant',
 			'dashboard.chat_ai_placeholder' => 'Chat With AI doctor for all your health questions',
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
 			'dashboard.greeting_generic' => 'Live Longer & Live Healthier!',
@@ -1711,6 +1828,9 @@ extension on Translations {
 			'global.unknown_location' => 'Unknown Location',
 			'global.update' => 'Update',
 			'global.yes' => 'Yes',
+			'guidedBooking.namespace_title' => 'Book a service',
+			'healthProfile.namespace_title' => 'Health profile',
+			'messaging.namespace_title' => 'Messages',
 			'nursing.services.primary_nursing.description' => 'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.',
 			'nursing.services.primary_nursing.title' => 'Primary Nursing',
 			'nursing.services.specialized_nursing.description' => 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros',
@@ -1758,9 +1878,20 @@ extension on Translations {
 			'pharmacy.services.smoking_cessation.description' => 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.',
 			'pharmacy.services.smoking_cessation.title' => 'Smoking Cessation',
 			'pharmacy.title' => 'iRX Pharmacist Service',
+			'pricing.namespace_title' => 'Pricing',
 			'settings.account' => 'Account',
 			'settings.app_language' => 'App Language',
 			'settings.settings' => 'Settings',
+			'sharedBooking.starting_from' => ({required Object price}) => 'Starting from ${price}',
+			'sharedBooking.from_price' => ({required Object price}) => 'from ${price}',
+			'sharedBooking.step_of' => ({required Object current, required Object total}) => 'Step ${current} of ${total}',
+			'sharedBooking.empty_title' => 'Nothing here yet',
+			'sharedBooking.error_title' => 'Something went wrong',
+			'sharedBooking.retry' => 'Try again',
+			'sharedBooking.status.pending' => 'Pending approval',
+			'sharedBooking.status.confirmed' => 'Confirmed',
+			'sharedBooking.status.proposed' => 'Alternative proposed',
+			'sharedBooking.status.cancelled' => 'Cancelled',
 			'store.consumable' => 'Homecare Consumable',
 			'store.messages.load_failed' => 'Failed to load products',
 			'store.no_products' => 'No products available',
