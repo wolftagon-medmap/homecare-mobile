@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/features/chatbot/chatbot_routes.dart';
 import 'package:m2health/i18n/translations.g.dart';
-import 'package:m2health/route/app_routes.dart';
 
 class AiAssistantBar extends StatelessWidget {
   const AiAssistantBar({super.key});
@@ -22,7 +22,7 @@ class AiAssistantBar extends StatelessWidget {
         elevation: 3,
         shadowColor: Colors.black.withValues(alpha: 0.18),
         child: InkWell(
-          onTap: () => context.push(AppRoutes.intakeBooking),
+          onTap: () => context.push(ChatbotRoutes.aiAssistant),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(12, 9, 9, 9),
             child: Row(
