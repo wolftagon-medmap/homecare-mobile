@@ -15,52 +15,57 @@ class UpdateProfile {
 }
 
 class UpdateProfileParams {
+  /// Which profile to edit — the account holder's own or a family member's.
+  final int profileId;
   final String? name;
   final String? countryCode;
-  final int? age;
+
+  /// The backend derives `age` from this, so the form no longer collects age.
+  final DateTime? dateOfBirth;
   final double? weight;
   final double? height;
   final String? phoneNumber;
-  final String? homeAddress;
   final String? gender;
-  final String? drugAllergy; // Added
+
+  /// One of PROFILE_RELATIONS; 'self' is reserved for the account holder.
+  final String? relation;
   final File? avatar;
 
   UpdateProfileParams({
+    required this.profileId,
     this.name,
     this.countryCode,
-    this.age,
+    this.dateOfBirth,
     this.weight,
     this.height,
     this.phoneNumber,
-    this.homeAddress,
     this.gender,
-    this.drugAllergy,
+    this.relation,
     this.avatar,
   });
 
   UpdateProfileParams copyWith({
+    int? profileId,
     String? name,
     String? countryCode,
-    int? age,
+    DateTime? dateOfBirth,
     double? weight,
     double? height,
     String? phoneNumber,
-    String? homeAddress,
     String? gender,
-    String? drugAllergy,
+    String? relation,
     File? avatar,
   }) {
     return UpdateProfileParams(
+      profileId: profileId ?? this.profileId,
       name: name ?? this.name,
       countryCode: countryCode ?? this.countryCode,
-      age: age ?? this.age,
+      dateOfBirth: dateOfBirth ?? this.dateOfBirth,
       weight: weight ?? this.weight,
       height: height ?? this.height,
       phoneNumber: phoneNumber ?? this.phoneNumber,
-      homeAddress: homeAddress ?? this.homeAddress,
       gender: gender ?? this.gender,
-      drugAllergy: drugAllergy ?? this.drugAllergy,
+      relation: relation ?? this.relation,
       avatar: avatar ?? this.avatar,
     );
   }

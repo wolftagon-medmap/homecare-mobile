@@ -1,8 +1,8 @@
 {
-  "allied_services": "Layanan Kesehatan Penunjang",
   "chat_ai_placeholder": "Tanya dokter AI seputar kesehatan Anda",
   "greeting": "Hidup Lebih Lama & Sehat, {displayName}!",
   "main_services": "Layanan Janji Temu",
+  "other_services": "Layanan Kesehatan Lainnya",
   "services": {
     "diabetic_care": "Perawatan Diabetes iRX",
     "dietitian": "Layanan Ahli Gizi",
@@ -15,6 +15,8 @@
     "precision_nutrition": "Nutrisi ABCD",
     "remote_patient_monitoring": "Pemantauan Kesehatan Jarak Jauh",
     "second_opinion": "Second Opinion Citra Medis",
-    "sleep_and_mental_health": "Tidur & Kesehatan Mental"
+    "sleep_and_mental_health": "Tidur & Kesehatan Mental",
+    "psychologist": "Psikolog",
+    "optometrist": "Optometris"
   }
 }

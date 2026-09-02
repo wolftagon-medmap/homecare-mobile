@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 
 class DefaultPage extends StatelessWidget {
-  const DefaultPage({Key? key}) : super(key: key);
+  const DefaultPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dev Page'),
+        title: const Text('Dev Page'),
       ),
       body: Center(
         // Navigator.pop(context);
@@ -25,7 +25,7 @@ class DefaultPage extends StatelessWidget {
                 // width: 100,
                 height:
                     50), // Replace 'assets/logo.png' with your logo image path
-            Text(
+            const Text(
               'Coming Soon ...',
               style: TextStyle(
                 fontStyle: FontStyle.italic,

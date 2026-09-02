@@ -1,16 +1,19 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/utils.dart';
 import 'package:m2health/const.dart';
 
-// Data model for a pharmacist. Using a class improves type safety and maintainability.
+// Data model for a favorited professional (any role, not just pharmacists).
 class Pharmacist {
   final int id;
   final String name;
   final String imageUrl;
   final double rating;
+  final String? role;
   bool isFavorite;
 
   Pharmacist({
@@ -19,25 +22,47 @@ class Pharmacist {
     required this.imageUrl,
     required this.rating,
     required this.isFavorite,
+    this.role,
   });
 
   // Factory constructor to create a Pharmacist from JSON data.
   // This encapsulates the parsing logic.
   factory Pharmacist.fromJson(Map<String, dynamic> item) {
-    final pharmacistData = item['item'] as Map<String, dynamic>?;
+    final professionalData = item['item'] as Map<String, dynamic>?;
     return Pharmacist(
       id: item['item_id'] as int,
-      name: pharmacistData?['name'] as String? ?? 'Unknown Pharmacist',
-      imageUrl: pharmacistData?['avatar'] as String? ?? '',
-      rating: (pharmacistData?['rating'] as num? ?? 0.0).toDouble(),
+      name: professionalData?['name'] as String? ?? 'Unknown',
+      imageUrl: professionalData?['avatar'] as String? ?? '',
+      rating: (professionalData?['rating'] as num? ?? 0.0).toDouble(),
       isFavorite: item['highlighted'] == 1,
+      role: professionalData?['role'] as String?,
     );
   }
 }
 
+/// Human-readable label for a favorited professional's role.
+String professionalRoleLabel(BuildContext context, String? role) {
+  switch (role) {
+    case 'nurse':
+      return context.l10n.auth_role_nurse;
+    case 'pharmacist':
+      return context.l10n.auth_role_pharmacist;
+    case 'radiologist':
+      return context.l10n.auth_role_radiologist;
+    case 'caregiver':
+      return context.l10n.auth_role_caregiver;
+    case 'physiotherapist':
+      return context.l10n.auth_role_physiotherapist;
+    default:
+      return context.l10n.auth_role_pharmacist;
+  }
+}
+
 class FavouritesPage extends StatefulWidget {
+  const FavouritesPage({super.key});
+
   @override
-  _FavouritesPageState createState() => _FavouritesPageState();
+  State<FavouritesPage> createState() => _FavouritesPageState();
 }
 
 class _FavouritesPageState extends State<FavouritesPage> {
@@ -45,10 +70,43 @@ class _FavouritesPageState extends State<FavouritesPage> {
   bool _isLoading = true;
   String? _errorMessage;
 
+  GoRouter? _router;
+  bool _wasOnThisTab = true;
+
   @override
   void initState() {
     super.initState();
     _fetchFavoritePharmacists();
+  }
+
+  // This page lives in a StatefulShellBranch, so it stays mounted and initState
+  // never runs again — without this, switching back to the tab would keep showing
+  // whatever was loaded the first time it opened.
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final router = GoRouter.of(context);
+    if (_router != router) {
+      _router?.routerDelegate.removeListener(_onRouteChanged);
+      _router = router;
+      _router!.routerDelegate.addListener(_onRouteChanged);
+    }
+  }
+
+  void _onRouteChanged() {
+    if (!mounted) return;
+    final isOnThisTab =
+        _router!.routerDelegate.currentConfiguration.uri.path ==
+            AppRoutes.favourite;
+    // Only refetch on the transition onto the tab, not on every router tick.
+    if (isOnThisTab && !_wasOnThisTab) _fetchFavoritePharmacists();
+    _wasOnThisTab = isOnThisTab;
+  }
+
+  @override
+  void dispose() {
+    _router?.routerDelegate.removeListener(_onRouteChanged);
+    super.dispose();
   }
 
   // Fetches favorite pharmacists from the API.
@@ -61,7 +119,6 @@ class _FavouritesPageState extends State<FavouritesPage> {
         Const.API_FAVORITES,
         queryParameters: {
           'user_id': userId,
-          'item_type': 'pharmacist',
         },
         options: Options(
           headers: {'Authorization': 'Bearer $token'},
@@ -177,7 +234,10 @@ class _FavouritesPageState extends State<FavouritesPage> {
           ),
         ),
       ),
-      body: _buildBody(context),
+      body: RefreshIndicator(
+        onRefresh: _fetchFavoritePharmacists,
+        child: _buildBody(context),
+      ),
     );
   }
 
@@ -188,17 +248,25 @@ class _FavouritesPageState extends State<FavouritesPage> {
     }
 
     if (_errorMessage != null) {
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(_errorMessage!, textAlign: TextAlign.center),
-        ),
+      return ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        children: [
+          const SizedBox(height: 120),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(_errorMessage!, textAlign: TextAlign.center),
+          ),
+        ],
       );
     }
 
     if (_pharmacists.isEmpty) {
-      return Center(
-        child: Text(context.l10n.favourite_no_favorites),
+      return ListView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        children: [
+          const SizedBox(height: 120),
+          Center(child: Text(context.l10n.favourite_no_favorites)),
+        ],
       );
     }
 
@@ -206,7 +274,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
       itemCount: _pharmacists.length,
       itemBuilder: (context, index) {
         final pharmacist = _pharmacists[index];
-        return _PharmacistCard(
+        return _ProfessionalCard(
           pharmacist: pharmacist,
           onToggleFavorite: () => _toggleFavorite(pharmacist),
         );
@@ -217,15 +285,14 @@ class _FavouritesPageState extends State<FavouritesPage> {
 
 // A dedicated widget for displaying a single pharmacist card.
 // This improves readability and reusability.
-class _PharmacistCard extends StatelessWidget {
+class _ProfessionalCard extends StatelessWidget {
   final Pharmacist pharmacist;
   final VoidCallback onToggleFavorite;
 
-  const _PharmacistCard({
-    Key? key,
+  const _ProfessionalCard({
     required this.pharmacist,
     required this.onToggleFavorite,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -283,7 +350,7 @@ class _PharmacistCard extends StatelessWidget {
           pharmacist.name,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        Text(context.l10n.auth_role_pharmacist),
+        Text(professionalRoleLabel(context, pharmacist.role)),
         Row(
           children: [
             TextButton(

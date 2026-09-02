@@ -54,30 +54,21 @@ class MedicalRecordRemoteDataSourceImpl
       CreateRecordParams params) async {
     final token = await Utils.getSpString(Const.TOKEN);
 
-    final Map<String, dynamic> formFields = {
+    final Map<String, dynamic> payload = {
       'title': params.title,
-      'disease_name': params.diseaseName,
-      'disease_history': params.diseaseHistory,
-      'special_consideration': params.specialConsideration ?? '',
-      'treatment_info': params.treatmentInfo ?? '',
+  'diseaseName': params.diseaseName,
+  'diseaseHistory': params.diseaseHistory,
+  'specialConsideration': params.specialConsideration ?? '',
+  'treatmentInfo': params.treatmentInfo ?? '',
+      'fileIds': params.fileIds,
     };
-
-    if (params.file != null) {
-      formFields['file_url'] = await MultipartFile.fromFile(
-        params.file!.path,
-        filename: params.file!.path.split('/').last,
-      );
-    }
-
-    final formData = FormData.fromMap(formFields);
 
     final response = await dio.post(
       Const.API_MEDICAL_RECORDS,
-      data: formData,
+      data: payload,
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',
-          'Content-Type': 'multipart/form-data',
         },
       ),
     );
@@ -95,30 +86,21 @@ class MedicalRecordRemoteDataSourceImpl
     final token = await Utils.getSpString(Const.TOKEN);
     final String endpoint = '${Const.API_MEDICAL_RECORDS}/${params.id}';
 
-    final Map<String, dynamic> formFields = {
+    final Map<String, dynamic> payload = {
       'title': params.title,
-      'disease_name': params.diseaseName,
-      'disease_history': params.diseaseHistory,
-      'special_consideration': params.specialConsideration ?? '',
-      'treatment_info': params.treatmentInfo ?? '',
+  'diseaseName': params.diseaseName,
+  'diseaseHistory': params.diseaseHistory,
+  'specialConsideration': params.specialConsideration ?? '',
+  'treatmentInfo': params.treatmentInfo ?? '',
+      'fileIds': params.fileIds,
     };
-
-    if (params.file != null) {
-      formFields['file_url'] = await MultipartFile.fromFile(
-        params.file!.path,
-        filename: params.file!.path.split('/').last,
-      );
-    }
-
-    final formData = FormData.fromMap(formFields);
 
     final response = await dio.put(
       endpoint,
-      data: formData,
+      data: payload,
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',
-          'Content-Type': 'multipart/form-data',
         },
       ),
     );

@@ -232,6 +232,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appointment_detail_patient_title => 'Patient Information';
 
   @override
+  String get appointment_detail_visit_address_title => 'Visit Address';
+
+  @override
   String get appointment_detail_lab_test_title => 'Lab Test Information';
 
   @override
@@ -1581,6 +1584,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get precision_book_now => 'Book Now';
 
   @override
+  String get precision_view_plan => 'View Plan';
+
+  @override
   String get precision_main_concern_question => 'What is your main concern?';
 
   @override
@@ -2589,5 +2595,87 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String physiotherapy_summary(int duration) {
     return 'Physiotherapy Session ($duration mins)';
+  }
+
+  @override
+  String get common_close => 'Close';
+
+  @override
+  String get profile_switcher_new_profile => '+ New Profile';
+
+  @override
+  String get profile_relation_self => 'Personal';
+
+  @override
+  String get profile_relation_spouse => 'Spouse';
+
+  @override
+  String get profile_relation_parent => 'Parent';
+
+  @override
+  String get profile_relation_child => 'Child';
+
+  @override
+  String get profile_relation_sibling => 'Sibling';
+
+  @override
+  String get profile_relation_other => 'Other';
+
+  @override
+  String get profile_form_add_title => 'Add Profile';
+
+  @override
+  String get profile_form_date_of_birth => 'Date of Birth';
+
+  @override
+  String get profile_form_relationship => 'Relationship';
+
+  @override
+  String get profile_form_field_required => 'This field is required';
+
+  @override
+  String get profile_form_remove => 'Remove Profile';
+
+  @override
+  String profile_form_remove_confirm(String name) {
+    return 'Remove $name from your profiles? This can\'t be undone.';
+  }
+
+  @override
+  String get settings_saved_addresses => 'Saved Addresses';
+
+  @override
+  String get address_form_add_title => 'Add Address';
+
+  @override
+  String get address_form_edit_title => 'Edit Address';
+
+  @override
+  String get address_form_label => 'Label';
+
+  @override
+  String get address_form_label_hint => 'e.g. Home, Parent\'s House';
+
+  @override
+  String get address_form_location => 'Location';
+
+  @override
+  String get address_form_location_hint => 'Tap to pick a location on the map';
+
+  @override
+  String get address_form_set_default => 'Set as default';
+
+  @override
+  String get address_default_badge => 'Default';
+
+  @override
+  String get address_empty_state => 'No saved addresses yet. Tap + to add one.';
+
+  @override
+  String get address_remove => 'Remove Address';
+
+  @override
+  String address_remove_confirm(String label) {
+    return 'Remove \"$label\"? This can\'t be undone.';
   }
 }

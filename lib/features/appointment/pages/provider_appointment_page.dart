@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,6 +7,9 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/appointment/bloc/provider_appointment_cubit.dart';
+import 'package:m2health/features/appointment/bloc/provider_inbox_cubit.dart';
+import 'package:m2health/features/appointment/widgets/provider_inbox_tab.dart';
+import 'package:m2health/service_locator.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/appointment/widgets/provider_appointment_action_dialog.dart';
 import 'package:m2health/features/home_health_screening/presentation/widgets/screening_appointment_list_action_buttons.dart';
@@ -80,7 +84,7 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
           ],
         ),
       ),
-      body: BlocConsumer<ProviderAppointmentCubit, ProviderAppointmentState>(
+      body: BlocListener<ProviderAppointmentCubit, ProviderAppointmentState>(
         listener: (context, state) {
           log('ProviderAppointmentState changed: $state',
               name: 'ProviderAppointmentPage');
@@ -126,103 +130,96 @@ class _ProviderAppointmentPageState extends State<ProviderAppointmentPage>
             );
           }
         },
-        builder: (context, state) {
-          if (state is ProviderAppointmentLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is ProviderAppointmentError) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.error_outline, size: 64, color: Colors.red),
-                  const SizedBox(height: 16),
-                  Text(context.l10n.common_error(state.message)),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      context
-                          .read<ProviderAppointmentCubit>()
-                          .fetchProviderAppointments();
-                    },
-                    child: Text(context.l10n.common_retry),
-                  ),
-                ],
-              ),
-            );
-          } else if (state is ProviderAppointmentLoaded) {
-            return TabBarView(
-              controller: _tabController,
-              children: [
-                _ProviderAppointmentTab(
-                  appointments: state.appointments,
-                  status: 'pending',
-                ),
-                _ProviderAppointmentTab(
-                  appointments: state.appointments,
-                  status: 'accepted',
-                ),
-                _ProviderAppointmentTab(
-                  appointments: state.appointments,
-                  status: 'completed',
-                ),
-                _ProviderAppointmentTab(
-                  appointments: state.appointments,
-                  status: 'cancelled',
-                ),
-              ],
-            );
-          }
-          return Center(child: Text(context.l10n.common_no_data));
-        },
+        // The Pending tab is the unified offer inbox (ADR-0006): v1 pending
+        // appointments + v2 care-task offers. The other tabs stay pure v1.
+        child: TabBarView(
+          controller: _tabController,
+          children: [
+            BlocProvider<ProviderInboxCubit>(
+              create: (_) => ProviderInboxCubit(sl<Dio>())..fetchInbox(),
+              child: const ProviderInboxTab(),
+            ),
+            const _ProviderAppointmentTab(status: 'accepted'),
+            const _ProviderAppointmentTab(status: 'completed'),
+            const _ProviderAppointmentTab(status: 'cancelled'),
+          ],
+        ),
       ),
     );
   }
 }
 
 class _ProviderAppointmentTab extends StatelessWidget {
-  final List<AppointmentEntity> appointments;
   final String status;
 
-  const _ProviderAppointmentTab({
-    required this.appointments,
-    required this.status,
-  });
-
-  List<AppointmentEntity> get filteredAppointments => appointments
-      .where((appointment) =>
-          appointment.status.toLowerCase() == status.toLowerCase())
-      .toList();
+  const _ProviderAppointmentTab({required this.status});
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () =>
-          context.read<ProviderAppointmentCubit>().fetchProviderAppointments(),
-      backgroundColor: Colors.white,
-      color: Const.aqua,
-      child: CustomScrollView(
-        physics: const AlwaysScrollableScrollPhysics(
-          parent: BouncingScrollPhysics(),
-        ),
-        slivers: [
-          if (filteredAppointments.isEmpty)
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: buildEmptyAppointmentList(context, status),
-            )
-          else
-            SliverPadding(
-              padding: const EdgeInsets.only(bottom: 64.0),
-              sliver: SliverList.builder(
-                itemCount: filteredAppointments.length,
-                itemBuilder: (context, index) {
-                  final appointment = filteredAppointments[index];
-                  return _ProviderAppointmentCard(appointment: appointment);
-                },
-              ),
+    return BlocBuilder<ProviderAppointmentCubit, ProviderAppointmentState>(
+      builder: (context, state) {
+        if (state is ProviderAppointmentLoading ||
+            state is ProviderAppointmentInitial) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (state is ProviderAppointmentError) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.error_outline, size: 64, color: Colors.red),
+                const SizedBox(height: 16),
+                Text(context.l10n.common_error(state.message)),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => context
+                      .read<ProviderAppointmentCubit>()
+                      .fetchProviderAppointments(),
+                  child: Text(context.l10n.common_retry),
+                ),
+              ],
             ),
-        ],
-      ),
+          );
+        }
+
+        final appointments = state is ProviderAppointmentLoaded
+            ? state.appointments
+            : const <AppointmentEntity>[];
+        final filtered = appointments
+            .where((a) => a.status.toLowerCase() == status.toLowerCase())
+            .toList();
+
+        return RefreshIndicator(
+          onRefresh: () => context
+              .read<ProviderAppointmentCubit>()
+              .fetchProviderAppointments(),
+          backgroundColor: Colors.white,
+          color: Const.aqua,
+          child: CustomScrollView(
+            physics: const AlwaysScrollableScrollPhysics(
+              parent: BouncingScrollPhysics(),
+            ),
+            slivers: [
+              if (filtered.isEmpty)
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: buildEmptyAppointmentList(context, status),
+                )
+              else
+                SliverPadding(
+                  padding: const EdgeInsets.only(bottom: 64.0),
+                  sliver: SliverList.builder(
+                    itemCount: filtered.length,
+                    itemBuilder: (context, index) {
+                      return _ProviderAppointmentCard(
+                          appointment: filtered[index]);
+                    },
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -437,15 +434,17 @@ class _ProviderAppointmentCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    context.l10n.appointment_detail_total_amount(
-                        appointment.payTotal.toStringAsFixed(2)),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Color(0xFF35C5CF),
-                    ),
-                  ),
+                  appointment.order != null
+                      ? Text(
+                          context.l10n.appointment_detail_total_amount(
+                              appointment.order!.total.toStringAsFixed(2)),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Color(0xFF35C5CF),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
                   _buildActionButtonsByAppointmentType(),
                 ],
               ),

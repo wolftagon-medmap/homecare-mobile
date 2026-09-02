@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
@@ -136,7 +134,6 @@ class _TelepathologyPageState extends State<TelepathologyPage> {
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
             Divider(color: Colors.grey.shade100),
-
             ...List.generate(3, (index) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

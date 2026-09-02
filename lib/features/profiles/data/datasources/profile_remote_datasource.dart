@@ -1,33 +1,21 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/features/profiles/data/models/mental_health_state_model.dart';
-import 'package:m2health/features/profiles/data/models/professional_profile_model.dart';
 import 'package:m2health/features/profiles/data/models/profile_model.dart';
 import 'package:m2health/utils.dart';
 import 'package:path/path.dart' as p;
 
 abstract class ProfileRemoteDatasource {
   // Patient
-  Future<ProfileModel> getProfile();
-  Future<void> updateProfile(Map<String, dynamic> profile, File? avatar);
-
-  // Professional
-  Future<ProfessionalProfileModel> getProfessionalProfile();
-  Future<void> updateProfessionalProfile(
-      Map<String, dynamic> data, File? avatar);
-  Future<void> updateProvidedServices(List<int> serviceIds,
-      {bool? isHomeScreeningAuthorized});
-
-  // Admin
-  Future<List<ProfessionalProfileModel>> getAdminProfessionals(
-      {String? status, String? role});
-  Future<ProfessionalProfileModel> getAdminProfessionalDetail(int id);
-  Future<void> verifyProfessional(int id);
-  Future<void> revokeVerification(int id);
+  Future<List<ProfileModel>> getProfiles();
+  Future<ProfileModel> createProfile(
+      Map<String, dynamic> profile, File? avatar);
+  Future<void> updateProfile(
+      int profileId, Map<String, dynamic> profile, File? avatar);
+  Future<void> deleteProfile(int profileId);
 
   // Mental Health State
   Future<MentalHealthStateModel> getMentalHealthState();
@@ -58,14 +46,16 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   // }
 
   @override
-  Future<ProfileModel> getProfile() async {
+  Future<List<ProfileModel>> getProfiles() async {
     try {
       final response = await dio.get(
         Const.API_PROFILE, // /v1/profiles
         options: await _getAuthHeaders(),
       );
-      final data = response.data['data'];
-      return ProfileModel.fromJson(data);
+      final data = response.data['data'] as List<dynamic>;
+      return data
+          .map((json) => ProfileModel.fromJson(json as Map<String, dynamic>))
+          .toList();
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         throw const UnauthorizedFailure("User is not authenticated");
@@ -75,174 +65,90 @@ class ProfileRemoteDatasourceImpl implements ProfileRemoteDatasource {
   }
 
   @override
-  Future<void> updateProfile(Map<String, dynamic> profile, File? avatar) async {
+  Future<ProfileModel> createProfile(
+      Map<String, dynamic> profile, File? avatar) async {
     try {
-      final formData = FormData();
-      profile.forEach((key, value) {
-        if (value != null) {
-          formData.fields.add(MapEntry(key, value.toString()));
-        }
-      });
-
-      if (avatar != null) {
-        formData.files.add(MapEntry(
-          'avatar',
-          await MultipartFile.fromFile(
-            avatar.path,
-            filename: p.basename(avatar.path),
-          ),
-        ));
-      }
-
-      await dio.put(
+      final response = await dio.post(
         Const.API_PROFILE, // /v1/profiles
-        data: formData,
+        data: await _buildFormData(profile, avatar),
         options: (await _getAuthHeaders())..contentType = 'multipart/form-data',
       );
+      // Returned so the caller can make the new profile active.
+      return ProfileModel.fromJson(
+          response.data['data'] as Map<String, dynamic>);
     } on DioException catch (e) {
-      throw Exception('Failed to update profile data. Error: ${e.message}');
-    } catch (e) {
-      throw Exception('An unexpected error occurred: $e');
-    }
-  }
-
-  // --- Professional Profile Methods ---
-
-  @override
-  Future<ProfessionalProfileModel> getProfessionalProfile() async {
-    try {
-      const endpoint = '${Const.API_PROFESSIONALS}/my-profile';
-      final response = await dio.get(
-        endpoint,
-        options: await _getAuthHeaders(),
-      );
-      final data = response.data['data'];
-      return ProfessionalProfileModel.fromJson(data);
-    } on DioException catch (e) {
-      log('Dio error while fetching professional profile: ${e.response}',
-          error: e, name: 'ProfileRemoteDatasourceImpl');
-      if (e.response?.statusCode == 401) {
-        throw const UnauthorizedFailure("User is not authenticated");
-      }
-      throw Exception(
-          'Failed to load professional profile data. Error: ${e.message}');
-    }
-  }
-
-  @override
-  Future<void> updateProfessionalProfile(
-      Map<String, dynamic> data, File? avatar) async {
-    try {
-      const endpoint = '${Const.API_PROFESSIONALS}/my-profile';
-      final formData = FormData();
-
-      data.forEach((key, value) {
-        if (value != null) {
-          formData.fields.add(MapEntry(key, value.toString()));
-        }
-      });
-
-      if (avatar != null) {
-        formData.files.add(MapEntry(
-          'avatar',
-          await MultipartFile.fromFile(
-            avatar.path,
-            filename: p.basename(avatar.path),
-          ),
-        ));
-      }
-
-      await dio.put(
-        endpoint,
-        data: formData,
-        options: (await _getAuthHeaders())..contentType = 'multipart/form-data',
-      );
-    } on DioException catch (e) {
-      throw Exception(
-          'Failed to update professional profile data. Error: ${e.message}');
+      throw Exception(_serverMessage(e) ?? 'Failed to create profile');
     } catch (e) {
       throw Exception('An unexpected error occurred: $e');
     }
   }
 
   @override
-  Future<void> updateProvidedServices(List<int> serviceIds,
-      {bool? isHomeScreeningAuthorized}) async {
+  Future<void> updateProfile(
+      int profileId, Map<String, dynamic> profile, File? avatar) async {
     try {
-      const endpoint = '${Const.API_PROFESSIONALS}/my-services';
-      final Map<String, dynamic> data = {'service_ids': serviceIds};
-      if (isHomeScreeningAuthorized != null) {
-        data['is_home_screening_authorized'] = isHomeScreeningAuthorized;
-      }
-
       await dio.put(
-        endpoint,
-        data: data,
-        options: await _getAuthHeaders(),
+        '${Const.API_PROFILE}/$profileId', // /v1/profiles/:id
+        data: await _buildFormData(profile, avatar),
+        options: (await _getAuthHeaders())..contentType = 'multipart/form-data',
       );
     } on DioException catch (e) {
-      throw Exception('Failed to update services: ${e.message}');
-    }
-  }
-
-  // --- Admin Methods ---
-  @override
-  Future<List<ProfessionalProfileModel>> getAdminProfessionals(
-      {String? status, String? role}) async {
-    try {
-      final response = await dio.get(
-        '${Const.URL_API}/admin/professionals',
-        queryParameters: {
-          'status': status, // 'verified' or 'unverified'
-          'role': role, // e.g., 'nurse', 'pharmacist', etc.
-        },
-        options: await _getAuthHeaders(),
-      );
-
-      final List data = response.data['data'];
-      return data.map((e) => ProfessionalProfileModel.fromJson(e)).toList();
-    } on DioException catch (e) {
-      throw Exception('Failed to fetch professionals: ${e.message}');
+      throw Exception(_serverMessage(e) ??
+          'Failed to update profile data. Error: ${e.message}');
+    } catch (e) {
+      throw Exception('An unexpected error occurred: $e');
     }
   }
 
   @override
-  Future<ProfessionalProfileModel> getAdminProfessionalDetail(int id) async {
+  Future<void> deleteProfile(int profileId) async {
     try {
-      final response = await dio.get(
-        '${Const.URL_API}/admin/professionals/$id',
+      await dio.delete(
+        '${Const.API_PROFILE}/$profileId', // /v1/profiles/:id
         options: await _getAuthHeaders(),
       );
-
-      final data = response.data['data'];
-      return ProfessionalProfileModel.fromJson(data);
     } on DioException catch (e) {
-      throw Exception('Failed to fetch professional detail: ${e.message}');
+      throw Exception(_serverMessage(e) ?? 'Failed to remove profile');
+    } catch (e) {
+      throw Exception('An unexpected error occurred: $e');
     }
   }
 
-  @override
-  Future<void> verifyProfessional(int id) async {
-    try {
-      await dio.post(
-        '${Const.URL_API}/professionals/$id/verify',
-        options: await _getAuthHeaders(),
-      );
-    } on DioException catch (e) {
-      throw Exception('Failed to verify professional: ${e.message}');
+  Future<FormData> _buildFormData(
+      Map<String, dynamic> profile, File? avatar) async {
+    final formData = FormData();
+    profile.forEach((key, value) {
+      if (value != null) {
+        formData.fields.add(MapEntry(key, value.toString()));
+      }
+    });
+
+    if (avatar != null) {
+      formData.files.add(MapEntry(
+        'avatar',
+        await MultipartFile.fromFile(
+          avatar.path,
+          filename: p.basename(avatar.path),
+        ),
+      ));
     }
+    return formData;
   }
 
-  @override
-  Future<void> revokeVerification(int id) async {
-    try {
-      await dio.post(
-        '${Const.URL_API}/professionals/$id/revoke',
-        options: await _getAuthHeaders(),
-      );
-    } on DioException catch (e) {
-      throw Exception('Failed to revoke verification: ${e.message}');
+  /// The API explains refusals in the body ("The primary profile cannot be
+  /// removed", field validation errors); Dio's own message would hide them.
+  String? _serverMessage(DioException e) {
+    final data = e.response?.data;
+    if (data is! Map) return null;
+
+    final errors = data['errors'];
+    if (errors is List && errors.isNotEmpty) {
+      final first = errors.first;
+      if (first is Map && first['message'] != null) {
+        return first['message'].toString();
+      }
     }
+    return data['message']?.toString();
   }
 
   @override

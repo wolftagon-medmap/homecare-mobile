@@ -12,13 +12,28 @@ class GetProfessionalsEvent extends ProfessionalEvent {
   final String? name;
   final List<int>? serviceIds;
   final bool? isHomeScreeningAuthorized;
+  final String? serviceSubCategory;
+  final double? latitude;
+  final double? longitude;
 
   const GetProfessionalsEvent(this.role,
-      {this.name, this.serviceIds, this.isHomeScreeningAuthorized});
+      {this.name,
+      this.serviceIds,
+      this.isHomeScreeningAuthorized,
+      this.serviceSubCategory,
+      this.latitude,
+      this.longitude});
 
   @override
-  List<Object> get props =>
-      [role, name ?? '', serviceIds ?? [], isHomeScreeningAuthorized ?? false];
+  List<Object> get props => [
+        role,
+        name ?? '',
+        serviceIds ?? [],
+        isHomeScreeningAuthorized ?? false,
+        serviceSubCategory ?? '',
+        latitude ?? 0,
+        longitude ?? 0,
+      ];
 }
 
 class ToggleFavoriteEvent extends ProfessionalEvent {

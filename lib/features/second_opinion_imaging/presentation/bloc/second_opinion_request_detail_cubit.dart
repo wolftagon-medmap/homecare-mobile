@@ -19,12 +19,14 @@ class SecondOpinionRequestDetailCubit
     required String diagnosticOpinion,
     required String recommendationOpinion,
   }) async {
+    log('Submitting medical opinion for appointment $appointmentId',
+        name: 'SecondOpinionRequestDetailCubit');
     emit(state.copyWith(submissionStatus: ActionStatus.loading));
 
-    final result = await repository.submitFeedback(
+    final result = await repository.createDiagnosticReport(
       appointmentId: appointmentId,
-      diagnosticOpinion: diagnosticOpinion,
-      recommendationOpinion: recommendationOpinion,
+      conclusion: diagnosticOpinion,
+      recommendation: recommendationOpinion,
     );
 
     result.fold(

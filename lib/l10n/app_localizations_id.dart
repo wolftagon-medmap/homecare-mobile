@@ -232,6 +232,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get appointment_detail_patient_title => 'Informasi Pasien';
 
   @override
+  String get appointment_detail_visit_address_title => 'Alamat Kunjungan';
+
+  @override
   String get appointment_detail_lab_test_title => 'Informasi Tes Lab';
 
   @override
@@ -1583,6 +1586,9 @@ class AppLocalizationsId extends AppLocalizations {
   String get precision_book_now => 'Pesan Sekarang';
 
   @override
+  String get precision_view_plan => 'Lihat Rencana';
+
+  @override
   String get precision_main_concern_question => 'Apa kekhawatiran utama Anda?';
 
   @override
@@ -2594,5 +2600,88 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String physiotherapy_summary(int duration) {
     return 'Sesi Fisioterapi ($duration menit)';
+  }
+
+  @override
+  String get common_close => 'Tutup';
+
+  @override
+  String get profile_switcher_new_profile => '+ Profil Baru';
+
+  @override
+  String get profile_relation_self => 'Pribadi';
+
+  @override
+  String get profile_relation_spouse => 'Pasangan';
+
+  @override
+  String get profile_relation_parent => 'Orang Tua';
+
+  @override
+  String get profile_relation_child => 'Anak';
+
+  @override
+  String get profile_relation_sibling => 'Saudara';
+
+  @override
+  String get profile_relation_other => 'Lainnya';
+
+  @override
+  String get profile_form_add_title => 'Tambah Profil';
+
+  @override
+  String get profile_form_date_of_birth => 'Tanggal Lahir';
+
+  @override
+  String get profile_form_relationship => 'Hubungan';
+
+  @override
+  String get profile_form_field_required => 'Wajib diisi';
+
+  @override
+  String get profile_form_remove => 'Hapus Profil';
+
+  @override
+  String profile_form_remove_confirm(String name) {
+    return 'Hapus $name dari daftar profil Anda? Tindakan ini tidak dapat dibatalkan.';
+  }
+
+  @override
+  String get settings_saved_addresses => 'Alamat Tersimpan';
+
+  @override
+  String get address_form_add_title => 'Tambah Alamat';
+
+  @override
+  String get address_form_edit_title => 'Ubah Alamat';
+
+  @override
+  String get address_form_label => 'Label';
+
+  @override
+  String get address_form_label_hint => 'mis. Rumah, Rumah Orang Tua';
+
+  @override
+  String get address_form_location => 'Lokasi';
+
+  @override
+  String get address_form_location_hint => 'Ketuk untuk pilih lokasi di peta';
+
+  @override
+  String get address_form_set_default => 'Jadikan alamat utama';
+
+  @override
+  String get address_default_badge => 'Utama';
+
+  @override
+  String get address_empty_state =>
+      'Belum ada alamat tersimpan. Ketuk + untuk menambahkan.';
+
+  @override
+  String get address_remove => 'Hapus Alamat';
+
+  @override
+  String address_remove_confirm(String label) {
+    return 'Hapus \"$label\"? Tindakan ini tidak dapat dibatalkan.';
   }
 }

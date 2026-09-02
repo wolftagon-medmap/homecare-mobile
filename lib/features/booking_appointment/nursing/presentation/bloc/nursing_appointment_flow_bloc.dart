@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/booking_appointment/nursing/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/health_status.dart';
@@ -10,6 +10,8 @@ import 'package:m2health/features/booking_appointment/nursing/domain/entities/nu
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
 import 'package:m2health/features/booking_appointment/nursing/domain/usecases/create_nursing_appointment.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
+import 'package:m2health/features/profiles/domain/entities/address.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
 
 part 'nursing_appointment_flow_event.dart';
 part 'nursing_appointment_flow_state.dart';
@@ -17,9 +19,11 @@ part 'nursing_appointment_flow_state.dart';
 class NursingAppointmentFlowBloc
     extends Bloc<NursingAppointmentFlowEvent, NursingAppointmentFlowState> {
   final CreateNursingAppointment createNursingAppointment;
+  final PatientProfileCubit patientProfileCubit;
 
   NursingAppointmentFlowBloc({
     required this.createNursingAppointment,
+    required this.patientProfileCubit,
     required NurseServiceType serviceType,
   }) : super(NursingAppointmentFlowState.initial(serviceType)) {
     on<FlowStepChanged>(_onStepChanged);
@@ -28,6 +32,7 @@ class NursingAppointmentFlowBloc
     on<FlowAddOnServicesUpdated>(_onAddOnServicesUpdated);
     on<FlowProfessionalSelected>(_onProfessionalSelected);
     on<FlowTimeSlotSelected>(_onTimeSlotSelected);
+    on<FlowLocationSelected>(_onLocationSelected);
     on<FlowSubmitAppointment>(_onSubmitAppointment);
   }
 
@@ -76,9 +81,15 @@ class NursingAppointmentFlowBloc
 
   void _onTimeSlotSelected(
       FlowTimeSlotSelected event, Emitter<NursingAppointmentFlowState> emit) {
-    emit(state.copyWith(selectedTimeSlot: event.timeSlot));
+    emit(state.copyWith(
+      selectedTimeSlot: event.timeSlot,
+      currentStep: NursingFlowStep.confirmation,
+    ));
+  }
 
-    add(FlowSubmitAppointment()); // Trigger submission after time slot selection
+  void _onLocationSelected(
+      FlowLocationSelected event, Emitter<NursingAppointmentFlowState> emit) {
+    emit(state.copyWith(selectedLocation: event.location));
   }
 
   void _onSubmitAppointment(FlowSubmitAppointment event,
@@ -91,6 +102,8 @@ class NursingAppointmentFlowBloc
     final params = CreateNursingAppointmentParams(
       providerId: state.selectedProfessional!.id,
       startDatetime: state.selectedTimeSlot!,
+      patientProfileId: patientProfileCubit.activeProfile?.id,
+      location: state.selectedLocation,
       nursingCase: NursingCase(
         issues: state.selectedIssues,
         mobilityStatus: state.healthStatus?.mobilityStatus,

@@ -13,4 +13,13 @@ enum PhysiotherapyType {
         return context.l10n.physiotherapy_neurological_title;
     }
   }
+
+  String get name {
+    switch (this) {
+      case PhysiotherapyType.musculoskeletal:
+        return 'musculoskeletal';
+      case PhysiotherapyType.neurological:
+        return 'neurological';
+    }
+  }
 }

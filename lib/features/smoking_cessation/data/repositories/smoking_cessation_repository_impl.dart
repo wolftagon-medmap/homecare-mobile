@@ -15,7 +15,8 @@ class SmokingCessationRepositoryImpl implements SmokingCessationRepository {
   Future<Either<Failure, SmokingCessationPlan?>> getSmokingCessationPlan(
       int appointmentId) async {
     try {
-      final result = await remoteDatasource.getSmokingCessationPlan(appointmentId);
+      final result =
+          await remoteDatasource.getSmokingCessationPlan(appointmentId);
       return Right(result);
     } catch (e) {
       if (e is DioException) {
@@ -26,7 +27,7 @@ class SmokingCessationRepositoryImpl implements SmokingCessationRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> submitSmokingCessationPlan(
+  Future<Either<Failure, Unit>> createSmokingCessationCarePlan(
       int appointmentId, SmokingCessationPlan plan) async {
     try {
       final model = SmokingCessationPlanModel.fromEntity(plan);

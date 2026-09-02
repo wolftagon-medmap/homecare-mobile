@@ -1,93 +1,139 @@
 import 'dart:developer';
-import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:m2health/features/chatbot/data/datasources/chatbot_remote_datasource.dart';
-import 'package:m2health/features/chatbot/domain/entities/chat_event.dart';
-import 'package:m2health/features/chatbot/domain/entities/chat_session.dart';
+import 'package:m2health/features/chatbot/data/models/conversation_model.dart';
+import 'package:m2health/features/chatbot/domain/chat_exception.dart';
+import 'package:m2health/features/chatbot/domain/entities/conversation.dart';
 import 'package:m2health/features/chatbot/domain/repositories/chat_repository.dart';
 
 class ChatRepositoryImpl implements ChatRepository {
   final ChatRemoteDataSource _remoteDataSource;
 
-  ChatRepositoryImpl(
-    this._remoteDataSource,
-  );
+  ChatRepositoryImpl(this._remoteDataSource);
 
   @override
-  Stream<ChatEvent> invokeSession({
+  Future<List<ConversationSummary>> listConversations({
     required String service,
-    String? existingSessionId,
-    bool stream = true,
-  }) async* {
-    await for (final eventModel in _remoteDataSource.invokeSession(
-      service: service,
-      stream: stream,
-    )) {
-      final event = eventModel.toEntity();
-      yield event;
-    }
-  }
-
-  @override
-  Stream<ChatEvent> sendInput({
-    required String service,
-    required String nodeId,
-    required String? messageId,
-    required Map<String, dynamic> input,
-  }) async* {
-    await for (final eventModel in _remoteDataSource.sendInput(
-      service: service,
-      nodeId: nodeId,
-      messageId: messageId,
-      input: input,
-    )) {
-      final event = eventModel.toEntity();
-      yield event;
-    }
-  }
-
-  @override
-  Future<String> uploadFile(File file) async {
-    return await _remoteDataSource.uploadFile(file);
-  }
-
-  @override
-  Future<ChatSession?> getActiveSession({
-    required String service,
+    int page = 1,
   }) async {
-    try {
-      final session =
-          await _remoteDataSource.getSessionHistory(service: service);
-      final events = session.events.map((e) => e.toEntity()).toList();
-
-      // Find last input event for pending input
-      InputEvent? activeInputEvent;
-      for (final event in events.reversed) {
-        if (event is InputEvent) {
-          activeInputEvent = event;
-          break;
-        }
-      }
-
-      log('Active session found with ${events.length} events. Pending input type: ${activeInputEvent != null ? activeInputEvent.inputConfig.inputType : 'none'}',
-          name: 'ChatRepositoryImpl');
-
-      return ChatSession(
-        sessionId: session.sessionId,
-        createdAt: session.createdAt,
-        expiresAt: session.expiresAt,
-        events: events,
-        activeInputEvent: activeInputEvent,
+    return _guard(() async {
+      final json = await _remoteDataSource.listConversations(
+        service: service,
+        page: page,
       );
-    } catch (e) {
-      log('No active session found or failed to fetch session history: $e',
-          name: 'ChatRepositoryImpl');
-      return null;
-    }
+      final data = (json['data'] as List<dynamic>? ?? []);
+      return data
+          .map((e) => ChatbotModels.summaryFromJson(e as Map<String, dynamic>))
+          .toList();
+    });
   }
 
   @override
-  Future<void> closeSession({required String service}) async {
-    await _remoteDataSource.closeSession(service: service);
+  Future<Conversation> getConversation(int conversationId) async {
+    return _guard(() async {
+      final json = await _remoteDataSource.getConversation(conversationId);
+      return ChatbotModels.conversationFromJson(
+        json['data'] as Map<String, dynamic>,
+      );
+    });
+  }
+
+  @override
+  Future<Conversation> createConversation({
+    required String service,
+    required String message,
+  }) async {
+    return _guard(() async {
+      final json = await _remoteDataSource.createConversation(
+        service: service,
+        message: message,
+      );
+      return _conversationWithTurn(json);
+    });
+  }
+
+  @override
+  Future<SendResult> sendMessage({
+    required int conversationId,
+    required String message,
+  }) async {
+    return _guard(() async {
+      final json = await _remoteDataSource.sendMessage(
+        conversationId: conversationId,
+        message: message,
+      );
+      return (
+        userMessage: ChatbotModels.messageFromJson(
+            json['userMessage'] as Map<String, dynamic>),
+        assistantMessage: ChatbotModels.messageFromJson(
+            json['assistantMessage'] as Map<String, dynamic>),
+      );
+    });
+  }
+
+  @override
+  Future<void> deleteConversation(int conversationId) async {
+    return _guard(() => _remoteDataSource.deleteConversation(conversationId));
+  }
+
+  Conversation _conversationWithTurn(Map<String, dynamic> json) {
+    final userMessage = ChatbotModels.messageFromJson(
+        json['userMessage'] as Map<String, dynamic>);
+    final assistantMessage = ChatbotModels.messageFromJson(
+        json['assistantMessage'] as Map<String, dynamic>);
+    return ChatbotModels.conversationFromJson(
+      json['conversation'] as Map<String, dynamic>,
+      messages: [userMessage, assistantMessage],
+    );
+  }
+
+  /// Runs [action], translating transport errors into a [ChatException].
+  Future<T> _guard<T>(Future<T> Function() action) async {
+    try {
+      return await action();
+    } on DioException catch (e, stackTrace) {
+      log('Chat request failed',
+          name: 'ChatRepositoryImpl', error: e, stackTrace: stackTrace);
+      throw _mapDioException(e);
+    }
+  }
+
+  ChatException _mapDioException(DioException e) {
+    final status = e.response?.statusCode;
+
+    if (e.type == DioExceptionType.connectionTimeout ||
+        e.type == DioExceptionType.receiveTimeout ||
+        e.type == DioExceptionType.sendTimeout ||
+        status == 504) {
+      return const ChatException(
+        'The medical AI is taking too long to respond. Please try again.',
+        retryable: true,
+      );
+    }
+
+    if (status == 404) {
+      return const ChatException('Conversation not found.', retryable: false);
+    }
+
+    if (status != null && status >= 400 && status < 500 && status != 429) {
+      final message =
+          _serverMessage(e) ?? 'Your request could not be processed.';
+      return ChatException(message, retryable: false);
+    }
+
+    // 5xx, 429, connection errors -> retryable.
+    return ChatException(
+      _serverMessage(e) ?? 'Could not reach the AI service. Please try again.',
+      retryable: true,
+    );
+  }
+
+  String? _serverMessage(DioException e) {
+    final data = e.response?.data;
+    if (data is Map && data['message'] is String) {
+      return data['message'] as String;
+    }
+    return null;
   }
 }

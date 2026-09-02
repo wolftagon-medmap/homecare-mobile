@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/homecare_elderly/admin/bloc/admin_homecare_cubit.dart';
 import 'package:m2health/features/homecare_elderly/admin/bloc/admin_homecare_state.dart';
 import 'package:m2health/features/subscription/domain/entities/subscription_plan_entity.dart';
@@ -82,12 +82,11 @@ class _AdminHomecareConfigurationView extends StatelessWidget {
 }
 
 class _ServiceRatesTab extends StatelessWidget {
-  final List<AddOnService> services;
+  final List<ServiceEntity> services;
 
   const _ServiceRatesTab({required this.services});
 
-  void _showEditRateDialog(BuildContext context, AddOnService service) {
-    // Changed to AddOnService
+  void _showEditRateDialog(BuildContext context, ServiceEntity service) {
     final controller = TextEditingController(text: service.price.toString());
     showDialog(
       context: context,

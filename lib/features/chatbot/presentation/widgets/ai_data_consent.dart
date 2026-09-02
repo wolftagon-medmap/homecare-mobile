@@ -55,18 +55,17 @@ class AiDataConsentModal extends StatelessWidget {
                 description:
                     'Your messages, reported symptoms, and relevant health '
                     'metrics from your profile are transmitted to our '
-                    'designated AI provider for processing.',
+                    'AI provider for processing.',
               ),
               const SizedBox(height: 12),
               const _ConsentInfoCard(
-                icon: Icons.access_time_rounded,
+                icon: Icons.lock_outline,
                 iconBackgroundColor: Color(0xFFEEFCFD),
                 iconColor: Const.aqua,
                 title: 'Privacy & Retention',
-                description: 'Conversations are processed securely and '
-                    'permanently deleted within 24 hours. '
+                description: 'Conversations are processed and stored securely.'
                     'Your data is not used to train public AI models.',
-                boldSegment: 'permanently deleted within 24 hours',
+                boldSegment: 'processed and stored securely',
               ),
               const SizedBox(height: 12),
               const _ConsentInfoCard(

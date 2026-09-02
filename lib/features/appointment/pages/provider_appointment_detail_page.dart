@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
+import 'package:m2health/core/domain/entities/service_request_detail.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
-import 'package:m2health/core/presentation/views/file_viewer_page.dart';
 import 'package:m2health/features/appointment/bloc/provider_appointment_cubit.dart';
 import 'package:m2health/features/appointment/bloc/provider_appointment_detail_cubit.dart';
+import 'package:m2health/features/appointment/widgets/appointment_type_detail_tile.dart';
 import 'package:m2health/features/appointment/widgets/provider_appointment_action_dialog.dart';
-import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
-import 'package:m2health/features/second_opinion_imaging/presentation/pages/second_opinion_request_detail_page.dart';
 import 'package:m2health/features/home_health_screening/presentation/widgets/screening_appointment_detail_action_buttons.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/smoking_cessation/presentation/widgets/prepare_smoking_cessation_plan_button.dart';
-import 'package:m2health/features/smoking_cessation/presentation/widgets/smoking_habit_assessment_card.dart';
-import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 
@@ -55,8 +51,7 @@ class ProviderAppointmentDetailView extends StatelessWidget {
                 child: Text(context.l10n.common_error(state.message)));
           }
           if (state is ProviderAppointmentDetailLoaded) {
-            final appointment = state.appointment;
-            return _buildAppointmentDetails(context, appointment);
+            return _buildAppointmentDetails(context, state.appointment);
           }
           return Center(child: Text(context.l10n.common_no_data));
         },
@@ -75,7 +70,6 @@ class ProviderAppointmentDetailView extends StatelessWidget {
                 .fetchProviderAppointmentById(appointment.id!);
           }
 
-          // Determine which action buttons to show based on appointment type
           return switch (appointment.type) {
             'screening' => ScreeningAppointmentDetailActionButtons(
                 appointment: appointment,
@@ -93,12 +87,12 @@ class ProviderAppointmentDetailView extends StatelessWidget {
 
   Widget _buildAppointmentDetails(
       BuildContext context, AppointmentEntity appointment) {
+    void refresh() => context
+        .read<ProviderAppointmentDetailCubit>()
+        .fetchProviderAppointmentById(appointment.id!);
+
     return RefreshIndicator(
-      onRefresh: () async {
-        context
-            .read<ProviderAppointmentDetailCubit>()
-            .fetchProviderAppointmentById(appointment.id!);
-      },
+      onRefresh: () async => refresh(),
       child: ListView(
         padding: const EdgeInsets.all(20.0),
         children: [
@@ -107,90 +101,69 @@ class ProviderAppointmentDetailView extends StatelessWidget {
           _AppointmentSchedule(appointment: appointment),
           if (appointment.status.toLowerCase() == 'cancelled') ...[
             const SizedBox(height: 24),
-            _buildCancellationInfoCard(appointment),
+            _CancellationInfoCard(appointment: appointment),
           ],
           const SizedBox(height: 24),
           _PatientInfoTable(appointment: appointment),
-          if (appointment.type == 'screening')
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const SizedBox(height: 24),
-              _buildSectionTitle(
-                  context.l10n.appointment_detail_lab_test_title),
-              _ScreeningRequestInfo(appointment: appointment),
-            ])
-          else if (appointment.type == 'second_opinion_imaging')
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const SizedBox(height: 24),
-              _SecondOpinionImagingRequestInfo(appointment: appointment),
-            ])
-          else
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const SizedBox(height: 24),
-              _PersonalCaseInfo(appointment: appointment),
-            ]),
-          if (appointment.type == 'pharmacy' &&
-              appointment.pharmacyCase?.serviceType == 'smoking_cessation') ...[
-            const SizedBox(height: 24),
-            _buildSectionTitle("Smoking Cessation Assessment"),
-            SmokingHabitAssessmentCard(
-              smokingForm: appointment.pharmacyCase!.smokingCessationForm!,
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Text(
-        title,
-        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-      ),
-    );
-  }
-
-  Widget _buildCancellationInfoCard(AppointmentEntity appointment) {
-    final cancelledBy = _formatCancelledBy(appointment.cancelledBy);
-    final cancellationReason = appointment.cancellationReason ?? '-';
-
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.red.withValues(alpha: 0.06),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.red.withValues(alpha: 0.2)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Cancellation details',
-            style: TextStyle(fontWeight: FontWeight.w700, color: Colors.red),
+          const SizedBox(height: 24),
+          _RequestedServicesSection(detail: appointment.serviceRequest?.detail),
+          AppointmentTypeDetailTile(
+            appointment: appointment,
+            isProvider: true,
+            onRefreshNeeded: refresh,
           ),
-          const SizedBox(height: 8),
-          Text('Cancelled by: $cancelledBy'),
-          const SizedBox(height: 4),
-          Text('Reason: $cancellationReason'),
         ],
       ),
     );
-  }
-
-  String _formatCancelledBy(String? cancelledBy) {
-    if (cancelledBy == null || cancelledBy.isEmpty) return '-';
-    switch (cancelledBy.toLowerCase()) {
-      case 'patient':
-        return 'Patient';
-      case 'provider':
-        return 'Provider';
-      default:
-        return cancelledBy;
-    }
   }
 }
+
+// ─── Requested Services (inline service name list) ────────────────────────────
+
+class _RequestedServicesSection extends StatelessWidget {
+  final ServiceRequestDetail? detail;
+  const _RequestedServicesSection({required this.detail});
+
+  @override
+  Widget build(BuildContext context) {
+    final names = switch (detail) {
+      NursingDetail(:final services) => services.map((s) => s.name).toList(),
+      PharmacyGeneralDetail(:final services) =>
+        services.map((s) => s.name).toList(),
+      PharmacySmokingCessationDetail(:final services) =>
+        services.map((s) => s.name).toList(),
+      HomecareDetail(:final services) => services,
+      PhysiotherapyDetail(:final service) => [service.name],
+      ScreeningDetail(:final services) => services.map((s) => s.name).toList(),
+      SecondOpinionDetail() => <String>[],
+      NutritionDetail() => <String>[],
+      null => <String>[],
+      UnknownDetail() => <String>[],
+    };
+
+    if (names.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          context.l10n.appointment_detail_service_requested,
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+        ),
+        const SizedBox(height: 8),
+        ...names.asMap().entries.map((e) => Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Text('${e.key + 1}. ${e.value}',
+                  style: const TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.w500)),
+            )),
+        const SizedBox(height: 8),
+      ],
+    );
+  }
+}
+
+// ─── Patient card + schedule ──────────────────────────────────────────────────
 
 class _AppointmentSchedule extends StatelessWidget {
   final AppointmentEntity appointment;
@@ -200,12 +173,9 @@ class _AppointmentSchedule extends StatelessWidget {
   Widget build(BuildContext context) {
     final localStartTime = appointment.startDatetime.toLocal();
     final localEndTime = appointment.endDatetime!.toLocal();
-
     final date = DateFormat('EEEE, MMMM dd, yyyy').format(localStartTime);
-
     final startHour = DateFormat('hh:mm a').format(localStartTime);
     final endHour = DateFormat('hh:mm a').format(localEndTime);
-    final hour = '$startHour - $endHour';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,7 +186,8 @@ class _AppointmentSchedule extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         _InfoRow(icon: Icons.calendar_today_outlined, text: date),
-        _InfoRow(icon: Icons.access_time_outlined, text: hour),
+        _InfoRow(
+            icon: Icons.access_time_outlined, text: '$startHour - $endHour'),
       ],
     );
   }
@@ -271,8 +242,8 @@ class _PatientCardHeader extends StatelessWidget {
           radius: 30,
           backgroundColor: Colors.grey.shade200,
           backgroundImage:
-              (patient.avatar != null) ? NetworkImage(patient.avatar!) : null,
-          child: (patient.avatar == null)
+              patient.avatar != null ? NetworkImage(patient.avatar!) : null,
+          child: patient.avatar == null
               ? const Icon(Icons.person, size: 30, color: Colors.grey)
               : null,
         ),
@@ -296,10 +267,9 @@ class _PatientCardHeader extends StatelessWidget {
                 child: Text(
                   _getLocalizedStatus(context, appointment.status),
                   style: TextStyle(
-                    color: statusColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
-                  ),
+                      color: statusColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12),
                 ),
               ),
               const SizedBox(height: 4),
@@ -318,7 +288,7 @@ class _PatientCardHeader extends StatelessWidget {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
@@ -369,8 +339,7 @@ class _PatientInfoTable extends StatelessWidget {
         _buildInfoRow(context.l10n.weight, '${patient.weight} kg'),
         _buildInfoRow(context.l10n.height, '${patient.height} cm'),
         _buildInfoRow(context.l10n.address, patient.homeAddress),
-        if (patient.address != null)
-          _buildAddressMap(context, patient.address!),
+        if (patient.address != null) _buildAddressMap(patient.address!),
       ],
     );
   }
@@ -392,20 +361,15 @@ class _PatientInfoTable extends StatelessWidget {
     );
   }
 
-  Widget _buildAddressMap(BuildContext context, Address address) {
+  Widget _buildAddressMap(Address address) {
     return Container(
       height: 150,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
       clipBehavior: Clip.antiAlias,
       margin: const EdgeInsets.symmetric(vertical: 16.0),
       child: GoogleMap(
         initialCameraPosition: CameraPosition(
-          target: LatLng(
-            address.latitude,
-            address.longitude,
-          ),
+          target: LatLng(address.latitude, address.longitude),
           zoom: 15,
         ),
         markers: {
@@ -426,321 +390,50 @@ class _PatientInfoTable extends StatelessWidget {
   }
 }
 
-class _ScreeningRequestInfo extends StatelessWidget {
+class _CancellationInfoCard extends StatelessWidget {
   final AppointmentEntity appointment;
-  const _ScreeningRequestInfo({required this.appointment});
+  const _CancellationInfoCard({required this.appointment});
 
-  @override
-  Widget build(BuildContext context) {
-    final screeningData = appointment.screeningRequestData;
-    if (screeningData == null) {
-      return Text(context.l10n.common_no_data);
+  String _formatCancelledBy(String? cancelledBy) {
+    if (cancelledBy == null || cancelledBy.isEmpty) return '-';
+    switch (cancelledBy.toLowerCase()) {
+      case 'patient':
+        return 'Patient';
+      case 'provider':
+        return 'Provider';
+      default:
+        return cancelledBy;
     }
-    final reports = screeningData.reports;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Text(
-              context.l10n.common_status,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-              ),
-            ),
-            const Spacer(),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(
-                color: Const.aqua.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                screeningData.status.replaceAll('_', ' ').toTitleCase(),
-                style: const TextStyle(
-                  color: Const.aqua,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Text(
-          '${context.l10n.appointment_detail_service_requested}: ',
-          style: const TextStyle(fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(height: 8),
-        ...screeningData.services.asMap().entries.map(
-          (entry) {
-            final index = entry.key + 1;
-            final service = entry.value;
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
-              child: Text(
-                '$index. ${service.name}',
-                style: const TextStyle(fontSize: 14),
-              ),
-            );
-          },
-        ),
-        const SizedBox(height: 8),
-        if (reports.isNotEmpty && screeningData.status == 'report_ready') ...[
-          Text(
-            context.l10n.appointment_detail_report(reports.length),
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-            ),
-          ),
-          const SizedBox(height: 8),
-          ...reports.map((report) => Card(
-                elevation: 0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    side: BorderSide(color: Colors.grey.shade200)),
-                margin: const EdgeInsets.only(bottom: 8),
-                child: ListTile(
-                  leading: Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.red.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(
-                        report.file.extname == 'pdf'
-                            ? Icons.picture_as_pdf
-                            : Icons.insert_drive_file,
-                        color: Colors.red),
-                  ),
-                  title: Text(
-                    'Report #${report.id}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  subtitle: Text(report.file.extname.toUpperCase()),
-                  trailing: IconButton(
-                    icon: const Icon(
-                        Icons.visibility), // Changed icon to visibility
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FileViewerPage(
-                            url: report.file.url,
-                            title: 'Lab Report #${report.id}',
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ))
-        ]
-      ],
-    );
   }
-}
-
-class _SecondOpinionImagingRequestInfo extends StatelessWidget {
-  final AppointmentEntity appointment;
-  const _SecondOpinionImagingRequestInfo({required this.appointment});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          context.l10n.appointment_detail_service_requested,
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-        ),
-        const SizedBox(height: 8),
-        Row(
-          children: [
-            Expanded(
-              child: Text(
-                appointment.summary,
-                style: const TextStyle(fontSize: 14),
-              ),
-            ),
-            TextButton(
-              onPressed: () async {
-                final result = await GoRouter.of(context).pushNamed(
-                  AppRoutes.secondOpinionRequestDetail,
-                  extra: SecondOpinionRequestDetailPageParams(
-                    appointment: appointment,
-                    isProvider: true,
-                  ),
-                );
-
-                if (result == true) {
-                  context
-                      .read<ProviderAppointmentDetailCubit>()
-                      .fetchProviderAppointmentById(appointment.id!);
-                }
-              },
-              child: const Text("View detail"),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _PersonalCaseInfo extends StatelessWidget {
-  final AppointmentEntity appointment;
-  const _PersonalCaseInfo({required this.appointment});
-
-  @override
-  Widget build(BuildContext context) {
-    List<String>? servicesList;
-    List<PersonalIssue>? issues;
-
-    if (appointment.type == 'nursing') {
-      final personalCase = appointment.nursingCase;
-      servicesList = personalCase?.addOnServices.map((e) => e.name).toList();
-      issues = personalCase?.issues;
-    } else if (appointment.type == 'pharmacy') {
-      final personalCase = appointment.pharmacyCase;
-      servicesList = personalCase?.addOnServices.map((e) => e.name).toList();
-      issues = personalCase?.issues;
-    } else if (appointment.type == 'homecare') {
-      final personalCase = appointment.homecareRequestData;
-      servicesList = personalCase?.services;
-    } else if (appointment.type == 'physiotherapy') {
-      final physiotherapyData = appointment.physiotherapyRequestData;
-      if (physiotherapyData != null) {
-        servicesList = [physiotherapyData.service.name];
-      }
-    }
-
-    // sort issues by updatedAt descending
-    issues?.sort((a, b) => b.updatedAt!.compareTo(a.updatedAt!));
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          context.l10n.appointment_detail_service_requested,
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-        ),
-        const SizedBox(height: 8),
-        if (servicesList != null && servicesList.isNotEmpty) ...[
-          ...servicesList.asMap().entries.map((entry) {
-            final index = entry.key + 1;
-            final name = entry.value;
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 4.0),
-              child: Text(
-                '$index. $name',
-                style: const TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.w500),
-              ),
-            );
-          }),
-        ] else
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.red.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.red.withValues(alpha: 0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           const Text(
-            'None',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-          ),
-        const SizedBox(height: 24),
-        if (issues != null && issues.isNotEmpty) ...[
-          Text(
-            context.l10n.appointment_detail_patient_problem_title,
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+            'Cancellation details',
+            style: TextStyle(fontWeight: FontWeight.w700, color: Colors.red),
           ),
           const SizedBox(height: 8),
-          if (issues.isNotEmpty)
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: issues.length,
-              itemBuilder: (context, issueIndex) {
-                final issue = issues![issueIndex];
-                final images = issue.imageUrls;
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${issueIndex + 1}. ${issue.title}',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      context.l10n.common_description,
-                      style: const TextStyle(fontWeight: FontWeight.w600),
-                    ),
-                    Text(
-                      issue.description,
-                      style: const TextStyle(height: 1.5),
-                    ),
-                    const SizedBox(height: 4),
-                    if (images.isNotEmpty)
-                      SizedBox(
-                        height: 80,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: images.length,
-                          itemBuilder: (context, imageIndex) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: GestureDetector(
-                                onTap: () =>
-                                    _showFullImage(context, images[imageIndex]),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(images[imageIndex]),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Icon(Icons.access_time,
-                            size: 16, color: Colors.grey[600]),
-                        const SizedBox(width: 8),
-                        Text(
-                          context.l10n.created_on(DateFormat.yMMMd()
-                              .add_jm()
-                              .format(issue.createdAt!.toLocal())),
-                          style:
-                              TextStyle(fontSize: 12, color: Colors.grey[600]),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                  ],
-                );
-              },
-            )
-        ]
-      ],
-    );
-  }
-
-  void _showFullImage(BuildContext context, String imageUrl) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => FileViewerPage(
-          url: imageUrl,
-          title: 'Issue Image',
-        ),
+          Text('Cancelled by: ${_formatCancelledBy(appointment.cancelledBy)}'),
+          const SizedBox(height: 4),
+          Text('Reason: ${appointment.cancellationReason ?? '-'}'),
+        ],
       ),
     );
   }
 }
+
+// ─── Action Buttons ───────────────────────────────────────────────────────────
 
 class _ActionButtons extends StatelessWidget {
   final AppointmentEntity appointment;
@@ -755,9 +448,9 @@ class _ActionButtons extends StatelessWidget {
     return BlocListener<ProviderAppointmentCubit, ProviderAppointmentState>(
       listener: (context, listState) {
         if (listState is ProviderAppointmentChangeSucceed) {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(
               content: Row(
                 children: [
                   const Icon(Icons.check, color: Colors.white),
@@ -767,13 +460,12 @@ class _ActionButtons extends StatelessWidget {
               ),
               backgroundColor: Colors.green,
               duration: const Duration(seconds: 2),
-            ),
-          );
+            ));
           refreshCallback();
         } else if (listState is ProviderAppointmentError) {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(
               content: Row(
                 children: [
                   const Icon(Icons.error, color: Colors.white),
@@ -783,8 +475,7 @@ class _ActionButtons extends StatelessWidget {
               ),
               backgroundColor: Colors.red,
               duration: const Duration(seconds: 5),
-            ),
-          );
+            ));
         }
       },
       child: Builder(builder: (context) {
@@ -816,10 +507,8 @@ class _ActionButtons extends StatelessWidget {
               foregroundColor: Const.aqua,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12)),
-              textStyle: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
+              textStyle:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             child: Text(context.l10n.appointment_arrange_video_consultation),
           ),
@@ -828,9 +517,8 @@ class _ActionButtons extends StatelessWidget {
             children: [
               Expanded(
                 child: OutlinedButton(
-                  onPressed: () {
-                    showDeclineAppointmentDialog(context, appointmentId);
-                  },
+                  onPressed: () =>
+                      showDeclineAppointmentDialog(context, appointmentId),
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 50),
                     side: const BorderSide(color: Color(0xFFED3443)),
@@ -838,9 +526,7 @@ class _ActionButtons extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
                     textStyle: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                        fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   child: Text(context.l10n.appointment_decline_btn),
                 ),
@@ -850,38 +536,31 @@ class _ActionButtons extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: [
-                        Color(0xFF9DCEFF),
-                        Color(0xFF35C5CF),
-                      ],
+                      colors: [Color(0xFF9DCEFF), Color(0xFF35C5CF)],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: ElevatedButton(
-                    onPressed: () {
-                      showAcceptAppointmentDialog(context, appointment.id!);
-                    },
+                    onPressed: () =>
+                        showAcceptAppointmentDialog(context, appointment.id!),
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(double.infinity, 50),
                       backgroundColor: Colors.transparent,
                       foregroundColor: Colors.white,
                       shadowColor: Colors.transparent,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                          borderRadius: BorderRadius.circular(12)),
                       textStyle: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                          fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     child: Text(context.l10n.appointment_accept_btn),
                   ),
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -890,21 +569,16 @@ class _ActionButtons extends StatelessWidget {
   Widget _buildForUpcomingStatus(BuildContext context, int appointmentId) {
     return BottomAppBar(
       child: ElevatedButton(
-        onPressed: () async {
-          showCompleteAppointmentDialog(context, appointment.id!);
-        },
+        onPressed: () =>
+            showCompleteAppointmentDialog(context, appointment.id!),
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(double.infinity, 50),
           backgroundColor: Colors.green,
           foregroundColor: Colors.white,
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          textStyle: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          textStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
         child: Text(context.l10n.appointment_mark_complete_btn),
       ),
@@ -912,8 +586,7 @@ class _ActionButtons extends StatelessWidget {
   }
 
   Widget _buildForCompletedStatus(BuildContext context, int appointmentId) {
-    if (appointment.type == 'pharmacy' &&
-        appointment.pharmacyCase?.serviceType == 'smoking_cessation') {
+    if (appointment.serviceRequest?.detail is PharmacySmokingCessationDetail) {
       return BottomAppBar(
         child: PrepareSmokingCessationPlanButton(appointment: appointment),
       );

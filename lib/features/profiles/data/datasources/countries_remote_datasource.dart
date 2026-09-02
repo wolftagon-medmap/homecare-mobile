@@ -28,10 +28,12 @@ class CountriesRemoteDatasourceImpl implements CountriesRemoteDatasource {
         return [];
       }
       return raw
-          .map((e) => CountryModel.fromJson(Map<String, dynamic>.from(e as Map)))
+          .map(
+              (e) => CountryModel.fromJson(Map<String, dynamic>.from(e as Map)))
           .toList();
     } catch (e, st) {
-      log('fetchCountries failed', error: e, stackTrace: st, name: 'CountriesRemoteDatasource');
+      log('fetchCountries failed',
+          error: e, stackTrace: st, name: 'CountriesRemoteDatasource');
       rethrow;
     }
   }

@@ -31,11 +31,11 @@ class SaveAddressParams {
   });
 
   Map<String, dynamic> toJson() => {
-    'latitude': latitude,
-    'longitude': longitude,
-    'google_place_id': googlePlaceId,
-    'name': name,
-    'formatted_address': formattedAddress,
-    'short_formatted_address': shortFormattedAddress,
-  };
+        'latitude': latitude,
+        'longitude': longitude,
+        'google_place_id': googlePlaceId,
+        'name': name,
+        'formatted_address': formattedAddress,
+        'short_formatted_address': shortFormattedAddress,
+      };
 }

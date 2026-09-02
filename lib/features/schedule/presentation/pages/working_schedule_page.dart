@@ -38,6 +38,7 @@ class _WorkingSchedulePageState extends State<WorkingSchedulePage>
       create: (context) => ScheduleCubit(
         getAvailabilities: sl(),
         addAvailability: sl(),
+        addAvailabilitiesBulk: sl(),
         updateAvailability: sl(),
         deleteAvailability: sl(),
         getAllOverrides: sl(),

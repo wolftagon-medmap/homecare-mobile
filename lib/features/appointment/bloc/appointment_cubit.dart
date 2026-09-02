@@ -72,7 +72,7 @@ class AppointmentCubit extends Cubit<AppointmentState> {
       final newAppointments = response.appointments;
       final meta = response.meta;
 
-      log('Appointments: ${newAppointments}', name: 'AppointmentCubit');
+      log('Appointments: $newAppointments', name: 'AppointmentCubit');
 
       final updatedAppointments = isRefresh
           ? newAppointments
@@ -125,7 +125,7 @@ class AppointmentCubit extends Cubit<AppointmentState> {
       await _appointmentService.deleteAppointment(appointmentId);
       await refreshAllTabs();
     } catch (e) {
-      print('Error deleting appointment: $e');
+      log('Error deleting appointment', error: e, name: 'AppointmentCubit');
     }
   }
 
@@ -145,6 +145,8 @@ class AppointmentCubit extends Cubit<AppointmentState> {
         AppointmentStatus.upcoming,
         AppointmentStatus.cancelled
       ]);
-    } catch (e) {}
+    } catch (e) {
+      log('Error cancelling appointment', error: e, name: 'AppointmentCubit');
+    }
   }
 }

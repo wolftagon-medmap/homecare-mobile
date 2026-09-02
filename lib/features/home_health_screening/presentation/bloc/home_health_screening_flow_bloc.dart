@@ -1,8 +1,7 @@
-import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
-import 'package:m2health/features/home_health_screening/domain/entities/screening_service.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/home_health_screening/domain/usecases/create_screening_appointment.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 
@@ -30,7 +29,7 @@ class HomeHealthScreeningFlowBloc extends Bloc<HomeHealthScreeningFlowEvent, Hom
   void _onItemsUpdated(
       ScreeningItemsUpdated event, Emitter<HomeHealthScreeningFlowState> emit) {
     emit(state.copyWith(
-      selectedItems: event.selectedItems,
+      selectedServices: event.selectedServices,
       currentStep: HomeHealthScreeningStep.searchProfessional,
     ));
   }
@@ -56,7 +55,7 @@ class HomeHealthScreeningFlowBloc extends Bloc<HomeHealthScreeningFlowEvent, Hom
     final params = CreateScreeningAppointmentParams(
       providerId: state.selectedProfessional!.id,
       startDatetime: state.selectedTimeSlot!,
-      selectedItems: state.selectedItems,
+      selectedServices: state.selectedServices,
     );
 
     final result = await createScreeningAppointment(params);

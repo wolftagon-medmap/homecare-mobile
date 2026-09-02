@@ -1,14 +1,21 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_state.dart';
+import 'package:m2health/features/auth/domain/entities/user_role.dart';
+import 'package:m2health/features/notifications/presentation/bloc/notifications_cubit.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
+import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:m2health/const.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/utils.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({
@@ -24,26 +31,48 @@ class _DashboardState extends State<Dashboard> {
   int limitItem = 3;
   String keyword = "";
   late ScrollController _scrollController;
-  bool _isScrolledToEnd = false;
+  late final NotificationsCubit _notifications;
+
+  // Which cubit is authoritative for the header, resolved once from the
+  // logged-in role. Explicit (not inferred from "whichever cubit happens to
+  // have a Loaded state") so a stale Loaded state left over in the other
+  // cubit from a previous account/role never gets shown.
+  bool? _isProfessional;
+
+  /// Only patients pick which profile the app acts for — admins and
+  /// professionals have no family profiles to switch between.
+  bool _isPatient = false;
 
   @override
   void initState() {
     super.initState();
     _loadUserName();
-    context.read<ProfileCubit>().loadProfile();
+    _loadProfileForRole();
+    _notifications = NotificationsCubit(sl<Dio>())..load();
     _scrollController = ScrollController()
       ..addListener(() {
         if (_scrollController.position.pixels ==
             _scrollController.position.maxScrollExtent) {
-          setState(() {
-            _isScrolledToEnd = true;
-          });
+          setState(() {});
         } else {
-          setState(() {
-            _isScrolledToEnd = false;
-          });
+          setState(() {});
         }
       });
+  }
+
+  @override
+  void dispose() {
+    _notifications.close();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _openNotificationInbox() {
+    // Refresh so anything that arrived while away is present on open. The
+    // cubit rides along as `extra` so the inbox shares the badge state.
+    _notifications.load();
+    GoRouter.of(context)
+        .push(AppRoutes.notificationInbox, extra: _notifications);
   }
 
   Future<void> _loadUserName() async {
@@ -52,6 +81,27 @@ class _DashboardState extends State<Dashboard> {
       userName = prefs.getString('username') ?? 'User';
     });
     debugPrint('Username loaded: $userName');
+  }
+
+  // Loads the header's name/avatar from the cubit matching the account's
+  // role (mirrors the role check the unified ProfileCubit used to do
+  // internally, now resolved here since the cubit is split by role).
+  Future<void> _loadProfileForRole() async {
+    final role = await Utils.getSpString(Const.ROLE);
+    if (!mounted) return;
+    final isProfessional = role != null &&
+        PROFESSIONAL_ROLES.map((r) => r.value).contains(role);
+    setState(() {
+      _isProfessional = isProfessional;
+      // Admin isn't in PROFESSIONAL_ROLES but has no family profiles either,
+      // so "not professional" is not the same as "patient" here.
+      _isPatient = !isProfessional && role != 'admin';
+    });
+    if (isProfessional) {
+      context.read<ProfessionalProfileCubit>().loadProfile();
+    } else {
+      context.read<PatientProfileCubit>().loadProfiles();
+    }
   }
 
   @override
@@ -77,7 +127,7 @@ class _DashboardState extends State<Dashboard> {
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.2), // Warna shadow
+                color: Colors.black.withValues(alpha: 0.2), // Warna shadow
                 spreadRadius: 5,
                 blurRadius: 7,
                 offset: const Offset(0, 3), // Posisi shadow
@@ -87,27 +137,35 @@ class _DashboardState extends State<Dashboard> {
         ),
         title: Padding(
           padding: const EdgeInsets.only(bottom: 25.0),
-          child: BlocBuilder<ProfileCubit, ProfileState>(
-            builder: (context, state) {
-              Widget avatarWidget;
-              String displayName = userName ?? 'User';
-              String? avatarUrl;
+          child: BlocBuilder<PatientProfileCubit, PatientProfileState>(
+            builder: (context, patientState) {
+              return BlocBuilder<ProfessionalProfileCubit,
+                  ProfessionalProfileState>(
+                builder: (context, professionalState) {
+                  Widget avatarWidget;
+                  String displayName = userName ?? 'User';
+                  String? avatarUrl;
 
-              if (state is PatientProfileLoaded) {
-                displayName = state.profile.name.isNotEmpty
-                    ? state.profile.name
-                    : userName ?? 'User';
-                avatarUrl = state.profile.avatar;
-              } else if (state is ProfessionalProfileLoaded) {
-                displayName =
-                    state.profile.name != null && state.profile.name!.isNotEmpty
-                        ? state.profile.name!
+                  if (_isProfessional == false &&
+                      patientState is PatientProfileLoaded) {
+                    // The header follows the active profile, so switching to a
+                    // family member is reflected here too.
+                    final activeProfile = patientState.activeProfile;
+                    displayName = activeProfile.name.isNotEmpty
+                        ? activeProfile.name
                         : userName ?? 'User';
-                avatarUrl = state.profile.avatar;
-              } else {
-                displayName = userName ?? 'User';
-                avatarUrl = null;
-              }
+                    avatarUrl = activeProfile.avatar;
+                  } else if (_isProfessional == true &&
+                      professionalState is ProfessionalProfileLoaded) {
+                    displayName = professionalState.profile.name != null &&
+                            professionalState.profile.name!.isNotEmpty
+                        ? professionalState.profile.name!
+                        : userName ?? 'User';
+                    avatarUrl = professionalState.profile.avatar;
+                  } else {
+                    displayName = userName ?? 'User';
+                    avatarUrl = null;
+                  }
 
               if (avatarUrl != null && avatarUrl.isNotEmpty) {
                 avatarWidget = Image.network(
@@ -170,20 +228,53 @@ class _DashboardState extends State<Dashboard> {
                         height: 36,
                       ),
                       const Spacer(),
+                      _NotificationBell(
+                        cubit: _notifications,
+                        onTap: _openNotificationInbox,
+                      ),
+                      const SizedBox(width: 10),
                       GestureDetector(
                         onTap: () {
-                          context.go(AppRoutes.profile);
+                          if (_isPatient) {
+                            showProfileSwitcherSheet(context);
+                          } else {
+                            context.go(AppRoutes.profile);
+                          }
                         },
-                        child: Container(
-                          width: 56,
-                          height: 56,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: avatarWidget,
-                          ),
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            Container(
+                              width: 56,
+                              height: 56,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: avatarWidget,
+                              ),
+                            ),
+                            if (_isPatient)
+                              Positioned(
+                                right: -2,
+                                top: -2,
+                                child: Container(
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                        color: Colors.white, width: 1),
+                                  ),
+                                  child: const Icon(
+                                    Icons.keyboard_arrow_down,
+                                    size: 16,
+                                    color: Const.aqua,
+                                  ),
+                                ),
+                              ),
+                          ],
                         ),
                       ),
                     ],
@@ -193,7 +284,11 @@ class _DashboardState extends State<Dashboard> {
                     alignment: Alignment.centerLeft,
                     child: Row(
                       children: [
-                        if (state is ProfileLoading) ...[
+                        if ((_isProfessional == false &&
+                                patientState is PatientProfileLoading) ||
+                            (_isProfessional == true &&
+                                professionalState
+                                    is ProfessionalProfileLoading)) ...[
                           const SizedBox(
                             width: 16,
                             height: 16,
@@ -229,7 +324,7 @@ class _DashboardState extends State<Dashboard> {
                   const SizedBox(height: 20),
                   GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).push(AppRoutes.chatDoctorAI);
+                      GoRouter.of(context).push(AppRoutes.intakeBooking);
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -266,6 +361,8 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                 ],
+              );
+                },
               );
             },
           ),
@@ -337,10 +434,10 @@ class _DashboardState extends State<Dashboard> {
                       children: [
                         MainServiceMenuItem(
                           onTap: () {
-                            context.push(AppRoutes.homeHealthScreening);
+                            context.push(AppRoutes.psychologist);
                           },
-                          iconPath: 'assets/icons/ic_home_health_screening.png',
-                          title: context.t.dashboard.services.home_screening,
+                          iconPath: 'assets/icons/ic_psychologist.png',
+                          title: context.t.dashboard.services.psychologist,
                           backgroundColor:
                               const Color.fromRGBO(178, 140, 255, 0.2),
                         ),
@@ -356,11 +453,10 @@ class _DashboardState extends State<Dashboard> {
                         ),
                         MainServiceMenuItem(
                           onTap: () {
-                            context.push(AppRoutes.homecareForElderly);
+                            context.push(AppRoutes.homeHealthScreening);
                           },
-                          iconPath: 'assets/icons/ic_homecare_elderly.png',
-                          title:
-                              context.t.dashboard.services.homecare_for_elderly,
+                          iconPath: 'assets/icons/ic_home_health_screening.png',
+                          title: context.t.dashboard.services.home_screening,
                           backgroundColor:
                               const Color.fromRGBO(178, 140, 255, 0.2),
                         ),
@@ -381,7 +477,7 @@ class _DashboardState extends State<Dashboard> {
                 ],
               ),
 
-              // ALLIED HEALTH SERVICES
+              // OTHER SERVICES
               Padding(
                 padding: const EdgeInsets.only(
                     top: 40, right: 24, left: 24, bottom: 40),
@@ -389,7 +485,7 @@ class _DashboardState extends State<Dashboard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      context.t.dashboard.allied_services,
+                      context.t.dashboard.other_services,
                       textAlign: TextAlign.left,
                       style: const TextStyle(
                         color: Color(0xFF232F55),
@@ -403,7 +499,7 @@ class _DashboardState extends State<Dashboard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: AlliedHealthMenuItem(
+                          child: OtherServiceMenuItem(
                             imagePath: 'assets/icons/ilu_physio.webp',
                             label: context.t.dashboard.services.physiotherapy,
                             onTap: () {
@@ -411,8 +507,17 @@ class _DashboardState extends State<Dashboard> {
                             },
                           ),
                         ),
+                        Expanded(
+                          child: OtherServiceMenuItem(
+                            imagePath: 'assets/icons/ilu_2nd_opinion.webp',
+                            label: context.t.dashboard.services.second_opinion,
+                            onTap: () {
+                              context.push(AppRoutes.secondOpinionMedical);
+                            },
+                          ),
+                        ),
                         // Expanded(
-                        //   child: AlliedHealthMenuItem(
+                        //   child: OtherServiceMenuItem(
                         //     imagePath: 'assets/icons/ilu_remote_monitoring.png',
                         //     label: context
                         //         .t.dashboard.services.remote_patient_monitoring,
@@ -421,12 +526,29 @@ class _DashboardState extends State<Dashboard> {
                         //     },
                         //   ),
                         // ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         Expanded(
-                          child: AlliedHealthMenuItem(
-                            imagePath: 'assets/icons/ilu_2nd_opinion.webp',
-                            label: context.t.dashboard.services.second_opinion,
+                          child: OtherServiceMenuItem(
+                            imagePath: 'assets/illustration/optometrist.webp',
+                            label: context.t.dashboard.services.optometrist,
                             onTap: () {
-                              context.push(AppRoutes.secondOpinionMedical);
+                              context.push(AppRoutes.optometrist);
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: OtherServiceMenuItem(
+                            imagePath:
+                                'assets/illustration/homecare_elderly.webp',
+                            label: context
+                                .t.dashboard.services.homecare_for_elderly,
+                            onTap: () {
+                              context.push(AppRoutes.homecareForElderly);
                             },
                           ),
                         ),
@@ -437,7 +559,7 @@ class _DashboardState extends State<Dashboard> {
                     //   crossAxisAlignment: CrossAxisAlignment.start,
                     //   children: [
                     //     Expanded(
-                    //       child: AlliedHealthMenuItem(
+                    //       child: OtherServiceMenuItem(
                     //         imagePath: 'assets/icons/ilu_health.png',
                     //         label: context
                     //             .t.dashboard.services.health_risk_assessment,
@@ -445,14 +567,14 @@ class _DashboardState extends State<Dashboard> {
                     //       ),
                     //     ),
                     //     Expanded(
-                    //       child: AlliedHealthMenuItem(
-                    //         imagePath: 'assets/icons/ilu_dietitian.webp',
+                    //       child: OtherServiceMenuItem(
+                    //         imagePat h: 'assets/icons/ilu_dietitian.webp',
                     //         label: context.t.dashboard.services.dietitian,
                     //         onTap: showComingSoonDialog,
                     //       ),
                     //     ),
                     //     Expanded(
-                    //       child: AlliedHealthMenuItem(
+                    //       child: OtherServiceMenuItem(
                     //         imagePath: 'assets/icons/ilu_sleep.png',
                     //         label: context
                     //             .t.dashboard.services.sleep_and_mental_health,
@@ -489,6 +611,70 @@ class _DashboardState extends State<Dashboard> {
                   style: const TextStyle(color: Const.aqua)),
             ),
           ],
+        );
+      },
+    );
+  }
+}
+
+/// The header notification bell: matches the avatar's rounded-square style and
+/// carries an unread-count badge fed by the shared [NotificationsCubit].
+class _NotificationBell extends StatelessWidget {
+  final NotificationsCubit cubit;
+  final VoidCallback onTap;
+
+  const _NotificationBell({required this.cubit, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NotificationsCubit, NotificationsState>(
+      bloc: cubit,
+      builder: (context, state) {
+        final unread = state.unreadCount;
+        return GestureDetector(
+          onTap: onTap,
+          child: Container(
+            width: 56,
+            height: 56,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.25),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                const Icon(Icons.notifications_none,
+                    color: Colors.white, size: 28),
+                if (unread > 0)
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 4, vertical: 1),
+                      constraints:
+                          const BoxConstraints(minWidth: 16, minHeight: 16),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.white, width: 1),
+                      ),
+                      child: Center(
+                        child: Text(
+                          unread > 9 ? '9+' : '$unread',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w700,
+                            height: 1.2,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
         );
       },
     );
@@ -558,12 +744,12 @@ class MainServiceMenuItem extends StatelessWidget {
   }
 }
 
-class AlliedHealthMenuItem extends StatelessWidget {
+class OtherServiceMenuItem extends StatelessWidget {
   final String imagePath;
   final String label;
   final VoidCallback onTap;
 
-  const AlliedHealthMenuItem({
+  const OtherServiceMenuItem({
     super.key,
     required this.imagePath,
     required this.label,
@@ -573,11 +759,14 @@ class AlliedHealthMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: onTap,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          AspectRatio(
+            aspectRatio: 1.69,
+            child: Container(
               decoration: BoxDecoration(
                 border: Border.all(
                   color: const Color.fromRGBO(247, 248, 248, 1),
@@ -589,19 +778,21 @@ class AlliedHealthMenuItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
                 child: Image.asset(
                   imagePath,
-                  // height: 72,
-                  // width: 111,
                   fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            Text(
-              label,
-              style: const TextStyle(fontSize: 12),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ));
+          ),
+          const SizedBox(height: 10),
+          Text(
+            label,
+            style: const TextStyle(fontSize: 12),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
   }
 }

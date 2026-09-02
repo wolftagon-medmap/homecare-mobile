@@ -85,6 +85,7 @@ class TranslationsBookingEn {
 	/// en: 'Book Appointment'
 	String get book_appointment => 'Book Appointment';
 
+	late final TranslationsBookingConfirmationEn confirmation = TranslationsBookingConfirmationEn._(_root);
 	late final TranslationsBookingHealthStatusEn health_status = TranslationsBookingHealthStatusEn._(_root);
 	late final TranslationsBookingIssueEn issue = TranslationsBookingIssueEn._(_root);
 	late final TranslationsBookingProfessionalDetailEn professional_detail = TranslationsBookingProfessionalDetailEn._(_root);
@@ -100,9 +101,6 @@ class TranslationsDashboardEn {
 
 	// Translations
 
-	/// en: 'Allied Health'
-	String get allied_services => 'Allied Health';
-
 	/// en: 'Chat With AI doctor for all your health questions'
 	String get chat_ai_placeholder => 'Chat With AI doctor for all your health questions';
 
@@ -111,6 +109,9 @@ class TranslationsDashboardEn {
 
 	/// en: 'Services Appointment'
 	String get main_services => 'Services Appointment';
+
+	/// en: 'Other Services'
+	String get other_services => 'Other Services';
 
 	late final TranslationsDashboardServicesEn services = TranslationsDashboardServicesEn._(_root);
 }
@@ -486,6 +487,18 @@ class TranslationsAuthUserRoleEn {
 
 	/// en: 'Radiologist'
 	String get radiologist => 'Radiologist';
+
+	/// en: 'Pathologist'
+	String get pathologist => 'Pathologist';
+
+	/// en: 'Nutritionist'
+	String get nutritionist => 'Nutritionist';
+
+	/// en: 'Psychologist'
+	String get psychologist => 'Psychologist';
+
+	/// en: 'Optometrist'
+	String get optometrist => 'Optometrist';
 }
 
 // Path: booking.addon
@@ -503,6 +516,45 @@ class TranslationsBookingAddonEn {
 	String get estimated_budget => 'Estimated Budget';
 
 	late final TranslationsBookingAddonTitleEn title = TranslationsBookingAddonTitleEn._(_root);
+}
+
+// Path: booking.confirmation
+class TranslationsBookingConfirmationEn {
+	TranslationsBookingConfirmationEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Visit Address'
+	String get address_label => 'Visit Address';
+
+	/// en: 'Change'
+	String get change_button => 'Change';
+
+	/// en: 'Confirm Booking'
+	String get confirm_button => 'Confirm Booking';
+
+	/// en: 'No address selected'
+	String get no_address => 'No address selected';
+
+	/// en: 'Patient'
+	String get patient_label => 'Patient';
+
+	/// en: 'Professional'
+	String get professional_label => 'Professional';
+
+	/// en: 'Services'
+	String get services_label => 'Services';
+
+	/// en: 'Time'
+	String get time_label => 'Time';
+
+	/// en: 'Confirm Booking'
+	String get title => 'Confirm Booking';
+
+	/// en: 'Total'
+	String get total_label => 'Total';
 }
 
 // Path: booking.health_status
@@ -648,6 +700,7 @@ class TranslationsBookingProfessionalSearchEn {
 	String filter_text({required Object count}) => 'Filtering by ${count} selected services';
 
 	late final TranslationsBookingProfessionalSearchTitleEn title = TranslationsBookingProfessionalSearchTitleEn._(_root);
+	late final TranslationsBookingProfessionalSearchVisitAddressEn visit_address = TranslationsBookingProfessionalSearchVisitAddressEn._(_root);
 }
 
 // Path: booking.schedule
@@ -687,8 +740,8 @@ class TranslationsDashboardServicesEn {
 
 	// Translations
 
-	/// en: 'iRX Diabetic Care'
-	String get diabetic_care => 'iRX Diabetic Care';
+	/// en: 'Diabetic Care'
+	String get diabetic_care => 'Diabetic Care';
 
 	/// en: 'Dietitian Service'
 	String get dietitian => 'Dietitian Service';
@@ -696,8 +749,8 @@ class TranslationsDashboardServicesEn {
 	/// en: 'Health Risk Assessment'
 	String get health_risk_assessment => 'Health Risk Assessment';
 
-	/// en: 'Home Health Screening'
-	String get home_screening => 'Home Health Screening';
+	/// en: 'Health Screening'
+	String get home_screening => 'Health Screening';
 
 	/// en: 'Home Care for Elderly'
 	String get homecare_for_elderly => 'Home Care for Elderly';
@@ -722,6 +775,12 @@ class TranslationsDashboardServicesEn {
 
 	/// en: 'Sleep & Mental Health'
 	String get sleep_and_mental_health => 'Sleep & Mental Health';
+
+	/// en: 'Psychologist'
+	String get psychologist => 'Psychologist';
+
+	/// en: 'Optometrist'
+	String get optometrist => 'Optometrist';
 }
 
 // Path: global.dialog
@@ -1268,6 +1327,30 @@ class TranslationsBookingProfessionalSearchTitleEn {
 	String get radiologist => 'Search Radiologist';
 }
 
+// Path: booking.professional_search.visit_address
+class TranslationsBookingProfessionalSearchVisitAddressEn {
+	TranslationsBookingProfessionalSearchVisitAddressEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Add new address'
+	String get add_new => 'Add new address';
+
+	/// en: 'Add an address'
+	String get empty => 'Add an address';
+
+	/// en: 'Loading address...'
+	String get loading => 'Loading address...';
+
+	/// en: 'Choose visit address'
+	String get picker_title => 'Choose visit address';
+
+	/// en: 'Visit at'
+	String get title => 'Visit at';
+}
+
 // Path: booking.schedule.messages
 class TranslationsBookingScheduleMessagesEn {
 	TranslationsBookingScheduleMessagesEn._(this._root);
@@ -1443,6 +1526,10 @@ extension on Translations {
 			'auth.user_role.pharmacist' => 'Pharmacist',
 			'auth.user_role.physiotherapist' => 'Physiotherapist',
 			'auth.user_role.radiologist' => 'Radiologist',
+			'auth.user_role.pathologist' => 'Pathologist',
+			'auth.user_role.nutritionist' => 'Nutritionist',
+			'auth.user_role.psychologist' => 'Psychologist',
+			'auth.user_role.optometrist' => 'Optometrist',
 			'booking.addon.empty' => 'No add-on services available.',
 			'booking.addon.estimated_budget' => 'Estimated Budget',
 			'booking.addon.title.kDefault' => 'Add On Services',
@@ -1451,6 +1538,16 @@ extension on Translations {
 			'booking.addon.title.radiology' => 'Radiology Services',
 			'booking.addon.title.specialized_nursing' => 'Specialized Nursing Procedures',
 			'booking.book_appointment' => 'Book Appointment',
+			'booking.confirmation.address_label' => 'Visit Address',
+			'booking.confirmation.change_button' => 'Change',
+			'booking.confirmation.confirm_button' => 'Confirm Booking',
+			'booking.confirmation.no_address' => 'No address selected',
+			'booking.confirmation.patient_label' => 'Patient',
+			'booking.confirmation.professional_label' => 'Professional',
+			'booking.confirmation.services_label' => 'Services',
+			'booking.confirmation.time_label' => 'Time',
+			'booking.confirmation.title' => 'Confirm Booking',
+			'booking.confirmation.total_label' => 'Total',
 			'booking.health_status.empty_record' => 'No medical records available.',
 			'booking.health_status.mobility_detail_hint' => 'e.g. walking stick, walking frame, other',
 			'booking.health_status.mobility_label' => 'Select your mobility status',
@@ -1502,6 +1599,11 @@ extension on Translations {
 			'booking.professional_search.title.nurse' => 'Search Nurse',
 			'booking.professional_search.title.pharmacist' => 'Search Pharmacist',
 			'booking.professional_search.title.radiologist' => 'Search Radiologist',
+			'booking.professional_search.visit_address.add_new' => 'Add new address',
+			'booking.professional_search.visit_address.empty' => 'Add an address',
+			'booking.professional_search.visit_address.loading' => 'Loading address...',
+			'booking.professional_search.visit_address.picker_title' => 'Choose visit address',
+			'booking.professional_search.visit_address.title' => 'Visit at',
 			'booking.schedule.empty_slots' => 'No available slots for this day.',
 			'booking.schedule.messages.reschedule_failed' => 'Rescheduling failed.',
 			'booking.schedule.messages.reschedule_success' => 'Appointment rescheduled successfully',
@@ -1510,14 +1612,14 @@ extension on Translations {
 			'booking.schedule.submit_button' => 'Submit',
 			'booking.schedule.submitting_button' => 'Submitting...',
 			'booking.schedule.title' => 'Select Schedule',
-			'dashboard.allied_services' => 'Allied Health',
 			'dashboard.chat_ai_placeholder' => 'Chat With AI doctor for all your health questions',
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
 			'dashboard.main_services' => 'Services Appointment',
-			'dashboard.services.diabetic_care' => 'iRX Diabetic Care',
+			'dashboard.other_services' => 'Other Services',
+			'dashboard.services.diabetic_care' => 'Diabetic Care',
 			'dashboard.services.dietitian' => 'Dietitian Service',
 			'dashboard.services.health_risk_assessment' => 'Health Risk Assessment',
-			'dashboard.services.home_screening' => 'Home Health Screening',
+			'dashboard.services.home_screening' => 'Health Screening',
 			'dashboard.services.homecare_for_elderly' => 'Home Care for Elderly',
 			'dashboard.services.nursing' => 'Home Nursing',
 			'dashboard.services.pharmacist' => 'iRX Pharmacist Service',
@@ -1526,6 +1628,8 @@ extension on Translations {
 			'dashboard.services.remote_patient_monitoring' => 'Remote Patient Monitoring',
 			'dashboard.services.second_opinion' => '2nd Opinion for Medical Image',
 			'dashboard.services.sleep_and_mental_health' => 'Sleep & Mental Health',
+			'dashboard.services.psychologist' => 'Psychologist',
+			'dashboard.services.optometrist' => 'Optometrist',
 			'global.add' => 'Add',
 			'global.book_now' => 'Book Now',
 			'global.cancel' => 'Cancel',

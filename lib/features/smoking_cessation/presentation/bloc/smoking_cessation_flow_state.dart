@@ -16,7 +16,10 @@ enum SmokingCessationSubmissionStatus {
 
 class SmokingCessationFlowState extends Equatable {
   final SmokingCessationFlowStep currentStep;
+  // Kept for display purposes only — no longer sent in booking payload.
   final SmokingCessationForm? form;
+  // v2: questionnaire response id returned after submitting the intake form.
+  final int? questionnaireResponseId;
   final ProfessionalEntity? selectedProfessional;
   final DateTime? selectedTimeSlot;
   final AppointmentEntity? createdAppointment;
@@ -26,6 +29,7 @@ class SmokingCessationFlowState extends Equatable {
   const SmokingCessationFlowState({
     this.currentStep = SmokingCessationFlowStep.form,
     this.form,
+    this.questionnaireResponseId,
     this.selectedProfessional,
     this.selectedTimeSlot,
     this.createdAppointment,
@@ -36,6 +40,7 @@ class SmokingCessationFlowState extends Equatable {
   SmokingCessationFlowState copyWith({
     SmokingCessationFlowStep? currentStep,
     SmokingCessationForm? form,
+    int? questionnaireResponseId,
     ProfessionalEntity? selectedProfessional,
     DateTime? selectedTimeSlot,
     AppointmentEntity? createdAppointment,
@@ -45,6 +50,8 @@ class SmokingCessationFlowState extends Equatable {
     return SmokingCessationFlowState(
       currentStep: currentStep ?? this.currentStep,
       form: form ?? this.form,
+      questionnaireResponseId:
+          questionnaireResponseId ?? this.questionnaireResponseId,
       selectedProfessional: selectedProfessional ?? this.selectedProfessional,
       selectedTimeSlot: selectedTimeSlot ?? this.selectedTimeSlot,
       createdAppointment: createdAppointment ?? this.createdAppointment,
@@ -57,6 +64,7 @@ class SmokingCessationFlowState extends Equatable {
   List<Object?> get props => [
         currentStep,
         form,
+        questionnaireResponseId,
         selectedProfessional,
         selectedTimeSlot,
         createdAppointment,

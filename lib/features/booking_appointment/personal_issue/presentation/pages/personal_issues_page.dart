@@ -138,7 +138,7 @@ class _PersonalIssuesPageState extends State<PersonalIssuesPage> {
 
                   if (state.loadStatus == ActionStatus.success) {
                     final issues = state.issues;
-                    log('Loaded Issues: ${issues}', name: 'PersonalIssuesPage');
+                    log('Loaded Issues: $issues', name: 'PersonalIssuesPage');
                     return RefreshIndicator(
                       color: Const.aqua,
                       backgroundColor: Colors.white,

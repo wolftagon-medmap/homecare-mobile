@@ -42,6 +42,23 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
   }
 
   @override
+  Future<Either<Failure, List<ProviderAvailability>>> addAvailabilitiesBulk(
+      AddAvailabilitiesBulkParams params) async {
+    try {
+      final data = {
+        'days': params.days,
+        'start_time': params.startTime,
+        'end_time': params.endTime,
+        if (params.timezone != null) 'timezone': params.timezone,
+      };
+      final result = await remoteDatasource.addAvailabilitiesBulk(data);
+      return Right(result);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, ProviderAvailability>> updateAvailability(
       UpdateAvailabilityParams params) async {
     try {

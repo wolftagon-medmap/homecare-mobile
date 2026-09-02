@@ -8,10 +8,9 @@ import 'package:m2health/features/booking_appointment/nursing/presentation/bloc/
 import 'package:m2health/features/booking_appointment/nursing/presentation/pages/nursing_appointment_flow_page.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_state.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/features/diabetes/models/diabetes_options.dart';
-import 'package:m2health/features/diabetes/widgets/diabetes_form_widget.dart';
 import 'package:m2health/features/booking_appointment/nursing/const.dart';
-import 'package:m2health/features/precision/widgets/precision_widgets.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
@@ -106,6 +105,7 @@ class _SummaryItem extends StatelessWidget {
     required this.value,
     this.iconPath,
     this.icon,
+    // ignore: unused_element_parameter
     this.valueColor,
   });
 
@@ -447,11 +447,13 @@ class _ActionButtons extends StatelessWidget {
         PrimaryButton(
           text: context.l10n.common_next,
           onPressed: () async {
+            final patientProfileCubit = context.read<PatientProfileCubit>();
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => BlocProvider(
                   create: (context) => NursingAppointmentFlowBloc(
                     createNursingAppointment: sl(),
+                    patientProfileCubit: patientProfileCubit,
                     serviceType: NurseServiceType.specializedNurse,
                   ),
                   child: const NursingAppointmentFlowPage(),

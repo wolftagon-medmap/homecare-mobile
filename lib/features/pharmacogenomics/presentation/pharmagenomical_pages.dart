@@ -9,7 +9,7 @@ class PharmagenomicsProfilePage extends StatefulWidget {
   const PharmagenomicsProfilePage({super.key});
 
   @override
-  _PharmagenomicsProfilePageState createState() =>
+  State<PharmagenomicsProfilePage> createState() =>
       _PharmagenomicsProfilePageState();
 }
 

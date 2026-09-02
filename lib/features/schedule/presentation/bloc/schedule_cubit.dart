@@ -13,6 +13,7 @@ import 'package:table_calendar/table_calendar.dart';
 class ScheduleCubit extends Cubit<ScheduleState> {
   final GetAvailabilities getAvailabilities;
   final AddAvailability addAvailability;
+  final AddAvailabilitiesBulk addAvailabilitiesBulk;
   final UpdateAvailability updateAvailability;
   final DeleteAvailability deleteAvailability;
   final GetAllOverrides getAllOverrides;
@@ -23,6 +24,7 @@ class ScheduleCubit extends Cubit<ScheduleState> {
   ScheduleCubit({
     required this.getAvailabilities,
     required this.addAvailability,
+    required this.addAvailabilitiesBulk,
     required this.updateAvailability,
     required this.deleteAvailability,
     required this.getAllOverrides,
@@ -70,6 +72,31 @@ class ScheduleCubit extends Cubit<ScheduleState> {
       (_) {
         emit(
             state.copyWith(successMessage: 'Availability added!', error: null));
+        loadSchedules();
+      },
+    );
+  }
+
+  Future<void> saveWeeklyRulesBulk({
+    required List<int> days,
+    required String startTime,
+    required String endTime,
+  }) async {
+    final String timezone =
+        (await FlutterTimezone.getLocalTimezone()).identifier;
+    log('Timezone: $timezone', name: 'ScheduleCubit');
+    final result = await addAvailabilitiesBulk(AddAvailabilitiesBulkParams(
+      days: days,
+      startTime: startTime,
+      endTime: endTime,
+      timezone: timezone,
+    ));
+    result.fold(
+      (failure) =>
+          emit(state.copyWith(error: failure.message, successMessage: null)),
+      (_) {
+        emit(state.copyWith(
+            successMessage: 'Availability added!', error: null));
         loadSchedules();
       },
     );

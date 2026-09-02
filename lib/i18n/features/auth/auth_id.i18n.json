@@ -98,6 +98,10 @@
     "patient": "Pasien",
     "pharmacist": "Apoteker",
     "physiotherapist": "Fisioterapis",
-    "radiologist": "Radiolog"
+    "radiologist": "Radiolog",
+    "pathologist": "Patolog",
+    "nutritionist": "Ahli Gizi",
+    "psychologist": "Psikolog",
+    "optometrist": "Optometris"
   }
 }

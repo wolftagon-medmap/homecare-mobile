@@ -37,7 +37,7 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
         ),
         title: Text(
           context.l10n.medical_record_title,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -86,7 +86,7 @@ class _MedicalRecordsPageState extends State<MedicalRecordsPage> {
               return Center(
                 child: Text(
                   context.l10n.medical_record_empty,
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               );
             }
@@ -155,7 +155,7 @@ class _MedicalRecordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
-      shadowColor: Colors.black.withOpacity(0.1),
+      shadowColor: Colors.black.withValues(alpha: 0.1),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
         // side: BorderSide(color: Colors.grey.shade300, width: 1.0),

@@ -18,17 +18,18 @@ class HomecareAppointmentRepositoryImpl implements HomecareAppointmentRepository
       final payload = {
         'type': params.type,
         'provider_id': params.providerId,
-        'provider_type': params.providerType,
         'start_datetime': params.startDatetime.toIso8601String(),
         'summary': params.summary,
-        'pay_total': params.payTotal,
-        'homecare_request_data': {
+        'request_data': {
           'services': params.tasks,
           'billing_type': params.billingType.name,
         },
       };
       final response = await appointmentService.createAppointment(payload);
-      final result = AppointmentModel.fromJson(response);
+      final result = AppointmentModel.fromJson({
+        ...response['appointment'] as Map<String, dynamic>,
+        if (response['order'] != null) 'order': response['order'],
+      });
       return Right(result);
     } on Failure catch (failure) {
       return Left(failure);

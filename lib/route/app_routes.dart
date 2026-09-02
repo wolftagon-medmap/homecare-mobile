@@ -8,6 +8,7 @@ class AppRoutes {
   static const String medicalStore = '/medical-store';
   static const String favourite = '/favourite';
   static const String profile = '/profile';
+  static const String notificationInbox = '/notification-inbox';
 
   // Auth
   static const String signIn = '/sign-in';
@@ -27,9 +28,14 @@ class AppRoutes {
   static const String precisionNutrition = '/precision-nutrition';
   static const String homecareForElderly = '/homecare-for-elderly';
   static const String physiotherapy = '/physiotherapy';
+  static const String psychologist = '/psychologist';
+  static const String optometrist = '/optometrist';
+  static const String psychologistBooking = '/psychologist-booking';
+  static const String optometristBooking = '/optometrist-booking';
 
   // Appointment
   static const String appointmentDetail = '/appointment/detail';
+  static const String careTaskDetail = '/appointment/care-task-detail';
   static const String providerAppointmentDetail =
       '/appointment/provider-detail';
   static const String scheduleAppoointment = '/schedule-appointment';
@@ -45,9 +51,17 @@ class AppRoutes {
   static const String profileLifestyle = '/lifestyle';
   static const String profilePhysicalSigns = '/physical-signs';
   static const String profileMentalState = '/mental-state';
+  static const String savedAddresses = '/saved-addresses';
+  static const String savedAddressForm = '/saved-addresses/form';
   static const String editProfessionalProfile = '/edit-professional-profile';
-  static const String editProfessionalServices = '/edit-professional-services';
   static const String workingSchedule = '/working-schedule';
+  static const String verificationHub = '/verification-hub';
+  static const String professionalServices = '/professional/services';
+  static const String professionalConditions = '/professional/conditions';
+  static const String professionalLanguages = '/professional/languages';
+  static const String professionalCoverage = '/professional/coverage';
+  static const String professionalPreferences = '/professional/preferences';
+  static const String professionalPreview = '/professional/preview';
   static const String manageServices = '/manage-services';
   static const String adminProfessionals = '/admin-professionals';
   static const String manageHealthScreening = '/manage-health-screening';
@@ -58,7 +72,10 @@ class AppRoutes {
   static const String service_request = '/service-request';
   static const String chatPharmaAI = '/chat-pharma-ai';
   static const String chatDoctorAI = '/chat-doctor-ai';
-  static const String pharmacyBookAppointmentFlow = '/pharmacy-book-appointment-flow';
+  static const String chatAiConversations = '/chat-ai-conversations';
+  static const String intakeBooking = '/intake-booking';
+  static const String pharmacyBookAppointmentFlow =
+      '/pharmacy-book-appointment-flow';
   static const String personal = '/personal';
   static const String nursing = '/nursing';
   static const String submenu = '/submenu';
@@ -73,6 +90,9 @@ class AppRoutes {
   static const String deleteAccountSuccess =
       '/settings/account/delete-account/success';
   // Precision Nutrition Module
+  static const String nutritionAssessment = '$precisionNutrition/assessment';
+  static const String nutritionReview = '$precisionNutrition/review';
+  static const String nutritionBooking = '$precisionNutrition/booking';
   static const String precisionNutritionAssessmentForm =
       '$precisionNutrition/assessment/form';
   static const String precisionNutritionAssessmentDetail =
@@ -99,11 +119,14 @@ class AppRoutes {
       '$remotePatientMonitoring/scan-device';
 
   // Smoking Cessation Module
-  static const String smokingCessationPlanForm = '/appointment/smoking-cessation-plan/form';
-  static const String smokingCessationPlanView = '/appointment/smoking-cessation-plan/view';
+  static const String smokingCessationPlanForm =
+      '/appointment/smoking-cessation-plan/form';
+  static const String smokingCessationPlanView =
+      '/appointment/smoking-cessation-plan/view';
 
   // Second Opinion Medical Module
-  static const String secondOpinionRequestDetail = '$secondOpinionMedical/detail';
+  static const String secondOpinionRequestDetail =
+      '$secondOpinionMedical/detail';
 
   // static const String home = '/';
   // static const String submenu = 'submenu';

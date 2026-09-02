@@ -22,7 +22,7 @@ class PharmacyAppointmentFlowState extends Equatable {
   // Data collected along the flow
   final List<PersonalIssue> selectedIssues;
   final HealthStatus? healthStatus;
-  final List<AddOnService> selectedAddOnServices;
+  final List<ServiceEntity> selectedAddOnServices;
   final ProfessionalEntity? selectedProfessional;
   final DateTime? selectedTimeSlot;
   final AppointmentEntity? createdAppointment;
@@ -35,7 +35,7 @@ class PharmacyAppointmentFlowState extends Equatable {
     this.currentStep = PharmacyFlowStep.personalCase,
     this.selectedIssues = const [],
     this.healthStatus,
-    this.selectedAddOnServices = const [],
+    this.selectedAddOnServices = const <ServiceEntity>[],
     this.selectedProfessional,
     this.selectedTimeSlot,
     this.createdAppointment,
@@ -51,7 +51,7 @@ class PharmacyAppointmentFlowState extends Equatable {
     PharmacyFlowStep? currentStep,
     List<PersonalIssue>? selectedIssues,
     HealthStatus? healthStatus,
-    List<AddOnService>? selectedAddOnServices,
+    List<ServiceEntity>? selectedAddOnServices,
     ProfessionalEntity? selectedProfessional,
     DateTime? selectedTimeSlot,
     AppointmentEntity? createdAppointment,

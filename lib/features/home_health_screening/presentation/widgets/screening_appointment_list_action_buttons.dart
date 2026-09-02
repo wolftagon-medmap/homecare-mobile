@@ -15,8 +15,7 @@ class ScreeningAppointmentListActionButtons extends StatelessWidget {
     super.key,
   });
 
-  String get screeningStep => appointment.screeningRequestData!.status;
-  int get screeningRequestId => appointment.screeningRequestData!.id;
+  String? get screeningStep => appointment.serviceRequest?.status;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +48,7 @@ class ScreeningAppointmentListActionButtons extends StatelessWidget {
           onPressed: () {
             context
                 .read<ScreeningAppointmentActionCubit>()
-                .acceptScreeningRequest(screeningRequestId);
+                .acceptRequest(appointment.id!);
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF35C5CF),
@@ -67,7 +66,7 @@ class ScreeningAppointmentListActionButtons extends StatelessWidget {
       onPressed: () {
         context
             .read<ScreeningAppointmentActionCubit>()
-            .confirmSampleCollected(screeningRequestId);
+            .confirmSampleCollected(appointment.id!);
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Const.aqua,

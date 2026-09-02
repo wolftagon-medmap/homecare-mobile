@@ -1,6 +1,9 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:m2health/core/blocs/user_role_cubit.dart';
 import 'package:m2health/features/home_health_screening/presentation/bloc/screening_appointment_action_cubit.dart';
 import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/auth/data/datasources/google_auth_source.dart';
@@ -13,10 +16,14 @@ import 'package:m2health/features/pharmacogenomics/domain/usecases/delete_pharma
 import 'package:m2health/features/pharmacogenomics/domain/usecases/store_pharmacogenomics.dart';
 import 'package:m2health/features/pharmacogenomics/presentation/bloc/pharmacogenomics_cubit.dart';
 import 'package:m2health/features/pharmacogenomics/domain/usecases/get_pharmacogenomics.dart';
-import 'package:m2health/features/precision/bloc/nutrition_assessment_cubit.dart';
+import 'package:m2health/core/services/questionnaire_service.dart';
+import 'package:m2health/features/nutrition/domain/usecases/create_nutrition_appointment.dart';
+import 'package:m2health/features/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
+import 'package:m2health/features/professional_profile/domain/usecases/index.dart';
 import 'package:m2health/features/profiles/domain/usecases/index.dart';
-import 'package:m2health/features/profiles/presentation/bloc/certificate_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/profile_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/certificate_cubit.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/l10n/app_localizations.dart';
@@ -31,27 +38,63 @@ import 'package:go_router/go_router.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:device_preview_screenshot/device_preview_screenshot.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'const.dart';
+import 'core/services/app_config_service.dart';
+import 'core/presentation/widgets/app_update_dialog.dart';
+import 'core/services/fcm_service.dart';
+import 'core/utils/version_check.dart';
+
+@pragma('vm:entry-point')
+Future<void> _firebaseBackgroundMessageHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await Firebase.initializeApp();
+    FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundMessageHandler);
+  } catch (e, st) {
+    debugPrint('Firebase init failed: $e\n$st');
+  }
+
   await setupLocator();
 
+  // FCM must not block app startup: on iOS without push entitlements /
+  // APNs setup, requestPermission/getToken can hang or throw and leave a
+  // blank screen. Treat notifications as best-effort.
+  try {
+    await sl<FcmService>().init();
+  } catch (e, st) {
+    debugPrint('FcmService init failed: $e\n$st');
+  }
+
   // Timezone setup
-  tz.initializeTimeZones();
-  final String currentTimeZone =
-      (await FlutterTimezone.getLocalTimezone()).identifier;
-  tz.setLocalLocation(tz.getLocation(currentTimeZone));
+  try {
+    tz.initializeTimeZones();
+    final String currentTimeZone =
+        (await FlutterTimezone.getLocalTimezone()).identifier;
+    tz.setLocalLocation(tz.getLocation(currentTimeZone));
+  } catch (e, st) {
+    debugPrint('Timezone setup failed: $e\n$st');
+  }
 
   // Google OAuth setup
-  final googleSource = sl<GoogleAuthSource>();
-  await googleSource.init();
+  try {
+    final googleSource = sl<GoogleAuthSource>();
+    await googleSource.init();
+  } catch (e, st) {
+    debugPrint('GoogleAuthSource init failed: $e\n$st');
+  }
 
   final localeCubit = LocaleCubit();
   await localeCubit.loadSavedLocale();
+
+  WidgetsBinding.instance.addPostFrameCallback((_) => _checkForAppUpdate());
 
   runApp(
     DevicePreview(
@@ -73,23 +116,27 @@ void main() async {
               value: localeCubit,
             ),
           ],
-          child: const MyApp(),
+          child: const M2HealthApp(),
         ),
       ),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class M2HealthApp extends StatelessWidget {
+  const M2HealthApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => sl<AuthCubit>()),
-        BlocProvider<NutritionAssessmentCubit>(
-          create: (context) => NutritionAssessmentCubit(sl<Dio>()),
+        BlocProvider(create: (context) => sl<UserRoleCubit>()..loadUserRole()),
+        BlocProvider<NutritionFlowBloc>(
+          create: (context) => NutritionFlowBloc(
+            questionnaireService: sl<QuestionnaireService>(),
+            createNutritionAppointment: sl<CreateNutritionAppointment>(),
+          ),
         ),
         BlocProvider(create: (context) => AppointmentCubit(sl<Dio>())),
         BlocProvider(create: (context) => ProviderAppointmentCubit(sl<Dio>())),
@@ -98,12 +145,19 @@ class MyApp extends StatelessWidget {
               ScreeningAppointmentActionCubit(repository: sl()),
         ),
         BlocProvider(
-            create: (context) => ProfileCubit(
-                  getProfileUseCase: sl<GetProfile>(),
+            create: (context) => PatientProfileCubit(
+                  getProfilesUseCase: sl<GetProfiles>(),
+                  createProfileUseCase: sl<CreateProfile>(),
                   updateProfileUseCase: sl<UpdateProfile>(),
+                  deleteProfileUseCase: sl<DeleteProfile>(),
+                )),
+        BlocProvider(
+            create: (context) => ProfessionalProfileCubit(
                   getProfessionalProfileUseCase: sl<GetProfessionalProfile>(),
                   updateProfessionalProfileUseCase:
                       sl<UpdateProfessionalProfile>(),
+                  submitProfessionalVerificationUseCase:
+                      sl<SubmitProfessionalVerification>(),
                 )),
         BlocProvider(
           create: (context) => CertificateCubit(
@@ -126,7 +180,10 @@ class MyApp extends StatelessWidget {
             deleteMedicalRecord: sl<DeleteMedicalRecord>(),
           ),
         ),
-        BlocProvider(create: (context) => DiabetesFormCubit(sl<Dio>())),
+        BlocProvider(
+          create: (context) =>
+              DiabetesFormCubit(sl<Dio>(), sl<QuestionnaireService>()),
+        ),
         BlocProvider(create: (context) => sl<SubscriptionCubit>()),
       ],
       child: BlocBuilder<LocaleCubit, AppLocale>(builder: (context, locale) {
@@ -262,22 +319,33 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// class AppSetting extends ChangeNotifier {
-//   bool isDarkMode;
-//   Color themeSeed = Colors.blue;
+/// Checks the installed version against server thresholds on startup and
+/// shows a forced/recommended update popup.
+Future<void> _checkForAppUpdate() async {
+  try {
+    final info = await PackageInfo.fromPlatform();
+    final currentVersion = info.version;
 
-//   AppSetting({this.isDarkMode = false});
+    final config = await sl<AppConfigService>().fetch();
+    final decision = resolveUpdate(currentVersion, config);
+    if (decision == UpdateDecision.none) return;
 
-//   void changeThemeSeed(Color color) {
-//     themeSeed = color;
-//     notifyListeners();
-//   }
+    final context = rootNavigatorKey.currentContext;
+    if (context == null || !context.mounted) return;
 
-//   void toggleTheme() {
-//     isDarkMode = !isDarkMode;
-//     notifyListeners();
-//   }
-// }
+    final forced = decision == UpdateDecision.force;
+    await showAppUpdateDialog(
+      context,
+      forced: forced,
+      updateUrl: config.updateUrl,
+      currentVersion: currentVersion,
+      latestVersion: config.latestVersion,
+      message: forced ? config.forceMessage : config.recommendMessage,
+    );
+  } catch (_) {
+    // fail-open
+  }
+}
 
 class AppShell extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -306,66 +374,130 @@ class AppShell extends StatelessWidget {
   }
 
   Widget _buildFloatingNavBar(BuildContext context) {
-    final currentIndex = navigationShell.currentIndex;
+    return BlocBuilder<UserRoleCubit, UserRoleState>(
+      builder: (context, roleState) {
+        // Professionals get their own destinations. Branch 2 (store) and 3
+        // (favourites) have nothing to offer someone who delivers care.
+        // Patients are untouched.
+        final destinations = roleState.isProvider
+            ? const [
+                _NavDestination(
+                    branch: 0, icon: Icons.home_outlined, label: 'Home'),
+                _NavDestination(
+                    branch: 1,
+                    icon: Icons.calendar_month_outlined,
+                    label: 'Appointments'),
+                _NavDestination(
+                    branch: 4, icon: Icons.person_outline, label: 'Profile'),
+              ]
+            : const [
+                _NavDestination(
+                    branch: 0, icon: Icons.home_outlined, label: 'Home'),
+                _NavDestination(
+                    branch: 1,
+                    icon: Icons.calendar_month_outlined,
+                    label: 'Appointments'),
+                _NavDestination(
+                    branch: 2,
+                    icon: Icons.add_shopping_cart_outlined,
+                    label: 'Store'),
+                _NavDestination(
+                    branch: 3,
+                    icon: Icons.favorite_border_outlined,
+                    label: 'Favourites'),
+                _NavDestination(
+                    branch: 4, icon: Icons.person_outline, label: 'Profile'),
+              ];
 
-    return Container(
-      height: 80,
-      margin: const EdgeInsets.only(bottom: 20, left: 24, right: 24),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+        return Container(
+          height: 80,
+          margin: const EdgeInsets.only(bottom: 20, left: 24, right: 24),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(
-            onPressed: () => navigationShell.goBranch(0),
-            icon: const Icon(Icons.home_outlined),
-            iconSize: 28,
-            color: currentIndex == 0
-                ? const Color(0xFF40E0D0)
-                : const Color(0xFF8A96BC),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              for (final d in destinations)
+                _NavButton(
+                  destination: d,
+                  selected: navigationShell.currentIndex == d.branch,
+                  // Labels only for professionals. The patient bar has always
+                  // been icon-only and changing it is not worth the churn.
+                  showLabel: roleState.isProvider,
+                  onTap: () => navigationShell.goBranch(d.branch),
+                ),
+            ],
           ),
-          IconButton(
-            onPressed: () => navigationShell.goBranch(1),
-            icon: const Icon(Icons.calendar_month_outlined),
-            iconSize: 28,
-            color: currentIndex == 1
-                ? const Color(0xFF40E0D0)
-                : const Color(0xFF8A96BC),
-          ),
-          IconButton(
-            onPressed: () => navigationShell.goBranch(2),
-            icon: const Icon(Icons.add_shopping_cart_outlined),
-            iconSize: 28,
-            color: currentIndex == 2
-                ? const Color(0xFF40E0D0)
-                : const Color(0xFF8A96BC),
-          ),
-          IconButton(
-            onPressed: () => navigationShell.goBranch(3),
-            icon: const Icon(Icons.favorite_border_outlined),
-            iconSize: 28,
-            color: currentIndex == 3
-                ? const Color(0xFF40E0D0)
-                : const Color(0xFF8A96BC),
-          ),
-          IconButton(
-            onPressed: () => navigationShell.goBranch(4),
-            icon: const Icon(Icons.person_outline),
-            iconSize: 28,
-            color: currentIndex == 4
-                ? const Color(0xFF40E0D0)
-                : const Color(0xFF8A96BC),
-          ),
-        ],
+        );
+      },
+    );
+  }
+}
+
+class _NavDestination {
+  const _NavDestination({
+    required this.branch,
+    required this.icon,
+    required this.label,
+  });
+
+  final int branch;
+  final IconData icon;
+  final String label;
+}
+
+class _NavButton extends StatelessWidget {
+  const _NavButton({
+    required this.destination,
+    required this.selected,
+    required this.showLabel,
+    required this.onTap,
+  });
+
+  final _NavDestination destination;
+  final bool selected;
+  final bool showLabel;
+  final VoidCallback onTap;
+
+  static const _active = Color(0xFF40E0D0);
+  static const _inactive = Color(0xFF8A96BC);
+
+  @override
+  Widget build(BuildContext context) {
+    final color = selected ? _active : _inactive;
+
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(destination.icon, size: showLabel ? 24 : 28, color: color),
+            if (showLabel) ...[
+              const SizedBox(height: 2),
+              Text(
+                destination.label,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 10,
+                  color: color,
+                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                ),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }

@@ -98,6 +98,10 @@
     "patient": "Patient",
     "pharmacist": "Pharmacist",
     "physiotherapist": "Physiotherapist",
-    "radiologist": "Radiologist"
+    "radiologist": "Radiologist",
+    "pathologist": "Pathologist",
+    "nutritionist": "Nutritionist",
+    "psychologist": "Psychologist",
+    "optometrist": "Optometrist"
   }
 }

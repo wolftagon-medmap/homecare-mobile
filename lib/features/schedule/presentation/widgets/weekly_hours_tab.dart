@@ -10,9 +10,20 @@ import 'package:m2health/features/schedule/domain/entities/provider_availability
 import 'package:m2health/features/schedule/presentation/bloc/schedule_cubit.dart';
 import 'package:m2health/features/schedule/presentation/bloc/schedule_state.dart';
 import 'package:m2health/features/schedule/presentation/widgets/availability_form_dialog.dart';
+import 'package:m2health/features/schedule/presentation/widgets/batch_availability_dialog.dart';
 
 class WeeklyHoursTab extends StatelessWidget {
   const WeeklyHoursTab({super.key});
+
+  void _showBatchDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<ScheduleCubit>(),
+        child: const BatchAvailabilityDialog(),
+      ),
+    );
+  }
 
   String _getLocalizedDayName(BuildContext context, int index) {
     switch (index) {
@@ -37,29 +48,53 @@ class WeeklyHoursTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ScheduleCubit, ScheduleState>(
-      builder: (context, state) {
-        if (state.isLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          child: SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: () => _showBatchDialog(context),
+              icon: const Icon(Icons.date_range),
+              label: const Text('Add hours to multiple days'),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Const.aqua,
+                side: const BorderSide(color: Const.aqua),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: BlocBuilder<ScheduleCubit, ScheduleState>(
+            builder: (context, state) {
+              if (state.isLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-        return ListView.builder(
-          padding: const EdgeInsets.all(16),
-          itemCount: 7, // 7 days in a week
-          itemBuilder: (context, index) {
-            final dayName = _getLocalizedDayName(context, index);
-            final dayAvailabilities = state.availabilities
-                .where((a) => a.dayOfWeek == index)
-                .toList();
+              return ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: 7, // 7 days in a week
+                itemBuilder: (context, index) {
+                  final dayName = _getLocalizedDayName(context, index);
+                  final dayAvailabilities = state.availabilities
+                      .where((a) => a.dayOfWeek == index)
+                      .toList();
 
-            return _DayAvailabilityCard(
-              dayName: dayName,
-              dayIndex: index,
-              availabilities: dayAvailabilities,
-            );
-          },
-        );
-      },
+                  return _DayAvailabilityCard(
+                    dayName: dayName,
+                    dayIndex: index,
+                    availabilities: dayAvailabilities,
+                  );
+                },
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

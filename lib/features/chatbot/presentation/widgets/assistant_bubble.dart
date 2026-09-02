@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/chatbot/domain/entities/assistant_message.dart';
-import 'package:m2health/features/chatbot/domain/entities/chat_event.dart';
+import 'package:m2health/features/chatbot/domain/entities/message.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:m2health/features/chatbot/presentation/widgets/source_list_sheet.dart';
@@ -9,18 +9,12 @@ import 'package:url_launcher/url_launcher.dart';
 import 'copy_helper.dart';
 
 class AssistantBubble extends StatelessWidget {
-  final ChatEvent event;
-  const AssistantBubble({super.key, required this.event});
+  final Message message;
+  const AssistantBubble({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
-    final rawContent = switch (event) {
-      OutputMessageEvent e => e.content,
-      StreamMessageEvent e => e.content,
-      _ => "",
-    };
-
-    final parsedData = AssistantMessage.parse(rawContent);
+    final parsedData = AssistantMessage.parse(message.content);
 
     return RepaintBoundary(
       child: GestureDetector(
@@ -87,7 +81,7 @@ class AssistantMessageWidget extends StatelessWidget {
       children: [
         MarkdownBody(
           key: ValueKey(
-              "${parsedData.message.hashCode}-${parsedData.sources.length}"), // Force rebuild if message or sources change
+              "${parsedData.message.hashCode}-${parsedData.sources.length}"),
           data: parsedData.message,
           selectable: true,
           onTapLink: (text, href, title) {
@@ -125,8 +119,6 @@ class AssistantMessageWidget extends StatelessWidget {
             ),
           ),
         ),
-
-        // Hides the button if there are no citations parsed
         if (parsedData.sources.isNotEmpty) ...[
           const SizedBox(height: 12),
           OutlinedButton.icon(
@@ -159,21 +151,20 @@ class AssistantMessageWidget extends StatelessWidget {
   }
 }
 
-// ---  The Syntax: How to find [n] in markdown ---
+// --- The Syntax: How to find [n] in markdown ---
 class CitationSyntax extends md.InlineSyntax {
   CitationSyntax() : super(r'\[(\d+)\]');
 
   @override
   bool onMatch(md.InlineParser parser, Match match) {
     final citationId = match.group(1);
-    // Create a custom element that the builder will recognize
     final element = md.Element.text(CITATION_ELEMENT, citationId!);
     parser.addNode(element);
     return true;
   }
 }
 
-// ---  The Builder: How to draw the chip ---
+// --- The Builder: How to draw the chip ---
 class CitationBuilder extends MarkdownElementBuilder {
   final List<CitationSource> sources;
   final Function(List<CitationSource>) onTap;
@@ -188,7 +179,7 @@ class CitationBuilder extends MarkdownElementBuilder {
       orElse: () => const CitationSource(id: -1, source: '', url: ''),
     );
 
-    if (source.id == -1) return Text("[$id]"); // Fallback if no metadata found
+    if (source.id == -1) return Text("[$id]");
 
     return GestureDetector(
       onTap: () => onTap([source]),

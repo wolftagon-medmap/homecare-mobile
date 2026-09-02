@@ -98,6 +98,10 @@
     "patient": "患者",
     "pharmacist": "药剂师",
     "physiotherapist": "物理治疗师",
-    "radiologist": "放射科医生"
+    "radiologist": "放射科医生",
+    "pathologist": "病理学家",
+    "nutritionist": "营养师",
+    "psychologist": "心理学家",
+    "optometrist": "验光师"
   }
 }

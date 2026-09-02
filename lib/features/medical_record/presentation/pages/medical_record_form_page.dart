@@ -24,6 +24,7 @@ class MedicalRecordFormPage extends StatelessWidget {
         final cubit = MedicalRecordFormCubit(
           createMedicalRecord: sl(),
           updateMedicalRecord: sl(),
+          fileUploadRemoteDataSource: sl(),
         );
         if (recordToEdit != null) {
           cubit.initializeForm(recordToEdit!);
@@ -44,6 +45,7 @@ class MedicalRecordFormView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text(
           isEditMode ? 'Edit Medical Record' : 'Add New Medical Record',
@@ -79,7 +81,31 @@ class MedicalRecordFormView extends StatelessWidget {
           return _FormBody(isEditMode: isEditMode);
         },
       ),
-      bottomNavigationBar: _SubmitButton(isEditMode: isEditMode),
+      bottomNavigationBar: _KeyboardAwareBottomBar(
+        child: _SubmitButton(isEditMode: isEditMode),
+      ),
+    );
+  }
+}
+
+/// Keeps the bottom bar (e.g., Submit button) visible by moving it above the keyboard.
+/// This mirrors the behavior users expect from the Profile Information page.
+class _KeyboardAwareBottomBar extends StatelessWidget {
+  final Widget child;
+  const _KeyboardAwareBottomBar({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+
+    return AnimatedPadding(
+      duration: const Duration(milliseconds: 180),
+      curve: Curves.easeOut,
+      padding: EdgeInsets.only(bottom: bottomInset),
+      child: SafeArea(
+        top: false,
+        child: child,
+      ),
     );
   }
 }
@@ -264,32 +290,32 @@ class _SpecialConsiderationCheckboxes extends StatelessWidget {
   }
 }
 
-class _TreatmentInfoInput extends StatelessWidget {
-  final String? initialValue;
-  const _TreatmentInfoInput({this.initialValue});
+// class _TreatmentInfoInput extends StatelessWidget {
+//   final String? initialValue;
+//   const _TreatmentInfoInput({this.initialValue});
 
-  @override
-  Widget build(BuildContext context) {
-    // --- CHANGED ---
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const _FieldLabel('Treatment Info'),
-        TextFormField(
-          initialValue: initialValue,
-          decoration: const InputDecoration(
-            hintText: 'Describe treatment plan...',
-            border: OutlineInputBorder(),
-          ),
-          maxLines: 3,
-          onChanged: (value) => context
-              .read<MedicalRecordFormCubit>()
-              .treatmentInfoChanged(value),
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     // --- CHANGED ---
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         const _FieldLabel('Treatment Info'),
+//         TextFormField(
+//           initialValue: initialValue,
+//           decoration: const InputDecoration(
+//             hintText: 'Describe treatment plan...',
+//             border: OutlineInputBorder(),
+//           ),
+//           maxLines: 3,
+//           onChanged: (value) => context
+//               .read<MedicalRecordFormCubit>()
+//               .treatmentInfoChanged(value),
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 class _FilePicker extends StatelessWidget {
   @override
@@ -297,37 +323,101 @@ class _FilePicker extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const _FieldLabel('Medical Report File'),
+        const _FieldLabel('Medical Report Files'),
         BlocBuilder<MedicalRecordFormCubit, MedicalRecordFormState>(
           builder: (context, state) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (state.isEditMode && state.initialRecord != null)
+                  _ExistingFilesList(
+                    record: state.initialRecord!,
+                    visibleIds: state.existingUploadedFileIds,
+                  ),
                 OutlinedButton.icon(
                   icon: const Icon(Icons.attach_file),
-                  label: const Text('Pick File'),
+                  label: const Text('Pick Files'),
                   onPressed: () async {
                     FilePickerResult? result =
                         await FilePicker.platform.pickFiles(
                       type: FileType.custom,
                       allowedExtensions: ['pdf', 'jpg', 'png'],
+                      allowMultiple: true,
                     );
                     if (!context.mounted) {
                       log('Context not mounted after file picker',
                           name: 'MedicalRecordFormPage');
                       return;
                     }
-                    if (result != null && result.files.single.path != null) {
-                      context
-                          .read<MedicalRecordFormCubit>()
-                          .filePicked(File(result.files.single.path!));
-                    }
+                    final paths = result?.paths.whereType<String>().toList() ??
+                        const <String>[];
+                    if (paths.isEmpty) return;
+
+                    await context.read<MedicalRecordFormCubit>().addPickedFiles(
+                          paths.map((p) => File(p)).toList(),
+                        );
                   },
                 ),
-                if (state.pickedFile != null)
+                if (state.fileUploadStatus == FileUploadStatus.uploading)
+                  const Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
+                        SizedBox(width: 8),
+                        Text('Uploading...'),
+                      ],
+                    ),
+                  ),
+                if (state.fileUploadStatus == FileUploadStatus.failure)
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: Text('File: ${p.basename(state.pickedFile!.path)}'),
+                    child: Text(
+                      state.fileUploadErrorMessage ?? 'Upload failed',
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  ),
+                if (state.pickedFiles.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'New files (will be added)',
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(height: 6),
+                        ...List.generate(state.pickedFiles.length, (index) {
+                          final file = state.pickedFiles[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    p.basename(file.path),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () => context
+                                      .read<MedicalRecordFormCubit>()
+                                      .removePickedFileAt(index),
+                                  icon: const Icon(Icons.close),
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
+                        Text('Total: ${state.pickedFiles.length} file(s)'),
+                      ],
+                    ),
                   ),
               ],
             );
@@ -335,6 +425,75 @@ class _FilePicker extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class _ExistingFilesList extends StatelessWidget {
+  final MedicalRecord record;
+  final List<int> visibleIds;
+  const _ExistingFilesList({required this.record, required this.visibleIds});
+
+  @override
+  Widget build(BuildContext context) {
+    final files = record.files.where((f) => visibleIds.contains(f.id)).toList();
+    if (files.isEmpty) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Existing files',
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(height: 6),
+          ...files.map((f) {
+            final displayName = _displayNameForExistingFile(f);
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      displayName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  IconButton(
+                    tooltip: 'Remove this file',
+                    onPressed: () => context
+                        .read<MedicalRecordFormCubit>()
+                        .removeExistingUploadedFileId(f.id),
+                    icon: const Icon(Icons.delete_outline),
+                  ),
+                ],
+              ),
+            );
+          }),
+        ],
+      ),
+    );
+  }
+
+  String _displayNameForExistingFile(dynamic f) {
+    // `f` is a domain `FileUpload` (from entity). It has `path` and `url`.
+    final originalName = (f as FileUpload).originalName;
+    if (originalName != null && originalName.trim().isNotEmpty) {
+      return originalName;
+    }
+
+    final url = (f).url;
+    final path = (f).path;
+    final value = (url is String && url.isNotEmpty)
+        ? url
+        : (path is String && path.isNotEmpty)
+            ? path
+            : 'File #${(f).id}';
+
+    final cleaned = value.split('?').first;
+    return p.basename(cleaned);
   }
 }
 

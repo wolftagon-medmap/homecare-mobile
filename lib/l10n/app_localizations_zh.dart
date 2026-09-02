@@ -229,6 +229,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get appointment_detail_patient_title => '患者信息';
 
   @override
+  String get appointment_detail_visit_address_title => '上门地址';
+
+  @override
   String get appointment_detail_lab_test_title => '实验室测试信息';
 
   @override
@@ -1520,6 +1523,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get precision_book_now => '立即预订';
 
   @override
+  String get precision_view_plan => '查看计划';
+
+  @override
   String get precision_main_concern_question => '您的主要关注点是什么？';
 
   @override
@@ -2472,5 +2478,87 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String physiotherapy_summary(int duration) {
     return '物理治疗课 ($duration 分钟)';
+  }
+
+  @override
+  String get common_close => '关闭';
+
+  @override
+  String get profile_switcher_new_profile => '+ 新建档案';
+
+  @override
+  String get profile_relation_self => '本人';
+
+  @override
+  String get profile_relation_spouse => '配偶';
+
+  @override
+  String get profile_relation_parent => '父母';
+
+  @override
+  String get profile_relation_child => '子女';
+
+  @override
+  String get profile_relation_sibling => '兄弟姐妹';
+
+  @override
+  String get profile_relation_other => '其他';
+
+  @override
+  String get profile_form_add_title => '添加档案';
+
+  @override
+  String get profile_form_date_of_birth => '出生日期';
+
+  @override
+  String get profile_form_relationship => '关系';
+
+  @override
+  String get profile_form_field_required => '此项为必填';
+
+  @override
+  String get profile_form_remove => '删除档案';
+
+  @override
+  String profile_form_remove_confirm(String name) {
+    return '确定从档案中删除 $name？此操作无法撤销。';
+  }
+
+  @override
+  String get settings_saved_addresses => '已保存的地址';
+
+  @override
+  String get address_form_add_title => '添加地址';
+
+  @override
+  String get address_form_edit_title => '编辑地址';
+
+  @override
+  String get address_form_label => '标签';
+
+  @override
+  String get address_form_label_hint => '例如：家、父母家';
+
+  @override
+  String get address_form_location => '位置';
+
+  @override
+  String get address_form_location_hint => '点击在地图上选择位置';
+
+  @override
+  String get address_form_set_default => '设为默认地址';
+
+  @override
+  String get address_default_badge => '默认';
+
+  @override
+  String get address_empty_state => '暂无已保存的地址。点击 + 添加。';
+
+  @override
+  String get address_remove => '删除地址';
+
+  @override
+  String address_remove_confirm(String label) {
+    return '删除“$label”？此操作无法撤销。';
   }
 }

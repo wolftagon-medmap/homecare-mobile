@@ -1,5 +1,26 @@
 import 'package:equatable/equatable.dart';
 
+class FileUpload extends Equatable {
+  final int id;
+  final String? originalName;
+  final String? path;
+  final String? url;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
+  const FileUpload({
+    required this.id,
+  this.originalName,
+    this.path,
+    this.url,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  @override
+  List<Object?> get props => [id, originalName, path, url, createdAt, updatedAt];
+}
+
 class MedicalRecord extends Equatable {
   final int id;
   final int userId;
@@ -9,7 +30,10 @@ class MedicalRecord extends Equatable {
   final String? symptoms;
   final String? specialConsideration;
   final String? treatmentInfo;
+  // Legacy single-file field (kept for backward compatibility with older API responses)
   final String? fileUrl;
+  // New multi-file attachments
+  final List<FileUpload> files;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -23,6 +47,7 @@ class MedicalRecord extends Equatable {
     this.specialConsideration,
     this.treatmentInfo,
     this.fileUrl,
+  this.files = const <FileUpload>[],
     required this.createdAt,
     required this.updatedAt,
   });
@@ -38,6 +63,7 @@ class MedicalRecord extends Equatable {
         specialConsideration,
         treatmentInfo,
         fileUrl,
+  files,
         createdAt,
         updatedAt,
       ];

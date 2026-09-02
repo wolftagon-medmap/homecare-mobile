@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 import 'dart:io';
 import 'package:dio/dio.dart';
@@ -128,10 +129,10 @@ class _FileViewerPageState extends State<FileViewerPage> {
                       autoSpacing: false,
                       pageFling: false,
                       onError: (error) {
-                        print(error.toString());
+                        log('PDFView Error.', error: error, name: 'FileViewerPage');
                       },
                       onPageError: (page, error) {
-                        print('$page: ${error.toString()}');
+                        log('PDFView Page Error.', error: error, name: 'FileViewerPage');
                       },
                     );
                   }

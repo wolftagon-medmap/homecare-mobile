@@ -4,6 +4,7 @@ import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/features/booking_appointment/nursing/const.dart';
 import 'package:m2health/features/booking_appointment/nursing/presentation/bloc/nursing_appointment_flow_bloc.dart';
 import 'package:m2health/features/booking_appointment/nursing/presentation/pages/nursing_appointment_flow_page.dart';
+import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/service_locator.dart';
 
@@ -15,12 +16,14 @@ class NursingService extends StatefulWidget {
 
 class _NursingState extends State<NursingService> {
   void _navigateToType(NurseServiceType serviceType) {
+    final patientProfileCubit = context.read<PatientProfileCubit>();
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => BlocProvider(
           create: (context) => NursingAppointmentFlowBloc(
             createNursingAppointment: sl(),
+            patientProfileCubit: patientProfileCubit,
             serviceType: serviceType,
           ),
           child: const NursingAppointmentFlowPage(),

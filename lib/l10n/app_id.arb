@@ -74,6 +74,7 @@
   "appointment_detail_title": "Detail Janji Temu",
   "appointment_detail_schedule_title": "Jadwal Janji Temu",
   "appointment_detail_patient_title": "Informasi Pasien",
+  "appointment_detail_visit_address_title": "Alamat Kunjungan",
   "appointment_detail_lab_test_title": "Informasi Tes Lab",
   "appointment_detail_report": "{count, plural, =0{Tidak Ada Laporan} =1{Laporan} other{Laporan}}",
   "appointment_detail_requested_homecare_task": "Tugas Homecare yang Diminta",
@@ -514,6 +515,7 @@
   "precision_implementation_desc": "Lacak kemajuan dan sesuaikan rencana Anda melalui dukungan berkelanjutan, pemantauan biomarker, dan alat digital cerdas.",
   "precision_start_now": "Mulai Sekarang",
   "precision_book_now": "Pesan Sekarang",
+  "precision_view_plan": "Lihat Rencana",
   "precision_main_concern_question": "Apa kekhawatiran utama Anda?",
   "precision_main_concern_subtitle": "Pilih area yang paling menggambarkan tujuan kesehatan utama Anda",
   "precision_sub_health": "Sub-Sehat",
@@ -936,6 +938,70 @@
     "placeholders": {
       "duration": {
         "type": "int"
+      }
+    }
+  },
+  "common_close": "Tutup",
+  "@common_close": {},
+  "profile_switcher_new_profile": "+ Profil Baru",
+  "@profile_switcher_new_profile": {},
+  "profile_relation_self": "Pribadi",
+  "@profile_relation_self": {},
+  "profile_relation_spouse": "Pasangan",
+  "@profile_relation_spouse": {},
+  "profile_relation_parent": "Orang Tua",
+  "@profile_relation_parent": {},
+  "profile_relation_child": "Anak",
+  "@profile_relation_child": {},
+  "profile_relation_sibling": "Saudara",
+  "@profile_relation_sibling": {},
+  "profile_relation_other": "Lainnya",
+  "@profile_relation_other": {},
+  "profile_form_add_title": "Tambah Profil",
+  "@profile_form_add_title": {},
+  "profile_form_date_of_birth": "Tanggal Lahir",
+  "@profile_form_date_of_birth": {},
+  "profile_form_relationship": "Hubungan",
+  "@profile_form_relationship": {},
+  "profile_form_field_required": "Wajib diisi",
+  "@profile_form_field_required": {},
+  "profile_form_remove": "Hapus Profil",
+  "@profile_form_remove": {},
+  "profile_form_remove_confirm": "Hapus {name} dari daftar profil Anda? Tindakan ini tidak dapat dibatalkan.",
+  "@profile_form_remove_confirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_saved_addresses": "Alamat Tersimpan",
+  "@settings_saved_addresses": {},
+  "address_form_add_title": "Tambah Alamat",
+  "@address_form_add_title": {},
+  "address_form_edit_title": "Ubah Alamat",
+  "@address_form_edit_title": {},
+  "address_form_label": "Label",
+  "@address_form_label": {},
+  "address_form_label_hint": "mis. Rumah, Rumah Orang Tua",
+  "@address_form_label_hint": {},
+  "address_form_location": "Lokasi",
+  "@address_form_location": {},
+  "address_form_location_hint": "Ketuk untuk pilih lokasi di peta",
+  "@address_form_location_hint": {},
+  "address_form_set_default": "Jadikan alamat utama",
+  "@address_form_set_default": {},
+  "address_default_badge": "Utama",
+  "@address_default_badge": {},
+  "address_empty_state": "Belum ada alamat tersimpan. Ketuk + untuk menambahkan.",
+  "@address_empty_state": {},
+  "address_remove": "Hapus Alamat",
+  "@address_remove": {},
+  "address_remove_confirm": "Hapus \"{label}\"? Tindakan ini tidak dapat dibatalkan.",
+  "@address_remove_confirm": {
+    "placeholders": {
+      "label": {
+        "type": "String"
       }
     }
   }

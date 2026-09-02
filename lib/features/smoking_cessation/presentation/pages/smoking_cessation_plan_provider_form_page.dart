@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
+import 'package:m2health/core/domain/entities/service_request_detail.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
 import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
 import 'package:m2health/features/smoking_cessation/presentation/bloc/smoking_cessation_plan_cubit.dart';
@@ -132,8 +133,12 @@ class _SmokingCessationPlanProviderFormPageState
                         _PatientHeader(appointment: widget.appointment),
                         const SizedBox(height: 24),
                         SmokingHabitAssessmentCard(
-                          smokingForm: widget
-                              .appointment.pharmacyCase!.smokingCessationForm!,
+                          intakeDetail: widget.appointment.serviceRequest
+                                  ?.detail is PharmacySmokingCessationDetail
+                              ? (widget.appointment.serviceRequest!.detail
+                                      as PharmacySmokingCessationDetail)
+                                  .questionnaireAnswers
+                              : null,
                         ),
                         const SizedBox(height: 24),
                         _PrescribeMedicationSection(
@@ -207,7 +212,9 @@ class _SmokingCessationPlanProviderFormPageState
                     text: 'Submit Plan',
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        context.read<SmokingCessationPlanCubit>().submitPlan();
+                        context
+                            .read<SmokingCessationPlanCubit>()
+                            .submitCarePlan();
                       }
                     },
                   ),
@@ -305,11 +312,16 @@ class _PatientHeader extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(patient.name,
+                    Expanded(
+                      child: Text(
+                        patient.name,
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Color(0xFF1A1A1A))),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Color(0xFF1A1A1A),
+                        ),
+                      ),
+                    ),
                     _StatusBadge(status: appointment.status),
                   ],
                 ),

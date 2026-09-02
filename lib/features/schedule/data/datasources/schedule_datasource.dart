@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/schedule/data/models/provider_availability_model.dart';
 import 'package:m2health/features/schedule/data/models/provider_availability_override_model.dart';
@@ -11,6 +10,8 @@ import 'package:m2health/utils.dart';
 abstract class ScheduleRemoteDatasource {
   Future<List<ProviderAvailabilityModel>> getAvailabilities();
   Future<ProviderAvailabilityModel> addAvailability(Map<String, dynamic> data);
+  Future<List<ProviderAvailabilityModel>> addAvailabilitiesBulk(
+      Map<String, dynamic> data);
   Future<ProviderAvailabilityModel> updateAvailability(
       int id, Map<String, dynamic> data);
   Future<void> deleteAvailability(int id);
@@ -65,6 +66,19 @@ class ScheduleRemoteDatasourceImpl implements ScheduleRemoteDatasource {
       options: await _getAuthHeaders(),
     );
     return ProviderAvailabilityModel.fromJson(response.data['data']);
+  }
+
+  @override
+  Future<List<ProviderAvailabilityModel>> addAvailabilitiesBulk(
+      Map<String, dynamic> data) async {
+    final response = await dio.post(
+      '${Const.API_SCHEDULE_AVAILABILITY}/bulk',
+      data: data,
+      options: await _getAuthHeaders(),
+    );
+    return (response.data['data'] as List)
+        .map((e) => ProviderAvailabilityModel.fromJson(e))
+        .toList();
   }
 
   @override
@@ -123,11 +137,10 @@ class ScheduleRemoteDatasourceImpl implements ScheduleRemoteDatasource {
 
   @override
   Future<void> updateOverride(ProviderAvailabilityOverrideModel data) async {
-    final dateStr = DateFormat('yyyy-MM-dd').format(data.date);
     try {
       final payload = data.toJson();
       await dio.put(
-        '${Const.API_SCHEDULE_OVERRIDES}',
+        Const.API_SCHEDULE_OVERRIDES,
         data: payload,
         options: await _getAuthHeaders(),
       );

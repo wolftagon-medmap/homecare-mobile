@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/domain/entities/add_on_service.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/mobility_status.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
 
@@ -9,7 +9,7 @@ class NursingCase extends Equatable {
   final MobilityStatus? mobilityStatus;
   final String? mobilityStatusDetail;
   final int? relatedHealthRecordId;
-  final List<AddOnService> addOnServices;
+  final List<ServiceEntity> addOnServices;
 
   const NursingCase({
     this.appointmentId,
@@ -36,8 +36,7 @@ class NursingCase extends Equatable {
     MobilityStatus? mobilityStatus,
     String? mobilityStatusDetail,
     int? relatedHealthRecordId,
-    List<AddOnService>? addOnServices,
-    double? estimatedBudget,
+    List<ServiceEntity>? addOnServices,
   }) {
     return NursingCase(
       appointmentId: appointmentId ?? this.appointmentId,

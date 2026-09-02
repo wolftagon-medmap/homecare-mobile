@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:m2health/features/booking_appointment/add_on_services/injection.dart';
+import 'package:m2health/features/booking_appointment/services_selection/injection.dart';
 import 'package:m2health/features/booking_appointment/nursing/injection.dart';
 import 'package:m2health/features/booking_appointment/personal_issue/injection.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/injection.dart';
@@ -12,7 +12,7 @@ void initBookingAppointmentModule(GetIt sl) {
   initPharmacyModule(sl);
 
   // Shared modules
-  initAddOnServiceModule(sl);
+  initServiceModule(sl);
   initPersonalIssueModule(sl);
   initProfessionalModule(sl);
   initScheduleAppointmentModule(sl);
