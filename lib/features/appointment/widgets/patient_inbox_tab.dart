@@ -10,10 +10,10 @@ import 'package:m2health/features/appointment/data/models/patient_inbox_item.dar
 import 'package:m2health/features/appointment/widgets/booking_card.dart';
 import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
-import 'package:m2health/features/messaging/domain/entities/message_thread.dart';
-import 'package:m2health/features/messaging/presentation/widgets/message_action_button.dart';
-import 'package:m2health/features/messaging/presentation/widgets/propose_time_sheet.dart';
-import 'package:m2health/features/messaging/presentation/widgets/time_proposal_alert.dart';
+import 'package:m2health/core/messaging/thread_ref.dart';
+import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
+import 'package:m2health/core/presentation/widgets/messaging/propose_time_sheet.dart';
+import 'package:m2health/core/presentation/widgets/messaging/time_proposal_alert.dart';
 import 'package:m2health/route/app_routes.dart';
 
 /// The patient Pending tab: the unified inbox of v1 pending appointments +

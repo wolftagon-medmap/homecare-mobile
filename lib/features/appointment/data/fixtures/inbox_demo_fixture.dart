@@ -8,6 +8,9 @@
 //
 // Wire-shaped, parsed by the same `fromJson` the server response uses (C1).
 // The moment the flag flips, none of this is reachable.
+//
+// It lives with the inbox rather than with messaging because these are
+// `InboxItem` and `PatientInboxItem` rows — this feature's own contracts.
 
 String _ahead(Duration from) =>
     DateTime.now().add(from).toUtc().toIso8601String();

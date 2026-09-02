@@ -4,8 +4,9 @@ import 'package:m2health/features/messaging/data/repositories/messaging_reposito
 import 'package:m2health/features/messaging/domain/entities/chat_message.dart';
 import 'package:m2health/features/messaging/domain/entities/time_proposal.dart';
 import 'package:m2health/features/messaging/presentation/bloc/thread_cubit.dart';
-import 'package:m2health/features/messaging/presentation/bloc/thread_index_cubit.dart';
-import 'package:m2health/features/messaging/domain/entities/message_thread.dart';
+import 'package:m2health/core/messaging/thread_index_cubit.dart';
+import 'package:m2health/core/messaging/thread_ref.dart';
+import 'package:m2health/features/messaging/data/thread_index_adapter.dart';
 
 /// The demo has to survive being tapped through, not just rendered. These run
 /// the local data source for real — no mocks — because what is being tested is
@@ -145,8 +146,8 @@ void main() {
 
   group('the thread index', () {
     test('resolves a care-task ref and a stale ref alike', () async {
-      final cubit =
-          ThreadIndexCubit(MessagingRepositoryImpl(MessagingLocalDataSource()));
+      final cubit = ThreadIndexCubit(ThreadIndexAdapter(
+          MessagingRepositoryImpl(MessagingLocalDataSource())));
       await cubit.load();
 
       expect(cubit.state.loaded, isTrue);
@@ -159,8 +160,8 @@ void main() {
     });
 
     test('counts unread across every thread', () async {
-      final cubit =
-          ThreadIndexCubit(MessagingRepositoryImpl(MessagingLocalDataSource()));
+      final cubit = ThreadIndexCubit(ThreadIndexAdapter(
+          MessagingRepositoryImpl(MessagingLocalDataSource())));
       await cubit.load();
 
       expect(cubit.state.totalUnread, 4);
@@ -171,7 +172,7 @@ void main() {
     test('clears its unread count', () async {
       final source = MessagingLocalDataSource();
       final repository = MessagingRepositoryImpl(source);
-      final index = ThreadIndexCubit(repository);
+      final index = ThreadIndexCubit(ThreadIndexAdapter(repository));
       await index.load();
       expect(index.state.resolve(const ThreadRef.forCareTask(5001))!.unread, 2);
 

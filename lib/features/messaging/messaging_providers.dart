@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:provider/single_child_widget.dart';
 
-import 'presentation/bloc/thread_index_cubit.dart';
+import 'package:m2health/core/messaging/thread_index_cubit.dart';
 
 /// App-wide blocs for patient / professional messaging. Owned by A2.
 ///

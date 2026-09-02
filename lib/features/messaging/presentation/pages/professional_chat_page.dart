@@ -6,7 +6,7 @@ import '../../domain/entities/message_thread.dart';
 import '../bloc/thread_cubit.dart';
 import '../widgets/chat_app_bar.dart';
 import '../widgets/chat_composer.dart';
-import '../widgets/propose_time_sheet.dart';
+import 'package:m2health/core/presentation/widgets/messaging/propose_time_sheet.dart';
 import '../widgets/thread_view.dart';
 
 /// The professional's side.
@@ -18,7 +18,10 @@ import '../widgets/thread_view.dart';
 class ProfessionalChatPage extends StatefulWidget {
   final MessageThread? thread;
 
-  const ProfessionalChatPage({super.key, this.thread});
+  /// Shown when a deep link opens the thread before the list has been loaded.
+  final String? fallbackName;
+
+  const ProfessionalChatPage({super.key, this.thread, this.fallbackName});
 
   @override
   State<ProfessionalChatPage> createState() => _ProfessionalChatPageState();
@@ -54,7 +57,7 @@ class _ProfessionalChatPageState extends State<ProfessionalChatPage> {
   @override
   Widget build(BuildContext context) {
     final counterpart = widget.thread?.counterpart;
-    final name = counterpart?.name ?? 'Patient';
+    final name = counterpart?.name ?? widget.fallbackName ?? 'Patient';
     final closed = widget.thread?.isOpen == false;
 
     return Scaffold(

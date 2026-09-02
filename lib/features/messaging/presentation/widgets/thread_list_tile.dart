@@ -3,7 +3,7 @@ import 'package:m2health/const.dart';
 
 import '../../domain/entities/chat_message.dart';
 import '../../domain/entities/message_thread.dart';
-import 'message_action_button.dart';
+import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
 
 class ThreadListTile extends StatelessWidget {
   final MessageThread thread;

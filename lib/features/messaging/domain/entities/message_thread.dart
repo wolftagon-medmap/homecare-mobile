@@ -80,23 +80,3 @@ class MessageThread extends Equatable {
         lastMessageAt,
       ];
 }
-
-/// How a screen names the thread it wants without knowing its id.
-///
-/// An appointment card knows its appointment; a care-task card knows its task.
-/// Neither should have to carry a thread id, and no v1 payload had to grow one
-/// to make this work — [ThreadIndexCubit] resolves the ref against the list it
-/// already loaded.
-class ThreadRef extends Equatable {
-  final int? appointmentId;
-  final int? careTaskId;
-
-  const ThreadRef._({this.appointmentId, this.careTaskId});
-
-  const ThreadRef.forAppointment(int id) : this._(appointmentId: id);
-
-  const ThreadRef.forCareTask(int id) : this._(careTaskId: id);
-
-  @override
-  List<Object?> get props => [appointmentId, careTaskId];
-}

@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 
-import '../../domain/entities/message_thread.dart';
-import '../../messaging_routes.dart';
-import '../bloc/thread_index_cubit.dart';
+import 'package:m2health/core/messaging/messaging_entry.dart';
+import 'package:m2health/core/messaging/thread_index_cubit.dart';
+import 'package:m2health/core/messaging/thread_ref.dart';
 
 /// The entry to a conversation, sitting on the thing the conversation is about.
 ///
@@ -13,6 +13,9 @@ import '../bloc/thread_index_cubit.dart';
 /// conversation without the appointment payload having grown a field for it. If
 /// [ThreadIndexCubit] has no thread for the ref, this renders **nothing** — so a
 /// card can never navigate to a screen that is not there.
+///
+/// It lives in `lib/core` so that any feature can drop one in without importing
+/// `features/messaging` (AGENTS.md rule 3).
 class MessageActionButton extends StatelessWidget {
   final ThreadRef threadRef;
 
@@ -30,12 +33,12 @@ class MessageActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final thread = context.select<ThreadIndexCubit, MessageThread?>(
+    final thread = context.select<ThreadIndexCubit, ThreadEntry?>(
       (cubit) => cubit.state.resolve(threadRef),
     );
     if (thread == null) return const SizedBox.shrink();
 
-    void open() => _open(context, thread.id);
+    void open() => _open(context, thread.threadId);
 
     return switch (style) {
       MessageActionStyle.icon =>
@@ -49,7 +52,7 @@ class MessageActionButton extends StatelessWidget {
 
   Future<void> _open(BuildContext context, int threadId) async {
     final index = context.read<ThreadIndexCubit>();
-    await context.push(MessagingRoutes.threadPath(threadId));
+    await context.push(MessagingEntry.threadPath(threadId));
     // Reading the thread clears its unread; every badge in the app settles here.
     await index.refresh();
   }

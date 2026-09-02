@@ -13,7 +13,10 @@ import '../widgets/thread_view.dart';
 class PatientChatPage extends StatefulWidget {
   final MessageThread? thread;
 
-  const PatientChatPage({super.key, this.thread});
+  /// Shown when a deep link opens the thread before the list has been loaded.
+  final String? fallbackName;
+
+  const PatientChatPage({super.key, this.thread, this.fallbackName});
 
   @override
   State<PatientChatPage> createState() => _PatientChatPageState();
@@ -29,7 +32,8 @@ class _PatientChatPageState extends State<PatientChatPage> {
   @override
   Widget build(BuildContext context) {
     final counterpart = widget.thread?.counterpart;
-    final name = counterpart?.name ?? 'Your professional';
+    final name =
+        counterpart?.name ?? widget.fallbackName ?? 'Your professional';
     final closed = widget.thread?.isOpen == false;
 
     return Scaffold(

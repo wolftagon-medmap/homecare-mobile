@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:m2health/features/messaging/data/fixtures/inbox_demo_fixture.dart';
+import 'package:m2health/features/appointment/data/fixtures/inbox_demo_fixture.dart';
 import 'package:m2health/features/messaging/data/fixtures/thread_fixtures.dart';
 import 'package:m2health/features/messaging/data/models/chat_message_model.dart';
 import 'package:m2health/features/messaging/data/models/message_thread_model.dart';

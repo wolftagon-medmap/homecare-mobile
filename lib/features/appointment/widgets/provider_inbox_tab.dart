@@ -6,9 +6,9 @@ import 'package:m2health/features/appointment/bloc/provider_appointment_cubit.da
 import 'package:m2health/features/appointment/bloc/provider_inbox_cubit.dart';
 import 'package:m2health/features/appointment/data/models/inbox_item.dart';
 import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
-import 'package:m2health/features/messaging/domain/entities/message_thread.dart';
-import 'package:m2health/features/messaging/presentation/widgets/message_action_button.dart';
-import 'package:m2health/features/messaging/presentation/widgets/propose_time_sheet.dart';
+import 'package:m2health/core/messaging/thread_ref.dart';
+import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
+import 'package:m2health/core/presentation/widgets/messaging/propose_time_sheet.dart';
 
 /// The provider Pending tab (ADR-0006): the unified inbox of v1 pending
 /// appointments + v2 care-task offers. Accepted/completed/cancelled stay on the

@@ -5,7 +5,7 @@ import 'package:m2health/const.dart';
 import 'package:m2health/core/presentation/widgets/booking/booking.dart';
 
 import '../../messaging_routes.dart';
-import '../bloc/thread_index_cubit.dart';
+import 'package:m2health/core/messaging/thread_index_cubit.dart';
 import '../bloc/thread_list_cubit.dart';
 import '../widgets/thread_list_tile.dart';
 

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/core/blocs/user_role_cubit.dart';
+import 'package:m2health/core/messaging/messaging_entry.dart';
+import 'package:m2health/core/messaging/thread_index_cubit.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/route/navigator_keys.dart';
 import 'package:m2health/service_locator.dart';
@@ -9,7 +11,6 @@ import 'package:m2health/service_locator.dart';
 import 'domain/entities/message_thread.dart';
 import 'domain/repositories/messaging_repository.dart';
 import 'presentation/bloc/thread_cubit.dart';
-import 'presentation/bloc/thread_index_cubit.dart';
 import 'presentation/bloc/thread_list_cubit.dart';
 import 'presentation/pages/message_thread_list_page.dart';
 import 'presentation/pages/patient_chat_page.dart';
@@ -23,7 +24,8 @@ class MessagingRoutes {
   static const String entry = AppRoutes.messages;
   static const String thread = '$entry/thread/:threadId';
 
-  static String threadPath(int threadId) => '$entry/thread/$threadId';
+  /// Callers outside this feature navigate with `MessagingEntry.threadPath`.
+  static String threadPath(int threadId) => MessagingEntry.threadPath(threadId);
 
   static List<RouteBase> routes = [
     GoRoute(
@@ -43,25 +45,24 @@ class MessagingRoutes {
                 int.tryParse(state.pathParameters['threadId'] ?? '');
             if (threadId == null) return const _UnknownThread();
 
-            // The list passes the thread it already has so the header renders
-            // immediately; a deep link from a notification passes nothing and
-            // the index fills it in.
+            // The list passes the thread it already has, so the header renders
+            // immediately. A deep link from a notification passes nothing, and
+            // the core index supplies the name until the messages arrive.
             final passed = state.extra is MessageThread
                 ? state.extra as MessageThread
-                : context
-                    .read<ThreadIndexCubit>()
-                    .state
-                    .threads
-                    .where(
-                      (t) => t.id == threadId,
-                    )
-                    .firstOrNull;
+                : null;
+            final fallbackName = context
+                .read<ThreadIndexCubit>()
+                .state
+                .byId(threadId)
+                ?.counterpartName;
 
             return BlocProvider(
               create: (_) => ThreadCubit(sl<MessagingRepository>(), threadId),
               child: context.read<UserRoleCubit>().state.isProvider
-                  ? ProfessionalChatPage(thread: passed)
-                  : PatientChatPage(thread: passed),
+                  ? ProfessionalChatPage(
+                      thread: passed, fallbackName: fallbackName)
+                  : PatientChatPage(thread: passed, fallbackName: fallbackName),
             );
           },
         ),

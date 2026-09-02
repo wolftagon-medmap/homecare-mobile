@@ -7,7 +7,7 @@ import '../../domain/entities/chat_message.dart';
 import '../bloc/thread_cubit.dart';
 import 'chat_bubble.dart';
 import 'estimate_revision_card.dart';
-import 'propose_time_sheet.dart';
+import 'package:m2health/core/presentation/widgets/messaging/propose_time_sheet.dart';
 import 'time_proposal_card.dart';
 
 /// The conversation itself, shared by both chat screens.

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/notifications/domain/entities/app_notification.dart';
 import 'package:m2health/features/notifications/presentation/bloc/notifications_cubit.dart';
-import 'package:m2health/features/messaging/messaging_routes.dart';
+import 'package:m2health/core/messaging/messaging_entry.dart';
 import 'package:m2health/route/app_routes.dart';
 
 /// The notification inbox. Unread items are visually distinct (tint + dot +
@@ -54,7 +54,7 @@ class _NotificationInboxPageState extends State<NotificationInboxPage> {
           // this is already where people look for what is new.
           IconButton(
             tooltip: 'Messages',
-            onPressed: () => context.push(MessagingRoutes.entry),
+            onPressed: () => context.push(MessagingEntry.list),
             icon: const Icon(Icons.forum_outlined, color: Const.aqua, size: 22),
           ),
           BlocBuilder<NotificationsCubit, NotificationsState>(
@@ -310,7 +310,7 @@ class _NotificationTile extends StatelessWidget {
     final type = notification.type ?? '';
     // A message notification always points at its conversation.
     if (notification.threadId != null) {
-      context.push(MessagingRoutes.threadPath(notification.threadId!));
+      context.push(MessagingEntry.threadPath(notification.threadId!));
       return;
     }
     // Nurse offer → the Pending inbox tab (same target as the FCM tap).

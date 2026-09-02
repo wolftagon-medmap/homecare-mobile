@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:m2health/features/messaging/domain/entities/message_thread.dart';
-import 'package:m2health/features/messaging/presentation/widgets/message_action_button.dart';
+import 'package:m2health/core/messaging/thread_ref.dart';
+import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
