@@ -1,3 +1,21 @@
 {
-  "namespace_title": "AI Assistant"
+  "title": "M2Health AI Assistant",
+  "heroGreeting": "Hi! I'm your",
+  "heroName": "M2Health AI Health Assistant.",
+  "heroBody": "Tell me what's bothering you, and I'll help you understand what you can do next.",
+  "composerHint": "Type your message...",
+  "composerHintWelcome": "Or type your question here...",
+  "send": "Send",
+  "startOver": "Start over",
+  "privacyLabel": "(HIPAA Privacy)",
+  "privacyDetail": "Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.",
+  "benefitsTitle": "Why use M2Health AI Assistant?",
+  "benefitUnderstand": "Understand your concerns",
+  "benefitExplain": "Get clear explanations in simple language",
+  "benefitSaveTime": "Save time and reduce guesswork",
+  "benefitConnect": "Connect to the right care, faster",
+  "disclaimerTitle": "Important",
+  "disclaimerBody": "This AI Assistant provides general information only and does not replace professional medical advice, diagnosis or treatment. If you have a medical emergency, please seek urgent medical care.",
+  "errorTitle": "The assistant is unavailable",
+  "retry": "Try again"
 }
