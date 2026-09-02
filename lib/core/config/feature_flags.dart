@@ -13,6 +13,7 @@ enum Feature {
   bookingProfessionals,
   bookingSubmit,
   bookingDraft,
+  bookingAddresses,
 
   // A2 — messaging and counter-propose
   messageThreads,
@@ -56,7 +57,8 @@ extension FeatureMeta on Feature {
         Feature.issueCatalogue ||
         Feature.bookingProfessionals ||
         Feature.bookingSubmit ||
-        Feature.bookingDraft =>
+        Feature.bookingDraft ||
+        Feature.bookingAddresses =>
           FeatureOwner.guidedBooking,
         Feature.messageThreads ||
         Feature.messageStream ||
@@ -76,6 +78,7 @@ extension FeatureMeta on Feature {
         Feature.bookingProfessionals => 'Professional list',
         Feature.bookingSubmit => 'Send booking request',
         Feature.bookingDraft => 'Booking draft state',
+        Feature.bookingAddresses => 'Saved visit addresses',
         Feature.messageThreads => 'Threads and unread counts',
         Feature.messageStream => 'Send and receive messages',
         Feature.timeProposal => 'Time proposal',
@@ -126,6 +129,7 @@ class AppFlags {
     Feature.bookingProfessionals: false,
     Feature.bookingSubmit: false,
     Feature.bookingDraft: false,
+    Feature.bookingAddresses: false,
     Feature.messageThreads: false,
     Feature.messageStream: false,
     Feature.timeProposal: false,
