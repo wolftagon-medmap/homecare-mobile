@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/config/feature_flags_routes.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/pharmacy_routes.dart';
@@ -119,6 +120,9 @@ final GoRouter router = GoRouter(
     ...MessagingRoutes.routes,
     ...PricingRoutes.routes,
     ...HealthProfileRoutes.routes,
+
+    // Debug-only screen; the entry tile is gated behind kDebugMode.
+    ...FeatureFlagsRoutes.routes,
 
     GoRoute(
       path: AppRoutes.payment,

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/config/feature_flags.dart';
 import 'package:m2health/core/blocs/user_role_cubit.dart';
 import 'package:m2health/core/network/token_expiration_interceptor.dart';
 import 'package:m2health/features/auth/injection.dart';
@@ -67,6 +68,10 @@ Future<void> setupLocator() async {
   });
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerSingleton<SharedPreferences>(sharedPreferences);
+
+  // Data-source flags (contract C2). Must load before any feature module
+  // registers, because a module may resolve its data source right here.
+  await AppFlags.init(sharedPreferences);
   sl.registerLazySingleton(() => AppointmentService(sl()));
   sl.registerLazySingleton(() => AppConfigService(sl()));
   sl.registerLazySingleton(() => QuestionnaireService(sl()));
