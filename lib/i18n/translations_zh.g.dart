@@ -163,6 +163,15 @@ class _TranslationsGuidedBookingZh implements TranslationsGuidedBookingEn {
 
 	// Translations
 	@override String get namespace_title => '预约服务';
+	@override late final _TranslationsGuidedBookingSubServiceZh sub_service = _TranslationsGuidedBookingSubServiceZh._(_root);
+	@override late final _TranslationsGuidedBookingIssuesZh issues = _TranslationsGuidedBookingIssuesZh._(_root);
+	@override late final _TranslationsGuidedBookingAddOnsZh add_ons = _TranslationsGuidedBookingAddOnsZh._(_root);
+	@override late final _TranslationsGuidedBookingProfessionalZh professional = _TranslationsGuidedBookingProfessionalZh._(_root);
+	@override late final _TranslationsGuidedBookingScheduleZh schedule = _TranslationsGuidedBookingScheduleZh._(_root);
+	@override late final _TranslationsGuidedBookingReviewZh review = _TranslationsGuidedBookingReviewZh._(_root);
+	@override late final _TranslationsGuidedBookingSentZh sent = _TranslationsGuidedBookingSentZh._(_root);
+	@override late final _TranslationsGuidedBookingStatusZh status = _TranslationsGuidedBookingStatusZh._(_root);
+	@override late final _TranslationsGuidedBookingCtaZh cta = _TranslationsGuidedBookingCtaZh._(_root);
 }
 
 // Path: healthProfile
@@ -182,7 +191,14 @@ class _TranslationsMessagingZh implements TranslationsMessagingEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get namespace_title => '消息';
+	@override String get title => '消息';
+	@override String get emptyTitle => '暂无对话';
+	@override String get emptyBody => '发送预约请求后，您可以在此与专业人员沟通。';
+	@override String get composerHint => '输入消息';
+	@override String get threadClosed => '此对话已结束。';
+	@override String get sayHello => '打个招呼';
+	@override late final _TranslationsMessagingTimeProposalZh timeProposal = _TranslationsMessagingTimeProposalZh._(_root);
+	@override late final _TranslationsMessagingEstimateRevisionZh estimateRevision = _TranslationsMessagingEstimateRevisionZh._(_root);
 }
 
 // Path: nursing
@@ -610,6 +626,191 @@ class _TranslationsGlobalMessagesZh implements TranslationsGlobalMessagesEn {
 	// Translations
 	@override String get delete_success => '删除成功';
 	@override String get updated_success => '更新成功';
+}
+
+// Path: guidedBooking.sub_service
+class _TranslationsGuidedBookingSubServiceZh implements TranslationsGuidedBookingSubServiceEn {
+	_TranslationsGuidedBookingSubServiceZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '您需要哪项服务？';
+	@override String get subtitle => '请选择最合适的一项。';
+	@override String get empty => '此处暂无可用服务。';
+}
+
+// Path: guidedBooking.issues
+class _TranslationsGuidedBookingIssuesZh implements TranslationsGuidedBookingIssuesEn {
+	_TranslationsGuidedBookingIssuesZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '我们能为您做些什么？';
+	@override String get subtitle => '请选择所有符合的项目，可多选。';
+	@override String get remarks_label => '备注（选填）';
+	@override String get remarks_hint => '还有什么需要让我们的医护人员知道的吗？';
+	@override String get add_ons_link => '添加项目或附加服务';
+	@override String get error => '无法加载问题列表。';
+	@override String get empty => '此服务暂未列出就诊原因。';
+}
+
+// Path: guidedBooking.add_ons
+class _TranslationsGuidedBookingAddOnsZh implements TranslationsGuidedBookingAddOnsEn {
+	_TranslationsGuidedBookingAddOnsZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '还需要添加什么吗？';
+	@override String get subtitle => '可选附加项目，单独计价。不确定可以跳过。';
+	@override String get empty => '此服务暂无附加项目。';
+	@override String selected({required Object count}) => '已添加 ${count} 项';
+}
+
+// Path: guidedBooking.professional
+class _TranslationsGuidedBookingProfessionalZh implements TranslationsGuidedBookingProfessionalEn {
+	_TranslationsGuidedBookingProfessionalZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '选择医护人员';
+	@override String get subtitle => '以下人员均可前往您的上门地址。';
+	@override String get location_label => '上门地址';
+	@override String get location_empty => '添加地址以查看可服务的人员';
+	@override String get location_loading => '正在查找您保存的地址';
+	@override String get change_location => '更改';
+	@override String get picker_title => '我们应该上门到哪里？';
+	@override String get add_address => '添加新地址';
+	@override String get loading => '正在查找您附近的医护人员';
+	@override String get empty => '该地址暂无可服务的医护人员，请尝试其他地址。';
+	@override String get error => '无法加载医护人员列表。';
+	@override String years({required Object years}) => '${years} 年经验';
+	@override String reviews({required Object count}) => '（${count}）';
+}
+
+// Path: guidedBooking.schedule
+class _TranslationsGuidedBookingScheduleZh implements TranslationsGuidedBookingScheduleEn {
+	_TranslationsGuidedBookingScheduleZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '您希望什么时候？';
+	@override String get subtitle => '请选择您希望的时间，我们会与医护人员确认。';
+	@override String get loading => '正在查询可预约时间';
+	@override String get empty => '当天没有空档，请尝试其他日期。';
+	@override String get error => '无法加载可预约时间。';
+	@override String get no_days => '该医护人员目前没有空档。';
+}
+
+// Path: guidedBooking.review
+class _TranslationsGuidedBookingReviewZh implements TranslationsGuidedBookingReviewEn {
+	_TranslationsGuidedBookingReviewZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '核对您的申请';
+	@override String get subtitle => '确认无误后即可发送。';
+	@override String get service => '服务';
+	@override String get issues => '就诊原因';
+	@override String get remarks => '备注';
+	@override String get add_ons => '附加项目';
+	@override String get location => '上门地址';
+	@override String get professional => '医护人员';
+	@override String get schedule => '希望的时间';
+	@override String get estimate => '预计总额';
+	@override String get estimate_note => '仅为预估。现在不会扣款，费用在上门服务时结算。';
+	@override String get edit => '修改';
+	@override String get none => '无';
+	@override String get send => '发送申请';
+}
+
+// Path: guidedBooking.sent
+class _TranslationsGuidedBookingSentZh implements TranslationsGuidedBookingSentEn {
+	_TranslationsGuidedBookingSentZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '申请已发送';
+	@override String body({required Object name}) => '我们已将您的申请转交给 ${name}，一有回复便会通知您。';
+	@override String get body_generic => '我们已转交您的申请，一旦有人接单便会通知您。';
+	@override String get message => '联系医护人员';
+	@override String get view_status => '查看申请状态';
+	@override String get done => '返回首页';
+}
+
+// Path: guidedBooking.status
+class _TranslationsGuidedBookingStatusZh implements TranslationsGuidedBookingStatusEn {
+	_TranslationsGuidedBookingStatusZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '您的申请';
+	@override String reference({required Object id}) => '申请编号 #${id}';
+	@override String submitted({required Object date}) => '发送于 ${date}';
+	@override String get preferred => '您希望的时间';
+	@override String get proposed => '对方建议的时间';
+	@override String pending_body({required Object name}) => '您的申请正由 ${name} 处理，一有回复我们便会通知您。';
+	@override String confirmed_body({required Object name}) => '${name} 已确认您的预约，届时见。';
+	@override String proposed_body({required Object name}) => '${name} 当时不方便，建议了另一个时间。';
+	@override String get cancelled_body => '此申请已取消。您随时可以重新发起。';
+	@override String get accept_time => '接受该时间';
+	@override String get choose_another => '另选时间';
+	@override String get cancel_request => '取消申请';
+	@override String get message => '消息';
+}
+
+// Path: guidedBooking.cta
+class _TranslationsGuidedBookingCtaZh implements TranslationsGuidedBookingCtaEn {
+	_TranslationsGuidedBookingCtaZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get kContinue => '继续';
+	@override String get skip => '跳过';
+}
+
+// Path: messaging.timeProposal
+class _TranslationsMessagingTimeProposalZh implements TranslationsMessagingTimeProposalEn {
+	_TranslationsMessagingTimeProposalZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '已提议其他时间';
+	@override String get youAskedFor => '您原本要求';
+	@override String get proposed => '建议时间';
+	@override String get accept => '接受';
+	@override String get chooseAnother => '另选时间';
+	@override String get heldFor => '此时段将保留有限时间';
+	@override String get suggestAnother => '建议其他时间';
+	@override String get sheetTitleProfessional => '建议其他时间';
+	@override String get sheetTitlePatient => '哪个时间方便？';
+	@override String get sendSuggestion => '发送建议';
+	@override String get sendTime => '发送此时间';
+	@override String get reasonLabel => '原因？（选填）';
+	@override String get reasonHint => '简短说明有助于对方同意。';
+}
+
+// Path: messaging.estimateRevision
+class _TranslationsMessagingEstimateRevisionZh implements TranslationsMessagingEstimateRevisionEn {
+	_TranslationsMessagingEstimateRevisionZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => '修订后的费用估算';
+	@override String get newTotal => '新的预估总额';
+	@override String get approve => '批准';
+	@override String get approved => '已批准';
+	@override String get withdrawn => '已撤回';
 }
 
 // Path: nursing.services
@@ -1293,8 +1494,99 @@ extension on TranslationsZh {
 			'global.update' => '更新',
 			'global.yes' => '是',
 			'guidedBooking.namespace_title' => '预约服务',
+			'guidedBooking.sub_service.title' => '您需要哪项服务？',
+			'guidedBooking.sub_service.subtitle' => '请选择最合适的一项。',
+			'guidedBooking.sub_service.empty' => '此处暂无可用服务。',
+			'guidedBooking.issues.title' => '我们能为您做些什么？',
+			'guidedBooking.issues.subtitle' => '请选择所有符合的项目，可多选。',
+			'guidedBooking.issues.remarks_label' => '备注（选填）',
+			'guidedBooking.issues.remarks_hint' => '还有什么需要让我们的医护人员知道的吗？',
+			'guidedBooking.issues.add_ons_link' => '添加项目或附加服务',
+			'guidedBooking.issues.error' => '无法加载问题列表。',
+			'guidedBooking.issues.empty' => '此服务暂未列出就诊原因。',
+			'guidedBooking.add_ons.title' => '还需要添加什么吗？',
+			'guidedBooking.add_ons.subtitle' => '可选附加项目，单独计价。不确定可以跳过。',
+			'guidedBooking.add_ons.empty' => '此服务暂无附加项目。',
+			'guidedBooking.add_ons.selected' => ({required Object count}) => '已添加 ${count} 项',
+			'guidedBooking.professional.title' => '选择医护人员',
+			'guidedBooking.professional.subtitle' => '以下人员均可前往您的上门地址。',
+			'guidedBooking.professional.location_label' => '上门地址',
+			'guidedBooking.professional.location_empty' => '添加地址以查看可服务的人员',
+			'guidedBooking.professional.location_loading' => '正在查找您保存的地址',
+			'guidedBooking.professional.change_location' => '更改',
+			'guidedBooking.professional.picker_title' => '我们应该上门到哪里？',
+			'guidedBooking.professional.add_address' => '添加新地址',
+			'guidedBooking.professional.loading' => '正在查找您附近的医护人员',
+			'guidedBooking.professional.empty' => '该地址暂无可服务的医护人员，请尝试其他地址。',
+			'guidedBooking.professional.error' => '无法加载医护人员列表。',
+			'guidedBooking.professional.years' => ({required Object years}) => '${years} 年经验',
+			'guidedBooking.professional.reviews' => ({required Object count}) => '（${count}）',
+			'guidedBooking.schedule.title' => '您希望什么时候？',
+			'guidedBooking.schedule.subtitle' => '请选择您希望的时间，我们会与医护人员确认。',
+			'guidedBooking.schedule.loading' => '正在查询可预约时间',
+			'guidedBooking.schedule.empty' => '当天没有空档，请尝试其他日期。',
+			'guidedBooking.schedule.error' => '无法加载可预约时间。',
+			'guidedBooking.schedule.no_days' => '该医护人员目前没有空档。',
+			'guidedBooking.review.title' => '核对您的申请',
+			'guidedBooking.review.subtitle' => '确认无误后即可发送。',
+			'guidedBooking.review.service' => '服务',
+			'guidedBooking.review.issues' => '就诊原因',
+			'guidedBooking.review.remarks' => '备注',
+			'guidedBooking.review.add_ons' => '附加项目',
+			'guidedBooking.review.location' => '上门地址',
+			'guidedBooking.review.professional' => '医护人员',
+			'guidedBooking.review.schedule' => '希望的时间',
+			'guidedBooking.review.estimate' => '预计总额',
+			'guidedBooking.review.estimate_note' => '仅为预估。现在不会扣款，费用在上门服务时结算。',
+			'guidedBooking.review.edit' => '修改',
+			'guidedBooking.review.none' => '无',
+			'guidedBooking.review.send' => '发送申请',
+			'guidedBooking.sent.title' => '申请已发送',
+			'guidedBooking.sent.body' => ({required Object name}) => '我们已将您的申请转交给 ${name}，一有回复便会通知您。',
+			'guidedBooking.sent.body_generic' => '我们已转交您的申请，一旦有人接单便会通知您。',
+			'guidedBooking.sent.message' => '联系医护人员',
+			'guidedBooking.sent.view_status' => '查看申请状态',
+			'guidedBooking.sent.done' => '返回首页',
+			'guidedBooking.status.title' => '您的申请',
+			'guidedBooking.status.reference' => ({required Object id}) => '申请编号 #${id}',
+			'guidedBooking.status.submitted' => ({required Object date}) => '发送于 ${date}',
+			'guidedBooking.status.preferred' => '您希望的时间',
+			'guidedBooking.status.proposed' => '对方建议的时间',
+			'guidedBooking.status.pending_body' => ({required Object name}) => '您的申请正由 ${name} 处理，一有回复我们便会通知您。',
+			'guidedBooking.status.confirmed_body' => ({required Object name}) => '${name} 已确认您的预约，届时见。',
+			'guidedBooking.status.proposed_body' => ({required Object name}) => '${name} 当时不方便，建议了另一个时间。',
+			'guidedBooking.status.cancelled_body' => '此申请已取消。您随时可以重新发起。',
+			'guidedBooking.status.accept_time' => '接受该时间',
+			'guidedBooking.status.choose_another' => '另选时间',
+			'guidedBooking.status.cancel_request' => '取消申请',
+			'guidedBooking.status.message' => '消息',
+			'guidedBooking.cta.kContinue' => '继续',
+			'guidedBooking.cta.skip' => '跳过',
 			'healthProfile.namespace_title' => '健康档案',
-			'messaging.namespace_title' => '消息',
+			'messaging.title' => '消息',
+			'messaging.emptyTitle' => '暂无对话',
+			'messaging.emptyBody' => '发送预约请求后，您可以在此与专业人员沟通。',
+			'messaging.composerHint' => '输入消息',
+			'messaging.threadClosed' => '此对话已结束。',
+			'messaging.sayHello' => '打个招呼',
+			'messaging.timeProposal.title' => '已提议其他时间',
+			'messaging.timeProposal.youAskedFor' => '您原本要求',
+			'messaging.timeProposal.proposed' => '建议时间',
+			'messaging.timeProposal.accept' => '接受',
+			'messaging.timeProposal.chooseAnother' => '另选时间',
+			'messaging.timeProposal.heldFor' => '此时段将保留有限时间',
+			'messaging.timeProposal.suggestAnother' => '建议其他时间',
+			'messaging.timeProposal.sheetTitleProfessional' => '建议其他时间',
+			'messaging.timeProposal.sheetTitlePatient' => '哪个时间方便？',
+			'messaging.timeProposal.sendSuggestion' => '发送建议',
+			'messaging.timeProposal.sendTime' => '发送此时间',
+			'messaging.timeProposal.reasonLabel' => '原因？（选填）',
+			'messaging.timeProposal.reasonHint' => '简短说明有助于对方同意。',
+			'messaging.estimateRevision.title' => '修订后的费用估算',
+			'messaging.estimateRevision.newTotal' => '新的预估总额',
+			'messaging.estimateRevision.approve' => '批准',
+			'messaging.estimateRevision.approved' => '已批准',
+			'messaging.estimateRevision.withdrawn' => '已撤回',
 			'nursing.services.primary_nursing.description' => '监测并执行从身体检查、给药、管饲和吸痰到注射及伤口护理的各项护理程序。',
 			'nursing.services.primary_nursing.title' => '基础护理',
 			'nursing.services.specialized_nursing.description' => '您只需专注于康复，将复杂的护理工作交给经验丰富的专业护理人员 。',

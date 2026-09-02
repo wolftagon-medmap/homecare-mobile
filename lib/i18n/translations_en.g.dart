@@ -247,6 +247,16 @@ class TranslationsGuidedBookingEn {
 
 	/// en: 'Book a service'
 	String get namespace_title => 'Book a service';
+
+	late final TranslationsGuidedBookingSubServiceEn sub_service = TranslationsGuidedBookingSubServiceEn._(_root);
+	late final TranslationsGuidedBookingIssuesEn issues = TranslationsGuidedBookingIssuesEn._(_root);
+	late final TranslationsGuidedBookingAddOnsEn add_ons = TranslationsGuidedBookingAddOnsEn._(_root);
+	late final TranslationsGuidedBookingProfessionalEn professional = TranslationsGuidedBookingProfessionalEn._(_root);
+	late final TranslationsGuidedBookingScheduleEn schedule = TranslationsGuidedBookingScheduleEn._(_root);
+	late final TranslationsGuidedBookingReviewEn review = TranslationsGuidedBookingReviewEn._(_root);
+	late final TranslationsGuidedBookingSentEn sent = TranslationsGuidedBookingSentEn._(_root);
+	late final TranslationsGuidedBookingStatusEn status = TranslationsGuidedBookingStatusEn._(_root);
+	late final TranslationsGuidedBookingCtaEn cta = TranslationsGuidedBookingCtaEn._(_root);
 }
 
 // Path: healthProfile
@@ -270,7 +280,25 @@ class TranslationsMessagingEn {
 	// Translations
 
 	/// en: 'Messages'
-	String get namespace_title => 'Messages';
+	String get title => 'Messages';
+
+	/// en: 'No conversations yet'
+	String get emptyTitle => 'No conversations yet';
+
+	/// en: 'When you send a booking request, you can talk to the professional here.'
+	String get emptyBody => 'When you send a booking request, you can talk to the professional here.';
+
+	/// en: 'Write a message'
+	String get composerHint => 'Write a message';
+
+	/// en: 'This conversation is closed.'
+	String get threadClosed => 'This conversation is closed.';
+
+	/// en: 'Say hello'
+	String get sayHello => 'Say hello';
+
+	late final TranslationsMessagingTimeProposalEn timeProposal = TranslationsMessagingTimeProposalEn._(_root);
+	late final TranslationsMessagingEstimateRevisionEn estimateRevision = TranslationsMessagingEstimateRevisionEn._(_root);
 }
 
 // Path: nursing
@@ -1029,6 +1057,363 @@ class TranslationsGlobalMessagesEn {
 
 	/// en: 'Updated successfully'
 	String get updated_success => 'Updated successfully';
+}
+
+// Path: guidedBooking.sub_service
+class TranslationsGuidedBookingSubServiceEn {
+	TranslationsGuidedBookingSubServiceEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Which service do you need?'
+	String get title => 'Which service do you need?';
+
+	/// en: 'Pick the one that fits best.'
+	String get subtitle => 'Pick the one that fits best.';
+
+	/// en: 'No services are available here yet.'
+	String get empty => 'No services are available here yet.';
+}
+
+// Path: guidedBooking.issues
+class TranslationsGuidedBookingIssuesEn {
+	TranslationsGuidedBookingIssuesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'What can we help you with?'
+	String get title => 'What can we help you with?';
+
+	/// en: 'Pick everything that applies. You can choose more than one.'
+	String get subtitle => 'Pick everything that applies. You can choose more than one.';
+
+	/// en: 'Remarks (optional)'
+	String get remarks_label => 'Remarks (optional)';
+
+	/// en: 'Anything else you would like our healthcare professional to know?'
+	String get remarks_hint => 'Anything else you would like our healthcare professional to know?';
+
+	/// en: 'Add procedures or extras'
+	String get add_ons_link => 'Add procedures or extras';
+
+	/// en: 'We could not load the issue list.'
+	String get error => 'We could not load the issue list.';
+
+	/// en: 'No reasons are listed for this service yet.'
+	String get empty => 'No reasons are listed for this service yet.';
+}
+
+// Path: guidedBooking.add_ons
+class TranslationsGuidedBookingAddOnsEn {
+	TranslationsGuidedBookingAddOnsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Anything else to add?'
+	String get title => 'Anything else to add?';
+
+	/// en: 'Optional extras, priced individually. Skip if you are not sure.'
+	String get subtitle => 'Optional extras, priced individually. Skip if you are not sure.';
+
+	/// en: 'No extras are available for this service.'
+	String get empty => 'No extras are available for this service.';
+
+	/// en: '{count} added'
+	String selected({required Object count}) => '${count} added';
+}
+
+// Path: guidedBooking.professional
+class TranslationsGuidedBookingProfessionalEn {
+	TranslationsGuidedBookingProfessionalEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Choose a professional'
+	String get title => 'Choose a professional';
+
+	/// en: 'Everyone here covers your visit address.'
+	String get subtitle => 'Everyone here covers your visit address.';
+
+	/// en: 'Visit address'
+	String get location_label => 'Visit address';
+
+	/// en: 'Add an address to see who is available'
+	String get location_empty => 'Add an address to see who is available';
+
+	/// en: 'Finding your saved addresses'
+	String get location_loading => 'Finding your saved addresses';
+
+	/// en: 'Change'
+	String get change_location => 'Change';
+
+	/// en: 'Where should we visit?'
+	String get picker_title => 'Where should we visit?';
+
+	/// en: 'Add a new address'
+	String get add_address => 'Add a new address';
+
+	/// en: 'Finding professionals near you'
+	String get loading => 'Finding professionals near you';
+
+	/// en: 'No professionals cover this address yet. Try another address.'
+	String get empty => 'No professionals cover this address yet. Try another address.';
+
+	/// en: 'We could not load the professional list.'
+	String get error => 'We could not load the professional list.';
+
+	/// en: '{years} yrs experience'
+	String years({required Object years}) => '${years} yrs experience';
+
+	/// en: '({count})'
+	String reviews({required Object count}) => '(${count})';
+}
+
+// Path: guidedBooking.schedule
+class TranslationsGuidedBookingScheduleEn {
+	TranslationsGuidedBookingScheduleEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'When suits you?'
+	String get title => 'When suits you?';
+
+	/// en: 'Pick a preferred time. We will confirm it with your professional.'
+	String get subtitle => 'Pick a preferred time. We will confirm it with your professional.';
+
+	/// en: 'Checking availability'
+	String get loading => 'Checking availability';
+
+	/// en: 'No open times on this day. Try another date.'
+	String get empty => 'No open times on this day. Try another date.';
+
+	/// en: 'We could not load the available times.'
+	String get error => 'We could not load the available times.';
+
+	/// en: 'This professional has no open times right now.'
+	String get no_days => 'This professional has no open times right now.';
+}
+
+// Path: guidedBooking.review
+class TranslationsGuidedBookingReviewEn {
+	TranslationsGuidedBookingReviewEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Review your request'
+	String get title => 'Review your request';
+
+	/// en: 'Check everything over, then send it.'
+	String get subtitle => 'Check everything over, then send it.';
+
+	/// en: 'Service'
+	String get service => 'Service';
+
+	/// en: 'Reasons for the visit'
+	String get issues => 'Reasons for the visit';
+
+	/// en: 'Remarks'
+	String get remarks => 'Remarks';
+
+	/// en: 'Extras'
+	String get add_ons => 'Extras';
+
+	/// en: 'Visit address'
+	String get location => 'Visit address';
+
+	/// en: 'Professional'
+	String get professional => 'Professional';
+
+	/// en: 'Preferred time'
+	String get schedule => 'Preferred time';
+
+	/// en: 'Estimated total'
+	String get estimate => 'Estimated total';
+
+	/// en: 'An estimate only. Nothing is charged now — payment happens at the visit.'
+	String get estimate_note => 'An estimate only. Nothing is charged now — payment happens at the visit.';
+
+	/// en: 'Edit'
+	String get edit => 'Edit';
+
+	/// en: 'None'
+	String get none => 'None';
+
+	/// en: 'Send request'
+	String get send => 'Send request';
+}
+
+// Path: guidedBooking.sent
+class TranslationsGuidedBookingSentEn {
+	TranslationsGuidedBookingSentEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Request sent'
+	String get title => 'Request sent';
+
+	/// en: 'We have passed your request to {name}. We will notify you as soon as they respond.'
+	String body({required Object name}) => 'We have passed your request to ${name}. We will notify you as soon as they respond.';
+
+	/// en: 'We have passed your request on. We will notify you as soon as it is picked up.'
+	String get body_generic => 'We have passed your request on. We will notify you as soon as it is picked up.';
+
+	/// en: 'Message your professional'
+	String get message => 'Message your professional';
+
+	/// en: 'View request status'
+	String get view_status => 'View request status';
+
+	/// en: 'Back to home'
+	String get done => 'Back to home';
+}
+
+// Path: guidedBooking.status
+class TranslationsGuidedBookingStatusEn {
+	TranslationsGuidedBookingStatusEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Your request'
+	String get title => 'Your request';
+
+	/// en: 'Request #{id}'
+	String reference({required Object id}) => 'Request #${id}';
+
+	/// en: 'Sent {date}'
+	String submitted({required Object date}) => 'Sent ${date}';
+
+	/// en: 'You asked for'
+	String get preferred => 'You asked for';
+
+	/// en: 'They suggested'
+	String get proposed => 'They suggested';
+
+	/// en: 'Your request is with {name}. We will let you know as soon as they respond.'
+	String pending_body({required Object name}) => 'Your request is with ${name}. We will let you know as soon as they respond.';
+
+	/// en: '{name} confirmed your visit. See you then.'
+	String confirmed_body({required Object name}) => '${name} confirmed your visit. See you then.';
+
+	/// en: '{name} is not free then and suggested another time.'
+	String proposed_body({required Object name}) => '${name} is not free then and suggested another time.';
+
+	/// en: 'This request was cancelled. You can start a new one whenever you are ready.'
+	String get cancelled_body => 'This request was cancelled. You can start a new one whenever you are ready.';
+
+	/// en: 'Accept this time'
+	String get accept_time => 'Accept this time';
+
+	/// en: 'Choose another time'
+	String get choose_another => 'Choose another time';
+
+	/// en: 'Cancel request'
+	String get cancel_request => 'Cancel request';
+
+	/// en: 'Message'
+	String get message => 'Message';
+}
+
+// Path: guidedBooking.cta
+class TranslationsGuidedBookingCtaEn {
+	TranslationsGuidedBookingCtaEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Continue'
+	String get kContinue => 'Continue';
+
+	/// en: 'Skip'
+	String get skip => 'Skip';
+}
+
+// Path: messaging.timeProposal
+class TranslationsMessagingTimeProposalEn {
+	TranslationsMessagingTimeProposalEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Alternative time proposed'
+	String get title => 'Alternative time proposed';
+
+	/// en: 'You asked for'
+	String get youAskedFor => 'You asked for';
+
+	/// en: 'Proposed'
+	String get proposed => 'Proposed';
+
+	/// en: 'Accept'
+	String get accept => 'Accept';
+
+	/// en: 'Choose Another'
+	String get chooseAnother => 'Choose Another';
+
+	/// en: 'This slot is held for a limited time'
+	String get heldFor => 'This slot is held for a limited time';
+
+	/// en: 'Suggest another time'
+	String get suggestAnother => 'Suggest another time';
+
+	/// en: 'Suggest another time'
+	String get sheetTitleProfessional => 'Suggest another time';
+
+	/// en: 'Which time suits you?'
+	String get sheetTitlePatient => 'Which time suits you?';
+
+	/// en: 'Send suggestion'
+	String get sendSuggestion => 'Send suggestion';
+
+	/// en: 'Send this time'
+	String get sendTime => 'Send this time';
+
+	/// en: 'Why? (optional)'
+	String get reasonLabel => 'Why? (optional)';
+
+	/// en: 'A short reason helps them say yes.'
+	String get reasonHint => 'A short reason helps them say yes.';
+}
+
+// Path: messaging.estimateRevision
+class TranslationsMessagingEstimateRevisionEn {
+	TranslationsMessagingEstimateRevisionEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Revised estimate'
+	String get title => 'Revised estimate';
+
+	/// en: 'New estimated total'
+	String get newTotal => 'New estimated total';
+
+	/// en: 'Approve'
+	String get approve => 'Approve';
+
+	/// en: 'Approved'
+	String get approved => 'Approved';
+
+	/// en: 'Withdrawn'
+	String get withdrawn => 'Withdrawn';
 }
 
 // Path: nursing.services
@@ -1916,8 +2301,99 @@ extension on Translations {
 			'global.update' => 'Update',
 			'global.yes' => 'Yes',
 			'guidedBooking.namespace_title' => 'Book a service',
+			'guidedBooking.sub_service.title' => 'Which service do you need?',
+			'guidedBooking.sub_service.subtitle' => 'Pick the one that fits best.',
+			'guidedBooking.sub_service.empty' => 'No services are available here yet.',
+			'guidedBooking.issues.title' => 'What can we help you with?',
+			'guidedBooking.issues.subtitle' => 'Pick everything that applies. You can choose more than one.',
+			'guidedBooking.issues.remarks_label' => 'Remarks (optional)',
+			'guidedBooking.issues.remarks_hint' => 'Anything else you would like our healthcare professional to know?',
+			'guidedBooking.issues.add_ons_link' => 'Add procedures or extras',
+			'guidedBooking.issues.error' => 'We could not load the issue list.',
+			'guidedBooking.issues.empty' => 'No reasons are listed for this service yet.',
+			'guidedBooking.add_ons.title' => 'Anything else to add?',
+			'guidedBooking.add_ons.subtitle' => 'Optional extras, priced individually. Skip if you are not sure.',
+			'guidedBooking.add_ons.empty' => 'No extras are available for this service.',
+			'guidedBooking.add_ons.selected' => ({required Object count}) => '${count} added',
+			'guidedBooking.professional.title' => 'Choose a professional',
+			'guidedBooking.professional.subtitle' => 'Everyone here covers your visit address.',
+			'guidedBooking.professional.location_label' => 'Visit address',
+			'guidedBooking.professional.location_empty' => 'Add an address to see who is available',
+			'guidedBooking.professional.location_loading' => 'Finding your saved addresses',
+			'guidedBooking.professional.change_location' => 'Change',
+			'guidedBooking.professional.picker_title' => 'Where should we visit?',
+			'guidedBooking.professional.add_address' => 'Add a new address',
+			'guidedBooking.professional.loading' => 'Finding professionals near you',
+			'guidedBooking.professional.empty' => 'No professionals cover this address yet. Try another address.',
+			'guidedBooking.professional.error' => 'We could not load the professional list.',
+			'guidedBooking.professional.years' => ({required Object years}) => '${years} yrs experience',
+			'guidedBooking.professional.reviews' => ({required Object count}) => '(${count})',
+			'guidedBooking.schedule.title' => 'When suits you?',
+			'guidedBooking.schedule.subtitle' => 'Pick a preferred time. We will confirm it with your professional.',
+			'guidedBooking.schedule.loading' => 'Checking availability',
+			'guidedBooking.schedule.empty' => 'No open times on this day. Try another date.',
+			'guidedBooking.schedule.error' => 'We could not load the available times.',
+			'guidedBooking.schedule.no_days' => 'This professional has no open times right now.',
+			'guidedBooking.review.title' => 'Review your request',
+			'guidedBooking.review.subtitle' => 'Check everything over, then send it.',
+			'guidedBooking.review.service' => 'Service',
+			'guidedBooking.review.issues' => 'Reasons for the visit',
+			'guidedBooking.review.remarks' => 'Remarks',
+			'guidedBooking.review.add_ons' => 'Extras',
+			'guidedBooking.review.location' => 'Visit address',
+			'guidedBooking.review.professional' => 'Professional',
+			'guidedBooking.review.schedule' => 'Preferred time',
+			'guidedBooking.review.estimate' => 'Estimated total',
+			'guidedBooking.review.estimate_note' => 'An estimate only. Nothing is charged now — payment happens at the visit.',
+			'guidedBooking.review.edit' => 'Edit',
+			'guidedBooking.review.none' => 'None',
+			'guidedBooking.review.send' => 'Send request',
+			'guidedBooking.sent.title' => 'Request sent',
+			'guidedBooking.sent.body' => ({required Object name}) => 'We have passed your request to ${name}. We will notify you as soon as they respond.',
+			'guidedBooking.sent.body_generic' => 'We have passed your request on. We will notify you as soon as it is picked up.',
+			'guidedBooking.sent.message' => 'Message your professional',
+			'guidedBooking.sent.view_status' => 'View request status',
+			'guidedBooking.sent.done' => 'Back to home',
+			'guidedBooking.status.title' => 'Your request',
+			'guidedBooking.status.reference' => ({required Object id}) => 'Request #${id}',
+			'guidedBooking.status.submitted' => ({required Object date}) => 'Sent ${date}',
+			'guidedBooking.status.preferred' => 'You asked for',
+			'guidedBooking.status.proposed' => 'They suggested',
+			'guidedBooking.status.pending_body' => ({required Object name}) => 'Your request is with ${name}. We will let you know as soon as they respond.',
+			'guidedBooking.status.confirmed_body' => ({required Object name}) => '${name} confirmed your visit. See you then.',
+			'guidedBooking.status.proposed_body' => ({required Object name}) => '${name} is not free then and suggested another time.',
+			'guidedBooking.status.cancelled_body' => 'This request was cancelled. You can start a new one whenever you are ready.',
+			'guidedBooking.status.accept_time' => 'Accept this time',
+			'guidedBooking.status.choose_another' => 'Choose another time',
+			'guidedBooking.status.cancel_request' => 'Cancel request',
+			'guidedBooking.status.message' => 'Message',
+			'guidedBooking.cta.kContinue' => 'Continue',
+			'guidedBooking.cta.skip' => 'Skip',
 			'healthProfile.namespace_title' => 'Health profile',
-			'messaging.namespace_title' => 'Messages',
+			'messaging.title' => 'Messages',
+			'messaging.emptyTitle' => 'No conversations yet',
+			'messaging.emptyBody' => 'When you send a booking request, you can talk to the professional here.',
+			'messaging.composerHint' => 'Write a message',
+			'messaging.threadClosed' => 'This conversation is closed.',
+			'messaging.sayHello' => 'Say hello',
+			'messaging.timeProposal.title' => 'Alternative time proposed',
+			'messaging.timeProposal.youAskedFor' => 'You asked for',
+			'messaging.timeProposal.proposed' => 'Proposed',
+			'messaging.timeProposal.accept' => 'Accept',
+			'messaging.timeProposal.chooseAnother' => 'Choose Another',
+			'messaging.timeProposal.heldFor' => 'This slot is held for a limited time',
+			'messaging.timeProposal.suggestAnother' => 'Suggest another time',
+			'messaging.timeProposal.sheetTitleProfessional' => 'Suggest another time',
+			'messaging.timeProposal.sheetTitlePatient' => 'Which time suits you?',
+			'messaging.timeProposal.sendSuggestion' => 'Send suggestion',
+			'messaging.timeProposal.sendTime' => 'Send this time',
+			'messaging.timeProposal.reasonLabel' => 'Why? (optional)',
+			'messaging.timeProposal.reasonHint' => 'A short reason helps them say yes.',
+			'messaging.estimateRevision.title' => 'Revised estimate',
+			'messaging.estimateRevision.newTotal' => 'New estimated total',
+			'messaging.estimateRevision.approve' => 'Approve',
+			'messaging.estimateRevision.approved' => 'Approved',
+			'messaging.estimateRevision.withdrawn' => 'Withdrawn',
 			'nursing.services.primary_nursing.description' => 'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.',
 			'nursing.services.primary_nursing.title' => 'Primary Nursing',
 			'nursing.services.specialized_nursing.description' => 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros',
