@@ -3,9 +3,12 @@ part of 'notifications_cubit.dart';
 sealed class NotificationsState {
   const NotificationsState();
 
-  /// Unread count for the dashboard bell badge (0 while loading/error).
+  /// Unread count for the dashboard bell badge. Carried through loading and
+  /// error so a refresh doesn't blink the badge to zero.
   int get unreadCount => switch (this) {
         NotificationsLoaded(:final unread) => unread,
+        NotificationsLoading(:final unread) => unread,
+        NotificationsError(:final unread) => unread,
         _ => 0,
       };
 }
@@ -15,12 +18,14 @@ class NotificationsInitial extends NotificationsState {
 }
 
 class NotificationsLoading extends NotificationsState {
-  const NotificationsLoading();
+  final int unread;
+  const NotificationsLoading({this.unread = 0});
 }
 
 class NotificationsError extends NotificationsState {
   final String message;
-  const NotificationsError(this.message);
+  final int unread;
+  const NotificationsError(this.message, {this.unread = 0});
 }
 
 class NotificationsLoaded extends NotificationsState {

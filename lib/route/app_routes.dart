@@ -19,6 +19,7 @@ class AppRoutes {
   static const String resetPasswordSuccess = '/reset-password-success';
 
   // Dasboard Services
+  static const String allServices = '/all-services';
   static const String pharmaServices = '/pharma-services';
   static const String nursingServices = '/nursing-services';
   static const String diabeticCare = '/diabetic-care';
