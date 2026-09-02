@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/chatbot/presentation/bloc/chat_cubit.dart';
-import 'package:m2health/features/chatbot/presentation/bloc/chat_state.dart';
-import 'package:m2health/features/chatbot/presentation/widgets/ai_data_consent.dart';
-import 'package:m2health/features/chatbot/presentation/widgets/assistant_thinking_indicator.dart';
-import 'package:m2health/features/chatbot/presentation/widgets/chat_input.dart';
-import 'package:m2health/features/chatbot/presentation/widgets/message_bubble.dart';
+import 'package:m2health/features/chatbot_legacy/presentation/bloc/chat_cubit.dart';
+import 'package:m2health/features/chatbot_legacy/presentation/bloc/chat_state.dart';
+import 'package:m2health/features/chatbot_legacy/presentation/widgets/ai_data_consent.dart';
+import 'package:m2health/features/chatbot_legacy/presentation/widgets/assistant_thinking_indicator.dart';
+import 'package:m2health/features/chatbot_legacy/presentation/widgets/chat_input.dart';
+import 'package:m2health/features/chatbot_legacy/presentation/widgets/message_bubble.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/utils.dart';
 

@@ -1,5 +1,5 @@
-import 'package:m2health/features/chatbot/domain/entities/conversation.dart';
-import 'package:m2health/features/chatbot/domain/entities/message.dart';
+import 'package:m2health/features/chatbot_legacy/domain/entities/conversation.dart';
+import 'package:m2health/features/chatbot_legacy/domain/entities/message.dart';
 
 typedef SendResult = ({Message userMessage, Message assistantMessage});
 

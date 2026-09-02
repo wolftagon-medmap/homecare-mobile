@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/chatbot/domain/entities/message.dart';
+import 'package:m2health/features/chatbot_legacy/domain/entities/message.dart';
 
 class UserBubble extends StatelessWidget {
   final Message message;

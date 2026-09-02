@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/chatbot/domain/entities/conversation.dart';
-import 'package:m2health/features/chatbot/presentation/bloc/conversation_list_cubit.dart';
-import 'package:m2health/features/chatbot/presentation/bloc/conversation_list_state.dart';
+import 'package:m2health/features/chatbot_legacy/domain/entities/conversation.dart';
+import 'package:m2health/features/chatbot_legacy/presentation/bloc/conversation_list_cubit.dart';
+import 'package:m2health/features/chatbot_legacy/presentation/bloc/conversation_list_state.dart';
 
 class ConversationListPage extends StatefulWidget {
   const ConversationListPage({super.key});

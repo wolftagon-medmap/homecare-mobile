@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/chatbot/domain/entities/assistant_message.dart';
-import 'package:m2health/features/chatbot/domain/entities/message.dart';
+import 'package:m2health/features/chatbot_legacy/domain/entities/assistant_message.dart';
+import 'package:m2health/features/chatbot_legacy/domain/entities/message.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:markdown/markdown.dart' as md;
-import 'package:m2health/features/chatbot/presentation/widgets/source_list_sheet.dart';
+import 'package:m2health/features/chatbot_legacy/presentation/widgets/source_list_sheet.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'copy_helper.dart';
 

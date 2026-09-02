@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/chatbot/presentation/widgets/chat_view.dart';
+import 'package:m2health/features/chatbot_legacy/presentation/widgets/chat_view.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class ChatPharmaPage extends StatelessWidget {

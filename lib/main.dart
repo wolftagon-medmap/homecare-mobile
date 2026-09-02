@@ -10,6 +10,7 @@ import 'package:m2health/features/auth/data/datasources/google_auth_source.dart'
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
 import 'package:m2health/features/chatbot/chatbot_providers.dart';
+import 'package:m2health/features/chatbot_legacy/chatbot_legacy_providers.dart';
 import 'package:m2health/features/guided_booking/guided_booking_providers.dart';
 import 'package:m2health/features/health_profile/health_profile_providers.dart';
 import 'package:m2health/features/messaging/messaging_providers.dart';
@@ -199,6 +200,7 @@ class M2HealthApp extends StatelessWidget {
         ...MessagingProviders.providers,
         ...PricingProviders.providers,
         ...ChatbotProviders.providers,
+        ...ChatbotLegacyProviders.providers,
         ...HealthProfileProviders.providers,
       ],
       child: BlocBuilder<LocaleCubit, AppLocale>(builder: (context, locale) {

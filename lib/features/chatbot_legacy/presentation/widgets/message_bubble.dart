@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:m2health/features/chatbot/domain/entities/message.dart';
-import 'package:m2health/features/chatbot/presentation/widgets/assistant_bubble.dart';
-import 'package:m2health/features/chatbot/presentation/widgets/user_bubble.dart';
+import 'package:m2health/features/chatbot_legacy/domain/entities/message.dart';
+import 'package:m2health/features/chatbot_legacy/presentation/widgets/assistant_bubble.dart';
+import 'package:m2health/features/chatbot_legacy/presentation/widgets/user_bubble.dart';
 
 /// Renders a single chat message as the appropriate bubble.
 class MessageBubble extends StatelessWidget {
