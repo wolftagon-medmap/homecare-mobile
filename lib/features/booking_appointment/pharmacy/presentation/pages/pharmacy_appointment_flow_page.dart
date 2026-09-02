@@ -19,7 +19,9 @@ import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
 class PharmacyAppointmentFlowPage extends StatefulWidget {
-  const PharmacyAppointmentFlowPage({super.key});
+  const PharmacyAppointmentFlowPage({super.key, this.coachingTopic});
+
+  final PharmacyCoachingTopic? coachingTopic;
 
   @override
   State<PharmacyAppointmentFlowPage> createState() =>
@@ -117,6 +119,17 @@ class PharmacyAppointmentFlowPageState
             _onBack(context);
           },
           child: Scaffold(
+            appBar: widget.coachingTopic == null
+                ? null
+                : AppBar(
+                    title: Text(
+                      widget.coachingTopic!.label,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
             body: PageView(
               controller: _pageController,
               physics: const NeverScrollableScrollPhysics(),

@@ -3,6 +3,7 @@ import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/core/data/models/appointment_model.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/services/appointment_service.dart';
+import 'package:m2health/features/booking_appointment/pharmacy/const.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/domain/repositories/pharmacy_appointment_repository.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/domain/usecases/create_pharmacy_appointment.dart';
 
@@ -23,9 +24,15 @@ class PharmacyAppointmentRepositoryImpl extends PharmacyAppointmentRepository {
         'type': params.type,
         'provider_id': params.providerId,
         'start_datetime': params.startDatetime.toIso8601String(),
-        'summary': isSmokingCessation ? 'Smoking Cessation' : params.summary,
+        'summary': isSmokingCessation
+            ? 'Smoking Cessation'
+            : (PharmacyCoachingTopic.fromCode(pharmacyCase.coachingTopic)
+                    ?.label ??
+                params.summary),
         'request_data': {
           'service_type': pharmacyCase.serviceType,
+          if (pharmacyCase.coachingTopic != null)
+            'coaching_topic': pharmacyCase.coachingTopic,
           if (isSmokingCessation) ...{
             if (params.questionnaireResponseId != null)
               'questionnaire_response_id': params.questionnaireResponseId,

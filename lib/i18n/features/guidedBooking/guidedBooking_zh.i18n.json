@@ -1,3 +1,89 @@
 {
-  "namespace_title": "预约服务"
+  "namespace_title": "预约服务",
+  "sub_service": {
+    "title": "您需要哪项服务？",
+    "subtitle": "请选择最合适的一项。",
+    "empty": "此处暂无可用服务。"
+  },
+  "issues": {
+    "title": "我们能为您做些什么？",
+    "subtitle": "请选择所有符合的项目，可多选。",
+    "remarks_label": "备注（选填）",
+    "remarks_hint": "还有什么需要让我们的医护人员知道的吗？",
+    "add_ons_link": "添加项目或附加服务",
+    "error": "无法加载问题列表。",
+    "empty": "此服务暂未列出就诊原因。"
+  },
+  "add_ons": {
+    "title": "还需要添加什么吗？",
+    "subtitle": "可选附加项目，单独计价。不确定可以跳过。",
+    "empty": "此服务暂无附加项目。",
+    "selected": "已添加 {count} 项"
+  },
+  "professional": {
+    "title": "选择医护人员",
+    "subtitle": "以下人员均可前往您的上门地址。",
+    "location_label": "上门地址",
+    "location_empty": "添加地址以查看可服务的人员",
+    "location_loading": "正在查找您保存的地址",
+    "change_location": "更改",
+    "picker_title": "我们应该上门到哪里？",
+    "add_address": "添加新地址",
+    "loading": "正在查找您附近的医护人员",
+    "empty": "该地址暂无可服务的医护人员，请尝试其他地址。",
+    "error": "无法加载医护人员列表。",
+    "years": "{years} 年经验",
+    "reviews": "（{count}）"
+  },
+  "schedule": {
+    "title": "您希望什么时候？",
+    "subtitle": "请选择您希望的时间，我们会与医护人员确认。",
+    "loading": "正在查询可预约时间",
+    "empty": "当天没有空档，请尝试其他日期。",
+    "error": "无法加载可预约时间。",
+    "no_days": "该医护人员目前没有空档。"
+  },
+  "review": {
+    "title": "核对您的申请",
+    "subtitle": "确认无误后即可发送。",
+    "service": "服务",
+    "issues": "就诊原因",
+    "remarks": "备注",
+    "add_ons": "附加项目",
+    "location": "上门地址",
+    "professional": "医护人员",
+    "schedule": "希望的时间",
+    "estimate": "预计总额",
+    "estimate_note": "仅为预估。现在不会扣款，费用在上门服务时结算。",
+    "edit": "修改",
+    "none": "无",
+    "send": "发送申请"
+  },
+  "sent": {
+    "title": "申请已发送",
+    "body": "我们已将您的申请转交给 {name}，一有回复便会通知您。",
+    "body_generic": "我们已转交您的申请，一旦有人接单便会通知您。",
+    "message": "联系医护人员",
+    "view_status": "查看申请状态",
+    "done": "返回首页"
+  },
+  "status": {
+    "title": "您的申请",
+    "reference": "申请编号 #{id}",
+    "submitted": "发送于 {date}",
+    "preferred": "您希望的时间",
+    "proposed": "对方建议的时间",
+    "pending_body": "您的申请正由 {name} 处理，一有回复我们便会通知您。",
+    "confirmed_body": "{name} 已确认您的预约，届时见。",
+    "proposed_body": "{name} 当时不方便，建议了另一个时间。",
+    "cancelled_body": "此申请已取消。您随时可以重新发起。",
+    "accept_time": "接受该时间",
+    "choose_another": "另选时间",
+    "cancel_request": "取消申请",
+    "message": "消息"
+  },
+  "cta": {
+    "continue": "继续",
+    "skip": "跳过"
+  }
 }

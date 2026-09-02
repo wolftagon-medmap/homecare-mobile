@@ -5,7 +5,8 @@ import 'package:m2health/features/booking_appointment/personal_issue/domain/enti
 
 class PharmacyCase extends Equatable {
   final int? appointmentId;
-  final String serviceType; // general_counseling | smoking_cessation
+  final String serviceType;
+  final String? coachingTopic;
   final List<PersonalIssue> issues;
   final MobilityStatus? mobilityStatus;
   final int? relatedHealthRecordId;
@@ -14,6 +15,7 @@ class PharmacyCase extends Equatable {
   const PharmacyCase({
     this.appointmentId,
     this.serviceType = 'general_counseling',
+    this.coachingTopic,
     this.issues = const [],
     this.mobilityStatus,
     this.relatedHealthRecordId,
@@ -24,6 +26,7 @@ class PharmacyCase extends Equatable {
   List<Object?> get props => [
         appointmentId,
         serviceType,
+        coachingTopic,
         issues,
         mobilityStatus,
         relatedHealthRecordId,
@@ -33,6 +36,7 @@ class PharmacyCase extends Equatable {
   PharmacyCase copyWith({
     int? appointmentId,
     String? serviceType,
+    String? coachingTopic,
     List<PersonalIssue>? issues,
     MobilityStatus? mobilityStatus,
     int? relatedHealthRecordId,
@@ -41,9 +45,11 @@ class PharmacyCase extends Equatable {
     return PharmacyCase(
       appointmentId: appointmentId ?? this.appointmentId,
       serviceType: serviceType ?? this.serviceType,
+      coachingTopic: coachingTopic ?? this.coachingTopic,
       issues: issues ?? this.issues,
       mobilityStatus: mobilityStatus ?? this.mobilityStatus,
-      relatedHealthRecordId: relatedHealthRecordId ?? this.relatedHealthRecordId,
+      relatedHealthRecordId:
+          relatedHealthRecordId ?? this.relatedHealthRecordId,
       addOnServices: addOnServices ?? this.addOnServices,
     );
   }
