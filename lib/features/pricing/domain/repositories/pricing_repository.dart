@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:m2health/core/error/failures.dart';
+import 'package:m2health/features/pricing/domain/entities/estimate_revision.dart';
 import 'package:m2health/features/pricing/domain/entities/floor_price_update.dart';
 import 'package:m2health/features/pricing/domain/entities/price_table.dart';
 import 'package:m2health/features/pricing/domain/entities/provider_service_rate.dart';
@@ -23,4 +24,14 @@ abstract class PricingRepository {
     int serviceId,
     double price,
   );
+
+  /// Newest first. The messaging feature renders these as an action card.
+  Future<Either<Failure, List<EstimateRevision>>> estimateRevisions(
+    int careTaskId,
+  );
+
+  Future<Either<Failure, EstimateRevision>> respondToRevision(
+    int revisionId, {
+    required bool approve,
+  });
 }

@@ -6,6 +6,8 @@ import 'package:m2health/features/pricing/data/datasources/price_table_datasourc
 import 'package:m2health/features/pricing/data/datasources/provider_rate_datasource.dart';
 import 'package:m2health/features/pricing/data/models/price_table_model.dart';
 import 'package:m2health/features/pricing/data/repositories/pricing_repository_impl.dart';
+import 'package:m2health/features/pricing/data/datasources/estimate_revision_datasource.dart';
+import 'package:m2health/features/pricing/domain/entities/estimate_revision.dart';
 import 'package:m2health/features/pricing/domain/entities/floor_price_update.dart';
 import 'package:m2health/features/pricing/domain/entities/price_table.dart';
 import 'package:m2health/features/pricing/domain/entities/provider_service_rate.dart';
@@ -61,6 +63,19 @@ class _FakeRepository implements PricingRepository {
     double price,
   ) async =>
       const Right(FloorPriceUpdate(services: [_woundCare], liftedRates: 3));
+
+  @override
+  Future<Either<Failure, List<EstimateRevision>>> estimateRevisions(
+    int careTaskId,
+  ) =>
+      throw UnimplementedError();
+
+  @override
+  Future<Either<Failure, EstimateRevision>> respondToRevision(
+    int revisionId, {
+    required bool approve,
+  }) =>
+      throw UnimplementedError();
 }
 
 void main() {
@@ -181,7 +196,7 @@ void main() {
     });
 
     test('raising a floor counts the rates that sat below it', () async {
-      final priceTable = const PriceTableLocalDataSource();
+      const priceTable = PriceTableLocalDataSource();
       final table = await priceTable.fetch();
       final source = FloorPriceLocalDataSource(priceTable);
 
@@ -201,6 +216,7 @@ void main() {
         priceTableSource: priceTable,
         providerRates: ProviderRateLocalDataSource(priceTable),
         floorPriceSource: FloorPriceLocalDataSource(priceTable),
+        revisions: EstimateRevisionLocalDataSource(),
       );
 
       await repository.priceTable();
