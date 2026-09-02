@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
-import 'package:m2health/features/second_opinion_imaging/presentation/pages/second_opinion_imaging_flow_page.dart';
+import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/features/second_opinion_imaging/presentation/bloc/second_opinion_imaging_flow_bloc.dart';
+import 'package:m2health/features/second_opinion_imaging/presentation/pages/second_opinion_imaging_flow_page.dart';
 import 'package:m2health/service_locator.dart';
 
 class SecondOpinionMedical extends StatefulWidget {
@@ -28,6 +29,8 @@ class _SecondOpinionMedicalState extends State<SecondOpinionMedical> {
         child: ListView(
           children: [
             ServiceSelectionCard(
+              priceTag:
+                  const StartingFromPrice(category: 'second_opinion_imaging'),
               title: context.l10n.second_opinion_teleradiology_title,
               description: context.l10n.second_opinion_teleradiology_desc,
               imagePath: 'assets/images/ilu_teleradiology.png',
@@ -48,6 +51,8 @@ class _SecondOpinionMedicalState extends State<SecondOpinionMedical> {
               },
             ),
             ServiceSelectionCard(
+              priceTag:
+                  const StartingFromPrice(category: 'second_opinion_imaging'),
               title: context.l10n.second_opinion_telepathology_title,
               description: context.l10n.second_opinion_telepathology_desc,
               imagePath: 'assets/images/ilu_telepathology.png',
