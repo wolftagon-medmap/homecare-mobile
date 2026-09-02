@@ -9,6 +9,11 @@ import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/auth/data/datasources/google_auth_source.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
+import 'package:m2health/features/chatbot/chatbot_providers.dart';
+import 'package:m2health/features/guided_booking/guided_booking_providers.dart';
+import 'package:m2health/features/health_profile/health_profile_providers.dart';
+import 'package:m2health/features/messaging/messaging_providers.dart';
+import 'package:m2health/features/pricing/pricing_providers.dart';
 import 'package:m2health/features/medical_record/domain/usecases/delete_medical_record.dart';
 import 'package:m2health/features/medical_record/domain/usecases/get_medical_records.dart';
 import 'package:m2health/features/medical_record/presentation/bloc/medical_record_bloc.dart';
@@ -186,6 +191,15 @@ class M2HealthApp extends StatelessWidget {
               DiabetesFormCubit(sl<Dio>(), sl<QuestionnaireService>()),
         ),
         BlocProvider(create: (context) => sl<SubscriptionCubit>()),
+
+        // === Client-feedback build — feature seams (A0 owns this block) ===
+        // App-wide blocs per feature, filled in by that feature's owning agent
+        // in lib/features/<slug>/<slug>_providers.dart. Empty lists are no-ops.
+        ...GuidedBookingProviders.providers,
+        ...MessagingProviders.providers,
+        ...PricingProviders.providers,
+        ...ChatbotProviders.providers,
+        ...HealthProfileProviders.providers,
       ],
       child: BlocBuilder<LocaleCubit, AppLocale>(builder: (context, locale) {
         return MaterialApp.router(

@@ -39,12 +39,18 @@ class TranslationsId with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override late final _TranslationsAuthId auth = _TranslationsAuthId._(_root);
 	@override late final _TranslationsBookingId booking = _TranslationsBookingId._(_root);
+	@override late final _TranslationsChatbotId chatbot = _TranslationsChatbotId._(_root);
 	@override late final _TranslationsDashboardId dashboard = _TranslationsDashboardId._(_root);
 	@override late final _TranslationsGlobalId global = _TranslationsGlobalId._(_root);
+	@override late final _TranslationsGuidedBookingId guidedBooking = _TranslationsGuidedBookingId._(_root);
+	@override late final _TranslationsHealthProfileId healthProfile = _TranslationsHealthProfileId._(_root);
+	@override late final _TranslationsMessagingId messaging = _TranslationsMessagingId._(_root);
 	@override late final _TranslationsNursingId nursing = _TranslationsNursingId._(_root);
 	@override late final _TranslationsPaymentId payment = _TranslationsPaymentId._(_root);
 	@override late final _TranslationsPharmacyId pharmacy = _TranslationsPharmacyId._(_root);
+	@override late final _TranslationsPricingId pricing = _TranslationsPricingId._(_root);
 	@override late final _TranslationsSettingsId settings = _TranslationsSettingsId._(_root);
+	@override late final _TranslationsSharedBookingId sharedBooking = _TranslationsSharedBookingId._(_root);
 	@override late final _TranslationsStoreId store = _TranslationsStoreId._(_root);
 }
 
@@ -82,6 +88,16 @@ class _TranslationsBookingId implements TranslationsBookingEn {
 	@override late final _TranslationsBookingProfessionalDetailId professional_detail = _TranslationsBookingProfessionalDetailId._(_root);
 	@override late final _TranslationsBookingProfessionalSearchId professional_search = _TranslationsBookingProfessionalSearchId._(_root);
 	@override late final _TranslationsBookingScheduleId schedule = _TranslationsBookingScheduleId._(_root);
+}
+
+// Path: chatbot
+class _TranslationsChatbotId implements TranslationsChatbotEn {
+	_TranslationsChatbotId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get namespace_title => 'Asisten AI';
 }
 
 // Path: dashboard
@@ -139,6 +155,36 @@ class _TranslationsGlobalId implements TranslationsGlobalEn {
 	@override String get yes => 'Ya';
 }
 
+// Path: guidedBooking
+class _TranslationsGuidedBookingId implements TranslationsGuidedBookingEn {
+	_TranslationsGuidedBookingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get namespace_title => 'Pesan layanan';
+}
+
+// Path: healthProfile
+class _TranslationsHealthProfileId implements TranslationsHealthProfileEn {
+	_TranslationsHealthProfileId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get namespace_title => 'Profil kesehatan';
+}
+
+// Path: messaging
+class _TranslationsMessagingId implements TranslationsMessagingEn {
+	_TranslationsMessagingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get namespace_title => 'Pesan';
+}
+
 // Path: nursing
 class _TranslationsNursingId implements TranslationsNursingEn {
 	_TranslationsNursingId._(this._root);
@@ -187,6 +233,16 @@ class _TranslationsPharmacyId implements TranslationsPharmacyEn {
 	@override String get title => 'Layanan iRX Pharmacist';
 }
 
+// Path: pricing
+class _TranslationsPricingId implements TranslationsPricingEn {
+	_TranslationsPricingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get namespace_title => 'Harga';
+}
+
 // Path: settings
 class _TranslationsSettingsId implements TranslationsSettingsEn {
 	_TranslationsSettingsId._(this._root);
@@ -197,6 +253,22 @@ class _TranslationsSettingsId implements TranslationsSettingsEn {
 	@override String get account => 'Akun';
 	@override String get app_language => 'Bahasa Aplikasi';
 	@override String get settings => 'Pengaturan';
+}
+
+// Path: sharedBooking
+class _TranslationsSharedBookingId implements TranslationsSharedBookingEn {
+	_TranslationsSharedBookingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String starting_from({required Object price}) => 'Mulai dari ${price}';
+	@override String from_price({required Object price}) => 'dari ${price}';
+	@override String step_of({required Object current, required Object total}) => 'Langkah ${current} dari ${total}';
+	@override String get empty_title => 'Belum ada apa-apa di sini';
+	@override String get error_title => 'Terjadi kesalahan';
+	@override String get retry => 'Coba lagi';
+	@override late final _TranslationsSharedBookingStatusId status = _TranslationsSharedBookingStatusId._(_root);
 }
 
 // Path: store
@@ -630,6 +702,19 @@ class _TranslationsPharmacyServicesId implements TranslationsPharmacyServicesEn 
 	@override late final _TranslationsPharmacyServicesHealthCoachingId health_coaching = _TranslationsPharmacyServicesHealthCoachingId._(_root);
 	@override late final _TranslationsPharmacyServicesReviewAndCounselingId review_and_counseling = _TranslationsPharmacyServicesReviewAndCounselingId._(_root);
 	@override late final _TranslationsPharmacyServicesSmokingCessationId smoking_cessation = _TranslationsPharmacyServicesSmokingCessationId._(_root);
+}
+
+// Path: sharedBooking.status
+class _TranslationsSharedBookingStatusId implements TranslationsSharedBookingStatusEn {
+	_TranslationsSharedBookingStatusId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get pending => 'Menunggu persetujuan';
+	@override String get confirmed => 'Dikonfirmasi';
+	@override String get proposed => 'Waktu alternatif diusulkan';
+	@override String get cancelled => 'Dibatalkan';
 }
 
 // Path: store.messages
@@ -1114,6 +1199,7 @@ extension on TranslationsId {
 			'booking.schedule.submit_button' => 'Kirim',
 			'booking.schedule.submitting_button' => 'Mengirim...',
 			'booking.schedule.title' => 'Pilih Jadwal',
+			'chatbot.namespace_title' => 'Asisten AI',
 			'dashboard.chat_ai_placeholder' => 'Tanya dokter AI seputar kesehatan Anda',
 			'dashboard.greeting' => ({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!',
 			'dashboard.greeting_generic' => 'Hidup Lebih Lama & Sehat!',
@@ -1177,6 +1263,9 @@ extension on TranslationsId {
 			'global.unknown_location' => 'Lokasi Tidak Diketahui',
 			'global.update' => 'Perbarui',
 			'global.yes' => 'Ya',
+			'guidedBooking.namespace_title' => 'Pesan layanan',
+			'healthProfile.namespace_title' => 'Profil kesehatan',
+			'messaging.namespace_title' => 'Pesan',
 			'nursing.services.primary_nursing.description' => 'Memantau dan melakukan prosedur keperawatan mulai dari pemeriksaan fisik, pemberian obat, tube feed (selang makan), dan suction (penyedotan lendir), hingga suntikan dan perawatan luka.',
 			'nursing.services.primary_nursing.title' => 'Layanan Keperawatan Primer',
 			'nursing.services.specialized_nursing.description' => 'Fokus pada pemulihan Anda, dan percayakan perawatan medis yang kompleks kepada perawat profesional kami yang berpengalaman.',
@@ -1224,9 +1313,20 @@ extension on TranslationsId {
 			'pharmacy.services.smoking_cessation.description' => 'Program berhenti merokok melibatkan penghentian kebiasaan merokok melalui strategi seperti konseling, pengobatan, dan program dukungan untuk meningkatkan kesehatan serta mengurangi risiko penyakit terkait rokok.',
 			'pharmacy.services.smoking_cessation.title' => 'Berhenti Merokok',
 			'pharmacy.title' => 'Layanan iRX Pharmacist',
+			'pricing.namespace_title' => 'Harga',
 			'settings.account' => 'Akun',
 			'settings.app_language' => 'Bahasa Aplikasi',
 			'settings.settings' => 'Pengaturan',
+			'sharedBooking.starting_from' => ({required Object price}) => 'Mulai dari ${price}',
+			'sharedBooking.from_price' => ({required Object price}) => 'dari ${price}',
+			'sharedBooking.step_of' => ({required Object current, required Object total}) => 'Langkah ${current} dari ${total}',
+			'sharedBooking.empty_title' => 'Belum ada apa-apa di sini',
+			'sharedBooking.error_title' => 'Terjadi kesalahan',
+			'sharedBooking.retry' => 'Coba lagi',
+			'sharedBooking.status.pending' => 'Menunggu persetujuan',
+			'sharedBooking.status.confirmed' => 'Dikonfirmasi',
+			'sharedBooking.status.proposed' => 'Waktu alternatif diusulkan',
+			'sharedBooking.status.cancelled' => 'Dibatalkan',
 			'store.consumable' => 'Barang Habis Pakai',
 			'store.messages.load_failed' => 'Gagal memuat produk',
 			'store.no_products' => 'Tidak ada produk tersedia',
