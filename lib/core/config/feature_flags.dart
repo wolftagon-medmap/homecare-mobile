@@ -135,6 +135,7 @@ class AppFlags {
   AppFlags._();
 
   static const String _prefsPrefix = 'feature_flag_override.';
+  static const String _serverPrefix = 'flag_server.';
 
   /// Every feature ships local. Flipping one flag is the whole backend cutover.
   static const Map<Feature, bool> _compileTimeDefaults = {
@@ -164,6 +165,11 @@ class AppFlags {
   static Future<void> init(SharedPreferences prefs) async {
     _prefs = prefs;
     _debugOverrides.clear();
+    _serverFlags.clear();
+    for (final feature in Feature.values) {
+      final value = prefs.getBool('$_serverPrefix${feature.key}');
+      if (value != null) _serverFlags[feature] = value;
+    }
     if (!kDebugMode) return;
     for (final feature in Feature.values) {
       final value = prefs.getBool('$_prefsPrefix${feature.key}');
@@ -179,10 +185,12 @@ class AppFlags {
       };
 
   static FlagSource sourceOf(Feature feature) {
-    if (_serverFlags.containsKey(feature)) return FlagSource.server;
+    // A debug override outranks the server: a toggle a live server silently
+    // undoes is not a toggle.
     if (kDebugMode && _debugOverrides.containsKey(feature)) {
       return FlagSource.debugOverride;
     }
+    if (_serverFlags.containsKey(feature)) return FlagSource.server;
     return FlagSource.compileTimeDefault;
   }
 
@@ -217,16 +225,31 @@ class AppFlags {
   /// exist, and a hang here would cost a cold start. Fails open on anything.
   static Future<void> refreshFromServer(FeatureFlagsRemoteSource source) async {
     try {
-      final flags = await source.fetch();
-      _serverFlags
-        ..clear()
-        ..addAll(flags);
+      await applyServerFlags(await source.fetch());
     } catch (e, st) {
       debugPrint('Feature flag refresh failed, keeping local values: $e\n$st');
     }
   }
 
   /// Test/debug hook. Drops anything the server said.
+  /// Stores what the server said and persists it, so the next cold start has an
+  /// answer before the network does.
+  @visibleForTesting
+  static Future<void> applyServerFlags(Map<Feature, bool> flags) async {
+    _serverFlags
+      ..clear()
+      ..addAll(flags);
+    for (final feature in Feature.values) {
+      final key = '$_serverPrefix${feature.key}';
+      final value = flags[feature];
+      if (value == null) {
+        await _prefs?.remove(key);
+      } else {
+        await _prefs?.setBool(key, value);
+      }
+    }
+  }
+
   @visibleForTesting
   static void clearServerFlags() => _serverFlags.clear();
 }

@@ -1,8 +1,10 @@
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/config/feature_flags.dart';
+import 'package:m2health/core/config/feature_flags_remote_source.dart';
 import 'package:m2health/core/blocs/user_role_cubit.dart';
 import 'package:m2health/core/network/token_expiration_interceptor.dart';
 import 'package:m2health/features/auth/injection.dart';
@@ -73,6 +75,10 @@ Future<void> setupLocator() async {
   // Data-source flags (contract C2). Must load before any feature module
   // registers, because a module may resolve its data source right here.
   await AppFlags.init(sharedPreferences);
+  sl.registerLazySingleton(() => FeatureFlagsRemoteSource(sl<Dio>()));
+  // Unawaited: a hang here would cost a cold start, and init() has already
+  // restored the last answer the server gave.
+  unawaited(AppFlags.refreshFromServer(sl<FeatureFlagsRemoteSource>()));
   sl.registerLazySingleton(() => AppointmentService(sl()));
   sl.registerLazySingleton(() => AppConfigService(sl()));
   sl.registerLazySingleton(() => QuestionnaireService(sl()));
