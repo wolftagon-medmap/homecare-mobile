@@ -2,6 +2,9 @@
 // uses (C1). With `Feature.timeProposal` local these are the only rows either
 // inbox shows; the moment the flag flips, none of this is reachable.
 
+String _at(Duration ago) =>
+    DateTime.now().subtract(ago).toUtc().toIso8601String();
+
 String _ahead(Duration from) =>
     DateTime.now().add(from).toUtc().toIso8601String();
 
@@ -20,6 +23,7 @@ String _tomorrowAt(int hour) {
 List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
       {
         'origin': 'care_task',
+        'createdAt': _at(const Duration(minutes: 12)),
         'key': 'task:5001',
         'appointmentId': null,
         'careTaskId': 5001,
@@ -41,6 +45,7 @@ List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
       },
       {
         'origin': 'care_task',
+        'createdAt': _at(const Duration(hours: 3)),
         'key': 'task:5002',
         'appointmentId': null,
         'careTaskId': 5002,
@@ -62,6 +67,7 @@ List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
       },
       {
         'origin': 'care_task',
+        'createdAt': _at(const Duration(days: 2)),
         'key': 'task:5003',
         'appointmentId': null,
         'careTaskId': 5003,
