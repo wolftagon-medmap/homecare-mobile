@@ -59,16 +59,60 @@ class MessagingRoutes {
 
             return BlocProvider(
               create: (_) => ThreadCubit(sl<MessagingRepository>(), threadId),
-              child: context.read<UserRoleCubit>().state.isProvider
-                  ? ProfessionalChatPage(
-                      thread: passed, fallbackName: fallbackName)
-                  : PatientChatPage(thread: passed, fallbackName: fallbackName),
+              child: _ThreadHost(
+                threadId: threadId,
+                passed: passed,
+                fallbackName: fallbackName,
+              ),
             );
           },
         ),
       ],
     ),
   ];
+}
+
+/// A deep link carries only the id, so the counterpart — and with it, which
+/// side of the conversation each message belongs to — has to be recovered
+/// before the bubbles can be drawn correctly.
+class _ThreadHost extends StatelessWidget {
+  const _ThreadHost({
+    required this.threadId,
+    required this.passed,
+    required this.fallbackName,
+  });
+
+  final int threadId;
+  final MessageThread? passed;
+  final String? fallbackName;
+
+  Widget _page(BuildContext context, MessageThread? thread) =>
+      context.read<UserRoleCubit>().state.isProvider
+          ? ProfessionalChatPage(thread: thread, fallbackName: fallbackName)
+          : PatientChatPage(thread: thread, fallbackName: fallbackName);
+
+  @override
+  Widget build(BuildContext context) {
+    if (passed != null) return _page(context, passed);
+
+    return BlocProvider(
+      create: (_) => ThreadListCubit(sl<MessagingRepository>())..load(),
+      child: BlocBuilder<ThreadListCubit, ThreadListState>(
+        builder: (context, state) {
+          MessageThread? resolved;
+          if (state is ThreadListLoaded) {
+            for (final thread in state.threads) {
+              if (thread.id == threadId) {
+                resolved = thread;
+                break;
+              }
+            }
+          }
+          return _page(context, resolved);
+        },
+      ),
+    );
+  }
 }
 
 class _UnknownThread extends StatelessWidget {
