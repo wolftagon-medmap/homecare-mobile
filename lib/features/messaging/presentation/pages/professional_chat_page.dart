@@ -12,10 +12,12 @@ import '../widgets/thread_view.dart';
 
 /// The professional's side.
 ///
-/// The difference from the patient's screen is the composer: this is where
-/// **Suggest another time** lives, because the conversation is what the offer
-/// decision is made from. Cards are read-only here — the professional raised
-/// them, the patient answers them.
+/// The difference from the patient's screen is the composer: cancelling a
+/// booking is the patient's alone, so this side offers only the time.
+///
+/// **Suggest another time** covers both situations. Before a booking it is the
+/// counter-offer the decision is made from; after one it proposes moving the
+/// visit, which the patient then confirms.
 class ProfessionalChatPage extends StatefulWidget {
   final MessageThread? thread;
 

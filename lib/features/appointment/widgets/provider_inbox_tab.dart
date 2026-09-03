@@ -5,7 +5,7 @@ import 'package:m2health/const.dart';
 import 'package:m2health/features/appointment/bloc/provider_appointment_cubit.dart';
 import 'package:m2health/features/appointment/bloc/provider_inbox_cubit.dart';
 import 'package:m2health/features/appointment/data/models/inbox_item.dart';
-import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
+import 'package:m2health/core/presentation/widgets/booking/cancel_appointment_dialog.dart';
 import 'package:m2health/core/messaging/thread_ref.dart';
 import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
 import 'package:m2health/core/presentation/widgets/messaging/propose_time_sheet.dart';

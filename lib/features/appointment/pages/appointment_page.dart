@@ -13,7 +13,7 @@ import 'package:m2health/core/extensions/string_extensions.dart';
 import 'package:m2health/features/appointment/bloc/appointment_cubit.dart';
 import 'package:m2health/features/appointment/bloc/patient_inbox_cubit.dart';
 import 'package:m2health/features/appointment/widgets/booking_card.dart';
-import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
+import 'package:m2health/core/presentation/widgets/booking/cancel_appointment_dialog.dart';
 import 'package:m2health/features/appointment/widgets/patient_inbox_tab.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
 import 'package:m2health/route/app_routes.dart';

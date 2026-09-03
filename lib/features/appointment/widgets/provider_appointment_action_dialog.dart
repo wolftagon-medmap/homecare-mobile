@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/appointment/bloc/provider_appointment_cubit.dart';
-import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
+import 'package:m2health/core/presentation/widgets/booking/cancel_appointment_dialog.dart';
 
 void showCompleteAppointmentDialog(BuildContext context, int appointmentId) {
   showDialog(

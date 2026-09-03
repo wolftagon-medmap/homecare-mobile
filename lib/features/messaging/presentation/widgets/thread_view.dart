@@ -22,8 +22,9 @@ class ThreadView extends StatefulWidget {
   /// theirs is the viewer's, which is what puts a bubble on the right.
   final int? counterpartUserId;
 
-  /// Only the patient accepts a proposal or approves an estimate. The
-  /// professional who raised it sees the same card, read-only.
+  /// Estimates are still raised by the professional and approved by the
+  /// patient, so this stays a per-screen answer. Time proposals no longer use
+  /// it — they read the proposer off the record.
   final bool canRespondToCards;
   final String counterpartName;
 
@@ -157,7 +158,10 @@ class _ThreadViewState extends State<ThreadView> {
         if (proposal == null) return const SizedBox.shrink();
         return TimeProposalCard(
           proposal: proposal,
-          canRespond: widget.canRespondToCards,
+          // Either side may raise one now, so who answers comes from the
+          // record rather than from which screen is open. You never answer
+          // your own proposal.
+          canRespond: proposal.proposedByUserId == widget.counterpartUserId,
           busy: state.sending,
           onAccept: () => cubit.acceptProposal(proposal.proposalId),
           onChooseAnother: () => _chooseAnother(context, proposal.proposalId),

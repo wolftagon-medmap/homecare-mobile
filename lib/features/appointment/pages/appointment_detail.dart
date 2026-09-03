@@ -16,7 +16,7 @@ import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/appointment/bloc/appointment_cubit.dart';
 import 'package:m2health/features/appointment/bloc/appointment_detail_cubit.dart';
 import 'package:m2health/features/appointment/widgets/appointment_type_detail_tile.dart';
-import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
+import 'package:m2health/core/presentation/widgets/booking/cancel_appointment_dialog.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
