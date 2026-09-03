@@ -12,22 +12,18 @@ void main() {
     await AppFlags.clearOverrides();
   });
 
-  /// Navigation flags pick a screen rather than a data source, so "local"
-  /// carries no meaning for them and they may ship on.
-  const navigationFlags = {
-    Feature.guidedBookingFlow,
-    Feature.healthProfileFlow,
-  };
-
-  test('every data source ships local', () {
+  test('every data source bootstraps local, every navigation flag on', () {
     for (final feature in Feature.values) {
-      expect(AppFlags.sourceOf(feature), FlagSource.compileTimeDefault);
-      if (navigationFlags.contains(feature)) continue;
-      expect(AppFlags.remote(feature), isFalse, reason: feature.key);
+      expect(AppFlags.sourceOf(feature), FlagSource.bootstrap);
+      expect(
+        AppFlags.remote(feature),
+        feature.isNavigation,
+        reason: feature.key,
+      );
     }
   });
 
-  test('a debug override beats the compile-time default', () async {
+  test('a debug override beats the bootstrap', () async {
     await AppFlags.setOverride(Feature.issueCatalogue, true);
 
     expect(AppFlags.remote(Feature.issueCatalogue), isTrue);
@@ -42,7 +38,7 @@ void main() {
     expect(AppFlags.remote(Feature.messageThreads), isTrue);
   });
 
-  test('clearing an override falls back to the default', () async {
+  test('clearing an override falls back to the bootstrap', () async {
     await AppFlags.setOverride(Feature.servicePricing, true);
     await AppFlags.setOverride(Feature.servicePricing, null);
 
@@ -73,5 +69,37 @@ void main() {
 
     expect(AppFlags.remote(Feature.issueCatalogue), isTrue);
     expect(AppFlags.sourceOf(Feature.issueCatalogue), FlagSource.server);
+  });
+
+  test('a persisted server value beats the bootstrap', () async {
+    await AppFlags.applyServerFlags({Feature.guidedBookingFlow: false});
+
+    AppFlags.clearServerFlags();
+    await AppFlags.init(await SharedPreferences.getInstance());
+
+    expect(AppFlags.sourceOf(Feature.guidedBookingFlow), FlagSource.server);
+    expect(AppFlags.remote(Feature.guidedBookingFlow), isFalse);
+  });
+
+  test('a debug override beats a persisted server value', () async {
+    await AppFlags.applyServerFlags({Feature.guidedBookingFlow: false});
+
+    AppFlags.clearServerFlags();
+    await AppFlags.init(await SharedPreferences.getInstance());
+    await AppFlags.setOverride(Feature.guidedBookingFlow, true);
+
+    expect(
+      AppFlags.sourceOf(Feature.guidedBookingFlow),
+      FlagSource.debugOverride,
+    );
+    expect(AppFlags.remote(Feature.guidedBookingFlow), isTrue);
+  });
+
+  test('an unknown key from the server leaves the bootstrap standing',
+      () async {
+    await AppFlags.applyServerFlags({Feature.issueCatalogue: true});
+
+    expect(AppFlags.sourceOf(Feature.healthProfileFlow), FlagSource.bootstrap);
+    expect(AppFlags.remote(Feature.healthProfileFlow), isTrue);
   });
 }
