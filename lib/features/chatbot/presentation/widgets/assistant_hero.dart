@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_theme.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
@@ -23,8 +22,8 @@ class AssistantHero extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            'assets/icons/ic_ai_robot.svg',
+          Image.asset(
+            'assets/images/ilu_chatbot.png',
             width: robotSize.clamp(80, 130),
             height: robotSize.clamp(80, 130),
           ),
