@@ -1,19 +1,34 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:m2health/core/blocs/voice_input/voice_input_cubit.dart';
+import 'package:m2health/core/services/ai_tools_service.dart';
 import 'package:m2health/features/chatbot/data/datasources/assistant_script_datasource.dart';
+import 'package:m2health/features/chatbot/data/datasources/assistant_session_store.dart';
 import 'package:m2health/features/chatbot/data/repositories/assistant_repository_impl.dart';
+import 'package:m2health/features/chatbot/data/repositories/assistant_session_repository_impl.dart';
 import 'package:m2health/features/chatbot/domain/entities/assistant_block.dart';
+import 'package:m2health/features/chatbot/domain/entities/assistant_session.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_cubit.dart';
+import 'package:m2health/features/chatbot/presentation/bloc/assistant_sessions_cubit.dart';
+import 'package:m2health/features/chatbot/presentation/bloc/assistant_sessions_state.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_state.dart';
 import 'package:m2health/features/chatbot/presentation/pages/ai_assistant_page.dart';
 import 'package:m2health/i18n/translations.g.dart';
+import 'package:m2health/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+final store = AssistantSessionStore();
+
+AssistantSessionRepositoryImpl sessionRepository() =>
+    AssistantSessionRepositoryImpl(store: store);
 
 AssistantCubit buildCubit() => AssistantCubit(
       repository: AssistantRepositoryImpl(
         source: const AssistantScriptLocalDataSource(),
       ),
+      sessions: sessionRepository(),
     );
 
 AssistantReady ready(AssistantCubit cubit) => cubit.state as AssistantReady;
@@ -53,8 +68,15 @@ String describe(AssistantBlock block) => switch (block) {
       UnknownAssistantBlock(:final kind) => 'unknown:$kind',
     };
 
+Future<List<AssistantSession>> storedSessions() async {
+  final result = await sessionRepository().sessions();
+  return result.getOrElse(() => const []);
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUp(() => SharedPreferences.setMockInitialValues({}));
 
   group('AssistantCubit', () {
     test('the scripted path produces the same transcript twice', () async {
@@ -178,9 +200,124 @@ void main() {
     });
   });
 
+  group('conversation history', () {
+    test('a conversation is saved as it is tapped through', () async {
+      final cubit = buildCubit();
+      await cubit.start();
+
+      expect(await storedSessions(), isEmpty);
+
+      tapThroughOnce(cubit);
+      await store.settled;
+
+      final saved = await storedSessions();
+      expect(saved, hasLength(1));
+      expect(saved.single.id, cubit.sessionId);
+      expect(saved.single.preview, isNotNull);
+      await cubit.close();
+    });
+
+    test('a new conversation archives the old one and starts clean', () async {
+      final cubit = buildCubit();
+      await cubit.start();
+      tapThroughOnce(cubit);
+      final firstId = cubit.sessionId;
+      await store.settled;
+
+      cubit.newConversation();
+
+      expect(cubit.sessionId, isNot(firstId));
+      expect(ready(cubit).blocks.single, isA<TopicGridBlock>());
+
+      cubit.choose(lastId(cubit), 'topic_medication');
+      await store.settled;
+
+      final saved = await storedSessions();
+      expect(saved, hasLength(2));
+      expect(saved.map((session) => session.id), contains(firstId));
+      await cubit.close();
+    });
+
+    test('history survives a cold start', () async {
+      final first = buildCubit();
+      await first.start();
+      tapThroughOnce(first);
+      final id = first.sessionId;
+      await store.settled;
+      await first.close();
+
+      final cubit = AssistantSessionsCubit(repository: sessionRepository());
+      await cubit.load();
+
+      final state = cubit.state as AssistantSessionsLoaded;
+      expect(state.sessions, hasLength(1));
+      expect(state.sessions.single.id, id);
+      await cubit.close();
+    });
+
+    test('replaying a saved conversation reproduces its transcript', () async {
+      final live = buildCubit();
+      await live.start();
+      final original = tapThroughOnce(live);
+      await store.settled;
+      await live.close();
+
+      final saved = (await storedSessions()).single;
+
+      final viewer = buildCubit();
+      await viewer.open(saved);
+
+      expect(ready(viewer).blocks.map(describe).toList(), original);
+      await viewer.close();
+    });
+
+    test('a replayed conversation requests no navigation', () async {
+      final live = buildCubit();
+      await live.start();
+      tapThroughOnce(live);
+      final services = ready(live)
+          .blocks
+          .whereType<NextStepBlock>()
+          .last
+          .actions
+          .firstWhere((action) => action.route != null);
+      live.act(services);
+      expect(ready(live).pendingRoute, services.route);
+      await store.settled;
+      await live.close();
+
+      final viewer = buildCubit();
+      await viewer.open((await storedSessions()).single);
+
+      expect(ready(viewer).pendingRoute, isNull);
+      await viewer.close();
+    });
+
+    test('a deleted conversation stays deleted', () async {
+      final live = buildCubit();
+      await live.start();
+      tapThroughOnce(live);
+      await store.settled;
+      final id = live.sessionId!;
+      await live.close();
+
+      final cubit = AssistantSessionsCubit(repository: sessionRepository());
+      await cubit.load();
+      await cubit.delete(id);
+
+      expect(await storedSessions(), isEmpty);
+      await cubit.close();
+    });
+  });
+
   group('AiAssistantPage', () {
     setUp(() {
       SharedPreferences.setMockInitialValues({'ai_consent_accepted': true});
+      if (!sl.isRegistered<VoiceInputCubit>()) {
+        sl.registerFactory(
+          () => VoiceInputCubit(aiToolsService: AIToolsService(Dio())),
+        );
+      }
     });
 
     Future<void> pumpPage(
@@ -213,12 +350,52 @@ void main() {
 
       expect(find.text('What can I help you with today?'), findsOneWidget);
       expect(find.text('I have a symptom'), findsOneWidget);
-      expect(find.text('Important'), findsOneWidget);
 
       await tester.tap(find.text('I have a symptom'));
       await tester.pumpAndSettle();
 
       expect(find.text('Dizziness'), findsOneWidget);
+      await cubit.close();
+    });
+
+    testWidgets('the medical disclaimer is legible without any interaction',
+        (tester) async {
+      tester.view.physicalSize = const Size(1080, 2400);
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+
+      final cubit = buildCubit();
+      await pumpPage(tester, cubit);
+
+      final disclaimer = find.text(
+        'This AI Assistant provides general information only and does not '
+        'replace professional medical advice, diagnosis or treatment. If you '
+        'have a medical emergency, please seek urgent medical care.',
+      );
+
+      expect(disclaimer, findsOneWidget);
+      final text = tester.widget<Text>(disclaimer);
+      expect(text.maxLines, isNull, reason: 'the disclosure must not truncate');
+      expect(text.overflow, isNot(TextOverflow.ellipsis));
+      await cubit.close();
+    });
+
+    testWidgets('the privacy label reveals its detail on tap', (tester) async {
+      tester.view.physicalSize = const Size(1080, 2400);
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+
+      final cubit = buildCubit();
+      await pumpPage(tester, cubit);
+
+      expect(find.text('(HIPAA Privacy)'), findsOneWidget);
+      await tester.tap(find.byIcon(Icons.info_outline));
+      await tester.pump(const Duration(milliseconds: 100));
+
+      expect(
+        find.textContaining('Your conversation is private'),
+        findsOneWidget,
+      );
       await cubit.close();
     });
 
@@ -235,7 +412,7 @@ void main() {
         expect(
           find.text('What can I help you with today?'),
           findsOneWidget,
-          reason: 'welcome screen missing on pass \$pass',
+          reason: 'welcome screen missing on pass $pass',
         );
 
         tapThroughOnce(cubit);
@@ -249,7 +426,7 @@ void main() {
         expect(
           find.text('General guidance'),
           findsOneWidget,
-          reason: 'guidance missing on pass \$pass',
+          reason: 'guidance missing on pass $pass',
         );
 
         await tester.scrollUntilVisible(

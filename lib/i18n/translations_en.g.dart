@@ -128,9 +128,6 @@ class TranslationsChatbotEn {
 	/// en: 'Send'
 	String get send => 'Send';
 
-	/// en: 'Start over'
-	String get startOver => 'Start over';
-
 	/// en: '(HIPAA Privacy)'
 	String get privacyLabel => '(HIPAA Privacy)';
 
@@ -152,9 +149,6 @@ class TranslationsChatbotEn {
 	/// en: 'Connect to the right care, faster'
 	String get benefitConnect => 'Connect to the right care, faster';
 
-	/// en: 'Important'
-	String get disclaimerTitle => 'Important';
-
 	/// en: 'This AI Assistant provides general information only and does not replace professional medical advice, diagnosis or treatment. If you have a medical emergency, please seek urgent medical care.'
 	String get disclaimerBody => 'This AI Assistant provides general information only and does not replace professional medical advice, diagnosis or treatment. If you have a medical emergency, please seek urgent medical care.';
 
@@ -163,6 +157,66 @@ class TranslationsChatbotEn {
 
 	/// en: 'Try again'
 	String get retry => 'Try again';
+
+	/// en: 'Conversation history'
+	String get history => 'Conversation history';
+
+	/// en: 'New conversation'
+	String get newConversation => 'New conversation';
+
+	/// en: 'Start a new conversation?'
+	String get newConversationTitle => 'Start a new conversation?';
+
+	/// en: 'This conversation will be kept in your history as read-only.'
+	String get newConversationBody => 'This conversation will be kept in your history as read-only.';
+
+	/// en: 'Start new'
+	String get startNew => 'Start new';
+
+	/// en: 'Cancel'
+	String get cancel => 'Cancel';
+
+	/// en: 'Conversation History'
+	String get historyTitle => 'Conversation History';
+
+	/// en: 'No conversations yet.'
+	String get historyEmpty => 'No conversations yet.';
+
+	/// en: 'Could not load your conversations'
+	String get historyError => 'Could not load your conversations';
+
+	/// en: 'Health conversation'
+	String get sessionUntitled => 'Health conversation';
+
+	/// en: 'Active'
+	String get sessionActive => 'Active';
+
+	/// en: 'Read-only'
+	String get sessionReadOnly => 'Read-only';
+
+	/// en: 'Delete conversation'
+	String get deleteTitle => 'Delete conversation';
+
+	/// en: 'This conversation will be deleted from this device. This cannot be undone.'
+	String get deleteBody => 'This conversation will be deleted from this device. This cannot be undone.';
+
+	/// en: 'Delete'
+	String get delete => 'Delete';
+
+	/// en: 'Voice input'
+	String get voiceInput => 'Voice input';
+
+	/// en: 'Transcribing...'
+	String get transcribing => 'Transcribing...';
+
+	/// en: 'Microphone access required'
+	String get micDeniedTitle => 'Microphone access required';
+
+	/// en: 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.'
+	String get micDeniedBody => 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.';
+
+	/// en: 'Open Settings'
+	String get openSettings => 'Open Settings';
 }
 
 // Path: dashboard
@@ -2378,7 +2432,6 @@ extension on Translations {
 			'chatbot.composerHint' => 'Type your message...',
 			'chatbot.composerHintWelcome' => 'Or type your question here...',
 			'chatbot.send' => 'Send',
-			'chatbot.startOver' => 'Start over',
 			'chatbot.privacyLabel' => '(HIPAA Privacy)',
 			'chatbot.privacyDetail' => 'Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.',
 			'chatbot.benefitsTitle' => 'Why use M2Health AI Assistant?',
@@ -2386,10 +2439,29 @@ extension on Translations {
 			'chatbot.benefitExplain' => 'Get clear explanations in simple language',
 			'chatbot.benefitSaveTime' => 'Save time and reduce guesswork',
 			'chatbot.benefitConnect' => 'Connect to the right care, faster',
-			'chatbot.disclaimerTitle' => 'Important',
 			'chatbot.disclaimerBody' => 'This AI Assistant provides general information only and does not replace professional medical advice, diagnosis or treatment. If you have a medical emergency, please seek urgent medical care.',
 			'chatbot.errorTitle' => 'The assistant is unavailable',
 			'chatbot.retry' => 'Try again',
+			'chatbot.history' => 'Conversation history',
+			'chatbot.newConversation' => 'New conversation',
+			'chatbot.newConversationTitle' => 'Start a new conversation?',
+			'chatbot.newConversationBody' => 'This conversation will be kept in your history as read-only.',
+			'chatbot.startNew' => 'Start new',
+			'chatbot.cancel' => 'Cancel',
+			'chatbot.historyTitle' => 'Conversation History',
+			'chatbot.historyEmpty' => 'No conversations yet.',
+			'chatbot.historyError' => 'Could not load your conversations',
+			'chatbot.sessionUntitled' => 'Health conversation',
+			'chatbot.sessionActive' => 'Active',
+			'chatbot.sessionReadOnly' => 'Read-only',
+			'chatbot.deleteTitle' => 'Delete conversation',
+			'chatbot.deleteBody' => 'This conversation will be deleted from this device. This cannot be undone.',
+			'chatbot.delete' => 'Delete',
+			'chatbot.voiceInput' => 'Voice input',
+			'chatbot.transcribing' => 'Transcribing...',
+			'chatbot.micDeniedTitle' => 'Microphone access required',
+			'chatbot.micDeniedBody' => 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.',
+			'chatbot.openSettings' => 'Open Settings',
 			'dashboard.chat_ai_placeholder' => 'Chat With AI doctor for all your health questions',
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
 			'dashboard.greeting_generic' => 'Live Longer & Live Healthier!',

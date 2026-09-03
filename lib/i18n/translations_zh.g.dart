@@ -104,7 +104,6 @@ class _TranslationsChatbotZh implements TranslationsChatbotEn {
 	@override String get composerHint => '输入你的消息…';
 	@override String get composerHintWelcome => '或在这里输入你的问题…';
 	@override String get send => '发送';
-	@override String get startOver => '重新开始';
 	@override String get privacyLabel => '（HIPAA 隐私）';
 	@override String get privacyDetail => '你的对话是私密的。健康信息经过加密，并按照我们的隐私政策（符合 PDPA / HIPAA）处理。你可以随时查看或删除此对话。';
 	@override String get benefitsTitle => '为什么使用 M2Health AI 助手？';
@@ -112,10 +111,29 @@ class _TranslationsChatbotZh implements TranslationsChatbotEn {
 	@override String get benefitExplain => '用简单的语言获得清晰解释';
 	@override String get benefitSaveTime => '节省时间，减少猜测';
 	@override String get benefitConnect => '更快连接到合适的照护';
-	@override String get disclaimerTitle => '重要提示';
 	@override String get disclaimerBody => '此 AI 助手仅提供一般信息，不能取代专业的医疗建议、诊断或治疗。如遇医疗紧急情况，请立即就医。';
 	@override String get errorTitle => '助手暂时无法使用';
 	@override String get retry => '重试';
+	@override String get history => '对话记录';
+	@override String get newConversation => '新对话';
+	@override String get newConversationTitle => '开始新的对话？';
+	@override String get newConversationBody => '此对话将以只读形式保存在你的记录中。';
+	@override String get startNew => '开始新对话';
+	@override String get cancel => '取消';
+	@override String get historyTitle => '对话记录';
+	@override String get historyEmpty => '还没有对话。';
+	@override String get historyError => '无法加载你的对话';
+	@override String get sessionUntitled => '健康对话';
+	@override String get sessionActive => '进行中';
+	@override String get sessionReadOnly => '只读';
+	@override String get deleteTitle => '删除对话';
+	@override String get deleteBody => '此对话将从本设备删除，且无法恢复。';
+	@override String get delete => '删除';
+	@override String get voiceInput => '语音输入';
+	@override String get transcribing => '正在转写…';
+	@override String get micDeniedTitle => '需要麦克风权限';
+	@override String get micDeniedBody => '麦克风权限已被拒绝。请在设备设置中开启后再使用语音输入。';
+	@override String get openSettings => '打开设置';
 }
 
 // Path: dashboard
@@ -1494,7 +1512,6 @@ extension on TranslationsZh {
 			'chatbot.composerHint' => '输入你的消息…',
 			'chatbot.composerHintWelcome' => '或在这里输入你的问题…',
 			'chatbot.send' => '发送',
-			'chatbot.startOver' => '重新开始',
 			'chatbot.privacyLabel' => '（HIPAA 隐私）',
 			'chatbot.privacyDetail' => '你的对话是私密的。健康信息经过加密，并按照我们的隐私政策（符合 PDPA / HIPAA）处理。你可以随时查看或删除此对话。',
 			'chatbot.benefitsTitle' => '为什么使用 M2Health AI 助手？',
@@ -1502,10 +1519,29 @@ extension on TranslationsZh {
 			'chatbot.benefitExplain' => '用简单的语言获得清晰解释',
 			'chatbot.benefitSaveTime' => '节省时间，减少猜测',
 			'chatbot.benefitConnect' => '更快连接到合适的照护',
-			'chatbot.disclaimerTitle' => '重要提示',
 			'chatbot.disclaimerBody' => '此 AI 助手仅提供一般信息，不能取代专业的医疗建议、诊断或治疗。如遇医疗紧急情况，请立即就医。',
 			'chatbot.errorTitle' => '助手暂时无法使用',
 			'chatbot.retry' => '重试',
+			'chatbot.history' => '对话记录',
+			'chatbot.newConversation' => '新对话',
+			'chatbot.newConversationTitle' => '开始新的对话？',
+			'chatbot.newConversationBody' => '此对话将以只读形式保存在你的记录中。',
+			'chatbot.startNew' => '开始新对话',
+			'chatbot.cancel' => '取消',
+			'chatbot.historyTitle' => '对话记录',
+			'chatbot.historyEmpty' => '还没有对话。',
+			'chatbot.historyError' => '无法加载你的对话',
+			'chatbot.sessionUntitled' => '健康对话',
+			'chatbot.sessionActive' => '进行中',
+			'chatbot.sessionReadOnly' => '只读',
+			'chatbot.deleteTitle' => '删除对话',
+			'chatbot.deleteBody' => '此对话将从本设备删除，且无法恢复。',
+			'chatbot.delete' => '删除',
+			'chatbot.voiceInput' => '语音输入',
+			'chatbot.transcribing' => '正在转写…',
+			'chatbot.micDeniedTitle' => '需要麦克风权限',
+			'chatbot.micDeniedBody' => '麦克风权限已被拒绝。请在设备设置中开启后再使用语音输入。',
+			'chatbot.openSettings' => '打开设置',
 			'dashboard.chat_ai_placeholder' => '咨询AI医生，解答您的健康疑问',
 			'dashboard.greeting' => ({required Object displayName}) => '更长寿，更健康，${displayName}！',
 			'dashboard.greeting_generic' => '更长寿，更健康！',
