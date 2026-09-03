@@ -26,7 +26,7 @@ class AdminHomecareCubit extends Cubit<AdminHomecareState> {
 
     // Fetch Homecare Service Titles
     final serviceTitlesResult = await getHomecareRates();
-    
+
     final newState = state.copyWith(isLoading: false); // Will be updated
 
     // Fetch Subscription Plans

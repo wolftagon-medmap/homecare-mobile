@@ -44,8 +44,8 @@ class MultiSelectListTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                width: 26,
-                height: 26,
+                width: 22,
+                height: 22,
                 child: Checkbox(
                   value: selected,
                   onChanged:
@@ -59,16 +59,14 @@ class MultiSelectListTile extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 14),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       title,
-                      style: TextStyle(
-                        fontSize: 14.5,
-                        fontWeight: FontWeight.w600,
+                      style: ProText.bodyStrong.copyWith(
                         height: 1.25,
                         color: enabled
                             ? Const.primaryTextColor
@@ -79,11 +77,7 @@ class MultiSelectListTile extends StatelessWidget {
                       const SizedBox(height: 3),
                       Text(
                         subtitle!,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          height: 1.35,
-                          color: Const.contentTextColor,
-                        ),
+                        style: ProText.hint.copyWith(height: 1.35),
                       ),
                     ],
                   ],

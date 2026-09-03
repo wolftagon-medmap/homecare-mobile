@@ -51,8 +51,8 @@ class _IntakeSessionViewerPageState extends State<IntakeSessionViewerPage> {
                   const Text('Failed to load this conversation.'),
                   TextButton(
                     onPressed: () => setState(() {
-                      _history = sl<IntakeRepository>()
-                          .fetchHistory(widget.sessionId);
+                      _history =
+                          sl<IntakeRepository>().fetchHistory(widget.sessionId);
                     }),
                     child: const Text('Retry',
                         style: TextStyle(fontWeight: FontWeight.bold)),

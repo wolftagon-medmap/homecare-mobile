@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/features/guided_booking/domain/entities/guided_booking_draft.dart';
 import 'package:m2health/features/guided_booking/domain/usecases/guided_booking_usecases.dart';
+import 'package:m2health/core/location/current_location_service.dart';
+import 'package:m2health/core/location/visit_location.dart';
+import 'package:m2health/features/profiles/domain/entities/address.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_state.dart';
 
 class GuidedBookingCubit extends Cubit<GuidedBookingState> {
@@ -18,6 +21,8 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
   static const Duration _saveDebounce = Duration(milliseconds: 400);
   Timer? _saveTimer;
   final String? _entrySubCategory;
+  final CurrentLocationService currentLocation;
+  final Future<int> Function(VisitLocation) createAddress;
 
   GuidedBookingCubit({
     required String category,
@@ -30,6 +35,8 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
     required this.loadDraft,
     required this.saveDraft,
     required this.clearDraft,
+    required this.currentLocation,
+    required this.createAddress,
   })  : _entrySubCategory = subCategory,
         super(GuidedBookingState(
           draft: GuidedBookingDraft(
@@ -78,20 +85,31 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
         addressStatus: BookingLoadStatus.failure,
         errorMessage: failure.message,
       )),
-      (addresses) {
+      (addresses) async {
         emit(state.copyWith(
           addressStatus: BookingLoadStatus.ready,
           addresses: addresses,
         ));
-        if (state.draft.addressId == null && addresses.isNotEmpty) {
-          final fallback = addresses.first;
-          final preselected = addresses.firstWhere(
-            (address) => address.isDefault,
-            orElse: () => fallback,
-          );
-          selectAddress(preselected.id);
-        } else {
+        if (state.visitLocation != null) {
           loadProfessionals();
+          return;
+        }
+
+        final defaultAddress =
+            addresses.where((a) => a.isDefault).firstOrNull ??
+                addresses.firstOrNull;
+        if (defaultAddress != null) {
+          selectVisitLocation(VisitLocation.fromAddress(defaultAddress));
+          return;
+        }
+
+        // No saved address: fall back to where the device already says it is.
+        // `resolveIfGranted` never prompts, so opening this step cannot raise a
+        // permission dialog out of nowhere — the picker asks explicitly.
+        final current = await currentLocation.resolveIfGranted();
+        if (isClosed) return;
+        if (current != null) {
+          selectVisitLocation(current);
         }
       },
     );
@@ -158,9 +176,12 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
   void setRemarks(String value) =>
       emit(state.copyWith(draft: state.draft.withRemarks(value)));
 
-  void selectAddress(int? id) {
-    if (id == state.draft.addressId) return;
-    emit(state.copyWith(draft: state.draft.withAddress(id)));
+  void selectVisitLocation(VisitLocation location) {
+    if (location == state.visitLocation) return;
+    emit(state.copyWith(
+      visitLocation: location,
+      draft: state.draft.withAddress(location.addressId),
+    ));
     loadProfessionals();
   }
 
@@ -216,7 +237,41 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
     if (state.isSubmitting || !state.draft.isSubmittable) return;
 
     emit(state.copyWith(isSubmitting: true, clearError: true));
-    final result = await submitRequest(state.draft);
+
+    // A GPS reading or a map pin has no id until now. The booking needs a real
+    // address for the professional to navigate to, so it is written here and
+    // not while the patient is still browsing.
+    var draft = state.draft;
+    final location = state.visitLocation;
+    if (location != null && !location.isSaved) {
+      try {
+        final addressId = await createAddress(location);
+        if (isClosed) return;
+        draft = draft.withAddress(addressId);
+        emit(state.copyWith(
+          draft: draft,
+          visitLocation: VisitLocation.fromAddress(
+            Address(
+              id: addressId,
+              latitude: location.latitude,
+              longitude: location.longitude,
+              label: location.label,
+              formattedAddress: location.formattedAddress,
+              googlePlaceId: location.googlePlaceId,
+              name: location.name,
+            ),
+          ),
+        ));
+      } catch (error) {
+        emit(state.copyWith(
+          isSubmitting: false,
+          errorMessage: '$error',
+        ));
+        return;
+      }
+    }
+
+    final result = await submitRequest(draft);
     result.fold(
       (failure) => emit(state.copyWith(
         isSubmitting: false,

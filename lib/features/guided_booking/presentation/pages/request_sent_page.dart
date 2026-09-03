@@ -34,7 +34,7 @@ class RequestSentPage extends StatelessWidget {
               Text(
                 t.title,
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                 ),
               ),

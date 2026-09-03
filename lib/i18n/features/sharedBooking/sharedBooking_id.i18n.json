@@ -9,5 +9,17 @@
     "confirmed": "Dikonfirmasi",
     "proposed": "Waktu alternatif diusulkan",
     "cancelled": "Dibatalkan"
+  },
+  "location": {
+    "title": "Di mana kami berkunjung?",
+    "search_hint": "Ketik jalan, perumahan, atau gedung",
+    "pick_on_map": "Pilih lewat peta",
+    "use_current": "Gunakan lokasi saat ini",
+    "saved_heading": "ALAMAT TERSIMPAN",
+    "denied": "Izin lokasi mati, jadi pilih alamat atau titik di peta.",
+    "picked_label": "Alamat kunjungan",
+    "loading": "Mencari alamat Anda...",
+    "empty": "Tambah alamat",
+    "bar_title": "Kunjungan di"
   }
 }

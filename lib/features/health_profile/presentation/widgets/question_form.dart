@@ -41,8 +41,7 @@ class QuestionForm extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
             child: Text(
               question.text,
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ),
           Padding(

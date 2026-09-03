@@ -122,8 +122,7 @@ class _IntakeChatPageState extends State<IntakeChatPage> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Start new',
-                style: TextStyle(color: Const.aqua)),
+            child: const Text('Start new', style: TextStyle(color: Const.aqua)),
           ),
         ],
       ),
@@ -267,8 +266,7 @@ class _EmptyChatWelcome extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/icons/ic_doctor_ai.png',
-                width: 64, height: 64),
+            Image.asset('assets/icons/ic_doctor_ai.png', width: 64, height: 64),
             const SizedBox(height: 16),
             const Text(
               'Hi! How can I help you today?',
@@ -297,12 +295,11 @@ class _EmptyChatWelcome extends StatelessWidget {
                 child: OutlinedButton(
                   onPressed: () => onPrompt(suggestion),
                   style: OutlinedButton.styleFrom(
-                    side: BorderSide(
-                        color: Const.aqua.withValues(alpha: 0.5)),
+                    side: BorderSide(color: Const.aqua.withValues(alpha: 0.5)),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   ),
                   child: Text(
                     suggestion,

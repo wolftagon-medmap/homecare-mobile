@@ -148,8 +148,9 @@ class _AssistantComposerState extends State<AssistantComposer> {
                     color: AssistantPalette.muted,
                   ),
                   tooltip: t.voiceInput,
-                  onPressed:
-                      isTranscribing ? null : () => _voiceCubit.startRecording(),
+                  onPressed: isTranscribing
+                      ? null
+                      : () => _voiceCubit.startRecording(),
                 ),
                 Expanded(
                   child: TextField(

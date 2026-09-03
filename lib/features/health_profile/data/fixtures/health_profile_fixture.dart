@@ -5,7 +5,8 @@ const kHealthProfileSectionsFixture = <Map<String, dynamic>>[
   {
     'code': 'my_health',
     'title': 'My Health',
-    'description': 'Conditions we should know about, and anything you want to add.',
+    'description':
+        'Conditions we should know about, and anything you want to add.',
     'opens_route': null,
     'questions': [
       {
@@ -132,7 +133,11 @@ const kHealthProfileSectionsFixture = <Map<String, dynamic>>[
           {'code': 'cancer', 'label': 'Cancer'},
           {'code': 'kidney_disease', 'label': 'Kidney disease'},
           {'code': 'not_sure', 'label': "I'm not sure", 'exclusive': true},
-          {'code': 'none_known', 'label': 'None that I know of', 'exclusive': true},
+          {
+            'code': 'none_known',
+            'label': 'None that I know of',
+            'exclusive': true
+          },
         ],
       },
       {

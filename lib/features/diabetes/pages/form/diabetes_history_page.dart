@@ -56,11 +56,11 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
     _insulinTypeDoseController.text = _currentData.insulinTypeDose ?? '';
 
     if (_currentData.diabetesType != null) {
-      final knownOption = DiabetesTypeOption.fromValue(_currentData.diabetesType);
+      final knownOption =
+          DiabetesTypeOption.fromValue(_currentData.diabetesType);
       if (knownOption != null && knownOption != DiabetesTypeOption.other) {
         _selectedRadioOption = knownOption.value;
-      }
-      else {
+      } else {
         _selectedRadioOption = DiabetesTypeOption.other.value;
         _otherDiabetesTypeController.text = _currentData.diabetesType!;
       }
@@ -184,7 +184,8 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
                     decoration: const FormInputDecoration().copyWith(
                         hintText: context.l10n.enter_diabetes_type_hint),
                     validator: (value) {
-                      if (_selectedRadioOption != DiabetesTypeOption.other.value) return null;
+                      if (_selectedRadioOption !=
+                          DiabetesTypeOption.other.value) return null;
                       if (_otherDiabetesTypeController.text.trim().isEmpty) {
                         return context.l10n.specify_diabetes_type_error;
                       }
@@ -323,8 +324,8 @@ class DiabetesHistoryPageState extends State<DiabetesHistoryFormPage> {
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     onChanged: (_) => _updateStateAndNotify(),
-                    decoration: const FormInputDecoration()
-                        .copyWith(hintText: context.l10n.insulin_type_dose_hint),
+                    decoration: const FormInputDecoration().copyWith(
+                        hintText: context.l10n.insulin_type_dose_hint),
                     validator: (value) {
                       if (!_currentData.hasTreatmentInsulin) return null;
                       if (value == null || value.isEmpty) {

@@ -13,7 +13,8 @@ class PersonalIssueRepositoryImpl implements PersonalIssueRepository {
   PersonalIssueRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, List<PersonalIssue>>> getPersonalIssues(String serviceType) async {
+  Future<Either<Failure, List<PersonalIssue>>> getPersonalIssues(
+      String serviceType) async {
     try {
       final issues = await remoteDataSource.getPersonalIssues(serviceType);
       return Right(issues);
@@ -23,7 +24,8 @@ class PersonalIssueRepositoryImpl implements PersonalIssueRepository {
   }
 
   @override
-  Future<Either<Failure, PersonalIssue>> createPersonalIssue(PersonalIssue issue) async {
+  Future<Either<Failure, PersonalIssue>> createPersonalIssue(
+      PersonalIssue issue) async {
     try {
       final model = PersonalIssueModel.fromEntity(issue);
       log('Creating Personal Issue: ${model.toJson()}',
@@ -40,7 +42,8 @@ class PersonalIssueRepositoryImpl implements PersonalIssueRepository {
       int id, PersonalIssue issue) async {
     try {
       final model = PersonalIssueModel.fromEntity(issue);
-      final updatedIssue = await remoteDataSource.updatePersonalIssue(id, model);
+      final updatedIssue =
+          await remoteDataSource.updatePersonalIssue(id, model);
       return Right(updatedIssue);
     } on Exception catch (e) {
       return Left(ServerFailure(e.toString()));

@@ -42,13 +42,10 @@ class _RemarksFieldState extends State<RemarksField> {
       children: [
         Text(
           widget.label,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: ProText.bodyStrong.copyWith(color: Const.primaryTextColor),
         ),
-        const SizedBox(height: 8),
-        Text(
-          widget.description,
-          style: const TextStyle(fontSize: 12, color: Const.contentTextColor),
-        ),
+        const SizedBox(height: 4),
+        Text(widget.description, style: ProText.hint),
         const SizedBox(height: 8),
         TextField(
           controller: _controller,

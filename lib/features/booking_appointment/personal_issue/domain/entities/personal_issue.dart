@@ -25,5 +25,6 @@ class PersonalIssue extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, title, description, images, newImages, imageUrls];
+  List<Object?> get props =>
+      [id, title, description, images, newImages, imageUrls];
 }

@@ -9,7 +9,7 @@ import 'package:m2health/features/guided_booking/guided_booking_routes.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_cubit.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_state.dart';
 import 'package:m2health/features/guided_booking/presentation/pages/professional_detail_page.dart';
-import 'package:m2health/features/guided_booking/presentation/widgets/address_picker_sheet.dart';
+import 'package:m2health/core/location/visit_location_picker.dart';
 import 'package:m2health/features/guided_booking/presentation/widgets/booking_flow_progress.dart';
 import 'package:m2health/features/guided_booking/presentation/widgets/booking_location_bar.dart';
 import 'package:m2health/features/guided_booking/presentation/widgets/professional_card.dart';
@@ -56,13 +56,12 @@ class _ProfessionalSelectPageState extends State<ProfessionalSelectPage> {
   }
 
   Future<void> _openPicker(GuidedBookingState state) async {
-    final cubit = widget.args.cubit;
-    final picked = await AddressPickerSheet.show(
+    final picked = await showVisitLocationPicker(
       context,
       addresses: state.addresses,
-      selectedId: state.draft.addressId,
+      selected: state.visitLocation,
     );
-    if (picked != null) cubit.selectAddress(picked);
+    if (picked != null) widget.args.cubit.selectVisitLocation(picked);
   }
 
   void _openProfile(BookingProfessional professional) {
@@ -85,9 +84,9 @@ class _ProfessionalSelectPageState extends State<ProfessionalSelectPage> {
       listenWhen: (previous, current) =>
           previous.addressStatus != current.addressStatus,
       listener: (context, state) {
-        final noAddress = state.addressStatus == BookingLoadStatus.ready &&
-            state.addresses.isEmpty;
-        if (noAddress && !_pickerShown) {
+        final needsLocation = state.addressStatus == BookingLoadStatus.ready &&
+            state.visitLocation == null;
+        if (needsLocation && !_pickerShown) {
           _pickerShown = true;
           _openPicker(state);
         }
@@ -110,7 +109,7 @@ class _ProfessionalSelectPageState extends State<ProfessionalSelectPage> {
                 step: GuidedBookingStep.professional,
               ),
               BookingLocationBar(
-                address: state.selectedAddress,
+                location: state.visitLocation,
                 isLoading: state.addressStatus == BookingLoadStatus.loading,
                 onTap: () => _openPicker(state),
               ),
@@ -128,8 +127,7 @@ class _ProfessionalSelectPageState extends State<ProfessionalSelectPage> {
                         color: Const.placeholderTextColor,
                       ),
                       isDense: true,
-                      contentPadding:
-                          const EdgeInsets.symmetric(vertical: 12),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 12),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14),
                         borderSide: const BorderSide(

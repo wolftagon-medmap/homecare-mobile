@@ -161,9 +161,8 @@ class _HomeHealthScreeningFlowPageState
                         isSubmitting: state.submissionStatus ==
                             ScreeningSubmissionStatus.submitting,
                         onSlotSelected: (timeSlot) {
-                          context
-                              .read<HomeHealthScreeningFlowBloc>()
-                              .add(ScreeningTimeSlotSelected(timeSlot.startTime));
+                          context.read<HomeHealthScreeningFlowBloc>().add(
+                              ScreeningTimeSlotSelected(timeSlot.startTime));
                         },
                       ),
                     ),

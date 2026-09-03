@@ -30,5 +30,6 @@ class BluetoothScanState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [adapterState, scanStatus, foundDevices, vitalCategory];
+  List<Object?> get props =>
+      [adapterState, scanStatus, foundDevices, vitalCategory];
 }

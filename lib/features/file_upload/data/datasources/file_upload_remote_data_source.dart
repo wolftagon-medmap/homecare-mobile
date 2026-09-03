@@ -15,7 +15,7 @@ class FileUploadRemoteDataSourceImpl implements FileUploadRemoteDataSource {
   @override
   Future<int> uploadFile(String filePath) async {
     // Backend validator: max 10MB
-    const maxSizeBytes = 10 * 1024 * 1024;  
+    const maxSizeBytes = 10 * 1024 * 1024;
     final f = File(filePath);
     if (!await f.exists()) {
       throw Exception('Upload failed: file not found at path: $filePath');
@@ -29,8 +29,8 @@ class FileUploadRemoteDataSourceImpl implements FileUploadRemoteDataSource {
 
     final token = await Utils.getSpString(Const.TOKEN);
 
-  // Use `print` (not `log`) so it consistently appears in `flutter run` output.
-  print('[FileUpload] tokenPresent=${token != null && token.isNotEmpty}');
+    // Use `print` (not `log`) so it consistently appears in `flutter run` output.
+    print('[FileUpload] tokenPresent=${token != null && token.isNotEmpty}');
 
     final file = await MultipartFile.fromFile(
       filePath,
@@ -39,8 +39,8 @@ class FileUploadRemoteDataSourceImpl implements FileUploadRemoteDataSource {
 
     final formData = FormData.fromMap({'file': file});
 
-  print(
-    '[FileUpload] POST ${Const.API_FILE_UPLOADS} size=$length path=$filePath');
+    print(
+        '[FileUpload] POST ${Const.API_FILE_UPLOADS} size=$length path=$filePath');
 
     final response = await dio.post(
       Const.API_FILE_UPLOADS,
@@ -56,8 +56,8 @@ class FileUploadRemoteDataSourceImpl implements FileUploadRemoteDataSource {
       ),
     );
 
-  print(
-    '[FileUpload] response status=${response.statusCode} contentType=${response.headers.value('content-type')} data=${response.data}');
+    print(
+        '[FileUpload] response status=${response.statusCode} contentType=${response.headers.value('content-type')} data=${response.data}');
 
     final status = response.statusCode ?? 0;
     if (status < 200 || status >= 300) {

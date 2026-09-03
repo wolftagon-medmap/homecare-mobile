@@ -18,7 +18,8 @@ void main() {
         '${AppRoutes.providerAppointmentDetail}/9');
   });
 
-  group('a route that cannot resolve its id falls back instead of throwing', () {
+  group('a route that cannot resolve its id falls back instead of throwing',
+      () {
     Future<void> pump(WidgetTester tester, String location) async {
       final router = GoRouter(
         navigatorKey: rootNavigatorKey,

@@ -31,8 +31,7 @@ class PharamacogenomicReportForm extends StatelessWidget {
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: Text(context.l10n.pharmacogenomics_delete_report_title),
-          content:
-              Text(context.l10n.pharmacogenomics_delete_report_content),
+          content: Text(context.l10n.pharmacogenomics_delete_report_content),
           actions: <Widget>[
             TextButton(
               child: Text(context.l10n.common_cancel),
@@ -41,7 +40,8 @@ class PharamacogenomicReportForm extends StatelessWidget {
               },
             ),
             TextButton(
-              child: Text(context.l10n.common_delete, style: const TextStyle(color: Colors.red)),
+              child: Text(context.l10n.common_delete,
+                  style: const TextStyle(color: Colors.red)),
               onPressed: () {
                 Navigator.of(dialogContext).pop();
                 context.read<PharmacogenomicsCubit>().delete();

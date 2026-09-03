@@ -73,9 +73,8 @@ void main() {
     expect(section.visibleFor(const {'smoke_or_vape': 'no'}).map((q) => q.code),
         isNot(contains('cigarettes_per_day')));
     expect(
-        section
-            .visibleFor(const {'smoke_or_vape': 'prefer_not_to_say'})
-            .map((q) => q.code),
+        section.visibleFor(const {'smoke_or_vape': 'prefer_not_to_say'}).map(
+            (q) => q.code),
         isNot(contains('cigarettes_per_day')));
     expect(
         section.visibleFor(const {'smoke_or_vape': 'daily'}).map((q) => q.code),

@@ -112,8 +112,8 @@ class _PsychologistBookingFlowPageState
                   backgroundColor: Colors.green,
                 ),
               );
-              context.go(AppointmentRoutes.detailPath(
-                  state.createdAppointment!.id!));
+              context.go(
+                  AppointmentRoutes.detailPath(state.createdAppointment!.id!));
             }
             if (state.errorMessage != null) {
               ScaffoldMessenger.of(context).showSnackBar(

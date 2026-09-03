@@ -32,9 +32,12 @@ void initHealthProfileModule(GetIt sl) {
     ),
   );
 
-  sl.registerLazySingleton(() => GetHealthSections(sl<HealthProfileRepository>()));
-  sl.registerLazySingleton(() => GetHealthSection(sl<HealthProfileRepository>()));
-  sl.registerLazySingleton(() => SaveHealthSection(sl<HealthProfileRepository>()));
+  sl.registerLazySingleton(
+      () => GetHealthSections(sl<HealthProfileRepository>()));
+  sl.registerLazySingleton(
+      () => GetHealthSection(sl<HealthProfileRepository>()));
+  sl.registerLazySingleton(
+      () => SaveHealthSection(sl<HealthProfileRepository>()));
   sl.registerLazySingleton(
     () => UploadHealthAttachment(sl<HealthProfileRepository>()),
   );

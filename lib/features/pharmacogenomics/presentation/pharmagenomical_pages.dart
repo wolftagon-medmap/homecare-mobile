@@ -48,7 +48,8 @@ class _PharmagenomicsProfilePageState extends State<PharmagenomicsProfilePage> {
                 children: [
                   Text(
                     context.l10n.common_full_report_file,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   const SizedBox(height: 8),
                   const PharamacogenomicReportForm(),

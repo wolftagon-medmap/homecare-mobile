@@ -98,7 +98,8 @@ class _NursingAppointmentFlowPageState
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                state.errorMessage ?? context.l10n.booking_appointment_created_failed,
+                state.errorMessage ??
+                    context.l10n.booking_appointment_created_failed,
               ),
               backgroundColor: Colors.red,
             ),
@@ -139,7 +140,6 @@ class _NursingAppointmentFlowPageState
                       context
                           .read<NursingAppointmentFlowBloc>()
                           .add(FlowPersonalIssueUpdated(issues));
-                    
                     },
                   ),
                 ),
@@ -168,10 +168,12 @@ class _NursingAppointmentFlowPageState
                   ),
                   child: SearchProfessionalPage(
                     role: 'nurse',
-                    serviceIds: state.selectedAddOnServices.map((e) => e.id).toList(),
-                    serviceSubCategory: state.serviceType == NurseServiceType.specializedNurse
-                        ? 'Specialized'
-                        : null,
+                    serviceIds:
+                        state.selectedAddOnServices.map((e) => e.id).toList(),
+                    serviceSubCategory:
+                        state.serviceType == NurseServiceType.specializedNurse
+                            ? 'Specialized'
+                            : null,
                     onProfessionalSelected: (prof) {
                       context
                           .read<NursingAppointmentFlowBloc>()
@@ -225,7 +227,8 @@ class _NursingAppointmentFlowPageState
                           : '';
                       return BookingConfirmationPage(
                         patientName: patientName,
-                        onChangePatient: () => showProfileSwitcherSheet(context),
+                        onChangePatient: () =>
+                            showProfileSwitcherSheet(context),
                         address: state.selectedLocation,
                         services: state.selectedAddOnServices,
                         professionalName: state.selectedProfessional!.name,

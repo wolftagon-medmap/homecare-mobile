@@ -22,9 +22,11 @@ class BookingProfessionalModel extends BookingProfessional {
       id: json['id'] as int,
       name: json['name'] as String? ?? '',
       avatar: json['avatar'] as String?,
-      jobTitle: json['job_title'] as String? ?? json['role'] as String?,
+      jobTitle:
+          (json['job_title'] ?? json['jobTitle'] ?? json['role']) as String?,
       rating: _toDouble(json['rating']) ?? 0,
-      reviewCount: (json['rating_count'] as num?)?.toInt() ?? 0,
+      reviewCount:
+          ((json['rating_count'] ?? json['ratingCount']) as num?)?.toInt() ?? 0,
       yearsOfExperience: (json['experience'] as num?)?.toInt() ?? 0,
     );
   }

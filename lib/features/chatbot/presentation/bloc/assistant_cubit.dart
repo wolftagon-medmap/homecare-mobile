@@ -366,8 +366,8 @@ class AssistantCubit extends Cubit<AssistantState> {
     _session = updated;
     final result = await sessions.save(updated);
     result.fold(
-      (failure) => log('session save failed',
-          name: 'chatbot.cubit', error: failure),
+      (failure) =>
+          log('session save failed', name: 'chatbot.cubit', error: failure),
       (_) {},
     );
   }

@@ -8,7 +8,8 @@ class UpdatePersonalIssue {
 
   UpdatePersonalIssue(this.repository);
 
-  Future<Either<Failure, PersonalIssue>> call(int id, PersonalIssue data) async {
+  Future<Either<Failure, PersonalIssue>> call(
+      int id, PersonalIssue data) async {
     return await repository.updatePersonalIssue(id, data);
   }
 }

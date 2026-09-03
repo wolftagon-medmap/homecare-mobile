@@ -6,7 +6,7 @@ import 'package:m2health/features/pharmacogenomics/domain/entities/pharmacogenom
 abstract class PharmacogenomicsRepository {
   Future<Option<Pharmacogenomics>> getPharmacogenomics();
   Future<void> storePharmacogenomics({
-    Pharmacogenomics? pharmacogenomics, 
+    Pharmacogenomics? pharmacogenomics,
     File? fullReportFile,
     Function(double progress)? onProgress,
   });

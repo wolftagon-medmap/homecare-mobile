@@ -4,7 +4,7 @@ import 'package:m2health/core/error/failures.dart';
 
 abstract class ServicesRepository {
   Future<Either<Failure, List<ServiceEntity>>> getServices({
-      required String category,
-      String? subCategory,
+    required String category,
+    String? subCategory,
   });
 }

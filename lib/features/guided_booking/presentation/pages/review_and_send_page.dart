@@ -113,7 +113,7 @@ class ReviewAndSendPage extends StatelessWidget {
                     state.catalogue?.title ??
                     draft.category,
                 style: const TextStyle(
-                  fontSize: 17,
+                  fontSize: 15,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -257,7 +257,7 @@ class ReviewAndSendPage extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 t.estimate_note,
-                style: const TextStyle(fontSize: 11.5, color: Colors.black54),
+                style: const TextStyle(fontSize: 12, color: Colors.black54),
               ),
             ],
           ),

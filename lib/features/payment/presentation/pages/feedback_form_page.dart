@@ -65,8 +65,8 @@ class _FeedbackFormPageState extends State<FeedbackFormPage> {
             MaterialPageRoute(
               builder: (context) => FeedbackSuccessPage(
                 onButtonPressed: () {
-                  GoRouter.of(context).go(
-                      AppointmentRoutes.detailPath(widget.appointment.id!));
+                  GoRouter.of(context)
+                      .go(AppointmentRoutes.detailPath(widget.appointment.id!));
                 },
               ),
             ),

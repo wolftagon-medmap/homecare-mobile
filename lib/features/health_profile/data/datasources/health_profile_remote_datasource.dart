@@ -54,7 +54,9 @@ class HealthProfileRemoteDataSource implements HealthProfileDataSource {
   }
 
   Map<String, dynamic> _profileQuery(int? patientProfileId) =>
-      patientProfileId == null ? const {} : {'patient_profile_id': patientProfileId};
+      patientProfileId == null
+          ? const {}
+          : {'patient_profile_id': patientProfileId};
 }
 
 class HealthAttachmentRemoteDataSource implements HealthAttachmentDataSource {

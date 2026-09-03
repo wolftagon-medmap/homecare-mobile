@@ -152,11 +152,13 @@ class _SchedulePhysiotherapyAppointmentPageState
                   if (state.status == ActionStatus.error) {
                     return Center(
                         child: Text(state.errorMessage ??
-                            context.l10n.physiotherapy_scheduling_failed_load_slots));
+                            context.l10n
+                                .physiotherapy_scheduling_failed_load_slots));
                   }
                   if (state.slots.isEmpty) {
                     return Center(
-                        child: Text(context.l10n.physiotherapy_scheduling_no_slots));
+                        child: Text(
+                            context.l10n.physiotherapy_scheduling_no_slots));
                   }
 
                   return TimeSlotGridView(
@@ -185,7 +187,8 @@ class _SchedulePhysiotherapyAppointmentPageState
       label: SizedBox(
         width: double.infinity,
         child: Center(
-            child: Text(context.l10n.physiotherapy_scheduling_minutes(duration))),
+            child:
+                Text(context.l10n.physiotherapy_scheduling_minutes(duration))),
       ),
       selected: isSelected,
       onSelected: (selected) {
@@ -311,7 +314,8 @@ class _SchedulePhysiotherapyAppointmentPageState
                   )
                 : Text(
                     context.l10n.physiotherapy_scheduling_submit,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w600),
                   ),
           );
         },

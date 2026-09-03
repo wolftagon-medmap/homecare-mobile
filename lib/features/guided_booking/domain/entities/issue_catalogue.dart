@@ -42,8 +42,16 @@ class IssueSubCategory extends Equatable {
   bool get inheritsIssues => issues.isEmpty && legacyFlow == null;
 
   @override
-  List<Object?> get props =>
-      [code, label, description, image, background, serviceCode, legacyFlow, issues];
+  List<Object?> get props => [
+        code,
+        label,
+        description,
+        image,
+        background,
+        serviceCode,
+        legacyFlow,
+        issues
+      ];
 }
 
 class IssueCatalogue extends Equatable {

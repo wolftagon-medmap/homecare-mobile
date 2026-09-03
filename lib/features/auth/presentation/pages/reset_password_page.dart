@@ -111,10 +111,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return context.t.auth.form.validation.password_required;
+                            return context
+                                .t.auth.form.validation.password_required;
                           }
                           if (value.length < 6) {
-                            return context.t.auth.form.validation.invalid_password_length;
+                            return context
+                                .t.auth.form.validation.invalid_password_length;
                           }
                           return null;
                         },
@@ -147,7 +149,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         ),
                         validator: (value) {
                           if (value != _passwordController.text) {
-                            return context.t.auth.form.validation.password_mismatch;
+                            return context
+                                .t.auth.form.validation.password_mismatch;
                           }
                           return null;
                         },

@@ -32,7 +32,8 @@ final class ServicesSelectionState {
   }
 
   factory ServicesSelectionState.loading() {
-    return const ServicesSelectionState._(status: ServicesSelectionStateStatus.loading);
+    return const ServicesSelectionState._(
+        status: ServicesSelectionStateStatus.loading);
   }
 
   factory ServicesSelectionState.loaded(List<ServiceEntity> services) {
@@ -58,8 +59,7 @@ final class ServicesSelectionState {
     return ServicesSelectionState._(
       status: status ?? this.status,
       services: services ?? this.services,
-      selectedServices:
-          selectedServices ?? this.selectedServices,
+      selectedServices: selectedServices ?? this.selectedServices,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }

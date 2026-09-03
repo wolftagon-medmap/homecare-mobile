@@ -8,10 +8,12 @@ abstract class SubscriptionRemoteDataSource {
   Future<List<SubscriptionPlanModel>> getSubscriptionPlans();
   Future<List<UserSubscriptionModel>> getUserSubscriptions();
   Future<UserSubscriptionModel> purchaseSubscription(int planId);
-  
+
   // Admin
-  Future<SubscriptionPlanModel> createSubscriptionPlan(Map<String, dynamic> body);
-  Future<SubscriptionPlanModel> updateSubscriptionPlan(int id, Map<String, dynamic> body);
+  Future<SubscriptionPlanModel> createSubscriptionPlan(
+      Map<String, dynamic> body);
+  Future<SubscriptionPlanModel> updateSubscriptionPlan(
+      int id, Map<String, dynamic> body);
   Future<SubscriptionPlanModel> toggleSubscriptionPlanActive(int id);
 }
 
@@ -23,7 +25,7 @@ class SubscriptionRemoteDataSourceImpl implements SubscriptionRemoteDataSource {
   @override
   Future<List<SubscriptionPlanModel>> getSubscriptionPlans() async {
     final token = await Utils.getSpString(Const.TOKEN);
-    
+
     final options = token != null && token.isNotEmpty
         ? Options(headers: {'Authorization': 'Bearer $token'})
         : null;
@@ -68,7 +70,8 @@ class SubscriptionRemoteDataSourceImpl implements SubscriptionRemoteDataSource {
   }
 
   @override
-  Future<SubscriptionPlanModel> createSubscriptionPlan(Map<String, dynamic> body) async {
+  Future<SubscriptionPlanModel> createSubscriptionPlan(
+      Map<String, dynamic> body) async {
     final token = await Utils.getSpString(Const.TOKEN);
     final response = await dio.post(
       Const.API_ADMIN_SUBSCRIPTIONS,
@@ -79,7 +82,8 @@ class SubscriptionRemoteDataSourceImpl implements SubscriptionRemoteDataSource {
   }
 
   @override
-  Future<SubscriptionPlanModel> updateSubscriptionPlan(int id, Map<String, dynamic> body) async {
+  Future<SubscriptionPlanModel> updateSubscriptionPlan(
+      int id, Map<String, dynamic> body) async {
     final token = await Utils.getSpString(Const.TOKEN);
     final response = await dio.put(
       '${Const.API_ADMIN_SUBSCRIPTIONS}/$id',

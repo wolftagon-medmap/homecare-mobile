@@ -125,8 +125,7 @@ void main() {
           kPatientInboxDemoFixture().map(PatientInboxItem.fromJson).toList();
 
       expect(items, isNotEmpty);
-      final proposed =
-          items.where((i) => i.status == 'time_proposed').toList();
+      final proposed = items.where((i) => i.status == 'time_proposed').toList();
       expect(proposed, hasLength(1));
       expect(proposed.single.statusLabel, 'Alternative time proposed');
       expect(proposed.single.provider?.name, isNotNull);

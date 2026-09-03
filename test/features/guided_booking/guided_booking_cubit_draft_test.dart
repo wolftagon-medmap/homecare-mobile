@@ -1,3 +1,5 @@
+import 'package:m2health/core/location/current_location_service.dart';
+import 'package:m2health/core/location/visit_location.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:m2health/core/error/failures.dart';
@@ -101,6 +103,10 @@ class _StubSubmissionRepository implements BookingSubmissionRepository {
       throw UnimplementedError();
 }
 
+final _savedLocation = VisitLocation.fromAddress(
+  const Address(id: 10, latitude: 1.3, longitude: 103.8, label: 'Home'),
+);
+
 void main() {
   late _InMemoryDraftRepository drafts;
   late _StubSubmissionRepository submissions;
@@ -118,6 +124,8 @@ void main() {
         loadDraft: LoadBookingDraft(drafts),
         saveDraft: SaveBookingDraft(drafts),
         clearDraft: ClearBookingDraft(drafts),
+        currentLocation: CurrentLocationService(),
+        createAddress: (_) async => 10,
       );
 
   setUp(() {
@@ -186,7 +194,7 @@ void main() {
   test('a successful submit clears the draft', () async {
     final cubit = build();
     cubit.toggleIssue('nurse_wound_care');
-    cubit.selectAddress(10);
+    cubit.selectVisitLocation(_savedLocation);
     cubit.selectProfessional(2);
     cubit.selectSlot(DateTime(2026, 9, 8, 10));
 
@@ -203,7 +211,7 @@ void main() {
     final cubit = build(subCategory: 'primary_nurse');
     cubit.toggleIssue('nurse_wound_care');
     cubit.setRemarks('Dressing change');
-    cubit.selectAddress(10);
+    cubit.selectVisitLocation(_savedLocation);
     cubit.selectProfessional(2);
     cubit.selectSlot(DateTime(2026, 9, 8, 10));
 

@@ -26,21 +26,21 @@ class ProfessionalCard extends StatelessWidget {
 
     return Material(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(14),
       child: InkWell(
         onTap: onOpenProfile,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(14),
         child: Container(
-          padding: const EdgeInsets.all(14),
+          padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             border: Border.all(color: Const.borderSubtle),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(14),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _Avatar(professional: professional),
-              const SizedBox(width: 14),
+              const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,9 +49,7 @@ class ProfessionalCard extends StatelessWidget {
                       professional.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.w700,
+                      style: ProText.sectionTitle.copyWith(
                         height: 1.2,
                         color: Const.primaryTextColor,
                       ),
@@ -62,15 +60,12 @@ class ProfessionalCard extends StatelessWidget {
                         professional.jobTitle!,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Const.contentTextColor,
-                        ),
+                        style: ProText.caption,
                       ),
                     ],
                     const SizedBox(height: 6),
                     _RatingRow(professional: professional),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 8),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -80,9 +75,7 @@ class ProfessionalCard extends StatelessWidget {
                               '\$${price.toStringAsFixed(0)}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
+                              style: ProText.sectionTitle.copyWith(
                                 color: Const.primaryTextColor,
                               ),
                             ),
@@ -115,22 +108,24 @@ class _Avatar extends StatelessWidget {
   Widget build(BuildContext context) {
     final avatar = professional.avatar;
 
+    const initialsStyle = TextStyle(
+      fontSize: 22,
+      fontWeight: FontWeight.w700,
+      color: Const.tosca,
+    );
+
     return ClipRRect(
-      borderRadius: BorderRadius.circular(22),
+      borderRadius: BorderRadius.circular(14),
       child: SizedBox(
-        width: 92,
-        height: 92,
+        width: 64,
+        height: 64,
         child: avatar == null
             ? ColoredBox(
                 color: Const.aqua.withValues(alpha: 0.15),
                 child: Center(
                   child: Text(
                     _initials(professional.name),
-                    style: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700,
-                      color: Const.tosca,
-                    ),
+                    style: initialsStyle,
                   ),
                 ),
               )
@@ -142,11 +137,7 @@ class _Avatar extends StatelessWidget {
                   child: Center(
                     child: Text(
                       _initials(professional.name),
-                      style: const TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        color: Const.tosca,
-                      ),
+                      style: initialsStyle,
                     ),
                   ),
                 ),
@@ -171,19 +162,19 @@ class _RatingRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = context.t.guidedBooking.professional;
-    const muted = TextStyle(fontSize: 14, color: Const.contentTextColor);
+    const muted = ProText.caption;
 
     return Row(
       children: [
-        const Icon(Icons.star_half_rounded, size: 20, color: Color(0xFF8FDCA8)),
-        const SizedBox(width: 5),
+        const Icon(Icons.star_half_rounded, size: 16, color: Color(0xFF8FDCA8)),
+        const SizedBox(width: 4),
         Text(
           professional.rating.toStringAsFixed(1),
           style: muted,
         ),
-        const SizedBox(width: 8),
-        const Text('|', style: TextStyle(fontSize: 14, color: Colors.black26)),
-        const SizedBox(width: 8),
+        const SizedBox(width: 6),
+        const Text('|', style: TextStyle(fontSize: 13, color: Colors.black26)),
+        const SizedBox(width: 6),
         Flexible(
           child: Text(
             t.years(years: professional.yearsOfExperience),
@@ -210,16 +201,16 @@ class _ViewProfileButton extends StatelessWidget {
       style: TextButton.styleFrom(
         backgroundColor: const Color(0xFFF2F4F7),
         foregroundColor: Const.primaryTextColor,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         minimumSize: Size.zero,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
       child: Text(
         label,
-        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        style: ProText.captionStrong,
       ),
     );
   }

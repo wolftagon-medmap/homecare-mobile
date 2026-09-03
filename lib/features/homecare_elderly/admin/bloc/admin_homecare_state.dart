@@ -40,5 +40,6 @@ class AdminHomecareState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [services, plans, isLoading, error, actionStatus, actionError];
+  List<Object?> get props =>
+      [services, plans, isLoading, error, actionStatus, actionError];
 }

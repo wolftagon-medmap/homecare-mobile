@@ -48,9 +48,8 @@ class AssistantSessionsPage extends StatelessWidget {
                   separatorBuilder: (_, __) => const Divider(height: 1),
                   itemBuilder: (context, index) {
                     final session = sessions[index];
-                    final current = context
-                        .read<AssistantSessionsCubit>()
-                        .currentSessionId;
+                    final current =
+                        context.read<AssistantSessionsCubit>().currentSessionId;
                     return _SessionTile(
                       session: session,
                       isCurrent: session.id == current,

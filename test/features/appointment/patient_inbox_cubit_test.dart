@@ -47,7 +47,8 @@ void main() {
 
   Dio dioWith(HttpClientAdapter adapter) => Dio()..httpClientAdapter = adapter;
 
-  test('flag off: fixture rows only, and the network is never called', () async {
+  test('flag off: fixture rows only, and the network is never called',
+      () async {
     final adapter = _RecordingAdapter();
     final cubit = PatientInboxCubit(dioWith(adapter));
 

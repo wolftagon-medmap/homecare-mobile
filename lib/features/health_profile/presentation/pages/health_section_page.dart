@@ -51,7 +51,8 @@ class _HealthSectionPageState extends State<HealthSectionPage> {
 
     if (saved == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(cubit.state.errorMessage ?? t.section.save_failed)),
+        SnackBar(
+            content: Text(cubit.state.errorMessage ?? t.section.save_failed)),
       );
       return;
     }

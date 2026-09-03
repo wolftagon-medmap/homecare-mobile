@@ -52,7 +52,7 @@ class ReviewSection extends StatelessWidget {
                   child: Text(
                     context.t.guidedBooking.review.edit,
                     style: const TextStyle(
-                      fontSize: 12.5,
+                      fontSize: 12,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -91,7 +91,7 @@ class ReviewChips extends StatelessWidget {
             child: Text(
               label,
               style: const TextStyle(
-                fontSize: 12.5,
+                fontSize: 12,
                 fontWeight: FontWeight.w600,
                 color: Const.primaryTextColor,
               ),

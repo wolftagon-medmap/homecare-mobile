@@ -138,8 +138,8 @@ class _PatientInboxCard extends StatelessWidget {
           : null,
       onTap: item.appointmentId == null
           ? null
-          : () => context
-              .push(AppointmentRoutes.detailPath(item.appointmentId!)),
+          : () =>
+              context.push(AppointmentRoutes.detailPath(item.appointmentId!)),
       actions: _appointmentActions(context),
     );
   }
@@ -151,8 +151,7 @@ class _PatientInboxCard extends StatelessWidget {
 
   Future<void> _openCareTaskDetail(BuildContext context) async {
     final cubit = context.read<PatientInboxCubit>();
-    await context
-        .push(AppointmentRoutes.careTaskDetailPath(item.careTaskId!));
+    await context.push(AppointmentRoutes.careTaskDetailPath(item.careTaskId!));
     // Status may have moved (accepted/cancelled) while the detail was open.
     await cubit.fetchInbox();
   }

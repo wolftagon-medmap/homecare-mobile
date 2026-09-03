@@ -9,2282 +9,2472 @@ part of 'translations.g.dart';
 
 // Path: <root>
 typedef TranslationsEn = Translations; // ignore: unused_element
+
 class Translations with BaseTranslations<AppLocale, Translations> {
-	/// Returns the current translations of the given [context].
-	///
-	/// Usage:
-	/// final t = Translations.of(context);
-	static Translations of(BuildContext context) => InheritedLocaleData.of<AppLocale, Translations>(context).translations;
+  /// Returns the current translations of the given [context].
+  ///
+  /// Usage:
+  /// final t = Translations.of(context);
+  static Translations of(BuildContext context) =>
+      InheritedLocaleData.of<AppLocale, Translations>(context).translations;
 
-	/// You can call this constructor and build your own translation instance of this locale.
-	/// Constructing via the enum [AppLocale.build] is preferred.
-	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
-		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = meta ?? TranslationMetadata(
-		    locale: AppLocale.en,
-		    overrides: overrides ?? {},
-		    cardinalResolver: cardinalResolver,
-		    ordinalResolver: ordinalResolver,
-		  ) {
-		$meta.setFlatMapFunction(_flatMapFunction);
-	}
+  /// You can call this constructor and build your own translation instance of this locale.
+  /// Constructing via the enum [AppLocale.build] is preferred.
+  Translations(
+      {Map<String, Node>? overrides,
+      PluralResolver? cardinalResolver,
+      PluralResolver? ordinalResolver,
+      TranslationMetadata<AppLocale, Translations>? meta})
+      : assert(overrides == null,
+            'Set "translation_overrides: true" in order to enable this feature.'),
+        $meta = meta ??
+            TranslationMetadata(
+              locale: AppLocale.en,
+              overrides: overrides ?? {},
+              cardinalResolver: cardinalResolver,
+              ordinalResolver: ordinalResolver,
+            ) {
+    $meta.setFlatMapFunction(_flatMapFunction);
+  }
 
-	/// Metadata for the translations of <en>.
-	@override final TranslationMetadata<AppLocale, Translations> $meta;
+  /// Metadata for the translations of <en>.
+  @override
+  final TranslationMetadata<AppLocale, Translations> $meta;
 
-	/// Access flat map
-	dynamic operator[](String key) => $meta.getTranslation(key);
+  /// Access flat map
+  dynamic operator [](String key) => $meta.getTranslation(key);
 
-	late final Translations _root = this; // ignore: unused_field
+  late final Translations _root = this; // ignore: unused_field
 
-	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
+  Translations $copyWith(
+          {TranslationMetadata<AppLocale, Translations>? meta}) =>
+      Translations(meta: meta ?? this.$meta);
 
-	// Translations
-	late final TranslationsAuthEn auth = TranslationsAuthEn._(_root);
-	late final TranslationsBookingEn booking = TranslationsBookingEn._(_root);
-	late final TranslationsChatbotEn chatbot = TranslationsChatbotEn._(_root);
-	late final TranslationsDashboardEn dashboard = TranslationsDashboardEn._(_root);
-	late final TranslationsGlobalEn global = TranslationsGlobalEn._(_root);
-	late final TranslationsGuidedBookingEn guidedBooking = TranslationsGuidedBookingEn._(_root);
-	late final TranslationsHealthProfileEn healthProfile = TranslationsHealthProfileEn._(_root);
-	late final TranslationsMessagingEn messaging = TranslationsMessagingEn._(_root);
-	late final TranslationsNursingEn nursing = TranslationsNursingEn._(_root);
-	late final TranslationsPaymentEn payment = TranslationsPaymentEn._(_root);
-	late final TranslationsPharmacyEn pharmacy = TranslationsPharmacyEn._(_root);
-	late final TranslationsPricingEn pricing = TranslationsPricingEn._(_root);
-	late final TranslationsSettingsEn settings = TranslationsSettingsEn._(_root);
-	late final TranslationsSharedBookingEn sharedBooking = TranslationsSharedBookingEn._(_root);
-	late final TranslationsStoreEn store = TranslationsStoreEn._(_root);
+  // Translations
+  late final TranslationsAuthEn auth = TranslationsAuthEn._(_root);
+  late final TranslationsBookingEn booking = TranslationsBookingEn._(_root);
+  late final TranslationsChatbotEn chatbot = TranslationsChatbotEn._(_root);
+  late final TranslationsDashboardEn dashboard =
+      TranslationsDashboardEn._(_root);
+  late final TranslationsGlobalEn global = TranslationsGlobalEn._(_root);
+  late final TranslationsGuidedBookingEn guidedBooking =
+      TranslationsGuidedBookingEn._(_root);
+  late final TranslationsHealthProfileEn healthProfile =
+      TranslationsHealthProfileEn._(_root);
+  late final TranslationsMessagingEn messaging =
+      TranslationsMessagingEn._(_root);
+  late final TranslationsNursingEn nursing = TranslationsNursingEn._(_root);
+  late final TranslationsPaymentEn payment = TranslationsPaymentEn._(_root);
+  late final TranslationsPharmacyEn pharmacy = TranslationsPharmacyEn._(_root);
+  late final TranslationsPricingEn pricing = TranslationsPricingEn._(_root);
+  late final TranslationsSettingsEn settings = TranslationsSettingsEn._(_root);
+  late final TranslationsSharedBookingEn sharedBooking =
+      TranslationsSharedBookingEn._(_root);
+  late final TranslationsStoreEn store = TranslationsStoreEn._(_root);
 }
 
 // Path: auth
 class TranslationsAuthEn {
-	TranslationsAuthEn._(this._root);
+  TranslationsAuthEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsAuthButtonEn button = TranslationsAuthButtonEn._(_root);
+  // Translations
+  late final TranslationsAuthButtonEn button =
+      TranslationsAuthButtonEn._(_root);
 
-	/// en: 'Or continue with'
-	String get continue_with_alternative_text => 'Or continue with';
+  /// en: 'Or continue with'
+  String get continue_with_alternative_text => 'Or continue with';
 
-	late final TranslationsAuthForgotPasswordEn forgot_password = TranslationsAuthForgotPasswordEn._(_root);
-	late final TranslationsAuthFormEn form = TranslationsAuthFormEn._(_root);
-	late final TranslationsAuthLoginEn login = TranslationsAuthLoginEn._(_root);
-	late final TranslationsAuthOtpVerificationEn otp_verification = TranslationsAuthOtpVerificationEn._(_root);
-	late final TranslationsAuthRegisterEn register = TranslationsAuthRegisterEn._(_root);
-	late final TranslationsAuthResetPasswordEn reset_password = TranslationsAuthResetPasswordEn._(_root);
-	late final TranslationsAuthResetPasswordSuccessEn reset_password_success = TranslationsAuthResetPasswordSuccessEn._(_root);
-	late final TranslationsAuthUserRoleEn user_role = TranslationsAuthUserRoleEn._(_root);
+  late final TranslationsAuthForgotPasswordEn forgot_password =
+      TranslationsAuthForgotPasswordEn._(_root);
+  late final TranslationsAuthFormEn form = TranslationsAuthFormEn._(_root);
+  late final TranslationsAuthLoginEn login = TranslationsAuthLoginEn._(_root);
+  late final TranslationsAuthOtpVerificationEn otp_verification =
+      TranslationsAuthOtpVerificationEn._(_root);
+  late final TranslationsAuthRegisterEn register =
+      TranslationsAuthRegisterEn._(_root);
+  late final TranslationsAuthResetPasswordEn reset_password =
+      TranslationsAuthResetPasswordEn._(_root);
+  late final TranslationsAuthResetPasswordSuccessEn reset_password_success =
+      TranslationsAuthResetPasswordSuccessEn._(_root);
+  late final TranslationsAuthUserRoleEn user_role =
+      TranslationsAuthUserRoleEn._(_root);
 }
 
 // Path: booking
 class TranslationsBookingEn {
-	TranslationsBookingEn._(this._root);
+  TranslationsBookingEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsBookingAddonEn addon = TranslationsBookingAddonEn._(_root);
+  // Translations
+  late final TranslationsBookingAddonEn addon =
+      TranslationsBookingAddonEn._(_root);
 
-	/// en: 'Book Appointment'
-	String get book_appointment => 'Book Appointment';
+  /// en: 'Book Appointment'
+  String get book_appointment => 'Book Appointment';
 
-	late final TranslationsBookingConfirmationEn confirmation = TranslationsBookingConfirmationEn._(_root);
-	late final TranslationsBookingHealthStatusEn health_status = TranslationsBookingHealthStatusEn._(_root);
-	late final TranslationsBookingIssueEn issue = TranslationsBookingIssueEn._(_root);
-	late final TranslationsBookingProfessionalDetailEn professional_detail = TranslationsBookingProfessionalDetailEn._(_root);
-	late final TranslationsBookingProfessionalSearchEn professional_search = TranslationsBookingProfessionalSearchEn._(_root);
-	late final TranslationsBookingScheduleEn schedule = TranslationsBookingScheduleEn._(_root);
+  late final TranslationsBookingConfirmationEn confirmation =
+      TranslationsBookingConfirmationEn._(_root);
+  late final TranslationsBookingHealthStatusEn health_status =
+      TranslationsBookingHealthStatusEn._(_root);
+  late final TranslationsBookingIssueEn issue =
+      TranslationsBookingIssueEn._(_root);
+  late final TranslationsBookingProfessionalDetailEn professional_detail =
+      TranslationsBookingProfessionalDetailEn._(_root);
+  late final TranslationsBookingProfessionalSearchEn professional_search =
+      TranslationsBookingProfessionalSearchEn._(_root);
+  late final TranslationsBookingScheduleEn schedule =
+      TranslationsBookingScheduleEn._(_root);
 }
 
 // Path: chatbot
 class TranslationsChatbotEn {
-	TranslationsChatbotEn._(this._root);
+  TranslationsChatbotEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'M2Health AI Assistant'
-	String get title => 'M2Health AI Assistant';
+  /// en: 'M2Health AI Assistant'
+  String get title => 'M2Health AI Assistant';
 
-	/// en: 'Hi! I'm your'
-	String get heroGreeting => 'Hi! I\'m your';
+  /// en: 'Hi! I'm your'
+  String get heroGreeting => 'Hi! I\'m your';
 
-	/// en: 'M2Health AI Health Assistant.'
-	String get heroName => 'M2Health AI Health Assistant.';
+  /// en: 'M2Health AI Health Assistant.'
+  String get heroName => 'M2Health AI Health Assistant.';
 
-	/// en: 'Tell me what's bothering you, and I'll help you understand what you can do next.'
-	String get heroBody => 'Tell me what\'s bothering you, and I\'ll help you understand what you can do next.';
+  /// en: 'Tell me what's bothering you, and I'll help you understand what you can do next.'
+  String get heroBody =>
+      'Tell me what\'s bothering you, and I\'ll help you understand what you can do next.';
 
-	/// en: 'Type your message...'
-	String get composerHint => 'Type your message...';
+  /// en: 'Type your message...'
+  String get composerHint => 'Type your message...';
 
-	/// en: 'Or type your question here...'
-	String get composerHintWelcome => 'Or type your question here...';
+  /// en: 'Or type your question here...'
+  String get composerHintWelcome => 'Or type your question here...';
 
-	/// en: 'Send'
-	String get send => 'Send';
+  /// en: 'Send'
+  String get send => 'Send';
 
-	/// en: '(HIPAA Privacy)'
-	String get privacyLabel => '(HIPAA Privacy)';
+  /// en: '(HIPAA Privacy)'
+  String get privacyLabel => '(HIPAA Privacy)';
 
-	/// en: 'Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.'
-	String get privacyDetail => 'Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.';
+  /// en: 'Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.'
+  String get privacyDetail =>
+      'Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.';
 
-	/// en: 'Why use M2Health AI Assistant?'
-	String get benefitsTitle => 'Why use M2Health AI Assistant?';
+  /// en: 'Why use M2Health AI Assistant?'
+  String get benefitsTitle => 'Why use M2Health AI Assistant?';
 
-	/// en: 'Understand your concerns'
-	String get benefitUnderstand => 'Understand your concerns';
+  /// en: 'Understand your concerns'
+  String get benefitUnderstand => 'Understand your concerns';
 
-	/// en: 'Get clear explanations in simple language'
-	String get benefitExplain => 'Get clear explanations in simple language';
+  /// en: 'Get clear explanations in simple language'
+  String get benefitExplain => 'Get clear explanations in simple language';
 
-	/// en: 'Save time and reduce guesswork'
-	String get benefitSaveTime => 'Save time and reduce guesswork';
+  /// en: 'Save time and reduce guesswork'
+  String get benefitSaveTime => 'Save time and reduce guesswork';
 
-	/// en: 'Connect to the right care, faster'
-	String get benefitConnect => 'Connect to the right care, faster';
+  /// en: 'Connect to the right care, faster'
+  String get benefitConnect => 'Connect to the right care, faster';
 
-	/// en: 'This AI Assistant provides general information only and does not replace professional medical advice, diagnosis or treatment. If you have a medical emergency, please seek urgent medical care.'
-	String get disclaimerBody => 'This AI Assistant provides general information only and does not replace professional medical advice, diagnosis or treatment. If you have a medical emergency, please seek urgent medical care.';
+  /// en: 'This AI Assistant provides general information only and does not replace professional medical advice, diagnosis or treatment. If you have a medical emergency, please seek urgent medical care.'
+  String get disclaimerBody =>
+      'This AI Assistant provides general information only and does not replace professional medical advice, diagnosis or treatment. If you have a medical emergency, please seek urgent medical care.';
 
-	/// en: 'The assistant is unavailable'
-	String get errorTitle => 'The assistant is unavailable';
+  /// en: 'The assistant is unavailable'
+  String get errorTitle => 'The assistant is unavailable';
 
-	/// en: 'Try again'
-	String get retry => 'Try again';
+  /// en: 'Try again'
+  String get retry => 'Try again';
 
-	/// en: 'Conversation history'
-	String get history => 'Conversation history';
+  /// en: 'Conversation history'
+  String get history => 'Conversation history';
 
-	/// en: 'New conversation'
-	String get newConversation => 'New conversation';
+  /// en: 'New conversation'
+  String get newConversation => 'New conversation';
 
-	/// en: 'Start a new conversation?'
-	String get newConversationTitle => 'Start a new conversation?';
+  /// en: 'Start a new conversation?'
+  String get newConversationTitle => 'Start a new conversation?';
 
-	/// en: 'This conversation will be kept in your history as read-only.'
-	String get newConversationBody => 'This conversation will be kept in your history as read-only.';
+  /// en: 'This conversation will be kept in your history as read-only.'
+  String get newConversationBody =>
+      'This conversation will be kept in your history as read-only.';
 
-	/// en: 'Start new'
-	String get startNew => 'Start new';
+  /// en: 'Start new'
+  String get startNew => 'Start new';
 
-	/// en: 'Cancel'
-	String get cancel => 'Cancel';
+  /// en: 'Cancel'
+  String get cancel => 'Cancel';
 
-	/// en: 'Conversation History'
-	String get historyTitle => 'Conversation History';
+  /// en: 'Conversation History'
+  String get historyTitle => 'Conversation History';
 
-	/// en: 'No conversations yet.'
-	String get historyEmpty => 'No conversations yet.';
+  /// en: 'No conversations yet.'
+  String get historyEmpty => 'No conversations yet.';
 
-	/// en: 'Could not load your conversations'
-	String get historyError => 'Could not load your conversations';
+  /// en: 'Could not load your conversations'
+  String get historyError => 'Could not load your conversations';
 
-	/// en: 'Health conversation'
-	String get sessionUntitled => 'Health conversation';
+  /// en: 'Health conversation'
+  String get sessionUntitled => 'Health conversation';
 
-	/// en: 'Active'
-	String get sessionActive => 'Active';
+  /// en: 'Active'
+  String get sessionActive => 'Active';
 
-	/// en: 'Read-only'
-	String get sessionReadOnly => 'Read-only';
+  /// en: 'Read-only'
+  String get sessionReadOnly => 'Read-only';
 
-	/// en: 'Delete conversation'
-	String get deleteTitle => 'Delete conversation';
+  /// en: 'Delete conversation'
+  String get deleteTitle => 'Delete conversation';
 
-	/// en: 'This conversation will be deleted from this device. This cannot be undone.'
-	String get deleteBody => 'This conversation will be deleted from this device. This cannot be undone.';
+  /// en: 'This conversation will be deleted from this device. This cannot be undone.'
+  String get deleteBody =>
+      'This conversation will be deleted from this device. This cannot be undone.';
 
-	/// en: 'Delete'
-	String get delete => 'Delete';
+  /// en: 'Delete'
+  String get delete => 'Delete';
 
-	/// en: 'Voice input'
-	String get voiceInput => 'Voice input';
+  /// en: 'Voice input'
+  String get voiceInput => 'Voice input';
 
-	/// en: 'Transcribing...'
-	String get transcribing => 'Transcribing...';
+  /// en: 'Transcribing...'
+  String get transcribing => 'Transcribing...';
 
-	/// en: 'Microphone access required'
-	String get micDeniedTitle => 'Microphone access required';
+  /// en: 'Microphone access required'
+  String get micDeniedTitle => 'Microphone access required';
 
-	/// en: 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.'
-	String get micDeniedBody => 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.';
+  /// en: 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.'
+  String get micDeniedBody =>
+      'Microphone permission has been denied. Please enable it in your device Settings to use voice input.';
 
-	/// en: 'Open Settings'
-	String get openSettings => 'Open Settings';
+  /// en: 'Open Settings'
+  String get openSettings => 'Open Settings';
 }
 
 // Path: dashboard
 class TranslationsDashboardEn {
-	TranslationsDashboardEn._(this._root);
+  TranslationsDashboardEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Chat With AI doctor for all your health questions'
-	String get chat_ai_placeholder => 'Chat With AI doctor for all your health questions';
+  /// en: 'Chat With AI doctor for all your health questions'
+  String get chat_ai_placeholder =>
+      'Chat With AI doctor for all your health questions';
 
-	/// en: 'Live Longer & Live Healthier, {displayName}!'
-	String greeting({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!';
+  /// en: 'Live Longer & Live Healthier, {displayName}!'
+  String greeting({required Object displayName}) =>
+      'Live Longer & Live Healthier, ${displayName}!';
 
-	/// en: 'Live Longer & Live Healthier!'
-	String get greeting_generic => 'Live Longer & Live Healthier!';
+  /// en: 'Live Longer & Live Healthier!'
+  String get greeting_generic => 'Live Longer & Live Healthier!';
 
-	/// en: 'We couldn't load your profile.'
-	String get header_error => 'We couldn\'t load your profile.';
+  /// en: 'We couldn't load your profile.'
+  String get header_error => 'We couldn\'t load your profile.';
 
-	/// en: 'Retry'
-	String get retry => 'Retry';
+  /// en: 'Retry'
+  String get retry => 'Retry';
 
-	late final TranslationsDashboardHomeEn home = TranslationsDashboardHomeEn._(_root);
+  late final TranslationsDashboardHomeEn home =
+      TranslationsDashboardHomeEn._(_root);
 }
 
 // Path: global
 class TranslationsGlobalEn {
-	TranslationsGlobalEn._(this._root);
+  TranslationsGlobalEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Add'
-	String get add => 'Add';
+  /// en: 'Add'
+  String get add => 'Add';
 
-	/// en: 'Book Now'
-	String get book_now => 'Book Now';
+  /// en: 'Book Now'
+  String get book_now => 'Book Now';
 
-	/// en: 'Cancel'
-	String get cancel => 'Cancel';
+  /// en: 'Cancel'
+  String get cancel => 'Cancel';
 
-	/// en: 'Complete'
-	String get complete => 'Complete';
+  /// en: 'Complete'
+  String get complete => 'Complete';
 
-	/// en: 'Confirm'
-	String get confirm => 'Confirm';
+  /// en: 'Confirm'
+  String get confirm => 'Confirm';
 
-	/// en: 'Delete'
-	String get delete => 'Delete';
+  /// en: 'Delete'
+  String get delete => 'Delete';
 
-	/// en: 'Description'
-	String get description => 'Description';
+  /// en: 'Description'
+  String get description => 'Description';
 
-	late final TranslationsGlobalDialogEn dialog = TranslationsGlobalDialogEn._(_root);
+  late final TranslationsGlobalDialogEn dialog =
+      TranslationsGlobalDialogEn._(_root);
 
-	/// en: 'Edit Information'
-	String get edit_information => 'Edit Information';
+  /// en: 'Edit Information'
+  String get edit_information => 'Edit Information';
 
-	/// en: 'Error'
-	String get error => 'Error';
+  /// en: 'Error'
+  String get error => 'Error';
 
-	/// en: 'Error: {error}'
-	String error_message({required Object error}) => 'Error: ${error}';
+  /// en: 'Error: {error}'
+  String error_message({required Object error}) => 'Error: ${error}';
 
-	late final TranslationsGlobalMessagesEn messages = TranslationsGlobalMessagesEn._(_root);
+  late final TranslationsGlobalMessagesEn messages =
+      TranslationsGlobalMessagesEn._(_root);
 
-	/// en: 'Modify'
-	String get modify => 'Modify';
+  /// en: 'Modify'
+  String get modify => 'Modify';
 
-	/// en: 'Next'
-	String get next => 'Next';
+  /// en: 'Next'
+  String get next => 'Next';
 
-	/// en: 'No'
-	String get no => 'No';
+  /// en: 'No'
+  String get no => 'No';
 
-	/// en: 'No data available'
-	String get no_data => 'No data available';
+  /// en: 'No data available'
+  String get no_data => 'No data available';
 
-	/// en: 'None'
-	String get none => 'None';
+  /// en: 'None'
+  String get none => 'None';
 
-	/// en: 'Not specified'
-	String get not_specified => 'Not specified';
+  /// en: 'Not specified'
+  String get not_specified => 'Not specified';
 
-	/// en: 'OK'
-	String get ok => 'OK';
+  /// en: 'OK'
+  String get ok => 'OK';
 
-	/// en: 'Other'
-	String get other => 'Other';
+  /// en: 'Other'
+  String get other => 'Other';
 
-	/// en: 'Ready'
-	String get ready => 'Ready';
+  /// en: 'Ready'
+  String get ready => 'Ready';
 
-	/// en: 'Remove'
-	String get remove => 'Remove';
+  /// en: 'Remove'
+  String get remove => 'Remove';
 
-	/// en: 'Retry'
-	String get retry => 'Retry';
+  /// en: 'Retry'
+  String get retry => 'Retry';
 
-	/// en: 'Save'
-	String get save => 'Save';
+  /// en: 'Save'
+  String get save => 'Save';
 
-	/// en: 'Saving...'
-	String get saving => 'Saving...';
+  /// en: 'Saving...'
+  String get saving => 'Saving...';
 
-	/// en: 'Services'
-	String get services => 'Services';
+  /// en: 'Services'
+  String get services => 'Services';
 
-	/// en: 'Status'
-	String get status => 'Status';
+  /// en: 'Status'
+  String get status => 'Status';
 
-	/// en: 'Submit'
-	String get submit => 'Submit';
+  /// en: 'Submit'
+  String get submit => 'Submit';
 
-	/// en: 'Unknown Location'
-	String get unknown_location => 'Unknown Location';
+  /// en: 'Unknown Location'
+  String get unknown_location => 'Unknown Location';
 
-	/// en: 'Update'
-	String get update => 'Update';
+  /// en: 'Update'
+  String get update => 'Update';
 
-	/// en: 'Yes'
-	String get yes => 'Yes';
+  /// en: 'Yes'
+  String get yes => 'Yes';
 }
 
 // Path: guidedBooking
 class TranslationsGuidedBookingEn {
-	TranslationsGuidedBookingEn._(this._root);
+  TranslationsGuidedBookingEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Book a service'
-	String get namespace_title => 'Book a service';
+  /// en: 'Book a service'
+  String get namespace_title => 'Book a service';
 
-	late final TranslationsGuidedBookingSubServiceEn sub_service = TranslationsGuidedBookingSubServiceEn._(_root);
-	late final TranslationsGuidedBookingIssuesEn issues = TranslationsGuidedBookingIssuesEn._(_root);
-	late final TranslationsGuidedBookingAddOnsEn add_ons = TranslationsGuidedBookingAddOnsEn._(_root);
-	late final TranslationsGuidedBookingProfessionalEn professional = TranslationsGuidedBookingProfessionalEn._(_root);
-	late final TranslationsGuidedBookingScheduleEn schedule = TranslationsGuidedBookingScheduleEn._(_root);
-	late final TranslationsGuidedBookingReviewEn review = TranslationsGuidedBookingReviewEn._(_root);
-	late final TranslationsGuidedBookingSentEn sent = TranslationsGuidedBookingSentEn._(_root);
-	late final TranslationsGuidedBookingStatusEn status = TranslationsGuidedBookingStatusEn._(_root);
-	late final TranslationsGuidedBookingCtaEn cta = TranslationsGuidedBookingCtaEn._(_root);
+  late final TranslationsGuidedBookingSubServiceEn sub_service =
+      TranslationsGuidedBookingSubServiceEn._(_root);
+  late final TranslationsGuidedBookingIssuesEn issues =
+      TranslationsGuidedBookingIssuesEn._(_root);
+  late final TranslationsGuidedBookingAddOnsEn add_ons =
+      TranslationsGuidedBookingAddOnsEn._(_root);
+  late final TranslationsGuidedBookingProfessionalEn professional =
+      TranslationsGuidedBookingProfessionalEn._(_root);
+  late final TranslationsGuidedBookingScheduleEn schedule =
+      TranslationsGuidedBookingScheduleEn._(_root);
+  late final TranslationsGuidedBookingReviewEn review =
+      TranslationsGuidedBookingReviewEn._(_root);
+  late final TranslationsGuidedBookingSentEn sent =
+      TranslationsGuidedBookingSentEn._(_root);
+  late final TranslationsGuidedBookingStatusEn status =
+      TranslationsGuidedBookingStatusEn._(_root);
+  late final TranslationsGuidedBookingCtaEn cta =
+      TranslationsGuidedBookingCtaEn._(_root);
 }
 
 // Path: healthProfile
 class TranslationsHealthProfileEn {
-	TranslationsHealthProfileEn._(this._root);
+  TranslationsHealthProfileEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Health profile'
-	String get namespace_title => 'Health profile';
+  /// en: 'Health profile'
+  String get namespace_title => 'Health profile';
 
-	/// en: 'My health profile'
-	String get entry_tile => 'My health profile';
+  /// en: 'My health profile'
+  String get entry_tile => 'My health profile';
 
-	late final TranslationsHealthProfileListEn list = TranslationsHealthProfileListEn._(_root);
-	late final TranslationsHealthProfileSectionEn section = TranslationsHealthProfileSectionEn._(_root);
+  late final TranslationsHealthProfileListEn list =
+      TranslationsHealthProfileListEn._(_root);
+  late final TranslationsHealthProfileSectionEn section =
+      TranslationsHealthProfileSectionEn._(_root);
 }
 
 // Path: messaging
 class TranslationsMessagingEn {
-	TranslationsMessagingEn._(this._root);
+  TranslationsMessagingEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Messages'
-	String get title => 'Messages';
+  /// en: 'Messages'
+  String get title => 'Messages';
 
-	/// en: 'No conversations yet'
-	String get emptyTitle => 'No conversations yet';
+  /// en: 'No conversations yet'
+  String get emptyTitle => 'No conversations yet';
 
-	/// en: 'When you send a booking request, you can talk to the professional here.'
-	String get emptyBody => 'When you send a booking request, you can talk to the professional here.';
+  /// en: 'When you send a booking request, you can talk to the professional here.'
+  String get emptyBody =>
+      'When you send a booking request, you can talk to the professional here.';
 
-	/// en: 'Write a message'
-	String get composerHint => 'Write a message';
+  /// en: 'Write a message'
+  String get composerHint => 'Write a message';
 
-	/// en: 'This conversation is closed.'
-	String get threadClosed => 'This conversation is closed.';
+  /// en: 'This conversation is closed.'
+  String get threadClosed => 'This conversation is closed.';
 
-	/// en: 'Say hello'
-	String get sayHello => 'Say hello';
+  /// en: 'Say hello'
+  String get sayHello => 'Say hello';
 
-	late final TranslationsMessagingTimeProposalEn timeProposal = TranslationsMessagingTimeProposalEn._(_root);
-	late final TranslationsMessagingEstimateRevisionEn estimateRevision = TranslationsMessagingEstimateRevisionEn._(_root);
+  late final TranslationsMessagingTimeProposalEn timeProposal =
+      TranslationsMessagingTimeProposalEn._(_root);
+  late final TranslationsMessagingEstimateRevisionEn estimateRevision =
+      TranslationsMessagingEstimateRevisionEn._(_root);
 }
 
 // Path: nursing
 class TranslationsNursingEn {
-	TranslationsNursingEn._(this._root);
+  TranslationsNursingEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsNursingServicesEn services = TranslationsNursingServicesEn._(_root);
+  // Translations
+  late final TranslationsNursingServicesEn services =
+      TranslationsNursingServicesEn._(_root);
 
-	/// en: 'Home Nursing'
-	String get title => 'Home Nursing';
+  /// en: 'Home Nursing'
+  String get title => 'Home Nursing';
 }
 
 // Path: payment
 class TranslationsPaymentEn {
-	TranslationsPaymentEn._(this._root);
+  TranslationsPaymentEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsPaymentErrorEn error = TranslationsPaymentErrorEn._(_root);
-	late final TranslationsPaymentFeedbackEn feedback = TranslationsPaymentFeedbackEn._(_root);
-	late final TranslationsPaymentFeedbackSuccessEn feedback_success = TranslationsPaymentFeedbackSuccessEn._(_root);
-	late final TranslationsPaymentMessagesEn messages = TranslationsPaymentMessagesEn._(_root);
-	late final TranslationsPaymentMethodsEn methods = TranslationsPaymentMethodsEn._(_root);
-	late final TranslationsPaymentOfflineSuccessEn offline_success = TranslationsPaymentOfflineSuccessEn._(_root);
+  // Translations
+  late final TranslationsPaymentErrorEn error =
+      TranslationsPaymentErrorEn._(_root);
+  late final TranslationsPaymentFeedbackEn feedback =
+      TranslationsPaymentFeedbackEn._(_root);
+  late final TranslationsPaymentFeedbackSuccessEn feedback_success =
+      TranslationsPaymentFeedbackSuccessEn._(_root);
+  late final TranslationsPaymentMessagesEn messages =
+      TranslationsPaymentMessagesEn._(_root);
+  late final TranslationsPaymentMethodsEn methods =
+      TranslationsPaymentMethodsEn._(_root);
+  late final TranslationsPaymentOfflineSuccessEn offline_success =
+      TranslationsPaymentOfflineSuccessEn._(_root);
 
-	/// en: 'Order Summary'
-	String get order_summary => 'Order Summary';
+  /// en: 'Order Summary'
+  String get order_summary => 'Order Summary';
 
-	/// en: 'Pay {amount}'
-	String pay_btn({required Object amount}) => 'Pay ${amount}';
+  /// en: 'Pay {amount}'
+  String pay_btn({required Object amount}) => 'Pay ${amount}';
 
-	/// en: 'Price'
-	String get price_label => 'Price';
+  /// en: 'Price'
+  String get price_label => 'Price';
 
-	/// en: 'Return to Home'
-	String get return_home_btn => 'Return to Home';
+  /// en: 'Return to Home'
+  String get return_home_btn => 'Return to Home';
 
-	/// en: 'Select Payment Method'
-	String get select_method => 'Select Payment Method';
+  /// en: 'Select Payment Method'
+  String get select_method => 'Select Payment Method';
 
-	/// en: 'Service Charge'
-	String get service_charge => 'Service Charge';
+  /// en: 'Service Charge'
+  String get service_charge => 'Service Charge';
 
-	late final TranslationsPaymentSubscriptionSuccessEn subscription_success = TranslationsPaymentSubscriptionSuccessEn._(_root);
-	late final TranslationsPaymentSuccessEn success = TranslationsPaymentSuccessEn._(_root);
+  late final TranslationsPaymentSubscriptionSuccessEn subscription_success =
+      TranslationsPaymentSubscriptionSuccessEn._(_root);
+  late final TranslationsPaymentSuccessEn success =
+      TranslationsPaymentSuccessEn._(_root);
 
-	/// en: 'Payment'
-	String get title => 'Payment';
+  /// en: 'Payment'
+  String get title => 'Payment';
 
-	/// en: 'Total'
-	String get total_label => 'Total';
+  /// en: 'Total'
+  String get total_label => 'Total';
 
-	/// en: 'Validity'
-	String get validity_label => 'Validity';
+  /// en: 'Validity'
+  String get validity_label => 'Validity';
 }
 
 // Path: pharmacy
 class TranslationsPharmacyEn {
-	TranslationsPharmacyEn._(this._root);
+  TranslationsPharmacyEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsPharmacyServicesEn services = TranslationsPharmacyServicesEn._(_root);
+  // Translations
+  late final TranslationsPharmacyServicesEn services =
+      TranslationsPharmacyServicesEn._(_root);
 
-	/// en: 'iRX Pharmacist Service'
-	String get title => 'iRX Pharmacist Service';
+  /// en: 'iRX Pharmacist Service'
+  String get title => 'iRX Pharmacist Service';
 }
 
 // Path: pricing
 class TranslationsPricingEn {
-	TranslationsPricingEn._(this._root);
+  TranslationsPricingEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Estimate'
-	String get estimate_title => 'Estimate';
+  /// en: 'Estimate'
+  String get estimate_title => 'Estimate';
 
-	/// en: 'Estimated total'
-	String get estimate_total => 'Estimated total';
+  /// en: 'Estimated total'
+  String get estimate_total => 'Estimated total';
 
-	/// en: 'This is an estimate. You pay the professional at the visit.'
-	String get estimate_disclaimer => 'This is an estimate. You pay the professional at the visit.';
+  /// en: 'This is an estimate. You pay the professional at the visit.'
+  String get estimate_disclaimer =>
+      'This is an estimate. You pay the professional at the visit.';
 
-	/// en: 'Pick a service to see an estimate.'
-	String get estimate_empty => 'Pick a service to see an estimate.';
+  /// en: 'Pick a service to see an estimate.'
+  String get estimate_empty => 'Pick a service to see an estimate.';
 
-	/// en: 'Add-ons'
-	String get add_ons => 'Add-ons';
+  /// en: 'Add-ons'
+  String get add_ons => 'Add-ons';
 
-	/// en: '{count} hours'
-	String hours({required Object count}) => '${count} hours';
+  /// en: '{count} hours'
+  String hours({required Object count}) => '${count} hours';
 
-	/// en: '{price} per hour'
-	String per_hour({required Object price}) => '${price} per hour';
+  /// en: '{price} per hour'
+  String per_hour({required Object price}) => '${price} per hour';
 
-	/// en: 'My service rates'
-	String get rates_title => 'My service rates';
+  /// en: 'My service rates'
+  String get rates_title => 'My service rates';
 
-	/// en: 'Set what you charge for each service. You can charge above the standard price, never below it.'
-	String get rates_subtitle => 'Set what you charge for each service. You can charge above the standard price, never below it.';
+  /// en: 'Set what you charge for each service. You can charge above the standard price, never below it.'
+  String get rates_subtitle =>
+      'Set what you charge for each service. You can charge above the standard price, never below it.';
 
-	/// en: 'You have not added any services yet.'
-	String get rates_empty => 'You have not added any services yet.';
+  /// en: 'You have not added any services yet.'
+  String get rates_empty => 'You have not added any services yet.';
 
-	/// en: 'We could not load your rates.'
-	String get rates_error => 'We could not load your rates.';
+  /// en: 'We could not load your rates.'
+  String get rates_error => 'We could not load your rates.';
 
-	/// en: 'Your rates were saved.'
-	String get rates_saved => 'Your rates were saved.';
+  /// en: 'Your rates were saved.'
+  String get rates_saved => 'Your rates were saved.';
 
-	/// en: 'Your price'
-	String get your_price => 'Your price';
+  /// en: 'Your price'
+  String get your_price => 'Your price';
 
-	/// en: 'Standard price {price}'
-	String standard_price({required Object price}) => 'Standard price ${price}';
+  /// en: 'Standard price {price}'
+  String standard_price({required Object price}) => 'Standard price ${price}';
 
-	/// en: 'Must be at least {price}'
-	String at_least({required Object price}) => 'Must be at least ${price}';
+  /// en: 'Must be at least {price}'
+  String at_least({required Object price}) => 'Must be at least ${price}';
 
-	/// en: 'Enter a price'
-	String get not_a_number => 'Enter a price';
+  /// en: 'Enter a price'
+  String get not_a_number => 'Enter a price';
 
-	/// en: 'Charging the standard price'
-	String get charging_standard => 'Charging the standard price';
+  /// en: 'Charging the standard price'
+  String get charging_standard => 'Charging the standard price';
 
-	/// en: 'Save'
-	String get save => 'Save';
+  /// en: 'Save'
+  String get save => 'Save';
 
-	/// en: 'Standard prices'
-	String get floor_title => 'Standard prices';
+  /// en: 'Standard prices'
+  String get floor_title => 'Standard prices';
 
-	/// en: 'The floor every professional charges from. Raising it lifts anyone charging below.'
-	String get floor_subtitle => 'The floor every professional charges from. Raising it lifts anyone charging below.';
+  /// en: 'The floor every professional charges from. Raising it lifts anyone charging below.'
+  String get floor_subtitle =>
+      'The floor every professional charges from. Raising it lifts anyone charging below.';
 
-	/// en: 'We could not load the standard prices.'
-	String get floor_error => 'We could not load the standard prices.';
+  /// en: 'We could not load the standard prices.'
+  String get floor_error => 'We could not load the standard prices.';
 
-	/// en: 'Standard price updated.'
-	String get floor_saved => 'Standard price updated.';
+  /// en: 'Standard price updated.'
+  String get floor_saved => 'Standard price updated.';
 
-	/// en: '{count} professional rates were lifted to the new price.'
-	String floor_lifted({required Object count}) => '${count} professional rates were lifted to the new price.';
+  /// en: '{count} professional rates were lifted to the new price.'
+  String floor_lifted({required Object count}) =>
+      '${count} professional rates were lifted to the new price.';
 
-	/// en: 'New standard price'
-	String get floor_new_price => 'New standard price';
+  /// en: 'New standard price'
+  String get floor_new_price => 'New standard price';
 
-	/// en: 'Revised estimate'
-	String get revision_title => 'Revised estimate';
+  /// en: 'Revised estimate'
+  String get revision_title => 'Revised estimate';
 
-	/// en: 'Revision proposed'
-	String get revision_proposed => 'Revision proposed';
+  /// en: 'Revision proposed'
+  String get revision_proposed => 'Revision proposed';
 
-	/// en: 'Approved'
-	String get revision_approved => 'Approved';
+  /// en: 'Approved'
+  String get revision_approved => 'Approved';
 
-	/// en: 'Declined'
-	String get revision_rejected => 'Declined';
+  /// en: 'Declined'
+  String get revision_rejected => 'Declined';
 
-	/// en: 'Was {price}'
-	String revision_was({required Object price}) => 'Was ${price}';
+  /// en: 'Was {price}'
+  String revision_was({required Object price}) => 'Was ${price}';
 
-	/// en: 'Now {price}'
-	String revision_now({required Object price}) => 'Now ${price}';
+  /// en: 'Now {price}'
+  String revision_now({required Object price}) => 'Now ${price}';
 }
 
 // Path: settings
 class TranslationsSettingsEn {
-	TranslationsSettingsEn._(this._root);
+  TranslationsSettingsEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Account'
-	String get account => 'Account';
+  /// en: 'Account'
+  String get account => 'Account';
 
-	/// en: 'App Language'
-	String get app_language => 'App Language';
+  /// en: 'App Language'
+  String get app_language => 'App Language';
 
-	/// en: 'Settings'
-	String get settings => 'Settings';
+  /// en: 'Settings'
+  String get settings => 'Settings';
 }
 
 // Path: sharedBooking
 class TranslationsSharedBookingEn {
-	TranslationsSharedBookingEn._(this._root);
+  TranslationsSharedBookingEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Starting from {price}'
-	String starting_from({required Object price}) => 'Starting from ${price}';
+  /// en: 'Starting from {price}'
+  String starting_from({required Object price}) => 'Starting from ${price}';
 
-	/// en: 'from {price}'
-	String from_price({required Object price}) => 'from ${price}';
+  /// en: 'from {price}'
+  String from_price({required Object price}) => 'from ${price}';
 
-	/// en: 'Nothing here yet'
-	String get empty_title => 'Nothing here yet';
+  /// en: 'Nothing here yet'
+  String get empty_title => 'Nothing here yet';
 
-	/// en: 'Something went wrong'
-	String get error_title => 'Something went wrong';
+  /// en: 'Something went wrong'
+  String get error_title => 'Something went wrong';
 
-	/// en: 'Try again'
-	String get retry => 'Try again';
+  /// en: 'Try again'
+  String get retry => 'Try again';
 
-	late final TranslationsSharedBookingStatusEn status = TranslationsSharedBookingStatusEn._(_root);
+  late final TranslationsSharedBookingStatusEn status =
+      TranslationsSharedBookingStatusEn._(_root);
+  late final TranslationsSharedBookingLocationEn location =
+      TranslationsSharedBookingLocationEn._(_root);
 }
 
 // Path: store
 class TranslationsStoreEn {
-	TranslationsStoreEn._(this._root);
+  TranslationsStoreEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Homecare Consumable'
-	String get consumable => 'Homecare Consumable';
+  /// en: 'Homecare Consumable'
+  String get consumable => 'Homecare Consumable';
 
-	late final TranslationsStoreMessagesEn messages = TranslationsStoreMessagesEn._(_root);
+  late final TranslationsStoreMessagesEn messages =
+      TranslationsStoreMessagesEn._(_root);
 
-	/// en: 'No products available'
-	String get no_products => 'No products available';
+  /// en: 'No products available'
+  String get no_products => 'No products available';
 
-	/// en: 'Point of Care Testing'
-	String get poct => 'Point of Care Testing';
+  /// en: 'Point of Care Testing'
+  String get poct => 'Point of Care Testing';
 
-	/// en: 'Sort'
-	String get sort => 'Sort';
+  /// en: 'Sort'
+  String get sort => 'Sort';
 
-	/// en: 'Medical Store'
-	String get title => 'Medical Store';
+  /// en: 'Medical Store'
+  String get title => 'Medical Store';
 }
 
 // Path: auth.button
 class TranslationsAuthButtonEn {
-	TranslationsAuthButtonEn._(this._root);
+  TranslationsAuthButtonEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Logout'
-	String get logout => 'Logout';
+  /// en: 'Logout'
+  String get logout => 'Logout';
 }
 
 // Path: auth.forgot_password
 class TranslationsAuthForgotPasswordEn {
-	TranslationsAuthForgotPasswordEn._(this._root);
+  TranslationsAuthForgotPasswordEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsAuthForgotPasswordFormEn form = TranslationsAuthForgotPasswordFormEn._(_root);
-	late final TranslationsAuthForgotPasswordMessageEn message = TranslationsAuthForgotPasswordMessageEn._(_root);
+  // Translations
+  late final TranslationsAuthForgotPasswordFormEn form =
+      TranslationsAuthForgotPasswordFormEn._(_root);
+  late final TranslationsAuthForgotPasswordMessageEn message =
+      TranslationsAuthForgotPasswordMessageEn._(_root);
 
-	/// en: 'Send Code'
-	String get send_code_button => 'Send Code';
+  /// en: 'Send Code'
+  String get send_code_button => 'Send Code';
 
-	/// en: 'Don't worry! Please enter the email address linked with your account.'
-	String get subtitle => 'Don\'t worry! Please enter the email address linked with your account.';
+  /// en: 'Don't worry! Please enter the email address linked with your account.'
+  String get subtitle =>
+      'Don\'t worry! Please enter the email address linked with your account.';
 
-	/// en: 'Forgot Password?'
-	String get title => 'Forgot Password?';
+  /// en: 'Forgot Password?'
+  String get title => 'Forgot Password?';
 }
 
 // Path: auth.form
 class TranslationsAuthFormEn {
-	TranslationsAuthFormEn._(this._root);
+  TranslationsAuthFormEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsAuthFormLabelEn label = TranslationsAuthFormLabelEn._(_root);
-	late final TranslationsAuthFormValidationEn validation = TranslationsAuthFormValidationEn._(_root);
+  // Translations
+  late final TranslationsAuthFormLabelEn label =
+      TranslationsAuthFormLabelEn._(_root);
+  late final TranslationsAuthFormValidationEn validation =
+      TranslationsAuthFormValidationEn._(_root);
 }
 
 // Path: auth.login
 class TranslationsAuthLoginEn {
-	TranslationsAuthLoginEn._(this._root);
+  TranslationsAuthLoginEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsAuthLoginButtonEn button = TranslationsAuthLoginButtonEn._(_root);
-	late final TranslationsAuthLoginFormEn form = TranslationsAuthLoginFormEn._(_root);
-	late final TranslationsAuthLoginRoleSelectionDialogEn role_selection_dialog = TranslationsAuthLoginRoleSelectionDialogEn._(_root);
+  // Translations
+  late final TranslationsAuthLoginButtonEn button =
+      TranslationsAuthLoginButtonEn._(_root);
+  late final TranslationsAuthLoginFormEn form =
+      TranslationsAuthLoginFormEn._(_root);
+  late final TranslationsAuthLoginRoleSelectionDialogEn role_selection_dialog =
+      TranslationsAuthLoginRoleSelectionDialogEn._(_root);
 
-	/// en: 'Welcome Back you've been missed'
-	String get subtitle => 'Welcome Back you\'ve\nbeen missed';
+  /// en: 'Welcome Back you've been missed'
+  String get subtitle => 'Welcome Back you\'ve\nbeen missed';
 
-	/// en: 'Login Here'
-	String get title => 'Login Here';
+  /// en: 'Login Here'
+  String get title => 'Login Here';
 }
 
 // Path: auth.otp_verification
 class TranslationsAuthOtpVerificationEn {
-	TranslationsAuthOtpVerificationEn._(this._root);
+  TranslationsAuthOtpVerificationEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsAuthOtpVerificationButtonEn button = TranslationsAuthOtpVerificationButtonEn._(_root);
-	late final TranslationsAuthOtpVerificationMessageEn message = TranslationsAuthOtpVerificationMessageEn._(_root);
+  // Translations
+  late final TranslationsAuthOtpVerificationButtonEn button =
+      TranslationsAuthOtpVerificationButtonEn._(_root);
+  late final TranslationsAuthOtpVerificationMessageEn message =
+      TranslationsAuthOtpVerificationMessageEn._(_root);
 
-	/// en: 'Resend in {seconds} seconds'
-	String resend_time_countdown({required Object seconds}) => 'Resend in ${seconds} seconds';
+  /// en: 'Resend in {seconds} seconds'
+  String resend_time_countdown({required Object seconds}) =>
+      'Resend in ${seconds} seconds';
 
-	/// en: 'Enter the code that we have sent to your email {email}'
-	String subtitle({required Object email}) => 'Enter the code that we have sent to your email ${email}';
+  /// en: 'Enter the code that we have sent to your email {email}'
+  String subtitle({required Object email}) =>
+      'Enter the code that we have sent to your email ${email}';
 
-	/// en: 'Enter Verification Code'
-	String get title => 'Enter Verification Code';
+  /// en: 'Enter Verification Code'
+  String get title => 'Enter Verification Code';
 }
 
 // Path: auth.register
 class TranslationsAuthRegisterEn {
-	TranslationsAuthRegisterEn._(this._root);
+  TranslationsAuthRegisterEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsAuthRegisterButtonEn button = TranslationsAuthRegisterButtonEn._(_root);
-	late final TranslationsAuthRegisterRegistrationSuccessDialogEn registration_success_dialog = TranslationsAuthRegisterRegistrationSuccessDialogEn._(_root);
+  // Translations
+  late final TranslationsAuthRegisterButtonEn button =
+      TranslationsAuthRegisterButtonEn._(_root);
+  late final TranslationsAuthRegisterRegistrationSuccessDialogEn
+      registration_success_dialog =
+      TranslationsAuthRegisterRegistrationSuccessDialogEn._(_root);
 
-	/// en: 'Create an account so you can explore all the existing jobs'
-	String get subtitle => 'Create an account so you can explore all the\nexisting jobs';
+  /// en: 'Create an account so you can explore all the existing jobs'
+  String get subtitle =>
+      'Create an account so you can explore all the\nexisting jobs';
 
-	/// en: 'Create Account'
-	String get title => 'Create Account';
+  /// en: 'Create Account'
+  String get title => 'Create Account';
 }
 
 // Path: auth.reset_password
 class TranslationsAuthResetPasswordEn {
-	TranslationsAuthResetPasswordEn._(this._root);
+  TranslationsAuthResetPasswordEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsAuthResetPasswordButtonEn button = TranslationsAuthResetPasswordButtonEn._(_root);
+  // Translations
+  late final TranslationsAuthResetPasswordButtonEn button =
+      TranslationsAuthResetPasswordButtonEn._(_root);
 
-	/// en: 'Please enter your new password'
-	String get subtitle => 'Please enter your new password';
+  /// en: 'Please enter your new password'
+  String get subtitle => 'Please enter your new password';
 
-	/// en: 'Reset Password'
-	String get title => 'Reset Password';
+  /// en: 'Reset Password'
+  String get title => 'Reset Password';
 }
 
 // Path: auth.reset_password_success
 class TranslationsAuthResetPasswordSuccessEn {
-	TranslationsAuthResetPasswordSuccessEn._(this._root);
+  TranslationsAuthResetPasswordSuccessEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'You have successfully reset your password. Please use your new password when logging in.'
-	String get body => 'You have successfully reset your password. Please use your new password when logging in.';
+  /// en: 'You have successfully reset your password. Please use your new password when logging in.'
+  String get body =>
+      'You have successfully reset your password. Please use your new password when logging in.';
 
-	late final TranslationsAuthResetPasswordSuccessButtonEn button = TranslationsAuthResetPasswordSuccessButtonEn._(_root);
+  late final TranslationsAuthResetPasswordSuccessButtonEn button =
+      TranslationsAuthResetPasswordSuccessButtonEn._(_root);
 
-	/// en: 'Password Reset Successful!'
-	String get title => 'Password Reset Successful!';
+  /// en: 'Password Reset Successful!'
+  String get title => 'Password Reset Successful!';
 }
 
 // Path: auth.user_role
 class TranslationsAuthUserRoleEn {
-	TranslationsAuthUserRoleEn._(this._root);
+  TranslationsAuthUserRoleEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Caregiver/Helper'
-	String get caregiver => 'Caregiver/Helper';
+  /// en: 'Caregiver/Helper'
+  String get caregiver => 'Caregiver/Helper';
 
-	/// en: 'Nurse'
-	String get nurse => 'Nurse';
+  /// en: 'Nurse'
+  String get nurse => 'Nurse';
 
-	/// en: 'Patient'
-	String get patient => 'Patient';
+  /// en: 'Patient'
+  String get patient => 'Patient';
 
-	/// en: 'Pharmacist'
-	String get pharmacist => 'Pharmacist';
+  /// en: 'Pharmacist'
+  String get pharmacist => 'Pharmacist';
 
-	/// en: 'Physiotherapist'
-	String get physiotherapist => 'Physiotherapist';
+  /// en: 'Physiotherapist'
+  String get physiotherapist => 'Physiotherapist';
 
-	/// en: 'Radiologist'
-	String get radiologist => 'Radiologist';
+  /// en: 'Radiologist'
+  String get radiologist => 'Radiologist';
 
-	/// en: 'Pathologist'
-	String get pathologist => 'Pathologist';
+  /// en: 'Pathologist'
+  String get pathologist => 'Pathologist';
 
-	/// en: 'Nutritionist'
-	String get nutritionist => 'Nutritionist';
+  /// en: 'Nutritionist'
+  String get nutritionist => 'Nutritionist';
 
-	/// en: 'Psychologist'
-	String get psychologist => 'Psychologist';
+  /// en: 'Psychologist'
+  String get psychologist => 'Psychologist';
 
-	/// en: 'Optometrist'
-	String get optometrist => 'Optometrist';
+  /// en: 'Optometrist'
+  String get optometrist => 'Optometrist';
 }
 
 // Path: booking.addon
 class TranslationsBookingAddonEn {
-	TranslationsBookingAddonEn._(this._root);
+  TranslationsBookingAddonEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'No add-on services available.'
-	String get empty => 'No add-on services available.';
+  /// en: 'No add-on services available.'
+  String get empty => 'No add-on services available.';
 
-	/// en: 'Estimated Budget'
-	String get estimated_budget => 'Estimated Budget';
+  /// en: 'Estimated Budget'
+  String get estimated_budget => 'Estimated Budget';
 
-	late final TranslationsBookingAddonTitleEn title = TranslationsBookingAddonTitleEn._(_root);
+  late final TranslationsBookingAddonTitleEn title =
+      TranslationsBookingAddonTitleEn._(_root);
 }
 
 // Path: booking.confirmation
 class TranslationsBookingConfirmationEn {
-	TranslationsBookingConfirmationEn._(this._root);
+  TranslationsBookingConfirmationEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Visit Address'
-	String get address_label => 'Visit Address';
+  /// en: 'Visit Address'
+  String get address_label => 'Visit Address';
 
-	/// en: 'Change'
-	String get change_button => 'Change';
+  /// en: 'Change'
+  String get change_button => 'Change';
 
-	/// en: 'Confirm Booking'
-	String get confirm_button => 'Confirm Booking';
+  /// en: 'Confirm Booking'
+  String get confirm_button => 'Confirm Booking';
 
-	/// en: 'No address selected'
-	String get no_address => 'No address selected';
+  /// en: 'No address selected'
+  String get no_address => 'No address selected';
 
-	/// en: 'Patient'
-	String get patient_label => 'Patient';
+  /// en: 'Patient'
+  String get patient_label => 'Patient';
 
-	/// en: 'Professional'
-	String get professional_label => 'Professional';
+  /// en: 'Professional'
+  String get professional_label => 'Professional';
 
-	/// en: 'Services'
-	String get services_label => 'Services';
+  /// en: 'Services'
+  String get services_label => 'Services';
 
-	/// en: 'Time'
-	String get time_label => 'Time';
+  /// en: 'Time'
+  String get time_label => 'Time';
 
-	/// en: 'Confirm Booking'
-	String get title => 'Confirm Booking';
+  /// en: 'Confirm Booking'
+  String get title => 'Confirm Booking';
 
-	/// en: 'Total'
-	String get total_label => 'Total';
+  /// en: 'Total'
+  String get total_label => 'Total';
 }
 
 // Path: booking.health_status
 class TranslationsBookingHealthStatusEn {
-	TranslationsBookingHealthStatusEn._(this._root);
+  TranslationsBookingHealthStatusEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'No medical records available.'
-	String get empty_record => 'No medical records available.';
+  /// en: 'No medical records available.'
+  String get empty_record => 'No medical records available.';
 
-	/// en: 'e.g. walking stick, walking frame, other'
-	String get mobility_detail_hint => 'e.g. walking stick, walking frame, other';
+  /// en: 'e.g. walking stick, walking frame, other'
+  String get mobility_detail_hint => 'e.g. walking stick, walking frame, other';
 
-	/// en: 'Select your mobility status'
-	String get mobility_label => 'Select your mobility status';
+  /// en: 'Select your mobility status'
+  String get mobility_label => 'Select your mobility status';
 
-	/// en: 'Please select a record'
-	String get record_hint => 'Please select a record';
+  /// en: 'Please select a record'
+  String get record_hint => 'Please select a record';
 
-	/// en: 'Select a related health record'
-	String get record_label => 'Select a related health record';
+  /// en: 'Select a related health record'
+  String get record_label => 'Select a related health record';
 
-	/// en: 'Personal Case Detail'
-	String get title => 'Personal Case Detail';
+  /// en: 'Personal Case Detail'
+  String get title => 'Personal Case Detail';
 }
 
 // Path: booking.issue
 class TranslationsBookingIssueEn {
-	TranslationsBookingIssueEn._(this._root);
+  TranslationsBookingIssueEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Add an Issue'
-	String get add_issue_button => 'Add an Issue';
+  /// en: 'Add an Issue'
+  String get add_issue_button => 'Add an Issue';
 
-	/// en: 'Add an Issue'
-	String get add_issue_title => 'Add an Issue';
+  /// en: 'Add an Issue'
+  String get add_issue_title => 'Add an Issue';
 
-	/// en: 'Service Case'
-	String get default_page_title => 'Service Case';
+  /// en: 'Service Case'
+  String get default_page_title => 'Service Case';
 
-	late final TranslationsBookingIssueDeleteDialogEn delete_dialog = TranslationsBookingIssueDeleteDialogEn._(_root);
+  late final TranslationsBookingIssueDeleteDialogEn delete_dialog =
+      TranslationsBookingIssueDeleteDialogEn._(_root);
 
-	/// en: 'Edit Issue'
-	String get edit_issue_title => 'Edit Issue';
+  /// en: 'Edit Issue'
+  String get edit_issue_title => 'Edit Issue';
 
-	/// en: 'There are no issues added yet. Please add one or more issues so you can proceed to the next step.'
-	String get empty_issue => 'There are no issues added yet.\n Please add one or more issues so\nyou can proceed to the next step.';
+  /// en: 'There are no issues added yet. Please add one or more issues so you can proceed to the next step.'
+  String get empty_issue =>
+      'There are no issues added yet.\n Please add one or more issues so\nyou can proceed to the next step.';
 
-	/// en: 'Tell us your concerns'
-	String get fill_complaint_instruction => 'Tell us your concerns';
+  /// en: 'Tell us your concerns'
+  String get fill_complaint_instruction => 'Tell us your concerns';
 
-	late final TranslationsBookingIssueFormEn form = TranslationsBookingIssueFormEn._(_root);
+  late final TranslationsBookingIssueFormEn form =
+      TranslationsBookingIssueFormEn._(_root);
 
-	/// en: 'Images'
-	String get images => 'Images';
+  /// en: 'Images'
+  String get images => 'Images';
 
-	late final TranslationsBookingIssueMessagesEn messages = TranslationsBookingIssueMessagesEn._(_root);
+  late final TranslationsBookingIssueMessagesEn messages =
+      TranslationsBookingIssueMessagesEn._(_root);
 
-	/// en: 'Nurse Services Case'
-	String get nurse_page_title => 'Nurse Services Case';
+  /// en: 'Nurse Services Case'
+  String get nurse_page_title => 'Nurse Services Case';
 
-	/// en: 'Pharmacist Services Case'
-	String get pharmacy_page_title => 'Pharmacist Services Case';
+  /// en: 'Pharmacist Services Case'
+  String get pharmacy_page_title => 'Pharmacist Services Case';
 
-	/// en: 'Radiologist Services Case'
-	String get radiology_page_title => 'Radiologist Services Case';
+  /// en: 'Radiologist Services Case'
+  String get radiology_page_title => 'Radiologist Services Case';
 
-	/// en: 'Updated on: {date}'
-	String updated_on({required Object date}) => 'Updated on: ${date}';
+  /// en: 'Updated on: {date}'
+  String updated_on({required Object date}) => 'Updated on: ${date}';
 }
 
 // Path: booking.professional_detail
 class TranslationsBookingProfessionalDetailEn {
-	TranslationsBookingProfessionalDetailEn._(this._root);
+  TranslationsBookingProfessionalDetailEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'About Me'
-	String get about_me => 'About Me';
+  /// en: 'About Me'
+  String get about_me => 'About Me';
 
-	/// en: 'Professional Certificate'
-	String get certificates => 'Professional Certificate';
+  /// en: 'Professional Certificate'
+  String get certificates => 'Professional Certificate';
 
-	/// en: 'Experience'
-	String get experience_label => 'Experience';
+  /// en: 'Experience'
+  String get experience_label => 'Experience';
 
-	/// en: 'ID Number: {number}'
-	String id_number({required Object number}) => 'ID Number: ${number}';
+  /// en: 'ID Number: {number}'
+  String id_number({required Object number}) => 'ID Number: ${number}';
 
-	/// en: 'Issued: {date}'
-	String issued_on({required Object date}) => 'Issued: ${date}';
+  /// en: 'Issued: {date}'
+  String issued_on({required Object date}) => 'Issued: ${date}';
 
-	/// en: 'No certificate available.'
-	String get no_certificate => 'No certificate available.';
+  /// en: 'No certificate available.'
+  String get no_certificate => 'No certificate available.';
 
-	/// en: 'No reviews available yet.'
-	String get no_reviews => 'No reviews available yet.';
+  /// en: 'No reviews available yet.'
+  String get no_reviews => 'No reviews available yet.';
 
-	/// en: 'Patients'
-	String get patients_label => 'Patients';
+  /// en: 'Patients'
+  String get patients_label => 'Patients';
 
-	/// en: 'Rating'
-	String get rating_label => 'Rating';
+  /// en: 'Rating'
+  String get rating_label => 'Rating';
 
-	/// en: 'Reviews'
-	String get reviews => 'Reviews';
+  /// en: 'Reviews'
+  String get reviews => 'Reviews';
 
-	/// en: 'Schedule Appointment'
-	String get schedule_button => 'Schedule Appointment';
+  /// en: 'Schedule Appointment'
+  String get schedule_button => 'Schedule Appointment';
 
-	/// en: 'See All'
-	String get see_all_button => 'See All';
+  /// en: 'See All'
+  String get see_all_button => 'See All';
 
-	late final TranslationsBookingProfessionalDetailTitleEn title = TranslationsBookingProfessionalDetailTitleEn._(_root);
+  late final TranslationsBookingProfessionalDetailTitleEn title =
+      TranslationsBookingProfessionalDetailTitleEn._(_root);
 
-	/// en: 'Working Information'
-	String get working_info => 'Working Information';
+  /// en: 'Working Information'
+  String get working_info => 'Working Information';
 }
 
 // Path: booking.professional_search
 class TranslationsBookingProfessionalSearchEn {
-	TranslationsBookingProfessionalSearchEn._(this._root);
+  TranslationsBookingProfessionalSearchEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Appointment'
-	String get appointment_button => 'Appointment';
+  /// en: 'Appointment'
+  String get appointment_button => 'Appointment';
 
-	/// en: 'No professionals found matching your criteria.'
-	String get empty => 'No professionals found matching your criteria.';
+  /// en: 'No professionals found matching your criteria.'
+  String get empty => 'No professionals found matching your criteria.';
 
-	/// en: 'Filtering by {count} selected services'
-	String filter_text({required Object count}) => 'Filtering by ${count} selected services';
+  /// en: 'Filtering by {count} selected services'
+  String filter_text({required Object count}) =>
+      'Filtering by ${count} selected services';
 
-	late final TranslationsBookingProfessionalSearchTitleEn title = TranslationsBookingProfessionalSearchTitleEn._(_root);
-	late final TranslationsBookingProfessionalSearchVisitAddressEn visit_address = TranslationsBookingProfessionalSearchVisitAddressEn._(_root);
+  late final TranslationsBookingProfessionalSearchTitleEn title =
+      TranslationsBookingProfessionalSearchTitleEn._(_root);
+  late final TranslationsBookingProfessionalSearchVisitAddressEn visit_address =
+      TranslationsBookingProfessionalSearchVisitAddressEn._(_root);
 }
 
 // Path: booking.schedule
 class TranslationsBookingScheduleEn {
-	TranslationsBookingScheduleEn._(this._root);
+  TranslationsBookingScheduleEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'No available slots for this day.'
-	String get empty_slots => 'No available slots for this day.';
+  /// en: 'No available slots for this day.'
+  String get empty_slots => 'No available slots for this day.';
 
-	late final TranslationsBookingScheduleMessagesEn messages = TranslationsBookingScheduleMessagesEn._(_root);
+  late final TranslationsBookingScheduleMessagesEn messages =
+      TranslationsBookingScheduleMessagesEn._(_root);
 
-	/// en: 'Select Date'
-	String get select_date => 'Select Date';
+  /// en: 'Select Date'
+  String get select_date => 'Select Date';
 
-	/// en: 'Select Hour'
-	String get select_hour => 'Select Hour';
+  /// en: 'Select Hour'
+  String get select_hour => 'Select Hour';
 
-	/// en: 'Submit'
-	String get submit_button => 'Submit';
+  /// en: 'Submit'
+  String get submit_button => 'Submit';
 
-	/// en: 'Submitting...'
-	String get submitting_button => 'Submitting...';
+  /// en: 'Submitting...'
+  String get submitting_button => 'Submitting...';
 
-	/// en: 'Select Schedule'
-	String get title => 'Select Schedule';
+  /// en: 'Select Schedule'
+  String get title => 'Select Schedule';
 }
 
 // Path: dashboard.home
 class TranslationsDashboardHomeEn {
-	TranslationsDashboardHomeEn._(this._root);
+  TranslationsDashboardHomeEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Healthcare Services'
-	String get section_title => 'Healthcare Services';
+  /// en: 'Healthcare Services'
+  String get section_title => 'Healthcare Services';
 
-	/// en: 'Professional care for you and your loved ones.'
-	String get section_subtitle => 'Professional care for you and your loved ones.';
+  /// en: 'Professional care for you and your loved ones.'
+  String get section_subtitle =>
+      'Professional care for you and your loved ones.';
 
-	/// en: 'View All'
-	String get view_all => 'View All';
+  /// en: 'View All'
+  String get view_all => 'View All';
 
-	/// en: 'All Services'
-	String get all_services_title => 'All Services';
+  /// en: 'All Services'
+  String get all_services_title => 'All Services';
 
-	/// en: 'NEW'
-	String get badge_new => 'NEW';
+  /// en: 'NEW'
+  String get badge_new => 'NEW';
 
-	/// en: 'Pharmacist Review'
-	String get name_pharmacist => 'Pharmacist Review';
+  /// en: 'Pharmacist Review'
+  String get name_pharmacist => 'Pharmacist Review';
 
-	/// en: 'Physiotherapy'
-	String get name_physiotherapy => 'Physiotherapy';
+  /// en: 'Physiotherapy'
+  String get name_physiotherapy => 'Physiotherapy';
 
-	/// en: 'Psychology'
-	String get name_psychologist => 'Psychology';
+  /// en: 'Psychology'
+  String get name_psychologist => 'Psychology';
 
-	/// en: 'Dietitian'
-	String get name_dietitian => 'Dietitian';
+  /// en: 'Dietitian'
+  String get name_dietitian => 'Dietitian';
 
-	/// en: 'Optometrist'
-	String get name_optometrist => 'Optometrist';
+  /// en: 'Optometrist'
+  String get name_optometrist => 'Optometrist';
 
-	/// en: 'Home Nursing'
-	String get name_nursing => 'Home Nursing';
+  /// en: 'Home Nursing'
+  String get name_nursing => 'Home Nursing';
 
-	/// en: 'Diabetes Screening'
-	String get name_diabetic_care => 'Diabetes Screening';
+  /// en: 'Diabetes Screening'
+  String get name_diabetic_care => 'Diabetes Screening';
 
-	/// en: 'Home Health Screening'
-	String get name_home_screening => 'Home Health Screening';
+  /// en: 'Home Health Screening'
+  String get name_home_screening => 'Home Health Screening';
 
-	/// en: '2nd Opinion Imaging'
-	String get name_second_opinion => '2nd Opinion Imaging';
+  /// en: '2nd Opinion Imaging'
+  String get name_second_opinion => '2nd Opinion Imaging';
 
-	/// en: 'Homecare for Elderly'
-	String get name_homecare_elderly => 'Homecare for Elderly';
+  /// en: 'Homecare for Elderly'
+  String get name_homecare_elderly => 'Homecare for Elderly';
 
-	/// en: 'Expert advice on your medications and support to help you quit smoking.'
-	String get desc_pharmacist => 'Expert advice on your medications and support to help you quit smoking.';
+  /// en: 'Expert advice on your medications and support to help you quit smoking.'
+  String get desc_pharmacist =>
+      'Expert advice on your medications and support to help you quit smoking.';
 
-	/// en: 'Manage pain, improve mobility and recover better.'
-	String get desc_physiotherapy => 'Manage pain, improve mobility and recover better.';
+  /// en: 'Manage pain, improve mobility and recover better.'
+  String get desc_physiotherapy =>
+      'Manage pain, improve mobility and recover better.';
 
-	/// en: 'Get support for stress, emotions and mental well-being.'
-	String get desc_psychologist => 'Get support for stress, emotions and mental well-being.';
+  /// en: 'Get support for stress, emotions and mental well-being.'
+  String get desc_psychologist =>
+      'Get support for stress, emotions and mental well-being.';
 
-	/// en: 'Personalised nutrition support for a healthier you.'
-	String get desc_dietitian => 'Personalised nutrition support for a healthier you.';
+  /// en: 'Personalised nutrition support for a healthier you.'
+  String get desc_dietitian =>
+      'Personalised nutrition support for a healthier you.';
 
-	/// en: 'Eye care, vision checks and professional advice.'
-	String get desc_optometrist => 'Eye care, vision checks and professional advice.';
+  /// en: 'Eye care, vision checks and professional advice.'
+  String get desc_optometrist =>
+      'Eye care, vision checks and professional advice.';
 
-	/// en: 'Professional nursing care in the comfort of your home.'
-	String get desc_nursing => 'Professional nursing care in the comfort of your home.';
+  /// en: 'Professional nursing care in the comfort of your home.'
+  String get desc_nursing =>
+      'Professional nursing care in the comfort of your home.';
 
-	/// en: 'Check your eyes and feet for diabetes-related complications.'
-	String get desc_diabetic_care => 'Check your eyes and feet for diabetes-related complications.';
+  /// en: 'Check your eyes and feet for diabetes-related complications.'
+  String get desc_diabetic_care =>
+      'Check your eyes and feet for diabetes-related complications.';
 
-	/// en: 'Convenient health checks in the comfort of your home.'
-	String get desc_home_screening => 'Convenient health checks in the comfort of your home.';
+  /// en: 'Convenient health checks in the comfort of your home.'
+  String get desc_home_screening =>
+      'Convenient health checks in the comfort of your home.';
 
-	/// en: 'Get an expert second read of your medical scans.'
-	String get desc_second_opinion => 'Get an expert second read of your medical scans.';
+  /// en: 'Get an expert second read of your medical scans.'
+  String get desc_second_opinion =>
+      'Get an expert second read of your medical scans.';
 
-	/// en: 'Daily living support and companionship at home.'
-	String get desc_homecare_elderly => 'Daily living support and companionship at home.';
+  /// en: 'Daily living support and companionship at home.'
+  String get desc_homecare_elderly =>
+      'Daily living support and companionship at home.';
 }
 
 // Path: global.dialog
 class TranslationsGlobalDialogEn {
-	TranslationsGlobalDialogEn._(this._root);
+  TranslationsGlobalDialogEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Coming Soon'
-	String get coming_soon => 'Coming Soon';
+  /// en: 'Coming Soon'
+  String get coming_soon => 'Coming Soon';
 
-	/// en: 'This feature will be available soon!'
-	String get feature_available_soon => 'This feature will be available soon!';
+  /// en: 'This feature will be available soon!'
+  String get feature_available_soon => 'This feature will be available soon!';
 }
 
 // Path: global.messages
 class TranslationsGlobalMessagesEn {
-	TranslationsGlobalMessagesEn._(this._root);
+  TranslationsGlobalMessagesEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Deleted successfully'
-	String get delete_success => 'Deleted successfully';
+  /// en: 'Deleted successfully'
+  String get delete_success => 'Deleted successfully';
 
-	/// en: 'Updated successfully'
-	String get updated_success => 'Updated successfully';
+  /// en: 'Updated successfully'
+  String get updated_success => 'Updated successfully';
 }
 
 // Path: guidedBooking.sub_service
 class TranslationsGuidedBookingSubServiceEn {
-	TranslationsGuidedBookingSubServiceEn._(this._root);
+  TranslationsGuidedBookingSubServiceEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Which service do you need?'
-	String get title => 'Which service do you need?';
+  /// en: 'Which service do you need?'
+  String get title => 'Which service do you need?';
 
-	/// en: 'No services are available here yet.'
-	String get empty => 'No services are available here yet.';
+  /// en: 'No services are available here yet.'
+  String get empty => 'No services are available here yet.';
 }
 
 // Path: guidedBooking.issues
 class TranslationsGuidedBookingIssuesEn {
-	TranslationsGuidedBookingIssuesEn._(this._root);
+  TranslationsGuidedBookingIssuesEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'What can we help you with?'
-	String get title => 'What can we help you with?';
+  /// en: 'What can we help you with?'
+  String get title => 'What can we help you with?';
 
-	/// en: 'Choose one or more.'
-	String get subtitle => 'Choose one or more.';
+  /// en: 'Choose one or more.'
+  String get subtitle => 'Choose one or more.';
 
-	/// en: 'Remarks (optional)'
-	String get remarks_label => 'Remarks (optional)';
+  /// en: 'Remarks (optional)'
+  String get remarks_label => 'Remarks (optional)';
 
-	/// en: 'Anything else you would like our healthcare professional to know?'
-	String get remarks_hint => 'Anything else you would like our healthcare professional to know?';
+  /// en: 'Anything else you would like our healthcare professional to know?'
+  String get remarks_hint =>
+      'Anything else you would like our healthcare professional to know?';
 
-	/// en: 'Add procedures or extras'
-	String get add_ons_link => 'Add procedures or extras';
+  /// en: 'Add procedures or extras'
+  String get add_ons_link => 'Add procedures or extras';
 
-	/// en: 'We could not load the issue list.'
-	String get error => 'We could not load the issue list.';
+  /// en: 'We could not load the issue list.'
+  String get error => 'We could not load the issue list.';
 
-	/// en: 'No reasons are listed for this service yet.'
-	String get empty => 'No reasons are listed for this service yet.';
+  /// en: 'No reasons are listed for this service yet.'
+  String get empty => 'No reasons are listed for this service yet.';
 }
 
 // Path: guidedBooking.add_ons
 class TranslationsGuidedBookingAddOnsEn {
-	TranslationsGuidedBookingAddOnsEn._(this._root);
+  TranslationsGuidedBookingAddOnsEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Anything else to add?'
-	String get title => 'Anything else to add?';
+  /// en: 'Anything else to add?'
+  String get title => 'Anything else to add?';
 
-	/// en: 'Optional. Priced individually.'
-	String get subtitle => 'Optional. Priced individually.';
+  /// en: 'Optional. Priced individually.'
+  String get subtitle => 'Optional. Priced individually.';
 
-	/// en: 'No extras are available for this service.'
-	String get empty => 'No extras are available for this service.';
+  /// en: 'No extras are available for this service.'
+  String get empty => 'No extras are available for this service.';
 
-	/// en: '{count} added'
-	String selected({required Object count}) => '${count} added';
+  /// en: '{count} added'
+  String selected({required Object count}) => '${count} added';
 
-	/// en: 'No additional details for this add-on yet.'
-	String get no_description => 'No additional details for this add-on yet.';
+  /// en: 'No additional details for this add-on yet.'
+  String get no_description => 'No additional details for this add-on yet.';
 }
 
 // Path: guidedBooking.professional
 class TranslationsGuidedBookingProfessionalEn {
-	TranslationsGuidedBookingProfessionalEn._(this._root);
+  TranslationsGuidedBookingProfessionalEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Choose a professional'
-	String get title => 'Choose a professional';
+  /// en: 'Choose a professional'
+  String get title => 'Choose a professional';
 
-	/// en: 'View profile'
-	String get view_profile => 'View profile';
+  /// en: 'View profile'
+  String get view_profile => 'View profile';
 
-	/// en: 'Choose this professional'
-	String get select_cta => 'Choose this professional';
+  /// en: 'Choose this professional'
+  String get select_cta => 'Choose this professional';
 
-	/// en: 'Visit address'
-	String get location_label => 'Visit address';
+  /// en: 'Visit address'
+  String get location_label => 'Visit address';
 
-	/// en: 'Add an address to see who is available'
-	String get location_empty => 'Add an address to see who is available';
+  /// en: 'Add an address to see who is available'
+  String get location_empty => 'Add an address to see who is available';
 
-	/// en: 'Finding your saved addresses'
-	String get location_loading => 'Finding your saved addresses';
+  /// en: 'Finding your saved addresses'
+  String get location_loading => 'Finding your saved addresses';
 
-	/// en: 'Change'
-	String get change_location => 'Change';
+  /// en: 'Change'
+  String get change_location => 'Change';
 
-	/// en: 'Where should we visit?'
-	String get picker_title => 'Where should we visit?';
+  /// en: 'Where should we visit?'
+  String get picker_title => 'Where should we visit?';
 
-	/// en: 'Add a new address'
-	String get add_address => 'Add a new address';
+  /// en: 'Add a new address'
+  String get add_address => 'Add a new address';
 
-	/// en: 'Finding professionals near you'
-	String get loading => 'Finding professionals near you';
+  /// en: 'Finding professionals near you'
+  String get loading => 'Finding professionals near you';
 
-	/// en: 'No professionals cover this address yet. Try another address.'
-	String get empty => 'No professionals cover this address yet. Try another address.';
+  /// en: 'No professionals cover this address yet. Try another address.'
+  String get empty =>
+      'No professionals cover this address yet. Try another address.';
 
-	/// en: 'We could not load the professional list.'
-	String get error => 'We could not load the professional list.';
+  /// en: 'We could not load the professional list.'
+  String get error => 'We could not load the professional list.';
 
-	/// en: '{years} yrs experience'
-	String years({required Object years}) => '${years} yrs experience';
+  /// en: '{years} yrs experience'
+  String years({required Object years}) => '${years} yrs experience';
 
-	/// en: '({count})'
-	String reviews({required Object count}) => '(${count})';
+  /// en: '({count})'
+  String reviews({required Object count}) => '(${count})';
 
-	/// en: 'Choose this professional'
-	String get choose_cta => 'Choose this professional';
+  /// en: 'Choose this professional'
+  String get choose_cta => 'Choose this professional';
 
-	/// en: 'Search by name'
-	String get search_hint => 'Search by name';
+  /// en: 'Search by name'
+  String get search_hint => 'Search by name';
 }
 
 // Path: guidedBooking.schedule
 class TranslationsGuidedBookingScheduleEn {
-	TranslationsGuidedBookingScheduleEn._(this._root);
+  TranslationsGuidedBookingScheduleEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'When suits you?'
-	String get title => 'When suits you?';
+  /// en: 'When suits you?'
+  String get title => 'When suits you?';
 
-	/// en: 'Select a date'
-	String get select_date => 'Select a date';
+  /// en: 'Select a date'
+  String get select_date => 'Select a date';
 
-	/// en: 'Select a time'
-	String get select_hour => 'Select a time';
+  /// en: 'Select a time'
+  String get select_hour => 'Select a time';
 
-	/// en: '{day} at {time}'
-	String chosen({required Object day, required Object time}) => '${day} at ${time}';
+  /// en: '{day} at {time}'
+  String chosen({required Object day, required Object time}) =>
+      '${day} at ${time}';
 
-	/// en: 'Checking availability'
-	String get loading => 'Checking availability';
+  /// en: 'Checking availability'
+  String get loading => 'Checking availability';
 
-	/// en: 'No open times on this day.'
-	String get empty => 'No open times on this day.';
+  /// en: 'No open times on this day.'
+  String get empty => 'No open times on this day.';
 
-	/// en: 'We could not load the available times.'
-	String get error => 'We could not load the available times.';
+  /// en: 'We could not load the available times.'
+  String get error => 'We could not load the available times.';
 
-	/// en: 'This professional has no open times right now.'
-	String get no_days => 'This professional has no open times right now.';
+  /// en: 'This professional has no open times right now.'
+  String get no_days => 'This professional has no open times right now.';
 }
 
 // Path: guidedBooking.review
 class TranslationsGuidedBookingReviewEn {
-	TranslationsGuidedBookingReviewEn._(this._root);
+  TranslationsGuidedBookingReviewEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Review your request'
-	String get title => 'Review your request';
+  /// en: 'Review your request'
+  String get title => 'Review your request';
 
-	/// en: 'Service'
-	String get service => 'Service';
+  /// en: 'Service'
+  String get service => 'Service';
 
-	/// en: 'Reasons for the visit'
-	String get issues => 'Reasons for the visit';
+  /// en: 'Reasons for the visit'
+  String get issues => 'Reasons for the visit';
 
-	/// en: 'Remarks'
-	String get remarks => 'Remarks';
+  /// en: 'Remarks'
+  String get remarks => 'Remarks';
 
-	/// en: 'Extras'
-	String get add_ons => 'Extras';
+  /// en: 'Extras'
+  String get add_ons => 'Extras';
 
-	/// en: 'Visit address'
-	String get location => 'Visit address';
+  /// en: 'Visit address'
+  String get location => 'Visit address';
 
-	/// en: 'Professional'
-	String get professional => 'Professional';
+  /// en: 'Professional'
+  String get professional => 'Professional';
 
-	/// en: 'Preferred time'
-	String get schedule => 'Preferred time';
+  /// en: 'Preferred time'
+  String get schedule => 'Preferred time';
 
-	/// en: 'Estimated total'
-	String get estimate => 'Estimated total';
+  /// en: 'Estimated total'
+  String get estimate => 'Estimated total';
 
-	/// en: 'An estimate only. Nothing is charged now — payment happens at the visit.'
-	String get estimate_note => 'An estimate only. Nothing is charged now — payment happens at the visit.';
+  /// en: 'An estimate only. Nothing is charged now — payment happens at the visit.'
+  String get estimate_note =>
+      'An estimate only. Nothing is charged now — payment happens at the visit.';
 
-	/// en: 'Edit'
-	String get edit => 'Edit';
+  /// en: 'Edit'
+  String get edit => 'Edit';
 
-	/// en: 'None'
-	String get none => 'None';
+  /// en: 'None'
+  String get none => 'None';
 
-	/// en: 'Send request'
-	String get send => 'Send request';
+  /// en: 'Send request'
+  String get send => 'Send request';
 }
 
 // Path: guidedBooking.sent
 class TranslationsGuidedBookingSentEn {
-	TranslationsGuidedBookingSentEn._(this._root);
+  TranslationsGuidedBookingSentEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Request sent'
-	String get title => 'Request sent';
+  /// en: 'Request sent'
+  String get title => 'Request sent';
 
-	/// en: 'We have passed your request to {name}. We will notify you as soon as they respond.'
-	String body({required Object name}) => 'We have passed your request to ${name}. We will notify you as soon as they respond.';
+  /// en: 'We have passed your request to {name}. We will notify you as soon as they respond.'
+  String body({required Object name}) =>
+      'We have passed your request to ${name}. We will notify you as soon as they respond.';
 
-	/// en: 'We have passed your request on. We will notify you as soon as it is picked up.'
-	String get body_generic => 'We have passed your request on. We will notify you as soon as it is picked up.';
+  /// en: 'We have passed your request on. We will notify you as soon as it is picked up.'
+  String get body_generic =>
+      'We have passed your request on. We will notify you as soon as it is picked up.';
 
-	/// en: 'Message your professional'
-	String get message => 'Message your professional';
+  /// en: 'Message your professional'
+  String get message => 'Message your professional';
 
-	/// en: 'View request status'
-	String get view_status => 'View request status';
+  /// en: 'View request status'
+  String get view_status => 'View request status';
 
-	/// en: 'Back to home'
-	String get done => 'Back to home';
+  /// en: 'Back to home'
+  String get done => 'Back to home';
 }
 
 // Path: guidedBooking.status
 class TranslationsGuidedBookingStatusEn {
-	TranslationsGuidedBookingStatusEn._(this._root);
+  TranslationsGuidedBookingStatusEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Your request'
-	String get title => 'Your request';
+  /// en: 'Your request'
+  String get title => 'Your request';
 
-	/// en: 'Request #{id}'
-	String reference({required Object id}) => 'Request #${id}';
+  /// en: 'Request #{id}'
+  String reference({required Object id}) => 'Request #${id}';
 
-	/// en: 'Sent {date}'
-	String submitted({required Object date}) => 'Sent ${date}';
+  /// en: 'Sent {date}'
+  String submitted({required Object date}) => 'Sent ${date}';
 
-	/// en: 'You asked for'
-	String get preferred => 'You asked for';
+  /// en: 'You asked for'
+  String get preferred => 'You asked for';
 
-	/// en: 'They suggested'
-	String get proposed => 'They suggested';
+  /// en: 'They suggested'
+  String get proposed => 'They suggested';
 
-	/// en: 'Your request is with {name}. We will let you know as soon as they respond.'
-	String pending_body({required Object name}) => 'Your request is with ${name}. We will let you know as soon as they respond.';
+  /// en: 'Your request is with {name}. We will let you know as soon as they respond.'
+  String pending_body({required Object name}) =>
+      'Your request is with ${name}. We will let you know as soon as they respond.';
 
-	/// en: '{name} confirmed your visit. See you then.'
-	String confirmed_body({required Object name}) => '${name} confirmed your visit. See you then.';
+  /// en: '{name} confirmed your visit. See you then.'
+  String confirmed_body({required Object name}) =>
+      '${name} confirmed your visit. See you then.';
 
-	/// en: '{name} is not free then and suggested another time.'
-	String proposed_body({required Object name}) => '${name} is not free then and suggested another time.';
+  /// en: '{name} is not free then and suggested another time.'
+  String proposed_body({required Object name}) =>
+      '${name} is not free then and suggested another time.';
 
-	/// en: 'This request was cancelled. You can start a new one whenever you are ready.'
-	String get cancelled_body => 'This request was cancelled. You can start a new one whenever you are ready.';
+  /// en: 'This request was cancelled. You can start a new one whenever you are ready.'
+  String get cancelled_body =>
+      'This request was cancelled. You can start a new one whenever you are ready.';
 
-	/// en: 'Accept this time'
-	String get accept_time => 'Accept this time';
+  /// en: 'Accept this time'
+  String get accept_time => 'Accept this time';
 
-	/// en: 'Choose another time'
-	String get choose_another => 'Choose another time';
+  /// en: 'Choose another time'
+  String get choose_another => 'Choose another time';
 
-	/// en: 'Cancel request'
-	String get cancel_request => 'Cancel request';
+  /// en: 'Cancel request'
+  String get cancel_request => 'Cancel request';
 
-	/// en: 'Message'
-	String get message => 'Message';
+  /// en: 'Message'
+  String get message => 'Message';
 }
 
 // Path: guidedBooking.cta
 class TranslationsGuidedBookingCtaEn {
-	TranslationsGuidedBookingCtaEn._(this._root);
+  TranslationsGuidedBookingCtaEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Continue'
-	String get kContinue => 'Continue';
+  /// en: 'Continue'
+  String get kContinue => 'Continue';
 
-	/// en: 'Skip'
-	String get skip => 'Skip';
+  /// en: 'Skip'
+  String get skip => 'Skip';
 }
 
 // Path: healthProfile.list
 class TranslationsHealthProfileListEn {
-	TranslationsHealthProfileListEn._(this._root);
+  TranslationsHealthProfileListEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Update only what you want. Everything here is optional.'
-	String get subtitle => 'Update only what you want. Everything here is optional.';
+  /// en: 'Update only what you want. Everything here is optional.'
+  String get subtitle =>
+      'Update only what you want. Everything here is optional.';
 
-	/// en: 'Not started'
-	String get not_started => 'Not started';
+  /// en: 'Not started'
+  String get not_started => 'Not started';
 
-	/// en: 'Updated {date}'
-	String updated({required Object date}) => 'Updated ${date}';
+  /// en: 'Updated {date}'
+  String updated({required Object date}) => 'Updated ${date}';
 
-	/// en: 'Loading your health profile'
-	String get loading => 'Loading your health profile';
+  /// en: 'Loading your health profile'
+  String get loading => 'Loading your health profile';
 
-	/// en: 'No sections are available yet.'
-	String get empty => 'No sections are available yet.';
+  /// en: 'No sections are available yet.'
+  String get empty => 'No sections are available yet.';
 
-	/// en: 'We could not load your health profile.'
-	String get error => 'We could not load your health profile.';
+  /// en: 'We could not load your health profile.'
+  String get error => 'We could not load your health profile.';
 }
 
 // Path: healthProfile.section
 class TranslationsHealthProfileSectionEn {
-	TranslationsHealthProfileSectionEn._(this._root);
+  TranslationsHealthProfileSectionEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Answer what you can. You can come back any time.'
-	String get subtitle => 'Answer what you can. You can come back any time.';
+  /// en: 'Answer what you can. You can come back any time.'
+  String get subtitle => 'Answer what you can. You can come back any time.';
 
-	/// en: 'Save'
-	String get save => 'Save';
+  /// en: 'Save'
+  String get save => 'Save';
 
-	/// en: 'Saved'
-	String get saved => 'Saved';
+  /// en: 'Saved'
+  String get saved => 'Saved';
 
-	/// en: 'We could not save this section.'
-	String get save_failed => 'We could not save this section.';
+  /// en: 'We could not save this section.'
+  String get save_failed => 'We could not save this section.';
 
-	/// en: 'Loading this section'
-	String get loading => 'Loading this section';
+  /// en: 'Loading this section'
+  String get loading => 'Loading this section';
 
-	/// en: 'We could not load this section.'
-	String get error => 'We could not load this section.';
+  /// en: 'We could not load this section.'
+  String get error => 'We could not load this section.';
 
-	/// en: 'Add another'
-	String get add_other => 'Add another';
+  /// en: 'Add another'
+  String get add_other => 'Add another';
 
-	/// en: 'Add an attachment'
-	String get add_attachment => 'Add an attachment';
+  /// en: 'Add an attachment'
+  String get add_attachment => 'Add an attachment';
 
-	/// en: 'Report {n}'
-	String attachment({required Object n}) => 'Report ${n}';
+  /// en: 'Report {n}'
+  String attachment({required Object n}) => 'Report ${n}';
 
-	/// en: 'Discard your changes?'
-	String get discard_title => 'Discard your changes?';
+  /// en: 'Discard your changes?'
+  String get discard_title => 'Discard your changes?';
 
-	/// en: 'This section has unsaved changes.'
-	String get discard_body => 'This section has unsaved changes.';
+  /// en: 'This section has unsaved changes.'
+  String get discard_body => 'This section has unsaved changes.';
 
-	/// en: 'Discard'
-	String get discard => 'Discard';
+  /// en: 'Discard'
+  String get discard => 'Discard';
 
-	/// en: 'Keep editing'
-	String get keep_editing => 'Keep editing';
+  /// en: 'Keep editing'
+  String get keep_editing => 'Keep editing';
 }
 
 // Path: messaging.timeProposal
 class TranslationsMessagingTimeProposalEn {
-	TranslationsMessagingTimeProposalEn._(this._root);
+  TranslationsMessagingTimeProposalEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Alternative time proposed'
-	String get title => 'Alternative time proposed';
+  /// en: 'Alternative time proposed'
+  String get title => 'Alternative time proposed';
 
-	/// en: 'You asked for'
-	String get youAskedFor => 'You asked for';
+  /// en: 'You asked for'
+  String get youAskedFor => 'You asked for';
 
-	/// en: 'Proposed'
-	String get proposed => 'Proposed';
+  /// en: 'Proposed'
+  String get proposed => 'Proposed';
 
-	/// en: 'Accept'
-	String get accept => 'Accept';
+  /// en: 'Accept'
+  String get accept => 'Accept';
 
-	/// en: 'Choose Another'
-	String get chooseAnother => 'Choose Another';
+  /// en: 'Choose Another'
+  String get chooseAnother => 'Choose Another';
 
-	/// en: 'This slot is held for a limited time'
-	String get heldFor => 'This slot is held for a limited time';
+  /// en: 'This slot is held for a limited time'
+  String get heldFor => 'This slot is held for a limited time';
 
-	/// en: 'Suggest another time'
-	String get suggestAnother => 'Suggest another time';
+  /// en: 'Suggest another time'
+  String get suggestAnother => 'Suggest another time';
 
-	/// en: 'Suggest another time'
-	String get sheetTitleProfessional => 'Suggest another time';
+  /// en: 'Suggest another time'
+  String get sheetTitleProfessional => 'Suggest another time';
 
-	/// en: 'Which time suits you?'
-	String get sheetTitlePatient => 'Which time suits you?';
+  /// en: 'Which time suits you?'
+  String get sheetTitlePatient => 'Which time suits you?';
 
-	/// en: 'Send suggestion'
-	String get sendSuggestion => 'Send suggestion';
+  /// en: 'Send suggestion'
+  String get sendSuggestion => 'Send suggestion';
 
-	/// en: 'Send this time'
-	String get sendTime => 'Send this time';
+  /// en: 'Send this time'
+  String get sendTime => 'Send this time';
 
-	/// en: 'Why? (optional)'
-	String get reasonLabel => 'Why? (optional)';
+  /// en: 'Why? (optional)'
+  String get reasonLabel => 'Why? (optional)';
 
-	/// en: 'A short reason helps them say yes.'
-	String get reasonHint => 'A short reason helps them say yes.';
+  /// en: 'A short reason helps them say yes.'
+  String get reasonHint => 'A short reason helps them say yes.';
 }
 
 // Path: messaging.estimateRevision
 class TranslationsMessagingEstimateRevisionEn {
-	TranslationsMessagingEstimateRevisionEn._(this._root);
+  TranslationsMessagingEstimateRevisionEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Revised estimate'
-	String get title => 'Revised estimate';
+  /// en: 'Revised estimate'
+  String get title => 'Revised estimate';
 
-	/// en: 'New estimated total'
-	String get newTotal => 'New estimated total';
+  /// en: 'New estimated total'
+  String get newTotal => 'New estimated total';
 
-	/// en: 'Approve'
-	String get approve => 'Approve';
+  /// en: 'Approve'
+  String get approve => 'Approve';
 
-	/// en: 'Approved'
-	String get approved => 'Approved';
+  /// en: 'Approved'
+  String get approved => 'Approved';
 
-	/// en: 'Withdrawn'
-	String get withdrawn => 'Withdrawn';
+  /// en: 'Withdrawn'
+  String get withdrawn => 'Withdrawn';
 }
 
 // Path: nursing.services
 class TranslationsNursingServicesEn {
-	TranslationsNursingServicesEn._(this._root);
+  TranslationsNursingServicesEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsNursingServicesPrimaryNursingEn primary_nursing = TranslationsNursingServicesPrimaryNursingEn._(_root);
-	late final TranslationsNursingServicesSpecializedNursingEn specialized_nursing = TranslationsNursingServicesSpecializedNursingEn._(_root);
+  // Translations
+  late final TranslationsNursingServicesPrimaryNursingEn primary_nursing =
+      TranslationsNursingServicesPrimaryNursingEn._(_root);
+  late final TranslationsNursingServicesSpecializedNursingEn
+      specialized_nursing =
+      TranslationsNursingServicesSpecializedNursingEn._(_root);
 }
 
 // Path: payment.error
 class TranslationsPaymentErrorEn {
-	TranslationsPaymentErrorEn._(this._root);
+  TranslationsPaymentErrorEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Error: Appointment ID is missing.'
-	String get appointment_id_missing => 'Error: Appointment ID is missing.';
+  /// en: 'Error: Appointment ID is missing.'
+  String get appointment_id_missing => 'Error: Appointment ID is missing.';
 }
 
 // Path: payment.feedback
 class TranslationsPaymentFeedbackEn {
-	TranslationsPaymentFeedbackEn._(this._root);
+  TranslationsPaymentFeedbackEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Enter amount'
-	String get enter_amount_hint => 'Enter amount';
+  /// en: 'Enter amount'
+  String get enter_amount_hint => 'Enter amount';
 
-	/// en: 'Enter other amount'
-	String get enter_other_amount => 'Enter other amount';
+  /// en: 'Enter other amount'
+  String get enter_other_amount => 'Enter other amount';
 
-	/// en: 'Excellent'
-	String get excellent => 'Excellent';
+  /// en: 'Excellent'
+  String get excellent => 'Excellent';
 
-	/// en: 'Give some tips to {name}'
-	String give_tips({required Object name}) => 'Give some tips to ${name}';
+  /// en: 'Give some tips to {name}'
+  String give_tips({required Object name}) => 'Give some tips to ${name}';
 
-	/// en: 'You rated {name} {stars} stars'
-	String rated_text({required Object name, required Object stars}) => 'You rated ${name} ${stars} stars';
+  /// en: 'You rated {name} {stars} stars'
+  String rated_text({required Object name, required Object stars}) =>
+      'You rated ${name} ${stars} stars';
 
-	/// en: 'Submit Feedback'
-	String get submit_btn => 'Submit Feedback';
+  /// en: 'Submit Feedback'
+  String get submit_btn => 'Submit Feedback';
 
-	/// en: 'Write your feedback here...'
-	String get write_text_hint => 'Write your feedback here...';
+  /// en: 'Write your feedback here...'
+  String get write_text_hint => 'Write your feedback here...';
 }
 
 // Path: payment.feedback_success
 class TranslationsPaymentFeedbackSuccessEn {
-	TranslationsPaymentFeedbackSuccessEn._(this._root);
+  TranslationsPaymentFeedbackSuccessEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Your feedback has been submitted successfully.'
-	String get content => 'Your feedback has been submitted successfully.';
+  /// en: 'Your feedback has been submitted successfully.'
+  String get content => 'Your feedback has been submitted successfully.';
 
-	/// en: 'Thank You!'
-	String get thank_you => 'Thank You!';
+  /// en: 'Thank You!'
+  String get thank_you => 'Thank You!';
 
-	/// en: 'View Appointment Detail'
-	String get view_detail_btn => 'View Appointment Detail';
+  /// en: 'View Appointment Detail'
+  String get view_detail_btn => 'View Appointment Detail';
 }
 
 // Path: payment.messages
 class TranslationsPaymentMessagesEn {
-	TranslationsPaymentMessagesEn._(this._root);
+  TranslationsPaymentMessagesEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Payment Failed: {error}'
-	String failed({required Object error}) => 'Payment Failed: ${error}';
+  /// en: 'Payment Failed: {error}'
+  String failed({required Object error}) => 'Payment Failed: ${error}';
 
-	/// en: 'Feedback Failed: {error}'
-	String feedback_failed({required Object error}) => 'Feedback Failed: ${error}';
+  /// en: 'Feedback Failed: {error}'
+  String feedback_failed({required Object error}) =>
+      'Feedback Failed: ${error}';
 
-	/// en: 'Purchase Failed: {error}'
-	String purchase_failed({required Object error}) => 'Purchase Failed: ${error}';
+  /// en: 'Purchase Failed: {error}'
+  String purchase_failed({required Object error}) =>
+      'Purchase Failed: ${error}';
 }
 
 // Path: payment.methods
 class TranslationsPaymentMethodsEn {
-	TranslationsPaymentMethodsEn._(this._root);
+  TranslationsPaymentMethodsEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Cash (Offline Payment)'
-	String get cash_offline => 'Cash (Offline Payment)';
+  /// en: 'Cash (Offline Payment)'
+  String get cash_offline => 'Cash (Offline Payment)';
 }
 
 // Path: payment.offline_success
 class TranslationsPaymentOfflineSuccessEn {
-	TranslationsPaymentOfflineSuccessEn._(this._root);
+  TranslationsPaymentOfflineSuccessEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Your request has been submitted successfully. Please pay directly to the professional during the appointment.'
-	String get content => 'Your request has been submitted successfully.\nPlease pay directly to the professional during the appointment.';
+  /// en: 'Your request has been submitted successfully. Please pay directly to the professional during the appointment.'
+  String get content =>
+      'Your request has been submitted successfully.\nPlease pay directly to the professional during the appointment.';
 
-	/// en: 'Estimated Total'
-	String get estimated_total => 'Estimated Total';
+  /// en: 'Estimated Total'
+  String get estimated_total => 'Estimated Total';
 
-	/// en: 'Request Submitted'
-	String get title => 'Request Submitted';
+  /// en: 'Request Submitted'
+  String get title => 'Request Submitted';
 }
 
 // Path: payment.subscription_success
 class TranslationsPaymentSubscriptionSuccessEn {
-	TranslationsPaymentSubscriptionSuccessEn._(this._root);
+  TranslationsPaymentSubscriptionSuccessEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'You have successfully purchased {planName}'
-	String content({required Object planName}) => 'You have successfully purchased ${planName}';
+  /// en: 'You have successfully purchased {planName}'
+  String content({required Object planName}) =>
+      'You have successfully purchased ${planName}';
 
-	/// en: 'Payment Success'
-	String get title => 'Payment Success';
+  /// en: 'Payment Success'
+  String get title => 'Payment Success';
 }
 
 // Path: payment.success
 class TranslationsPaymentSuccessEn {
-	TranslationsPaymentSuccessEn._(this._root);
+  TranslationsPaymentSuccessEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Amount'
-	String get amount => 'Amount';
+  /// en: 'Amount'
+  String get amount => 'Amount';
 
-	/// en: 'Your money has been successfully sent to {name}.'
-	String content({required Object name}) => 'Your money has been successfully sent to ${name}.';
+  /// en: 'Your money has been successfully sent to {name}.'
+  String content({required Object name}) =>
+      'Your money has been successfully sent to ${name}.';
 
-	/// en: 'Your feedback will help us to improve your experience better'
-	String get experience_subtitle => 'Your feedback will help us to improve your\nexperience better';
+  /// en: 'Your feedback will help us to improve your experience better'
+  String get experience_subtitle =>
+      'Your feedback will help us to improve your\nexperience better';
 
-	/// en: 'How is your experience?'
-	String get experience_title => 'How is your experience?';
+  /// en: 'How is your experience?'
+  String get experience_title => 'How is your experience?';
 
-	/// en: 'Please Feedback'
-	String get feedback_btn => 'Please Feedback';
+  /// en: 'Please Feedback'
+  String get feedback_btn => 'Please Feedback';
 
-	/// en: 'Payment Success'
-	String get title => 'Payment Success';
+  /// en: 'Payment Success'
+  String get title => 'Payment Success';
 }
 
 // Path: pharmacy.services
 class TranslationsPharmacyServicesEn {
-	TranslationsPharmacyServicesEn._(this._root);
+  TranslationsPharmacyServicesEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsPharmacyServicesHealthCoachingEn health_coaching = TranslationsPharmacyServicesHealthCoachingEn._(_root);
-	late final TranslationsPharmacyServicesReviewAndCounselingEn review_and_counseling = TranslationsPharmacyServicesReviewAndCounselingEn._(_root);
-	late final TranslationsPharmacyServicesSmokingCessationEn smoking_cessation = TranslationsPharmacyServicesSmokingCessationEn._(_root);
+  // Translations
+  late final TranslationsPharmacyServicesHealthCoachingEn health_coaching =
+      TranslationsPharmacyServicesHealthCoachingEn._(_root);
+  late final TranslationsPharmacyServicesReviewAndCounselingEn
+      review_and_counseling =
+      TranslationsPharmacyServicesReviewAndCounselingEn._(_root);
+  late final TranslationsPharmacyServicesSmokingCessationEn smoking_cessation =
+      TranslationsPharmacyServicesSmokingCessationEn._(_root);
 }
 
 // Path: sharedBooking.status
 class TranslationsSharedBookingStatusEn {
-	TranslationsSharedBookingStatusEn._(this._root);
+  TranslationsSharedBookingStatusEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Pending approval'
-	String get pending => 'Pending approval';
+  /// en: 'Pending approval'
+  String get pending => 'Pending approval';
 
-	/// en: 'Confirmed'
-	String get confirmed => 'Confirmed';
+  /// en: 'Confirmed'
+  String get confirmed => 'Confirmed';
 
-	/// en: 'Alternative proposed'
-	String get proposed => 'Alternative proposed';
+  /// en: 'Alternative proposed'
+  String get proposed => 'Alternative proposed';
 
-	/// en: 'Cancelled'
-	String get cancelled => 'Cancelled';
+  /// en: 'Cancelled'
+  String get cancelled => 'Cancelled';
+}
+
+// Path: sharedBooking.location
+class TranslationsSharedBookingLocationEn {
+  TranslationsSharedBookingLocationEn._(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Where should we visit?'
+  String get title => 'Where should we visit?';
+
+  /// en: 'Search street, area or building'
+  String get search_hint => 'Search street, area or building';
+
+  /// en: 'Pick on map'
+  String get pick_on_map => 'Pick on map';
+
+  /// en: 'Use current location'
+  String get use_current => 'Use current location';
+
+  /// en: 'SAVED ADDRESSES'
+  String get saved_heading => 'SAVED ADDRESSES';
+
+  /// en: 'Location permission is off, so pick an address or a spot on the map.'
+  String get denied =>
+      'Location permission is off, so pick an address or a spot on the map.';
+
+  /// en: 'Visit address'
+  String get picked_label => 'Visit address';
+
+  /// en: 'Finding your address...'
+  String get loading => 'Finding your address...';
+
+  /// en: 'Add an address'
+  String get empty => 'Add an address';
+
+  /// en: 'Visit at'
+  String get bar_title => 'Visit at';
 }
 
 // Path: store.messages
 class TranslationsStoreMessagesEn {
-	TranslationsStoreMessagesEn._(this._root);
+  TranslationsStoreMessagesEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Failed to load products'
-	String get load_failed => 'Failed to load products';
+  /// en: 'Failed to load products'
+  String get load_failed => 'Failed to load products';
 }
 
 // Path: auth.forgot_password.form
 class TranslationsAuthForgotPasswordFormEn {
-	TranslationsAuthForgotPasswordFormEn._(this._root);
+  TranslationsAuthForgotPasswordFormEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsAuthForgotPasswordFormLabelEn label = TranslationsAuthForgotPasswordFormLabelEn._(_root);
+  // Translations
+  late final TranslationsAuthForgotPasswordFormLabelEn label =
+      TranslationsAuthForgotPasswordFormLabelEn._(_root);
 }
 
 // Path: auth.forgot_password.message
 class TranslationsAuthForgotPasswordMessageEn {
-	TranslationsAuthForgotPasswordMessageEn._(this._root);
+  TranslationsAuthForgotPasswordMessageEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'OTP sent successfully'
-	String get otp_sent => 'OTP sent successfully';
+  /// en: 'OTP sent successfully'
+  String get otp_sent => 'OTP sent successfully';
 }
 
 // Path: auth.form.label
 class TranslationsAuthFormLabelEn {
-	TranslationsAuthFormLabelEn._(this._root);
+  TranslationsAuthFormLabelEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Email'
-	String get email => 'Email';
+  /// en: 'Email'
+  String get email => 'Email';
 
-	/// en: 'New Password'
-	String get new_password => 'New Password';
+  /// en: 'New Password'
+  String get new_password => 'New Password';
 
-	/// en: 'Password'
-	String get password => 'Password';
+  /// en: 'Password'
+  String get password => 'Password';
 
-	/// en: 'Confirm Password'
-	String get password_confirm => 'Confirm Password';
+  /// en: 'Confirm Password'
+  String get password_confirm => 'Confirm Password';
 
-	/// en: 'Select User Type'
-	String get user_role => 'Select User Type';
+  /// en: 'Select User Type'
+  String get user_role => 'Select User Type';
 
-	/// en: 'Name'
-	String get username => 'Name';
+  /// en: 'Name'
+  String get username => 'Name';
 }
 
 // Path: auth.form.validation
 class TranslationsAuthFormValidationEn {
-	TranslationsAuthFormValidationEn._(this._root);
+  TranslationsAuthFormValidationEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Please enter your email'
-	String get email_required => 'Please enter your email';
+  /// en: 'Please enter your email'
+  String get email_required => 'Please enter your email';
 
-	/// en: 'Please enter a valid email'
-	String get invalid_email => 'Please enter a valid email';
+  /// en: 'Please enter a valid email'
+  String get invalid_email => 'Please enter a valid email';
 
-	/// en: 'Password must be at least 6 characters'
-	String get invalid_password_length => 'Password must be at least 6 characters';
+  /// en: 'Password must be at least 6 characters'
+  String get invalid_password_length =>
+      'Password must be at least 6 characters';
 
-	/// en: 'Please confirm your password'
-	String get password_confirm_required => 'Please confirm your password';
+  /// en: 'Please confirm your password'
+  String get password_confirm_required => 'Please confirm your password';
 
-	/// en: 'Passwords do not match'
-	String get password_mismatch => 'Passwords do not match';
+  /// en: 'Passwords do not match'
+  String get password_mismatch => 'Passwords do not match';
 
-	/// en: 'Please enter a password'
-	String get password_required => 'Please enter a password';
+  /// en: 'Please enter a password'
+  String get password_required => 'Please enter a password';
 
-	/// en: 'Please select a user type'
-	String get user_role_required => 'Please select a user type';
+  /// en: 'Please select a user type'
+  String get user_role_required => 'Please select a user type';
 
-	/// en: 'Please enter your name'
-	String get username_required => 'Please enter your name';
+  /// en: 'Please enter your name'
+  String get username_required => 'Please enter your name';
 }
 
 // Path: auth.login.button
 class TranslationsAuthLoginButtonEn {
-	TranslationsAuthLoginButtonEn._(this._root);
+  TranslationsAuthLoginButtonEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Create new account'
-	String get create_account_link => 'Create new account';
+  /// en: 'Create new account'
+  String get create_account_link => 'Create new account';
 
-	/// en: 'Forgot Password?'
-	String get forgot_password_link => 'Forgot Password?';
+  /// en: 'Forgot Password?'
+  String get forgot_password_link => 'Forgot Password?';
 
-	/// en: 'Sign In'
-	String get submit => 'Sign In';
+  /// en: 'Sign In'
+  String get submit => 'Sign In';
 }
 
 // Path: auth.login.form
 class TranslationsAuthLoginFormEn {
-	TranslationsAuthLoginFormEn._(this._root);
+  TranslationsAuthLoginFormEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
-	late final TranslationsAuthLoginFormValidationEn validation = TranslationsAuthLoginFormValidationEn._(_root);
+  // Translations
+  late final TranslationsAuthLoginFormValidationEn validation =
+      TranslationsAuthLoginFormValidationEn._(_root);
 }
 
 // Path: auth.login.role_selection_dialog
 class TranslationsAuthLoginRoleSelectionDialogEn {
-	TranslationsAuthLoginRoleSelectionDialogEn._(this._root);
+  TranslationsAuthLoginRoleSelectionDialogEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Welcome! Please select your account type to continue.'
-	String get body => 'Welcome!\nPlease select your account type to continue.';
+  /// en: 'Welcome! Please select your account type to continue.'
+  String get body => 'Welcome!\nPlease select your account type to continue.';
 
-	/// en: 'Complete Registration'
-	String get title => 'Complete Registration';
+  /// en: 'Complete Registration'
+  String get title => 'Complete Registration';
 }
 
 // Path: auth.otp_verification.button
 class TranslationsAuthOtpVerificationButtonEn {
-	TranslationsAuthOtpVerificationButtonEn._(this._root);
+  TranslationsAuthOtpVerificationButtonEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Didn't receive the code? Resend'
-	String get resend_code => 'Didn\'t receive the code? Resend';
+  /// en: 'Didn't receive the code? Resend'
+  String get resend_code => 'Didn\'t receive the code? Resend';
 
-	/// en: 'Verify'
-	String get submit => 'Verify';
+  /// en: 'Verify'
+  String get submit => 'Verify';
 }
 
 // Path: auth.otp_verification.message
 class TranslationsAuthOtpVerificationMessageEn {
-	TranslationsAuthOtpVerificationMessageEn._(this._root);
+  TranslationsAuthOtpVerificationMessageEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Code resent!'
-	String get code_resent => 'Code resent!';
+  /// en: 'Code resent!'
+  String get code_resent => 'Code resent!';
 }
 
 // Path: auth.register.button
 class TranslationsAuthRegisterButtonEn {
-	TranslationsAuthRegisterButtonEn._(this._root);
+  TranslationsAuthRegisterButtonEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Already have an account'
-	String get login_link => 'Already have an account';
+  /// en: 'Already have an account'
+  String get login_link => 'Already have an account';
 
-	/// en: 'Sign Up'
-	String get submit => 'Sign Up';
+  /// en: 'Sign Up'
+  String get submit => 'Sign Up';
 }
 
 // Path: auth.register.registration_success_dialog
 class TranslationsAuthRegisterRegistrationSuccessDialogEn {
-	TranslationsAuthRegisterRegistrationSuccessDialogEn._(this._root);
+  TranslationsAuthRegisterRegistrationSuccessDialogEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Please check your email for verification.'
-	String get body => 'Please check your email for verification.';
+  /// en: 'Please check your email for verification.'
+  String get body => 'Please check your email for verification.';
 
-	/// en: 'Registration Successful'
-	String get title => 'Registration Successful';
+  /// en: 'Registration Successful'
+  String get title => 'Registration Successful';
 }
 
 // Path: auth.reset_password.button
 class TranslationsAuthResetPasswordButtonEn {
-	TranslationsAuthResetPasswordButtonEn._(this._root);
+  TranslationsAuthResetPasswordButtonEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Reset Password'
-	String get submit => 'Reset Password';
+  /// en: 'Reset Password'
+  String get submit => 'Reset Password';
 }
 
 // Path: auth.reset_password_success.button
 class TranslationsAuthResetPasswordSuccessButtonEn {
-	TranslationsAuthResetPasswordSuccessButtonEn._(this._root);
+  TranslationsAuthResetPasswordSuccessButtonEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Back to Login'
-	String get login_page_link => 'Back to Login';
+  /// en: 'Back to Login'
+  String get login_page_link => 'Back to Login';
 }
 
 // Path: booking.addon.title
 class TranslationsBookingAddonTitleEn {
-	TranslationsBookingAddonTitleEn._(this._root);
+  TranslationsBookingAddonTitleEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Add On Services'
-	String get kDefault => 'Add On Services';
+  /// en: 'Add On Services'
+  String get kDefault => 'Add On Services';
 
-	/// en: 'Nursing Procedures'
-	String get nursing => 'Nursing Procedures';
+  /// en: 'Nursing Procedures'
+  String get nursing => 'Nursing Procedures';
 
-	/// en: 'Pharmacy Services'
-	String get pharmacy => 'Pharmacy Services';
+  /// en: 'Pharmacy Services'
+  String get pharmacy => 'Pharmacy Services';
 
-	/// en: 'Radiology Services'
-	String get radiology => 'Radiology Services';
+  /// en: 'Radiology Services'
+  String get radiology => 'Radiology Services';
 
-	/// en: 'Specialized Nursing Procedures'
-	String get specialized_nursing => 'Specialized Nursing Procedures';
+  /// en: 'Specialized Nursing Procedures'
+  String get specialized_nursing => 'Specialized Nursing Procedures';
 }
 
 // Path: booking.issue.delete_dialog
 class TranslationsBookingIssueDeleteDialogEn {
-	TranslationsBookingIssueDeleteDialogEn._(this._root);
+  TranslationsBookingIssueDeleteDialogEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Are you sure you want to delete this issue?'
-	String get content => 'Are you sure you want to delete this issue?';
+  /// en: 'Are you sure you want to delete this issue?'
+  String get content => 'Are you sure you want to delete this issue?';
 
-	/// en: 'Delete Issue'
-	String get title => 'Delete Issue';
+  /// en: 'Delete Issue'
+  String get title => 'Delete Issue';
 }
 
 // Path: booking.issue.form
 class TranslationsBookingIssueFormEn {
-	TranslationsBookingIssueFormEn._(this._root);
+  TranslationsBookingIssueFormEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Add'
-	String get add_button => 'Add';
+  /// en: 'Add'
+  String get add_button => 'Add';
 
-	/// en: 'Please enter questions, concerns, relevant symptoms related to your case along with related keywords.'
-	String get complaint_description_hint => 'Please enter questions, concerns, relevant symptoms related to your case along with related keywords.';
+  /// en: 'Please enter questions, concerns, relevant symptoms related to your case along with related keywords.'
+  String get complaint_description_hint =>
+      'Please enter questions, concerns, relevant symptoms related to your case along with related keywords.';
 
-	/// en: 'Chief complaint'
-	String get complaint_label => 'Chief complaint';
+  /// en: 'Chief complaint'
+  String get complaint_label => 'Chief complaint';
 
-	/// en: '[main symptom] in the [specific body part]'
-	String get complaint_title_hint => '[main symptom] in the [specific body part]';
+  /// en: '[main symptom] in the [specific body part]'
+  String get complaint_title_hint =>
+      '[main symptom] in the [specific body part]';
 
-	/// en: 'Issue title and description are required.'
-	String get title_description_required => 'Issue title and description are required.';
+  /// en: 'Issue title and description are required.'
+  String get title_description_required =>
+      'Issue title and description are required.';
 }
 
 // Path: booking.issue.messages
 class TranslationsBookingIssueMessagesEn {
-	TranslationsBookingIssueMessagesEn._(this._root);
+  TranslationsBookingIssueMessagesEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Issue added successfully'
-	String get add_issue_success => 'Issue added successfully';
+  /// en: 'Issue added successfully'
+  String get add_issue_success => 'Issue added successfully';
 
-	/// en: 'Issue updated successfully'
-	String get edit_issue_success => 'Issue updated successfully';
+  /// en: 'Issue updated successfully'
+  String get edit_issue_success => 'Issue updated successfully';
 }
 
 // Path: booking.professional_detail.title
 class TranslationsBookingProfessionalDetailTitleEn {
-	TranslationsBookingProfessionalDetailTitleEn._(this._root);
+  TranslationsBookingProfessionalDetailTitleEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Professional Details'
-	String get kDefault => 'Professional Details';
+  /// en: 'Professional Details'
+  String get kDefault => 'Professional Details';
 
-	/// en: 'Nurse Details'
-	String get nurse => 'Nurse Details';
+  /// en: 'Nurse Details'
+  String get nurse => 'Nurse Details';
 
-	/// en: 'Pharmacist Details'
-	String get pharmacist => 'Pharmacist Details';
+  /// en: 'Pharmacist Details'
+  String get pharmacist => 'Pharmacist Details';
 
-	/// en: 'Radiologist Details'
-	String get radiologist => 'Radiologist Details';
+  /// en: 'Radiologist Details'
+  String get radiologist => 'Radiologist Details';
 }
 
 // Path: booking.professional_search.title
 class TranslationsBookingProfessionalSearchTitleEn {
-	TranslationsBookingProfessionalSearchTitleEn._(this._root);
+  TranslationsBookingProfessionalSearchTitleEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Search Caregiver/Helper/Worker'
-	String get caregiver => 'Search Caregiver/Helper/Worker';
+  /// en: 'Search Caregiver/Helper/Worker'
+  String get caregiver => 'Search Caregiver/Helper/Worker';
 
-	/// en: 'Search Professional'
-	String get kDefault => 'Search Professional';
+  /// en: 'Search Professional'
+  String get kDefault => 'Search Professional';
 
-	/// en: 'Search Nurse'
-	String get nurse => 'Search Nurse';
+  /// en: 'Search Nurse'
+  String get nurse => 'Search Nurse';
 
-	/// en: 'Search Pharmacist'
-	String get pharmacist => 'Search Pharmacist';
+  /// en: 'Search Pharmacist'
+  String get pharmacist => 'Search Pharmacist';
 
-	/// en: 'Search Radiologist'
-	String get radiologist => 'Search Radiologist';
+  /// en: 'Search Radiologist'
+  String get radiologist => 'Search Radiologist';
 }
 
 // Path: booking.professional_search.visit_address
 class TranslationsBookingProfessionalSearchVisitAddressEn {
-	TranslationsBookingProfessionalSearchVisitAddressEn._(this._root);
+  TranslationsBookingProfessionalSearchVisitAddressEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Add new address'
-	String get add_new => 'Add new address';
+  /// en: 'Add new address'
+  String get add_new => 'Add new address';
 
-	/// en: 'Add an address'
-	String get empty => 'Add an address';
+  /// en: 'Add an address'
+  String get empty => 'Add an address';
 
-	/// en: 'Loading address...'
-	String get loading => 'Loading address...';
+  /// en: 'Loading address...'
+  String get loading => 'Loading address...';
 
-	/// en: 'Choose visit address'
-	String get picker_title => 'Choose visit address';
+  /// en: 'Choose visit address'
+  String get picker_title => 'Choose visit address';
 
-	/// en: 'Visit at'
-	String get title => 'Visit at';
+  /// en: 'Visit at'
+  String get title => 'Visit at';
 }
 
 // Path: booking.schedule.messages
 class TranslationsBookingScheduleMessagesEn {
-	TranslationsBookingScheduleMessagesEn._(this._root);
+  TranslationsBookingScheduleMessagesEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Rescheduling failed.'
-	String get reschedule_failed => 'Rescheduling failed.';
+  /// en: 'Rescheduling failed.'
+  String get reschedule_failed => 'Rescheduling failed.';
 
-	/// en: 'Appointment rescheduled successfully'
-	String get reschedule_success => 'Appointment rescheduled successfully';
+  /// en: 'Appointment rescheduled successfully'
+  String get reschedule_success => 'Appointment rescheduled successfully';
 }
 
 // Path: nursing.services.primary_nursing
 class TranslationsNursingServicesPrimaryNursingEn {
-	TranslationsNursingServicesPrimaryNursingEn._(this._root);
+  TranslationsNursingServicesPrimaryNursingEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.'
-	String get description => 'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.';
+  /// en: 'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.'
+  String get description =>
+      'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.';
 
-	/// en: 'Primary Nursing'
-	String get title => 'Primary Nursing';
+  /// en: 'Primary Nursing'
+  String get title => 'Primary Nursing';
 }
 
 // Path: nursing.services.specialized_nursing
 class TranslationsNursingServicesSpecializedNursingEn {
-	TranslationsNursingServicesSpecializedNursingEn._(this._root);
+  TranslationsNursingServicesSpecializedNursingEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros'
-	String get description => 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros';
+  /// en: 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros'
+  String get description =>
+      'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros';
 
-	/// en: 'Specialized Nursing Services'
-	String get title => 'Specialized Nursing Services';
+  /// en: 'Specialized Nursing Services'
+  String get title => 'Specialized Nursing Services';
 }
 
 // Path: pharmacy.services.health_coaching
 class TranslationsPharmacyServicesHealthCoachingEn {
-	TranslationsPharmacyServicesHealthCoachingEn._(this._root);
+  TranslationsPharmacyServicesHealthCoachingEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well-being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management.'
-	String get description => 'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well-being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management.';
+  /// en: 'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well-being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management.'
+  String get description =>
+      'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well-being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management.';
 
-	/// en: 'Health Coaching'
-	String get title => 'Health Coaching';
+  /// en: 'Health Coaching'
+  String get title => 'Health Coaching';
 }
 
 // Path: pharmacy.services.review_and_counseling
 class TranslationsPharmacyServicesReviewAndCounselingEn {
-	TranslationsPharmacyServicesReviewAndCounselingEn._(this._root);
+  TranslationsPharmacyServicesReviewAndCounselingEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Holistic medication review and expert guidance to help you manage side effects, improve adherence, and optimize your health.'
-	String get description => 'Holistic medication review and expert guidance to help you manage side effects, improve adherence, and optimize your health.';
+  /// en: 'Holistic medication review and expert guidance to help you manage side effects, improve adherence, and optimize your health.'
+  String get description =>
+      'Holistic medication review and expert guidance to help you manage side effects, improve adherence, and optimize your health.';
 
-	/// en: 'Comprehensive Review and Counseling'
-	String get title => 'Comprehensive Review and Counseling';
+  /// en: 'Comprehensive Review and Counseling'
+  String get title => 'Comprehensive Review and Counseling';
 }
 
 // Path: pharmacy.services.smoking_cessation
 class TranslationsPharmacyServicesSmokingCessationEn {
-	TranslationsPharmacyServicesSmokingCessationEn._(this._root);
+  TranslationsPharmacyServicesSmokingCessationEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.'
-	String get description => 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.';
+  /// en: 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.'
+  String get description =>
+      'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.';
 
-	/// en: 'Smoking Cessation'
-	String get title => 'Smoking Cessation';
+  /// en: 'Smoking Cessation'
+  String get title => 'Smoking Cessation';
 }
 
 // Path: auth.forgot_password.form.label
 class TranslationsAuthForgotPasswordFormLabelEn {
-	TranslationsAuthForgotPasswordFormLabelEn._(this._root);
+  TranslationsAuthForgotPasswordFormLabelEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Enter your email'
-	String get email => 'Enter your email';
+  /// en: 'Enter your email'
+  String get email => 'Enter your email';
 }
 
 // Path: auth.login.form.validation
 class TranslationsAuthLoginFormValidationEn {
-	TranslationsAuthLoginFormValidationEn._(this._root);
+  TranslationsAuthLoginFormValidationEn._(this._root);
 
-	final Translations _root; // ignore: unused_field
+  final Translations _root; // ignore: unused_field
 
-	// Translations
+  // Translations
 
-	/// en: 'Please fill in both Email and Password.'
-	String get email_password_required => 'Please fill in both Email and Password.';
+  /// en: 'Please fill in both Email and Password.'
+  String get email_password_required =>
+      'Please fill in both Email and Password.';
 }
 
 /// The flat map containing all translations for locale <en>.
@@ -2293,461 +2483,581 @@ class TranslationsAuthLoginFormValidationEn {
 /// The Dart AOT compiler has issues with very large switch statements,
 /// so the map is split into smaller functions (512 entries each).
 extension on Translations {
-	dynamic _flatMapFunction(String path) {
-		return switch (path) {
-			'auth.button.logout' => 'Logout',
-			'auth.continue_with_alternative_text' => 'Or continue with',
-			'auth.forgot_password.form.label.email' => 'Enter your email',
-			'auth.forgot_password.message.otp_sent' => 'OTP sent successfully',
-			'auth.forgot_password.send_code_button' => 'Send Code',
-			'auth.forgot_password.subtitle' => 'Don\'t worry! Please enter the email address linked with your account.',
-			'auth.forgot_password.title' => 'Forgot Password?',
-			'auth.form.label.email' => 'Email',
-			'auth.form.label.new_password' => 'New Password',
-			'auth.form.label.password' => 'Password',
-			'auth.form.label.password_confirm' => 'Confirm Password',
-			'auth.form.label.user_role' => 'Select User Type',
-			'auth.form.label.username' => 'Name',
-			'auth.form.validation.email_required' => 'Please enter your email',
-			'auth.form.validation.invalid_email' => 'Please enter a valid email',
-			'auth.form.validation.invalid_password_length' => 'Password must be at least 6 characters',
-			'auth.form.validation.password_confirm_required' => 'Please confirm your password',
-			'auth.form.validation.password_mismatch' => 'Passwords do not match',
-			'auth.form.validation.password_required' => 'Please enter a password',
-			'auth.form.validation.user_role_required' => 'Please select a user type',
-			'auth.form.validation.username_required' => 'Please enter your name',
-			'auth.login.button.create_account_link' => 'Create new account',
-			'auth.login.button.forgot_password_link' => 'Forgot Password?',
-			'auth.login.button.submit' => 'Sign In',
-			'auth.login.form.validation.email_password_required' => 'Please fill in both Email and Password.',
-			'auth.login.role_selection_dialog.body' => 'Welcome!\nPlease select your account type to continue.',
-			'auth.login.role_selection_dialog.title' => 'Complete Registration',
-			'auth.login.subtitle' => 'Welcome Back you\'ve\nbeen missed',
-			'auth.login.title' => 'Login Here',
-			'auth.otp_verification.button.resend_code' => 'Didn\'t receive the code? Resend',
-			'auth.otp_verification.button.submit' => 'Verify',
-			'auth.otp_verification.message.code_resent' => 'Code resent!',
-			'auth.otp_verification.resend_time_countdown' => ({required Object seconds}) => 'Resend in ${seconds} seconds',
-			'auth.otp_verification.subtitle' => ({required Object email}) => 'Enter the code that we have sent to your email ${email}',
-			'auth.otp_verification.title' => 'Enter Verification Code',
-			'auth.register.button.login_link' => 'Already have an account',
-			'auth.register.button.submit' => 'Sign Up',
-			'auth.register.registration_success_dialog.body' => 'Please check your email for verification.',
-			'auth.register.registration_success_dialog.title' => 'Registration Successful',
-			'auth.register.subtitle' => 'Create an account so you can explore all the\nexisting jobs',
-			'auth.register.title' => 'Create Account',
-			'auth.reset_password.button.submit' => 'Reset Password',
-			'auth.reset_password.subtitle' => 'Please enter your new password',
-			'auth.reset_password.title' => 'Reset Password',
-			'auth.reset_password_success.body' => 'You have successfully reset your password. Please use your new password when logging in.',
-			'auth.reset_password_success.button.login_page_link' => 'Back to Login',
-			'auth.reset_password_success.title' => 'Password Reset Successful!',
-			'auth.user_role.caregiver' => 'Caregiver/Helper',
-			'auth.user_role.nurse' => 'Nurse',
-			'auth.user_role.patient' => 'Patient',
-			'auth.user_role.pharmacist' => 'Pharmacist',
-			'auth.user_role.physiotherapist' => 'Physiotherapist',
-			'auth.user_role.radiologist' => 'Radiologist',
-			'auth.user_role.pathologist' => 'Pathologist',
-			'auth.user_role.nutritionist' => 'Nutritionist',
-			'auth.user_role.psychologist' => 'Psychologist',
-			'auth.user_role.optometrist' => 'Optometrist',
-			'booking.addon.empty' => 'No add-on services available.',
-			'booking.addon.estimated_budget' => 'Estimated Budget',
-			'booking.addon.title.kDefault' => 'Add On Services',
-			'booking.addon.title.nursing' => 'Nursing Procedures',
-			'booking.addon.title.pharmacy' => 'Pharmacy Services',
-			'booking.addon.title.radiology' => 'Radiology Services',
-			'booking.addon.title.specialized_nursing' => 'Specialized Nursing Procedures',
-			'booking.book_appointment' => 'Book Appointment',
-			'booking.confirmation.address_label' => 'Visit Address',
-			'booking.confirmation.change_button' => 'Change',
-			'booking.confirmation.confirm_button' => 'Confirm Booking',
-			'booking.confirmation.no_address' => 'No address selected',
-			'booking.confirmation.patient_label' => 'Patient',
-			'booking.confirmation.professional_label' => 'Professional',
-			'booking.confirmation.services_label' => 'Services',
-			'booking.confirmation.time_label' => 'Time',
-			'booking.confirmation.title' => 'Confirm Booking',
-			'booking.confirmation.total_label' => 'Total',
-			'booking.health_status.empty_record' => 'No medical records available.',
-			'booking.health_status.mobility_detail_hint' => 'e.g. walking stick, walking frame, other',
-			'booking.health_status.mobility_label' => 'Select your mobility status',
-			'booking.health_status.record_hint' => 'Please select a record',
-			'booking.health_status.record_label' => 'Select a related health record',
-			'booking.health_status.title' => 'Personal Case Detail',
-			'booking.issue.add_issue_button' => 'Add an Issue',
-			'booking.issue.add_issue_title' => 'Add an Issue',
-			'booking.issue.default_page_title' => 'Service Case',
-			'booking.issue.delete_dialog.content' => 'Are you sure you want to delete this issue?',
-			'booking.issue.delete_dialog.title' => 'Delete Issue',
-			'booking.issue.edit_issue_title' => 'Edit Issue',
-			'booking.issue.empty_issue' => 'There are no issues added yet.\n Please add one or more issues so\nyou can proceed to the next step.',
-			'booking.issue.fill_complaint_instruction' => 'Tell us your concerns',
-			'booking.issue.form.add_button' => 'Add',
-			'booking.issue.form.complaint_description_hint' => 'Please enter questions, concerns, relevant symptoms related to your case along with related keywords.',
-			'booking.issue.form.complaint_label' => 'Chief complaint',
-			'booking.issue.form.complaint_title_hint' => '[main symptom] in the [specific body part]',
-			'booking.issue.form.title_description_required' => 'Issue title and description are required.',
-			'booking.issue.images' => 'Images',
-			'booking.issue.messages.add_issue_success' => 'Issue added successfully',
-			'booking.issue.messages.edit_issue_success' => 'Issue updated successfully',
-			'booking.issue.nurse_page_title' => 'Nurse Services Case',
-			'booking.issue.pharmacy_page_title' => 'Pharmacist Services Case',
-			'booking.issue.radiology_page_title' => 'Radiologist Services Case',
-			'booking.issue.updated_on' => ({required Object date}) => 'Updated on: ${date}',
-			'booking.professional_detail.about_me' => 'About Me',
-			'booking.professional_detail.certificates' => 'Professional Certificate',
-			'booking.professional_detail.experience_label' => 'Experience',
-			'booking.professional_detail.id_number' => ({required Object number}) => 'ID Number: ${number}',
-			'booking.professional_detail.issued_on' => ({required Object date}) => 'Issued: ${date}',
-			'booking.professional_detail.no_certificate' => 'No certificate available.',
-			'booking.professional_detail.no_reviews' => 'No reviews available yet.',
-			'booking.professional_detail.patients_label' => 'Patients',
-			'booking.professional_detail.rating_label' => 'Rating',
-			'booking.professional_detail.reviews' => 'Reviews',
-			'booking.professional_detail.schedule_button' => 'Schedule Appointment',
-			'booking.professional_detail.see_all_button' => 'See All',
-			'booking.professional_detail.title.kDefault' => 'Professional Details',
-			'booking.professional_detail.title.nurse' => 'Nurse Details',
-			'booking.professional_detail.title.pharmacist' => 'Pharmacist Details',
-			'booking.professional_detail.title.radiologist' => 'Radiologist Details',
-			'booking.professional_detail.working_info' => 'Working Information',
-			'booking.professional_search.appointment_button' => 'Appointment',
-			'booking.professional_search.empty' => 'No professionals found matching your criteria.',
-			'booking.professional_search.filter_text' => ({required Object count}) => 'Filtering by ${count} selected services',
-			'booking.professional_search.title.caregiver' => 'Search Caregiver/Helper/Worker',
-			'booking.professional_search.title.kDefault' => 'Search Professional',
-			'booking.professional_search.title.nurse' => 'Search Nurse',
-			'booking.professional_search.title.pharmacist' => 'Search Pharmacist',
-			'booking.professional_search.title.radiologist' => 'Search Radiologist',
-			'booking.professional_search.visit_address.add_new' => 'Add new address',
-			'booking.professional_search.visit_address.empty' => 'Add an address',
-			'booking.professional_search.visit_address.loading' => 'Loading address...',
-			'booking.professional_search.visit_address.picker_title' => 'Choose visit address',
-			'booking.professional_search.visit_address.title' => 'Visit at',
-			'booking.schedule.empty_slots' => 'No available slots for this day.',
-			'booking.schedule.messages.reschedule_failed' => 'Rescheduling failed.',
-			'booking.schedule.messages.reschedule_success' => 'Appointment rescheduled successfully',
-			'booking.schedule.select_date' => 'Select Date',
-			'booking.schedule.select_hour' => 'Select Hour',
-			'booking.schedule.submit_button' => 'Submit',
-			'booking.schedule.submitting_button' => 'Submitting...',
-			'booking.schedule.title' => 'Select Schedule',
-			'chatbot.title' => 'M2Health AI Assistant',
-			'chatbot.heroGreeting' => 'Hi! I\'m your',
-			'chatbot.heroName' => 'M2Health AI Health Assistant.',
-			'chatbot.heroBody' => 'Tell me what\'s bothering you, and I\'ll help you understand what you can do next.',
-			'chatbot.composerHint' => 'Type your message...',
-			'chatbot.composerHintWelcome' => 'Or type your question here...',
-			'chatbot.send' => 'Send',
-			'chatbot.privacyLabel' => '(HIPAA Privacy)',
-			'chatbot.privacyDetail' => 'Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.',
-			'chatbot.benefitsTitle' => 'Why use M2Health AI Assistant?',
-			'chatbot.benefitUnderstand' => 'Understand your concerns',
-			'chatbot.benefitExplain' => 'Get clear explanations in simple language',
-			'chatbot.benefitSaveTime' => 'Save time and reduce guesswork',
-			'chatbot.benefitConnect' => 'Connect to the right care, faster',
-			'chatbot.disclaimerBody' => 'This AI Assistant provides general information only and does not replace professional medical advice, diagnosis or treatment. If you have a medical emergency, please seek urgent medical care.',
-			'chatbot.errorTitle' => 'The assistant is unavailable',
-			'chatbot.retry' => 'Try again',
-			'chatbot.history' => 'Conversation history',
-			'chatbot.newConversation' => 'New conversation',
-			'chatbot.newConversationTitle' => 'Start a new conversation?',
-			'chatbot.newConversationBody' => 'This conversation will be kept in your history as read-only.',
-			'chatbot.startNew' => 'Start new',
-			'chatbot.cancel' => 'Cancel',
-			'chatbot.historyTitle' => 'Conversation History',
-			'chatbot.historyEmpty' => 'No conversations yet.',
-			'chatbot.historyError' => 'Could not load your conversations',
-			'chatbot.sessionUntitled' => 'Health conversation',
-			'chatbot.sessionActive' => 'Active',
-			'chatbot.sessionReadOnly' => 'Read-only',
-			'chatbot.deleteTitle' => 'Delete conversation',
-			'chatbot.deleteBody' => 'This conversation will be deleted from this device. This cannot be undone.',
-			'chatbot.delete' => 'Delete',
-			'chatbot.voiceInput' => 'Voice input',
-			'chatbot.transcribing' => 'Transcribing...',
-			'chatbot.micDeniedTitle' => 'Microphone access required',
-			'chatbot.micDeniedBody' => 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.',
-			'chatbot.openSettings' => 'Open Settings',
-			'dashboard.chat_ai_placeholder' => 'Chat With AI doctor for all your health questions',
-			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
-			'dashboard.greeting_generic' => 'Live Longer & Live Healthier!',
-			'dashboard.header_error' => 'We couldn\'t load your profile.',
-			'dashboard.retry' => 'Retry',
-			'dashboard.home.section_title' => 'Healthcare Services',
-			'dashboard.home.section_subtitle' => 'Professional care for you and your loved ones.',
-			'dashboard.home.view_all' => 'View All',
-			'dashboard.home.all_services_title' => 'All Services',
-			'dashboard.home.badge_new' => 'NEW',
-			'dashboard.home.name_pharmacist' => 'Pharmacist Review',
-			'dashboard.home.name_physiotherapy' => 'Physiotherapy',
-			'dashboard.home.name_psychologist' => 'Psychology',
-			'dashboard.home.name_dietitian' => 'Dietitian',
-			'dashboard.home.name_optometrist' => 'Optometrist',
-			'dashboard.home.name_nursing' => 'Home Nursing',
-			'dashboard.home.name_diabetic_care' => 'Diabetes Screening',
-			'dashboard.home.name_home_screening' => 'Home Health Screening',
-			'dashboard.home.name_second_opinion' => '2nd Opinion Imaging',
-			'dashboard.home.name_homecare_elderly' => 'Homecare for Elderly',
-			'dashboard.home.desc_pharmacist' => 'Expert advice on your medications and support to help you quit smoking.',
-			'dashboard.home.desc_physiotherapy' => 'Manage pain, improve mobility and recover better.',
-			'dashboard.home.desc_psychologist' => 'Get support for stress, emotions and mental well-being.',
-			'dashboard.home.desc_dietitian' => 'Personalised nutrition support for a healthier you.',
-			'dashboard.home.desc_optometrist' => 'Eye care, vision checks and professional advice.',
-			'dashboard.home.desc_nursing' => 'Professional nursing care in the comfort of your home.',
-			'dashboard.home.desc_diabetic_care' => 'Check your eyes and feet for diabetes-related complications.',
-			'dashboard.home.desc_home_screening' => 'Convenient health checks in the comfort of your home.',
-			'dashboard.home.desc_second_opinion' => 'Get an expert second read of your medical scans.',
-			'dashboard.home.desc_homecare_elderly' => 'Daily living support and companionship at home.',
-			'global.add' => 'Add',
-			'global.book_now' => 'Book Now',
-			'global.cancel' => 'Cancel',
-			'global.complete' => 'Complete',
-			'global.confirm' => 'Confirm',
-			'global.delete' => 'Delete',
-			'global.description' => 'Description',
-			'global.dialog.coming_soon' => 'Coming Soon',
-			'global.dialog.feature_available_soon' => 'This feature will be available soon!',
-			'global.edit_information' => 'Edit Information',
-			'global.error' => 'Error',
-			'global.error_message' => ({required Object error}) => 'Error: ${error}',
-			'global.messages.delete_success' => 'Deleted successfully',
-			'global.messages.updated_success' => 'Updated successfully',
-			'global.modify' => 'Modify',
-			'global.next' => 'Next',
-			'global.no' => 'No',
-			'global.no_data' => 'No data available',
-			'global.none' => 'None',
-			'global.not_specified' => 'Not specified',
-			'global.ok' => 'OK',
-			'global.other' => 'Other',
-			'global.ready' => 'Ready',
-			'global.remove' => 'Remove',
-			'global.retry' => 'Retry',
-			'global.save' => 'Save',
-			'global.saving' => 'Saving...',
-			'global.services' => 'Services',
-			'global.status' => 'Status',
-			'global.submit' => 'Submit',
-			'global.unknown_location' => 'Unknown Location',
-			'global.update' => 'Update',
-			'global.yes' => 'Yes',
-			'guidedBooking.namespace_title' => 'Book a service',
-			'guidedBooking.sub_service.title' => 'Which service do you need?',
-			'guidedBooking.sub_service.empty' => 'No services are available here yet.',
-			'guidedBooking.issues.title' => 'What can we help you with?',
-			'guidedBooking.issues.subtitle' => 'Choose one or more.',
-			'guidedBooking.issues.remarks_label' => 'Remarks (optional)',
-			'guidedBooking.issues.remarks_hint' => 'Anything else you would like our healthcare professional to know?',
-			'guidedBooking.issues.add_ons_link' => 'Add procedures or extras',
-			'guidedBooking.issues.error' => 'We could not load the issue list.',
-			'guidedBooking.issues.empty' => 'No reasons are listed for this service yet.',
-			'guidedBooking.add_ons.title' => 'Anything else to add?',
-			'guidedBooking.add_ons.subtitle' => 'Optional. Priced individually.',
-			'guidedBooking.add_ons.empty' => 'No extras are available for this service.',
-			'guidedBooking.add_ons.selected' => ({required Object count}) => '${count} added',
-			'guidedBooking.add_ons.no_description' => 'No additional details for this add-on yet.',
-			'guidedBooking.professional.title' => 'Choose a professional',
-			'guidedBooking.professional.view_profile' => 'View profile',
-			'guidedBooking.professional.select_cta' => 'Choose this professional',
-			'guidedBooking.professional.location_label' => 'Visit address',
-			'guidedBooking.professional.location_empty' => 'Add an address to see who is available',
-			'guidedBooking.professional.location_loading' => 'Finding your saved addresses',
-			'guidedBooking.professional.change_location' => 'Change',
-			'guidedBooking.professional.picker_title' => 'Where should we visit?',
-			'guidedBooking.professional.add_address' => 'Add a new address',
-			'guidedBooking.professional.loading' => 'Finding professionals near you',
-			'guidedBooking.professional.empty' => 'No professionals cover this address yet. Try another address.',
-			'guidedBooking.professional.error' => 'We could not load the professional list.',
-			'guidedBooking.professional.years' => ({required Object years}) => '${years} yrs experience',
-			'guidedBooking.professional.reviews' => ({required Object count}) => '(${count})',
-			'guidedBooking.professional.choose_cta' => 'Choose this professional',
-			'guidedBooking.professional.search_hint' => 'Search by name',
-			'guidedBooking.schedule.title' => 'When suits you?',
-			'guidedBooking.schedule.select_date' => 'Select a date',
-			'guidedBooking.schedule.select_hour' => 'Select a time',
-			'guidedBooking.schedule.chosen' => ({required Object day, required Object time}) => '${day} at ${time}',
-			'guidedBooking.schedule.loading' => 'Checking availability',
-			'guidedBooking.schedule.empty' => 'No open times on this day.',
-			'guidedBooking.schedule.error' => 'We could not load the available times.',
-			'guidedBooking.schedule.no_days' => 'This professional has no open times right now.',
-			'guidedBooking.review.title' => 'Review your request',
-			'guidedBooking.review.service' => 'Service',
-			'guidedBooking.review.issues' => 'Reasons for the visit',
-			'guidedBooking.review.remarks' => 'Remarks',
-			'guidedBooking.review.add_ons' => 'Extras',
-			'guidedBooking.review.location' => 'Visit address',
-			'guidedBooking.review.professional' => 'Professional',
-			'guidedBooking.review.schedule' => 'Preferred time',
-			'guidedBooking.review.estimate' => 'Estimated total',
-			'guidedBooking.review.estimate_note' => 'An estimate only. Nothing is charged now — payment happens at the visit.',
-			'guidedBooking.review.edit' => 'Edit',
-			'guidedBooking.review.none' => 'None',
-			'guidedBooking.review.send' => 'Send request',
-			'guidedBooking.sent.title' => 'Request sent',
-			'guidedBooking.sent.body' => ({required Object name}) => 'We have passed your request to ${name}. We will notify you as soon as they respond.',
-			'guidedBooking.sent.body_generic' => 'We have passed your request on. We will notify you as soon as it is picked up.',
-			'guidedBooking.sent.message' => 'Message your professional',
-			'guidedBooking.sent.view_status' => 'View request status',
-			'guidedBooking.sent.done' => 'Back to home',
-			'guidedBooking.status.title' => 'Your request',
-			'guidedBooking.status.reference' => ({required Object id}) => 'Request #${id}',
-			'guidedBooking.status.submitted' => ({required Object date}) => 'Sent ${date}',
-			'guidedBooking.status.preferred' => 'You asked for',
-			'guidedBooking.status.proposed' => 'They suggested',
-			'guidedBooking.status.pending_body' => ({required Object name}) => 'Your request is with ${name}. We will let you know as soon as they respond.',
-			'guidedBooking.status.confirmed_body' => ({required Object name}) => '${name} confirmed your visit. See you then.',
-			'guidedBooking.status.proposed_body' => ({required Object name}) => '${name} is not free then and suggested another time.',
-			'guidedBooking.status.cancelled_body' => 'This request was cancelled. You can start a new one whenever you are ready.',
-			'guidedBooking.status.accept_time' => 'Accept this time',
-			'guidedBooking.status.choose_another' => 'Choose another time',
-			'guidedBooking.status.cancel_request' => 'Cancel request',
-			'guidedBooking.status.message' => 'Message',
-			'guidedBooking.cta.kContinue' => 'Continue',
-			'guidedBooking.cta.skip' => 'Skip',
-			'healthProfile.namespace_title' => 'Health profile',
-			'healthProfile.entry_tile' => 'My health profile',
-			'healthProfile.list.subtitle' => 'Update only what you want. Everything here is optional.',
-			'healthProfile.list.not_started' => 'Not started',
-			'healthProfile.list.updated' => ({required Object date}) => 'Updated ${date}',
-			'healthProfile.list.loading' => 'Loading your health profile',
-			'healthProfile.list.empty' => 'No sections are available yet.',
-			'healthProfile.list.error' => 'We could not load your health profile.',
-			'healthProfile.section.subtitle' => 'Answer what you can. You can come back any time.',
-			'healthProfile.section.save' => 'Save',
-			'healthProfile.section.saved' => 'Saved',
-			'healthProfile.section.save_failed' => 'We could not save this section.',
-			'healthProfile.section.loading' => 'Loading this section',
-			'healthProfile.section.error' => 'We could not load this section.',
-			'healthProfile.section.add_other' => 'Add another',
-			'healthProfile.section.add_attachment' => 'Add an attachment',
-			'healthProfile.section.attachment' => ({required Object n}) => 'Report ${n}',
-			'healthProfile.section.discard_title' => 'Discard your changes?',
-			'healthProfile.section.discard_body' => 'This section has unsaved changes.',
-			'healthProfile.section.discard' => 'Discard',
-			'healthProfile.section.keep_editing' => 'Keep editing',
-			'messaging.title' => 'Messages',
-			'messaging.emptyTitle' => 'No conversations yet',
-			'messaging.emptyBody' => 'When you send a booking request, you can talk to the professional here.',
-			'messaging.composerHint' => 'Write a message',
-			'messaging.threadClosed' => 'This conversation is closed.',
-			'messaging.sayHello' => 'Say hello',
-			'messaging.timeProposal.title' => 'Alternative time proposed',
-			'messaging.timeProposal.youAskedFor' => 'You asked for',
-			'messaging.timeProposal.proposed' => 'Proposed',
-			'messaging.timeProposal.accept' => 'Accept',
-			'messaging.timeProposal.chooseAnother' => 'Choose Another',
-			'messaging.timeProposal.heldFor' => 'This slot is held for a limited time',
-			'messaging.timeProposal.suggestAnother' => 'Suggest another time',
-			'messaging.timeProposal.sheetTitleProfessional' => 'Suggest another time',
-			'messaging.timeProposal.sheetTitlePatient' => 'Which time suits you?',
-			'messaging.timeProposal.sendSuggestion' => 'Send suggestion',
-			'messaging.timeProposal.sendTime' => 'Send this time',
-			'messaging.timeProposal.reasonLabel' => 'Why? (optional)',
-			'messaging.timeProposal.reasonHint' => 'A short reason helps them say yes.',
-			'messaging.estimateRevision.title' => 'Revised estimate',
-			'messaging.estimateRevision.newTotal' => 'New estimated total',
-			'messaging.estimateRevision.approve' => 'Approve',
-			'messaging.estimateRevision.approved' => 'Approved',
-			'messaging.estimateRevision.withdrawn' => 'Withdrawn',
-			'nursing.services.primary_nursing.description' => 'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.',
-			'nursing.services.primary_nursing.title' => 'Primary Nursing',
-			'nursing.services.specialized_nursing.description' => 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros',
-			'nursing.services.specialized_nursing.title' => 'Specialized Nursing Services',
-			'nursing.title' => 'Home Nursing',
-			'payment.error.appointment_id_missing' => 'Error: Appointment ID is missing.',
-			'payment.feedback.enter_amount_hint' => 'Enter amount',
-			'payment.feedback.enter_other_amount' => 'Enter other amount',
-			'payment.feedback.excellent' => 'Excellent',
-			'payment.feedback.give_tips' => ({required Object name}) => 'Give some tips to ${name}',
-			'payment.feedback.rated_text' => ({required Object name, required Object stars}) => 'You rated ${name} ${stars} stars',
-			'payment.feedback.submit_btn' => 'Submit Feedback',
-			'payment.feedback.write_text_hint' => 'Write your feedback here...',
-			'payment.feedback_success.content' => 'Your feedback has been submitted successfully.',
-			'payment.feedback_success.thank_you' => 'Thank You!',
-			'payment.feedback_success.view_detail_btn' => 'View Appointment Detail',
-			'payment.messages.failed' => ({required Object error}) => 'Payment Failed: ${error}',
-			'payment.messages.feedback_failed' => ({required Object error}) => 'Feedback Failed: ${error}',
-			'payment.messages.purchase_failed' => ({required Object error}) => 'Purchase Failed: ${error}',
-			'payment.methods.cash_offline' => 'Cash (Offline Payment)',
-			'payment.offline_success.content' => 'Your request has been submitted successfully.\nPlease pay directly to the professional during the appointment.',
-			'payment.offline_success.estimated_total' => 'Estimated Total',
-			'payment.offline_success.title' => 'Request Submitted',
-			'payment.order_summary' => 'Order Summary',
-			'payment.pay_btn' => ({required Object amount}) => 'Pay ${amount}',
-			'payment.price_label' => 'Price',
-			'payment.return_home_btn' => 'Return to Home',
-			'payment.select_method' => 'Select Payment Method',
-			'payment.service_charge' => 'Service Charge',
-			'payment.subscription_success.content' => ({required Object planName}) => 'You have successfully purchased ${planName}',
-			'payment.subscription_success.title' => 'Payment Success',
-			'payment.success.amount' => 'Amount',
-			'payment.success.content' => ({required Object name}) => 'Your money has been successfully sent to ${name}.',
-			'payment.success.experience_subtitle' => 'Your feedback will help us to improve your\nexperience better',
-			'payment.success.experience_title' => 'How is your experience?',
-			'payment.success.feedback_btn' => 'Please Feedback',
-			'payment.success.title' => 'Payment Success',
-			'payment.title' => 'Payment',
-			'payment.total_label' => 'Total',
-			'payment.validity_label' => 'Validity',
-			'pharmacy.services.health_coaching.description' => 'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well-being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management.',
-			'pharmacy.services.health_coaching.title' => 'Health Coaching',
-			'pharmacy.services.review_and_counseling.description' => 'Holistic medication review and expert guidance to help you manage side effects, improve adherence, and optimize your health.',
-			'pharmacy.services.review_and_counseling.title' => 'Comprehensive Review and Counseling',
-			'pharmacy.services.smoking_cessation.description' => 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.',
-			'pharmacy.services.smoking_cessation.title' => 'Smoking Cessation',
-			'pharmacy.title' => 'iRX Pharmacist Service',
-			'pricing.estimate_title' => 'Estimate',
-			'pricing.estimate_total' => 'Estimated total',
-			'pricing.estimate_disclaimer' => 'This is an estimate. You pay the professional at the visit.',
-			'pricing.estimate_empty' => 'Pick a service to see an estimate.',
-			'pricing.add_ons' => 'Add-ons',
-			'pricing.hours' => ({required Object count}) => '${count} hours',
-			'pricing.per_hour' => ({required Object price}) => '${price} per hour',
-			'pricing.rates_title' => 'My service rates',
-			'pricing.rates_subtitle' => 'Set what you charge for each service. You can charge above the standard price, never below it.',
-			'pricing.rates_empty' => 'You have not added any services yet.',
-			'pricing.rates_error' => 'We could not load your rates.',
-			'pricing.rates_saved' => 'Your rates were saved.',
-			'pricing.your_price' => 'Your price',
-			'pricing.standard_price' => ({required Object price}) => 'Standard price ${price}',
-			'pricing.at_least' => ({required Object price}) => 'Must be at least ${price}',
-			'pricing.not_a_number' => 'Enter a price',
-			'pricing.charging_standard' => 'Charging the standard price',
-			'pricing.save' => 'Save',
-			'pricing.floor_title' => 'Standard prices',
-			'pricing.floor_subtitle' => 'The floor every professional charges from. Raising it lifts anyone charging below.',
-			'pricing.floor_error' => 'We could not load the standard prices.',
-			'pricing.floor_saved' => 'Standard price updated.',
-			'pricing.floor_lifted' => ({required Object count}) => '${count} professional rates were lifted to the new price.',
-			'pricing.floor_new_price' => 'New standard price',
-			'pricing.revision_title' => 'Revised estimate',
-			'pricing.revision_proposed' => 'Revision proposed',
-			'pricing.revision_approved' => 'Approved',
-			'pricing.revision_rejected' => 'Declined',
-			'pricing.revision_was' => ({required Object price}) => 'Was ${price}',
-			'pricing.revision_now' => ({required Object price}) => 'Now ${price}',
-			'settings.account' => 'Account',
-			'settings.app_language' => 'App Language',
-			'settings.settings' => 'Settings',
-			'sharedBooking.starting_from' => ({required Object price}) => 'Starting from ${price}',
-			'sharedBooking.from_price' => ({required Object price}) => 'from ${price}',
-			'sharedBooking.empty_title' => 'Nothing here yet',
-			'sharedBooking.error_title' => 'Something went wrong',
-			'sharedBooking.retry' => 'Try again',
-			'sharedBooking.status.pending' => 'Pending approval',
-			'sharedBooking.status.confirmed' => 'Confirmed',
-			'sharedBooking.status.proposed' => 'Alternative proposed',
-			'sharedBooking.status.cancelled' => 'Cancelled',
-			'store.consumable' => 'Homecare Consumable',
-			'store.messages.load_failed' => 'Failed to load products',
-			'store.no_products' => 'No products available',
-			'store.poct' => 'Point of Care Testing',
-			'store.sort' => 'Sort',
-			'store.title' => 'Medical Store',
-			_ => null,
-		};
-	}
+  dynamic _flatMapFunction(String path) {
+    return switch (path) {
+      'auth.button.logout' => 'Logout',
+      'auth.continue_with_alternative_text' => 'Or continue with',
+      'auth.forgot_password.form.label.email' => 'Enter your email',
+      'auth.forgot_password.message.otp_sent' => 'OTP sent successfully',
+      'auth.forgot_password.send_code_button' => 'Send Code',
+      'auth.forgot_password.subtitle' =>
+        'Don\'t worry! Please enter the email address linked with your account.',
+      'auth.forgot_password.title' => 'Forgot Password?',
+      'auth.form.label.email' => 'Email',
+      'auth.form.label.new_password' => 'New Password',
+      'auth.form.label.password' => 'Password',
+      'auth.form.label.password_confirm' => 'Confirm Password',
+      'auth.form.label.user_role' => 'Select User Type',
+      'auth.form.label.username' => 'Name',
+      'auth.form.validation.email_required' => 'Please enter your email',
+      'auth.form.validation.invalid_email' => 'Please enter a valid email',
+      'auth.form.validation.invalid_password_length' =>
+        'Password must be at least 6 characters',
+      'auth.form.validation.password_confirm_required' =>
+        'Please confirm your password',
+      'auth.form.validation.password_mismatch' => 'Passwords do not match',
+      'auth.form.validation.password_required' => 'Please enter a password',
+      'auth.form.validation.user_role_required' => 'Please select a user type',
+      'auth.form.validation.username_required' => 'Please enter your name',
+      'auth.login.button.create_account_link' => 'Create new account',
+      'auth.login.button.forgot_password_link' => 'Forgot Password?',
+      'auth.login.button.submit' => 'Sign In',
+      'auth.login.form.validation.email_password_required' =>
+        'Please fill in both Email and Password.',
+      'auth.login.role_selection_dialog.body' =>
+        'Welcome!\nPlease select your account type to continue.',
+      'auth.login.role_selection_dialog.title' => 'Complete Registration',
+      'auth.login.subtitle' => 'Welcome Back you\'ve\nbeen missed',
+      'auth.login.title' => 'Login Here',
+      'auth.otp_verification.button.resend_code' =>
+        'Didn\'t receive the code? Resend',
+      'auth.otp_verification.button.submit' => 'Verify',
+      'auth.otp_verification.message.code_resent' => 'Code resent!',
+      'auth.otp_verification.resend_time_countdown' =>
+        ({required Object seconds}) => 'Resend in ${seconds} seconds',
+      'auth.otp_verification.subtitle' => ({required Object email}) =>
+          'Enter the code that we have sent to your email ${email}',
+      'auth.otp_verification.title' => 'Enter Verification Code',
+      'auth.register.button.login_link' => 'Already have an account',
+      'auth.register.button.submit' => 'Sign Up',
+      'auth.register.registration_success_dialog.body' =>
+        'Please check your email for verification.',
+      'auth.register.registration_success_dialog.title' =>
+        'Registration Successful',
+      'auth.register.subtitle' =>
+        'Create an account so you can explore all the\nexisting jobs',
+      'auth.register.title' => 'Create Account',
+      'auth.reset_password.button.submit' => 'Reset Password',
+      'auth.reset_password.subtitle' => 'Please enter your new password',
+      'auth.reset_password.title' => 'Reset Password',
+      'auth.reset_password_success.body' =>
+        'You have successfully reset your password. Please use your new password when logging in.',
+      'auth.reset_password_success.button.login_page_link' => 'Back to Login',
+      'auth.reset_password_success.title' => 'Password Reset Successful!',
+      'auth.user_role.caregiver' => 'Caregiver/Helper',
+      'auth.user_role.nurse' => 'Nurse',
+      'auth.user_role.patient' => 'Patient',
+      'auth.user_role.pharmacist' => 'Pharmacist',
+      'auth.user_role.physiotherapist' => 'Physiotherapist',
+      'auth.user_role.radiologist' => 'Radiologist',
+      'auth.user_role.pathologist' => 'Pathologist',
+      'auth.user_role.nutritionist' => 'Nutritionist',
+      'auth.user_role.psychologist' => 'Psychologist',
+      'auth.user_role.optometrist' => 'Optometrist',
+      'booking.addon.empty' => 'No add-on services available.',
+      'booking.addon.estimated_budget' => 'Estimated Budget',
+      'booking.addon.title.kDefault' => 'Add On Services',
+      'booking.addon.title.nursing' => 'Nursing Procedures',
+      'booking.addon.title.pharmacy' => 'Pharmacy Services',
+      'booking.addon.title.radiology' => 'Radiology Services',
+      'booking.addon.title.specialized_nursing' =>
+        'Specialized Nursing Procedures',
+      'booking.book_appointment' => 'Book Appointment',
+      'booking.confirmation.address_label' => 'Visit Address',
+      'booking.confirmation.change_button' => 'Change',
+      'booking.confirmation.confirm_button' => 'Confirm Booking',
+      'booking.confirmation.no_address' => 'No address selected',
+      'booking.confirmation.patient_label' => 'Patient',
+      'booking.confirmation.professional_label' => 'Professional',
+      'booking.confirmation.services_label' => 'Services',
+      'booking.confirmation.time_label' => 'Time',
+      'booking.confirmation.title' => 'Confirm Booking',
+      'booking.confirmation.total_label' => 'Total',
+      'booking.health_status.empty_record' => 'No medical records available.',
+      'booking.health_status.mobility_detail_hint' =>
+        'e.g. walking stick, walking frame, other',
+      'booking.health_status.mobility_label' => 'Select your mobility status',
+      'booking.health_status.record_hint' => 'Please select a record',
+      'booking.health_status.record_label' => 'Select a related health record',
+      'booking.health_status.title' => 'Personal Case Detail',
+      'booking.issue.add_issue_button' => 'Add an Issue',
+      'booking.issue.add_issue_title' => 'Add an Issue',
+      'booking.issue.default_page_title' => 'Service Case',
+      'booking.issue.delete_dialog.content' =>
+        'Are you sure you want to delete this issue?',
+      'booking.issue.delete_dialog.title' => 'Delete Issue',
+      'booking.issue.edit_issue_title' => 'Edit Issue',
+      'booking.issue.empty_issue' =>
+        'There are no issues added yet.\n Please add one or more issues so\nyou can proceed to the next step.',
+      'booking.issue.fill_complaint_instruction' => 'Tell us your concerns',
+      'booking.issue.form.add_button' => 'Add',
+      'booking.issue.form.complaint_description_hint' =>
+        'Please enter questions, concerns, relevant symptoms related to your case along with related keywords.',
+      'booking.issue.form.complaint_label' => 'Chief complaint',
+      'booking.issue.form.complaint_title_hint' =>
+        '[main symptom] in the [specific body part]',
+      'booking.issue.form.title_description_required' =>
+        'Issue title and description are required.',
+      'booking.issue.images' => 'Images',
+      'booking.issue.messages.add_issue_success' => 'Issue added successfully',
+      'booking.issue.messages.edit_issue_success' =>
+        'Issue updated successfully',
+      'booking.issue.nurse_page_title' => 'Nurse Services Case',
+      'booking.issue.pharmacy_page_title' => 'Pharmacist Services Case',
+      'booking.issue.radiology_page_title' => 'Radiologist Services Case',
+      'booking.issue.updated_on' => ({required Object date}) =>
+          'Updated on: ${date}',
+      'booking.professional_detail.about_me' => 'About Me',
+      'booking.professional_detail.certificates' => 'Professional Certificate',
+      'booking.professional_detail.experience_label' => 'Experience',
+      'booking.professional_detail.id_number' => ({required Object number}) =>
+          'ID Number: ${number}',
+      'booking.professional_detail.issued_on' => ({required Object date}) =>
+          'Issued: ${date}',
+      'booking.professional_detail.no_certificate' =>
+        'No certificate available.',
+      'booking.professional_detail.no_reviews' => 'No reviews available yet.',
+      'booking.professional_detail.patients_label' => 'Patients',
+      'booking.professional_detail.rating_label' => 'Rating',
+      'booking.professional_detail.reviews' => 'Reviews',
+      'booking.professional_detail.schedule_button' => 'Schedule Appointment',
+      'booking.professional_detail.see_all_button' => 'See All',
+      'booking.professional_detail.title.kDefault' => 'Professional Details',
+      'booking.professional_detail.title.nurse' => 'Nurse Details',
+      'booking.professional_detail.title.pharmacist' => 'Pharmacist Details',
+      'booking.professional_detail.title.radiologist' => 'Radiologist Details',
+      'booking.professional_detail.working_info' => 'Working Information',
+      'booking.professional_search.appointment_button' => 'Appointment',
+      'booking.professional_search.empty' =>
+        'No professionals found matching your criteria.',
+      'booking.professional_search.filter_text' => ({required Object count}) =>
+          'Filtering by ${count} selected services',
+      'booking.professional_search.title.caregiver' =>
+        'Search Caregiver/Helper/Worker',
+      'booking.professional_search.title.kDefault' => 'Search Professional',
+      'booking.professional_search.title.nurse' => 'Search Nurse',
+      'booking.professional_search.title.pharmacist' => 'Search Pharmacist',
+      'booking.professional_search.title.radiologist' => 'Search Radiologist',
+      'booking.professional_search.visit_address.add_new' => 'Add new address',
+      'booking.professional_search.visit_address.empty' => 'Add an address',
+      'booking.professional_search.visit_address.loading' =>
+        'Loading address...',
+      'booking.professional_search.visit_address.picker_title' =>
+        'Choose visit address',
+      'booking.professional_search.visit_address.title' => 'Visit at',
+      'booking.schedule.empty_slots' => 'No available slots for this day.',
+      'booking.schedule.messages.reschedule_failed' => 'Rescheduling failed.',
+      'booking.schedule.messages.reschedule_success' =>
+        'Appointment rescheduled successfully',
+      'booking.schedule.select_date' => 'Select Date',
+      'booking.schedule.select_hour' => 'Select Hour',
+      'booking.schedule.submit_button' => 'Submit',
+      'booking.schedule.submitting_button' => 'Submitting...',
+      'booking.schedule.title' => 'Select Schedule',
+      'chatbot.title' => 'M2Health AI Assistant',
+      'chatbot.heroGreeting' => 'Hi! I\'m your',
+      'chatbot.heroName' => 'M2Health AI Health Assistant.',
+      'chatbot.heroBody' =>
+        'Tell me what\'s bothering you, and I\'ll help you understand what you can do next.',
+      'chatbot.composerHint' => 'Type your message...',
+      'chatbot.composerHintWelcome' => 'Or type your question here...',
+      'chatbot.send' => 'Send',
+      'chatbot.privacyLabel' => '(HIPAA Privacy)',
+      'chatbot.privacyDetail' =>
+        'Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.',
+      'chatbot.benefitsTitle' => 'Why use M2Health AI Assistant?',
+      'chatbot.benefitUnderstand' => 'Understand your concerns',
+      'chatbot.benefitExplain' => 'Get clear explanations in simple language',
+      'chatbot.benefitSaveTime' => 'Save time and reduce guesswork',
+      'chatbot.benefitConnect' => 'Connect to the right care, faster',
+      'chatbot.disclaimerBody' =>
+        'This AI Assistant provides general information only and does not replace professional medical advice, diagnosis or treatment. If you have a medical emergency, please seek urgent medical care.',
+      'chatbot.errorTitle' => 'The assistant is unavailable',
+      'chatbot.retry' => 'Try again',
+      'chatbot.history' => 'Conversation history',
+      'chatbot.newConversation' => 'New conversation',
+      'chatbot.newConversationTitle' => 'Start a new conversation?',
+      'chatbot.newConversationBody' =>
+        'This conversation will be kept in your history as read-only.',
+      'chatbot.startNew' => 'Start new',
+      'chatbot.cancel' => 'Cancel',
+      'chatbot.historyTitle' => 'Conversation History',
+      'chatbot.historyEmpty' => 'No conversations yet.',
+      'chatbot.historyError' => 'Could not load your conversations',
+      'chatbot.sessionUntitled' => 'Health conversation',
+      'chatbot.sessionActive' => 'Active',
+      'chatbot.sessionReadOnly' => 'Read-only',
+      'chatbot.deleteTitle' => 'Delete conversation',
+      'chatbot.deleteBody' =>
+        'This conversation will be deleted from this device. This cannot be undone.',
+      'chatbot.delete' => 'Delete',
+      'chatbot.voiceInput' => 'Voice input',
+      'chatbot.transcribing' => 'Transcribing...',
+      'chatbot.micDeniedTitle' => 'Microphone access required',
+      'chatbot.micDeniedBody' =>
+        'Microphone permission has been denied. Please enable it in your device Settings to use voice input.',
+      'chatbot.openSettings' => 'Open Settings',
+      'dashboard.chat_ai_placeholder' =>
+        'Chat With AI doctor for all your health questions',
+      'dashboard.greeting' => ({required Object displayName}) =>
+          'Live Longer & Live Healthier, ${displayName}!',
+      'dashboard.greeting_generic' => 'Live Longer & Live Healthier!',
+      'dashboard.header_error' => 'We couldn\'t load your profile.',
+      'dashboard.retry' => 'Retry',
+      'dashboard.home.section_title' => 'Healthcare Services',
+      'dashboard.home.section_subtitle' =>
+        'Professional care for you and your loved ones.',
+      'dashboard.home.view_all' => 'View All',
+      'dashboard.home.all_services_title' => 'All Services',
+      'dashboard.home.badge_new' => 'NEW',
+      'dashboard.home.name_pharmacist' => 'Pharmacist Review',
+      'dashboard.home.name_physiotherapy' => 'Physiotherapy',
+      'dashboard.home.name_psychologist' => 'Psychology',
+      'dashboard.home.name_dietitian' => 'Dietitian',
+      'dashboard.home.name_optometrist' => 'Optometrist',
+      'dashboard.home.name_nursing' => 'Home Nursing',
+      'dashboard.home.name_diabetic_care' => 'Diabetes Screening',
+      'dashboard.home.name_home_screening' => 'Home Health Screening',
+      'dashboard.home.name_second_opinion' => '2nd Opinion Imaging',
+      'dashboard.home.name_homecare_elderly' => 'Homecare for Elderly',
+      'dashboard.home.desc_pharmacist' =>
+        'Expert advice on your medications and support to help you quit smoking.',
+      'dashboard.home.desc_physiotherapy' =>
+        'Manage pain, improve mobility and recover better.',
+      'dashboard.home.desc_psychologist' =>
+        'Get support for stress, emotions and mental well-being.',
+      'dashboard.home.desc_dietitian' =>
+        'Personalised nutrition support for a healthier you.',
+      'dashboard.home.desc_optometrist' =>
+        'Eye care, vision checks and professional advice.',
+      'dashboard.home.desc_nursing' =>
+        'Professional nursing care in the comfort of your home.',
+      'dashboard.home.desc_diabetic_care' =>
+        'Check your eyes and feet for diabetes-related complications.',
+      'dashboard.home.desc_home_screening' =>
+        'Convenient health checks in the comfort of your home.',
+      'dashboard.home.desc_second_opinion' =>
+        'Get an expert second read of your medical scans.',
+      'dashboard.home.desc_homecare_elderly' =>
+        'Daily living support and companionship at home.',
+      'global.add' => 'Add',
+      'global.book_now' => 'Book Now',
+      'global.cancel' => 'Cancel',
+      'global.complete' => 'Complete',
+      'global.confirm' => 'Confirm',
+      'global.delete' => 'Delete',
+      'global.description' => 'Description',
+      'global.dialog.coming_soon' => 'Coming Soon',
+      'global.dialog.feature_available_soon' =>
+        'This feature will be available soon!',
+      'global.edit_information' => 'Edit Information',
+      'global.error' => 'Error',
+      'global.error_message' => ({required Object error}) => 'Error: ${error}',
+      'global.messages.delete_success' => 'Deleted successfully',
+      'global.messages.updated_success' => 'Updated successfully',
+      'global.modify' => 'Modify',
+      'global.next' => 'Next',
+      'global.no' => 'No',
+      'global.no_data' => 'No data available',
+      'global.none' => 'None',
+      'global.not_specified' => 'Not specified',
+      'global.ok' => 'OK',
+      'global.other' => 'Other',
+      'global.ready' => 'Ready',
+      'global.remove' => 'Remove',
+      'global.retry' => 'Retry',
+      'global.save' => 'Save',
+      'global.saving' => 'Saving...',
+      'global.services' => 'Services',
+      'global.status' => 'Status',
+      'global.submit' => 'Submit',
+      'global.unknown_location' => 'Unknown Location',
+      'global.update' => 'Update',
+      'global.yes' => 'Yes',
+      'guidedBooking.namespace_title' => 'Book a service',
+      'guidedBooking.sub_service.title' => 'Which service do you need?',
+      'guidedBooking.sub_service.empty' =>
+        'No services are available here yet.',
+      'guidedBooking.issues.title' => 'What can we help you with?',
+      'guidedBooking.issues.subtitle' => 'Choose one or more.',
+      'guidedBooking.issues.remarks_label' => 'Remarks (optional)',
+      'guidedBooking.issues.remarks_hint' =>
+        'Anything else you would like our healthcare professional to know?',
+      'guidedBooking.issues.add_ons_link' => 'Add procedures or extras',
+      'guidedBooking.issues.error' => 'We could not load the issue list.',
+      'guidedBooking.issues.empty' =>
+        'No reasons are listed for this service yet.',
+      'guidedBooking.add_ons.title' => 'Anything else to add?',
+      'guidedBooking.add_ons.subtitle' => 'Optional. Priced individually.',
+      'guidedBooking.add_ons.empty' =>
+        'No extras are available for this service.',
+      'guidedBooking.add_ons.selected' => ({required Object count}) =>
+          '${count} added',
+      'guidedBooking.add_ons.no_description' =>
+        'No additional details for this add-on yet.',
+      'guidedBooking.professional.title' => 'Choose a professional',
+      'guidedBooking.professional.view_profile' => 'View profile',
+      'guidedBooking.professional.select_cta' => 'Choose this professional',
+      'guidedBooking.professional.location_label' => 'Visit address',
+      'guidedBooking.professional.location_empty' =>
+        'Add an address to see who is available',
+      'guidedBooking.professional.location_loading' =>
+        'Finding your saved addresses',
+      'guidedBooking.professional.change_location' => 'Change',
+      'guidedBooking.professional.picker_title' => 'Where should we visit?',
+      'guidedBooking.professional.add_address' => 'Add a new address',
+      'guidedBooking.professional.loading' => 'Finding professionals near you',
+      'guidedBooking.professional.empty' =>
+        'No professionals cover this address yet. Try another address.',
+      'guidedBooking.professional.error' =>
+        'We could not load the professional list.',
+      'guidedBooking.professional.years' => ({required Object years}) =>
+          '${years} yrs experience',
+      'guidedBooking.professional.reviews' => ({required Object count}) =>
+          '(${count})',
+      'guidedBooking.professional.choose_cta' => 'Choose this professional',
+      'guidedBooking.professional.search_hint' => 'Search by name',
+      'guidedBooking.schedule.title' => 'When suits you?',
+      'guidedBooking.schedule.select_date' => 'Select a date',
+      'guidedBooking.schedule.select_hour' => 'Select a time',
+      'guidedBooking.schedule.chosen' =>
+        ({required Object day, required Object time}) => '${day} at ${time}',
+      'guidedBooking.schedule.loading' => 'Checking availability',
+      'guidedBooking.schedule.empty' => 'No open times on this day.',
+      'guidedBooking.schedule.error' =>
+        'We could not load the available times.',
+      'guidedBooking.schedule.no_days' =>
+        'This professional has no open times right now.',
+      'guidedBooking.review.title' => 'Review your request',
+      'guidedBooking.review.service' => 'Service',
+      'guidedBooking.review.issues' => 'Reasons for the visit',
+      'guidedBooking.review.remarks' => 'Remarks',
+      'guidedBooking.review.add_ons' => 'Extras',
+      'guidedBooking.review.location' => 'Visit address',
+      'guidedBooking.review.professional' => 'Professional',
+      'guidedBooking.review.schedule' => 'Preferred time',
+      'guidedBooking.review.estimate' => 'Estimated total',
+      'guidedBooking.review.estimate_note' =>
+        'An estimate only. Nothing is charged now — payment happens at the visit.',
+      'guidedBooking.review.edit' => 'Edit',
+      'guidedBooking.review.none' => 'None',
+      'guidedBooking.review.send' => 'Send request',
+      'guidedBooking.sent.title' => 'Request sent',
+      'guidedBooking.sent.body' => ({required Object name}) =>
+          'We have passed your request to ${name}. We will notify you as soon as they respond.',
+      'guidedBooking.sent.body_generic' =>
+        'We have passed your request on. We will notify you as soon as it is picked up.',
+      'guidedBooking.sent.message' => 'Message your professional',
+      'guidedBooking.sent.view_status' => 'View request status',
+      'guidedBooking.sent.done' => 'Back to home',
+      'guidedBooking.status.title' => 'Your request',
+      'guidedBooking.status.reference' => ({required Object id}) =>
+          'Request #${id}',
+      'guidedBooking.status.submitted' => ({required Object date}) =>
+          'Sent ${date}',
+      'guidedBooking.status.preferred' => 'You asked for',
+      'guidedBooking.status.proposed' => 'They suggested',
+      'guidedBooking.status.pending_body' => ({required Object name}) =>
+          'Your request is with ${name}. We will let you know as soon as they respond.',
+      'guidedBooking.status.confirmed_body' => ({required Object name}) =>
+          '${name} confirmed your visit. See you then.',
+      'guidedBooking.status.proposed_body' => ({required Object name}) =>
+          '${name} is not free then and suggested another time.',
+      'guidedBooking.status.cancelled_body' =>
+        'This request was cancelled. You can start a new one whenever you are ready.',
+      'guidedBooking.status.accept_time' => 'Accept this time',
+      'guidedBooking.status.choose_another' => 'Choose another time',
+      'guidedBooking.status.cancel_request' => 'Cancel request',
+      'guidedBooking.status.message' => 'Message',
+      'guidedBooking.cta.kContinue' => 'Continue',
+      'guidedBooking.cta.skip' => 'Skip',
+      'healthProfile.namespace_title' => 'Health profile',
+      'healthProfile.entry_tile' => 'My health profile',
+      'healthProfile.list.subtitle' =>
+        'Update only what you want. Everything here is optional.',
+      'healthProfile.list.not_started' => 'Not started',
+      'healthProfile.list.updated' => ({required Object date}) =>
+          'Updated ${date}',
+      'healthProfile.list.loading' => 'Loading your health profile',
+      'healthProfile.list.empty' => 'No sections are available yet.',
+      'healthProfile.list.error' => 'We could not load your health profile.',
+      'healthProfile.section.subtitle' =>
+        'Answer what you can. You can come back any time.',
+      'healthProfile.section.save' => 'Save',
+      'healthProfile.section.saved' => 'Saved',
+      'healthProfile.section.save_failed' => 'We could not save this section.',
+      'healthProfile.section.loading' => 'Loading this section',
+      'healthProfile.section.error' => 'We could not load this section.',
+      'healthProfile.section.add_other' => 'Add another',
+      'healthProfile.section.add_attachment' => 'Add an attachment',
+      'healthProfile.section.attachment' => ({required Object n}) =>
+          'Report ${n}',
+      'healthProfile.section.discard_title' => 'Discard your changes?',
+      'healthProfile.section.discard_body' =>
+        'This section has unsaved changes.',
+      'healthProfile.section.discard' => 'Discard',
+      'healthProfile.section.keep_editing' => 'Keep editing',
+      'messaging.title' => 'Messages',
+      'messaging.emptyTitle' => 'No conversations yet',
+      'messaging.emptyBody' =>
+        'When you send a booking request, you can talk to the professional here.',
+      'messaging.composerHint' => 'Write a message',
+      'messaging.threadClosed' => 'This conversation is closed.',
+      'messaging.sayHello' => 'Say hello',
+      'messaging.timeProposal.title' => 'Alternative time proposed',
+      'messaging.timeProposal.youAskedFor' => 'You asked for',
+      'messaging.timeProposal.proposed' => 'Proposed',
+      'messaging.timeProposal.accept' => 'Accept',
+      'messaging.timeProposal.chooseAnother' => 'Choose Another',
+      'messaging.timeProposal.heldFor' =>
+        'This slot is held for a limited time',
+      'messaging.timeProposal.suggestAnother' => 'Suggest another time',
+      'messaging.timeProposal.sheetTitleProfessional' => 'Suggest another time',
+      'messaging.timeProposal.sheetTitlePatient' => 'Which time suits you?',
+      'messaging.timeProposal.sendSuggestion' => 'Send suggestion',
+      'messaging.timeProposal.sendTime' => 'Send this time',
+      'messaging.timeProposal.reasonLabel' => 'Why? (optional)',
+      'messaging.timeProposal.reasonHint' =>
+        'A short reason helps them say yes.',
+      'messaging.estimateRevision.title' => 'Revised estimate',
+      'messaging.estimateRevision.newTotal' => 'New estimated total',
+      'messaging.estimateRevision.approve' => 'Approve',
+      'messaging.estimateRevision.approved' => 'Approved',
+      'messaging.estimateRevision.withdrawn' => 'Withdrawn',
+      'nursing.services.primary_nursing.description' =>
+        'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.',
+      'nursing.services.primary_nursing.title' => 'Primary Nursing',
+      'nursing.services.specialized_nursing.description' =>
+        'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros',
+      'nursing.services.specialized_nursing.title' =>
+        'Specialized Nursing Services',
+      'nursing.title' => 'Home Nursing',
+      'payment.error.appointment_id_missing' =>
+        'Error: Appointment ID is missing.',
+      'payment.feedback.enter_amount_hint' => 'Enter amount',
+      'payment.feedback.enter_other_amount' => 'Enter other amount',
+      'payment.feedback.excellent' => 'Excellent',
+      'payment.feedback.give_tips' => ({required Object name}) =>
+          'Give some tips to ${name}',
+      'payment.feedback.rated_text' => (
+              {required Object name, required Object stars}) =>
+          'You rated ${name} ${stars} stars',
+      'payment.feedback.submit_btn' => 'Submit Feedback',
+      'payment.feedback.write_text_hint' => 'Write your feedback here...',
+      'payment.feedback_success.content' =>
+        'Your feedback has been submitted successfully.',
+      'payment.feedback_success.thank_you' => 'Thank You!',
+      'payment.feedback_success.view_detail_btn' => 'View Appointment Detail',
+      'payment.messages.failed' => ({required Object error}) =>
+          'Payment Failed: ${error}',
+      'payment.messages.feedback_failed' => ({required Object error}) =>
+          'Feedback Failed: ${error}',
+      'payment.messages.purchase_failed' => ({required Object error}) =>
+          'Purchase Failed: ${error}',
+      'payment.methods.cash_offline' => 'Cash (Offline Payment)',
+      'payment.offline_success.content' =>
+        'Your request has been submitted successfully.\nPlease pay directly to the professional during the appointment.',
+      'payment.offline_success.estimated_total' => 'Estimated Total',
+      'payment.offline_success.title' => 'Request Submitted',
+      'payment.order_summary' => 'Order Summary',
+      'payment.pay_btn' => ({required Object amount}) => 'Pay ${amount}',
+      'payment.price_label' => 'Price',
+      'payment.return_home_btn' => 'Return to Home',
+      'payment.select_method' => 'Select Payment Method',
+      'payment.service_charge' => 'Service Charge',
+      'payment.subscription_success.content' => ({required Object planName}) =>
+          'You have successfully purchased ${planName}',
+      'payment.subscription_success.title' => 'Payment Success',
+      'payment.success.amount' => 'Amount',
+      'payment.success.content' => ({required Object name}) =>
+          'Your money has been successfully sent to ${name}.',
+      'payment.success.experience_subtitle' =>
+        'Your feedback will help us to improve your\nexperience better',
+      'payment.success.experience_title' => 'How is your experience?',
+      'payment.success.feedback_btn' => 'Please Feedback',
+      'payment.success.title' => 'Payment Success',
+      'payment.title' => 'Payment',
+      'payment.total_label' => 'Total',
+      'payment.validity_label' => 'Validity',
+      'pharmacy.services.health_coaching.description' =>
+        'Personalized guidance and support to help individuals achieve their health goals, manage chronic conditions, and improve overall well-being, with specialized programs for weight management, diabetes management, high blood pressure management, and high cholesterol management.',
+      'pharmacy.services.health_coaching.title' => 'Health Coaching',
+      'pharmacy.services.review_and_counseling.description' =>
+        'Holistic medication review and expert guidance to help you manage side effects, improve adherence, and optimize your health.',
+      'pharmacy.services.review_and_counseling.title' =>
+        'Comprehensive Review and Counseling',
+      'pharmacy.services.smoking_cessation.description' =>
+        'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.',
+      'pharmacy.services.smoking_cessation.title' => 'Smoking Cessation',
+      'pharmacy.title' => 'iRX Pharmacist Service',
+      'pricing.estimate_title' => 'Estimate',
+      'pricing.estimate_total' => 'Estimated total',
+      'pricing.estimate_disclaimer' =>
+        'This is an estimate. You pay the professional at the visit.',
+      'pricing.estimate_empty' => 'Pick a service to see an estimate.',
+      'pricing.add_ons' => 'Add-ons',
+      'pricing.hours' => ({required Object count}) => '${count} hours',
+      'pricing.per_hour' => ({required Object price}) => '${price} per hour',
+      'pricing.rates_title' => 'My service rates',
+      'pricing.rates_subtitle' =>
+        'Set what you charge for each service. You can charge above the standard price, never below it.',
+      'pricing.rates_empty' => 'You have not added any services yet.',
+      'pricing.rates_error' => 'We could not load your rates.',
+      'pricing.rates_saved' => 'Your rates were saved.',
+      'pricing.your_price' => 'Your price',
+      'pricing.standard_price' => ({required Object price}) =>
+          'Standard price ${price}',
+      'pricing.at_least' => ({required Object price}) =>
+          'Must be at least ${price}',
+      'pricing.not_a_number' => 'Enter a price',
+      'pricing.charging_standard' => 'Charging the standard price',
+      'pricing.save' => 'Save',
+      'pricing.floor_title' => 'Standard prices',
+      'pricing.floor_subtitle' =>
+        'The floor every professional charges from. Raising it lifts anyone charging below.',
+      'pricing.floor_error' => 'We could not load the standard prices.',
+      'pricing.floor_saved' => 'Standard price updated.',
+      'pricing.floor_lifted' => ({required Object count}) =>
+          '${count} professional rates were lifted to the new price.',
+      'pricing.floor_new_price' => 'New standard price',
+      'pricing.revision_title' => 'Revised estimate',
+      'pricing.revision_proposed' => 'Revision proposed',
+      'pricing.revision_approved' => 'Approved',
+      'pricing.revision_rejected' => 'Declined',
+      'pricing.revision_was' => ({required Object price}) => 'Was ${price}',
+      'pricing.revision_now' => ({required Object price}) => 'Now ${price}',
+      'settings.account' => 'Account',
+      'settings.app_language' => 'App Language',
+      'settings.settings' => 'Settings',
+      'sharedBooking.starting_from' => ({required Object price}) =>
+          'Starting from ${price}',
+      'sharedBooking.from_price' => ({required Object price}) =>
+          'from ${price}',
+      'sharedBooking.empty_title' => 'Nothing here yet',
+      'sharedBooking.error_title' => 'Something went wrong',
+      'sharedBooking.retry' => 'Try again',
+      'sharedBooking.status.pending' => 'Pending approval',
+      'sharedBooking.status.confirmed' => 'Confirmed',
+      'sharedBooking.status.proposed' => 'Alternative proposed',
+      'sharedBooking.status.cancelled' => 'Cancelled',
+      'sharedBooking.location.title' => 'Where should we visit?',
+      'sharedBooking.location.search_hint' => 'Search street, area or building',
+      'sharedBooking.location.pick_on_map' => 'Pick on map',
+      'sharedBooking.location.use_current' => 'Use current location',
+      'sharedBooking.location.saved_heading' => 'SAVED ADDRESSES',
+      'sharedBooking.location.denied' =>
+        'Location permission is off, so pick an address or a spot on the map.',
+      'sharedBooking.location.picked_label' => 'Visit address',
+      'sharedBooking.location.loading' => 'Finding your address...',
+      'sharedBooking.location.empty' => 'Add an address',
+      'sharedBooking.location.bar_title' => 'Visit at',
+      'store.consumable' => 'Homecare Consumable',
+      'store.messages.load_failed' => 'Failed to load products',
+      'store.no_products' => 'No products available',
+      'store.poct' => 'Point of Care Testing',
+      'store.sort' => 'Sort',
+      'store.title' => 'Medical Store',
+      _ => null,
+    };
+  }
 }

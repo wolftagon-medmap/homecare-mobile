@@ -4,6 +4,7 @@ import 'package:m2health/features/guided_booking/domain/entities/booking_request
 import 'package:m2health/features/guided_booking/domain/entities/booking_slot.dart';
 import 'package:m2health/features/guided_booking/domain/entities/guided_booking_draft.dart';
 import 'package:m2health/features/guided_booking/domain/entities/issue_catalogue.dart';
+import 'package:m2health/core/location/visit_location.dart';
 import 'package:m2health/features/profiles/domain/entities/address.dart';
 
 enum BookingLoadStatus { initial, loading, ready, failure }
@@ -16,6 +17,8 @@ class GuidedBookingState extends Equatable {
 
   final BookingLoadStatus addressStatus;
   final List<Address> addresses;
+
+  final VisitLocation? visitLocation;
 
   final BookingLoadStatus professionalStatus;
   final List<BookingProfessional> professionals;
@@ -33,6 +36,7 @@ class GuidedBookingState extends Equatable {
     this.catalogue,
     this.addressStatus = BookingLoadStatus.initial,
     this.addresses = const [],
+    this.visitLocation,
     this.professionalStatus = BookingLoadStatus.initial,
     this.professionals = const [],
     this.availabilityStatus = BookingLoadStatus.initial,
@@ -91,6 +95,7 @@ class GuidedBookingState extends Equatable {
     IssueCatalogue? catalogue,
     BookingLoadStatus? addressStatus,
     List<Address>? addresses,
+    VisitLocation? visitLocation,
     BookingLoadStatus? professionalStatus,
     List<BookingProfessional>? professionals,
     BookingLoadStatus? availabilityStatus,
@@ -106,6 +111,7 @@ class GuidedBookingState extends Equatable {
       catalogue: catalogue ?? this.catalogue,
       addressStatus: addressStatus ?? this.addressStatus,
       addresses: addresses ?? this.addresses,
+      visitLocation: visitLocation ?? this.visitLocation,
       professionalStatus: professionalStatus ?? this.professionalStatus,
       professionals: professionals ?? this.professionals,
       availabilityStatus: availabilityStatus ?? this.availabilityStatus,
@@ -123,6 +129,7 @@ class GuidedBookingState extends Equatable {
         catalogue,
         addressStatus,
         addresses,
+        visitLocation,
         professionalStatus,
         professionals,
         availabilityStatus,

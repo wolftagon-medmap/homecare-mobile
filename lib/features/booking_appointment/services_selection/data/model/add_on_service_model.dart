@@ -15,7 +15,8 @@ class AddOnServiceModel extends AddOnService {
     super.isPublished,
   });
 
-  @Deprecated('Use ServiceModel.fromJson instead. TODO: delete after migration.')
+  @Deprecated(
+      'Use ServiceModel.fromJson instead. TODO: delete after migration.')
   factory AddOnServiceModel.fromJson(Map<String, dynamic> json) {
     // Delegate to ServiceModel which handles both v1 and v2 field names.
     final s = ServiceModel.fromJson(json);

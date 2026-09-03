@@ -23,7 +23,8 @@ class HomecareRepositoryImpl implements HomecareRepository {
   }
 
   @override
-  Future<Either<Failure, ServiceEntity>> updateHomecareRate(int id, double price) async {
+  Future<Either<Failure, ServiceEntity>> updateHomecareRate(
+      int id, double price) async {
     try {
       final result = await remoteDataSource.updateHomecareRate(id, price);
       return Right(result);

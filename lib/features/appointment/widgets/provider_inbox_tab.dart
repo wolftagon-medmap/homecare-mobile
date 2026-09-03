@@ -189,8 +189,8 @@ class _InboxCard extends StatelessWidget {
                       ),
                       child: Text(
                         label,
-                        style: const TextStyle(
-                            fontSize: 12, color: Const.tosca),
+                        style:
+                            const TextStyle(fontSize: 12, color: Const.tosca),
                       ),
                     ),
                 ],

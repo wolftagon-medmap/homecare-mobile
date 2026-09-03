@@ -9,7 +9,8 @@ class UpdateHomecareRate {
 
   UpdateHomecareRate(this.repository);
 
-  Future<Either<Failure, ServiceEntity>> call(UpdateHomecareRateParams params) async {
+  Future<Either<Failure, ServiceEntity>> call(
+      UpdateHomecareRateParams params) async {
     return await repository.updateHomecareRate(params.id, params.price);
   }
 }

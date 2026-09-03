@@ -8,7 +8,7 @@ class BookingStepHeader extends StatelessWidget {
     super.key,
     required this.title,
     this.subtitle,
-    this.padding = const EdgeInsets.fromLTRB(16, 16, 16, 12),
+    this.padding = const EdgeInsets.fromLTRB(16, 14, 16, 10),
   });
 
   final String title;
@@ -24,21 +24,13 @@ class BookingStepHeader extends StatelessWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
-              color: Const.primaryTextColor,
-            ),
+            style: ProText.pageTitle.copyWith(color: Const.primaryTextColor),
           ),
           if (subtitle != null) ...[
-            const SizedBox(height: 6),
+            const SizedBox(height: 4),
             Text(
               subtitle!,
-              style: const TextStyle(
-                fontSize: 13,
-                height: 1.4,
-                color: Const.contentTextColor,
-              ),
+              style: ProText.caption.copyWith(height: 1.4),
             ),
           ],
         ],

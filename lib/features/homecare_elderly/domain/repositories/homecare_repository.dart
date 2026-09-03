@@ -4,5 +4,6 @@ import 'package:m2health/core/error/failures.dart';
 
 abstract class HomecareRepository {
   Future<Either<Failure, List<ServiceEntity>>> getHomecareRates();
-  Future<Either<Failure, ServiceEntity>> updateHomecareRate(int id, double price);
+  Future<Either<Failure, ServiceEntity>> updateHomecareRate(
+      int id, double price);
 }

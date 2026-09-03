@@ -5,7 +5,8 @@ import 'package:m2health/features/booking_appointment/schedule_appointment/domai
 import 'package:m2health/features/booking_appointment/schedule_appointment/domain/usecases/get_available_time_slot.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/data/datasources/schedule_appointment_remote_datasource.dart';
 
-class ScheduleAppointmentRepositoryImpl implements ScheduleAppointmentRepository {
+class ScheduleAppointmentRepositoryImpl
+    implements ScheduleAppointmentRepository {
   final ScheduleAppointmentRemoteDataSource remoteDataSource;
 
   ScheduleAppointmentRepositoryImpl({required this.remoteDataSource});

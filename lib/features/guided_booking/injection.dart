@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:m2health/core/config/feature_flags.dart';
+import 'package:m2health/core/location/current_location_service.dart';
+import 'package:m2health/features/profiles/domain/usecases/create_address.dart';
 import 'package:m2health/features/guided_booking/data/datasources/guided_booking_datasource.dart';
 import 'package:m2health/features/guided_booking/data/datasources/guided_booking_local_datasource.dart';
 import 'package:m2health/features/guided_booking/data/datasources/guided_booking_remote_datasource.dart';
@@ -12,6 +14,8 @@ import 'package:m2health/features/guided_booking/guided_booking_routes.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_cubit.dart';
 
 void initGuidedBookingModule(GetIt sl) {
+  sl.registerLazySingleton(() => CurrentLocationService());
+
   sl.registerLazySingleton<IssueCatalogueDataSource>(
     () => IssueCatalogueRemoteDataSource(sl<Dio>()),
   );
@@ -89,6 +93,23 @@ void initGuidedBookingModule(GetIt sl) {
       loadDraft: sl<LoadBookingDraft>(),
       saveDraft: sl<SaveBookingDraft>(),
       clearDraft: sl<ClearBookingDraft>(),
+      currentLocation: sl<CurrentLocationService>(),
+      createAddress: (location) async {
+        final result = await sl<CreateAddress>()(
+          CreateAddressParams(
+            label: location.label,
+            latitude: location.latitude,
+            longitude: location.longitude,
+            googlePlaceId: location.googlePlaceId,
+            name: location.name,
+            formattedAddress: location.formattedAddress,
+          ),
+        );
+        return result.fold(
+          (failure) => throw Exception(failure.message),
+          (address) => address.id,
+        );
+      },
     ),
   );
 }

@@ -20,5 +20,6 @@ class FeedbackEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, userId, appointmentId, stars, text, tips, createdAt];
+  List<Object?> get props =>
+      [id, userId, appointmentId, stars, text, tips, createdAt];
 }
