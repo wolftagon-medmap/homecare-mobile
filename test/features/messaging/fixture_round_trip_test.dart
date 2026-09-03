@@ -131,6 +131,24 @@ void main() {
       expect(proposed.single.statusLabel, 'Alternative time proposed');
       expect(proposed.single.provider?.name, isNotNull);
       expect(proposed.single.careTaskId, isNotNull);
+      expect(proposed.single.issueLabels, isNotEmpty);
+    });
+
+    test('one row is waiting on the patient because nobody took it', () {
+      final unmatched = kPatientInboxDemoFixture()
+          .map(PatientInboxItem.fromJson)
+          .where((i) => i.status == 'unmatched')
+          .toList();
+
+      expect(unmatched, hasLength(1));
+      expect(unmatched.single.provider, isNull);
+      expect(unmatched.single.careTaskId, isNotNull);
+    });
+
+    test('the provider offer carries its issue labels', () {
+      final item = kProviderInboxDemoFixture().map(InboxItem.fromJson).single;
+
+      expect(item.summary.issueLabels, isNotEmpty);
     });
 
     test('the provider offer carries a propose_time action', () {

@@ -94,6 +94,8 @@ class _PatientInboxCard extends StatelessWidget {
         return const Color(0xFFE59500); // Orange
       case 'time_proposed':
         return Const.primaryBlue;
+      case 'unmatched':
+        return const Color(0xFFD64545);
       default:
         return Colors.grey;
     }

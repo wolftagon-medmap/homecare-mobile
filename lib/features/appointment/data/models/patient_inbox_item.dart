@@ -40,6 +40,10 @@ class PatientInboxItem {
   final double? estimatedPrice;
   final String? chiefComplaint;
 
+  /// The structured reasons the booking was raised for, resolved to labels by
+  /// the server. The complaint beside them is the patient's own words.
+  final List<String> issueLabels;
+
   const PatientInboxItem({
     required this.origin,
     required this.key,
@@ -54,6 +58,7 @@ class PatientInboxItem {
     required this.provider,
     required this.estimatedPrice,
     required this.chiefComplaint,
+    this.issueLabels = const [],
   });
 
   bool get isCareTask => origin == 'care_task';
@@ -76,7 +81,12 @@ class PatientInboxItem {
             : null,
         estimatedPrice: (json['estimatedPrice'] as num?)?.toDouble(),
         chiefComplaint: json['chiefComplaint'] as String?,
+        issueLabels: parseIssueLabels(json['issueLabels']),
       );
+
+  static List<String> parseIssueLabels(dynamic value) => value is List
+      ? value.whereType<String>().toList(growable: false)
+      : const <String>[];
 
   static DateTime? _parseDate(dynamic value) =>
       value is String ? DateTime.tryParse(value) : null;

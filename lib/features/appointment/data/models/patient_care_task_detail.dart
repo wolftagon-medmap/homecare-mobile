@@ -8,6 +8,10 @@ class PatientCareTaskDetail {
   final String serviceLabel;
   final String? patientName;
   final String? chiefComplaint;
+
+  /// The structured reasons the booking was raised for, resolved to labels by
+  /// the server. The complaint beside them is the patient's own words.
+  final List<String> issueLabels;
   final String? preferredDate;
   final String? preferredTime;
   final DateTime? scheduledStart;
@@ -24,6 +28,7 @@ class PatientCareTaskDetail {
     required this.serviceLabel,
     required this.patientName,
     required this.chiefComplaint,
+    this.issueLabels = const [],
     required this.preferredDate,
     required this.preferredTime,
     required this.scheduledStart,
@@ -34,6 +39,10 @@ class PatientCareTaskDetail {
     required this.appointmentId,
   });
 
+  /// Everyone who could be asked is out. Not cancelled: it is waiting on the
+  /// patient to change the time or pick someone else.
+  bool get isUnmatched => status == 'unmatched';
+
   factory PatientCareTaskDetail.fromJson(Map<String, dynamic> json) =>
       PatientCareTaskDetail(
         careTaskId: (json['careTaskId'] as num?)?.toInt() ?? 0,
@@ -42,6 +51,7 @@ class PatientCareTaskDetail {
         serviceLabel: json['serviceLabel'] as String? ?? '',
         patientName: json['patientName'] as String?,
         chiefComplaint: json['chiefComplaint'] as String?,
+        issueLabels: PatientInboxItem.parseIssueLabels(json['issueLabels']),
         preferredDate: json['preferredDate'] as String?,
         preferredTime: json['preferredTime'] as String?,
         scheduledStart: _parseDate(json['scheduledStart']),

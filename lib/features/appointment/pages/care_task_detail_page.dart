@@ -120,11 +120,19 @@ class _Content extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (detail.isUnmatched) ...[
+            const _UnmatchedBanner(),
+            const SizedBox(height: 16),
+          ],
           _ProviderCard(detail: detail),
           const SizedBox(height: 16),
           _ScheduleSection(detail: detail),
           const SizedBox(height: 16),
           _PatientSection(detail: detail),
+          if (detail.issueLabels.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            _IssueLabelsSection(labels: detail.issueLabels),
+          ],
           if (detail.chiefComplaint != null &&
               detail.chiefComplaint!.isNotEmpty) ...[
             const SizedBox(height: 16),
@@ -188,7 +196,9 @@ class _ProviderCard extends StatelessWidget {
                 ),
                 Text(provider != null
                     ? (provider.jobTitle ?? detail.serviceLabel)
-                    : 'We are finding the right professional for you'),
+                    : detail.isUnmatched
+                        ? detail.serviceLabel
+                        : 'We are finding the right professional for you'),
                 const SizedBox(height: 8),
                 _StatusTag(label: detail.statusLabel, status: detail.status),
               ],
@@ -271,6 +281,87 @@ class _PatientSection extends StatelessWidget {
             label: context.l10n.address,
             text: detail.location ?? context.l10n.none,
             isFlexible: true,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Nobody available took this booking. It is still the patient's — what it
+/// needs is a different time or a different professional, and the assistant in
+/// the bar below is where both are changed.
+class _UnmatchedBanner extends StatelessWidget {
+  const _UnmatchedBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFDECEC),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFFD64545)),
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'No professional could take this time',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+                color: Color(0xFFD64545)),
+          ),
+          SizedBox(height: 4),
+          Text(
+            'Your booking has not been cancelled. Continue in the chat below to '
+            'pick another time, or choose a different professional.',
+            style: TextStyle(fontSize: 13),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The structured reasons picked in guided booking. They sit above the
+/// complaint because they are what was chosen; the complaint is what was typed.
+class _IssueLabelsSection extends StatelessWidget {
+  final List<String> labels;
+  const _IssueLabelsSection({required this.labels});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Reason for the visit',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              for (final label in labels)
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Const.tosca.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Text(
+                    label,
+                    style: const TextStyle(fontSize: 13, color: Const.tosca),
+                  ),
+                ),
+            ],
           ),
         ],
       ),

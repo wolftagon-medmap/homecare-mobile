@@ -15,6 +15,8 @@ String _tomorrowAt(int hour) {
 /// Patient side. The `time_proposed` row matches thread 2 (Daniel Tan, care
 /// task 5002) so the card and the conversation agree — the card states the
 /// professional is waiting; the thread carries the reason and the decision.
+/// The `unmatched` row is the other state the patient has to answer: nobody
+/// took it, and it is waiting on them rather than cancelled.
 List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
       {
         'origin': 'care_task',
@@ -57,6 +59,22 @@ List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
         'estimatedPrice': 30.0,
         'chiefComplaint': 'Pressure ulcer dressing, lower back',
         'issueLabels': ['Wound care', 'Dressing change'],
+      },
+      {
+        'origin': 'care_task',
+        'key': 'task:5003',
+        'appointmentId': null,
+        'careTaskId': 5003,
+        'patientName': 'Ahmad Zulkifli',
+        'serviceLabel': 'Physiotherapy',
+        'status': 'unmatched',
+        'statusLabel': 'No professional available',
+        'scheduledStart': _tomorrowAt(8),
+        'scheduledEnd': _tomorrowAt(9),
+        'provider': null,
+        'estimatedPrice': 45.0,
+        'chiefComplaint': 'Post-op knee mobility, week 2',
+        'issueLabels': ['Post-surgery rehab'],
       },
     ];
 
