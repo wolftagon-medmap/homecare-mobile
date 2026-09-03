@@ -33,6 +33,7 @@ class PatientInboxItem {
   final String? patientName;
   final String serviceLabel;
   final String status; // raw source status (chip color)
+
   final String statusLabel; // display text
   final DateTime? scheduledStart;
   final DateTime? scheduledEnd;
@@ -60,6 +61,10 @@ class PatientInboxItem {
     required this.chiefComplaint,
     this.issueLabels = const [],
   });
+
+  /// Everyone available was asked and nobody took it. Not cancelled — it is
+  /// still the patient's booking, waiting on them to pick another time.
+  bool get isUnmatched => status == 'unmatched';
 
   bool get isCareTask => origin == 'care_task';
 

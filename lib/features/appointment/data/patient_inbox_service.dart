@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/appointment/data/models/patient_care_task_detail.dart';
 import 'package:m2health/features/appointment/data/models/patient_inbox_item.dart';
@@ -29,6 +30,24 @@ class PatientInboxService {
         .whereType<Map<String, dynamic>>()
         .map(PatientInboxItem.fromJson)
         .toList();
+  }
+
+  /// Ask again after nobody took the booking. Returns how many professionals
+  /// were asked — zero means the new time found nobody either, and the booking
+  /// is still there to try again with.
+  Future<int> retryAtNewTime(
+    int careTaskId, {
+    required DateTime start,
+  }) async {
+    final response = await _dio.post(
+      '${Const.URL_API_V2}/care-tasks/$careTaskId/retry',
+      data: {
+        'preferredDate': DateFormat('yyyy-MM-dd').format(start),
+        'preferredTime': DateFormat('HH:mm').format(start),
+      },
+      options: await _authOptions(),
+    );
+    return (response.data['asked'] as num?)?.toInt() ?? 0;
   }
 
   Future<PatientCareTaskDetail> fetchCareTaskDetail(int careTaskId) async {

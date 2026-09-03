@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:m2health/core/messaging/thread_index_cubit.dart';
 import 'package:m2health/core/messaging/thread_ref.dart';
 import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
+import 'package:m2health/core/presentation/widgets/messaging/propose_time_sheet.dart';
 
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
@@ -67,11 +68,19 @@ class CareTaskDetailPage extends StatelessWidget {
             return const Center(child: Text('Something went wrong.'));
           },
         ),
-        bottomNavigationBar: Builder(
-          // Booking is care-task driven now, so the one conversation worth
-          // offering here is the professional's. The bar disappears entirely
-          // rather than showing a button that leads nowhere.
-          builder: (context) {
+        bottomNavigationBar:
+            BlocBuilder<CareTaskDetailCubit, CareTaskDetailState>(
+          // Two different bars, because the booking is in one of two situations.
+          // Waiting on a professional, it offers the conversation. Waiting on
+          // the patient, it offers the way out — anything else is a screen that
+          // tells someone to act and gives them nothing to act with.
+          builder: (context, state) {
+            final unmatched =
+                state is CareTaskDetailLoaded && state.detail.isUnmatched;
+            if (unmatched) {
+              return _RetryBar(careTaskId: careTaskId);
+            }
+
             final threadRef = ThreadRef.forCareTask(careTaskId);
             final hasThread = context.select<ThreadIndexCubit, bool>(
               (cubit) => cubit.state.resolve(threadRef) != null,
@@ -95,6 +104,97 @@ class CareTaskDetailPage extends StatelessWidget {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+/// The way out of `unmatched`. Nobody took the booking, so the next move is
+/// the patient's: a different time, asked of everyone again.
+class _RetryBar extends StatefulWidget {
+  final int careTaskId;
+
+  const _RetryBar({required this.careTaskId});
+
+  @override
+  State<_RetryBar> createState() => _RetryBarState();
+}
+
+class _RetryBarState extends State<_RetryBar> {
+  bool _busy = false;
+
+  Future<void> _pickAnotherTime() async {
+    final slot = await showProposeTimeSheet(
+      context,
+      title: 'Pick another time',
+      confirmLabel: 'Ask again',
+      askReason: false,
+    );
+    if (slot == null || !mounted) return;
+
+    setState(() => _busy = true);
+    final outcome = await context
+        .read<CareTaskDetailCubit>()
+        .retryAtNewTime(widget.careTaskId, start: slot.start);
+    if (!mounted) return;
+    setState(() => _busy = false);
+
+    final message = switch (outcome) {
+      CareTaskRetryOutcome.asked =>
+        'We are asking professionals about the new time.',
+      CareTaskRetryOutcome.nobodyAvailable =>
+        'Nobody is free then either. Your booking is still here — try another time.',
+      CareTaskRetryOutcome.failed =>
+        'That did not go through. Please try again.',
+    };
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        content: Text(message),
+        backgroundColor: outcome == CareTaskRetryOutcome.asked
+            ? Colors.green
+            : Colors.grey.shade800,
+        duration: const Duration(seconds: 4),
+      ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+      color: Colors.white,
+      height: 80,
+      child: Row(
+        children: [
+          Expanded(
+            child: ElevatedButton.icon(
+              onPressed: _busy ? null : _pickAnotherTime,
+              icon: _busy
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
+                    )
+                  : const Icon(Icons.event_repeat, size: 18),
+              label: const Text('Pick another time'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Const.aqua,
+                foregroundColor: Colors.white,
+                elevation: 0,
+                minimumSize: const Size.fromHeight(48),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                textStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -306,8 +406,8 @@ class _UnmatchedBanner extends StatelessWidget {
           ),
           SizedBox(height: 4),
           Text(
-            'Your booking has not been cancelled. Pick another time, or choose '
-            'a different professional, to get it moving again.',
+            'Your booking has not been cancelled. Pick another time below and '
+            'we will ask again.',
             style: TextStyle(fontSize: 13),
           ),
         ],

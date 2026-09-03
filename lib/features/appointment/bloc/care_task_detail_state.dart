@@ -16,3 +16,7 @@ class CareTaskDetailError extends CareTaskDetailState {
   final String message;
   CareTaskDetailError(this.message);
 }
+
+/// What came of asking again. `nobodyAvailable` is not an error — the booking
+/// survives it untouched, which is the whole point of a retry.
+enum CareTaskRetryOutcome { asked, nobodyAvailable, failed }

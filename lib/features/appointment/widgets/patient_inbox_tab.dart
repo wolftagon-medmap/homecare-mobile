@@ -117,12 +117,18 @@ class _PatientInboxCard extends StatelessWidget {
         onTap:
             item.careTaskId != null ? () => _openCareTaskDetail(context) : null,
         actions: [
+          // An unmatched booking is waiting on the patient, and its threads are
+          // all closed — so the card offers the way out instead of a chat entry
+          // that would render nothing.
           if (item.careTaskId != null)
-            MessageActionButton(
-              threadRef: ThreadRef.forCareTask(item.careTaskId!),
-              style: MessageActionStyle.filled,
-              label: 'Chat',
-            ),
+            if (item.isUnmatched)
+              _PickAnotherTimeButton(careTaskId: item.careTaskId!)
+            else
+              MessageActionButton(
+                threadRef: ThreadRef.forCareTask(item.careTaskId!),
+                style: MessageActionStyle.filled,
+                label: 'Chat',
+              ),
         ],
       );
     }
@@ -231,6 +237,37 @@ class _PatientInboxCard extends StatelessWidget {
     if (appointment == null || !context.mounted) return;
     await context.push(AppRoutes.payment, extra: appointment);
     await cubit.fetchInbox();
+  }
+}
+
+/// Opens the booking so the patient picks a new time there. The detail page
+/// owns the retry — the card only has to stop being a dead end.
+class _PickAnotherTimeButton extends StatelessWidget {
+  final int careTaskId;
+
+  const _PickAnotherTimeButton({required this.careTaskId});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: () async {
+        final cubit = context.read<PatientInboxCubit>();
+        await context.push(AppointmentRoutes.careTaskDetailPath(careTaskId));
+        await cubit.fetchInbox();
+      },
+      icon: const Icon(Icons.event_repeat, size: 16),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Const.aqua,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      ),
+      label: const Text(
+        'Pick another time',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+      ),
+    );
   }
 }
 
