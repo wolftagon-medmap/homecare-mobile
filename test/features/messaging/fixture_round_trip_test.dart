@@ -120,24 +120,35 @@ void main() {
   });
 
   group('inbox demo fixtures parse through the shipped inbox contracts', () {
-    test('patient rows parse, and one carries a proposal', () {
+    test('patient rows parse, and one is awaiting an answer on a new time', () {
       final items =
           kPatientInboxDemoFixture().map(PatientInboxItem.fromJson).toList();
 
       expect(items, isNotEmpty);
-      final proposed = items.where((i) => i.hasTimeProposal).toList();
+      final proposed =
+          items.where((i) => i.status == 'time_proposed').toList();
       expect(proposed, hasLength(1));
-      expect(proposed.single.proposal!.proposedStart, isNotNull);
+      expect(proposed.single.statusLabel, 'Alternative time proposed');
+      expect(proposed.single.provider?.name, isNotNull);
       expect(proposed.single.careTaskId, isNotNull);
+      expect(proposed.single.issueLabels, isNotEmpty);
     });
 
-    test('a row without a proposal block is unchanged', () {
-      final plain = kPatientInboxDemoFixture()
+    test('one row is waiting on the patient because nobody took it', () {
+      final unmatched = kPatientInboxDemoFixture()
           .map(PatientInboxItem.fromJson)
-          .firstWhere((i) => i.status == 'matched');
+          .where((i) => i.status == 'unmatched')
+          .toList();
 
-      expect(plain.proposal, isNull);
-      expect(plain.hasTimeProposal, isFalse);
+      expect(unmatched, hasLength(1));
+      expect(unmatched.single.provider, isNull);
+      expect(unmatched.single.careTaskId, isNotNull);
+    });
+
+    test('the provider offer carries its issue labels', () {
+      final item = kProviderInboxDemoFixture().map(InboxItem.fromJson).single;
+
+      expect(item.summary.issueLabels, isNotEmpty);
     });
 
     test('the provider offer carries a propose_time action', () {

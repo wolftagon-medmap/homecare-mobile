@@ -14,8 +14,8 @@ import 'package:m2health/const.dart';
 import 'package:m2health/features/appointment/widgets/provider_appointment_action_dialog.dart';
 import 'package:m2health/features/home_health_screening/presentation/widgets/screening_appointment_list_action_buttons.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
-import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 class ProviderAppointmentPage extends StatefulWidget {
   const ProviderAppointmentPage({super.key});
@@ -293,10 +293,9 @@ class _ProviderAppointmentCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).pushNamed(
-          AppRoutes.providerAppointmentDetail,
-          extra: appointment.id,
-        );
+        final id = appointment.id;
+        if (id == null) return;
+        GoRouter.of(context).push(AppointmentRoutes.providerDetailPath(id));
       },
       child: Card(
         margin: const EdgeInsets.only(bottom: 16),

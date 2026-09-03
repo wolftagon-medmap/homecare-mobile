@@ -1,16 +1,6 @@
-// Inbox rows for the demo.
-//
-// Both inbox tabs read the live backend today. With `Feature.timeProposal`
-// local these rows are merged in, and a failed call falls back to them instead
-// of the red error state — otherwise the Pending tab is empty or broken unless
-// someone is signed into a populated server, and the counter-propose story has
-// nowhere to happen.
-//
-// Wire-shaped, parsed by the same `fromJson` the server response uses (C1).
-// The moment the flag flips, none of this is reachable.
-//
-// It lives with the inbox rather than with messaging because these are
-// `InboxItem` and `PatientInboxItem` rows — this feature's own contracts.
+// Wire-shaped inbox rows, parsed by the same `fromJson` the server response
+// uses (C1). With `Feature.timeProposal` local these are the only rows either
+// inbox shows; the moment the flag flips, none of this is reachable.
 
 String _ahead(Duration from) =>
     DateTime.now().add(from).toUtc().toIso8601String();
@@ -22,8 +12,11 @@ String _tomorrowAt(int hour) {
   return day.add(Duration(hours: hour)).toUtc().toIso8601String();
 }
 
-/// Patient side: the "Alternative time proposed" card, matching thread 2
-/// (Daniel Tan, care task 5002) so the inbox and the conversation agree.
+/// Patient side. The `time_proposed` row matches thread 2 (Daniel Tan, care
+/// task 5002) so the card and the conversation agree — the card states the
+/// professional is waiting; the thread carries the reason and the decision.
+/// The `unmatched` row is the other state the patient has to answer: nobody
+/// took it, and it is waiting on them rather than cancelled.
 List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
       {
         'origin': 'care_task',
@@ -33,7 +26,7 @@ List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
         'patientName': 'Ahmad Zulkifli',
         'serviceLabel': 'Home Nursing',
         'status': 'time_proposed',
-        'statusLabel': 'Alternative proposed',
+        'statusLabel': 'Alternative time proposed',
         'scheduledStart': _tomorrowAt(9),
         'scheduledEnd': _tomorrowAt(10),
         'provider': {
@@ -44,14 +37,7 @@ List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
         },
         'estimatedPrice': 30.0,
         'chiefComplaint': 'Pressure ulcer dressing, lower back',
-        'proposal': {
-          'proposalId': 3001,
-          'proposedStart': _tomorrowAt(11),
-          'proposedEnd': _tomorrowAt(12),
-          'expiresAt': _ahead(const Duration(minutes: 18)),
-          'reason':
-              'Coming from a visit in Woodlands, 11am gives me a clear run.',
-        },
+        'issueLabels': ['Wound care', 'Dressing change'],
       },
       {
         'origin': 'care_task',
@@ -61,7 +47,7 @@ List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
         'patientName': 'Ahmad Zulkifli',
         'serviceLabel': 'Home Nursing',
         'status': 'matched',
-        'statusLabel': 'Pending approval',
+        'statusLabel': 'Awaiting confirmation',
         'scheduledStart': _tomorrowAt(15),
         'scheduledEnd': _tomorrowAt(16),
         'provider': {
@@ -72,6 +58,23 @@ List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
         },
         'estimatedPrice': 30.0,
         'chiefComplaint': 'Pressure ulcer dressing, lower back',
+        'issueLabels': ['Wound care', 'Dressing change'],
+      },
+      {
+        'origin': 'care_task',
+        'key': 'task:5003',
+        'appointmentId': null,
+        'careTaskId': 5003,
+        'patientName': 'Ahmad Zulkifli',
+        'serviceLabel': 'Physiotherapy',
+        'status': 'unmatched',
+        'statusLabel': 'No professional available',
+        'scheduledStart': _tomorrowAt(8),
+        'scheduledEnd': _tomorrowAt(9),
+        'provider': null,
+        'estimatedPrice': 45.0,
+        'chiefComplaint': 'Post-op knee mobility, week 2',
+        'issueLabels': ['Post-surgery rehab'],
       },
     ];
 
@@ -86,6 +89,7 @@ List<Map<String, dynamic>> kProviderInboxDemoFixture() => [
         'summary': {
           'service':
               'Pressure ulcer dressing, lower back. Wound present ~3 weeks.',
+          'issueLabels': ['Wound care', 'Dressing change'],
           'patientLabel': 'Male, 74',
           'location': 'Blk 210 Ang Mo Kio Ave 3, #08-12',
           'risk': 'low',

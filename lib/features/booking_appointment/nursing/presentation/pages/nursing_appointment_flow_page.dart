@@ -18,8 +18,8 @@ import 'package:m2health/features/booking_appointment/professional_directory/pre
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
 import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
-import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 class NursingAppointmentFlowPage extends StatefulWidget {
   const NursingAppointmentFlowPage({super.key});
@@ -91,10 +91,8 @@ class _NursingAppointmentFlowPageState
             ),
           );
 
-          GoRouter.of(context).goNamed(
-            AppRoutes.appointmentDetail,
-            extra: state.createdAppointment!.id!,
-          );
+          GoRouter.of(context)
+              .go(AppointmentRoutes.detailPath(state.createdAppointment!.id!));
         }
         if (state.submissionStatus == AppointmentSubmissionStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(

@@ -25,21 +25,35 @@ class InboxAction {
 
 class InboxItemSummary {
   final String? service;
+
+  /// The structured reasons the booking was raised for, resolved to labels by
+  /// the server. Empty for a v1 appointment, which has no guided-booking codes.
+  final List<String> issueLabels;
   final String? patientLabel;
   final String? location;
   final String? risk; // 'low' | 'high' | null
 
-  const InboxItemSummary(
-      {this.service, this.patientLabel, this.location, this.risk});
+  const InboxItemSummary({
+    this.service,
+    this.issueLabels = const [],
+    this.patientLabel,
+    this.location,
+    this.risk,
+  });
 
   factory InboxItemSummary.fromJson(Map<String, dynamic> json) =>
       InboxItemSummary(
         service: json['service'] as String?,
+        issueLabels: _parseLabels(json['issueLabels']),
         patientLabel: json['patientLabel'] as String?,
         location: json['location'] as String?,
         risk: json['risk'] as String?,
       );
 }
+
+List<String> _parseLabels(dynamic value) => value is List
+    ? value.whereType<String>().toList(growable: false)
+    : const <String>[];
 
 class InboxItem {
   final String origin; // 'v1_appointment' | 'v2_offer'

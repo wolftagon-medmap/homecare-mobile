@@ -23,35 +23,20 @@ class PatientInboxCubit extends Cubit<PatientInboxState> {
         _appointments = AppointmentService(dio),
         super(PatientInboxInitial());
 
-  /// True while the counter-propose demo is on fixtures. Dead the moment the
-  /// flag flips: no demo row is merged and a failure is an error again.
-  bool get _demo => !AppFlags.remote(Feature.timeProposal);
-
-  List<PatientInboxItem> get _demoItems =>
-      kPatientInboxDemoFixture().map(PatientInboxItem.fromJson).toList();
-
   Future<void> fetchInbox() async {
+    if (!AppFlags.remote(Feature.timeProposal)) {
+      emit(PatientInboxLoaded(
+          kPatientInboxDemoFixture().map(PatientInboxItem.fromJson).toList()));
+      return;
+    }
     try {
       emit(PatientInboxLoading());
-      final items = await _inbox.fetchInbox();
-      emit(PatientInboxLoaded(_demo ? [..._demoItems, ...items] : items));
+      emit(PatientInboxLoaded(await _inbox.fetchInbox()));
     } catch (e, stackTrace) {
       log('Error fetching patient inbox: $e',
           name: 'PatientInboxCubit', error: e, stackTrace: stackTrace);
-      if (_demo) {
-        emit(PatientInboxLoaded(_demoItems));
-        return;
-      }
       emit(PatientInboxError('Failed to load pending bookings'));
     }
-  }
-
-  /// The patient answers a proposal from the inbox card rather than opening the
-  /// conversation. Same record either way — this is a shortcut, not a
-  /// second way of deciding.
-  Future<void> respondToProposal(String message) async {
-    emit(PatientInboxActionSucceed(message));
-    await fetchInbox();
   }
 
   Future<void> cancelAppointment(

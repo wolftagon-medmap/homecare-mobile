@@ -9,8 +9,8 @@ import 'package:m2health/features/booking_appointment/professional_directory/pre
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional_detail/professional_detail_cubit.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/pages/professional_details_page.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/pages/search_professional_page.dart';
-import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 class PhysiotherapyAppointmentFlowPage extends StatefulWidget {
   const PhysiotherapyAppointmentFlowPage({super.key});
@@ -68,10 +68,8 @@ class _PhysiotherapyAppointmentFlowPageState
             ),
           );
 
-          GoRouter.of(context).goNamed(
-            AppRoutes.appointmentDetail,
-            extra: state.createdAppointment!.id!,
-          );
+          GoRouter.of(context)
+              .go(AppointmentRoutes.detailPath(state.createdAppointment!.id!));
         }
         if (state.submissionStatus == AppointmentSubmissionStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(

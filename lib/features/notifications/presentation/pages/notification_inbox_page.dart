@@ -6,6 +6,7 @@ import 'package:m2health/features/notifications/domain/entities/app_notification
 import 'package:m2health/features/notifications/presentation/bloc/notifications_cubit.dart';
 import 'package:m2health/core/messaging/messaging_entry.dart';
 import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 /// The notification inbox. Unread items are visually distinct (tint + dot +
 /// bold), items are grouped by day, tapping marks read and deep-links to the
@@ -321,12 +322,12 @@ class _NotificationTile extends StatelessWidget {
       return;
     }
     if (notification.appointmentId != null) {
-      context.push(AppRoutes.appointmentDetail,
-          extra: notification.appointmentId);
+      context.push(AppointmentRoutes.detailPath(notification.appointmentId!));
       return;
     }
     if (notification.careTaskId != null) {
-      context.push(AppRoutes.careTaskDetail, extra: notification.careTaskId);
+      context
+          .push(AppointmentRoutes.careTaskDetailPath(notification.careTaskId!));
     }
   }
 

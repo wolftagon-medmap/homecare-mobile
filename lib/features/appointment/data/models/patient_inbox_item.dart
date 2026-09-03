@@ -25,36 +25,6 @@ class PatientInboxProvider {
       );
 }
 
-/// A professional's alternative slot, when one is awaiting this patient.
-/// Absent on every other item, so the card is unchanged wherever there is none.
-class PatientInboxProposal {
-  final int proposalId;
-  final DateTime? proposedStart;
-  final DateTime? proposedEnd;
-  final DateTime? expiresAt;
-  final String? reason;
-
-  const PatientInboxProposal({
-    required this.proposalId,
-    required this.proposedStart,
-    required this.proposedEnd,
-    required this.expiresAt,
-    required this.reason,
-  });
-
-  factory PatientInboxProposal.fromJson(Map<String, dynamic> json) =>
-      PatientInboxProposal(
-        proposalId: (json['proposalId'] as num?)?.toInt() ?? 0,
-        proposedStart: _parseDate(json['proposedStart']),
-        proposedEnd: _parseDate(json['proposedEnd']),
-        expiresAt: _parseDate(json['expiresAt']),
-        reason: json['reason'] as String?,
-      );
-
-  static DateTime? _parseDate(dynamic value) =>
-      value is String ? DateTime.tryParse(value) : null;
-}
-
 class PatientInboxItem {
   final String origin; // 'appointment' | 'care_task'
   final String key;
@@ -69,7 +39,10 @@ class PatientInboxItem {
   final PatientInboxProvider? provider; // null → still finding a professional
   final double? estimatedPrice;
   final String? chiefComplaint;
-  final PatientInboxProposal? proposal;
+
+  /// The structured reasons the booking was raised for, resolved to labels by
+  /// the server. The complaint beside them is the patient's own words.
+  final List<String> issueLabels;
 
   const PatientInboxItem({
     required this.origin,
@@ -85,13 +58,10 @@ class PatientInboxItem {
     required this.provider,
     required this.estimatedPrice,
     required this.chiefComplaint,
-    this.proposal,
+    this.issueLabels = const [],
   });
 
   bool get isCareTask => origin == 'care_task';
-
-  /// The professional has offered a different time and is waiting on an answer.
-  bool get hasTimeProposal => proposal != null && status == 'time_proposed';
 
   factory PatientInboxItem.fromJson(Map<String, dynamic> json) =>
       PatientInboxItem(
@@ -111,11 +81,12 @@ class PatientInboxItem {
             : null,
         estimatedPrice: (json['estimatedPrice'] as num?)?.toDouble(),
         chiefComplaint: json['chiefComplaint'] as String?,
-        proposal: json['proposal'] is Map<String, dynamic>
-            ? PatientInboxProposal.fromJson(
-                json['proposal'] as Map<String, dynamic>)
-            : null,
+        issueLabels: parseIssueLabels(json['issueLabels']),
       );
+
+  static List<String> parseIssueLabels(dynamic value) => value is List
+      ? value.whereType<String>().toList(growable: false)
+      : const <String>[];
 
   static DateTime? _parseDate(dynamic value) =>
       value is String ? DateTime.tryParse(value) : null;

@@ -10,8 +10,8 @@ import 'package:m2health/features/booking_appointment/schedule_appointment/prese
 import 'package:m2health/features/second_opinion_imaging/presentation/bloc/second_opinion_imaging_flow_bloc.dart';
 import 'package:m2health/features/second_opinion_imaging/presentation/pages/teleradiology.dart';
 import 'package:m2health/features/second_opinion_imaging/presentation/pages/telepathology.dart';
-import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 class SecondOpinionImagingFlowPage extends StatefulWidget {
   const SecondOpinionImagingFlowPage({super.key});
@@ -74,10 +74,8 @@ class _SecondOpinionImagingFlowPageState
             ),
           );
 
-          GoRouter.of(context).goNamed(
-            AppRoutes.appointmentDetail,
-            extra: state.createdAppointment!.id!,
-          );
+          GoRouter.of(context)
+              .go(AppointmentRoutes.detailPath(state.createdAppointment!.id!));
         }
         if (state.submissionStatus == AppointmentSubmissionStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(

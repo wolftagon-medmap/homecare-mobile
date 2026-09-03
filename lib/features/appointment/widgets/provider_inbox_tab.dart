@@ -173,6 +173,29 @@ class _InboxCard extends StatelessWidget {
                     style: const TextStyle(fontSize: 14)),
               ),
             ],
+            if (item.summary.issueLabels.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 6,
+                runSpacing: 6,
+                children: [
+                  for (final label in item.summary.issueLabels)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Const.tosca.withValues(alpha: 0.12),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Text(
+                        label,
+                        style: const TextStyle(
+                            fontSize: 12, color: Const.tosca),
+                      ),
+                    ),
+                ],
+              ),
+            ],
             if (_expiryLabel != null) ...[
               const SizedBox(height: 8),
               Row(
