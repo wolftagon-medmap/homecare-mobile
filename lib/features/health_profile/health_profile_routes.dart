@@ -33,20 +33,15 @@ class HealthProfileRoutes {
     ),
     GoRoute(
       path: section,
-      builder: (context, state) {
-        final code = state.pathParameters['code'] ?? '';
-        final args = state.extra as HealthSectionArgs?;
-
-        return BlocProvider<HealthSectionCubit>(
-          create: (_) => sl<HealthSectionCubit>(
-            param1: HealthSectionArgs(
-              args?.code ?? code,
-              args?.patientProfileId ?? _activeProfileId(context),
-            ),
+      builder: (context, state) => BlocProvider<HealthSectionCubit>(
+        create: (_) => sl<HealthSectionCubit>(
+          param1: HealthSectionArgs(
+            state.pathParameters['code'] ?? '',
+            _activeProfileId(context),
           ),
-          child: const HealthSectionPage(),
-        );
-      },
+        ),
+        child: const HealthSectionPage(),
+      ),
     ),
   ];
 
