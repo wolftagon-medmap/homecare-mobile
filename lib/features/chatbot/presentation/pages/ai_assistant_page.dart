@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/features/chatbot/domain/entities/assistant_block.dart';
+import 'package:m2health/features/chatbot/domain/entities/assistant_session.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_cubit.dart';
+import 'package:m2health/features/chatbot/presentation/bloc/assistant_sessions_cubit.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_state.dart';
+import 'package:m2health/features/chatbot/presentation/pages/assistant_session_viewer_page.dart';
+import 'package:m2health/features/chatbot/presentation/pages/assistant_sessions_page.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_block_view.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_bubbles.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_composer.dart';
-import 'package:m2health/features/chatbot/presentation/widgets/assistant_disclaimer.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_hero.dart';
+import 'package:m2health/features/chatbot/presentation/widgets/assistant_privacy_label.dart';
+import 'package:m2health/features/chatbot/presentation/widgets/assistant_safety_note.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_theme.dart';
 import 'package:m2health/features/chatbot_legacy/presentation/widgets/ai_data_consent.dart';
 import 'package:m2health/i18n/translations.g.dart';
+import 'package:m2health/service_locator.dart';
 import 'package:m2health/utils.dart';
 
 class AiAssistantPage extends StatefulWidget {
@@ -73,6 +79,57 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
     });
   }
 
+  Future<void> _openHistory() async {
+    final cubit = context.read<AssistantCubit>();
+    final picked = await Navigator.of(context).push<AssistantSession>(
+      MaterialPageRoute(
+        builder: (_) => BlocProvider(
+          create: (_) => AssistantSessionsCubit(
+            repository: sl(),
+            currentSessionId: cubit.sessionId,
+          )..load(),
+          child: const AssistantSessionsPage(),
+        ),
+      ),
+    );
+    if (picked == null || !mounted) return;
+    if (picked.id == cubit.sessionId) return;
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => BlocProvider<AssistantCubit>(
+          create: (_) => sl<AssistantCubit>(),
+          child: AssistantSessionViewerPage(session: picked),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _startNewConversation() async {
+    final t = context.t.chatbot;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(t.newConversationTitle),
+        content: Text(t.newConversationBody),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: Text(t.cancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: Text(
+              t.startNew,
+              style: const TextStyle(color: AssistantPalette.primary),
+            ),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    context.read<AssistantCubit>().newConversation();
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = context.t.chatbot;
@@ -106,15 +163,26 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
           ],
         ),
         actions: [
-          PopupMenuButton<String>(
-            icon: const Icon(Icons.more_vert, color: AssistantPalette.navy),
-            onSelected: (_) => context.read<AssistantCubit>().restart(),
-            itemBuilder: (context) => [
-              PopupMenuItem<String>(
-                value: 'restart',
-                child: Text(t.startOver),
-              ),
-            ],
+          BlocBuilder<AssistantCubit, AssistantState>(
+            builder: (context, state) {
+              final ready = state is AssistantReady;
+              return Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.history),
+                    color: AssistantPalette.navy,
+                    tooltip: t.history,
+                    onPressed: ready ? _openHistory : null,
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.add_comment_outlined),
+                    color: AssistantPalette.navy,
+                    tooltip: t.newConversation,
+                    onPressed: ready ? _startNewConversation : null,
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ),
@@ -181,7 +249,7 @@ class _Conversation extends StatelessWidget {
             itemBuilder: (context, index) => items[index],
           ),
         ),
-        const AssistantDisclaimer(),
+        const AssistantSafetyNote(),
         AssistantComposer(
           hint: _isWelcome ? t.composerHintWelcome : t.composerHint,
           onSend: cubit.sendText,
