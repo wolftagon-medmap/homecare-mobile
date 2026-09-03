@@ -5,6 +5,7 @@ import 'package:m2health/core/presentation/widgets/booking/booking.dart';
 import 'package:m2health/features/guided_booking/guided_booking_routes.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_cubit.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_state.dart';
+import 'package:m2health/features/guided_booking/presentation/widgets/add_on_detail_sheet.dart';
 import 'package:m2health/features/pricing/presentation/bloc/price_table_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
@@ -49,12 +50,14 @@ class AddOnPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
-                          vertical: 4,
+                          vertical: 5,
                         ),
                         child: MultiSelectListTile(
                           title: addOn.name,
                           selected: selected.contains(addOn.code),
                           onChanged: (_) => cubit.toggleAddOn(addOn.code),
+                          onInfo: () =>
+                              showAddOnDetailSheet(context, addOn: addOn),
                           trailing: PricePill(
                             amount: addOn.floorPrice,
                             variant: PricePillVariant.exact,

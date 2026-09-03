@@ -8,6 +8,7 @@ class ServicePrice extends Equatable {
   final String name;
   final String category;
   final String? subCategory;
+  final String? description;
 
   /// `per_item` · `per_package` · `hourly_rate`
   final String pricingModel;
@@ -22,6 +23,7 @@ class ServicePrice extends Equatable {
     required this.pricingModel,
     required this.floorPrice,
     this.subCategory,
+    this.description,
   });
 
   bool get isHourly => pricingModel == 'hourly_rate';
@@ -33,6 +35,7 @@ class ServicePrice extends Equatable {
         name,
         category,
         subCategory,
+        description,
         pricingModel,
         floorPrice,
       ];

@@ -17,7 +17,8 @@
     "title": "还需要添加什么吗？",
     "subtitle": "选填，单独计价。",
     "empty": "此服务暂无附加项目。",
-    "selected": "已添加 {count} 项"
+    "selected": "已添加 {count} 项",
+    "no_description": "此附加服务暂无更多说明。"
   },
   "professional": {
     "title": "选择医护人员",
@@ -33,7 +34,9 @@
     "empty": "该地址暂无可服务的医护人员，请尝试其他地址。",
     "error": "无法加载医护人员列表。",
     "years": "{years} 年经验",
-    "reviews": "（{count}）"
+    "reviews": "（{count}）",
+    "choose_cta": "选择这位专业人员",
+    "search_hint": "按姓名搜索"
   },
   "schedule": {
     "title": "您希望什么时候？",

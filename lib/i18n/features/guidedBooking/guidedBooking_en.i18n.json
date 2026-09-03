@@ -17,7 +17,8 @@
     "title": "Anything else to add?",
     "subtitle": "Optional. Priced individually.",
     "empty": "No extras are available for this service.",
-    "selected": "{count} added"
+    "selected": "{count} added",
+    "no_description": "No additional details for this add-on yet."
   },
   "professional": {
     "title": "Choose a professional",
@@ -33,7 +34,9 @@
     "empty": "No professionals cover this address yet. Try another address.",
     "error": "We could not load the professional list.",
     "years": "{years} yrs experience",
-    "reviews": "({count})"
+    "reviews": "({count})",
+    "choose_cta": "Choose this professional",
+    "search_hint": "Search by name"
   },
   "schedule": {
     "title": "When suits you?",

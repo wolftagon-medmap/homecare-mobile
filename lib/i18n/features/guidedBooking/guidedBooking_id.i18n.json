@@ -17,7 +17,8 @@
     "title": "Ada tambahan lain?",
     "subtitle": "Opsional. Harga terpisah.",
     "empty": "Tidak ada layanan tambahan untuk layanan ini.",
-    "selected": "{count} ditambahkan"
+    "selected": "{count} ditambahkan",
+    "no_description": "Belum ada detail tambahan untuk layanan ini."
   },
   "professional": {
     "title": "Pilih tenaga kesehatan",
@@ -33,7 +34,9 @@
     "empty": "Belum ada tenaga kesehatan untuk alamat ini. Coba alamat lain.",
     "error": "Kami tidak dapat memuat daftar tenaga kesehatan.",
     "years": "Pengalaman {years} thn",
-    "reviews": "({count})"
+    "reviews": "({count})",
+    "choose_cta": "Pilih profesional ini",
+    "search_hint": "Cari berdasarkan nama"
   },
   "schedule": {
     "title": "Kapan waktu yang cocok?",
