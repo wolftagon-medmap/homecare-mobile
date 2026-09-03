@@ -95,7 +95,7 @@ class CareTaskDetailPage extends StatelessWidget {
                   Expanded(
                     child: MessageActionButton(
                       threadRef: threadRef,
-                      style: MessageActionStyle.filled,
+                      style: MessageActionStyle.gradient,
                       label: 'Chat',
                     ),
                   ),

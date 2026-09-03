@@ -131,10 +131,15 @@ class _PatientInboxCard extends StatelessWidget {
             if (item.isUnmatched)
               _PickAnotherTimeButton(careTaskId: item.careTaskId!)
             else
-              MessageActionButton(
-                threadRef: ThreadRef.forCareTask(item.careTaskId!),
-                style: MessageActionStyle.filled,
-                label: 'Chat',
+              // Full width and gradient, the same as the appointment cards it
+              // sits beside in this list: the conversation is the main thing to
+              // do with a booking, whichever kind it is.
+              Expanded(
+                child: MessageActionButton(
+                  threadRef: ThreadRef.forCareTask(item.careTaskId!),
+                  style: MessageActionStyle.gradient,
+                  label: 'Chat',
+                ),
               ),
         ],
       );
