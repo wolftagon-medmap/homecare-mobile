@@ -16,8 +16,8 @@ class Const {
   /// - Android Emulator:       http://10.0.2.2:3333
   /// - HP fisik (WiFi sama):   http://<IP_PC>:3333 (mis. 192.168.1.5)
   /// - Production:             https://homecare-api.med-map.org
-  static const String BASE_URL = 'http://127.0.0.1:52192';
-  //   static const String BASE_URL = 'http://10.0.2.2:3333'; // Android emulator
+  static const String BASE_URL = 'http://127.0.0.1:3350';
+    // static const String BASE_URL = 'http://10.0.2.2:3350'; // Android emulator
   // static const String BASE_URL = 'https://homecare-api.med-map.org';
 
   static const String URL_API = '$BASE_URL/v1';
