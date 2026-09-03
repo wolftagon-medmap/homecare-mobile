@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:m2health/core/config/feature_flags.dart';
 import 'package:m2health/features/guided_booking/data/datasources/guided_booking_datasource.dart';
 import 'package:m2health/features/guided_booking/data/datasources/guided_booking_local_datasource.dart';
@@ -35,6 +36,12 @@ void initGuidedBookingModule(GetIt sl) {
         : BookingAddressLocalDataSource(),
   );
 
+  sl.registerLazySingleton<BookingDraftDataSource>(
+    () => AppFlags.remote(Feature.bookingDraft)
+        ? BookingDraftRemoteDataSource(sl<Dio>())
+        : BookingDraftLocalDataSource(sl<SharedPreferences>()),
+  );
+
   sl.registerLazySingleton<IssueCatalogueRepository>(
     () => IssueCatalogueRepositoryImpl(sl<IssueCatalogueDataSource>()),
   );
@@ -47,6 +54,9 @@ void initGuidedBookingModule(GetIt sl) {
   );
   sl.registerLazySingleton<BookingSubmissionRepository>(
     () => BookingSubmissionRepositoryImpl(sl<BookingSubmissionDataSource>()),
+  );
+  sl.registerLazySingleton<BookingDraftRepository>(
+    () => BookingDraftRepositoryImpl(sl<BookingDraftDataSource>()),
   );
 
   sl.registerLazySingleton(
@@ -67,6 +77,13 @@ void initGuidedBookingModule(GetIt sl) {
   sl.registerLazySingleton(
     () => GetBookingRequest(sl<BookingSubmissionRepository>()),
   );
+  sl.registerLazySingleton(
+      () => LoadBookingDraft(sl<BookingDraftRepository>()));
+  sl.registerLazySingleton(
+      () => SaveBookingDraft(sl<BookingDraftRepository>()));
+  sl.registerLazySingleton(
+    () => ClearBookingDraft(sl<BookingDraftRepository>()),
+  );
 
   sl.registerFactoryParam<GuidedBookingCubit, GuidedBookingArgs, void>(
     (args, _) => GuidedBookingCubit(
@@ -77,6 +94,9 @@ void initGuidedBookingModule(GetIt sl) {
       getAvailability: sl<GetBookingAvailability>(),
       getVisitAddresses: sl<GetVisitAddresses>(),
       submitRequest: sl<SubmitBookingRequest>(),
+      loadDraft: sl<LoadBookingDraft>(),
+      saveDraft: sl<SaveBookingDraft>(),
+      clearDraft: sl<ClearBookingDraft>(),
     ),
   );
 }

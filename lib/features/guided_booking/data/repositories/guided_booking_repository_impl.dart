@@ -47,9 +47,12 @@ class BookingProfessionalRepositoryImpl
 
   @override
   Future<Either<Failure, List<BookingDay>>> getAvailability(
-    int professionalId,
-  ) =>
-      _guard(() => dataSource.fetchAvailability(professionalId));
+    int professionalId, {
+    required String category,
+  }) =>
+      _guard(
+        () => dataSource.fetchAvailability(professionalId, category: category),
+      );
 }
 
 class BookingAddressRepositoryImpl implements BookingAddressRepository {
@@ -74,4 +77,27 @@ class BookingSubmissionRepositoryImpl implements BookingSubmissionRepository {
   @override
   Future<Either<Failure, SubmittedRequest>> getRequest(int id) =>
       _guard(() => dataSource.fetchRequest(id));
+}
+
+class BookingDraftRepositoryImpl implements BookingDraftRepository {
+  final BookingDraftDataSource dataSource;
+
+  BookingDraftRepositoryImpl(this.dataSource);
+
+  @override
+  Future<Either<Failure, GuidedBookingDraft?>> load(String category) =>
+      _guard(() => dataSource.load(category));
+
+  @override
+  Future<Either<Failure, Unit>> save(GuidedBookingDraft draft) =>
+      _guard(() async {
+        await dataSource.save(draft);
+        return unit;
+      });
+
+  @override
+  Future<Either<Failure, Unit>> clear(String category) => _guard(() async {
+        await dataSource.clear(category);
+        return unit;
+      });
 }

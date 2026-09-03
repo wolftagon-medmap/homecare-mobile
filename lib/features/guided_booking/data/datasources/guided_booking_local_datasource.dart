@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/features/guided_booking/data/datasources/guided_booking_datasource.dart';
 import 'package:m2health/features/guided_booking/data/fixtures/booking_fixtures.dart';
@@ -38,7 +41,10 @@ class BookingProfessionalLocalDataSource
   }
 
   @override
-  Future<List<BookingDayModel>> fetchAvailability(int professionalId) async {
+  Future<List<BookingDayModel>> fetchAvailability(
+    int professionalId, {
+    required String category,
+  }) async {
     await Future.delayed(_fixtureLatency);
     return kAvailabilityFixture.map(BookingDayModel.fromJson).toList();
   }
@@ -67,5 +73,40 @@ class BookingAddressLocalDataSource implements BookingAddressDataSource {
   Future<List<AddressModel>> fetchVisitAddresses() async {
     await Future.delayed(_fixtureLatency);
     return kVisitAddressesFixture.map(AddressModel.fromJson).toList();
+  }
+}
+
+class BookingDraftLocalDataSource implements BookingDraftDataSource {
+  static const String _prefix = 'guided_booking_draft.';
+
+  final SharedPreferences prefs;
+
+  BookingDraftLocalDataSource(this.prefs);
+
+  @override
+  Future<GuidedBookingDraft?> load(String category) async {
+    final raw = prefs.getString('$_prefix$category');
+    if (raw == null) return null;
+    try {
+      return GuidedBookingDraftModel.fromJson(
+        jsonDecode(raw) as Map<String, dynamic>,
+      );
+    } on FormatException {
+      await clear(category);
+      return null;
+    }
+  }
+
+  @override
+  Future<void> save(GuidedBookingDraft draft) async {
+    await prefs.setString(
+      '$_prefix${draft.category}',
+      jsonEncode(draft.toJson()),
+    );
+  }
+
+  @override
+  Future<void> clear(String category) async {
+    await prefs.remove('$_prefix$category');
   }
 }

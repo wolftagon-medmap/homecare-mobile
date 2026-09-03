@@ -1,6 +1,7 @@
 import 'package:m2health/features/guided_booking/domain/entities/booking_professional.dart';
 import 'package:m2health/features/guided_booking/domain/entities/booking_request.dart';
 import 'package:m2health/features/guided_booking/domain/entities/booking_slot.dart';
+import 'package:m2health/features/guided_booking/domain/entities/guided_booking_draft.dart';
 
 class BookingProfessionalModel extends BookingProfessional {
   const BookingProfessionalModel({
@@ -138,3 +139,23 @@ double? _toDouble(Object? value) => switch (value) {
 
 DateTime? _toDate(Object? value) =>
     value is String ? DateTime.tryParse(value) : null;
+
+class GuidedBookingDraftModel {
+  const GuidedBookingDraftModel._();
+
+  // Returns the entity, not a subclass: Equatable compares runtimeType, so a
+  // model instance would never equal an otherwise identical draft.
+  static GuidedBookingDraft fromJson(Map<String, dynamic> json) {
+    final preferredAt = json['preferred_at'] as String?;
+    return GuidedBookingDraft(
+      category: json['category'] as String,
+      subCategory: json['sub_category'] as String?,
+      issueCodes: ((json['issue_codes'] as List?) ?? const []).cast<String>(),
+      remarks: json['remarks'] as String? ?? '',
+      addOnCodes: ((json['add_on_codes'] as List?) ?? const []).cast<String>(),
+      addressId: json['address_id'] as int?,
+      professionalId: json['professional_id'] as int?,
+      preferredAt: preferredAt == null ? null : DateTime.tryParse(preferredAt),
+    );
+  }
+}

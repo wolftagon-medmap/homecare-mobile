@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/features/guided_booking/domain/entities/guided_booking_draft.dart';
 import 'package:m2health/features/guided_booking/domain/usecases/guided_booking_usecases.dart';
@@ -9,6 +11,13 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
   final GetBookingAvailability getAvailability;
   final GetVisitAddresses getVisitAddresses;
   final SubmitBookingRequest submitRequest;
+  final LoadBookingDraft loadDraft;
+  final SaveBookingDraft saveDraft;
+  final ClearBookingDraft clearDraft;
+
+  static const Duration _saveDebounce = Duration(milliseconds: 400);
+  Timer? _saveTimer;
+  final String? _entrySubCategory;
 
   GuidedBookingCubit({
     required String category,
@@ -18,7 +27,11 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
     required this.getAvailability,
     required this.getVisitAddresses,
     required this.submitRequest,
-  }) : super(GuidedBookingState(
+    required this.loadDraft,
+    required this.saveDraft,
+    required this.clearDraft,
+  })  : _entrySubCategory = subCategory,
+        super(GuidedBookingState(
           draft: GuidedBookingDraft(
             category: category,
             subCategory: subCategory,
@@ -26,6 +39,7 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
         ));
 
   Future<void> loadCatalogue() async {
+    await restoreDraft();
     emit(state.copyWith(
       catalogueStatus: BookingLoadStatus.loading,
       clearError: true,
@@ -106,7 +120,10 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
     if (professionalId == null) return;
 
     emit(state.copyWith(availabilityStatus: BookingLoadStatus.loading));
-    final result = await getAvailability(professionalId);
+    final result = await getAvailability(
+      professionalId,
+      category: state.draft.category,
+    );
     result.fold(
       (failure) => emit(state.copyWith(
         availabilityStatus: BookingLoadStatus.failure,
@@ -156,6 +173,42 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
   void selectSlot(DateTime? startTime) =>
       emit(state.copyWith(draft: state.draft.withPreferredAt(startTime)));
 
+  Future<void> restoreDraft() async {
+    final result = await loadDraft(state.draft.category);
+    result.fold(
+      (_) {},
+      (draft) {
+        if (draft == null || isClosed) return;
+        // Entering through a named sub-service must win over a saved draft for a
+        // different one, or the tap silently lands the user in the other flow.
+        if (_entrySubCategory != null &&
+            _entrySubCategory != draft.subCategory) {
+          return;
+        }
+        emit(state.copyWith(draft: draft));
+      },
+    );
+  }
+
+  void _persist() {
+    _saveTimer?.cancel();
+    final draft = state.draft;
+    _saveTimer = Timer(_saveDebounce, () => saveDraft(draft));
+  }
+
+  @override
+  void emit(GuidedBookingState state) {
+    final changed = state.draft != this.state.draft;
+    super.emit(state);
+    if (changed) _persist();
+  }
+
+  @override
+  Future<void> close() {
+    _saveTimer?.cancel();
+    return super.close();
+  }
+
   Future<void> submit() async {
     if (state.isSubmitting || !state.draft.isSubmittable) return;
 
@@ -166,10 +219,11 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
         isSubmitting: false,
         errorMessage: failure.message,
       )),
-      (submitted) => emit(state.copyWith(
-        isSubmitting: false,
-        submitted: submitted,
-      )),
+      (submitted) {
+        _saveTimer?.cancel();
+        clearDraft(state.draft.category);
+        emit(state.copyWith(isSubmitting: false, submitted: submitted));
+      },
     );
   }
 }

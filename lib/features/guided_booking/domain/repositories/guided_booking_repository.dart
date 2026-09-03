@@ -18,8 +18,9 @@ abstract class BookingProfessionalRepository {
   });
 
   Future<Either<Failure, List<BookingDay>>> getAvailability(
-    int professionalId,
-  );
+    int professionalId, {
+    required String category,
+  });
 }
 
 abstract class BookingAddressRepository {
@@ -29,4 +30,10 @@ abstract class BookingAddressRepository {
 abstract class BookingSubmissionRepository {
   Future<Either<Failure, SubmittedRequest>> submit(GuidedBookingDraft draft);
   Future<Either<Failure, SubmittedRequest>> getRequest(int id);
+}
+
+abstract class BookingDraftRepository {
+  Future<Either<Failure, GuidedBookingDraft?>> load(String category);
+  Future<Either<Failure, Unit>> save(GuidedBookingDraft draft);
+  Future<Either<Failure, Unit>> clear(String category);
 }

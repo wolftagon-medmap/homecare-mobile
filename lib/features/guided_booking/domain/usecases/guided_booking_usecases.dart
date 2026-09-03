@@ -34,8 +34,11 @@ class GetBookingAvailability {
 
   GetBookingAvailability(this.repository);
 
-  Future<Either<Failure, List<BookingDay>>> call(int professionalId) =>
-      repository.getAvailability(professionalId);
+  Future<Either<Failure, List<BookingDay>>> call(
+    int professionalId, {
+    required String category,
+  }) =>
+      repository.getAvailability(professionalId, category: category);
 }
 
 class GetVisitAddresses {
@@ -63,4 +66,31 @@ class GetBookingRequest {
 
   Future<Either<Failure, SubmittedRequest>> call(int id) =>
       repository.getRequest(id);
+}
+
+class LoadBookingDraft {
+  final BookingDraftRepository repository;
+
+  LoadBookingDraft(this.repository);
+
+  Future<Either<Failure, GuidedBookingDraft?>> call(String category) =>
+      repository.load(category);
+}
+
+class SaveBookingDraft {
+  final BookingDraftRepository repository;
+
+  SaveBookingDraft(this.repository);
+
+  Future<Either<Failure, Unit>> call(GuidedBookingDraft draft) =>
+      repository.save(draft);
+}
+
+class ClearBookingDraft {
+  final BookingDraftRepository repository;
+
+  ClearBookingDraft(this.repository);
+
+  Future<Either<Failure, Unit>> call(String category) =>
+      repository.clear(category);
 }
