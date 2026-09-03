@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/guided_booking/domain/entities/booking_professional.dart';
+import 'package:m2health/features/guided_booking/presentation/widgets/professional_avatar.dart';
+import 'package:m2health/features/guided_booking/presentation/widgets/professional_profile_view.dart';
+import 'package:m2health/features/guided_booking/presentation/widgets/professional_stats.dart';
 import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
@@ -26,7 +29,7 @@ class ProfessionalCard extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(14),
       child: Container(
-        padding: const EdgeInsets.all(14),
+        padding: const EdgeInsets.fromLTRB(14, 14, 14, 6),
         decoration: BoxDecoration(
           color: selected ? Const.tosca.withValues(alpha: 0.06) : Colors.white,
           border: Border.all(
@@ -35,95 +38,73 @@ class ProfessionalCard extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(14),
         ),
-        child: Row(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
-              radius: 26,
-              backgroundColor: Const.aqua.withValues(alpha: 0.15),
-              backgroundImage: professional.avatar == null
-                  ? null
-                  : NetworkImage(professional.avatar!),
-              child: professional.avatar != null
-                  ? null
-                  : Text(
-                      _initials(professional.name),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: Const.tosca,
-                      ),
-                    ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    professional.name,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  if (professional.jobTitle != null)
-                    Text(
-                      professional.jobTitle!,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  const SizedBox(height: 6),
-                  Row(
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ProfessionalAvatar(professional: professional),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.star, size: 14, color: Colors.amber),
-                      const SizedBox(width: 3),
                       Text(
-                        professional.rating.toStringAsFixed(1),
+                        professional.name,
                         style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const SizedBox(width: 2),
-                      Text(
-                        t.reviews(count: professional.reviewCount),
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: Colors.black45,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Flexible(
-                        child: Text(
-                          t.years(years: professional.yearsOfExperience),
-                          overflow: TextOverflow.ellipsis,
+                      if (professional.jobTitle != null)
+                        Text(
+                          professional.jobTitle!,
                           style: const TextStyle(
                             fontSize: 12,
-                            color: Colors.black45,
+                            color: Colors.black54,
                           ),
                         ),
-                      ),
+                      const SizedBox(height: 6),
+                      ProfessionalStats(professional: professional),
                     ],
                   ),
-                ],
-              ),
+                ),
+                ProfessionalFromPrice(
+                  professionalId: professional.id,
+                  category: category,
+                  dense: true,
+                ),
+              ],
             ),
-            ProfessionalFromPrice(
-              professionalId: professional.id,
-              category: category,
-              dense: true,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton(
+                onPressed: () => showProfessionalProfile(
+                  context,
+                  professional: professional,
+                  category: category,
+                  onSelect: onTap,
+                ),
+                style: TextButton.styleFrom(
+                  foregroundColor: Const.tosca,
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  minimumSize: Size.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  visualDensity: VisualDensity.compact,
+                ),
+                child: Text(
+                  t.view_profile,
+                  style: const TextStyle(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  String _initials(String name) {
-    final parts = name.trim().split(RegExp(r'\s+'));
-    if (parts.length == 1) return parts.first.characters.take(1).toString();
-    return '${parts.first.characters.take(1)}${parts.last.characters.take(1)}';
   }
 }
