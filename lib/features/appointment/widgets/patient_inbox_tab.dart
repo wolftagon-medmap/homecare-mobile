@@ -120,7 +120,8 @@ class _PatientInboxCard extends StatelessWidget {
           if (item.careTaskId != null)
             MessageActionButton(
               threadRef: ThreadRef.forCareTask(item.careTaskId!),
-              label: 'Message ${item.provider?.name ?? 'professional'}',
+              style: MessageActionStyle.filled,
+              label: 'Chat',
             ),
         ],
       );

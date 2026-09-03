@@ -84,15 +84,6 @@ class BookingSubmissionRemoteDataSource implements BookingSubmissionDataSource {
     );
     return SubmittedRequestModel.fromJson(_unwrap(response.data));
   }
-
-  @override
-  Future<SubmittedRequestModel> fetchRequest(int id) async {
-    final response = await dio.get(
-      '${Const.URL_API_V2}/guided-booking/requests/$id',
-      options: Options(headers: await _authHeaders()),
-    );
-    return SubmittedRequestModel.fromJson(_unwrap(response.data));
-  }
 }
 
 class BookingAddressRemoteDataSource implements BookingAddressDataSource {

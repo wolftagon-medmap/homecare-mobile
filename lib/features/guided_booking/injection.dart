@@ -71,9 +71,6 @@ void initGuidedBookingModule(GetIt sl) {
     () => SubmitBookingRequest(sl<BookingSubmissionRepository>()),
   );
   sl.registerLazySingleton(
-    () => GetBookingRequest(sl<BookingSubmissionRepository>()),
-  );
-  sl.registerLazySingleton(
       () => LoadBookingDraft(sl<BookingDraftRepository>()));
   sl.registerLazySingleton(
       () => SaveBookingDraft(sl<BookingDraftRepository>()));

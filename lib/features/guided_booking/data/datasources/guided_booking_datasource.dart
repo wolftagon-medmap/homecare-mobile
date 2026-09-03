@@ -25,7 +25,6 @@ abstract class BookingProfessionalDataSource {
 
 abstract class BookingSubmissionDataSource {
   Future<SubmittedRequestModel> submit(GuidedBookingDraft draft);
-  Future<SubmittedRequestModel> fetchRequest(int id);
 }
 
 abstract class BookingAddressDataSource {

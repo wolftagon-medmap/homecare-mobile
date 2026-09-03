@@ -8,7 +8,6 @@ import 'package:m2health/features/guided_booking/presentation/pages/issue_select
 import 'package:m2health/features/guided_booking/presentation/pages/preferred_datetime_page.dart';
 import 'package:m2health/features/guided_booking/presentation/pages/professional_select_page.dart';
 import 'package:m2health/features/guided_booking/presentation/pages/request_sent_page.dart';
-import 'package:m2health/features/guided_booking/presentation/pages/request_status_page.dart';
 import 'package:m2health/features/guided_booking/presentation/pages/review_and_send_page.dart';
 import 'package:m2health/features/guided_booking/presentation/pages/sub_service_page.dart';
 import 'package:m2health/route/app_routes.dart';
@@ -47,7 +46,6 @@ class GuidedBookingRoutes {
   static const String dateTime = '/guided-booking/date-time';
   static const String review = '/guided-booking/review';
   static const String sent = '/guided-booking/sent';
-  static const String status = '/guided-booking/status';
 
   static List<RouteBase> routes = [
     GoRoute(
@@ -74,11 +72,6 @@ class GuidedBookingRoutes {
     _step(dateTime, (args) => PreferredDateTimePage(args: args)),
     _step(review, (_) => const ReviewAndSendPage()),
     _step(sent, (_) => const RequestSentPage()),
-    GoRoute(
-      path: status,
-      builder: (context, state) =>
-          RequestStatusPage(requestId: state.extra as int? ?? 9001),
-    ),
   ];
 
   static GoRoute _step(

@@ -77,10 +77,6 @@ class BookingSubmissionRepositoryImpl implements BookingSubmissionRepository {
   @override
   Future<Either<Failure, SubmittedRequest>> submit(GuidedBookingDraft draft) =>
       _guard(() => dataSource.submit(draft));
-
-  @override
-  Future<Either<Failure, SubmittedRequest>> getRequest(int id) =>
-      _guard(() => dataSource.fetchRequest(id));
 }
 
 class BookingDraftRepositoryImpl implements BookingDraftRepository {

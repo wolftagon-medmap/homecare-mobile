@@ -66,15 +66,6 @@ class SubmitBookingRequest {
       repository.submit(draft);
 }
 
-class GetBookingRequest {
-  final BookingSubmissionRepository repository;
-
-  GetBookingRequest(this.repository);
-
-  Future<Either<Failure, SubmittedRequest>> call(int id) =>
-      repository.getRequest(id);
-}
-
 class LoadBookingDraft {
   final BookingDraftRepository repository;
 

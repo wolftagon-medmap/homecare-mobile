@@ -68,23 +68,8 @@
     "body": "We have passed your request to {name}. We will notify you as soon as they respond.",
     "body_generic": "We have passed your request on. We will notify you as soon as it is picked up.",
     "message": "Message your professional",
-    "view_status": "View request status",
+    "view_status": "View booking",
     "done": "Back to home"
-  },
-  "status": {
-    "title": "Your request",
-    "reference": "Request #{id}",
-    "submitted": "Sent {date}",
-    "preferred": "You asked for",
-    "proposed": "They suggested",
-    "pending_body": "Your request is with {name}. We will let you know as soon as they respond.",
-    "confirmed_body": "{name} confirmed your visit. See you then.",
-    "proposed_body": "{name} is not free then and suggested another time.",
-    "cancelled_body": "This request was cancelled. You can start a new one whenever you are ready.",
-    "accept_time": "Accept this time",
-    "choose_another": "Choose another time",
-    "cancel_request": "Cancel request",
-    "message": "Message"
   },
   "cta": {
     "continue": "Continue",

@@ -68,23 +68,8 @@
     "body": "我们已将您的申请转交给 {name}，一有回复便会通知您。",
     "body_generic": "我们已转交您的申请，一旦有人接单便会通知您。",
     "message": "联系医护人员",
-    "view_status": "查看申请状态",
+    "view_status": "查看预约",
     "done": "返回首页"
-  },
-  "status": {
-    "title": "您的申请",
-    "reference": "申请编号 #{id}",
-    "submitted": "发送于 {date}",
-    "preferred": "您希望的时间",
-    "proposed": "对方建议的时间",
-    "pending_body": "您的申请正由 {name} 处理，一有回复我们便会通知您。",
-    "confirmed_body": "{name} 已确认您的预约，届时见。",
-    "proposed_body": "{name} 当时不方便，建议了另一个时间。",
-    "cancelled_body": "此申请已取消。您随时可以重新发起。",
-    "accept_time": "接受该时间",
-    "choose_another": "另选时间",
-    "cancel_request": "取消申请",
-    "message": "消息"
   },
   "cta": {
     "continue": "继续",

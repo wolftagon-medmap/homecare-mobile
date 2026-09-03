@@ -31,7 +31,6 @@ abstract class BookingAddressRepository {
 
 abstract class BookingSubmissionRepository {
   Future<Either<Failure, SubmittedRequest>> submit(GuidedBookingDraft draft);
-  Future<Either<Failure, SubmittedRequest>> getRequest(int id);
 }
 
 abstract class BookingDraftRepository {

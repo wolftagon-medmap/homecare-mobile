@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/messaging/thread_index_cubit.dart';
 import 'package:m2health/core/messaging/thread_ref.dart';
 import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
 
@@ -11,9 +12,7 @@ import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/appointment/bloc/care_task_detail_cubit.dart';
 import 'package:m2health/features/appointment/data/models/patient_care_task_detail.dart';
 import 'package:m2health/features/settings/language/locale_cubit.dart';
-import 'package:m2health/core/presentation/widgets/buttons/gradient_button.dart';
 import 'package:m2health/i18n/translations.g.dart';
-import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/route/appointment_routes.dart';
 
@@ -68,40 +67,33 @@ class CareTaskDetailPage extends StatelessWidget {
             return const Center(child: Text('Something went wrong.'));
           },
         ),
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          height: 80,
-          child: Builder(
-            // The assistant and the professional are two different
-            // conversations. Putting them side by side is the clearest way to
-            // say so.
-            builder: (context) => Row(
-              children: [
-                MessageActionButton(
-                  threadRef: ThreadRef.forCareTask(careTaskId),
-                  style: MessageActionStyle.icon,
-                ),
-                Expanded(
-                  child: GradientButton(
-                    text: 'Continue in AI Chat',
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF35C5CF), Color(0xFF9DCEFF)],
-                      begin: Alignment.bottomRight,
-                      end: Alignment.topLeft,
+        bottomNavigationBar: Builder(
+          // Booking is care-task driven now, so the one conversation worth
+          // offering here is the professional's. The bar disappears entirely
+          // rather than showing a button that leads nowhere.
+          builder: (context) {
+            final threadRef = ThreadRef.forCareTask(careTaskId);
+            final hasThread = context.select<ThreadIndexCubit, bool>(
+              (cubit) => cubit.state.resolve(threadRef) != null,
+            );
+            if (!hasThread) return const SizedBox.shrink();
+
+            return BottomAppBar(
+              color: Colors.white,
+              height: 80,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: MessageActionButton(
+                      threadRef: threadRef,
+                      style: MessageActionStyle.filled,
+                      label: 'Chat',
                     ),
-                    onPressed: () async {
-                      await GoRouter.of(context).push(AppRoutes.intakeBooking);
-                      if (context.mounted) {
-                        context
-                            .read<CareTaskDetailCubit>()
-                            .fetchDetail(careTaskId);
-                      }
-                    },
                   ),
-                ),
-              ],
-            ),
-          ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
@@ -129,14 +121,13 @@ class _Content extends StatelessWidget {
           _ScheduleSection(detail: detail),
           const SizedBox(height: 16),
           _PatientSection(detail: detail),
-          if (detail.issueLabels.isNotEmpty) ...[
+          if (detail.issueLabels.isNotEmpty ||
+              (detail.chiefComplaint?.isNotEmpty ?? false)) ...[
             const SizedBox(height: 16),
-            _IssueLabelsSection(labels: detail.issueLabels),
-          ],
-          if (detail.chiefComplaint != null &&
-              detail.chiefComplaint!.isNotEmpty) ...[
-            const SizedBox(height: 16),
-            _ComplaintSection(complaint: detail.chiefComplaint!),
+            _VisitReasonSection(
+              labels: detail.issueLabels,
+              remark: detail.chiefComplaint,
+            ),
           ],
           const SizedBox(height: 16),
           _EstimateSection(detail: detail),
@@ -289,8 +280,7 @@ class _PatientSection extends StatelessWidget {
 }
 
 /// Nobody available took this booking. It is still the patient's — what it
-/// needs is a different time or a different professional, and the assistant in
-/// the bar below is where both are changed.
+/// needs is a different time or a different professional.
 class _UnmatchedBanner extends StatelessWidget {
   const _UnmatchedBanner();
 
@@ -316,8 +306,8 @@ class _UnmatchedBanner extends StatelessWidget {
           ),
           SizedBox(height: 4),
           Text(
-            'Your booking has not been cancelled. Continue in the chat below to '
-            'pick another time, or choose a different professional.',
+            'Your booking has not been cancelled. Pick another time, or choose '
+            'a different professional, to get it moving again.',
             style: TextStyle(fontSize: 13),
           ),
         ],
@@ -326,14 +316,23 @@ class _UnmatchedBanner extends StatelessWidget {
   }
 }
 
-/// The structured reasons picked in guided booking. They sit above the
-/// complaint because they are what was chosen; the complaint is what was typed.
-class _IssueLabelsSection extends StatelessWidget {
+/// Why the visit was booked: the reasons picked in guided booking, and the
+/// patient's own remark underneath. They are one section because they are one
+/// answer — the chips are what was chosen, the remark is what was added to it.
+class _VisitReasonSection extends StatelessWidget {
   final List<String> labels;
-  const _IssueLabelsSection({required this.labels});
+  final String? remark;
+
+  const _VisitReasonSection({required this.labels, this.remark});
 
   @override
   Widget build(BuildContext context) {
+    final note = remark?.trim() ?? '';
+    // Bookings sent before the backend stopped echoing the reasons into the
+    // complaint still carry the labels as their remark. Showing it would just
+    // repeat the chips above.
+    final showNote = note.isNotEmpty && note != labels.join(', ');
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -343,57 +342,45 @@ class _IssueLabelsSection extends StatelessWidget {
             'Reason for the visit',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              for (final label in labels)
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Const.tosca.withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(16),
+          if (labels.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final label in labels)
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Const.tosca.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      label,
+                      style: const TextStyle(fontSize: 13, color: Const.tosca),
+                    ),
                   ),
-                  child: Text(
-                    label,
-                    style: const TextStyle(fontSize: 13, color: Const.tosca),
-                  ),
-                ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ComplaintSection extends StatelessWidget {
-  final String complaint;
-  const _ComplaintSection({required this.complaint});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Chief Complaint',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-          ),
-          const SizedBox(height: 8),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(8),
+              ],
             ),
-            child: Text(complaint, style: const TextStyle(fontSize: 14)),
-          ),
+          ],
+          if (showNote) ...[
+            const SizedBox(height: 12),
+            const Text(
+              'Remarks',
+              style: TextStyle(fontSize: 13, color: Const.contentTextColor),
+            ),
+            const SizedBox(height: 6),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(note, style: const TextStyle(fontSize: 14)),
+            ),
+          ],
         ],
       ),
     );
