@@ -704,6 +704,7 @@ class _TranslationsGuidedBookingAddOnsZh implements TranslationsGuidedBookingAdd
 	@override String get subtitle => '选填，单独计价。';
 	@override String get empty => '此服务暂无附加项目。';
 	@override String selected({required Object count}) => '已添加 ${count} 项';
+	@override String get no_description => '此附加服务暂无更多说明。';
 }
 
 // Path: guidedBooking.professional
@@ -727,6 +728,8 @@ class _TranslationsGuidedBookingProfessionalZh implements TranslationsGuidedBook
 	@override String get error => '无法加载医护人员列表。';
 	@override String years({required Object years}) => '${years} 年经验';
 	@override String reviews({required Object count}) => '（${count}）';
+	@override String get choose_cta => '选择这位专业人员';
+	@override String get search_hint => '按姓名搜索';
 }
 
 // Path: guidedBooking.schedule
@@ -1619,6 +1622,7 @@ extension on TranslationsZh {
 			'guidedBooking.add_ons.subtitle' => '选填，单独计价。',
 			'guidedBooking.add_ons.empty' => '此服务暂无附加项目。',
 			'guidedBooking.add_ons.selected' => ({required Object count}) => '已添加 ${count} 项',
+			'guidedBooking.add_ons.no_description' => '此附加服务暂无更多说明。',
 			'guidedBooking.professional.title' => '选择医护人员',
 			'guidedBooking.professional.view_profile' => '查看资料',
 			'guidedBooking.professional.select_cta' => '选择这位医护人员',
@@ -1633,6 +1637,8 @@ extension on TranslationsZh {
 			'guidedBooking.professional.error' => '无法加载医护人员列表。',
 			'guidedBooking.professional.years' => ({required Object years}) => '${years} 年经验',
 			'guidedBooking.professional.reviews' => ({required Object count}) => '（${count}）',
+			'guidedBooking.professional.choose_cta' => '选择这位专业人员',
+			'guidedBooking.professional.search_hint' => '按姓名搜索',
 			'guidedBooking.schedule.title' => '您希望什么时候？',
 			'guidedBooking.schedule.select_date' => '选择日期',
 			'guidedBooking.schedule.select_hour' => '选择时间',

@@ -619,7 +619,7 @@ class _TranslationsDashboardHomeId implements TranslationsDashboardHomeEn {
 	// Translations
 	@override String get section_title => 'Layanan Kesehatan';
 	@override String get section_subtitle => 'Perawatan profesional untuk Anda dan keluarga.';
-	@override String get view_all => 'Lihat Semua Layanan';
+	@override String get view_all => 'Lihat Semua';
 	@override String get all_services_title => 'Semua Layanan';
 	@override String get badge_new => 'BARU';
 	@override String get name_pharmacist => 'Konsultasi Apoteker';
@@ -704,6 +704,7 @@ class _TranslationsGuidedBookingAddOnsId implements TranslationsGuidedBookingAdd
 	@override String get subtitle => 'Opsional. Harga terpisah.';
 	@override String get empty => 'Tidak ada layanan tambahan untuk layanan ini.';
 	@override String selected({required Object count}) => '${count} ditambahkan';
+	@override String get no_description => 'Belum ada detail tambahan untuk layanan ini.';
 }
 
 // Path: guidedBooking.professional
@@ -727,6 +728,8 @@ class _TranslationsGuidedBookingProfessionalId implements TranslationsGuidedBook
 	@override String get error => 'Kami tidak dapat memuat daftar tenaga kesehatan.';
 	@override String years({required Object years}) => 'Pengalaman ${years} thn';
 	@override String reviews({required Object count}) => '(${count})';
+	@override String get choose_cta => 'Pilih profesional ini';
+	@override String get search_hint => 'Cari berdasarkan nama';
 }
 
 // Path: guidedBooking.schedule
@@ -1549,7 +1552,7 @@ extension on TranslationsId {
 			'dashboard.retry' => 'Coba lagi',
 			'dashboard.home.section_title' => 'Layanan Kesehatan',
 			'dashboard.home.section_subtitle' => 'Perawatan profesional untuk Anda dan keluarga.',
-			'dashboard.home.view_all' => 'Lihat Semua Layanan',
+			'dashboard.home.view_all' => 'Lihat Semua',
 			'dashboard.home.all_services_title' => 'Semua Layanan',
 			'dashboard.home.badge_new' => 'BARU',
 			'dashboard.home.name_pharmacist' => 'Konsultasi Apoteker',
@@ -1619,6 +1622,7 @@ extension on TranslationsId {
 			'guidedBooking.add_ons.subtitle' => 'Opsional. Harga terpisah.',
 			'guidedBooking.add_ons.empty' => 'Tidak ada layanan tambahan untuk layanan ini.',
 			'guidedBooking.add_ons.selected' => ({required Object count}) => '${count} ditambahkan',
+			'guidedBooking.add_ons.no_description' => 'Belum ada detail tambahan untuk layanan ini.',
 			'guidedBooking.professional.title' => 'Pilih tenaga kesehatan',
 			'guidedBooking.professional.view_profile' => 'Lihat profil',
 			'guidedBooking.professional.select_cta' => 'Pilih tenaga kesehatan ini',
@@ -1633,6 +1637,8 @@ extension on TranslationsId {
 			'guidedBooking.professional.error' => 'Kami tidak dapat memuat daftar tenaga kesehatan.',
 			'guidedBooking.professional.years' => ({required Object years}) => 'Pengalaman ${years} thn',
 			'guidedBooking.professional.reviews' => ({required Object count}) => '(${count})',
+			'guidedBooking.professional.choose_cta' => 'Pilih profesional ini',
+			'guidedBooking.professional.search_hint' => 'Cari berdasarkan nama',
 			'guidedBooking.schedule.title' => 'Kapan waktu yang cocok?',
 			'guidedBooking.schedule.select_date' => 'Pilih tanggal',
 			'guidedBooking.schedule.select_hour' => 'Pilih waktu',

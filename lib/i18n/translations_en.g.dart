@@ -1070,8 +1070,8 @@ class TranslationsDashboardHomeEn {
 	/// en: 'Professional care for you and your loved ones.'
 	String get section_subtitle => 'Professional care for you and your loved ones.';
 
-	/// en: 'View All Services'
-	String get view_all => 'View All Services';
+	/// en: 'View All'
+	String get view_all => 'View All';
 
 	/// en: 'All Services'
 	String get all_services_title => 'All Services';
@@ -1234,6 +1234,9 @@ class TranslationsGuidedBookingAddOnsEn {
 
 	/// en: '{count} added'
 	String selected({required Object count}) => '${count} added';
+
+	/// en: 'No additional details for this add-on yet.'
+	String get no_description => 'No additional details for this add-on yet.';
 }
 
 // Path: guidedBooking.professional
@@ -1285,6 +1288,12 @@ class TranslationsGuidedBookingProfessionalEn {
 
 	/// en: '({count})'
 	String reviews({required Object count}) => '(${count})';
+
+	/// en: 'Choose this professional'
+	String get choose_cta => 'Choose this professional';
+
+	/// en: 'Search by name'
+	String get search_hint => 'Search by name';
 }
 
 // Path: guidedBooking.schedule
@@ -2469,7 +2478,7 @@ extension on Translations {
 			'dashboard.retry' => 'Retry',
 			'dashboard.home.section_title' => 'Healthcare Services',
 			'dashboard.home.section_subtitle' => 'Professional care for you and your loved ones.',
-			'dashboard.home.view_all' => 'View All Services',
+			'dashboard.home.view_all' => 'View All',
 			'dashboard.home.all_services_title' => 'All Services',
 			'dashboard.home.badge_new' => 'NEW',
 			'dashboard.home.name_pharmacist' => 'Pharmacist Review',
@@ -2539,6 +2548,7 @@ extension on Translations {
 			'guidedBooking.add_ons.subtitle' => 'Optional. Priced individually.',
 			'guidedBooking.add_ons.empty' => 'No extras are available for this service.',
 			'guidedBooking.add_ons.selected' => ({required Object count}) => '${count} added',
+			'guidedBooking.add_ons.no_description' => 'No additional details for this add-on yet.',
 			'guidedBooking.professional.title' => 'Choose a professional',
 			'guidedBooking.professional.view_profile' => 'View profile',
 			'guidedBooking.professional.select_cta' => 'Choose this professional',
@@ -2553,6 +2563,8 @@ extension on Translations {
 			'guidedBooking.professional.error' => 'We could not load the professional list.',
 			'guidedBooking.professional.years' => ({required Object years}) => '${years} yrs experience',
 			'guidedBooking.professional.reviews' => ({required Object count}) => '(${count})',
+			'guidedBooking.professional.choose_cta' => 'Choose this professional',
+			'guidedBooking.professional.search_hint' => 'Search by name',
 			'guidedBooking.schedule.title' => 'When suits you?',
 			'guidedBooking.schedule.select_date' => 'Select a date',
 			'guidedBooking.schedule.select_hour' => 'Select a time',
