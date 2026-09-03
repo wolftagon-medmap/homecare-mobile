@@ -24,9 +24,16 @@ class GetBookingProfessionals {
 
   Future<Either<Failure, List<BookingProfessional>>> call({
     required String category,
-    int? addressId,
+    double? latitude,
+    double? longitude,
+    String? name,
   }) =>
-      repository.getProfessionals(category: category, addressId: addressId);
+      repository.getProfessionals(
+        category: category,
+        latitude: latitude,
+        longitude: longitude,
+        name: name,
+      );
 }
 
 class GetBookingAvailability {

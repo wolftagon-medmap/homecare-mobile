@@ -61,7 +61,9 @@ class _UnusedProfessionalRepository implements BookingProfessionalRepository {
   @override
   Future<Either<Failure, List<BookingProfessional>>> getProfessionals({
     required String category,
-    int? addressId,
+    double? latitude,
+    double? longitude,
+    String? name,
   }) async =>
       const Right([]);
 

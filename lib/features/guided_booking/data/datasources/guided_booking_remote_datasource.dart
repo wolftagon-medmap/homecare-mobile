@@ -31,18 +31,23 @@ class BookingProfessionalRemoteDataSource
   @override
   Future<List<BookingProfessionalModel>> fetchProfessionals({
     required String category,
-    int? addressId,
+    double? latitude,
+    double? longitude,
+    String? name,
   }) async {
     final response = await dio.get(
-      '${Const.URL_API_V2}/guided-booking/professionals',
+      '${Const.URL_API}/professionals',
       queryParameters: {
         'category': category,
-        if (addressId != null) 'address_id': addressId,
+        if (latitude != null) 'latitude': latitude,
+        if (longitude != null) 'longitude': longitude,
+        if (name != null && name.trim().isNotEmpty) 'name': name.trim(),
+        'limit': 50,
       },
       options: Options(headers: await _authHeaders()),
     );
     return _unwrapList(response.data)
-        .map(BookingProfessionalModel.fromJson)
+        .map(BookingProfessionalModel.fromDirectoryJson)
         .toList();
   }
 
@@ -52,8 +57,13 @@ class BookingProfessionalRemoteDataSource
     required String category,
   }) async {
     final response = await dio.get(
-      '${Const.URL_API_V2}/guided-booking/professionals/$professionalId/availability',
-      queryParameters: {'category': category},
+      '${Const.URL_API}/schedule/slots/range',
+      queryParameters: {
+        'provider_id': professionalId,
+        'days': 14,
+        'timezone': 'Asia/Singapore',
+        'service_type': category,
+      },
       options: Options(headers: await _authHeaders()),
     );
     return _unwrapList(response.data).map(BookingDayModel.fromJson).toList();

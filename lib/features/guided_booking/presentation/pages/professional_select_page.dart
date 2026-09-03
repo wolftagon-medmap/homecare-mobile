@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
@@ -24,8 +26,8 @@ class ProfessionalSelectPage extends StatefulWidget {
 
 class _ProfessionalSelectPageState extends State<ProfessionalSelectPage> {
   final TextEditingController _search = TextEditingController();
+  Timer? _debounce;
   bool _pickerShown = false;
-  String _query = '';
 
   @override
   void initState() {
@@ -40,8 +42,17 @@ class _ProfessionalSelectPageState extends State<ProfessionalSelectPage> {
 
   @override
   void dispose() {
+    _debounce?.cancel();
     _search.dispose();
     super.dispose();
+  }
+
+  void _onSearchChanged(String query) {
+    _debounce?.cancel();
+    _debounce = Timer(
+      const Duration(milliseconds: 350),
+      () => widget.args.cubit.loadProfessionals(name: query),
+    );
   }
 
   Future<void> _openPicker(GuidedBookingState state) async {
@@ -63,16 +74,6 @@ class _ProfessionalSelectPageState extends State<ProfessionalSelectPage> {
         ),
       ),
     );
-  }
-
-  List<BookingProfessional> _visible(GuidedBookingState state) {
-    final query = _query.trim().toLowerCase();
-    if (query.isEmpty) return state.professionals;
-    return state.professionals
-        .where((p) =>
-            p.name.toLowerCase().contains(query) ||
-            (p.jobTitle?.toLowerCase().contains(query) ?? false))
-        .toList();
   }
 
   @override
@@ -113,13 +114,12 @@ class _ProfessionalSelectPageState extends State<ProfessionalSelectPage> {
                 isLoading: state.addressStatus == BookingLoadStatus.loading,
                 onTap: () => _openPicker(state),
               ),
-              if (state.professionalStatus == BookingLoadStatus.ready &&
-                  state.professionals.isNotEmpty)
+              if (state.professionalStatus != BookingLoadStatus.failure)
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
                   child: TextField(
                     controller: _search,
-                    onChanged: (value) => setState(() => _query = value),
+                    onChanged: _onSearchChanged,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.search, size: 20),
                       hintText: t.professional.search_hint,
@@ -176,18 +176,11 @@ class _ProfessionalSelectPageState extends State<ProfessionalSelectPage> {
             icon: Icons.person_search_outlined,
           );
         }
-        final visible = _visible(state);
-        if (visible.isEmpty) {
-          return BookingEmptyState(
-            message: t.empty,
-            icon: Icons.person_search_outlined,
-          );
-        }
         return ListView(
           padding: const EdgeInsets.only(bottom: 24),
           children: [
             BookingStepHeader(title: t.title),
-            for (final professional in visible)
+            for (final professional in state.professionals)
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
                 child: ProfessionalCard(

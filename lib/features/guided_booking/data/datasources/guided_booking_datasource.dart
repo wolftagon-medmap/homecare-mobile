@@ -8,9 +8,13 @@ abstract class IssueCatalogueDataSource {
 }
 
 abstract class BookingProfessionalDataSource {
+  /// [category] is the pricing category, and the coordinates are the visit
+  /// location — a saved address, the device's position, or a spot on the map.
   Future<List<BookingProfessionalModel>> fetchProfessionals({
     required String category,
-    int? addressId,
+    double? latitude,
+    double? longitude,
+    String? name,
   });
 
   Future<List<BookingDayModel>> fetchAvailability(

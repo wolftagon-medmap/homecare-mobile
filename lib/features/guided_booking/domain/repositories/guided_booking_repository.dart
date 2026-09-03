@@ -14,7 +14,9 @@ abstract class IssueCatalogueRepository {
 abstract class BookingProfessionalRepository {
   Future<Either<Failure, List<BookingProfessional>>> getProfessionals({
     required String category,
-    int? addressId,
+    double? latitude,
+    double? longitude,
+    String? name,
   });
 
   Future<Either<Failure, List<BookingDay>>> getAvailability(

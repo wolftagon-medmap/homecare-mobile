@@ -97,11 +97,14 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
     );
   }
 
-  Future<void> loadProfessionals() async {
+  Future<void> loadProfessionals({String? name}) async {
     emit(state.copyWith(professionalStatus: BookingLoadStatus.loading));
+    final address = state.selectedAddress;
     final result = await getProfessionals(
-      category: state.draft.category,
-      addressId: state.draft.addressId,
+      category: state.pricingCategory,
+      latitude: address?.latitude,
+      longitude: address?.longitude,
+      name: name,
     );
     result.fold(
       (failure) => emit(state.copyWith(

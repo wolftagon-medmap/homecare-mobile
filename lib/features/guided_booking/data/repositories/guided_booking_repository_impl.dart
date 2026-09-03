@@ -38,11 +38,15 @@ class BookingProfessionalRepositoryImpl
   @override
   Future<Either<Failure, List<BookingProfessional>>> getProfessionals({
     required String category,
-    int? addressId,
+    double? latitude,
+    double? longitude,
+    String? name,
   }) =>
       _guard(() => dataSource.fetchProfessionals(
             category: category,
-            addressId: addressId,
+            latitude: latitude,
+            longitude: longitude,
+            name: name,
           ));
 
   @override
