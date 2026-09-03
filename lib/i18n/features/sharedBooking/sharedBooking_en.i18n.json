@@ -1,7 +1,6 @@
 {
   "starting_from": "Starting from {price}",
   "from_price": "from {price}",
-  "step_of": "Step {current} of {total}",
   "empty_title": "Nothing here yet",
   "error_title": "Something went wrong",
   "retry": "Try again",

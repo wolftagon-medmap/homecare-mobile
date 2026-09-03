@@ -8,6 +8,7 @@ import 'package:m2health/features/guided_booking/presentation/bloc/guided_bookin
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_state.dart';
 import 'package:m2health/features/guided_booking/presentation/widgets/remarks_field.dart';
 import 'package:m2health/features/pricing/presentation/bloc/price_table_cubit.dart';
+import 'package:m2health/features/guided_booking/presentation/widgets/booking_flow_progress.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 class IssueSelectionPage extends StatelessWidget {
@@ -39,56 +40,67 @@ class IssueSelectionPage extends StatelessWidget {
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ),
-          body: issues.isEmpty
-              ? BookingEmptyState(message: t.issues.empty)
-              : ListView(
-                  padding: const EdgeInsets.only(bottom: 24),
-                  children: [
-                    BookingStepHeader(
-                      title: t.issues.title,
-                      subtitle: t.issues.subtitle,
-                      step: 2,
-                    ),
-                    for (final issue in issues)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 4,
-                        ),
-                        child: MultiSelectListTile(
-                          title: issue.label,
-                          subtitle: issue.description,
-                          selected: state.draft.issueCodes.contains(issue.code),
-                          onChanged: (_) => cubit.toggleIssue(issue.code),
-                        ),
-                      ),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: RemarksField(
-                        label: t.issues.remarks_label,
-                        hint: t.issues.remarks_hint,
-                        initialValue: state.draft.remarks,
-                        onChanged: cubit.setRemarks,
-                      ),
-                    ),
-                    if (hasAddOns)
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
-                        child: TextButton.icon(
-                          onPressed: () => context.push(
-                            GuidedBookingRoutes.addOns,
-                            extra: GuidedBookingStepArgs(cubit),
+          body: Column(
+            children: [
+              BookingFlowProgress(
+                state: state,
+                step: GuidedBookingStep.issues,
+              ),
+              Expanded(
+                child: issues.isEmpty
+                    ? BookingEmptyState(message: t.issues.empty)
+                    : ListView(
+                        padding: const EdgeInsets.only(bottom: 24),
+                        children: [
+                          BookingStepHeader(
+                            title: t.issues.title,
+                            subtitle: t.issues.subtitle,
                           ),
-                          icon: const Icon(Icons.add_circle_outline, size: 18),
-                          label: Text(t.issues.add_ons_link),
-                          style: TextButton.styleFrom(
-                            foregroundColor: Const.tosca,
+                          for (final issue in issues)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 4,
+                              ),
+                              child: MultiSelectListTile(
+                                title: issue.label,
+                                subtitle: issue.description,
+                                selected:
+                                    state.draft.issueCodes.contains(issue.code),
+                                onChanged: (_) => cubit.toggleIssue(issue.code),
+                              ),
+                            ),
+                          const SizedBox(height: 20),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: RemarksField(
+                              label: t.issues.remarks_label,
+                              hint: t.issues.remarks_hint,
+                              initialValue: state.draft.remarks,
+                              onChanged: cubit.setRemarks,
+                            ),
                           ),
-                        ),
+                          if (hasAddOns)
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
+                              child: TextButton.icon(
+                                onPressed: () => context.push(
+                                  GuidedBookingRoutes.addOns,
+                                  extra: GuidedBookingStepArgs(cubit),
+                                ),
+                                icon: const Icon(Icons.add_circle_outline,
+                                    size: 18),
+                                label: Text(t.issues.add_ons_link),
+                                style: TextButton.styleFrom(
+                                  foregroundColor: Const.tosca,
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
-                  ],
-                ),
+              ),
+            ],
+          ),
           bottomNavigationBar: StickyBottomCta(
             label: t.cta.kContinue,
             onPressed: canContinue

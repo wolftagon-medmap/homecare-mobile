@@ -34,25 +34,23 @@ void main() {
   });
 
   group('BookingStepHeader', () {
-    testWidgets('shows the step counter and fills the progress bar',
-        (tester) async {
+    testWidgets('shows the title and the subtitle', (tester) async {
       await pump(
         tester,
         const BookingStepHeader(
           title: 'What can we help you with?',
-          subtitle: 'Pick everything that applies.',
-          step: 2,
+          subtitle: 'Choose one or more.',
         ),
       );
 
-      expect(find.text('Step 2 of 5'), findsOneWidget);
       expect(find.text('What can we help you with?'), findsOneWidget);
-      expect(find.text('Pick everything that applies.'), findsOneWidget);
+      expect(find.text('Choose one or more.'), findsOneWidget);
     });
 
-    testWidgets('hides the counter off the counted flow', (tester) async {
+    testWidgets('carries no step counter', (tester) async {
       await pump(tester, const BookingStepHeader(title: 'Add-on services'));
 
+      expect(find.text('Add-on services'), findsOneWidget);
       expect(find.textContaining('Step'), findsNothing);
     });
   });

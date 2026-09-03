@@ -1,7 +1,6 @@
 {
   "starting_from": "Mulai dari {price}",
   "from_price": "dari {price}",
-  "step_of": "Langkah {current} dari {total}",
   "empty_title": "Belum ada apa-apa di sini",
   "error_title": "Terjadi kesalahan",
   "retry": "Coba lagi",
