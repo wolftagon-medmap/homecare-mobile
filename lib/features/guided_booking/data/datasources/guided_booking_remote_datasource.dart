@@ -93,7 +93,7 @@ class BookingAddressRemoteDataSource implements BookingAddressDataSource {
   @override
   Future<List<AddressModel>> fetchVisitAddresses() async {
     final response = await dio.get(
-      '${Const.URL_API_V2}/addresses',
+      '${Const.URL_API}/addresses',
       options: Options(headers: await _authHeaders()),
     );
     return _unwrapList(response.data).map(AddressModel.fromJson).toList();
