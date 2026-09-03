@@ -82,56 +82,57 @@ class _ChatComposerState extends State<ChatComposer> {
   Widget build(BuildContext context) {
     if (!widget.enabled) return const _ClosedNotice();
 
-    return Container(
-      padding: EdgeInsets.only(
-        left: 12,
-        right: 12,
-        top: 8,
-        bottom: 8 + MediaQuery.paddingOf(context).bottom,
-      ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        border: Border(top: BorderSide(color: Const.borderSubtle)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          if (widget.actions.isNotEmpty) ...[
-            _ActionsButton(onTap: _openActions),
-            const SizedBox(width: 8),
-          ],
-          Expanded(
-            child: TextField(
-              controller: _controller,
-              minLines: 1,
-              maxLines: 4,
-              textCapitalization: TextCapitalization.sentences,
-              // Return breaks the line. A message is sent by the button,
-              // because a chat message is often more than one sentence and half
-              // of one sent by accident cannot be taken back.
-              textInputAction: TextInputAction.newline,
-              keyboardType: TextInputType.multiline,
-              decoration: InputDecoration(
-                hintText: widget.hint,
-                hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
-                filled: true,
-                fillColor: Const.surfaceMuted,
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(22),
-                  borderSide: BorderSide.none,
+    // SafeArea rather than a hand-added inset: sitting in the body, the bar has
+    // to clear the gesture area when the keyboard is down and nothing when it
+    // is up, which is exactly what SafeArea already knows.
+    return SafeArea(
+      top: false,
+      child: Container(
+        padding: const EdgeInsets.only(left: 12, right: 12, top: 8, bottom: 8),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          border: Border(top: BorderSide(color: Const.borderSubtle)),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            if (widget.actions.isNotEmpty) ...[
+              _ActionsButton(onTap: _openActions),
+              const SizedBox(width: 8),
+            ],
+            Expanded(
+              child: TextField(
+                controller: _controller,
+                minLines: 1,
+                maxLines: 4,
+                textCapitalization: TextCapitalization.sentences,
+                // Return breaks the line. A message is sent by the button,
+                // because a chat message is often more than one sentence and half
+                // of one sent by accident cannot be taken back.
+                textInputAction: TextInputAction.newline,
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                  hintText: widget.hint,
+                  hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
+                  filled: true,
+                  fillColor: Const.surfaceMuted,
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(22),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(width: 8),
-          _SendButton(
-            enabled: _hasText && !widget.sending,
-            sending: widget.sending,
-            onTap: _send,
-          ),
-        ],
+            const SizedBox(width: 8),
+            _SendButton(
+              enabled: _hasText && !widget.sending,
+              sending: widget.sending,
+              onTap: _send,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -179,22 +180,21 @@ class _ClosedNotice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.only(
-        left: 16,
-        right: 16,
-        top: 14,
-        bottom: 14 + MediaQuery.paddingOf(context).bottom,
-      ),
-      decoration: const BoxDecoration(
-        color: Const.surfaceMuted,
-        border: Border(top: BorderSide(color: Const.borderSubtle)),
-      ),
-      child: Text(
-        'This conversation is closed.',
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 13, color: Colors.grey[600]),
+    return SafeArea(
+      top: false,
+      child: Container(
+        width: double.infinity,
+        padding:
+            const EdgeInsets.only(left: 16, right: 16, top: 14, bottom: 14),
+        decoration: const BoxDecoration(
+          color: Const.surfaceMuted,
+          border: Border(top: BorderSide(color: Const.borderSubtle)),
+        ),
+        child: Text(
+          'This conversation is closed.',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 13, color: Colors.grey[600]),
+        ),
       ),
     );
   }

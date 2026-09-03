@@ -44,23 +44,28 @@ class _PatientChatPageState extends State<PatientChatPage> {
         subtitle: widget.thread?.serviceLabel,
         avatar: counterpart?.avatar,
       ),
-      body: ThreadView(
-        counterpartUserId: counterpart?.userId,
-        canRespondToCards: true,
-        counterpartName: name,
-        serviceLabel: widget.thread?.serviceLabel ?? '',
-        threadContext: widget.thread?.context ?? const ThreadContext(),
-        openers: context.t.messaging.chat.openersPatient,
-      ),
-      bottomNavigationBar: BlocBuilder<ThreadCubit, ThreadState>(
-        buildWhen: (a, b) => a.sending != b.sending || a.draft != b.draft,
-        builder: (context, state) => ChatComposer(
-          enabled: !closed,
-          sending: state.sending,
-          hint: 'Message $name',
-          draft: state.draft,
-          onSend: (text) => context.read<ThreadCubit>().send(text),
-        ),
+      body: Column(
+        children: [
+          Expanded(
+              child: ThreadView(
+            counterpartUserId: counterpart?.userId,
+            canRespondToCards: true,
+            counterpartName: name,
+            serviceLabel: widget.thread?.serviceLabel ?? '',
+            threadContext: widget.thread?.context ?? const ThreadContext(),
+            openers: context.t.messaging.chat.openersPatient,
+          )),
+          BlocBuilder<ThreadCubit, ThreadState>(
+            buildWhen: (a, b) => a.sending != b.sending || a.draft != b.draft,
+            builder: (context, state) => ChatComposer(
+              enabled: !closed,
+              sending: state.sending,
+              hint: 'Message $name',
+              draft: state.draft,
+              onSend: (text) => context.read<ThreadCubit>().send(text),
+            ),
+          ),
+        ],
       ),
     );
   }

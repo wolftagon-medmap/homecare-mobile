@@ -68,30 +68,35 @@ class _ProfessionalChatPageState extends State<ProfessionalChatPage> {
         subtitle: widget.thread?.serviceLabel,
         avatar: counterpart?.avatar,
       ),
-      body: ThreadView(
-        counterpartUserId: counterpart?.userId,
-        canRespondToCards: false,
-        counterpartName: name,
-        serviceLabel: widget.thread?.serviceLabel ?? '',
-        threadContext: widget.thread?.context ?? const ThreadContext(),
-        openers: context.t.messaging.chat.openersProfessional,
-      ),
-      bottomNavigationBar: BlocBuilder<ThreadCubit, ThreadState>(
-        buildWhen: (a, b) => a.sending != b.sending || a.draft != b.draft,
-        builder: (context, state) => ChatComposer(
-          enabled: !closed,
-          sending: state.sending,
-          hint: 'Message $name',
-          draft: state.draft,
-          onSend: (text) => context.read<ThreadCubit>().send(text),
-          actions: [
-            ComposerAction(
-              icon: Icons.event_repeat,
-              label: 'Suggest another time',
-              onTap: state.sending ? null : _suggestAnotherTime,
+      body: Column(
+        children: [
+          Expanded(
+              child: ThreadView(
+            counterpartUserId: counterpart?.userId,
+            canRespondToCards: false,
+            counterpartName: name,
+            serviceLabel: widget.thread?.serviceLabel ?? '',
+            threadContext: widget.thread?.context ?? const ThreadContext(),
+            openers: context.t.messaging.chat.openersProfessional,
+          )),
+          BlocBuilder<ThreadCubit, ThreadState>(
+            buildWhen: (a, b) => a.sending != b.sending || a.draft != b.draft,
+            builder: (context, state) => ChatComposer(
+              enabled: !closed,
+              sending: state.sending,
+              hint: 'Message $name',
+              draft: state.draft,
+              onSend: (text) => context.read<ThreadCubit>().send(text),
+              actions: [
+                ComposerAction(
+                  icon: Icons.event_repeat,
+                  label: 'Suggest another time',
+                  onTap: state.sending ? null : _suggestAnotherTime,
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
