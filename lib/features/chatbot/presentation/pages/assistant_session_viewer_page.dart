@@ -5,7 +5,6 @@ import 'package:m2health/features/chatbot/presentation/bloc/assistant_cubit.dart
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_state.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_block_view.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_privacy_label.dart';
-import 'package:m2health/features/chatbot/presentation/widgets/assistant_safety_note.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_theme.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
@@ -84,7 +83,6 @@ class _AssistantSessionViewerPageState
                     ),
                   ),
                 ),
-                const AssistantSafetyNote(),
                 const SizedBox(height: 12),
               ],
             ),

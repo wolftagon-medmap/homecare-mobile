@@ -106,7 +106,6 @@ class _TranslationsChatbotId implements TranslationsChatbotEn {
 	@override String get send => 'Kirim';
 	@override String get privacyLabel => '(Privasi HIPAA)';
 	@override String get privacyDetail => 'Percakapan Anda bersifat pribadi. Detail kesehatan dienkripsi dan ditangani sesuai Kebijakan Privasi kami (selaras PDPA / HIPAA). Anda dapat meninjau atau menghapus obrolan ini kapan saja.';
-	@override String get disclaimerBody => 'Asisten AI ini hanya memberikan informasi umum dan tidak menggantikan nasihat, diagnosis, atau pengobatan medis profesional. Jika Anda mengalami keadaan darurat medis, segera cari pertolongan medis.';
 	@override String get errorTitle => 'Asisten sedang tidak tersedia';
 	@override String get retry => 'Coba lagi';
 	@override String get history => 'Riwayat percakapan';
@@ -1537,7 +1536,6 @@ extension on TranslationsId {
 			'chatbot.send' => 'Kirim',
 			'chatbot.privacyLabel' => '(Privasi HIPAA)',
 			'chatbot.privacyDetail' => 'Percakapan Anda bersifat pribadi. Detail kesehatan dienkripsi dan ditangani sesuai Kebijakan Privasi kami (selaras PDPA / HIPAA). Anda dapat meninjau atau menghapus obrolan ini kapan saja.',
-			'chatbot.disclaimerBody' => 'Asisten AI ini hanya memberikan informasi umum dan tidak menggantikan nasihat, diagnosis, atau pengobatan medis profesional. Jika Anda mengalami keadaan darurat medis, segera cari pertolongan medis.',
 			'chatbot.errorTitle' => 'Asisten sedang tidak tersedia',
 			'chatbot.retry' => 'Coba lagi',
 			'chatbot.history' => 'Riwayat percakapan',

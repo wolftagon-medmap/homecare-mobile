@@ -106,7 +106,6 @@ class _TranslationsChatbotZh implements TranslationsChatbotEn {
 	@override String get send => '发送';
 	@override String get privacyLabel => '（HIPAA 隐私）';
 	@override String get privacyDetail => '你的对话是私密的。健康信息经过加密，并按照我们的隐私政策（符合 PDPA / HIPAA）处理。你可以随时查看或删除此对话。';
-	@override String get disclaimerBody => '此 AI 助手仅提供一般信息，不能取代专业的医疗建议、诊断或治疗。如遇医疗紧急情况，请立即就医。';
 	@override String get errorTitle => '助手暂时无法使用';
 	@override String get retry => '重试';
 	@override String get history => '对话记录';
@@ -1537,7 +1536,6 @@ extension on TranslationsZh {
 			'chatbot.send' => '发送',
 			'chatbot.privacyLabel' => '（HIPAA 隐私）',
 			'chatbot.privacyDetail' => '你的对话是私密的。健康信息经过加密，并按照我们的隐私政策（符合 PDPA / HIPAA）处理。你可以随时查看或删除此对话。',
-			'chatbot.disclaimerBody' => '此 AI 助手仅提供一般信息，不能取代专业的医疗建议、诊断或治疗。如遇医疗紧急情况，请立即就医。',
 			'chatbot.errorTitle' => '助手暂时无法使用',
 			'chatbot.retry' => '重试',
 			'chatbot.history' => '对话记录',

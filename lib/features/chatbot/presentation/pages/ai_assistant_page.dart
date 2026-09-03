@@ -13,7 +13,6 @@ import 'package:m2health/features/chatbot/presentation/widgets/assistant_bubbles
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_composer.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_hero.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_privacy_label.dart';
-import 'package:m2health/features/chatbot/presentation/widgets/assistant_safety_note.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_theme.dart';
 import 'package:m2health/features/chatbot_legacy/presentation/widgets/ai_data_consent.dart';
 import 'package:m2health/i18n/translations.g.dart';
@@ -248,7 +247,6 @@ class _Conversation extends StatelessWidget {
             itemBuilder: (context, index) => items[index],
           ),
         ),
-        const AssistantSafetyNote(),
         AssistantComposer(
           hint: _isWelcome ? t.composerHintWelcome : t.composerHint,
           onSend: cubit.sendText,

@@ -358,28 +358,6 @@ void main() {
       await cubit.close();
     });
 
-    testWidgets('the medical disclaimer is legible without any interaction',
-        (tester) async {
-      tester.view.physicalSize = const Size(1080, 2400);
-      tester.view.devicePixelRatio = 3;
-      addTearDown(tester.view.reset);
-
-      final cubit = buildCubit();
-      await pumpPage(tester, cubit);
-
-      final disclaimer = find.text(
-        'This AI Assistant provides general information only and does not '
-        'replace professional medical advice, diagnosis or treatment. If you '
-        'have a medical emergency, please seek urgent medical care.',
-      );
-
-      expect(disclaimer, findsOneWidget);
-      final text = tester.widget<Text>(disclaimer);
-      expect(text.maxLines, isNull, reason: 'the disclosure must not truncate');
-      expect(text.overflow, isNot(TextOverflow.ellipsis));
-      await cubit.close();
-    });
-
     testWidgets('the privacy label reveals its detail on tap', (tester) async {
       tester.view.physicalSize = const Size(1080, 2400);
       tester.view.devicePixelRatio = 3;
