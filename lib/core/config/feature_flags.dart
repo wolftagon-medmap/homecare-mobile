@@ -14,8 +14,6 @@ enum Feature {
   bookingSubmit,
   bookingDraft,
   bookingAddresses,
-  // Navigation, not a data source: on = the guided flow, off = the legacy
-  // per-service pages.
   guidedBookingFlow,
 
   // A2 — messaging and counter-propose
@@ -34,8 +32,6 @@ enum Feature {
 
   // A5 — health profile
   healthProfileSections,
-  // Navigation, not a data source: on = the sectioned health profile, off =
-  // the existing per-form profile screens.
   healthProfileFlow,
 }
 
@@ -53,11 +49,18 @@ enum FeatureOwner {
 
 /// Where a resolved flag value came from. Shown on the debug screen so a wrong
 /// value is diagnosable without a debugger.
-enum FlagSource { compileTimeDefault, debugOverride, server }
+enum FlagSource { bootstrap, debugOverride, server }
 
 extension FeatureMeta on Feature {
   /// Storage and wire key. Stable — the server contract depends on it.
   String get key => name;
+
+  /// Picks a screen rather than a data source, so it bootstraps ON: a fresh
+  /// install with no network must still render the flow.
+  bool get isNavigation => switch (this) {
+        Feature.guidedBookingFlow || Feature.healthProfileFlow => true,
+        _ => false,
+      };
 
   FeatureOwner get owner => switch (this) {
         Feature.issueCatalogue ||
@@ -122,12 +125,13 @@ extension FeatureMeta on Feature {
 /// );
 /// ```
 ///
-/// Resolution order, later source wins:
+/// Resolution order, first match wins:
 ///
-/// 1. compile-time default — every feature is local
-/// 2. debug override — the toggle screen, debug builds only
-/// 3. server — `GET /flags`, a seam today; [refreshFromServer] is never called
-///    at startup because the endpoint does not exist yet
+/// 1. debug override — the toggle screen, debug builds only
+/// 2. server — what `GET /v1/flags` last said, in memory this run or restored
+///    from the previous run by [init]
+/// 3. bootstrap — [FeatureMeta.isNavigation]. The app carries no flag config of
+///    its own; the backend owns the values.
 ///
 /// A flag read at DI time is fixed for the process; a flag read at call time
 /// follows the toggle immediately. The debug screen says which is which.
@@ -137,31 +141,12 @@ class AppFlags {
   static const String _prefsPrefix = 'feature_flag_override.';
   static const String _serverPrefix = 'flag_server.';
 
-  /// Every feature ships local. Flipping one flag is the whole backend cutover.
-  static const Map<Feature, bool> _compileTimeDefaults = {
-    Feature.issueCatalogue: false,
-    Feature.bookingProfessionals: false,
-    Feature.bookingSubmit: false,
-    Feature.bookingDraft: false,
-    Feature.bookingAddresses: false,
-    Feature.guidedBookingFlow: true,
-    Feature.messageThreads: false,
-    Feature.messageStream: false,
-    Feature.timeProposal: false,
-    Feature.servicePricing: false,
-    Feature.professionalPricing: false,
-    Feature.estimateCalculation: false,
-    Feature.estimateRevision: false,
-    Feature.chatbotResponses: false,
-    Feature.healthProfileSections: false,
-    Feature.healthProfileFlow: true,
-  };
-
   static SharedPreferences? _prefs;
   static final Map<Feature, bool> _debugOverrides = {};
   static final Map<Feature, bool> _serverFlags = {};
 
-  /// Loads persisted debug overrides. Called once from `setupLocator()`.
+  /// Loads the persisted server answer and any debug overrides, synchronously
+  /// enough that a cold start never waits on the network. From `setupLocator()`.
   static Future<void> init(SharedPreferences prefs) async {
     _prefs = prefs;
     _debugOverrides.clear();
@@ -179,9 +164,9 @@ class AppFlags {
 
   /// True when this data source should hit the backend.
   static bool remote(Feature feature) => switch (sourceOf(feature)) {
-        FlagSource.server => _serverFlags[feature]!,
         FlagSource.debugOverride => _debugOverrides[feature]!,
-        FlagSource.compileTimeDefault => _compileTimeDefaults[feature] ?? false,
+        FlagSource.server => _serverFlags[feature]!,
+        FlagSource.bootstrap => bootstrapOf(feature),
       };
 
   static FlagSource sourceOf(Feature feature) {
@@ -191,11 +176,12 @@ class AppFlags {
       return FlagSource.debugOverride;
     }
     if (_serverFlags.containsKey(feature)) return FlagSource.server;
-    return FlagSource.compileTimeDefault;
+    return FlagSource.bootstrap;
   }
 
-  static bool defaultOf(Feature feature) =>
-      _compileTimeDefaults[feature] ?? false;
+  /// The only flag value the app decides for itself, used until the server
+  /// answers: a navigation flag is on, everything else falls back to fixtures.
+  static bool bootstrapOf(Feature feature) => feature.isNavigation;
 
   static bool? overrideOf(Feature feature) =>
       kDebugMode ? _debugOverrides[feature] : null;
@@ -221,8 +207,8 @@ class AppFlags {
     }
   }
 
-  /// The `GET /flags` seam. Not wired into startup — the endpoint does not
-  /// exist, and a hang here would cost a cold start. Fails open on anything.
+  /// Fetches `GET /v1/flags`. Called unawaited after [init], so a cold start
+  /// never waits on it. Fails open on anything, keeping the persisted answer.
   static Future<void> refreshFromServer(FeatureFlagsRemoteSource source) async {
     try {
       await applyServerFlags(await source.fetch());
@@ -231,7 +217,6 @@ class AppFlags {
     }
   }
 
-  /// Test/debug hook. Drops anything the server said.
   /// Stores what the server said and persists it, so the next cold start has an
   /// answer before the network does.
   @visibleForTesting

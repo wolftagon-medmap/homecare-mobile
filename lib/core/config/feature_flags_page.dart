@@ -68,7 +68,8 @@ class _Explainer extends StatelessWidget {
       color: Const.surfaceMuted,
       padding: const EdgeInsets.all(16),
       child: const Text(
-        'Off = fixtures, on = backend. Everything ships off.\n\n'
+        'Off = fixtures, on = backend. The server owns these values; an '
+        'override here wins over it until you reset.\n\n'
         'Data sources resolved at startup only pick this up after a restart. '
         'Anything read at call time changes straight away.',
         style: TextStyle(fontSize: 13, color: Const.contentTextColor),
@@ -115,7 +116,7 @@ class _FlagTile extends StatelessWidget {
       value: isRemote,
       onChanged: (value) => onChanged(
         feature,
-        value == AppFlags.defaultOf(feature) ? null : value,
+        value == AppFlags.bootstrapOf(feature) ? null : value,
       ),
       activeThumbColor: Const.aqua,
       title: Text(
@@ -134,7 +135,7 @@ class _FlagTile extends StatelessWidget {
   }
 
   String _sourceLabel(FlagSource source) => switch (source) {
-        FlagSource.compileTimeDefault => 'default',
+        FlagSource.bootstrap => 'bootstrap',
         FlagSource.debugOverride => 'overridden here',
         FlagSource.server => 'set by server',
       };
