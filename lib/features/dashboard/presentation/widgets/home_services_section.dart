@@ -33,36 +33,43 @@ class HomeServicesSection extends StatelessWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    t.section_title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: DashboardPalette.navy,
-                      fontSize: 21,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    t.section_subtitle,
-                    style: const TextStyle(
-                      color: DashboardPalette.muted,
-                      fontSize: 12.5,
-                      height: 1.35,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
                   Row(
                     children: [
-                      const _LayoutToggle(),
-                      const SizedBox(width: 12),
                       Expanded(
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: _ViewAllButton(label: t.view_all),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              t.section_title,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: DashboardPalette.navy,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              t.section_subtitle,
+                              style: const TextStyle(
+                                color: DashboardPalette.muted,
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
+                      // const SizedBox(height: 12),
+                      const _LayoutToggle(),
+                      const SizedBox(width: 4),
+                      _ViewAllButton(label: t.view_all),
+                      // Expanded(
+                      //   child: Align(
+                      //     alignment: Alignment.centerRight,
+                      //     child: _ViewAllButton(label: t.view_all),
+                      //   ),
+                      // ),
                     ],
                   ),
                   const SizedBox(height: 16),
@@ -136,7 +143,7 @@ class _ViewAllButton extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: DashboardPalette.link,
-                fontSize: 11.5,
+                fontSize: 11,
                 fontWeight: FontWeight.w600,
               ),
             ),
