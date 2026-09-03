@@ -1,7 +1,8 @@
 /// Shared chrome for the guided booking flow, messaging and pricing screens.
 ///
-/// Owned by A0 — consume it, don't edit it. If one of these needs to change,
-/// ask, so the change lands once for everyone.
+/// Owned by the orchestrator — consume it, don't edit it. If one of these needs
+/// to change, ask, so the change lands once for everyone. The one exception: an
+/// agent may delete what its own change orphans here, tests included.
 ///
 /// ```dart
 /// import 'package:m2health/core/presentation/widgets/booking/booking.dart';
