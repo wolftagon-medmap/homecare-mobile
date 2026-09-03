@@ -10,6 +10,7 @@ import 'package:m2health/features/appointment/data/models/patient_inbox_item.dar
 import 'package:m2health/features/appointment/widgets/booking_card.dart';
 import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
+import 'package:m2health/core/messaging/thread_index_cubit.dart';
 import 'package:m2health/core/messaging/thread_ref.dart';
 import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
 import 'package:m2health/route/app_routes.dart';
@@ -26,6 +27,12 @@ class PatientInboxTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<PatientInboxCubit, PatientInboxState>(
       listener: (context, state) {
+        if (state is PatientInboxLoaded) {
+          // A booking sent moments ago already has a thread on the server, but
+          // this app's index was built before it existed — so the card's chat
+          // entry would render nothing until something else refreshed it.
+          context.read<ThreadIndexCubit>().refresh();
+        }
         if (state is PatientInboxActionSucceed) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()

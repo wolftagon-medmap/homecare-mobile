@@ -211,7 +211,6 @@ class M2HealthApp extends StatelessWidget {
       ],
       child: BlocBuilder<LocaleCubit, AppLocale>(builder: (context, locale) {
         return MaterialApp.router(
-          useInheritedMediaQuery: true,
           scaffoldMessengerKey: rootScaffoldMessengerKey,
           debugShowCheckedModeBanner: false,
           title: 'm2health',

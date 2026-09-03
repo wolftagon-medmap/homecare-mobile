@@ -87,7 +87,7 @@ class _ChatComposerState extends State<ChatComposer> {
         left: 12,
         right: 12,
         top: 8,
-        bottom: 8 + MediaQuery.viewPaddingOf(context).bottom,
+        bottom: 8 + MediaQuery.paddingOf(context).bottom,
       ),
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -106,8 +106,11 @@ class _ChatComposerState extends State<ChatComposer> {
               minLines: 1,
               maxLines: 4,
               textCapitalization: TextCapitalization.sentences,
-              textInputAction: TextInputAction.send,
-              onSubmitted: (_) => _send(),
+              // Return breaks the line. A message is sent by the button,
+              // because a chat message is often more than one sentence and half
+              // of one sent by accident cannot be taken back.
+              textInputAction: TextInputAction.newline,
+              keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
                 hintText: widget.hint,
                 hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
@@ -182,7 +185,7 @@ class _ClosedNotice extends StatelessWidget {
         left: 16,
         right: 16,
         top: 14,
-        bottom: 14 + MediaQuery.viewPaddingOf(context).bottom,
+        bottom: 14 + MediaQuery.paddingOf(context).bottom,
       ),
       decoration: const BoxDecoration(
         color: Const.surfaceMuted,
