@@ -13,7 +13,10 @@ abstract class BookingProfessionalDataSource {
     int? addressId,
   });
 
-  Future<List<BookingDayModel>> fetchAvailability(int professionalId);
+  Future<List<BookingDayModel>> fetchAvailability(
+    int professionalId, {
+    required String category,
+  });
 }
 
 abstract class BookingSubmissionDataSource {
@@ -23,4 +26,10 @@ abstract class BookingSubmissionDataSource {
 
 abstract class BookingAddressDataSource {
   Future<List<AddressModel>> fetchVisitAddresses();
+}
+
+abstract class BookingDraftDataSource {
+  Future<GuidedBookingDraft?> load(String category);
+  Future<void> save(GuidedBookingDraft draft);
+  Future<void> clear(String category);
 }

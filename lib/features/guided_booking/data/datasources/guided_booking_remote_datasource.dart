@@ -47,9 +47,13 @@ class BookingProfessionalRemoteDataSource
   }
 
   @override
-  Future<List<BookingDayModel>> fetchAvailability(int professionalId) async {
+  Future<List<BookingDayModel>> fetchAvailability(
+    int professionalId, {
+    required String category,
+  }) async {
     final response = await dio.get(
       '${Const.URL_API_V2}/guided-booking/professionals/$professionalId/availability',
+      queryParameters: {'category': category},
       options: Options(headers: await _authHeaders()),
     );
     return _unwrapList(response.data).map(BookingDayModel.fromJson).toList();
@@ -93,6 +97,42 @@ class BookingAddressRemoteDataSource implements BookingAddressDataSource {
       options: Options(headers: await _authHeaders()),
     );
     return _unwrapList(response.data).map(AddressModel.fromJson).toList();
+  }
+}
+
+class BookingDraftRemoteDataSource implements BookingDraftDataSource {
+  final Dio dio;
+
+  BookingDraftRemoteDataSource(this.dio);
+
+  @override
+  Future<GuidedBookingDraft?> load(String category) async {
+    final response = await dio.get(
+      '${Const.URL_API_V2}/guided-booking/draft',
+      queryParameters: {'category': category},
+      options: Options(headers: await _authHeaders()),
+    );
+    final data = (response.data as Map?)?['data'];
+    if (data is! Map<String, dynamic>) return null;
+    return GuidedBookingDraftModel.fromJson(data);
+  }
+
+  @override
+  Future<void> save(GuidedBookingDraft draft) async {
+    await dio.put(
+      '${Const.URL_API_V2}/guided-booking/draft',
+      data: draft.toJson(),
+      options: Options(headers: await _authHeaders()),
+    );
+  }
+
+  @override
+  Future<void> clear(String category) async {
+    await dio.delete(
+      '${Const.URL_API_V2}/guided-booking/draft',
+      queryParameters: {'category': category},
+      options: Options(headers: await _authHeaders()),
+    );
   }
 }
 
