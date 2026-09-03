@@ -234,7 +234,6 @@ class _Conversation extends StatelessWidget {
           onAct: cubit.act,
           onOpenSuggestion: cubit.openSuggestion,
         ),
-      if (_isWelcome) const AssistantBenefits(),
       const SizedBox(height: 8),
     ];
 

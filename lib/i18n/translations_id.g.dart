@@ -106,11 +106,6 @@ class _TranslationsChatbotId implements TranslationsChatbotEn {
 	@override String get send => 'Kirim';
 	@override String get privacyLabel => '(Privasi HIPAA)';
 	@override String get privacyDetail => 'Percakapan Anda bersifat pribadi. Detail kesehatan dienkripsi dan ditangani sesuai Kebijakan Privasi kami (selaras PDPA / HIPAA). Anda dapat meninjau atau menghapus obrolan ini kapan saja.';
-	@override String get benefitsTitle => 'Mengapa memakai Asisten AI M2Health?';
-	@override String get benefitUnderstand => 'Pahami keluhan Anda';
-	@override String get benefitExplain => 'Dapatkan penjelasan dengan bahasa sederhana';
-	@override String get benefitSaveTime => 'Hemat waktu dan kurangi tebak-tebakan';
-	@override String get benefitConnect => 'Terhubung ke perawatan yang tepat, lebih cepat';
 	@override String get disclaimerBody => 'Asisten AI ini hanya memberikan informasi umum dan tidak menggantikan nasihat, diagnosis, atau pengobatan medis profesional. Jika Anda mengalami keadaan darurat medis, segera cari pertolongan medis.';
 	@override String get errorTitle => 'Asisten sedang tidak tersedia';
 	@override String get retry => 'Coba lagi';
@@ -1542,11 +1537,6 @@ extension on TranslationsId {
 			'chatbot.send' => 'Kirim',
 			'chatbot.privacyLabel' => '(Privasi HIPAA)',
 			'chatbot.privacyDetail' => 'Percakapan Anda bersifat pribadi. Detail kesehatan dienkripsi dan ditangani sesuai Kebijakan Privasi kami (selaras PDPA / HIPAA). Anda dapat meninjau atau menghapus obrolan ini kapan saja.',
-			'chatbot.benefitsTitle' => 'Mengapa memakai Asisten AI M2Health?',
-			'chatbot.benefitUnderstand' => 'Pahami keluhan Anda',
-			'chatbot.benefitExplain' => 'Dapatkan penjelasan dengan bahasa sederhana',
-			'chatbot.benefitSaveTime' => 'Hemat waktu dan kurangi tebak-tebakan',
-			'chatbot.benefitConnect' => 'Terhubung ke perawatan yang tepat, lebih cepat',
 			'chatbot.disclaimerBody' => 'Asisten AI ini hanya memberikan informasi umum dan tidak menggantikan nasihat, diagnosis, atau pengobatan medis profesional. Jika Anda mengalami keadaan darurat medis, segera cari pertolongan medis.',
 			'chatbot.errorTitle' => 'Asisten sedang tidak tersedia',
 			'chatbot.retry' => 'Coba lagi',

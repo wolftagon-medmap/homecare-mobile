@@ -134,21 +134,6 @@ class TranslationsChatbotEn {
 	/// en: 'Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.'
 	String get privacyDetail => 'Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.';
 
-	/// en: 'Why use M2Health AI Assistant?'
-	String get benefitsTitle => 'Why use M2Health AI Assistant?';
-
-	/// en: 'Understand your concerns'
-	String get benefitUnderstand => 'Understand your concerns';
-
-	/// en: 'Get clear explanations in simple language'
-	String get benefitExplain => 'Get clear explanations in simple language';
-
-	/// en: 'Save time and reduce guesswork'
-	String get benefitSaveTime => 'Save time and reduce guesswork';
-
-	/// en: 'Connect to the right care, faster'
-	String get benefitConnect => 'Connect to the right care, faster';
-
 	/// en: 'This AI Assistant provides general information only and does not replace professional medical advice, diagnosis or treatment. If you have a medical emergency, please seek urgent medical care.'
 	String get disclaimerBody => 'This AI Assistant provides general information only and does not replace professional medical advice, diagnosis or treatment. If you have a medical emergency, please seek urgent medical care.';
 
@@ -2479,11 +2464,6 @@ extension on Translations {
 			'chatbot.send' => 'Send',
 			'chatbot.privacyLabel' => '(HIPAA Privacy)',
 			'chatbot.privacyDetail' => 'Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.',
-			'chatbot.benefitsTitle' => 'Why use M2Health AI Assistant?',
-			'chatbot.benefitUnderstand' => 'Understand your concerns',
-			'chatbot.benefitExplain' => 'Get clear explanations in simple language',
-			'chatbot.benefitSaveTime' => 'Save time and reduce guesswork',
-			'chatbot.benefitConnect' => 'Connect to the right care, faster',
 			'chatbot.disclaimerBody' => 'This AI Assistant provides general information only and does not replace professional medical advice, diagnosis or treatment. If you have a medical emergency, please seek urgent medical care.',
 			'chatbot.errorTitle' => 'The assistant is unavailable',
 			'chatbot.retry' => 'Try again',

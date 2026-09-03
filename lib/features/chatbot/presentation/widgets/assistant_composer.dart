@@ -165,7 +165,14 @@ class _AssistantComposerState extends State<AssistantComposer> {
                       fontSize: 14,
                     ),
                     decoration: InputDecoration(
+                      // The pill around this row is the only border. The app
+                      // theme sets an `enabledBorder`, which outranks `border`
+                      // and drew a second box inside the first — every state
+                      // has to be cleared, not just the default.
                       border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
                       isDense: true,
                       contentPadding: const EdgeInsets.symmetric(vertical: 13),
                       hintText: isTranscribing ? t.transcribing : widget.hint,
