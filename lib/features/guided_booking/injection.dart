@@ -13,27 +13,19 @@ import 'package:m2health/features/guided_booking/presentation/bloc/guided_bookin
 
 void initGuidedBookingModule(GetIt sl) {
   sl.registerLazySingleton<IssueCatalogueDataSource>(
-    () => AppFlags.remote(Feature.issueCatalogue)
-        ? IssueCatalogueRemoteDataSource(sl<Dio>())
-        : IssueCatalogueLocalDataSource(),
+    () => IssueCatalogueRemoteDataSource(sl<Dio>()),
   );
 
   sl.registerLazySingleton<BookingProfessionalDataSource>(
-    () => AppFlags.remote(Feature.bookingProfessionals)
-        ? BookingProfessionalRemoteDataSource(sl<Dio>())
-        : BookingProfessionalLocalDataSource(),
+    () => BookingProfessionalRemoteDataSource(sl<Dio>()),
   );
 
   sl.registerLazySingleton<BookingSubmissionDataSource>(
-    () => AppFlags.remote(Feature.bookingSubmit)
-        ? BookingSubmissionRemoteDataSource(sl<Dio>())
-        : BookingSubmissionLocalDataSource(),
+    () => BookingSubmissionRemoteDataSource(sl<Dio>()),
   );
 
   sl.registerLazySingleton<BookingAddressDataSource>(
-    () => AppFlags.remote(Feature.bookingAddresses)
-        ? BookingAddressRemoteDataSource(sl<Dio>())
-        : BookingAddressLocalDataSource(),
+    () => BookingAddressRemoteDataSource(sl<Dio>()),
   );
 
   sl.registerLazySingleton<BookingDraftDataSource>(
