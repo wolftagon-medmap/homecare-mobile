@@ -107,6 +107,22 @@ void main() {
     expect(other.state.selection('family_conditions'), isEmpty);
   });
 
+  test('an answer hidden by its condition never reaches the record', () async {
+    final cubit = cubitFor('my_lifestyle');
+    await cubit.load();
+    final smoking = questionOf(cubit, 'smoke_or_vape');
+
+    cubit.selectOne(smoking, 'daily');
+    cubit.selectOne(questionOf(cubit, 'cigarettes_per_day'), '11_20');
+    expect(cubit.state.answers['cigarettes_per_day'], '11_20');
+
+    cubit.selectOne(smoking, 'no');
+
+    final saved = await cubit.save();
+    expect(saved!.answers.containsKey('cigarettes_per_day'), isFalse);
+    expect(cubit.state.isDirty, isFalse);
+  });
+
   test('an attachment id lands under the question it belongs to', () async {
     final cubit = cubitFor('my_health');
     await cubit.load();

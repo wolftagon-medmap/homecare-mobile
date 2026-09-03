@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
 
-/// The PDF's `+ Add another condition`, and the free text behind "Other".
-/// Collapsed to a link until tapped, so it never competes with the real options.
 class CustomValueField extends StatefulWidget {
   const CustomValueField({
     super.key,

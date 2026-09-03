@@ -9,8 +9,6 @@ import 'package:m2health/features/health_profile/presentation/widgets/section_te
 import 'package:m2health/features/health_profile/presentation/widgets/single_choice_field.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
-/// Renders a section's questions from its schema. Every answer rule lives in
-/// [HealthSectionCubit]; this only draws what the state already decided.
 class QuestionForm extends StatelessWidget {
   const QuestionForm({super.key, required this.cubit, required this.state});
 

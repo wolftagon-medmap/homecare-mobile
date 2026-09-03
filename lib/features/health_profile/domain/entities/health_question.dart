@@ -79,7 +79,6 @@ class HealthQuestion extends Equatable {
   bool isExclusive(String optionCode) =>
       options.any((option) => option.code == optionCode && option.exclusive);
 
-  /// An answer the option list does not contain is one the user typed.
   bool isCustomValue(String value) =>
       allowsCustom && !options.any((option) => option.code == value);
 

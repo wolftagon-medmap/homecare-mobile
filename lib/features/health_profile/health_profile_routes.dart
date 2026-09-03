@@ -45,8 +45,6 @@ class HealthProfileRoutes {
     ),
   ];
 
-  /// A deep link carries no profile, so the section falls back to whichever
-  /// family member the app is currently acting for.
   static int? _activeProfileId(BuildContext context) {
     try {
       return context.read<PatientProfileCubit>().activeProfile?.id;

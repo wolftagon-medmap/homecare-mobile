@@ -51,7 +51,6 @@ class HealthSection extends Equatable {
     this.updatedAt,
   });
 
-  /// Questions whose `enable_when` is satisfied by the answers given so far.
   List<HealthQuestion> visibleFor(Map<String, dynamic> current) {
     return questions.where((question) {
       final rule = question.enableWhen;

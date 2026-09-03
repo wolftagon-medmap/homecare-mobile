@@ -70,8 +70,6 @@ class HealthProfileLocalDataSource implements HealthProfileDataSource {
   }
 }
 
-/// Fixture uploads never leave the device, so the id is a local counter and the
-/// file is only remembered for the life of the process.
 class HealthAttachmentLocalDataSource implements HealthAttachmentDataSource {
   int _nextId = 1;
 

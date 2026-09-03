@@ -13,6 +13,5 @@ abstract class HealthProfileDataSource {
 }
 
 abstract class HealthAttachmentDataSource {
-  /// Returns the stored file's id, which rides in the section's answers.
   Future<int> upload(String filePath);
 }

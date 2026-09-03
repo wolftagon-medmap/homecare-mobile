@@ -47,8 +47,6 @@ class HealthSectionCubit extends Cubit<HealthSectionState> {
     _write(question.code, current == optionCode ? '' : optionCode);
   }
 
-  /// Exclusive options and the rest of the list cannot coexist, so picking
-  /// either side clears the other.
   void toggleMany(HealthQuestion question, String optionCode) {
     final selected = List<String>.from(state.selection(question.code));
 
@@ -125,7 +123,7 @@ class HealthSectionCubit extends Cubit<HealthSectionState> {
 
     final result = await saveSection(
       code: code,
-      answers: state.answers,
+      answers: state.visibleAnswers,
       patientProfileId: patientProfileId,
     );
     if (isClosed) return null;

@@ -28,6 +28,5 @@ class HealthProfileCubit extends Cubit<HealthProfileState> {
     );
   }
 
-  /// Called when a section screen pops, so the list reflects a fresh save.
   Future<void> refresh() => load(_patientProfileId);
 }

@@ -21,13 +21,28 @@ class HealthSectionState extends Equatable {
     this.errorMessage,
   });
 
-  /// Questions whose `enable_when` is satisfied by what has been answered.
   List<HealthQuestion> get visibleQuestions =>
       section?.visibleFor(answers) ?? const [];
 
+  /// A question hidden by `enable_when` keeps its answer in state so it returns
+  /// if the condition comes back, but that answer must never reach the record.
+  Map<String, dynamic> get visibleAnswers {
+    final keep = <String>{};
+    for (final question in visibleQuestions) {
+      keep
+        ..add(question.code)
+        ..add(question.attachmentsKey);
+    }
+    return {
+      for (final entry in answers.entries)
+        if (keep.contains(entry.key)) entry.key: entry.value,
+    };
+  }
+
   bool get isDirty {
-    if (answers.length != savedAnswers.length) return true;
-    for (final entry in answers.entries) {
+    final visible = visibleAnswers;
+    if (visible.length != savedAnswers.length) return true;
+    for (final entry in visible.entries) {
       if (!_sameAnswer(entry.value, savedAnswers[entry.key])) return true;
     }
     return false;
