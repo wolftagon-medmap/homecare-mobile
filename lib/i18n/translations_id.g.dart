@@ -200,6 +200,9 @@ class _TranslationsHealthProfileId implements TranslationsHealthProfileEn {
 
 	// Translations
 	@override String get namespace_title => 'Profil kesehatan';
+	@override String get entry_tile => 'Profil kesehatan saya';
+	@override late final _TranslationsHealthProfileListId list = _TranslationsHealthProfileListId._(_root);
+	@override late final _TranslationsHealthProfileSectionId section = _TranslationsHealthProfileSectionId._(_root);
 }
 
 // Path: messaging
@@ -793,6 +796,43 @@ class _TranslationsGuidedBookingCtaId implements TranslationsGuidedBookingCtaEn 
 	// Translations
 	@override String get kContinue => 'Lanjut';
 	@override String get skip => 'Lewati';
+}
+
+// Path: healthProfile.list
+class _TranslationsHealthProfileListId implements TranslationsHealthProfileListEn {
+	_TranslationsHealthProfileListId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get subtitle => 'Perbarui hanya yang Anda inginkan. Semuanya bersifat opsional.';
+	@override String get not_started => 'Belum diisi';
+	@override String updated({required Object date}) => 'Diperbarui ${date}';
+	@override String get loading => 'Memuat profil kesehatan Anda';
+	@override String get empty => 'Belum ada bagian yang tersedia.';
+	@override String get error => 'Kami tidak dapat memuat profil kesehatan Anda.';
+}
+
+// Path: healthProfile.section
+class _TranslationsHealthProfileSectionId implements TranslationsHealthProfileSectionEn {
+	_TranslationsHealthProfileSectionId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get subtitle => 'Isi yang Anda bisa. Anda dapat kembali kapan saja.';
+	@override String get save => 'Simpan';
+	@override String get saved => 'Tersimpan';
+	@override String get save_failed => 'Kami tidak dapat menyimpan bagian ini.';
+	@override String get loading => 'Memuat bagian ini';
+	@override String get error => 'Kami tidak dapat memuat bagian ini.';
+	@override String get add_other => 'Tambah lainnya';
+	@override String get add_attachment => 'Tambah lampiran';
+	@override String attachment({required Object n}) => 'Laporan ${n}';
+	@override String get discard_title => 'Buang perubahan Anda?';
+	@override String get discard_body => 'Bagian ini memiliki perubahan yang belum disimpan.';
+	@override String get discard => 'Buang';
+	@override String get keep_editing => 'Lanjut mengisi';
 }
 
 // Path: messaging.timeProposal
@@ -1600,6 +1640,26 @@ extension on TranslationsId {
 			'guidedBooking.cta.kContinue' => 'Lanjut',
 			'guidedBooking.cta.skip' => 'Lewati',
 			'healthProfile.namespace_title' => 'Profil kesehatan',
+			'healthProfile.entry_tile' => 'Profil kesehatan saya',
+			'healthProfile.list.subtitle' => 'Perbarui hanya yang Anda inginkan. Semuanya bersifat opsional.',
+			'healthProfile.list.not_started' => 'Belum diisi',
+			'healthProfile.list.updated' => ({required Object date}) => 'Diperbarui ${date}',
+			'healthProfile.list.loading' => 'Memuat profil kesehatan Anda',
+			'healthProfile.list.empty' => 'Belum ada bagian yang tersedia.',
+			'healthProfile.list.error' => 'Kami tidak dapat memuat profil kesehatan Anda.',
+			'healthProfile.section.subtitle' => 'Isi yang Anda bisa. Anda dapat kembali kapan saja.',
+			'healthProfile.section.save' => 'Simpan',
+			'healthProfile.section.saved' => 'Tersimpan',
+			'healthProfile.section.save_failed' => 'Kami tidak dapat menyimpan bagian ini.',
+			'healthProfile.section.loading' => 'Memuat bagian ini',
+			'healthProfile.section.error' => 'Kami tidak dapat memuat bagian ini.',
+			'healthProfile.section.add_other' => 'Tambah lainnya',
+			'healthProfile.section.add_attachment' => 'Tambah lampiran',
+			'healthProfile.section.attachment' => ({required Object n}) => 'Laporan ${n}',
+			'healthProfile.section.discard_title' => 'Buang perubahan Anda?',
+			'healthProfile.section.discard_body' => 'Bagian ini memiliki perubahan yang belum disimpan.',
+			'healthProfile.section.discard' => 'Buang',
+			'healthProfile.section.keep_editing' => 'Lanjut mengisi',
 			'messaging.title' => 'Pesan',
 			'messaging.emptyTitle' => 'Belum ada percakapan',
 			'messaging.emptyBody' => 'Setelah Anda mengirim permintaan, Anda bisa berbicara dengan tenaga kesehatan di sini.',

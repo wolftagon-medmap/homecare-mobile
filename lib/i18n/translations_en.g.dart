@@ -323,6 +323,12 @@ class TranslationsHealthProfileEn {
 
 	/// en: 'Health profile'
 	String get namespace_title => 'Health profile';
+
+	/// en: 'My health profile'
+	String get entry_tile => 'My health profile';
+
+	late final TranslationsHealthProfileListEn list = TranslationsHealthProfileListEn._(_root);
+	late final TranslationsHealthProfileSectionEn section = TranslationsHealthProfileSectionEn._(_root);
 }
 
 // Path: messaging
@@ -1398,6 +1404,81 @@ class TranslationsGuidedBookingCtaEn {
 	String get skip => 'Skip';
 }
 
+// Path: healthProfile.list
+class TranslationsHealthProfileListEn {
+	TranslationsHealthProfileListEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Update only what you want. Everything here is optional.'
+	String get subtitle => 'Update only what you want. Everything here is optional.';
+
+	/// en: 'Not started'
+	String get not_started => 'Not started';
+
+	/// en: 'Updated {date}'
+	String updated({required Object date}) => 'Updated ${date}';
+
+	/// en: 'Loading your health profile'
+	String get loading => 'Loading your health profile';
+
+	/// en: 'No sections are available yet.'
+	String get empty => 'No sections are available yet.';
+
+	/// en: 'We could not load your health profile.'
+	String get error => 'We could not load your health profile.';
+}
+
+// Path: healthProfile.section
+class TranslationsHealthProfileSectionEn {
+	TranslationsHealthProfileSectionEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Answer what you can. You can come back any time.'
+	String get subtitle => 'Answer what you can. You can come back any time.';
+
+	/// en: 'Save'
+	String get save => 'Save';
+
+	/// en: 'Saved'
+	String get saved => 'Saved';
+
+	/// en: 'We could not save this section.'
+	String get save_failed => 'We could not save this section.';
+
+	/// en: 'Loading this section'
+	String get loading => 'Loading this section';
+
+	/// en: 'We could not load this section.'
+	String get error => 'We could not load this section.';
+
+	/// en: 'Add another'
+	String get add_other => 'Add another';
+
+	/// en: 'Add an attachment'
+	String get add_attachment => 'Add an attachment';
+
+	/// en: 'Report {n}'
+	String attachment({required Object n}) => 'Report ${n}';
+
+	/// en: 'Discard your changes?'
+	String get discard_title => 'Discard your changes?';
+
+	/// en: 'This section has unsaved changes.'
+	String get discard_body => 'This section has unsaved changes.';
+
+	/// en: 'Discard'
+	String get discard => 'Discard';
+
+	/// en: 'Keep editing'
+	String get keep_editing => 'Keep editing';
+}
+
 // Path: messaging.timeProposal
 class TranslationsMessagingTimeProposalEn {
 	TranslationsMessagingTimeProposalEn._(this._root);
@@ -2443,6 +2524,26 @@ extension on Translations {
 			'guidedBooking.cta.kContinue' => 'Continue',
 			'guidedBooking.cta.skip' => 'Skip',
 			'healthProfile.namespace_title' => 'Health profile',
+			'healthProfile.entry_tile' => 'My health profile',
+			'healthProfile.list.subtitle' => 'Update only what you want. Everything here is optional.',
+			'healthProfile.list.not_started' => 'Not started',
+			'healthProfile.list.updated' => ({required Object date}) => 'Updated ${date}',
+			'healthProfile.list.loading' => 'Loading your health profile',
+			'healthProfile.list.empty' => 'No sections are available yet.',
+			'healthProfile.list.error' => 'We could not load your health profile.',
+			'healthProfile.section.subtitle' => 'Answer what you can. You can come back any time.',
+			'healthProfile.section.save' => 'Save',
+			'healthProfile.section.saved' => 'Saved',
+			'healthProfile.section.save_failed' => 'We could not save this section.',
+			'healthProfile.section.loading' => 'Loading this section',
+			'healthProfile.section.error' => 'We could not load this section.',
+			'healthProfile.section.add_other' => 'Add another',
+			'healthProfile.section.add_attachment' => 'Add an attachment',
+			'healthProfile.section.attachment' => ({required Object n}) => 'Report ${n}',
+			'healthProfile.section.discard_title' => 'Discard your changes?',
+			'healthProfile.section.discard_body' => 'This section has unsaved changes.',
+			'healthProfile.section.discard' => 'Discard',
+			'healthProfile.section.keep_editing' => 'Keep editing',
 			'messaging.title' => 'Messages',
 			'messaging.emptyTitle' => 'No conversations yet',
 			'messaging.emptyBody' => 'When you send a booking request, you can talk to the professional here.',
