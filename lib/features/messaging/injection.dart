@@ -7,9 +7,12 @@ import 'package:m2health/core/messaging/thread_index_source.dart';
 import 'data/datasources/messaging_datasource.dart';
 import 'data/datasources/messaging_local_datasource.dart';
 import 'data/datasources/messaging_remote_datasource.dart';
+import 'data/datasources/thread_socket_client.dart';
+import 'data/datasources/thread_stream.dart';
 import 'data/repositories/messaging_repository_impl.dart';
 import 'domain/repositories/messaging_repository.dart';
 import 'data/thread_index_adapter.dart';
+import 'presentation/bloc/thread_activity_hub.dart';
 
 /// Dependency registrations for patient / professional messaging. Owned by A2.
 ///
@@ -46,5 +49,15 @@ void initMessagingModule(GetIt sl) {
   // thread read in one place clears its badge everywhere.
   sl.registerLazySingleton<ThreadIndexCubit>(
     () => ThreadIndexCubit(sl<ThreadIndexSource>()),
+  );
+
+  sl.registerLazySingleton<ThreadStream>(
+    () => AppFlags.remote(Feature.messageStream)
+        ? ThreadSocketClient(sl<Dio>())
+        : ThreadStreamLocal(),
+  );
+
+  sl.registerLazySingleton<ThreadActivityHub>(
+    () => ThreadActivityHub(sl<ThreadStream>(), sl<ThreadIndexCubit>()),
   );
 }
