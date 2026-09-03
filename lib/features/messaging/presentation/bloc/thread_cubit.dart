@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../domain/entities/chat_message.dart';
+import '../../domain/entities/thread_event.dart';
 import '../../domain/repositories/messaging_repository.dart';
 
 class ThreadState extends Equatable {
@@ -47,11 +50,23 @@ class ThreadCubit extends Cubit<ThreadState> {
   final MessagingRepository _repository;
   final int threadId;
 
-  ThreadCubit(this._repository, this.threadId) : super(const ThreadState());
+  StreamSubscription<ThreadEvent>? _activity;
 
-  Future<void> load() async {
-    emit(state.copyWith(loading: true, clearError: true));
+  ThreadCubit(this._repository, this.threadId, {Stream<ThreadEvent>? activity})
+      : super(const ThreadState()) {
+    _activity = activity
+        ?.where((event) => event.threadId == threadId)
+        .listen((_) => _reload());
+  }
+
+  Future<void> load() => _fetch(showSpinner: true);
+
+  Future<void> _reload() => _fetch(showSpinner: false);
+
+  Future<void> _fetch({required bool showSpinner}) async {
+    if (showSpinner) emit(state.copyWith(loading: true, clearError: true));
     final result = await _repository.loadMessages(threadId);
+    if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(loading: false, error: failure.message)),
       (messages) async {
@@ -67,6 +82,7 @@ class ThreadCubit extends Cubit<ThreadState> {
 
     emit(state.copyWith(sending: true, clearError: true));
     final result = await _repository.sendMessage(threadId, text);
+    if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(sending: false, error: failure.message)),
       (message) => emit(state.copyWith(
@@ -108,6 +124,7 @@ class ThreadCubit extends Cubit<ThreadState> {
   Future<void> _act(Future<dynamic> Function() action) async {
     emit(state.copyWith(sending: true, clearError: true));
     final result = await action();
+    if (isClosed) return;
     final failure = result.fold((f) => f, (_) => null);
 
     if (failure != null) {
@@ -116,6 +133,7 @@ class ThreadCubit extends Cubit<ThreadState> {
     }
 
     final reloaded = await _repository.loadMessages(threadId);
+    if (isClosed) return;
     reloaded.fold(
       (f) => emit(state.copyWith(sending: false, error: f.message)),
       (messages) => emit(state.copyWith(messages: messages, sending: false)),
@@ -128,4 +146,10 @@ class ThreadCubit extends Cubit<ThreadState> {
   }
 
   void clearError() => emit(state.copyWith(clearError: true));
+
+  @override
+  Future<void> close() async {
+    await _activity?.cancel();
+    return super.close();
+  }
 }

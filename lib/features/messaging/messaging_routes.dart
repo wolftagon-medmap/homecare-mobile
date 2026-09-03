@@ -10,6 +10,7 @@ import 'package:m2health/service_locator.dart';
 
 import 'domain/entities/message_thread.dart';
 import 'domain/repositories/messaging_repository.dart';
+import 'presentation/bloc/thread_activity_hub.dart';
 import 'presentation/bloc/thread_cubit.dart';
 import 'presentation/bloc/thread_list_cubit.dart';
 import 'presentation/pages/message_thread_list_page.dart';
@@ -33,7 +34,10 @@ class MessagingRoutes {
       parentNavigatorKey: rootNavigatorKey,
       path: entry,
       builder: (context, state) => BlocProvider(
-        create: (_) => ThreadListCubit(sl<MessagingRepository>()),
+        create: (_) => ThreadListCubit(
+          sl<MessagingRepository>(),
+          activity: sl<ThreadActivityHub>().events,
+        ),
         child: const MessageThreadListPage(),
       ),
       routes: [
@@ -58,7 +62,11 @@ class MessagingRoutes {
                 ?.counterpartName;
 
             return BlocProvider(
-              create: (_) => ThreadCubit(sl<MessagingRepository>(), threadId),
+              create: (_) => ThreadCubit(
+                sl<MessagingRepository>(),
+                threadId,
+                activity: sl<ThreadActivityHub>().events,
+              ),
               child: _ThreadHost(
                 threadId: threadId,
                 passed: passed,
