@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:flutter/foundation.dart';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
@@ -442,7 +442,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    if (!Platform.isIOS) ...[
+                    if (defaultTargetPlatform != TargetPlatform.iOS) ...[
                       Text(
                         context.t.auth.continue_with_alternative_text,
                         style: const TextStyle(

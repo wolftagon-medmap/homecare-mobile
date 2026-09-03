@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -84,7 +85,10 @@ void main() async {
   try {
     tz.initializeTimeZones();
     final String currentTimeZone =
-        (await FlutterTimezone.getLocalTimezone()).identifier;
+        (await FlutterTimezone.getLocalTimezone().timeout(
+      const Duration(seconds: 5),
+    ))
+            .identifier;
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
   } catch (e, st) {
     debugPrint('Timezone setup failed: $e\n$st');
@@ -93,13 +97,17 @@ void main() async {
   // Google OAuth setup
   try {
     final googleSource = sl<GoogleAuthSource>();
-    await googleSource.init();
+    await googleSource.init().timeout(const Duration(seconds: 5));
   } catch (e, st) {
     debugPrint('GoogleAuthSource init failed: $e\n$st');
   }
 
   final localeCubit = LocaleCubit();
-  await localeCubit.loadSavedLocale();
+  try {
+    await localeCubit.loadSavedLocale();
+  } catch (e) {
+    debugPrint('loadSavedLocale failed: $e');
+  }
 
   WidgetsBinding.instance.addPostFrameCallback((_) => _checkForAppUpdate());
 
@@ -109,11 +117,12 @@ void main() async {
       enabled: false,
       tools: [
         ...DevicePreview.defaultTools,
-        DevicePreviewScreenshot(
-            onScreenshot: screenshotAsFiles(
-          // Save screenshots to the 'screenshots' directory in the app's documents directory
-          Directory('${Directory.current.path}/screenshots'),
-        )),
+        // dart:io Directory is unsupported on web and throws during startup.
+        if (!kIsWeb)
+          DevicePreviewScreenshot(
+              onScreenshot: screenshotAsFiles(
+            Directory('${Directory.current.path}/screenshots'),
+          )),
       ],
       builder: (context) => TranslationProvider(
         child: MultiBlocProvider(

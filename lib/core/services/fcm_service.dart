@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:flutter/foundation.dart';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -46,7 +46,8 @@ class FcmService {
     final fcmToken = await FirebaseMessaging.instance.getToken();
     if (fcmToken == null) return;
 
-    final platform = Platform.isAndroid ? 'android' : 'ios';
+    final platform =
+        defaultTargetPlatform == TargetPlatform.android ? 'android' : 'ios';
 
     try {
       await _dio.post(
