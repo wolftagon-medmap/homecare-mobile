@@ -847,7 +847,6 @@ class _TranslationsMessagingTimeProposalId implements TranslationsMessagingTimeP
 	@override String get proposed => 'Diusulkan';
 	@override String get accept => 'Terima';
 	@override String get chooseAnother => 'Pilih Lain';
-	@override String get heldFor => 'Slot ini ditahan untuk waktu terbatas';
 	@override String get suggestAnother => 'Usulkan waktu lain';
 	@override String get sheetTitleProfessional => 'Usulkan waktu lain';
 	@override String get sheetTitlePatient => 'Waktu mana yang cocok?';
@@ -855,6 +854,9 @@ class _TranslationsMessagingTimeProposalId implements TranslationsMessagingTimeP
 	@override String get sendTime => 'Kirim waktu ini';
 	@override String get reasonLabel => 'Alasan? (opsional)';
 	@override String get reasonHint => 'Alasan singkat membantu mereka menyetujui.';
+	@override String answerBy({required Object when}) => 'Jawab sebelum ${when}';
+	@override String get today => 'Hari ini';
+	@override String get tomorrow => 'Besok';
 }
 
 // Path: messaging.estimateRevision
@@ -1723,7 +1725,6 @@ extension on TranslationsId {
 			'messaging.timeProposal.proposed' => 'Diusulkan',
 			'messaging.timeProposal.accept' => 'Terima',
 			'messaging.timeProposal.chooseAnother' => 'Pilih Lain',
-			'messaging.timeProposal.heldFor' => 'Slot ini ditahan untuk waktu terbatas',
 			'messaging.timeProposal.suggestAnother' => 'Usulkan waktu lain',
 			'messaging.timeProposal.sheetTitleProfessional' => 'Usulkan waktu lain',
 			'messaging.timeProposal.sheetTitlePatient' => 'Waktu mana yang cocok?',
@@ -1731,6 +1732,9 @@ extension on TranslationsId {
 			'messaging.timeProposal.sendTime' => 'Kirim waktu ini',
 			'messaging.timeProposal.reasonLabel' => 'Alasan? (opsional)',
 			'messaging.timeProposal.reasonHint' => 'Alasan singkat membantu mereka menyetujui.',
+			'messaging.timeProposal.answerBy' => ({required Object when}) => 'Jawab sebelum ${when}',
+			'messaging.timeProposal.today' => 'Hari ini',
+			'messaging.timeProposal.tomorrow' => 'Besok',
 			'messaging.estimateRevision.title' => 'Perkiraan biaya direvisi',
 			'messaging.estimateRevision.newTotal' => 'Perkiraan total baru',
 			'messaging.estimateRevision.approve' => 'Setujui',

@@ -50,7 +50,9 @@ void main() {
       expect(find.text('Accept'), findsOneWidget);
       expect(find.text('Choose Another'), findsOneWidget);
       expect(find.text('Alternative time proposed'), findsOneWidget);
-      expect(find.textContaining('held for'), findsOneWidget);
+      // A deadline, not a countdown: the slot is held only briefly, but the
+      // proposal stands until the time it proposes.
+      expect(find.textContaining('Answer by'), findsOneWidget);
     });
 
     testWidgets('the professional who raised it gets no buttons',

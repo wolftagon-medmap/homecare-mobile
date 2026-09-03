@@ -847,7 +847,6 @@ class _TranslationsMessagingTimeProposalZh implements TranslationsMessagingTimeP
 	@override String get proposed => '建议时间';
 	@override String get accept => '接受';
 	@override String get chooseAnother => '另选时间';
-	@override String get heldFor => '此时段将保留有限时间';
 	@override String get suggestAnother => '建议其他时间';
 	@override String get sheetTitleProfessional => '建议其他时间';
 	@override String get sheetTitlePatient => '哪个时间方便？';
@@ -855,6 +854,9 @@ class _TranslationsMessagingTimeProposalZh implements TranslationsMessagingTimeP
 	@override String get sendTime => '发送此时间';
 	@override String get reasonLabel => '原因？（选填）';
 	@override String get reasonHint => '简短说明有助于对方同意。';
+	@override String answerBy({required Object when}) => '请在 ${when} 前回复';
+	@override String get today => '今天';
+	@override String get tomorrow => '明天';
 }
 
 // Path: messaging.estimateRevision
@@ -1723,7 +1725,6 @@ extension on TranslationsZh {
 			'messaging.timeProposal.proposed' => '建议时间',
 			'messaging.timeProposal.accept' => '接受',
 			'messaging.timeProposal.chooseAnother' => '另选时间',
-			'messaging.timeProposal.heldFor' => '此时段将保留有限时间',
 			'messaging.timeProposal.suggestAnother' => '建议其他时间',
 			'messaging.timeProposal.sheetTitleProfessional' => '建议其他时间',
 			'messaging.timeProposal.sheetTitlePatient' => '哪个时间方便？',
@@ -1731,6 +1732,9 @@ extension on TranslationsZh {
 			'messaging.timeProposal.sendTime' => '发送此时间',
 			'messaging.timeProposal.reasonLabel' => '原因？（选填）',
 			'messaging.timeProposal.reasonHint' => '简短说明有助于对方同意。',
+			'messaging.timeProposal.answerBy' => ({required Object when}) => '请在 ${when} 前回复',
+			'messaging.timeProposal.today' => '今天',
+			'messaging.timeProposal.tomorrow' => '明天',
 			'messaging.estimateRevision.title' => '修订后的费用估算',
 			'messaging.estimateRevision.newTotal' => '新的预估总额',
 			'messaging.estimateRevision.approve' => '批准',

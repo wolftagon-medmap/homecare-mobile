@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/presentation/widgets/booking/booking.dart';
 
@@ -128,7 +129,8 @@ class _TimeProposalCardState extends State<TimeProposalCard> {
                     size: 15, color: Colors.deepOrange),
                 const SizedBox(width: 5),
                 Text(
-                  'This slot is held for ${_countdown(proposal.timeLeft!)}',
+                  context.t.messaging.timeProposal
+                      .answerBy(when: _deadline(context, proposal.expiresAt!)),
                   style: const TextStyle(
                     fontSize: 12,
                     color: Colors.deepOrange,
@@ -189,10 +191,23 @@ class _TimeProposalCardState extends State<TimeProposalCard> {
     );
   }
 
-  static String _countdown(Duration left) {
-    if (left.inMinutes < 1) return 'less than a minute';
-    if (left.inMinutes < 60) return '${left.inMinutes} more minutes';
-    return '${left.inHours}h ${left.inMinutes % 60}m';
+  /// The slot is only held briefly; the proposal itself stands until the time
+  /// it proposes, which can be days away. So this is a deadline, not a
+  /// countdown — a ticking clock would misrepresent both.
+  static String _deadline(BuildContext context, DateTime at) {
+    final t = context.t.messaging.timeProposal;
+    final local = at.toLocal();
+    final clock = DateFormat('HH:mm').format(local);
+
+    final today = DateTime.now();
+    final midnight = DateTime(today.year, today.month, today.day);
+    final days = DateTime(local.year, local.month, local.day)
+        .difference(midnight)
+        .inDays;
+
+    if (days == 0) return '${t.today} $clock';
+    if (days == 1) return '${t.tomorrow} $clock';
+    return '${DateFormat('EEE d MMM').format(local)} $clock';
   }
 }
 

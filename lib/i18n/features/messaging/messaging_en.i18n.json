@@ -11,14 +11,16 @@
     "proposed": "Proposed",
     "accept": "Accept",
     "chooseAnother": "Choose Another",
-    "heldFor": "This slot is held for a limited time",
     "suggestAnother": "Suggest another time",
     "sheetTitleProfessional": "Suggest another time",
     "sheetTitlePatient": "Which time suits you?",
     "sendSuggestion": "Send suggestion",
     "sendTime": "Send this time",
     "reasonLabel": "Why? (optional)",
-    "reasonHint": "A short reason helps them say yes."
+    "reasonHint": "A short reason helps them say yes.",
+    "answerBy": "Answer by {when}",
+    "today": "Today",
+    "tomorrow": "Tomorrow"
   },
   "estimateRevision": {
     "title": "Revised estimate",

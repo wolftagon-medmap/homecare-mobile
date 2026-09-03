@@ -11,14 +11,16 @@
     "proposed": "建议时间",
     "accept": "接受",
     "chooseAnother": "另选时间",
-    "heldFor": "此时段将保留有限时间",
     "suggestAnother": "建议其他时间",
     "sheetTitleProfessional": "建议其他时间",
     "sheetTitlePatient": "哪个时间方便？",
     "sendSuggestion": "发送建议",
     "sendTime": "发送此时间",
     "reasonLabel": "原因？（选填）",
-    "reasonHint": "简短说明有助于对方同意。"
+    "reasonHint": "简短说明有助于对方同意。",
+    "answerBy": "请在 {when} 前回复",
+    "today": "今天",
+    "tomorrow": "明天"
   },
   "estimateRevision": {
     "title": "修订后的费用估算",

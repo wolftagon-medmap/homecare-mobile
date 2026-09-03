@@ -1518,9 +1518,6 @@ class TranslationsMessagingTimeProposalEn {
 	/// en: 'Choose Another'
 	String get chooseAnother => 'Choose Another';
 
-	/// en: 'This slot is held for a limited time'
-	String get heldFor => 'This slot is held for a limited time';
-
 	/// en: 'Suggest another time'
 	String get suggestAnother => 'Suggest another time';
 
@@ -1541,6 +1538,15 @@ class TranslationsMessagingTimeProposalEn {
 
 	/// en: 'A short reason helps them say yes.'
 	String get reasonHint => 'A short reason helps them say yes.';
+
+	/// en: 'Answer by {when}'
+	String answerBy({required Object when}) => 'Answer by ${when}';
+
+	/// en: 'Today'
+	String get today => 'Today';
+
+	/// en: 'Tomorrow'
+	String get tomorrow => 'Tomorrow';
 }
 
 // Path: messaging.estimateRevision
@@ -2656,7 +2662,6 @@ extension on Translations {
 			'messaging.timeProposal.proposed' => 'Proposed',
 			'messaging.timeProposal.accept' => 'Accept',
 			'messaging.timeProposal.chooseAnother' => 'Choose Another',
-			'messaging.timeProposal.heldFor' => 'This slot is held for a limited time',
 			'messaging.timeProposal.suggestAnother' => 'Suggest another time',
 			'messaging.timeProposal.sheetTitleProfessional' => 'Suggest another time',
 			'messaging.timeProposal.sheetTitlePatient' => 'Which time suits you?',
@@ -2664,6 +2669,9 @@ extension on Translations {
 			'messaging.timeProposal.sendTime' => 'Send this time',
 			'messaging.timeProposal.reasonLabel' => 'Why? (optional)',
 			'messaging.timeProposal.reasonHint' => 'A short reason helps them say yes.',
+			'messaging.timeProposal.answerBy' => ({required Object when}) => 'Answer by ${when}',
+			'messaging.timeProposal.today' => 'Today',
+			'messaging.timeProposal.tomorrow' => 'Tomorrow',
 			'messaging.estimateRevision.title' => 'Revised estimate',
 			'messaging.estimateRevision.newTotal' => 'New estimated total',
 			'messaging.estimateRevision.approve' => 'Approve',
