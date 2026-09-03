@@ -15,6 +15,7 @@ import 'package:m2health/core/presentation/widgets/buttons/gradient_button.dart'
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 /// Detail page for a pre-acceptance booking (v2 care task) — the patient-side
 /// mirror of the appointment detail page. Once the booking is accepted it
@@ -42,8 +43,8 @@ class CareTaskDetailPage extends StatelessWidget {
             // detail now.
             if (state is CareTaskDetailLoaded &&
                 state.detail.appointmentId != null) {
-              context.pushReplacement(AppRoutes.appointmentDetail,
-                  extra: state.detail.appointmentId);
+              context.pushReplacement(
+                  AppointmentRoutes.detailPath(state.detail.appointmentId!));
             }
           },
           builder: (context, state) {

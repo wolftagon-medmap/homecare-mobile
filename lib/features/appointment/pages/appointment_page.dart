@@ -18,6 +18,7 @@ import 'package:m2health/features/appointment/widgets/patient_inbox_tab.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 class AppointmentPage extends StatefulWidget {
   static const String route = '/appointment';
@@ -516,8 +517,9 @@ class _AppointmentListItem extends StatelessWidget {
       statusColor: statusColor,
       scheduledStart: appointment.startDatetime,
       onTap: () {
-        // Navigate to detail page, passing only the ID
-        context.push(AppRoutes.appointmentDetail, extra: appointment.id);
+        final id = appointment.id;
+        if (id == null) return;
+        context.push(AppointmentRoutes.detailPath(id));
       },
       actions: [
         // Only while a visit is still ahead: a completed or cancelled booking

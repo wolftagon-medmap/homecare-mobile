@@ -120,24 +120,17 @@ void main() {
   });
 
   group('inbox demo fixtures parse through the shipped inbox contracts', () {
-    test('patient rows parse, and one carries a proposal', () {
+    test('patient rows parse, and one is awaiting an answer on a new time', () {
       final items =
           kPatientInboxDemoFixture().map(PatientInboxItem.fromJson).toList();
 
       expect(items, isNotEmpty);
-      final proposed = items.where((i) => i.hasTimeProposal).toList();
+      final proposed =
+          items.where((i) => i.status == 'time_proposed').toList();
       expect(proposed, hasLength(1));
-      expect(proposed.single.proposal!.proposedStart, isNotNull);
+      expect(proposed.single.statusLabel, 'Alternative time proposed');
+      expect(proposed.single.provider?.name, isNotNull);
       expect(proposed.single.careTaskId, isNotNull);
-    });
-
-    test('a row without a proposal block is unchanged', () {
-      final plain = kPatientInboxDemoFixture()
-          .map(PatientInboxItem.fromJson)
-          .firstWhere((i) => i.status == 'matched');
-
-      expect(plain.proposal, isNull);
-      expect(plain.hasTimeProposal, isFalse);
     });
 
     test('the provider offer carries a propose_time action', () {

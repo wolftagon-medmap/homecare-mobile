@@ -8,8 +8,8 @@ import 'package:m2health/features/booking_appointment/professional_directory/pre
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/bloc/schedule_appointment_cubit.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
 import 'package:m2health/features/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
-import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 class NutritionBookingFlowPage extends StatefulWidget {
   const NutritionBookingFlowPage({super.key});
@@ -106,10 +106,8 @@ class _NutritionBookingFlowPageState extends State<NutritionBookingFlowPage> {
                   backgroundColor: Colors.green,
                 ),
               );
-              context.goNamed(
-                AppRoutes.appointmentDetail,
-                extra: state.createdAppointment!.id!,
-              );
+              context.go(AppointmentRoutes.detailPath(
+                  state.createdAppointment!.id!));
             }
             if (state.errorMessage != null) {
               ScaffoldMessenger.of(context).showSnackBar(

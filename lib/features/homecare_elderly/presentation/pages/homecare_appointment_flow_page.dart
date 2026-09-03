@@ -17,6 +17,7 @@ import 'package:m2health/service_locator.dart';
 
 import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
 import 'package:m2health/features/subscription/presentation/bloc/subscription_state.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 class HomecareAppointmentFlowPage extends StatefulWidget {
   final List<String> selectedTasks;
@@ -101,8 +102,8 @@ class _HomecareAppointmentFlowPageState
                 extra: state.createdAppointment!,
               );
             } else {
-              GoRouter.of(context).go(AppRoutes.appointmentDetail,
-                  extra: state.createdAppointment!.id);
+              GoRouter.of(context).go(
+                  AppointmentRoutes.detailPath(state.createdAppointment!.id!));
             }
           }
           if (state.submissionStatus == AppointmentSubmissionStatus.failure) {

@@ -12,8 +12,8 @@ import 'package:m2health/features/booking_appointment/professional_directory/pre
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/pages/search_professional_page.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/bloc/schedule_appointment_cubit.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
-import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 class SmokingCessationFlowPage extends StatefulWidget {
   const SmokingCessationFlowPage({super.key});
@@ -72,10 +72,8 @@ class _SmokingCessationFlowPageState extends State<SmokingCessationFlowPage> {
               backgroundColor: Colors.green,
             ),
           );
-          GoRouter.of(context).goNamed(
-            AppRoutes.appointmentDetail,
-            extra: state.createdAppointment!.id!,
-          );
+          GoRouter.of(context)
+              .go(AppointmentRoutes.detailPath(state.createdAppointment!.id!));
         }
         if (state.submissionStatus ==
             SmokingCessationSubmissionStatus.failure) {

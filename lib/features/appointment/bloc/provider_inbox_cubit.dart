@@ -22,25 +22,20 @@ class ProviderInboxCubit extends Cubit<ProviderInboxState> {
         _appointments = AppointmentService(dio),
         super(ProviderInboxInitial());
 
-  /// True while the counter-propose demo is on fixtures. Dead the moment the
-  /// flag flips: no demo row is merged and a failure is an error again.
   bool get _demo => !AppFlags.remote(Feature.timeProposal);
 
-  List<InboxItem> get _demoItems =>
-      kProviderInboxDemoFixture().map(InboxItem.fromJson).toList();
-
   Future<void> fetchInbox() async {
+    if (_demo) {
+      emit(ProviderInboxLoaded(
+          kProviderInboxDemoFixture().map(InboxItem.fromJson).toList()));
+      return;
+    }
     try {
       emit(ProviderInboxLoading());
-      final items = await _inbox.fetchInbox();
-      emit(ProviderInboxLoaded(_demo ? [..._demoItems, ...items] : items));
+      emit(ProviderInboxLoaded(await _inbox.fetchInbox()));
     } catch (e, stackTrace) {
       log('Error fetching provider inbox: $e',
           name: 'ProviderInboxCubit', error: e, stackTrace: stackTrace);
-      if (_demo) {
-        emit(ProviderInboxLoaded(_demoItems));
-        return;
-      }
       emit(ProviderInboxError('Failed to load pending requests'));
     }
   }
