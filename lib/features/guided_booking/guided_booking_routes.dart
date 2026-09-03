@@ -33,6 +33,13 @@ class GuidedBookingStepArgs {
 
 class GuidedBookingRoutes {
   static const String entry = AppRoutes.guidedBooking;
+
+  /// The home tiles push this: the category rides in the path, so a tile stays
+  /// one `route:` line with no `extra` to plumb.
+  static const String categoryEntry = '/guided-booking/start/:category';
+
+  static String entryFor(String category) => '/guided-booking/start/$category';
+
   static const String subService = '/guided-booking/sub-service';
   static const String issues = '/guided-booking/issues';
   static const String addOns = '/guided-booking/add-ons';
@@ -51,6 +58,14 @@ class GuidedBookingRoutes {
           args: args ?? const GuidedBookingArgs(category: 'pharmacy'),
         );
       },
+    ),
+    GoRoute(
+      path: categoryEntry,
+      builder: (context, state) => GuidedBookingEntryPage(
+        args: GuidedBookingArgs(
+          category: state.pathParameters['category'] ?? 'pharmacy',
+        ),
+      ),
     ),
     _step(subService, (_) => const SubServicePage()),
     _step(issues, (args) => IssueSelectionPage(args: args)),

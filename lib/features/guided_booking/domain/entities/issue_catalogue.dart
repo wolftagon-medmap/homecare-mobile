@@ -22,6 +22,10 @@ class IssueSubCategory extends Equatable {
   final String? image;
   final String? background;
   final String? serviceCode;
+
+  /// Set only where a sub-service keeps its own legacy screen instead of the
+  /// generic issue step. Quit Smoking is the one documented exception.
+  final String? legacyFlow;
   final List<IssueOption> issues;
 
   const IssueSubCategory({
@@ -31,14 +35,15 @@ class IssueSubCategory extends Equatable {
     this.image,
     this.background,
     this.serviceCode,
+    this.legacyFlow,
     this.issues = const [],
   });
 
-  bool get inheritsIssues => issues.isEmpty;
+  bool get inheritsIssues => issues.isEmpty && legacyFlow == null;
 
   @override
   List<Object?> get props =>
-      [code, label, description, image, background, serviceCode, issues];
+      [code, label, description, image, background, serviceCode, legacyFlow, issues];
 }
 
 class IssueCatalogue extends Equatable {

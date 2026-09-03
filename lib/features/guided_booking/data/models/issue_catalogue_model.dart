@@ -30,6 +30,7 @@ class IssueSubCategoryModel extends IssueSubCategory {
     super.image,
     super.background,
     super.serviceCode,
+    super.legacyFlow,
     super.issues,
   });
 
@@ -41,6 +42,7 @@ class IssueSubCategoryModel extends IssueSubCategory {
       image: json['image'] as String?,
       background: json['background'] as String?,
       serviceCode: json['service_code'] as String?,
+      legacyFlow: json['legacy_flow'] as String?,
       issues: _parseIssues(json['issues']),
     );
   }
@@ -52,6 +54,7 @@ class IssueSubCategoryModel extends IssueSubCategory {
         'image': image,
         'background': background,
         'service_code': serviceCode,
+        'legacy_flow': legacyFlow,
         'issues': issues.map(_issueToJson).toList(),
       };
 }
@@ -98,6 +101,7 @@ class IssueCatalogueModel extends IssueCatalogue {
                   image: sub.image,
                   background: sub.background,
                   serviceCode: sub.serviceCode,
+                  legacyFlow: sub.legacyFlow,
                   issues: sub.issues,
                 ).toJson())
             .toList(),

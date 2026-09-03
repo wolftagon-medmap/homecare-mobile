@@ -29,6 +29,7 @@ void main() {
           continue;
         }
         for (final sub in parsed.subCategories) {
+          if (sub.legacyFlow != null) continue;
           expect(
             parsed.issuesFor(sub.code),
             isNotEmpty,

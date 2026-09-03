@@ -21,6 +21,10 @@ class HomeService extends Equatable {
   final HomeServiceId id;
   final String route;
 
+  /// The guided booking category this tile maps onto, when the guided flow
+  /// covers it. Null keeps the tile on its legacy per-service page.
+  final String? guidedCategory;
+
   /// Services that are not on the home grid are reachable from All Services.
   final bool onHome;
 
@@ -29,10 +33,11 @@ class HomeService extends Equatable {
   const HomeService({
     required this.id,
     required this.route,
+    this.guidedCategory,
     this.onHome = true,
     this.isNew = false,
   });
 
   @override
-  List<Object?> get props => [id, route, onHome, isNew];
+  List<Object?> get props => [id, route, guidedCategory, onHome, isNew];
 }

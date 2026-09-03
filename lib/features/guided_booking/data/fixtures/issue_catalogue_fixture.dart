@@ -53,26 +53,8 @@ const Map<String, dynamic> kPharmacyIssueCatalogue = {
               'what you have already tried.',
       'image': 'assets/icons/ilu_lung.png',
       'background': '#30FF9A9A',
-      // AUTHORED. The PDF says only "Questions remain as per app" and the app's
-      // existing questions are four structured fields (isSmoking, productTypes,
-      // sticksPerDay, hasTriedQuitting) that do not fit a multi-select. These
-      // restate them as selectable reasons. Swap freely — this is the one list
-      // in the file that is not transcribed.
-      'issues': [
-        {'code': 'smoke_ready_to_quit', 'label': 'I want to quit smoking'},
-        {'code': 'smoke_cut_down', 'label': 'I want to cut down first'},
-        {'code': 'smoke_tried_before', 'label': "I've tried quitting before"},
-        {'code': 'smoke_cravings', 'label': 'Managing cravings and withdrawal'},
-        {
-          'code': 'smoke_vaping',
-          'label': 'I use vape or e-cigarettes',
-        },
-        {
-          'code': 'smoke_nrt_advice',
-          'label': 'Advice on patches, gum or medication',
-        },
-        {'code': 'smoke_other', 'label': "Other / I'm not sure"},
-      ],
+      'legacy_flow': 'smoking_cessation',
+      'issues': <Map<String, dynamic>>[],
     },
   ],
 };

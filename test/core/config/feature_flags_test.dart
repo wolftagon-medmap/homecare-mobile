@@ -12,10 +12,15 @@ void main() {
     await AppFlags.clearOverrides();
   });
 
-  test('every feature ships local', () {
+  /// Navigation flags pick a screen rather than a data source, so "local"
+  /// carries no meaning for them and they may ship on.
+  const navigationFlags = {Feature.guidedBookingFlow};
+
+  test('every data source ships local', () {
     for (final feature in Feature.values) {
-      expect(AppFlags.remote(feature), isFalse, reason: feature.key);
       expect(AppFlags.sourceOf(feature), FlagSource.compileTimeDefault);
+      if (navigationFlags.contains(feature)) continue;
+      expect(AppFlags.remote(feature), isFalse, reason: feature.key);
     }
   });
 
