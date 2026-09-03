@@ -237,6 +237,7 @@ class _TranslationsMessagingZh implements TranslationsMessagingEn {
 	@override String get sayHello => '打个招呼';
 	@override late final _TranslationsMessagingTimeProposalZh timeProposal = _TranslationsMessagingTimeProposalZh._(_root);
 	@override late final _TranslationsMessagingEstimateRevisionZh estimateRevision = _TranslationsMessagingEstimateRevisionZh._(_root);
+	@override late final _TranslationsMessagingChatZh chat = _TranslationsMessagingChatZh._(_root);
 }
 
 // Path: nursing
@@ -868,6 +869,30 @@ class _TranslationsMessagingEstimateRevisionZh implements TranslationsMessagingE
 	@override String get approve => '批准';
 	@override String get approved => '已批准';
 	@override String get withdrawn => '已撤回';
+}
+
+// Path: messaging.chat
+class _TranslationsMessagingChatZh implements TranslationsMessagingChatEn {
+	_TranslationsMessagingChatZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get aboutTitle => '关于这次上门';
+	@override String get reason => '原因';
+	@override String get where => '地点';
+	@override String get estimate => '预估费用';
+	@override String get emptyPrompt => '还没有消息。可以从下面选一句，或自己写。';
+	@override List<String> get openersProfessional => [
+		'我可以接这次上门。',
+		'您什么时间方便？',
+		'可以和您确认一下地址吗？',
+	];
+	@override List<String> get openersPatient => [
+		'您好，谢谢您接下这次预约。',
+		'时间还合适吗？',
+		'我需要提前准备什么？',
+	];
 }
 
 // Path: nursing.services
@@ -1710,6 +1735,17 @@ extension on TranslationsZh {
 			'messaging.estimateRevision.approve' => '批准',
 			'messaging.estimateRevision.approved' => '已批准',
 			'messaging.estimateRevision.withdrawn' => '已撤回',
+			'messaging.chat.aboutTitle' => '关于这次上门',
+			'messaging.chat.reason' => '原因',
+			'messaging.chat.where' => '地点',
+			'messaging.chat.estimate' => '预估费用',
+			'messaging.chat.emptyPrompt' => '还没有消息。可以从下面选一句，或自己写。',
+			'messaging.chat.openersProfessional.0' => '我可以接这次上门。',
+			'messaging.chat.openersProfessional.1' => '您什么时间方便？',
+			'messaging.chat.openersProfessional.2' => '可以和您确认一下地址吗？',
+			'messaging.chat.openersPatient.0' => '您好，谢谢您接下这次预约。',
+			'messaging.chat.openersPatient.1' => '时间还合适吗？',
+			'messaging.chat.openersPatient.2' => '我需要提前准备什么？',
 			'nursing.services.primary_nursing.description' => '监测并执行从身体检查、给药、管饲和吸痰到注射及伤口护理的各项护理程序。',
 			'nursing.services.primary_nursing.title' => '基础护理',
 			'nursing.services.specialized_nursing.description' => '您只需专注于康复，将复杂的护理工作交给经验丰富的专业护理人员 。',

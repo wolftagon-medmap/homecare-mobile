@@ -26,5 +26,22 @@
     "approve": "批准",
     "approved": "已批准",
     "withdrawn": "已撤回"
+  },
+  "chat": {
+    "aboutTitle": "关于这次上门",
+    "reason": "原因",
+    "where": "地点",
+    "estimate": "预估费用",
+    "emptyPrompt": "还没有消息。可以从下面选一句，或自己写。",
+    "openersProfessional": [
+      "我可以接这次上门。",
+      "您什么时间方便？",
+      "可以和您确认一下地址吗？"
+    ],
+    "openersPatient": [
+      "您好，谢谢您接下这次预约。",
+      "时间还合适吗？",
+      "我需要提前准备什么？"
+    ]
   }
 }

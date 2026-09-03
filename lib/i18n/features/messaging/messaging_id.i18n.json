@@ -26,5 +26,22 @@
     "approve": "Setujui",
     "approved": "Disetujui",
     "withdrawn": "Dibatalkan"
+  },
+  "chat": {
+    "aboutTitle": "Tentang kunjungan ini",
+    "reason": "Alasan",
+    "where": "Lokasi",
+    "estimate": "Perkiraan biaya",
+    "emptyPrompt": "Belum ada pesan. Mulai dengan salah satu berikut, atau tulis sendiri.",
+    "openersProfessional": [
+      "Saya bisa menangani kunjungan ini.",
+      "Kapan waktu yang cocok untuk Anda?",
+      "Boleh saya konfirmasi alamatnya?"
+    ],
+    "openersPatient": [
+      "Halo, terima kasih sudah menerima permintaan ini.",
+      "Apakah waktunya masih sesuai?",
+      "Apa yang perlu saya siapkan?"
+    ]
   }
 }

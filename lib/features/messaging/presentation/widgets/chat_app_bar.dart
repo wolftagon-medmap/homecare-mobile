@@ -33,18 +33,15 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                   name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Const.primaryTextColor,
-                  ),
+                  style: ProText.sectionTitle
+                      .copyWith(color: Const.primaryTextColor),
                 ),
                 if (subtitle != null && subtitle!.isNotEmpty)
                   Text(
                     subtitle!,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 11, color: Const.tosca),
+                    style: const TextStyle(fontSize: 12, color: Const.tosca),
                   ),
               ],
             ),

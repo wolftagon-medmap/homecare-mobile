@@ -412,6 +412,7 @@ class TranslationsMessagingEn {
 
 	late final TranslationsMessagingTimeProposalEn timeProposal = TranslationsMessagingTimeProposalEn._(_root);
 	late final TranslationsMessagingEstimateRevisionEn estimateRevision = TranslationsMessagingEstimateRevisionEn._(_root);
+	late final TranslationsMessagingChatEn chat = TranslationsMessagingChatEn._(_root);
 }
 
 // Path: nursing
@@ -1566,6 +1567,41 @@ class TranslationsMessagingEstimateRevisionEn {
 	String get withdrawn => 'Withdrawn';
 }
 
+// Path: messaging.chat
+class TranslationsMessagingChatEn {
+	TranslationsMessagingChatEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'About this visit'
+	String get aboutTitle => 'About this visit';
+
+	/// en: 'Reason'
+	String get reason => 'Reason';
+
+	/// en: 'Where'
+	String get where => 'Where';
+
+	/// en: 'Estimate'
+	String get estimate => 'Estimate';
+
+	/// en: 'No messages yet. Start with one of these, or write your own.'
+	String get emptyPrompt => 'No messages yet. Start with one of these, or write your own.';
+
+	List<String> get openersProfessional => [
+		'I can take this visit.',
+		'When would suit you?',
+		'Could I check the address with you?',
+	];
+	List<String> get openersPatient => [
+		'Hi, thank you for taking this.',
+		'Is the time still OK?',
+		'How should I prepare?',
+	];
+}
+
 // Path: nursing.services
 class TranslationsNursingServicesEn {
 	TranslationsNursingServicesEn._(this._root);
@@ -2630,6 +2666,17 @@ extension on Translations {
 			'messaging.estimateRevision.approve' => 'Approve',
 			'messaging.estimateRevision.approved' => 'Approved',
 			'messaging.estimateRevision.withdrawn' => 'Withdrawn',
+			'messaging.chat.aboutTitle' => 'About this visit',
+			'messaging.chat.reason' => 'Reason',
+			'messaging.chat.where' => 'Where',
+			'messaging.chat.estimate' => 'Estimate',
+			'messaging.chat.emptyPrompt' => 'No messages yet. Start with one of these, or write your own.',
+			'messaging.chat.openersProfessional.0' => 'I can take this visit.',
+			'messaging.chat.openersProfessional.1' => 'When would suit you?',
+			'messaging.chat.openersProfessional.2' => 'Could I check the address with you?',
+			'messaging.chat.openersPatient.0' => 'Hi, thank you for taking this.',
+			'messaging.chat.openersPatient.1' => 'Is the time still OK?',
+			'messaging.chat.openersPatient.2' => 'How should I prepare?',
 			'nursing.services.primary_nursing.description' => 'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.',
 			'nursing.services.primary_nursing.title' => 'Primary Nursing',
 			'nursing.services.specialized_nursing.description' => 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros',

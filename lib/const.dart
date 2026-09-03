@@ -154,6 +154,9 @@ class Const {
   static const Color surfaceMuted = Color(0xFFF5F5F5);
   static const Color borderSubtle = Color(0xFFE0E0E0);
   static const Color placeholderTextColor = Color(0xFF9E9E9E);
+
+  /// The quiet grey-blue used for chat day separators and timestamps.
+  static const Color chatMutedColor = Color(0xFF8A96BC);
   static const String submenu_report = 'assets/icons/submenu_report.png';
   static const String submenu_event = ' assets/icons/submenu_event.png';
   static const String submenu_design = 'assets/icons/submenu_design.png';

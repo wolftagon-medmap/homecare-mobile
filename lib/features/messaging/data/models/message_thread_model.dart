@@ -12,6 +12,7 @@ class MessageThreadModel {
   final Map<String, dynamic>? lastMessage;
   final int unread;
   final String? lastMessageAt;
+  final Map<String, dynamic>? context;
 
   const MessageThreadModel({
     required this.id,
@@ -23,6 +24,7 @@ class MessageThreadModel {
     required this.lastMessage,
     required this.unread,
     required this.lastMessageAt,
+    this.context,
   });
 
   factory MessageThreadModel.fromJson(Map<String, dynamic> json) =>
@@ -40,6 +42,9 @@ class MessageThreadModel {
             : null,
         unread: (json['unread'] as num?)?.toInt() ?? 0,
         lastMessageAt: json['lastMessageAt'] as String?,
+        context: json['context'] is Map
+            ? Map<String, dynamic>.from(json['context'] as Map)
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -52,6 +57,7 @@ class MessageThreadModel {
         'lastMessage': lastMessage,
         'unread': unread,
         'lastMessageAt': lastMessageAt,
+        'context': context,
       };
 
   MessageThread toEntity() => MessageThread(
@@ -65,7 +71,20 @@ class MessageThreadModel {
         lastMessage: lastMessage == null ? null : _previewFrom(lastMessage!),
         unread: unread,
         lastMessageAt: DateTime.tryParse(lastMessageAt ?? ''),
+        context: _contextFrom(context),
       );
+
+  static ThreadContext _contextFrom(Map<String, dynamic>? json) {
+    if (json == null) return const ThreadContext();
+    return ThreadContext(
+      issueLabels: [
+        for (final label in (json['issueLabels'] as List?) ?? const [])
+          label.toString(),
+      ],
+      location: json['location'] as String?,
+      estimatedPrice: (json['estimatedPrice'] as num?)?.toDouble(),
+    );
+  }
 
   static ThreadCounterpart _counterpartFrom(Map<String, dynamic> json) =>
       ThreadCounterpart(

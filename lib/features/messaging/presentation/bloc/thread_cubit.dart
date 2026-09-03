@@ -16,11 +16,16 @@ class ThreadState extends Equatable {
   /// failed has to say so without wiping the conversation off the screen.
   final String? error;
 
+  /// A suggested opener the sender tapped. It fills the composer rather than
+  /// sending, so nobody sends a sentence they have not read.
+  final String? draft;
+
   const ThreadState({
     this.messages = const [],
     this.loading = true,
     this.sending = false,
     this.error,
+    this.draft,
   });
 
   ThreadState copyWith({
@@ -29,16 +34,18 @@ class ThreadState extends Equatable {
     bool? sending,
     String? error,
     bool clearError = false,
+    String? draft,
   }) =>
       ThreadState(
         messages: messages ?? this.messages,
         loading: loading ?? this.loading,
         sending: sending ?? this.sending,
         error: clearError ? null : (error ?? this.error),
+        draft: draft ?? this.draft,
       );
 
   @override
-  List<Object?> get props => [messages, loading, sending, error];
+  List<Object?> get props => [messages, loading, sending, error, draft];
 }
 
 /// One open conversation.
@@ -146,6 +153,9 @@ class ThreadCubit extends Cubit<ThreadState> {
   }
 
   void clearError() => emit(state.copyWith(clearError: true));
+
+  /// Hands a suggested opener to the composer. Nothing is sent by this.
+  void useOpener(String text) => emit(state.copyWith(draft: text));
 
   @override
   Future<void> close() async {

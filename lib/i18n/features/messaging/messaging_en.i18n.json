@@ -26,5 +26,22 @@
     "approve": "Approve",
     "approved": "Approved",
     "withdrawn": "Withdrawn"
+  },
+  "chat": {
+    "aboutTitle": "About this visit",
+    "reason": "Reason",
+    "where": "Where",
+    "estimate": "Estimate",
+    "emptyPrompt": "No messages yet. Start with one of these, or write your own.",
+    "openersProfessional": [
+      "I can take this visit.",
+      "When would suit you?",
+      "Could I check the address with you?"
+    ],
+    "openersPatient": [
+      "Hi, thank you for taking this.",
+      "Is the time still OK?",
+      "How should I prepare?"
+    ]
   }
 }

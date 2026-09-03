@@ -237,6 +237,7 @@ class _TranslationsMessagingId implements TranslationsMessagingEn {
 	@override String get sayHello => 'Sapa dulu';
 	@override late final _TranslationsMessagingTimeProposalId timeProposal = _TranslationsMessagingTimeProposalId._(_root);
 	@override late final _TranslationsMessagingEstimateRevisionId estimateRevision = _TranslationsMessagingEstimateRevisionId._(_root);
+	@override late final _TranslationsMessagingChatId chat = _TranslationsMessagingChatId._(_root);
 }
 
 // Path: nursing
@@ -868,6 +869,30 @@ class _TranslationsMessagingEstimateRevisionId implements TranslationsMessagingE
 	@override String get approve => 'Setujui';
 	@override String get approved => 'Disetujui';
 	@override String get withdrawn => 'Dibatalkan';
+}
+
+// Path: messaging.chat
+class _TranslationsMessagingChatId implements TranslationsMessagingChatEn {
+	_TranslationsMessagingChatId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get aboutTitle => 'Tentang kunjungan ini';
+	@override String get reason => 'Alasan';
+	@override String get where => 'Lokasi';
+	@override String get estimate => 'Perkiraan biaya';
+	@override String get emptyPrompt => 'Belum ada pesan. Mulai dengan salah satu berikut, atau tulis sendiri.';
+	@override List<String> get openersProfessional => [
+		'Saya bisa menangani kunjungan ini.',
+		'Kapan waktu yang cocok untuk Anda?',
+		'Boleh saya konfirmasi alamatnya?',
+	];
+	@override List<String> get openersPatient => [
+		'Halo, terima kasih sudah menerima permintaan ini.',
+		'Apakah waktunya masih sesuai?',
+		'Apa yang perlu saya siapkan?',
+	];
 }
 
 // Path: nursing.services
@@ -1710,6 +1735,17 @@ extension on TranslationsId {
 			'messaging.estimateRevision.approve' => 'Setujui',
 			'messaging.estimateRevision.approved' => 'Disetujui',
 			'messaging.estimateRevision.withdrawn' => 'Dibatalkan',
+			'messaging.chat.aboutTitle' => 'Tentang kunjungan ini',
+			'messaging.chat.reason' => 'Alasan',
+			'messaging.chat.where' => 'Lokasi',
+			'messaging.chat.estimate' => 'Perkiraan biaya',
+			'messaging.chat.emptyPrompt' => 'Belum ada pesan. Mulai dengan salah satu berikut, atau tulis sendiri.',
+			'messaging.chat.openersProfessional.0' => 'Saya bisa menangani kunjungan ini.',
+			'messaging.chat.openersProfessional.1' => 'Kapan waktu yang cocok untuk Anda?',
+			'messaging.chat.openersProfessional.2' => 'Boleh saya konfirmasi alamatnya?',
+			'messaging.chat.openersPatient.0' => 'Halo, terima kasih sudah menerima permintaan ini.',
+			'messaging.chat.openersPatient.1' => 'Apakah waktunya masih sesuai?',
+			'messaging.chat.openersPatient.2' => 'Apa yang perlu saya siapkan?',
 			'nursing.services.primary_nursing.description' => 'Memantau dan melakukan prosedur keperawatan mulai dari pemeriksaan fisik, pemberian obat, tube feed (selang makan), dan suction (penyedotan lendir), hingga suntikan dan perawatan luka.',
 			'nursing.services.primary_nursing.title' => 'Layanan Keperawatan Primer',
 			'nursing.services.specialized_nursing.description' => 'Fokus pada pemulihan Anda, dan percayakan perawatan medis yang kompleks kepada perawat profesional kami yang berpengalaman.',

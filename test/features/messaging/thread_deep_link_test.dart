@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/core/blocs/user_role_cubit.dart';
@@ -47,7 +48,17 @@ void main() {
     );
     addTearDown(router.dispose);
 
-    await tester.pumpWidget(MultiBlocProvider(
+    // Tall enough for the whole transcript to be built: the context card above
+    // the first message takes real space, and a ListView only builds what fits.
+    tester.view.physicalSize = const Size(400, 2000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    // The app wraps its tree in a TranslationProvider; the chat reads its
+    // openers from it, so the test has to model that too.
+    await tester.pumpWidget(TranslationProvider(
+        child: MultiBlocProvider(
       providers: [
         BlocProvider<UserRoleCubit>(
           create: (_) => UserRoleCubit()..setUserRole(UserRole.patient),
@@ -55,7 +66,7 @@ void main() {
         BlocProvider<ThreadIndexCubit>.value(value: sl<ThreadIndexCubit>()),
       ],
       child: MaterialApp.router(routerConfig: router),
-    ));
+    )));
     await tester.pump(const Duration(milliseconds: 400));
     await tester.pump(const Duration(milliseconds: 400));
   }

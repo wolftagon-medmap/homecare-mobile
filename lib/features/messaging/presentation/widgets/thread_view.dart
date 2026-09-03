@@ -4,10 +4,12 @@ import 'package:m2health/const.dart';
 import 'package:m2health/core/presentation/widgets/booking/booking.dart';
 
 import '../../domain/entities/chat_message.dart';
+import '../../domain/entities/message_thread.dart';
 import '../bloc/thread_cubit.dart';
 import 'chat_bubble.dart';
 import 'estimate_revision_card.dart';
 import 'package:m2health/core/presentation/widgets/messaging/propose_time_sheet.dart';
+import 'thread_context_card.dart';
 import 'time_proposal_card.dart';
 
 /// The conversation itself, shared by both chat screens.
@@ -25,11 +27,22 @@ class ThreadView extends StatefulWidget {
   final bool canRespondToCards;
   final String counterpartName;
 
+  /// What the conversation is about. Rendered above the first message, so an
+  /// empty thread still says why it exists.
+  final String serviceLabel;
+  final ThreadContext threadContext;
+
+  /// The openers offered while the transcript is empty.
+  final List<String> openers;
+
   const ThreadView({
     super.key,
     required this.counterpartUserId,
     required this.canRespondToCards,
     required this.counterpartName,
+    this.serviceLabel = '',
+    this.threadContext = const ThreadContext(),
+    this.openers = const [],
   });
 
   @override
@@ -78,26 +91,41 @@ class _ThreadViewState extends State<ThreadView> {
         if (state.loading) {
           return const BookingLoadingState(message: 'Loading the conversation');
         }
-        if (state.messages.isEmpty) {
-          return BookingEmptyState(
-            title: 'No messages yet',
-            message: 'Say hello to ${widget.counterpartName}.',
-            icon: Icons.forum_outlined,
-          );
-        }
-
         final rows = _rows(state.messages);
+        final header = _header();
+
         return Container(
           color: Const.grayLight,
           child: ListView.builder(
             controller: _scroll,
-            padding: const EdgeInsets.only(top: 8, bottom: 16),
-            itemCount: rows.length,
-            itemBuilder: (context, index) => _row(context, rows[index], state),
+            padding: const EdgeInsets.only(top: 4, bottom: 16),
+            itemCount: header.length + rows.length,
+            itemBuilder: (context, index) => index < header.length
+                ? header[index]
+                : _row(context, rows[index - header.length], state),
           ),
         );
       },
     );
+  }
+
+  /// The context card, plus the openers while nobody has written anything.
+  List<Widget> _header() {
+    final cubit = context.read<ThreadCubit>();
+    final empty = cubit.state.messages.isEmpty;
+
+    return [
+      if (!widget.threadContext.isEmpty || widget.serviceLabel.isNotEmpty)
+        ThreadContextCard(
+          serviceLabel: widget.serviceLabel,
+          context_: widget.threadContext,
+        ),
+      if (empty && widget.openers.isNotEmpty)
+        ChatOpeners(
+          openers: widget.openers,
+          onPick: cubit.useOpener,
+        ),
+    ];
   }
 
   Widget _row(BuildContext context, Object row, ThreadState state) {

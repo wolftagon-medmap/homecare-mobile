@@ -25,6 +25,11 @@ void main() {
         expect(entity.id, greaterThan(0));
         expect(entity.counterpart, isNotNull);
         expect(entity.serviceLabel, isNotEmpty);
+        // The chat opens on this, so a thread that cannot say what it is about
+        // is a blank screen.
+        expect(entity.context.isEmpty, isFalse);
+        expect(entity.context.issueLabels, isNotEmpty);
+        expect(entity.context.location, isNotNull);
       }
     });
 

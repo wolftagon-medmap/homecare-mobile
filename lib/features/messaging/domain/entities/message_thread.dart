@@ -40,6 +40,26 @@ class MessagePreview extends Equatable {
   List<Object?> get props => [kind, body, authorUserId, createdAt];
 }
 
+/// What the conversation is about, so a thread can say so before anyone has
+/// written a word.
+class ThreadContext extends Equatable {
+  final List<String> issueLabels;
+  final String? location;
+  final double? estimatedPrice;
+
+  const ThreadContext({
+    this.issueLabels = const [],
+    this.location,
+    this.estimatedPrice,
+  });
+
+  bool get isEmpty =>
+      issueLabels.isEmpty && location == null && estimatedPrice == null;
+
+  @override
+  List<Object?> get props => [issueLabels, location, estimatedPrice];
+}
+
 /// One conversation, as it appears in the thread list. [unread] is per-viewer,
 /// not a property of the thread.
 class MessageThread extends Equatable {
@@ -52,6 +72,7 @@ class MessageThread extends Equatable {
   final MessagePreview? lastMessage;
   final int unread;
   final DateTime? lastMessageAt;
+  final ThreadContext context;
 
   const MessageThread({
     required this.id,
@@ -63,6 +84,7 @@ class MessageThread extends Equatable {
     required this.lastMessage,
     required this.unread,
     required this.lastMessageAt,
+    this.context = const ThreadContext(),
   });
 
   bool get isOpen => status == ThreadStatus.open;
@@ -78,5 +100,6 @@ class MessageThread extends Equatable {
         lastMessage,
         unread,
         lastMessageAt,
+        context,
       ];
 }

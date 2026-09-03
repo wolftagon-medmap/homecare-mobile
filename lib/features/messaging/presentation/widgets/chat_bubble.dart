@@ -49,15 +49,14 @@ class ChatBubble extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
-                  color: Const.tosca,
+                  color: Const.aqua,
                 ),
               ),
               const SizedBox(height: 3),
             ],
             Text(
               message.body ?? '',
-              style: TextStyle(
-                fontSize: 14,
+              style: ProText.body.copyWith(
                 height: 1.35,
                 color: isMine ? Colors.white : Const.primaryTextColor,
               ),
@@ -66,8 +65,8 @@ class ChatBubble extends StatelessWidget {
             Text(
               _clock(message.createdAt.toLocal()),
               style: TextStyle(
-                fontSize: 10,
-                color: isMine ? Colors.white70 : Colors.grey[500],
+                fontSize: 11,
+                color: isMine ? Colors.white70 : Const.chatMutedColor,
               ),
             ),
           ],
@@ -100,7 +99,7 @@ class ChatSystemLine extends StatelessWidget {
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 12, color: Colors.grey[700], height: 1.3),
+          style: ProText.hint.copyWith(height: 1.3),
         ),
       ),
     );
@@ -123,7 +122,7 @@ class ChatDayDivider extends StatelessWidget {
           style: const TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w700,
-            color: Color(0xFF8A96BC),
+            color: Const.chatMutedColor,
           ),
         ),
       ),
