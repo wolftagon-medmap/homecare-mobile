@@ -97,7 +97,25 @@ class _TranslationsChatbotId implements TranslationsChatbotEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get namespace_title => 'Asisten AI';
+	@override String get title => 'Asisten AI M2Health';
+	@override String get heroGreeting => 'Hai! Saya';
+	@override String get heroName => 'Asisten Kesehatan AI M2Health.';
+	@override String get heroBody => 'Ceritakan apa yang Anda rasakan, dan saya akan membantu Anda memahami langkah selanjutnya.';
+	@override String get composerHint => 'Tulis pesan Anda...';
+	@override String get composerHintWelcome => 'Atau tulis pertanyaan Anda di sini...';
+	@override String get send => 'Kirim';
+	@override String get startOver => 'Mulai ulang';
+	@override String get privacyLabel => '(Privasi HIPAA)';
+	@override String get privacyDetail => 'Percakapan Anda bersifat pribadi. Detail kesehatan dienkripsi dan ditangani sesuai Kebijakan Privasi kami (selaras PDPA / HIPAA). Anda dapat meninjau atau menghapus obrolan ini kapan saja.';
+	@override String get benefitsTitle => 'Mengapa memakai Asisten AI M2Health?';
+	@override String get benefitUnderstand => 'Pahami keluhan Anda';
+	@override String get benefitExplain => 'Dapatkan penjelasan dengan bahasa sederhana';
+	@override String get benefitSaveTime => 'Hemat waktu dan kurangi tebak-tebakan';
+	@override String get benefitConnect => 'Terhubung ke perawatan yang tepat, lebih cepat';
+	@override String get disclaimerTitle => 'Penting';
+	@override String get disclaimerBody => 'Asisten AI ini hanya memberikan informasi umum dan tidak menggantikan nasihat, diagnosis, atau pengobatan medis profesional. Jika Anda mengalami keadaan darurat medis, segera cari pertolongan medis.';
+	@override String get errorTitle => 'Asisten sedang tidak tersedia';
+	@override String get retry => 'Coba lagi';
 }
 
 // Path: dashboard
@@ -1429,7 +1447,25 @@ extension on TranslationsId {
 			'booking.schedule.submit_button' => 'Kirim',
 			'booking.schedule.submitting_button' => 'Mengirim...',
 			'booking.schedule.title' => 'Pilih Jadwal',
-			'chatbot.namespace_title' => 'Asisten AI',
+			'chatbot.title' => 'Asisten AI M2Health',
+			'chatbot.heroGreeting' => 'Hai! Saya',
+			'chatbot.heroName' => 'Asisten Kesehatan AI M2Health.',
+			'chatbot.heroBody' => 'Ceritakan apa yang Anda rasakan, dan saya akan membantu Anda memahami langkah selanjutnya.',
+			'chatbot.composerHint' => 'Tulis pesan Anda...',
+			'chatbot.composerHintWelcome' => 'Atau tulis pertanyaan Anda di sini...',
+			'chatbot.send' => 'Kirim',
+			'chatbot.startOver' => 'Mulai ulang',
+			'chatbot.privacyLabel' => '(Privasi HIPAA)',
+			'chatbot.privacyDetail' => 'Percakapan Anda bersifat pribadi. Detail kesehatan dienkripsi dan ditangani sesuai Kebijakan Privasi kami (selaras PDPA / HIPAA). Anda dapat meninjau atau menghapus obrolan ini kapan saja.',
+			'chatbot.benefitsTitle' => 'Mengapa memakai Asisten AI M2Health?',
+			'chatbot.benefitUnderstand' => 'Pahami keluhan Anda',
+			'chatbot.benefitExplain' => 'Dapatkan penjelasan dengan bahasa sederhana',
+			'chatbot.benefitSaveTime' => 'Hemat waktu dan kurangi tebak-tebakan',
+			'chatbot.benefitConnect' => 'Terhubung ke perawatan yang tepat, lebih cepat',
+			'chatbot.disclaimerTitle' => 'Penting',
+			'chatbot.disclaimerBody' => 'Asisten AI ini hanya memberikan informasi umum dan tidak menggantikan nasihat, diagnosis, atau pengobatan medis profesional. Jika Anda mengalami keadaan darurat medis, segera cari pertolongan medis.',
+			'chatbot.errorTitle' => 'Asisten sedang tidak tersedia',
+			'chatbot.retry' => 'Coba lagi',
 			'dashboard.chat_ai_placeholder' => 'Tanya dokter AI seputar kesehatan Anda',
 			'dashboard.greeting' => ({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!',
 			'dashboard.greeting_generic' => 'Hidup Lebih Lama & Sehat!',

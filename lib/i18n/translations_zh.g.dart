@@ -97,7 +97,25 @@ class _TranslationsChatbotZh implements TranslationsChatbotEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get namespace_title => 'AI 助手';
+	@override String get title => 'M2Health AI 助手';
+	@override String get heroGreeting => '你好！我是你的';
+	@override String get heroName => 'M2Health AI 健康助手。';
+	@override String get heroBody => '告诉我你哪里不舒服，我会帮你了解下一步可以怎么做。';
+	@override String get composerHint => '输入你的消息…';
+	@override String get composerHintWelcome => '或在这里输入你的问题…';
+	@override String get send => '发送';
+	@override String get startOver => '重新开始';
+	@override String get privacyLabel => '（HIPAA 隐私）';
+	@override String get privacyDetail => '你的对话是私密的。健康信息经过加密，并按照我们的隐私政策（符合 PDPA / HIPAA）处理。你可以随时查看或删除此对话。';
+	@override String get benefitsTitle => '为什么使用 M2Health AI 助手？';
+	@override String get benefitUnderstand => '了解你的健康疑虑';
+	@override String get benefitExplain => '用简单的语言获得清晰解释';
+	@override String get benefitSaveTime => '节省时间，减少猜测';
+	@override String get benefitConnect => '更快连接到合适的照护';
+	@override String get disclaimerTitle => '重要提示';
+	@override String get disclaimerBody => '此 AI 助手仅提供一般信息，不能取代专业的医疗建议、诊断或治疗。如遇医疗紧急情况，请立即就医。';
+	@override String get errorTitle => '助手暂时无法使用';
+	@override String get retry => '重试';
 }
 
 // Path: dashboard
@@ -1429,7 +1447,25 @@ extension on TranslationsZh {
 			'booking.schedule.submit_button' => '提交',
 			'booking.schedule.submitting_button' => '正在提交...',
 			'booking.schedule.title' => '选择时间表',
-			'chatbot.namespace_title' => 'AI 助手',
+			'chatbot.title' => 'M2Health AI 助手',
+			'chatbot.heroGreeting' => '你好！我是你的',
+			'chatbot.heroName' => 'M2Health AI 健康助手。',
+			'chatbot.heroBody' => '告诉我你哪里不舒服，我会帮你了解下一步可以怎么做。',
+			'chatbot.composerHint' => '输入你的消息…',
+			'chatbot.composerHintWelcome' => '或在这里输入你的问题…',
+			'chatbot.send' => '发送',
+			'chatbot.startOver' => '重新开始',
+			'chatbot.privacyLabel' => '（HIPAA 隐私）',
+			'chatbot.privacyDetail' => '你的对话是私密的。健康信息经过加密，并按照我们的隐私政策（符合 PDPA / HIPAA）处理。你可以随时查看或删除此对话。',
+			'chatbot.benefitsTitle' => '为什么使用 M2Health AI 助手？',
+			'chatbot.benefitUnderstand' => '了解你的健康疑虑',
+			'chatbot.benefitExplain' => '用简单的语言获得清晰解释',
+			'chatbot.benefitSaveTime' => '节省时间，减少猜测',
+			'chatbot.benefitConnect' => '更快连接到合适的照护',
+			'chatbot.disclaimerTitle' => '重要提示',
+			'chatbot.disclaimerBody' => '此 AI 助手仅提供一般信息，不能取代专业的医疗建议、诊断或治疗。如遇医疗紧急情况，请立即就医。',
+			'chatbot.errorTitle' => '助手暂时无法使用',
+			'chatbot.retry' => '重试',
 			'dashboard.chat_ai_placeholder' => '咨询AI医生，解答您的健康疑问',
 			'dashboard.greeting' => ({required Object displayName}) => '更长寿，更健康，${displayName}！',
 			'dashboard.greeting_generic' => '更长寿，更健康！',
