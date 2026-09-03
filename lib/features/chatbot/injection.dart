@@ -1,21 +1,27 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:m2health/features/chatbot/data/datasources/chatbot_remote_datasource.dart';
-import 'package:m2health/features/chatbot/data/repositories/chat_repository_impl.dart';
-import 'package:m2health/features/chatbot/domain/repositories/chat_repository.dart';
+import 'package:m2health/core/config/feature_flags.dart';
+import 'package:m2health/features/chatbot/data/datasources/assistant_script_datasource.dart';
+import 'package:m2health/features/chatbot/data/repositories/assistant_repository_impl.dart';
+import 'package:m2health/features/chatbot/domain/repositories/assistant_repository.dart';
+import 'package:m2health/features/chatbot/presentation/bloc/assistant_cubit.dart';
 
+/// Dependency registrations for the AI Assistant surface.
+///
+/// Called from `service_locator.dart`. The script data source resolves through
+/// `AppFlags.remote(Feature.chatbotResponses)`, which ships local.
 void initChatbotModule(GetIt sl) {
-  // Repository
-  sl.registerLazySingleton<ChatRepository>(
-    () => ChatRepositoryImpl(sl()),
+  sl.registerLazySingleton<AssistantScriptDataSource>(
+    () => AppFlags.remote(Feature.chatbotResponses)
+        ? AssistantScriptRemoteDataSource(dio: sl<Dio>())
+        : const AssistantScriptLocalDataSource(),
   );
 
-  // Data sources
-  sl.registerLazySingleton<ChatRemoteDataSource>(
-    () => ChatRemoteDataSourceImpl(sl()),
+  sl.registerLazySingleton<AssistantRepository>(
+    () => AssistantRepositoryImpl(source: sl<AssistantScriptDataSource>()),
   );
 
-  // Cubits/Blocs (should be factory or transient)
-  // sl.registerFactory<ChatCubit>(
-  //   () => ChatCubit(repository: sl<ChatRepository>()),
-  // );
+  sl.registerFactory<AssistantCubit>(
+    () => AssistantCubit(repository: sl<AssistantRepository>()),
+  );
 }

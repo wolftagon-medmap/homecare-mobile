@@ -8,6 +8,7 @@ import 'package:m2health/core/network/token_expiration_interceptor.dart';
 import 'package:m2health/features/auth/injection.dart';
 import 'package:m2health/features/booking_appointment/injection.dart';
 import 'package:m2health/features/chatbot/injection.dart';
+import 'package:m2health/features/chatbot_legacy/injection.dart';
 import 'package:m2health/features/dashboard/injection.dart';
 import 'package:m2health/features/guided_booking/injection.dart';
 import 'package:m2health/features/health_profile/injection.dart';
@@ -104,6 +105,7 @@ Future<void> setupLocator() async {
   initSettingsModule(sl);
   initSmokingCessationModule(sl);
   initChatbotModule(sl);
+  initChatbotLegacyModule(sl);
   initIntakeBookingModule(sl);
 
   // === Client-feedback build — feature seams (A0 owns this block) ===

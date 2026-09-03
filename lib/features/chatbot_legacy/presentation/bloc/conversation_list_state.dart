@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:m2health/features/chatbot/domain/entities/conversation.dart';
+import 'package:m2health/features/chatbot_legacy/domain/entities/conversation.dart';
 
 sealed class ConversationListState extends Equatable {
   const ConversationListState();

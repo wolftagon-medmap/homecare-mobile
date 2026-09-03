@@ -1,4 +1,4 @@
-import 'package:m2health/features/chatbot/domain/entities/assistant_message.dart';
+import 'package:m2health/features/chatbot_legacy/domain/entities/assistant_message.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 

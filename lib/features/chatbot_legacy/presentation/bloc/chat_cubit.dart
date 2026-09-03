@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/features/chatbot/domain/chat_exception.dart';
-import 'package:m2health/features/chatbot/domain/entities/message.dart';
-import 'package:m2health/features/chatbot/domain/repositories/chat_repository.dart';
-import 'package:m2health/features/chatbot/presentation/bloc/chat_state.dart';
+import 'package:m2health/features/chatbot_legacy/domain/chat_exception.dart';
+import 'package:m2health/features/chatbot_legacy/domain/entities/message.dart';
+import 'package:m2health/features/chatbot_legacy/domain/repositories/chat_repository.dart';
+import 'package:m2health/features/chatbot_legacy/presentation/bloc/chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   final ChatRepository _repository;

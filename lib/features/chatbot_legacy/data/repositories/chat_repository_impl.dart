@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:m2health/features/chatbot/data/datasources/chatbot_remote_datasource.dart';
-import 'package:m2health/features/chatbot/data/models/conversation_model.dart';
-import 'package:m2health/features/chatbot/domain/chat_exception.dart';
-import 'package:m2health/features/chatbot/domain/entities/conversation.dart';
-import 'package:m2health/features/chatbot/domain/repositories/chat_repository.dart';
+import 'package:m2health/features/chatbot_legacy/data/datasources/chatbot_remote_datasource.dart';
+import 'package:m2health/features/chatbot_legacy/data/models/conversation_model.dart';
+import 'package:m2health/features/chatbot_legacy/domain/chat_exception.dart';
+import 'package:m2health/features/chatbot_legacy/domain/entities/conversation.dart';
+import 'package:m2health/features/chatbot_legacy/domain/repositories/chat_repository.dart';
 
 class ChatRepositoryImpl implements ChatRepository {
   final ChatRemoteDataSource _remoteDataSource;
