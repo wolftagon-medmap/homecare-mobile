@@ -53,7 +53,7 @@ class _CountingRepository implements MessagingRepository {
   }
 
   @override
-  Future<Either<Failure, List<ChatMessage>>> loadMessages(int threadId) =>
+  Future<Either<Failure, ChatMessagePage>> loadMessages(int threadId) =>
       _inner.loadMessages(threadId);
 
   @override

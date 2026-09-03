@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/i18n/translations.g.dart';
 
 import '../../domain/entities/chat_message.dart';
 
@@ -11,12 +12,17 @@ class ChatBubble extends StatelessWidget {
   final String? authorName;
   final bool showAuthor;
 
+  /// Marks the last message the other side has reached. Only ever set on one
+  /// bubble in the thread — the cursor is per-thread, not per-message.
+  final bool read;
+
   const ChatBubble({
     super.key,
     required this.message,
     required this.isMine,
     this.authorName,
     this.showAuthor = false,
+    this.read = false,
   });
 
   @override
@@ -62,12 +68,34 @@ class ChatBubble extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4),
-            Text(
-              _clock(message.createdAt.toLocal()),
-              style: TextStyle(
-                fontSize: 11,
-                color: isMine ? Colors.white70 : Const.chatMutedColor,
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  _clock(message.createdAt.toLocal()),
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: isMine ? Colors.white70 : Const.chatMutedColor,
+                  ),
+                ),
+                if (read) ...[
+                  const SizedBox(width: 6),
+                  Icon(
+                    Icons.done_all_rounded,
+                    size: 13,
+                    color: isMine ? Colors.white70 : Const.chatMutedColor,
+                  ),
+                  const SizedBox(width: 3),
+                  Text(
+                    context.t.messaging.chat.read,
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: isMine ? Colors.white70 : Const.chatMutedColor,
+                    ),
+                  ),
+                ],
+              ],
             ),
           ],
         ),

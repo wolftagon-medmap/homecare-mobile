@@ -9,7 +9,7 @@ import '../entities/time_proposal.dart';
 abstract class MessagingRepository {
   Future<Either<Failure, List<MessageThread>>> loadThreads();
 
-  Future<Either<Failure, List<ChatMessage>>> loadMessages(int threadId);
+  Future<Either<Failure, ChatMessagePage>> loadMessages(int threadId);
 
   Future<Either<Failure, ChatMessage>> sendMessage(int threadId, String body);
 

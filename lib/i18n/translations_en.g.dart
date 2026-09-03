@@ -1600,6 +1600,9 @@ class TranslationsMessagingChatEn {
 		'Is the time still OK?',
 		'How should I prepare?',
 	];
+
+	/// en: 'Read'
+	String get read => 'Read';
 }
 
 // Path: nursing.services
@@ -2677,6 +2680,7 @@ extension on Translations {
 			'messaging.chat.openersPatient.0' => 'Hi, thank you for taking this.',
 			'messaging.chat.openersPatient.1' => 'Is the time still OK?',
 			'messaging.chat.openersPatient.2' => 'How should I prepare?',
+			'messaging.chat.read' => 'Read',
 			'nursing.services.primary_nursing.description' => 'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.',
 			'nursing.services.primary_nursing.title' => 'Primary Nursing',
 			'nursing.services.specialized_nursing.description' => 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros',

@@ -20,12 +20,17 @@ class ThreadState extends Equatable {
   /// sending, so nobody sends a sentence they have not read.
   final String? draft;
 
+  /// How far the other side has read. Everything up to and including this id
+  /// has been seen by them.
+  final int? readUpToMessageId;
+
   const ThreadState({
     this.messages = const [],
     this.loading = true,
     this.sending = false,
     this.error,
     this.draft,
+    this.readUpToMessageId,
   });
 
   ThreadState copyWith({
@@ -35,6 +40,7 @@ class ThreadState extends Equatable {
     String? error,
     bool clearError = false,
     String? draft,
+    int? readUpToMessageId,
   }) =>
       ThreadState(
         messages: messages ?? this.messages,
@@ -42,10 +48,12 @@ class ThreadState extends Equatable {
         sending: sending ?? this.sending,
         error: clearError ? null : (error ?? this.error),
         draft: draft ?? this.draft,
+        readUpToMessageId: readUpToMessageId ?? this.readUpToMessageId,
       );
 
   @override
-  List<Object?> get props => [messages, loading, sending, error, draft];
+  List<Object?> get props =>
+      [messages, loading, sending, error, draft, readUpToMessageId];
 }
 
 /// One open conversation.
@@ -76,9 +84,13 @@ class ThreadCubit extends Cubit<ThreadState> {
     if (isClosed) return;
     result.fold(
       (failure) => emit(state.copyWith(loading: false, error: failure.message)),
-      (messages) async {
-        emit(state.copyWith(messages: messages, loading: false));
-        await _markRead(messages);
+      (page) async {
+        emit(state.copyWith(
+          messages: page.messages,
+          loading: false,
+          readUpToMessageId: page.readUpToMessageId,
+        ));
+        await _markRead(page.messages);
       },
     );
   }
@@ -143,7 +155,11 @@ class ThreadCubit extends Cubit<ThreadState> {
     if (isClosed) return;
     reloaded.fold(
       (f) => emit(state.copyWith(sending: false, error: f.message)),
-      (messages) => emit(state.copyWith(messages: messages, sending: false)),
+      (page) => emit(state.copyWith(
+        messages: page.messages,
+        sending: false,
+        readUpToMessageId: page.readUpToMessageId,
+      )),
     );
   }
 

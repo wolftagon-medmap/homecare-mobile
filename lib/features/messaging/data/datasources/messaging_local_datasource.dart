@@ -31,11 +31,17 @@ class MessagingLocalDataSource implements MessagingDataSource {
   }
 
   @override
-  Future<List<ChatMessageModel>> fetchMessages(int threadId) async {
+  Future<ChatMessagePageModel> fetchMessages(int threadId) async {
     await Future<void>.delayed(_latency);
-    return (_messages[threadId] ?? const [])
+    final messages = (_messages[threadId] ?? const [])
         .map(ChatMessageModel.fromJson)
         .toList();
+    // The demo counterpart has read everything up to their own last line.
+    final theirs = messages.where((m) => m.authorUserId != kDemoPatientUserId);
+    return ChatMessagePageModel(
+      messages: messages,
+      readUpToMessageId: theirs.isEmpty ? null : theirs.last.id,
+    );
   }
 
   @override

@@ -9,7 +9,7 @@ import '../models/time_proposal_model.dart';
 abstract class MessagingDataSource {
   Future<List<MessageThreadModel>> fetchThreads();
 
-  Future<List<ChatMessageModel>> fetchMessages(int threadId);
+  Future<ChatMessagePageModel> fetchMessages(int threadId);
 
   Future<ChatMessageModel> sendMessage(int threadId, String body);
 

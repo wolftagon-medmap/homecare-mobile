@@ -75,3 +75,28 @@ class ChatMessageModel {
         _ => MessageKind.text,
       };
 }
+
+/// Mirrors `MessagePage`.
+class ChatMessagePageModel {
+  final List<ChatMessageModel> messages;
+  final int? readUpToMessageId;
+
+  const ChatMessagePageModel({
+    this.messages = const [],
+    this.readUpToMessageId,
+  });
+
+  factory ChatMessagePageModel.fromJson(Map<String, dynamic> json) =>
+      ChatMessagePageModel(
+        messages: [
+          for (final raw in (json['messages'] as List?) ?? const [])
+            if (raw is Map<String, dynamic>) ChatMessageModel.fromJson(raw),
+        ],
+        readUpToMessageId: (json['readUpToMessageId'] as num?)?.toInt(),
+      );
+
+  ChatMessagePage toEntity() => ChatMessagePage(
+        messages: messages.map((m) => m.toEntity()).toList(),
+        readUpToMessageId: readUpToMessageId,
+      );
+}

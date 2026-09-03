@@ -37,15 +37,13 @@ class MessagingRemoteDataSource implements MessagingDataSource {
   }
 
   @override
-  Future<List<ChatMessageModel>> fetchMessages(int threadId) async {
+  Future<ChatMessagePageModel> fetchMessages(int threadId) async {
     final response = await _dio.get(
       '${Const.URL_API_V2}/threads/$threadId/messages',
       options: await _authOptions(),
     );
-    return (response.data['messages'] as List<dynamic>? ?? [])
-        .whereType<Map<String, dynamic>>()
-        .map(ChatMessageModel.fromJson)
-        .toList();
+    return ChatMessagePageModel.fromJson(
+        Map<String, dynamic>.from(response.data as Map));
   }
 
   @override

@@ -69,3 +69,18 @@ class ChatMessage extends Equatable {
         estimateRevision
       ];
 }
+
+/// A thread's messages plus how far the other side has read.
+///
+/// A cursor, not per-message state: everything up to and including
+/// [readUpToMessageId] has been seen, which is why the screen marks one message
+/// rather than ticking every bubble.
+class ChatMessagePage extends Equatable {
+  final List<ChatMessage> messages;
+  final int? readUpToMessageId;
+
+  const ChatMessagePage({this.messages = const [], this.readUpToMessageId});
+
+  @override
+  List<Object?> get props => [messages, readUpToMessageId];
+}

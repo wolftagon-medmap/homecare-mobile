@@ -128,6 +128,20 @@ class _ThreadViewState extends State<ThreadView> {
     ];
   }
 
+  /// The last message the viewer sent, if the other side has reached it. One
+  /// bubble carries the marker, because what the server stores is a cursor.
+  int? _readMarkerId(ThreadState state) {
+    final cursor = state.readUpToMessageId;
+    if (cursor == null) return null;
+    for (final message in state.messages.reversed) {
+      if (message.authorUserId == null) continue;
+      if (message.isMine(widget.counterpartUserId)) {
+        return message.id <= cursor ? message.id : null;
+      }
+    }
+    return null;
+  }
+
   Widget _row(BuildContext context, Object row, ThreadState state) {
     if (row is DateTime) return ChatDayDivider(day: row);
 
@@ -164,6 +178,7 @@ class _ThreadViewState extends State<ThreadView> {
           message: message,
           isMine: message.isMine(widget.counterpartUserId),
           authorName: widget.counterpartName,
+          read: message.id == _readMarkerId(state),
         );
     }
   }

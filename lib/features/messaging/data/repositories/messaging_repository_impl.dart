@@ -24,12 +24,9 @@ class MessagingRepositoryImpl implements MessagingRepository {
       );
 
   @override
-  Future<Either<Failure, List<ChatMessage>>> loadMessages(int threadId) =>
-      _guard(
+  Future<Either<Failure, ChatMessagePage>> loadMessages(int threadId) => _guard(
         'loadMessages',
-        () async => (await _source.fetchMessages(threadId))
-            .map((m) => m.toEntity())
-            .toList(),
+        () async => (await _source.fetchMessages(threadId)).toEntity(),
       );
 
   @override

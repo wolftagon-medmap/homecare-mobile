@@ -893,6 +893,7 @@ class _TranslationsMessagingChatZh implements TranslationsMessagingChatEn {
 		'时间还合适吗？',
 		'我需要提前准备什么？',
 	];
+	@override String get read => '已读';
 }
 
 // Path: nursing.services
@@ -1746,6 +1747,7 @@ extension on TranslationsZh {
 			'messaging.chat.openersPatient.0' => '您好，谢谢您接下这次预约。',
 			'messaging.chat.openersPatient.1' => '时间还合适吗？',
 			'messaging.chat.openersPatient.2' => '我需要提前准备什么？',
+			'messaging.chat.read' => '已读',
 			'nursing.services.primary_nursing.description' => '监测并执行从身体检查、给药、管饲和吸痰到注射及伤口护理的各项护理程序。',
 			'nursing.services.primary_nursing.title' => '基础护理',
 			'nursing.services.specialized_nursing.description' => '您只需专注于康复，将复杂的护理工作交给经验丰富的专业护理人员 。',

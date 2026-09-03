@@ -893,6 +893,7 @@ class _TranslationsMessagingChatId implements TranslationsMessagingChatEn {
 		'Apakah waktunya masih sesuai?',
 		'Apa yang perlu saya siapkan?',
 	];
+	@override String get read => 'Dibaca';
 }
 
 // Path: nursing.services
@@ -1746,6 +1747,7 @@ extension on TranslationsId {
 			'messaging.chat.openersPatient.0' => 'Halo, terima kasih sudah menerima permintaan ini.',
 			'messaging.chat.openersPatient.1' => 'Apakah waktunya masih sesuai?',
 			'messaging.chat.openersPatient.2' => 'Apa yang perlu saya siapkan?',
+			'messaging.chat.read' => 'Dibaca',
 			'nursing.services.primary_nursing.description' => 'Memantau dan melakukan prosedur keperawatan mulai dari pemeriksaan fisik, pemberian obat, tube feed (selang makan), dan suction (penyedotan lendir), hingga suntikan dan perawatan luka.',
 			'nursing.services.primary_nursing.title' => 'Layanan Keperawatan Primer',
 			'nursing.services.specialized_nursing.description' => 'Fokus pada pemulihan Anda, dan percayakan perawatan medis yang kompleks kepada perawat profesional kami yang berpengalaman.',
