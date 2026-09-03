@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/messaging/messaging_entry.dart';
 import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/route/appointment_routes.dart';
 import 'package:m2health/route/navigator_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -119,6 +120,6 @@ class FcmService {
     final appointmentId = int.tryParse(appointmentIdStr);
     if (appointmentId == null) return;
 
-    context.push(AppRoutes.appointmentDetail, extra: appointmentId);
+    context.push(AppointmentRoutes.detailPath(appointmentId));
   }
 }
