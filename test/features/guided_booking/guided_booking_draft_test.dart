@@ -103,6 +103,24 @@ void main() {
       );
     });
 
+    test('saving a one-off pick keeps the professional and the time', () {
+      // A map pin or a GPS fix carries no address id while the patient picks a
+      // professional and a slot; submit fills it in afterwards.
+      final picked = const GuidedBookingDraft(
+        category: 'pharmacy',
+        subCategory: 'medication_support',
+        issueCodes: ['med_questions'],
+        professionalId: 103,
+      ).withPreferredAt(DateTime(2026, 9, 8, 9));
+
+      final draft = picked.withSavedAddressId(77);
+
+      expect(draft.addressId, 77);
+      expect(draft.professionalId, 103);
+      expect(draft.preferredAt, DateTime(2026, 9, 8, 9));
+      expect(draft.isSubmittable, isTrue);
+    });
+
     test('toJson carries the wire shape', () {
       expect(full().toJson(), {
         'category': 'pharmacy',

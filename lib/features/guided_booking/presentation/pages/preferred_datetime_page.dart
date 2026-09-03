@@ -149,8 +149,7 @@ class _PreferredDateTimePageState extends State<PreferredDateTimePage> {
             if (state.selectedProfessional != null)
               _ProfessionalSummary(
                 professional: state.selectedProfessional!,
-                location: state.selectedAddress?.formattedAddress ??
-                    state.selectedAddress?.label,
+                location: state.visitAddressLabel,
               ),
             const SizedBox(height: 24),
             _SectionTitle(t.select_date),

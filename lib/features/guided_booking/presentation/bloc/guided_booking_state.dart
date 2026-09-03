@@ -64,11 +64,21 @@ class GuidedBookingState extends Equatable {
   IssueSubCategory? get selectedSubCategory =>
       catalogue?.subCategory(draft.subCategory);
 
-  Address? get selectedAddress {
-    for (final address in addresses) {
-      if (address.id == draft.addressId) return address;
-    }
-    return null;
+  /// A location the patient picked on the map or took from GPS has no address
+  /// id until submit writes it, so readiness is judged on having a location at
+  /// all rather than on `draft.addressId`.
+  bool get canSubmit =>
+      draft.hasIssues &&
+      draft.hasProfessional &&
+      draft.hasPreferredTime &&
+      visitLocation != null;
+
+  String? get visitAddressLabel {
+    final location = visitLocation;
+    if (location == null) return null;
+    final formatted = location.formattedAddress;
+    if (formatted != null && formatted.isNotEmpty) return formatted;
+    return location.label.isEmpty ? null : location.label;
   }
 
   BookingProfessional? get selectedProfessional {

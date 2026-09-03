@@ -229,4 +229,30 @@ void main() {
     });
     await cubit.close();
   });
+
+  test('a hand-picked location submits and is written on the way out',
+      () async {
+    final cubit = build(subCategory: 'primary_nurse');
+    cubit.toggleIssue('nurse_wound_care');
+    cubit.selectVisitLocation(const VisitLocation(
+      latitude: 1.31,
+      longitude: 103.84,
+      label: 'Pinned spot',
+      source: VisitLocationSource.picked,
+      formattedAddress: 'JRPP+7JV, Pondok Cina',
+    ));
+    cubit.selectProfessional(2);
+    cubit.selectSlot(DateTime(2026, 9, 8, 10));
+
+    expect(cubit.state.draft.addressId, isNull);
+    expect(cubit.state.canSubmit, isTrue);
+    expect(cubit.state.visitAddressLabel, 'JRPP+7JV, Pondok Cina');
+
+    await cubit.submit();
+
+    expect(submissions.sent!.addressId, 10);
+    expect(submissions.sent!.professionalId, 2);
+    expect(submissions.sent!.preferredAt, DateTime(2026, 9, 8, 10));
+    await cubit.close();
+  });
 }

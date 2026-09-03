@@ -78,7 +78,7 @@ class ReviewAndSendPage extends StatelessWidget {
                 ),
               ],
             ),
-            onPressed: draft.isSubmittable ? cubit.submit : null,
+            onPressed: state.canSubmit ? cubit.submit : null,
           ),
         );
       },
@@ -233,9 +233,7 @@ class ReviewAndSendPage extends StatelessWidget {
               const SizedBox(width: 6),
               Expanded(
                 child: Text(
-                  state.selectedAddress?.formattedAddress ??
-                      state.selectedAddress?.label ??
-                      t.none,
+                  state.visitAddressLabel ?? t.none,
                   style: const TextStyle(fontSize: 14, height: 1.4),
                 ),
               ),

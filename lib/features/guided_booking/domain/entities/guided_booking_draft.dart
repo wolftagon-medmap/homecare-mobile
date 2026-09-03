@@ -80,6 +80,23 @@ class GuidedBookingDraft extends Equatable {
     );
   }
 
+  /// Attaches the id a one-off pick receives when it is written at submit time.
+  /// Unlike [withAddress] this is not a change of location, so the chosen
+  /// professional and time survive it.
+  GuidedBookingDraft withSavedAddressId(int id) {
+    if (id == addressId) return this;
+    return GuidedBookingDraft(
+      category: category,
+      subCategory: subCategory,
+      issueCodes: issueCodes,
+      remarks: remarks,
+      addOnCodes: addOnCodes,
+      addressId: id,
+      professionalId: professionalId,
+      preferredAt: preferredAt,
+    );
+  }
+
   GuidedBookingDraft withProfessional(int? id) {
     if (id == professionalId) return this;
     return GuidedBookingDraft(
