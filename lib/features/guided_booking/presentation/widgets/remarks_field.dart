@@ -4,14 +4,14 @@ import 'package:m2health/features/guided_booking/domain/entities/guided_booking_
 
 class RemarksField extends StatefulWidget {
   final String label;
-  final String hint;
+  final String description;
   final String initialValue;
   final ValueChanged<String> onChanged;
 
   const RemarksField({
     super.key,
     required this.label,
-    required this.hint,
+    required this.description,
     required this.initialValue,
     required this.onChanged,
   });
@@ -42,7 +42,12 @@ class _RemarksFieldState extends State<RemarksField> {
       children: [
         Text(
           widget.label,
-          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          widget.description,
+          style: const TextStyle(fontSize: 12, color: Const.contentTextColor),
         ),
         const SizedBox(height: 8),
         TextField(
@@ -53,10 +58,7 @@ class _RemarksFieldState extends State<RemarksField> {
           minLines: 3,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
-            hintText: widget.hint,
             hintStyle: TextStyle(fontSize: 14, color: Colors.grey[500]),
-            filled: true,
-            fillColor: Colors.grey.withValues(alpha: 0.06),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide.none,

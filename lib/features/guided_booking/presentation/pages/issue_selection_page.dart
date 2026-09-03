@@ -60,7 +60,7 @@ class IssueSelectionPage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 16,
-                                vertical: 4,
+                                vertical: 5,
                               ),
                               child: MultiSelectListTile(
                                 title: issue.label,
@@ -75,7 +75,7 @@ class IssueSelectionPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: RemarksField(
                               label: t.issues.remarks_label,
-                              hint: t.issues.remarks_hint,
+                              description: t.issues.remarks_hint,
                               initialValue: state.draft.remarks,
                               onChanged: cubit.setRemarks,
                             ),
@@ -92,7 +92,7 @@ class IssueSelectionPage extends StatelessWidget {
                                     size: 18),
                                 label: Text(t.issues.add_ons_link),
                                 style: TextButton.styleFrom(
-                                  foregroundColor: Const.tosca,
+                                  foregroundColor: Const.aqua,
                                 ),
                               ),
                             ),

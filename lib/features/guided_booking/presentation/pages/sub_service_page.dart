@@ -51,7 +51,7 @@ class SubServicePage extends StatelessWidget {
                     : ListView(
                         padding: const EdgeInsets.only(bottom: 24),
                         children: [
-                          BookingStepHeader(title: t.sub_service.title),
+                          // BookingStepHeader(title: t.sub_service.title),
                           for (final sub in subCategories)
                             ServiceSelectionCard(
                               title: sub.label,
