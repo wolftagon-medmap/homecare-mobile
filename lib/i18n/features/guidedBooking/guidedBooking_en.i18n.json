@@ -2,12 +2,11 @@
   "namespace_title": "Book a service",
   "sub_service": {
     "title": "Which service do you need?",
-    "subtitle": "Pick the one that fits best.",
     "empty": "No services are available here yet."
   },
   "issues": {
     "title": "What can we help you with?",
-    "subtitle": "Pick everything that applies. You can choose more than one.",
+    "subtitle": "Choose one or more.",
     "remarks_label": "Remarks (optional)",
     "remarks_hint": "Anything else you would like our healthcare professional to know?",
     "add_ons_link": "Add procedures or extras",
@@ -16,13 +15,14 @@
   },
   "add_ons": {
     "title": "Anything else to add?",
-    "subtitle": "Optional extras, priced individually. Skip if you are not sure.",
+    "subtitle": "Optional. Priced individually.",
     "empty": "No extras are available for this service.",
     "selected": "{count} added"
   },
   "professional": {
     "title": "Choose a professional",
-    "subtitle": "Everyone here covers your visit address.",
+    "view_profile": "View profile",
+    "select_cta": "Choose this professional",
     "location_label": "Visit address",
     "location_empty": "Add an address to see who is available",
     "location_loading": "Finding your saved addresses",
@@ -37,15 +37,16 @@
   },
   "schedule": {
     "title": "When suits you?",
-    "subtitle": "Pick a preferred time. We will confirm it with your professional.",
+    "select_date": "Select a date",
+    "select_hour": "Select a time",
+    "chosen": "{day} at {time}",
     "loading": "Checking availability",
-    "empty": "No open times on this day. Try another date.",
+    "empty": "No open times on this day.",
     "error": "We could not load the available times.",
     "no_days": "This professional has no open times right now."
   },
   "review": {
     "title": "Review your request",
-    "subtitle": "Check everything over, then send it.",
     "service": "Service",
     "issues": "Reasons for the visit",
     "remarks": "Remarks",

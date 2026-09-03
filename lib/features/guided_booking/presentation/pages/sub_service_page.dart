@@ -11,6 +11,7 @@ import 'package:m2health/features/guided_booking/presentation/bloc/guided_bookin
 import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/features/smoking_cessation/presentation/bloc/smoking_cessation_flow_cubit.dart';
 import 'package:m2health/features/smoking_cessation/presentation/pages/smoking_cessation_flow_page.dart';
+import 'package:m2health/features/guided_booking/presentation/widgets/booking_flow_progress.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/service_locator.dart';
 
@@ -38,39 +39,46 @@ class SubServicePage extends StatelessWidget {
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ),
-          body: subCategories.isEmpty
-              ? BookingEmptyState(message: t.sub_service.empty)
-              : ListView(
-                  padding: const EdgeInsets.only(bottom: 24),
-                  children: [
-                    BookingStepHeader(
-                      title: t.sub_service.title,
-                      subtitle: t.sub_service.subtitle,
-                      step: 1,
-                    ),
-                    for (final sub in subCategories)
-                      ServiceSelectionCard(
-                        title: sub.label,
-                        description: sub.description ?? '',
-                        imagePath: sub.image ?? 'assets/icons/ilu_nurse.png',
-                        backgroundColor: _background(sub),
-                        priceTag: StartingFromPrice(
-                          category: state.pricingCategory,
-                        ),
-                        onTap: () {
-                          if (sub.legacyFlow != null) {
-                            _openLegacyFlow(context, sub.legacyFlow!);
-                            return;
-                          }
-                          cubit.selectSubCategory(sub.code);
-                          context.push(
-                            GuidedBookingRoutes.issues,
-                            extra: GuidedBookingStepArgs(cubit),
-                          );
-                        },
+          body: Column(
+            children: [
+              BookingFlowProgress(
+                state: state,
+                step: GuidedBookingStep.subService,
+              ),
+              Expanded(
+                child: subCategories.isEmpty
+                    ? BookingEmptyState(message: t.sub_service.empty)
+                    : ListView(
+                        padding: const EdgeInsets.only(bottom: 24),
+                        children: [
+                          BookingStepHeader(title: t.sub_service.title),
+                          for (final sub in subCategories)
+                            ServiceSelectionCard(
+                              title: sub.label,
+                              description: sub.description ?? '',
+                              imagePath:
+                                  sub.image ?? 'assets/icons/ilu_nurse.png',
+                              backgroundColor: _background(sub),
+                              priceTag: StartingFromPrice(
+                                category: state.pricingCategory,
+                              ),
+                              onTap: () {
+                                if (sub.legacyFlow != null) {
+                                  _openLegacyFlow(context, sub.legacyFlow!);
+                                  return;
+                                }
+                                cubit.selectSubCategory(sub.code);
+                                context.push(
+                                  GuidedBookingRoutes.issues,
+                                  extra: GuidedBookingStepArgs(cubit),
+                                );
+                              },
+                            ),
+                        ],
                       ),
-                  ],
-                ),
+              ),
+            ],
+          ),
         );
       },
     );

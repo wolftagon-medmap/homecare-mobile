@@ -2,12 +2,11 @@
   "namespace_title": "预约服务",
   "sub_service": {
     "title": "您需要哪项服务？",
-    "subtitle": "请选择最合适的一项。",
     "empty": "此处暂无可用服务。"
   },
   "issues": {
     "title": "我们能为您做些什么？",
-    "subtitle": "请选择所有符合的项目，可多选。",
+    "subtitle": "请选择一项或多项。",
     "remarks_label": "备注（选填）",
     "remarks_hint": "还有什么需要让我们的医护人员知道的吗？",
     "add_ons_link": "添加项目或附加服务",
@@ -16,13 +15,14 @@
   },
   "add_ons": {
     "title": "还需要添加什么吗？",
-    "subtitle": "可选附加项目，单独计价。不确定可以跳过。",
+    "subtitle": "选填，单独计价。",
     "empty": "此服务暂无附加项目。",
     "selected": "已添加 {count} 项"
   },
   "professional": {
     "title": "选择医护人员",
-    "subtitle": "以下人员均可前往您的上门地址。",
+    "view_profile": "查看资料",
+    "select_cta": "选择这位医护人员",
     "location_label": "上门地址",
     "location_empty": "添加地址以查看可服务的人员",
     "location_loading": "正在查找您保存的地址",
@@ -37,15 +37,16 @@
   },
   "schedule": {
     "title": "您希望什么时候？",
-    "subtitle": "请选择您希望的时间，我们会与医护人员确认。",
+    "select_date": "选择日期",
+    "select_hour": "选择时间",
+    "chosen": "{day} {time}",
     "loading": "正在查询可预约时间",
-    "empty": "当天没有空档，请尝试其他日期。",
+    "empty": "当天没有空档。",
     "error": "无法加载可预约时间。",
     "no_days": "该医护人员目前没有空档。"
   },
   "review": {
     "title": "核对您的申请",
-    "subtitle": "确认无误后即可发送。",
     "service": "服务",
     "issues": "就诊原因",
     "remarks": "备注",

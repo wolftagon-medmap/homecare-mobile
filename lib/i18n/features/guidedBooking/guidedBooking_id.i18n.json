@@ -2,12 +2,11 @@
   "namespace_title": "Pesan layanan",
   "sub_service": {
     "title": "Layanan apa yang Anda butuhkan?",
-    "subtitle": "Pilih yang paling sesuai.",
     "empty": "Belum ada layanan yang tersedia di sini."
   },
   "issues": {
     "title": "Apa yang bisa kami bantu?",
-    "subtitle": "Pilih semua yang sesuai. Anda boleh memilih lebih dari satu.",
+    "subtitle": "Pilih satu atau lebih.",
     "remarks_label": "Catatan (opsional)",
     "remarks_hint": "Ada hal lain yang perlu diketahui tenaga kesehatan kami?",
     "add_ons_link": "Tambah prosedur atau layanan tambahan",
@@ -16,13 +15,14 @@
   },
   "add_ons": {
     "title": "Ada tambahan lain?",
-    "subtitle": "Layanan tambahan opsional dengan harga terpisah. Lewati jika ragu.",
+    "subtitle": "Opsional. Harga terpisah.",
     "empty": "Tidak ada layanan tambahan untuk layanan ini.",
     "selected": "{count} ditambahkan"
   },
   "professional": {
     "title": "Pilih tenaga kesehatan",
-    "subtitle": "Semua yang tampil melayani alamat kunjungan Anda.",
+    "view_profile": "Lihat profil",
+    "select_cta": "Pilih tenaga kesehatan ini",
     "location_label": "Alamat kunjungan",
     "location_empty": "Tambahkan alamat untuk melihat siapa yang tersedia",
     "location_loading": "Mencari alamat tersimpan Anda",
@@ -37,15 +37,16 @@
   },
   "schedule": {
     "title": "Kapan waktu yang cocok?",
-    "subtitle": "Pilih waktu yang Anda inginkan. Kami akan mengonfirmasinya.",
+    "select_date": "Pilih tanggal",
+    "select_hour": "Pilih waktu",
+    "chosen": "{day} pukul {time}",
     "loading": "Memeriksa ketersediaan",
-    "empty": "Tidak ada waktu kosong pada hari ini. Coba tanggal lain.",
+    "empty": "Tidak ada waktu kosong pada hari ini.",
     "error": "Kami tidak dapat memuat waktu yang tersedia.",
     "no_days": "Tenaga kesehatan ini belum memiliki waktu kosong."
   },
   "review": {
     "title": "Periksa permintaan Anda",
-    "subtitle": "Pastikan semuanya benar, lalu kirim.",
     "service": "Layanan",
     "issues": "Alasan kunjungan",
     "remarks": "Catatan",

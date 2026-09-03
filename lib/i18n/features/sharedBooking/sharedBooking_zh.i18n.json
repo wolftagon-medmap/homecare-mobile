@@ -1,7 +1,6 @@
 {
   "starting_from": "起价 {price}",
   "from_price": "起 {price}",
-  "step_of": "第 {current} 步，共 {total} 步",
   "empty_title": "这里还没有内容",
   "error_title": "出了点问题",
   "retry": "重试",

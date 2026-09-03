@@ -6,6 +6,7 @@ import 'package:m2health/features/guided_booking/guided_booking_routes.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_cubit.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_state.dart';
 import 'package:m2health/features/guided_booking/presentation/widgets/address_picker_sheet.dart';
+import 'package:m2health/features/guided_booking/presentation/widgets/booking_flow_progress.dart';
 import 'package:m2health/features/guided_booking/presentation/widgets/booking_location_bar.dart';
 import 'package:m2health/features/guided_booking/presentation/widgets/professional_card.dart';
 import 'package:m2health/i18n/translations.g.dart';
@@ -66,12 +67,16 @@ class _ProfessionalSelectPageState extends State<ProfessionalSelectPage> {
             backgroundColor: Colors.white,
             elevation: 0,
             title: Text(
-              t.professional.title,
+              state.catalogue?.title ?? t.namespace_title,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ),
           body: Column(
             children: [
+              BookingFlowProgress(
+                state: state,
+                step: GuidedBookingStep.professional,
+              ),
               BookingLocationBar(
                 address: state.selectedAddress,
                 isLoading: state.addressStatus == BookingLoadStatus.loading,
@@ -126,11 +131,7 @@ class _ProfessionalSelectPageState extends State<ProfessionalSelectPage> {
         return ListView(
           padding: const EdgeInsets.only(bottom: 24),
           children: [
-            BookingStepHeader(
-              title: t.title,
-              subtitle: t.subtitle,
-              step: 3,
-            ),
+            BookingStepHeader(title: t.title),
             for (final professional in state.professionals)
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
