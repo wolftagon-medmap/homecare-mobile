@@ -154,8 +154,8 @@ class _ProfileInformationSection extends StatelessWidget {
                 onTap: () {
                   context.push(AppRoutes.healthProfile);
                 },
-              ),
-            if (isAccountHolder) ...[
+              )
+            else if (isAccountHolder) ...[
               _CustomListTile(
                 title:
                     context.l10n.profile_patient_medical_history_n_risk_factor,
