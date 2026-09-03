@@ -19,8 +19,9 @@ import 'package:m2health/core/messaging/thread_ref.dart';
 class MessageActionButton extends StatelessWidget {
   final ThreadRef threadRef;
 
-  /// `filled` for a primary action row, `outlined` beside other buttons,
-  /// `icon` when the row is already crowded.
+  /// `gradient` when the conversation is the screen's main action, `filled`
+  /// for a primary action row, `outlined` beside other buttons, `icon` when the
+  /// row is already crowded.
   final MessageActionStyle style;
   final String label;
 
@@ -47,6 +48,8 @@ class MessageActionButton extends StatelessWidget {
         _FilledAction(label: label, unread: thread.unread, onTap: open),
       MessageActionStyle.outlined =>
         _OutlinedAction(label: label, unread: thread.unread, onTap: open),
+      MessageActionStyle.gradient =>
+        _GradientAction(label: label, unread: thread.unread, onTap: open),
     };
   }
 
@@ -58,7 +61,67 @@ class MessageActionButton extends StatelessWidget {
   }
 }
 
-enum MessageActionStyle { filled, outlined, icon }
+enum MessageActionStyle { gradient, filled, outlined, icon }
+
+/// The house primary button — the same gradient the booking actions use, so
+/// the conversation reads as the main thing to do rather than a leftover.
+class _GradientAction extends StatelessWidget {
+  final String label;
+  final int unread;
+  final VoidCallback onTap;
+
+  const _GradientAction({
+    required this.label,
+    required this.unread,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF35C5CF), Color(0xFF9DCEFF)],
+          begin: Alignment.bottomRight,
+          end: Alignment.topLeft,
+        ),
+      ),
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          minimumSize: const Size.fromHeight(44),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.chat_bubble_outline, size: 16),
+            const SizedBox(width: 8),
+            Flexible(
+              child: Text(
+                label,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+            if (unread > 0) ...[
+              const SizedBox(width: 8),
+              UnreadDot(count: unread, onDark: true),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class _OutlinedAction extends StatelessWidget {
   final String label;

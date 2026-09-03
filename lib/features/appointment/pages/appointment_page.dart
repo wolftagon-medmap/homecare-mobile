@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/messaging/thread_index_cubit.dart';
 import 'package:m2health/core/messaging/thread_ref.dart';
 import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
 
@@ -522,15 +523,6 @@ class _AppointmentListItem extends StatelessWidget {
         context.push(AppointmentRoutes.detailPath(id));
       },
       actions: [
-        // Only while a visit is still ahead: a completed or cancelled booking
-        // has nothing left to arrange.
-        if (appointment.id != null &&
-            const ['pending', 'accepted', 'upcoming']
-                .contains(appointmentStatusLower))
-          MessageActionButton(
-            threadRef: ThreadRef.forAppointment(appointment.id!),
-            style: MessageActionStyle.icon,
-          ),
         if (appointmentStatusLower == 'completed') ...[
           Expanded(child: ratingButton),
           const SizedBox(width: 10),
@@ -548,14 +540,63 @@ class _AppointmentListItem extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(child: payButton),
         ],
-        if (appointmentStatusLower == 'pending' ||
-            appointmentStatusLower == 'accepted' ||
-            appointmentStatusLower == 'upcoming') ...[
+        // A visit still ahead is arranged in the conversation now: moving it is
+        // a proposal the other side confirms, and calling it off is a decision
+        // worth a sentence. The buttons stay only where there is no thread to
+        // have that conversation in — an appointment booked outside the
+        // care-task flow has none, and must not be left with no way out.
+        if (appointment.id != null &&
+            const ['pending', 'accepted', 'upcoming']
+                .contains(appointmentStatusLower))
+          Expanded(
+            child: _UpcomingActions(
+              appointmentId: appointment.id!,
+              cancelButton: cancelButton,
+              rescheduleButton: rescheduleButton,
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+/// Chat where there is a conversation; the old buttons where there is not.
+///
+/// Cancelling and moving a visit both live in the thread now. But a thread only
+/// exists for a care-task booking — one made through the self-service flow has
+/// none, and taking its buttons away would leave it with no way out at all.
+class _UpcomingActions extends StatelessWidget {
+  final int appointmentId;
+  final Widget cancelButton;
+  final Widget rescheduleButton;
+
+  const _UpcomingActions({
+    required this.appointmentId,
+    required this.cancelButton,
+    required this.rescheduleButton,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final threadRef = ThreadRef.forAppointment(appointmentId);
+    final hasThread = context.select<ThreadIndexCubit, bool>(
+      (cubit) => cubit.state.resolve(threadRef) != null,
+    );
+
+    if (!hasThread) {
+      return Row(
+        children: [
           Expanded(child: cancelButton),
           const SizedBox(width: 10),
           Expanded(child: rescheduleButton),
         ],
-      ],
+      );
+    }
+
+    return MessageActionButton(
+      threadRef: threadRef,
+      style: MessageActionStyle.gradient,
+      label: 'Chat',
     );
   }
 }

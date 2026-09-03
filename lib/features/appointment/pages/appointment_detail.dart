@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/messaging/thread_index_cubit.dart';
 import 'package:m2health/core/messaging/thread_ref.dart';
 import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
 
@@ -241,17 +242,32 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
         buttons = [];
     }
 
-    // Renders nothing unless a conversation exists for this appointment, so it
-    // never widens the bar on a booking that has none.
-    final message = appointment.id == null ||
-            !const ['pending', 'accepted', 'upcoming'].contains(status)
-        ? null
-        : MessageActionButton(
-            threadRef: ThreadRef.forAppointment(appointment.id!),
-            style: MessageActionStyle.icon,
-          );
+    // A visit still ahead is arranged in the conversation: moving it is a
+    // proposal the other side confirms, cancelling is a decision worth a
+    // sentence. So the conversation *replaces* those two buttons — but only
+    // where there is one. A booking made outside the care-task flow has no
+    // thread, and would otherwise be left with no way to cancel at all.
+    final arrangeable = appointment.id != null &&
+        const ['pending', 'accepted', 'upcoming'].contains(status);
+    final threadRef =
+        arrangeable ? ThreadRef.forAppointment(appointment.id!) : null;
+    final hasThread = threadRef != null &&
+        context.select<ThreadIndexCubit, bool>(
+          (cubit) => cubit.state.resolve(threadRef) != null,
+        );
 
-    if (buttons.isEmpty && message == null) return const SizedBox.shrink();
+    if (hasThread) {
+      buttons = [
+        MessageActionButton(
+          threadRef: threadRef,
+          style: MessageActionStyle.gradient,
+          label: 'Chat',
+        ),
+      ];
+      isHorizontalLayout = true;
+    }
+
+    if (buttons.isEmpty) return const SizedBox.shrink();
 
     return BottomAppBar(
       color: Colors.white,
@@ -260,7 +276,6 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
           ? Row(
               spacing: 16,
               children: [
-                if (message != null) message,
                 ...buttons.map((button) => Expanded(child: button)),
               ],
             )
