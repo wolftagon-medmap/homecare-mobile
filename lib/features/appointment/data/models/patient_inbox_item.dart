@@ -32,6 +32,9 @@ class PatientInboxItem {
   final int? careTaskId;
   final String? patientName;
   final String serviceLabel;
+
+  /// When the patient asked. The inbox is ordered on this, newest first.
+  final DateTime? createdAt;
   final String status; // raw source status (chip color)
 
   final String statusLabel; // display text
@@ -52,6 +55,7 @@ class PatientInboxItem {
     required this.careTaskId,
     required this.patientName,
     required this.serviceLabel,
+    this.createdAt,
     required this.status,
     required this.statusLabel,
     required this.scheduledStart,
@@ -76,6 +80,7 @@ class PatientInboxItem {
         careTaskId: (json['careTaskId'] as num?)?.toInt(),
         patientName: json['patientName'] as String?,
         serviceLabel: json['serviceLabel'] as String? ?? '',
+        createdAt: _parseDate(json['createdAt']),
         status: json['status'] as String? ?? '',
         statusLabel: json['statusLabel'] as String? ?? '',
         scheduledStart: _parseDate(json['scheduledStart']),
