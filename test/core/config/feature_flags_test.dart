@@ -56,4 +56,22 @@ void main() {
       expect(feature.owner.label, isNotEmpty, reason: feature.key);
     }
   });
+
+  test('a debug override outranks the server', () async {
+    await AppFlags.applyServerFlags({Feature.issueCatalogue: true});
+    await AppFlags.setOverride(Feature.issueCatalogue, false);
+
+    expect(AppFlags.remote(Feature.issueCatalogue), isFalse);
+    expect(AppFlags.sourceOf(Feature.issueCatalogue), FlagSource.debugOverride);
+  });
+
+  test('the server answer survives a restart', () async {
+    await AppFlags.applyServerFlags({Feature.issueCatalogue: true});
+
+    AppFlags.clearServerFlags();
+    await AppFlags.init(await SharedPreferences.getInstance());
+
+    expect(AppFlags.remote(Feature.issueCatalogue), isTrue);
+    expect(AppFlags.sourceOf(Feature.issueCatalogue), FlagSource.server);
+  });
 }

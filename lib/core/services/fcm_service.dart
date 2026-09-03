@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/messaging/messaging_entry.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/route/navigator_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -90,6 +91,15 @@ class FcmService {
   void _navigateToAppointment(RemoteMessage message) {
     final context = rootNavigatorKey.currentContext;
     if (context == null) return;
+
+    // A thread push (new message, time proposal) opens the conversation. This
+    // must stay ABOVE the offer check: time.* carries careTaskId as well, and
+    // would otherwise be read as an offer and land on the appointments shell.
+    final threadId = int.tryParse(message.data['threadId']?.toString() ?? '');
+    if (threadId != null) {
+      context.push(MessagingEntry.threadPath(threadId));
+      return;
+    }
 
     // v2 care-task offer (ADR-0006): no appointment exists yet — open the
     // provider Pending inbox, which lists outstanding offers.
