@@ -8,6 +8,21 @@ import 'package:m2health/features/appointment/data/models/patient_inbox_item.dar
 /// the status string ever drifts, those branches silently go back to being a
 /// dead end — which is exactly the bug this fixes.
 void main() {
+  test('the demo inbox is ordered latest proposed visit first', () {
+    final items =
+        kPatientInboxDemoFixture().map(PatientInboxItem.fromJson).toList();
+    final times = [
+      for (final item in items)
+        if (item.scheduledStart != null) item.scheduledStart!,
+    ];
+
+    // Mirrors the order the server sends, so the demo is not a different app.
+    expect(times, hasLength(items.length));
+    for (var i = 1; i < times.length; i++) {
+      expect(times[i].isAfter(times[i - 1]), isFalse);
+    }
+  });
+
   test('the demo inbox still carries an unmatched booking', () {
     final items =
         kPatientInboxDemoFixture().map(PatientInboxItem.fromJson).toList();
