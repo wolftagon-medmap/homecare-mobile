@@ -14,6 +14,9 @@ enum Feature {
   bookingSubmit,
   bookingDraft,
   bookingAddresses,
+  // Navigation, not a data source: on = the guided flow, off = the legacy
+  // per-service pages.
+  guidedBookingFlow,
 
   // A2 — messaging and counter-propose
   messageThreads,
@@ -58,7 +61,8 @@ extension FeatureMeta on Feature {
         Feature.bookingProfessionals ||
         Feature.bookingSubmit ||
         Feature.bookingDraft ||
-        Feature.bookingAddresses =>
+        Feature.bookingAddresses ||
+        Feature.guidedBookingFlow =>
           FeatureOwner.guidedBooking,
         Feature.messageThreads ||
         Feature.messageStream ||
@@ -79,6 +83,7 @@ extension FeatureMeta on Feature {
         Feature.bookingSubmit => 'Send booking request',
         Feature.bookingDraft => 'Booking draft state',
         Feature.bookingAddresses => 'Saved visit addresses',
+        Feature.guidedBookingFlow => 'Guided booking flow (navigation)',
         Feature.messageThreads => 'Threads and unread counts',
         Feature.messageStream => 'Send and receive messages',
         Feature.timeProposal => 'Time proposal',
@@ -93,6 +98,7 @@ extension FeatureMeta on Feature {
   /// What the data source does when the flag is off. Shown on the debug screen.
   String get localDescription => switch (this) {
         Feature.chatbotResponses => 'Scripted demo conversation',
+        Feature.guidedBookingFlow => 'Legacy per-service pages',
         _ => 'Local fixtures',
       };
 }
@@ -130,6 +136,7 @@ class AppFlags {
     Feature.bookingSubmit: false,
     Feature.bookingDraft: false,
     Feature.bookingAddresses: false,
+    Feature.guidedBookingFlow: true,
     Feature.messageThreads: false,
     Feature.messageStream: false,
     Feature.timeProposal: false,

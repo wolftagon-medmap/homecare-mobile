@@ -29,7 +29,7 @@ class HomeServiceView {
     required this.visuals,
   });
 
-  String get route => service.route;
+  String get route => service.destination;
   bool get isNew => service.isNew;
 }
 
