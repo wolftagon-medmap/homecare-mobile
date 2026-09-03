@@ -34,6 +34,9 @@ enum Feature {
 
   // A5 — health profile
   healthProfileSections,
+  // Navigation, not a data source: on = the sectioned health profile, off =
+  // the existing per-form profile screens.
+  healthProfileFlow,
 }
 
 /// Which agent owns a feature. Used to group the debug toggle screen.
@@ -74,7 +77,9 @@ extension FeatureMeta on Feature {
         Feature.estimateRevision =>
           FeatureOwner.pricing,
         Feature.chatbotResponses => FeatureOwner.chatbot,
-        Feature.healthProfileSections => FeatureOwner.healthProfile,
+        Feature.healthProfileSections ||
+        Feature.healthProfileFlow =>
+          FeatureOwner.healthProfile,
       };
 
   String get label => switch (this) {
@@ -93,12 +98,14 @@ extension FeatureMeta on Feature {
         Feature.estimateRevision => 'Estimate revision',
         Feature.chatbotResponses => 'Chatbot responses',
         Feature.healthProfileSections => 'Health profile sections',
+        Feature.healthProfileFlow => 'Health profile (navigation)',
       };
 
   /// What the data source does when the flag is off. Shown on the debug screen.
   String get localDescription => switch (this) {
         Feature.chatbotResponses => 'Scripted demo conversation',
         Feature.guidedBookingFlow => 'Legacy per-service pages',
+        Feature.healthProfileFlow => 'Existing health profile forms',
         _ => 'Local fixtures',
       };
 }
@@ -146,6 +153,7 @@ class AppFlags {
     Feature.estimateRevision: false,
     Feature.chatbotResponses: false,
     Feature.healthProfileSections: false,
+    Feature.healthProfileFlow: true,
   };
 
   static SharedPreferences? _prefs;

@@ -14,7 +14,10 @@ void main() {
 
   /// Navigation flags pick a screen rather than a data source, so "local"
   /// carries no meaning for them and they may ship on.
-  const navigationFlags = {Feature.guidedBookingFlow};
+  const navigationFlags = {
+    Feature.guidedBookingFlow,
+    Feature.healthProfileFlow,
+  };
 
   test('every data source ships local', () {
     for (final feature in Feature.values) {

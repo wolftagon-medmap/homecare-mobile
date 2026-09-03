@@ -1,3 +1,27 @@
 {
-  "namespace_title": "健康档案"
+  "namespace_title": "健康档案",
+  "entry_tile": "我的健康档案",
+  "list": {
+    "subtitle": "只更新您想更新的内容，全部为选填。",
+    "not_started": "尚未填写",
+    "updated": "更新于 {date}",
+    "loading": "正在加载您的健康档案",
+    "empty": "暂无可填写的部分。",
+    "error": "无法加载您的健康档案。"
+  },
+  "section": {
+    "subtitle": "能填多少填多少，随时可以回来继续。",
+    "save": "保存",
+    "saved": "已保存",
+    "save_failed": "无法保存此部分。",
+    "loading": "正在加载此部分",
+    "error": "无法加载此部分。",
+    "add_other": "添加其他",
+    "add_attachment": "添加附件",
+    "attachment": "报告 {n}",
+    "discard_title": "放弃修改？",
+    "discard_body": "此部分有未保存的修改。",
+    "discard": "放弃",
+    "keep_editing": "继续填写"
+  }
 }
