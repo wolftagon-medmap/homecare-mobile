@@ -202,9 +202,6 @@ class M2HealthApp extends StatelessWidget {
         ),
         BlocProvider(create: (context) => sl<SubscriptionCubit>()),
 
-        // === Client-feedback build — feature seams (A0 owns this block) ===
-        // App-wide blocs per feature, filled in by that feature's owning agent
-        // in lib/features/<slug>/<slug>_providers.dart. Empty lists are no-ops.
         ...GuidedBookingProviders.providers,
         ...MessagingProviders.providers,
         ...PricingProviders.providers,
