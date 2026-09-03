@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
+import 'package:m2health/core/config/feature_flags.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/auth_guard_dialog.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
@@ -11,6 +12,7 @@ import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cub
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
 import 'package:m2health/core/presentation/widgets/profile_shared_widgets.dart';
 import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class PatientProfilePage extends StatefulWidget {
@@ -145,6 +147,14 @@ class _ProfileInformationSection extends StatelessWidget {
                 context.push(AppRoutes.profileBasicInfo);
               },
             ),
+            if (AppFlags.remote(Feature.healthProfileFlow))
+              _CustomListTile(
+                title: context.t.healthProfile.entry_tile,
+                svgAsset: 'assets/icons/lab_profile.svg',
+                onTap: () {
+                  context.push(AppRoutes.healthProfile);
+                },
+              ),
             if (isAccountHolder) ...[
               _CustomListTile(
                 title:
