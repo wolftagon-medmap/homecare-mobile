@@ -40,7 +40,7 @@ class AIToolsService {
           return data['corrected_text'] as String?;
         }
       }
-      
+
       log('STT API returned error: ${response.statusCode} - ${response.data}',
           name: 'AIToolsService.transcribeAudio');
       return null;

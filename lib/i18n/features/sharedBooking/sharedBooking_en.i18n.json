@@ -1,0 +1,25 @@
+{
+  "starting_from": "Starting from {price}",
+  "from_price": "from {price}",
+  "empty_title": "Nothing here yet",
+  "error_title": "Something went wrong",
+  "retry": "Try again",
+  "status": {
+    "pending": "Pending approval",
+    "confirmed": "Confirmed",
+    "proposed": "Alternative proposed",
+    "cancelled": "Cancelled"
+  },
+  "location": {
+    "title": "Where should we visit?",
+    "search_hint": "Search street, area or building",
+    "pick_on_map": "Pick on map",
+    "use_current": "Use current location",
+    "saved_heading": "SAVED ADDRESSES",
+    "denied": "Location permission is off, so pick an address or a spot on the map.",
+    "picked_label": "Visit address",
+    "loading": "Finding your address...",
+    "empty": "Add an address",
+    "bar_title": "Visit at"
+  }
+}

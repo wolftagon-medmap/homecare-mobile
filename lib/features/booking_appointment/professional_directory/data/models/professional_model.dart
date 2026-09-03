@@ -43,18 +43,24 @@ class ProfessionalModel extends ProfessionalEntity {
           .map((e) => LeveledEntryModel.fromJson(e as Map<String, dynamic>))
           .toList();
 
+  /// The API serialises model columns in camelCase and hand-assembled keys in
+  /// snake_case, so both spellings have to be accepted.
+  static dynamic _pick(Map<String, dynamic> json, String snake, String camel) =>
+      json[snake] ?? json[camel];
+
   factory ProfessionalModel.fromJson(Map<String, dynamic> json) {
     return ProfessionalModel(
       id: json['id'],
       name: json['name'],
       avatar: json['avatar'],
-      countryCode: json['country_code'] as String?,
+      countryCode: _pick(json, 'country_code', 'countryCode') as String?,
       experience: json['experience'],
-      rating: (json['rating'] as num).toDouble(),
+      rating: (json['rating'] as num?)?.toDouble() ?? 0,
       about: json['about'],
-      jobTitle: json['job_title'] ?? json['role'],
-      workingInformation: json['working_information'] ?? '',
-      workingHours: json['working_hours'],
+      jobTitle: _pick(json, 'job_title', 'jobTitle') ?? json['role'],
+      workingInformation:
+          _pick(json, 'working_information', 'workingInformation') ?? '',
+      workingHours: _pick(json, 'working_hours', 'workingHours') as String?,
       workplace: json['workplace'],
       certificates: (json['certificates'] as List<dynamic>?)
               ?.map((e) => CertificateModel.fromJson(e))
@@ -64,14 +70,17 @@ class ProfessionalModel extends ProfessionalEntity {
               ?.map((e) => ReviewModel.fromJson(e))
               .toList() ??
           [],
-      userId: json['user_id'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
-      isFavorite: json['is_favorite'] ?? false,
+      userId: _pick(json, 'user_id', 'userId') as int? ?? 0,
+      createdAt: _pick(json, 'created_at', 'createdAt') as String? ?? '',
+      updatedAt: _pick(json, 'updated_at', 'updatedAt') as String? ?? '',
+      isFavorite: _pick(json, 'is_favorite', 'isFavorite') ?? false,
       role: json['role'],
-      providerType: json['provider_type'] ?? json['role'],
-      completedAppointmentsCount:
-          (json['completed_appointments_count'] as num?)?.toInt() ?? 0,
+      providerType:
+          _pick(json, 'provider_type', 'providerType') ?? json['role'],
+      completedAppointmentsCount: (_pick(json, 'completed_appointments_count',
+                  'completedAppointmentsCount') as num?)
+              ?.toInt() ??
+          0,
       conditionExperience: _leveled(json['condition_experience']),
       languages: _leveled(json['languages']),
       careStyle: (json['care_style'] as List<dynamic>? ?? [])

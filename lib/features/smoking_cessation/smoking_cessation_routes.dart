@@ -17,8 +17,7 @@ class SmokingCessationRoutes {
       builder: (context, state) {
         final appointment = state.extra as AppointmentEntity;
         return BlocProvider(
-          create: (context) =>
-              SmokingCessationPlanCubit(sl(), appointment.id!),
+          create: (context) => SmokingCessationPlanCubit(sl(), appointment.id!),
           child: SmokingCessationPlanProviderFormPage(appointment: appointment),
         );
       },
@@ -30,8 +29,7 @@ class SmokingCessationRoutes {
       builder: (context, state) {
         final appointment = state.extra as AppointmentEntity;
         return BlocProvider(
-          create: (context) =>
-              SmokingCessationPlanCubit(sl(), appointment.id!),
+          create: (context) => SmokingCessationPlanCubit(sl(), appointment.id!),
           child: SmokingCessationPlanPatientViewPage(appointment: appointment),
         );
       },

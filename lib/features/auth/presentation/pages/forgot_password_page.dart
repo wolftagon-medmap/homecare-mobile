@@ -44,7 +44,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             if (state is ForgotPasswordOtpSent) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(context.t.auth.forgot_password.message.otp_sent),
+                  content:
+                      Text(context.t.auth.forgot_password.message.otp_sent),
                   backgroundColor: Colors.green,
                 ),
               );
@@ -90,7 +91,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        hintText: context.t.auth.forgot_password.form.label.email,
+                        hintText:
+                            context.t.auth.forgot_password.form.label.email,
                         contentPadding:
                             const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                         border: OutlineInputBorder(

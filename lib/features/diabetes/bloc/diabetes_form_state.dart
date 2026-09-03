@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-
 class DiabetesFormState extends Equatable {
   final DiabetesHistory diabetesHistory;
   final RiskFactors riskFactors;
@@ -8,7 +7,7 @@ class DiabetesFormState extends Equatable {
   final PhysicalSigns physicalSigns;
   final bool isLoading;
   final String? errorMessage;
-  final bool isSubmitted; 
+  final bool isSubmitted;
 
   const DiabetesFormState({
     this.diabetesHistory = const DiabetesHistory(),

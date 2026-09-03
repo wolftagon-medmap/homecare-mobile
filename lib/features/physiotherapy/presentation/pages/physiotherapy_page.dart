@@ -3,6 +3,7 @@ import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/features/physiotherapy/presentation/pages/musculoskeletal_physiotherapy_page.dart';
 import 'package:m2health/features/physiotherapy/presentation/pages/neurological_physiotherapy_page.dart';
+import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
 
 class PhysiotherapyPage extends StatelessWidget {
   const PhysiotherapyPage({super.key});
@@ -22,6 +23,7 @@ class PhysiotherapyPage extends StatelessWidget {
             child: Column(
               children: [
                 ServiceSelectionCard(
+                  priceTag: const StartingFromPrice(category: 'physiotherapy'),
                   title: context.l10n.physiotherapy_musculoskeletal_title,
                   description: context.l10n.physiotherapy_musculoskeletal_desc,
                   imagePath:
@@ -37,6 +39,7 @@ class PhysiotherapyPage extends StatelessWidget {
                   },
                 ),
                 ServiceSelectionCard(
+                  priceTag: const StartingFromPrice(category: 'physiotherapy'),
                   title: context.l10n.physiotherapy_neurological_title,
                   description: context.l10n.physiotherapy_neurological_desc,
                   imagePath:

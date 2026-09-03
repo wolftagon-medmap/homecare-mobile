@@ -5,13 +5,14 @@ import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/auth_guard_dialog.dart';
-import 'package:m2health/features/professional_profile/presentation/widgets/profile_summary_card.dart';
+import 'package:m2health/core/presentation/widgets/profile_shared_widgets.dart';
+import 'package:m2health/features/pricing/pricing_routes.dart';
 import 'package:m2health/features/professional_profile/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/manage_services_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
-import 'package:m2health/features/professional_profile/presentation/bloc/manage_services_cubit.dart';
-import 'package:m2health/core/presentation/widgets/profile_shared_widgets.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/profile_summary_card.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/utils.dart';
 
@@ -175,6 +176,11 @@ class _ProfessionalProfileSection extends StatelessWidget {
               icon: Icons.translate,
               title: 'Languages & care style',
               onTap: () => context.push(AppRoutes.professionalLanguages),
+            ),
+            _HubRow(
+              icon: Icons.payments_outlined,
+              title: 'Service rates',
+              onTap: () => context.push(PricingRoutes.entry),
             ),
           ],
         ),

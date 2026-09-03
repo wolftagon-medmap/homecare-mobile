@@ -39,12 +39,18 @@ class TranslationsId with BaseTranslations<AppLocale, Translations> implements T
 	// Translations
 	@override late final _TranslationsAuthId auth = _TranslationsAuthId._(_root);
 	@override late final _TranslationsBookingId booking = _TranslationsBookingId._(_root);
+	@override late final _TranslationsChatbotId chatbot = _TranslationsChatbotId._(_root);
 	@override late final _TranslationsDashboardId dashboard = _TranslationsDashboardId._(_root);
 	@override late final _TranslationsGlobalId global = _TranslationsGlobalId._(_root);
+	@override late final _TranslationsGuidedBookingId guidedBooking = _TranslationsGuidedBookingId._(_root);
+	@override late final _TranslationsHealthProfileId healthProfile = _TranslationsHealthProfileId._(_root);
+	@override late final _TranslationsMessagingId messaging = _TranslationsMessagingId._(_root);
 	@override late final _TranslationsNursingId nursing = _TranslationsNursingId._(_root);
 	@override late final _TranslationsPaymentId payment = _TranslationsPaymentId._(_root);
 	@override late final _TranslationsPharmacyId pharmacy = _TranslationsPharmacyId._(_root);
+	@override late final _TranslationsPricingId pricing = _TranslationsPricingId._(_root);
 	@override late final _TranslationsSettingsId settings = _TranslationsSettingsId._(_root);
+	@override late final _TranslationsSharedBookingId sharedBooking = _TranslationsSharedBookingId._(_root);
 	@override late final _TranslationsStoreId store = _TranslationsStoreId._(_root);
 }
 
@@ -82,6 +88,46 @@ class _TranslationsBookingId implements TranslationsBookingEn {
 	@override late final _TranslationsBookingProfessionalDetailId professional_detail = _TranslationsBookingProfessionalDetailId._(_root);
 	@override late final _TranslationsBookingProfessionalSearchId professional_search = _TranslationsBookingProfessionalSearchId._(_root);
 	@override late final _TranslationsBookingScheduleId schedule = _TranslationsBookingScheduleId._(_root);
+}
+
+// Path: chatbot
+class _TranslationsChatbotId implements TranslationsChatbotEn {
+	_TranslationsChatbotId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Asisten AI M2Health';
+	@override String get heroGreeting => 'Hai! Saya';
+	@override String get heroName => 'Asisten Kesehatan AI M2Health.';
+	@override String get heroBody => 'Ceritakan apa yang Anda rasakan, dan saya akan membantu Anda memahami langkah selanjutnya.';
+	@override String get composerHint => 'Tulis pesan Anda...';
+	@override String get composerHintWelcome => 'Atau tulis pertanyaan Anda di sini...';
+	@override String get send => 'Kirim';
+	@override String get privacyLabel => '(Privasi HIPAA)';
+	@override String get privacyDetail => 'Percakapan Anda bersifat pribadi. Detail kesehatan dienkripsi dan ditangani sesuai Kebijakan Privasi kami (selaras PDPA / HIPAA). Anda dapat meninjau atau menghapus obrolan ini kapan saja.';
+	@override String get errorTitle => 'Asisten sedang tidak tersedia';
+	@override String get retry => 'Coba lagi';
+	@override String get history => 'Riwayat percakapan';
+	@override String get newConversation => 'Percakapan baru';
+	@override String get newConversationTitle => 'Mulai percakapan baru?';
+	@override String get newConversationBody => 'Percakapan ini akan disimpan di riwayat Anda sebagai hanya-baca.';
+	@override String get startNew => 'Mulai baru';
+	@override String get cancel => 'Batal';
+	@override String get historyTitle => 'Riwayat Percakapan';
+	@override String get historyEmpty => 'Belum ada percakapan.';
+	@override String get historyError => 'Tidak dapat memuat percakapan Anda';
+	@override String get sessionUntitled => 'Percakapan kesehatan';
+	@override String get sessionActive => 'Aktif';
+	@override String get sessionReadOnly => 'Hanya-baca';
+	@override String get deleteTitle => 'Hapus percakapan';
+	@override String get deleteBody => 'Percakapan ini akan dihapus dari perangkat ini. Tindakan ini tidak dapat dibatalkan.';
+	@override String get delete => 'Hapus';
+	@override String get voiceInput => 'Masukan suara';
+	@override String get transcribing => 'Menyalin suara...';
+	@override String get micDeniedTitle => 'Izin mikrofon diperlukan';
+	@override String get micDeniedBody => 'Izin mikrofon ditolak. Aktifkan di Pengaturan perangkat Anda untuk memakai masukan suara.';
+	@override String get openSettings => 'Buka Pengaturan';
 }
 
 // Path: dashboard
@@ -139,6 +185,55 @@ class _TranslationsGlobalId implements TranslationsGlobalEn {
 	@override String get yes => 'Ya';
 }
 
+// Path: guidedBooking
+class _TranslationsGuidedBookingId implements TranslationsGuidedBookingEn {
+	_TranslationsGuidedBookingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get namespace_title => 'Pesan layanan';
+	@override late final _TranslationsGuidedBookingSubServiceId sub_service = _TranslationsGuidedBookingSubServiceId._(_root);
+	@override late final _TranslationsGuidedBookingIssuesId issues = _TranslationsGuidedBookingIssuesId._(_root);
+	@override late final _TranslationsGuidedBookingAddOnsId add_ons = _TranslationsGuidedBookingAddOnsId._(_root);
+	@override late final _TranslationsGuidedBookingProfessionalId professional = _TranslationsGuidedBookingProfessionalId._(_root);
+	@override late final _TranslationsGuidedBookingScheduleId schedule = _TranslationsGuidedBookingScheduleId._(_root);
+	@override late final _TranslationsGuidedBookingReviewId review = _TranslationsGuidedBookingReviewId._(_root);
+	@override late final _TranslationsGuidedBookingSentId sent = _TranslationsGuidedBookingSentId._(_root);
+	@override late final _TranslationsGuidedBookingCtaId cta = _TranslationsGuidedBookingCtaId._(_root);
+}
+
+// Path: healthProfile
+class _TranslationsHealthProfileId implements TranslationsHealthProfileEn {
+	_TranslationsHealthProfileId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get namespace_title => 'Profil kesehatan';
+	@override String get entry_tile => 'Profil kesehatan saya';
+	@override late final _TranslationsHealthProfileListId list = _TranslationsHealthProfileListId._(_root);
+	@override late final _TranslationsHealthProfileSectionId section = _TranslationsHealthProfileSectionId._(_root);
+}
+
+// Path: messaging
+class _TranslationsMessagingId implements TranslationsMessagingEn {
+	_TranslationsMessagingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Pesan';
+	@override String get emptyTitle => 'Belum ada percakapan';
+	@override String get emptyBody => 'Setelah Anda mengirim permintaan, Anda bisa berbicara dengan tenaga kesehatan di sini.';
+	@override String get composerHint => 'Tulis pesan';
+	@override String get threadClosed => 'Percakapan ini sudah ditutup.';
+	@override String get sayHello => 'Sapa dulu';
+	@override late final _TranslationsMessagingTimeProposalId timeProposal = _TranslationsMessagingTimeProposalId._(_root);
+	@override late final _TranslationsMessagingEstimateRevisionId estimateRevision = _TranslationsMessagingEstimateRevisionId._(_root);
+	@override late final _TranslationsMessagingChatId chat = _TranslationsMessagingChatId._(_root);
+}
+
 // Path: nursing
 class _TranslationsNursingId implements TranslationsNursingEn {
 	_TranslationsNursingId._(this._root);
@@ -187,6 +282,45 @@ class _TranslationsPharmacyId implements TranslationsPharmacyEn {
 	@override String get title => 'Layanan iRX Pharmacist';
 }
 
+// Path: pricing
+class _TranslationsPricingId implements TranslationsPricingEn {
+	_TranslationsPricingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get estimate_title => 'Perkiraan biaya';
+	@override String get estimate_total => 'Perkiraan total';
+	@override String get estimate_disclaimer => 'Ini perkiraan. Anda membayar tenaga kesehatan saat kunjungan.';
+	@override String get estimate_empty => 'Pilih layanan untuk melihat perkiraan biaya.';
+	@override String get add_ons => 'Layanan tambahan';
+	@override String hours({required Object count}) => '${count} jam';
+	@override String per_hour({required Object price}) => '${price} per jam';
+	@override String get rates_title => 'Tarif layanan saya';
+	@override String get rates_subtitle => 'Tentukan tarif Anda untuk setiap layanan. Anda boleh menetapkan di atas harga standar, tidak boleh di bawahnya.';
+	@override String get rates_empty => 'Anda belum menambahkan layanan apa pun.';
+	@override String get rates_error => 'Tarif Anda tidak dapat dimuat.';
+	@override String get rates_saved => 'Tarif Anda tersimpan.';
+	@override String get your_price => 'Tarif Anda';
+	@override String standard_price({required Object price}) => 'Harga standar ${price}';
+	@override String at_least({required Object price}) => 'Minimal ${price}';
+	@override String get not_a_number => 'Masukkan tarif';
+	@override String get charging_standard => 'Mengikuti harga standar';
+	@override String get save => 'Simpan';
+	@override String get floor_title => 'Harga standar';
+	@override String get floor_subtitle => 'Batas bawah tarif semua tenaga kesehatan. Menaikkannya akan menaikkan tarif yang berada di bawahnya.';
+	@override String get floor_error => 'Harga standar tidak dapat dimuat.';
+	@override String get floor_saved => 'Harga standar diperbarui.';
+	@override String floor_lifted({required Object count}) => '${count} tarif tenaga kesehatan dinaikkan ke harga baru.';
+	@override String get floor_new_price => 'Harga standar baru';
+	@override String get revision_title => 'Perkiraan revisi';
+	@override String get revision_proposed => 'Revisi diajukan';
+	@override String get revision_approved => 'Disetujui';
+	@override String get revision_rejected => 'Ditolak';
+	@override String revision_was({required Object price}) => 'Sebelumnya ${price}';
+	@override String revision_now({required Object price}) => 'Menjadi ${price}';
+}
+
 // Path: settings
 class _TranslationsSettingsId implements TranslationsSettingsEn {
 	_TranslationsSettingsId._(this._root);
@@ -197,6 +331,22 @@ class _TranslationsSettingsId implements TranslationsSettingsEn {
 	@override String get account => 'Akun';
 	@override String get app_language => 'Bahasa Aplikasi';
 	@override String get settings => 'Pengaturan';
+}
+
+// Path: sharedBooking
+class _TranslationsSharedBookingId implements TranslationsSharedBookingEn {
+	_TranslationsSharedBookingId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String starting_from({required Object price}) => 'Mulai dari ${price}';
+	@override String from_price({required Object price}) => 'dari ${price}';
+	@override String get empty_title => 'Belum ada apa-apa di sini';
+	@override String get error_title => 'Terjadi kesalahan';
+	@override String get retry => 'Coba lagi';
+	@override late final _TranslationsSharedBookingStatusId status = _TranslationsSharedBookingStatusId._(_root);
+	@override late final _TranslationsSharedBookingLocationId location = _TranslationsSharedBookingLocationId._(_root);
 }
 
 // Path: store
@@ -464,7 +614,7 @@ class _TranslationsDashboardHomeId implements TranslationsDashboardHomeEn {
 	// Translations
 	@override String get section_title => 'Layanan Kesehatan';
 	@override String get section_subtitle => 'Perawatan profesional untuk Anda dan keluarga.';
-	@override String get view_all => 'Lihat Semua Layanan';
+	@override String get view_all => 'Lihat Semua';
 	@override String get all_services_title => 'Semua Layanan';
 	@override String get badge_new => 'BARU';
 	@override String get name_pharmacist => 'Konsultasi Apoteker';
@@ -509,6 +659,237 @@ class _TranslationsGlobalMessagesId implements TranslationsGlobalMessagesEn {
 	// Translations
 	@override String get delete_success => 'Berhasil dihapus';
 	@override String get updated_success => 'Berhasil diperbarui';
+}
+
+// Path: guidedBooking.sub_service
+class _TranslationsGuidedBookingSubServiceId implements TranslationsGuidedBookingSubServiceEn {
+	_TranslationsGuidedBookingSubServiceId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Layanan apa yang Anda butuhkan?';
+	@override String get empty => 'Belum ada layanan yang tersedia di sini.';
+}
+
+// Path: guidedBooking.issues
+class _TranslationsGuidedBookingIssuesId implements TranslationsGuidedBookingIssuesEn {
+	_TranslationsGuidedBookingIssuesId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Apa yang bisa kami bantu?';
+	@override String get subtitle => 'Pilih satu atau lebih.';
+	@override String get remarks_label => 'Catatan (opsional)';
+	@override String get remarks_hint => 'Ada hal lain yang perlu diketahui tenaga kesehatan kami?';
+	@override String get add_ons_link => 'Tambah prosedur atau layanan tambahan';
+	@override String get error => 'Kami tidak dapat memuat daftar keluhan.';
+	@override String get empty => 'Belum ada daftar keluhan untuk layanan ini.';
+}
+
+// Path: guidedBooking.add_ons
+class _TranslationsGuidedBookingAddOnsId implements TranslationsGuidedBookingAddOnsEn {
+	_TranslationsGuidedBookingAddOnsId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Ada tambahan lain?';
+	@override String get subtitle => 'Opsional. Harga terpisah.';
+	@override String get empty => 'Tidak ada layanan tambahan untuk layanan ini.';
+	@override String selected({required Object count}) => '${count} ditambahkan';
+	@override String get no_description => 'Belum ada detail tambahan untuk layanan ini.';
+}
+
+// Path: guidedBooking.professional
+class _TranslationsGuidedBookingProfessionalId implements TranslationsGuidedBookingProfessionalEn {
+	_TranslationsGuidedBookingProfessionalId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Pilih tenaga kesehatan';
+	@override String get view_profile => 'Lihat profil';
+	@override String get select_cta => 'Pilih tenaga kesehatan ini';
+	@override String get location_label => 'Alamat kunjungan';
+	@override String get location_empty => 'Tambahkan alamat untuk melihat siapa yang tersedia';
+	@override String get location_loading => 'Mencari alamat tersimpan Anda';
+	@override String get change_location => 'Ubah';
+	@override String get picker_title => 'Ke mana kami harus datang?';
+	@override String get add_address => 'Tambah alamat baru';
+	@override String get loading => 'Mencari tenaga kesehatan di dekat Anda';
+	@override String get empty => 'Belum ada tenaga kesehatan untuk alamat ini. Coba alamat lain.';
+	@override String get error => 'Kami tidak dapat memuat daftar tenaga kesehatan.';
+	@override String years({required Object years}) => 'Pengalaman ${years} thn';
+	@override String reviews({required Object count}) => '(${count})';
+	@override String get choose_cta => 'Pilih profesional ini';
+	@override String get search_hint => 'Cari berdasarkan nama';
+}
+
+// Path: guidedBooking.schedule
+class _TranslationsGuidedBookingScheduleId implements TranslationsGuidedBookingScheduleEn {
+	_TranslationsGuidedBookingScheduleId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Kapan waktu yang cocok?';
+	@override String get select_date => 'Pilih tanggal';
+	@override String get select_hour => 'Pilih waktu';
+	@override String chosen({required Object day, required Object time}) => '${day} pukul ${time}';
+	@override String get loading => 'Memeriksa ketersediaan';
+	@override String get empty => 'Tidak ada waktu kosong pada hari ini.';
+	@override String get error => 'Kami tidak dapat memuat waktu yang tersedia.';
+	@override String get no_days => 'Tenaga kesehatan ini belum memiliki waktu kosong.';
+}
+
+// Path: guidedBooking.review
+class _TranslationsGuidedBookingReviewId implements TranslationsGuidedBookingReviewEn {
+	_TranslationsGuidedBookingReviewId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Periksa permintaan Anda';
+	@override String get service => 'Layanan';
+	@override String get issues => 'Alasan kunjungan';
+	@override String get remarks => 'Catatan';
+	@override String get add_ons => 'Tambahan';
+	@override String get location => 'Alamat kunjungan';
+	@override String get professional => 'Tenaga kesehatan';
+	@override String get schedule => 'Waktu yang diinginkan';
+	@override String get estimate => 'Perkiraan total';
+	@override String get estimate_note => 'Hanya perkiraan. Tidak ada tagihan sekarang — pembayaran dilakukan saat kunjungan.';
+	@override String get edit => 'Ubah';
+	@override String get none => 'Tidak ada';
+	@override String get send => 'Kirim permintaan';
+}
+
+// Path: guidedBooking.sent
+class _TranslationsGuidedBookingSentId implements TranslationsGuidedBookingSentEn {
+	_TranslationsGuidedBookingSentId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Permintaan terkirim';
+	@override String body({required Object name}) => 'Permintaan Anda sudah kami teruskan ke ${name}. Kami akan memberi tahu begitu ada jawaban.';
+	@override String get body_generic => 'Permintaan Anda sudah kami teruskan. Kami akan memberi tahu begitu ada yang menerima.';
+	@override String get message => 'Kirim pesan ke tenaga kesehatan';
+	@override String get view_status => 'Lihat pemesanan';
+	@override String get done => 'Kembali ke beranda';
+}
+
+// Path: guidedBooking.cta
+class _TranslationsGuidedBookingCtaId implements TranslationsGuidedBookingCtaEn {
+	_TranslationsGuidedBookingCtaId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get kContinue => 'Lanjut';
+	@override String get skip => 'Lewati';
+}
+
+// Path: healthProfile.list
+class _TranslationsHealthProfileListId implements TranslationsHealthProfileListEn {
+	_TranslationsHealthProfileListId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get subtitle => 'Perbarui hanya yang Anda inginkan. Semuanya bersifat opsional.';
+	@override String get not_started => 'Belum diisi';
+	@override String updated({required Object date}) => 'Diperbarui ${date}';
+	@override String get loading => 'Memuat profil kesehatan Anda';
+	@override String get empty => 'Belum ada bagian yang tersedia.';
+	@override String get error => 'Kami tidak dapat memuat profil kesehatan Anda.';
+}
+
+// Path: healthProfile.section
+class _TranslationsHealthProfileSectionId implements TranslationsHealthProfileSectionEn {
+	_TranslationsHealthProfileSectionId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get subtitle => 'Isi yang Anda bisa. Anda dapat kembali kapan saja.';
+	@override String get save => 'Simpan';
+	@override String get saved => 'Tersimpan';
+	@override String get save_failed => 'Kami tidak dapat menyimpan bagian ini.';
+	@override String get loading => 'Memuat bagian ini';
+	@override String get error => 'Kami tidak dapat memuat bagian ini.';
+	@override String get add_other => 'Tambah lainnya';
+	@override String get add_attachment => 'Tambah lampiran';
+	@override String attachment({required Object n}) => 'Laporan ${n}';
+	@override String get discard_title => 'Buang perubahan Anda?';
+	@override String get discard_body => 'Bagian ini memiliki perubahan yang belum disimpan.';
+	@override String get discard => 'Buang';
+	@override String get keep_editing => 'Lanjut mengisi';
+}
+
+// Path: messaging.timeProposal
+class _TranslationsMessagingTimeProposalId implements TranslationsMessagingTimeProposalEn {
+	_TranslationsMessagingTimeProposalId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Usulan waktu lain';
+	@override String get youAskedFor => 'Anda meminta';
+	@override String get proposed => 'Diusulkan';
+	@override String get accept => 'Terima';
+	@override String get chooseAnother => 'Pilih Lain';
+	@override String get suggestAnother => 'Usulkan waktu lain';
+	@override String get sheetTitleProfessional => 'Usulkan waktu lain';
+	@override String get sheetTitlePatient => 'Waktu mana yang cocok?';
+	@override String get sendSuggestion => 'Kirim usulan';
+	@override String get sendTime => 'Kirim waktu ini';
+	@override String get reasonLabel => 'Alasan? (opsional)';
+	@override String get reasonHint => 'Alasan singkat membantu mereka menyetujui.';
+	@override String answerBy({required Object when}) => 'Jawab sebelum ${when}';
+	@override String get today => 'Hari ini';
+	@override String get tomorrow => 'Besok';
+}
+
+// Path: messaging.estimateRevision
+class _TranslationsMessagingEstimateRevisionId implements TranslationsMessagingEstimateRevisionEn {
+	_TranslationsMessagingEstimateRevisionId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Perkiraan biaya direvisi';
+	@override String get newTotal => 'Perkiraan total baru';
+	@override String get approve => 'Setujui';
+	@override String get approved => 'Disetujui';
+	@override String get withdrawn => 'Dibatalkan';
+}
+
+// Path: messaging.chat
+class _TranslationsMessagingChatId implements TranslationsMessagingChatEn {
+	_TranslationsMessagingChatId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get aboutTitle => 'Tentang kunjungan ini';
+	@override String get reason => 'Alasan';
+	@override String get where => 'Lokasi';
+	@override String get estimate => 'Perkiraan biaya';
+	@override String get emptyPrompt => 'Belum ada pesan. Mulai dengan salah satu berikut, atau tulis sendiri.';
+	@override List<String> get openersProfessional => [
+		'Saya bisa menangani kunjungan ini.',
+		'Kapan waktu yang cocok untuk Anda?',
+		'Boleh saya konfirmasi alamatnya?',
+	];
+	@override List<String> get openersPatient => [
+		'Halo, terima kasih sudah menerima permintaan ini.',
+		'Apakah waktunya masih sesuai?',
+		'Apa yang perlu saya siapkan?',
+	];
+	@override String get read => 'Dibaca';
 }
 
 // Path: nursing.services
@@ -630,6 +1011,38 @@ class _TranslationsPharmacyServicesId implements TranslationsPharmacyServicesEn 
 	@override late final _TranslationsPharmacyServicesHealthCoachingId health_coaching = _TranslationsPharmacyServicesHealthCoachingId._(_root);
 	@override late final _TranslationsPharmacyServicesReviewAndCounselingId review_and_counseling = _TranslationsPharmacyServicesReviewAndCounselingId._(_root);
 	@override late final _TranslationsPharmacyServicesSmokingCessationId smoking_cessation = _TranslationsPharmacyServicesSmokingCessationId._(_root);
+}
+
+// Path: sharedBooking.status
+class _TranslationsSharedBookingStatusId implements TranslationsSharedBookingStatusEn {
+	_TranslationsSharedBookingStatusId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get pending => 'Menunggu persetujuan';
+	@override String get confirmed => 'Dikonfirmasi';
+	@override String get proposed => 'Waktu alternatif diusulkan';
+	@override String get cancelled => 'Dibatalkan';
+}
+
+// Path: sharedBooking.location
+class _TranslationsSharedBookingLocationId implements TranslationsSharedBookingLocationEn {
+	_TranslationsSharedBookingLocationId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Di mana kami berkunjung?';
+	@override String get search_hint => 'Ketik jalan, perumahan, atau gedung';
+	@override String get pick_on_map => 'Pilih lewat peta';
+	@override String get use_current => 'Gunakan lokasi saat ini';
+	@override String get saved_heading => 'ALAMAT TERSIMPAN';
+	@override String get denied => 'Izin lokasi mati, jadi pilih alamat atau titik di peta.';
+	@override String get picked_label => 'Alamat kunjungan';
+	@override String get loading => 'Mencari alamat Anda...';
+	@override String get empty => 'Tambah alamat';
+	@override String get bar_title => 'Kunjungan di';
 }
 
 // Path: store.messages
@@ -1114,6 +1527,37 @@ extension on TranslationsId {
 			'booking.schedule.submit_button' => 'Kirim',
 			'booking.schedule.submitting_button' => 'Mengirim...',
 			'booking.schedule.title' => 'Pilih Jadwal',
+			'chatbot.title' => 'Asisten AI M2Health',
+			'chatbot.heroGreeting' => 'Hai! Saya',
+			'chatbot.heroName' => 'Asisten Kesehatan AI M2Health.',
+			'chatbot.heroBody' => 'Ceritakan apa yang Anda rasakan, dan saya akan membantu Anda memahami langkah selanjutnya.',
+			'chatbot.composerHint' => 'Tulis pesan Anda...',
+			'chatbot.composerHintWelcome' => 'Atau tulis pertanyaan Anda di sini...',
+			'chatbot.send' => 'Kirim',
+			'chatbot.privacyLabel' => '(Privasi HIPAA)',
+			'chatbot.privacyDetail' => 'Percakapan Anda bersifat pribadi. Detail kesehatan dienkripsi dan ditangani sesuai Kebijakan Privasi kami (selaras PDPA / HIPAA). Anda dapat meninjau atau menghapus obrolan ini kapan saja.',
+			'chatbot.errorTitle' => 'Asisten sedang tidak tersedia',
+			'chatbot.retry' => 'Coba lagi',
+			'chatbot.history' => 'Riwayat percakapan',
+			'chatbot.newConversation' => 'Percakapan baru',
+			'chatbot.newConversationTitle' => 'Mulai percakapan baru?',
+			'chatbot.newConversationBody' => 'Percakapan ini akan disimpan di riwayat Anda sebagai hanya-baca.',
+			'chatbot.startNew' => 'Mulai baru',
+			'chatbot.cancel' => 'Batal',
+			'chatbot.historyTitle' => 'Riwayat Percakapan',
+			'chatbot.historyEmpty' => 'Belum ada percakapan.',
+			'chatbot.historyError' => 'Tidak dapat memuat percakapan Anda',
+			'chatbot.sessionUntitled' => 'Percakapan kesehatan',
+			'chatbot.sessionActive' => 'Aktif',
+			'chatbot.sessionReadOnly' => 'Hanya-baca',
+			'chatbot.deleteTitle' => 'Hapus percakapan',
+			'chatbot.deleteBody' => 'Percakapan ini akan dihapus dari perangkat ini. Tindakan ini tidak dapat dibatalkan.',
+			'chatbot.delete' => 'Hapus',
+			'chatbot.voiceInput' => 'Masukan suara',
+			'chatbot.transcribing' => 'Menyalin suara...',
+			'chatbot.micDeniedTitle' => 'Izin mikrofon diperlukan',
+			'chatbot.micDeniedBody' => 'Izin mikrofon ditolak. Aktifkan di Pengaturan perangkat Anda untuk memakai masukan suara.',
+			'chatbot.openSettings' => 'Buka Pengaturan',
 			'dashboard.chat_ai_placeholder' => 'Tanya dokter AI seputar kesehatan Anda',
 			'dashboard.greeting' => ({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!',
 			'dashboard.greeting_generic' => 'Hidup Lebih Lama & Sehat!',
@@ -1121,7 +1565,7 @@ extension on TranslationsId {
 			'dashboard.retry' => 'Coba lagi',
 			'dashboard.home.section_title' => 'Layanan Kesehatan',
 			'dashboard.home.section_subtitle' => 'Perawatan profesional untuk Anda dan keluarga.',
-			'dashboard.home.view_all' => 'Lihat Semua Layanan',
+			'dashboard.home.view_all' => 'Lihat Semua',
 			'dashboard.home.all_services_title' => 'Semua Layanan',
 			'dashboard.home.badge_new' => 'BARU',
 			'dashboard.home.name_pharmacist' => 'Konsultasi Apoteker',
@@ -1177,6 +1621,125 @@ extension on TranslationsId {
 			'global.unknown_location' => 'Lokasi Tidak Diketahui',
 			'global.update' => 'Perbarui',
 			'global.yes' => 'Ya',
+			'guidedBooking.namespace_title' => 'Pesan layanan',
+			'guidedBooking.sub_service.title' => 'Layanan apa yang Anda butuhkan?',
+			'guidedBooking.sub_service.empty' => 'Belum ada layanan yang tersedia di sini.',
+			'guidedBooking.issues.title' => 'Apa yang bisa kami bantu?',
+			'guidedBooking.issues.subtitle' => 'Pilih satu atau lebih.',
+			'guidedBooking.issues.remarks_label' => 'Catatan (opsional)',
+			'guidedBooking.issues.remarks_hint' => 'Ada hal lain yang perlu diketahui tenaga kesehatan kami?',
+			'guidedBooking.issues.add_ons_link' => 'Tambah prosedur atau layanan tambahan',
+			'guidedBooking.issues.error' => 'Kami tidak dapat memuat daftar keluhan.',
+			'guidedBooking.issues.empty' => 'Belum ada daftar keluhan untuk layanan ini.',
+			'guidedBooking.add_ons.title' => 'Ada tambahan lain?',
+			'guidedBooking.add_ons.subtitle' => 'Opsional. Harga terpisah.',
+			'guidedBooking.add_ons.empty' => 'Tidak ada layanan tambahan untuk layanan ini.',
+			'guidedBooking.add_ons.selected' => ({required Object count}) => '${count} ditambahkan',
+			'guidedBooking.add_ons.no_description' => 'Belum ada detail tambahan untuk layanan ini.',
+			'guidedBooking.professional.title' => 'Pilih tenaga kesehatan',
+			'guidedBooking.professional.view_profile' => 'Lihat profil',
+			'guidedBooking.professional.select_cta' => 'Pilih tenaga kesehatan ini',
+			'guidedBooking.professional.location_label' => 'Alamat kunjungan',
+			'guidedBooking.professional.location_empty' => 'Tambahkan alamat untuk melihat siapa yang tersedia',
+			'guidedBooking.professional.location_loading' => 'Mencari alamat tersimpan Anda',
+			'guidedBooking.professional.change_location' => 'Ubah',
+			'guidedBooking.professional.picker_title' => 'Ke mana kami harus datang?',
+			'guidedBooking.professional.add_address' => 'Tambah alamat baru',
+			'guidedBooking.professional.loading' => 'Mencari tenaga kesehatan di dekat Anda',
+			'guidedBooking.professional.empty' => 'Belum ada tenaga kesehatan untuk alamat ini. Coba alamat lain.',
+			'guidedBooking.professional.error' => 'Kami tidak dapat memuat daftar tenaga kesehatan.',
+			'guidedBooking.professional.years' => ({required Object years}) => 'Pengalaman ${years} thn',
+			'guidedBooking.professional.reviews' => ({required Object count}) => '(${count})',
+			'guidedBooking.professional.choose_cta' => 'Pilih profesional ini',
+			'guidedBooking.professional.search_hint' => 'Cari berdasarkan nama',
+			'guidedBooking.schedule.title' => 'Kapan waktu yang cocok?',
+			'guidedBooking.schedule.select_date' => 'Pilih tanggal',
+			'guidedBooking.schedule.select_hour' => 'Pilih waktu',
+			'guidedBooking.schedule.chosen' => ({required Object day, required Object time}) => '${day} pukul ${time}',
+			'guidedBooking.schedule.loading' => 'Memeriksa ketersediaan',
+			'guidedBooking.schedule.empty' => 'Tidak ada waktu kosong pada hari ini.',
+			'guidedBooking.schedule.error' => 'Kami tidak dapat memuat waktu yang tersedia.',
+			'guidedBooking.schedule.no_days' => 'Tenaga kesehatan ini belum memiliki waktu kosong.',
+			'guidedBooking.review.title' => 'Periksa permintaan Anda',
+			'guidedBooking.review.service' => 'Layanan',
+			'guidedBooking.review.issues' => 'Alasan kunjungan',
+			'guidedBooking.review.remarks' => 'Catatan',
+			'guidedBooking.review.add_ons' => 'Tambahan',
+			'guidedBooking.review.location' => 'Alamat kunjungan',
+			'guidedBooking.review.professional' => 'Tenaga kesehatan',
+			'guidedBooking.review.schedule' => 'Waktu yang diinginkan',
+			'guidedBooking.review.estimate' => 'Perkiraan total',
+			'guidedBooking.review.estimate_note' => 'Hanya perkiraan. Tidak ada tagihan sekarang — pembayaran dilakukan saat kunjungan.',
+			'guidedBooking.review.edit' => 'Ubah',
+			'guidedBooking.review.none' => 'Tidak ada',
+			'guidedBooking.review.send' => 'Kirim permintaan',
+			'guidedBooking.sent.title' => 'Permintaan terkirim',
+			'guidedBooking.sent.body' => ({required Object name}) => 'Permintaan Anda sudah kami teruskan ke ${name}. Kami akan memberi tahu begitu ada jawaban.',
+			'guidedBooking.sent.body_generic' => 'Permintaan Anda sudah kami teruskan. Kami akan memberi tahu begitu ada yang menerima.',
+			'guidedBooking.sent.message' => 'Kirim pesan ke tenaga kesehatan',
+			'guidedBooking.sent.view_status' => 'Lihat pemesanan',
+			'guidedBooking.sent.done' => 'Kembali ke beranda',
+			'guidedBooking.cta.kContinue' => 'Lanjut',
+			'guidedBooking.cta.skip' => 'Lewati',
+			'healthProfile.namespace_title' => 'Profil kesehatan',
+			'healthProfile.entry_tile' => 'Profil kesehatan saya',
+			'healthProfile.list.subtitle' => 'Perbarui hanya yang Anda inginkan. Semuanya bersifat opsional.',
+			'healthProfile.list.not_started' => 'Belum diisi',
+			'healthProfile.list.updated' => ({required Object date}) => 'Diperbarui ${date}',
+			'healthProfile.list.loading' => 'Memuat profil kesehatan Anda',
+			'healthProfile.list.empty' => 'Belum ada bagian yang tersedia.',
+			'healthProfile.list.error' => 'Kami tidak dapat memuat profil kesehatan Anda.',
+			'healthProfile.section.subtitle' => 'Isi yang Anda bisa. Anda dapat kembali kapan saja.',
+			'healthProfile.section.save' => 'Simpan',
+			'healthProfile.section.saved' => 'Tersimpan',
+			'healthProfile.section.save_failed' => 'Kami tidak dapat menyimpan bagian ini.',
+			'healthProfile.section.loading' => 'Memuat bagian ini',
+			'healthProfile.section.error' => 'Kami tidak dapat memuat bagian ini.',
+			'healthProfile.section.add_other' => 'Tambah lainnya',
+			'healthProfile.section.add_attachment' => 'Tambah lampiran',
+			'healthProfile.section.attachment' => ({required Object n}) => 'Laporan ${n}',
+			'healthProfile.section.discard_title' => 'Buang perubahan Anda?',
+			'healthProfile.section.discard_body' => 'Bagian ini memiliki perubahan yang belum disimpan.',
+			'healthProfile.section.discard' => 'Buang',
+			'healthProfile.section.keep_editing' => 'Lanjut mengisi',
+			'messaging.title' => 'Pesan',
+			'messaging.emptyTitle' => 'Belum ada percakapan',
+			'messaging.emptyBody' => 'Setelah Anda mengirim permintaan, Anda bisa berbicara dengan tenaga kesehatan di sini.',
+			'messaging.composerHint' => 'Tulis pesan',
+			'messaging.threadClosed' => 'Percakapan ini sudah ditutup.',
+			'messaging.sayHello' => 'Sapa dulu',
+			'messaging.timeProposal.title' => 'Usulan waktu lain',
+			'messaging.timeProposal.youAskedFor' => 'Anda meminta',
+			'messaging.timeProposal.proposed' => 'Diusulkan',
+			'messaging.timeProposal.accept' => 'Terima',
+			'messaging.timeProposal.chooseAnother' => 'Pilih Lain',
+			'messaging.timeProposal.suggestAnother' => 'Usulkan waktu lain',
+			'messaging.timeProposal.sheetTitleProfessional' => 'Usulkan waktu lain',
+			'messaging.timeProposal.sheetTitlePatient' => 'Waktu mana yang cocok?',
+			'messaging.timeProposal.sendSuggestion' => 'Kirim usulan',
+			'messaging.timeProposal.sendTime' => 'Kirim waktu ini',
+			'messaging.timeProposal.reasonLabel' => 'Alasan? (opsional)',
+			'messaging.timeProposal.reasonHint' => 'Alasan singkat membantu mereka menyetujui.',
+			'messaging.timeProposal.answerBy' => ({required Object when}) => 'Jawab sebelum ${when}',
+			'messaging.timeProposal.today' => 'Hari ini',
+			'messaging.timeProposal.tomorrow' => 'Besok',
+			'messaging.estimateRevision.title' => 'Perkiraan biaya direvisi',
+			'messaging.estimateRevision.newTotal' => 'Perkiraan total baru',
+			'messaging.estimateRevision.approve' => 'Setujui',
+			'messaging.estimateRevision.approved' => 'Disetujui',
+			'messaging.estimateRevision.withdrawn' => 'Dibatalkan',
+			'messaging.chat.aboutTitle' => 'Tentang kunjungan ini',
+			'messaging.chat.reason' => 'Alasan',
+			'messaging.chat.where' => 'Lokasi',
+			'messaging.chat.estimate' => 'Perkiraan biaya',
+			'messaging.chat.emptyPrompt' => 'Belum ada pesan. Mulai dengan salah satu berikut, atau tulis sendiri.',
+			'messaging.chat.openersProfessional.0' => 'Saya bisa menangani kunjungan ini.',
+			'messaging.chat.openersProfessional.1' => 'Kapan waktu yang cocok untuk Anda?',
+			'messaging.chat.openersProfessional.2' => 'Boleh saya konfirmasi alamatnya?',
+			'messaging.chat.openersPatient.0' => 'Halo, terima kasih sudah menerima permintaan ini.',
+			'messaging.chat.openersPatient.1' => 'Apakah waktunya masih sesuai?',
+			'messaging.chat.openersPatient.2' => 'Apa yang perlu saya siapkan?',
+			'messaging.chat.read' => 'Dibaca',
 			'nursing.services.primary_nursing.description' => 'Memantau dan melakukan prosedur keperawatan mulai dari pemeriksaan fisik, pemberian obat, tube feed (selang makan), dan suction (penyedotan lendir), hingga suntikan dan perawatan luka.',
 			'nursing.services.primary_nursing.title' => 'Layanan Keperawatan Primer',
 			'nursing.services.specialized_nursing.description' => 'Fokus pada pemulihan Anda, dan percayakan perawatan medis yang kompleks kepada perawat profesional kami yang berpengalaman.',
@@ -1224,9 +1787,58 @@ extension on TranslationsId {
 			'pharmacy.services.smoking_cessation.description' => 'Program berhenti merokok melibatkan penghentian kebiasaan merokok melalui strategi seperti konseling, pengobatan, dan program dukungan untuk meningkatkan kesehatan serta mengurangi risiko penyakit terkait rokok.',
 			'pharmacy.services.smoking_cessation.title' => 'Berhenti Merokok',
 			'pharmacy.title' => 'Layanan iRX Pharmacist',
+			'pricing.estimate_title' => 'Perkiraan biaya',
+			'pricing.estimate_total' => 'Perkiraan total',
+			'pricing.estimate_disclaimer' => 'Ini perkiraan. Anda membayar tenaga kesehatan saat kunjungan.',
+			'pricing.estimate_empty' => 'Pilih layanan untuk melihat perkiraan biaya.',
+			'pricing.add_ons' => 'Layanan tambahan',
+			'pricing.hours' => ({required Object count}) => '${count} jam',
+			'pricing.per_hour' => ({required Object price}) => '${price} per jam',
+			'pricing.rates_title' => 'Tarif layanan saya',
+			'pricing.rates_subtitle' => 'Tentukan tarif Anda untuk setiap layanan. Anda boleh menetapkan di atas harga standar, tidak boleh di bawahnya.',
+			'pricing.rates_empty' => 'Anda belum menambahkan layanan apa pun.',
+			'pricing.rates_error' => 'Tarif Anda tidak dapat dimuat.',
+			'pricing.rates_saved' => 'Tarif Anda tersimpan.',
+			'pricing.your_price' => 'Tarif Anda',
+			'pricing.standard_price' => ({required Object price}) => 'Harga standar ${price}',
+			'pricing.at_least' => ({required Object price}) => 'Minimal ${price}',
+			'pricing.not_a_number' => 'Masukkan tarif',
+			'pricing.charging_standard' => 'Mengikuti harga standar',
+			'pricing.save' => 'Simpan',
+			'pricing.floor_title' => 'Harga standar',
+			'pricing.floor_subtitle' => 'Batas bawah tarif semua tenaga kesehatan. Menaikkannya akan menaikkan tarif yang berada di bawahnya.',
+			'pricing.floor_error' => 'Harga standar tidak dapat dimuat.',
+			'pricing.floor_saved' => 'Harga standar diperbarui.',
+			'pricing.floor_lifted' => ({required Object count}) => '${count} tarif tenaga kesehatan dinaikkan ke harga baru.',
+			'pricing.floor_new_price' => 'Harga standar baru',
+			'pricing.revision_title' => 'Perkiraan revisi',
+			'pricing.revision_proposed' => 'Revisi diajukan',
+			'pricing.revision_approved' => 'Disetujui',
+			'pricing.revision_rejected' => 'Ditolak',
+			'pricing.revision_was' => ({required Object price}) => 'Sebelumnya ${price}',
+			'pricing.revision_now' => ({required Object price}) => 'Menjadi ${price}',
 			'settings.account' => 'Akun',
 			'settings.app_language' => 'Bahasa Aplikasi',
 			'settings.settings' => 'Pengaturan',
+			'sharedBooking.starting_from' => ({required Object price}) => 'Mulai dari ${price}',
+			'sharedBooking.from_price' => ({required Object price}) => 'dari ${price}',
+			'sharedBooking.empty_title' => 'Belum ada apa-apa di sini',
+			'sharedBooking.error_title' => 'Terjadi kesalahan',
+			'sharedBooking.retry' => 'Coba lagi',
+			'sharedBooking.status.pending' => 'Menunggu persetujuan',
+			'sharedBooking.status.confirmed' => 'Dikonfirmasi',
+			'sharedBooking.status.proposed' => 'Waktu alternatif diusulkan',
+			'sharedBooking.status.cancelled' => 'Dibatalkan',
+			'sharedBooking.location.title' => 'Di mana kami berkunjung?',
+			'sharedBooking.location.search_hint' => 'Ketik jalan, perumahan, atau gedung',
+			'sharedBooking.location.pick_on_map' => 'Pilih lewat peta',
+			'sharedBooking.location.use_current' => 'Gunakan lokasi saat ini',
+			'sharedBooking.location.saved_heading' => 'ALAMAT TERSIMPAN',
+			'sharedBooking.location.denied' => 'Izin lokasi mati, jadi pilih alamat atau titik di peta.',
+			'sharedBooking.location.picked_label' => 'Alamat kunjungan',
+			'sharedBooking.location.loading' => 'Mencari alamat Anda...',
+			'sharedBooking.location.empty' => 'Tambah alamat',
+			'sharedBooking.location.bar_title' => 'Kunjungan di',
 			'store.consumable' => 'Barang Habis Pakai',
 			'store.messages.load_failed' => 'Gagal memuat produk',
 			'store.no_products' => 'Tidak ada produk tersedia',

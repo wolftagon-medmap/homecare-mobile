@@ -6,7 +6,8 @@ import 'package:m2health/core/services/appointment_service.dart';
 import 'package:m2health/features/homecare_elderly/domain/repositories/homecare_appointment_repository.dart';
 import 'package:m2health/features/homecare_elderly/domain/usecases/create_homecare_appointment.dart';
 
-class HomecareAppointmentRepositoryImpl implements HomecareAppointmentRepository {
+class HomecareAppointmentRepositoryImpl
+    implements HomecareAppointmentRepository {
   final AppointmentService appointmentService;
 
   HomecareAppointmentRepositoryImpl({required this.appointmentService});

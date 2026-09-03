@@ -1,0 +1,50 @@
+{
+  "title": "消息",
+  "emptyTitle": "暂无对话",
+  "emptyBody": "发送预约请求后，您可以在此与专业人员沟通。",
+  "composerHint": "输入消息",
+  "threadClosed": "此对话已结束。",
+  "sayHello": "打个招呼",
+  "timeProposal": {
+    "title": "已提议其他时间",
+    "youAskedFor": "您原本要求",
+    "proposed": "建议时间",
+    "accept": "接受",
+    "chooseAnother": "另选时间",
+    "suggestAnother": "建议其他时间",
+    "sheetTitleProfessional": "建议其他时间",
+    "sheetTitlePatient": "哪个时间方便？",
+    "sendSuggestion": "发送建议",
+    "sendTime": "发送此时间",
+    "reasonLabel": "原因？（选填）",
+    "reasonHint": "简短说明有助于对方同意。",
+    "answerBy": "请在 {when} 前回复",
+    "today": "今天",
+    "tomorrow": "明天"
+  },
+  "estimateRevision": {
+    "title": "修订后的费用估算",
+    "newTotal": "新的预估总额",
+    "approve": "批准",
+    "approved": "已批准",
+    "withdrawn": "已撤回"
+  },
+  "chat": {
+    "aboutTitle": "关于这次上门",
+    "reason": "原因",
+    "where": "地点",
+    "estimate": "预估费用",
+    "emptyPrompt": "还没有消息。可以从下面选一句，或自己写。",
+    "openersProfessional": [
+      "我可以接这次上门。",
+      "您什么时间方便？",
+      "可以和您确认一下地址吗？"
+    ],
+    "openersPatient": [
+      "您好，谢谢您接下这次预约。",
+      "时间还合适吗？",
+      "我需要提前准备什么？"
+    ],
+    "read": "已读"
+  }
+}

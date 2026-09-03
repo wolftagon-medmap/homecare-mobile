@@ -16,11 +16,14 @@ abstract class HomeHealthScreeningRepository {
       int appointmentId, String status);
 
   // ---- Deprecated Provider Screening Actions ----
-  @Deprecated('Use updateServiceRequestStatus(appointmentId, "request_accepted"). TODO: delete.')
+  @Deprecated(
+      'Use updateServiceRequestStatus(appointmentId, "request_accepted"). TODO: delete.')
   Future<Either<Failure, Unit>> acceptScreeningRequest(int screeningRequestId);
-  @Deprecated('Use updateServiceRequestStatus(appointmentId, "sample_collected"). TODO: delete.')
+  @Deprecated(
+      'Use updateServiceRequestStatus(appointmentId, "sample_collected"). TODO: delete.')
   Future<Either<Failure, Unit>> confirmSampleCollected(int screeningRequestId);
-  @Deprecated('Use updateServiceRequestStatus(appointmentId, "report_ready"). TODO: delete.')
+  @Deprecated(
+      'Use updateServiceRequestStatus(appointmentId, "report_ready"). TODO: delete.')
   Future<Either<Failure, Unit>> markScreeningReportReady(
       int screeningRequestId);
 }

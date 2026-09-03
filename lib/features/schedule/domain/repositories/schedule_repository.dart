@@ -15,7 +15,6 @@ abstract class ScheduleRepository {
       UpdateAvailabilityParams params);
   Future<Either<Failure, Unit>> deleteAvailability(int id);
 
-
   Future<Either<Failure, List<ProviderAvailabilityOverride>>> getAllOverrides();
   Future<Either<Failure, Unit>> updateOverride(
       ProviderAvailabilityOverride params);

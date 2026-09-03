@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -9,6 +10,12 @@ import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/auth/data/datasources/google_auth_source.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
+import 'package:m2health/features/chatbot/chatbot_providers.dart';
+import 'package:m2health/features/chatbot_legacy/chatbot_legacy_providers.dart';
+import 'package:m2health/features/guided_booking/guided_booking_providers.dart';
+import 'package:m2health/features/health_profile/health_profile_providers.dart';
+import 'package:m2health/features/messaging/messaging_providers.dart';
+import 'package:m2health/features/pricing/pricing_providers.dart';
 import 'package:m2health/features/medical_record/domain/usecases/delete_medical_record.dart';
 import 'package:m2health/features/medical_record/domain/usecases/get_medical_records.dart';
 import 'package:m2health/features/medical_record/presentation/bloc/medical_record_bloc.dart';
@@ -78,7 +85,10 @@ void main() async {
   try {
     tz.initializeTimeZones();
     final String currentTimeZone =
-        (await FlutterTimezone.getLocalTimezone()).identifier;
+        (await FlutterTimezone.getLocalTimezone().timeout(
+      const Duration(seconds: 5),
+    ))
+            .identifier;
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
   } catch (e, st) {
     debugPrint('Timezone setup failed: $e\n$st');
@@ -87,13 +97,17 @@ void main() async {
   // Google OAuth setup
   try {
     final googleSource = sl<GoogleAuthSource>();
-    await googleSource.init();
+    await googleSource.init().timeout(const Duration(seconds: 5));
   } catch (e, st) {
     debugPrint('GoogleAuthSource init failed: $e\n$st');
   }
 
   final localeCubit = LocaleCubit();
-  await localeCubit.loadSavedLocale();
+  try {
+    await localeCubit.loadSavedLocale();
+  } catch (e) {
+    debugPrint('loadSavedLocale failed: $e');
+  }
 
   WidgetsBinding.instance.addPostFrameCallback((_) => _checkForAppUpdate());
 
@@ -103,11 +117,12 @@ void main() async {
       enabled: false,
       tools: [
         ...DevicePreview.defaultTools,
-        DevicePreviewScreenshot(
-            onScreenshot: screenshotAsFiles(
-          // Save screenshots to the 'screenshots' directory in the app's documents directory
-          Directory('${Directory.current.path}/screenshots'),
-        )),
+        // dart:io Directory is unsupported on web and throws during startup.
+        if (!kIsWeb)
+          DevicePreviewScreenshot(
+              onScreenshot: screenshotAsFiles(
+            Directory('${Directory.current.path}/screenshots'),
+          )),
       ],
       builder: (context) => TranslationProvider(
         child: MultiBlocProvider(
@@ -186,10 +201,16 @@ class M2HealthApp extends StatelessWidget {
               DiabetesFormCubit(sl<Dio>(), sl<QuestionnaireService>()),
         ),
         BlocProvider(create: (context) => sl<SubscriptionCubit>()),
+
+        ...GuidedBookingProviders.providers,
+        ...MessagingProviders.providers,
+        ...PricingProviders.providers,
+        ...ChatbotProviders.providers,
+        ...ChatbotLegacyProviders.providers,
+        ...HealthProfileProviders.providers,
       ],
       child: BlocBuilder<LocaleCubit, AppLocale>(builder: (context, locale) {
         return MaterialApp.router(
-          useInheritedMediaQuery: true,
           scaffoldMessengerKey: rootScaffoldMessengerKey,
           debugShowCheckedModeBanner: false,
           title: 'm2health',

@@ -65,7 +65,8 @@ class ResetPasswordSuccessPage extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    context.t.auth.reset_password_success.button.login_page_link,
+                    context
+                        .t.auth.reset_password_success.button.login_page_link,
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16,

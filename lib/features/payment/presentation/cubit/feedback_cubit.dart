@@ -8,7 +8,8 @@ part 'feedback_state.dart';
 class FeedbackCubit extends Cubit<FeedbackState> {
   final SubmitFeedback submitFeedbackUseCase;
 
-  FeedbackCubit({required this.submitFeedbackUseCase}) : super(FeedbackInitial());
+  FeedbackCubit({required this.submitFeedbackUseCase})
+      : super(FeedbackInitial());
 
   Future<void> submitFeedback({
     required int appointmentId,

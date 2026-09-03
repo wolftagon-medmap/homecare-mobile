@@ -42,12 +42,18 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	// Translations
 	late final TranslationsAuthEn auth = TranslationsAuthEn._(_root);
 	late final TranslationsBookingEn booking = TranslationsBookingEn._(_root);
+	late final TranslationsChatbotEn chatbot = TranslationsChatbotEn._(_root);
 	late final TranslationsDashboardEn dashboard = TranslationsDashboardEn._(_root);
 	late final TranslationsGlobalEn global = TranslationsGlobalEn._(_root);
+	late final TranslationsGuidedBookingEn guidedBooking = TranslationsGuidedBookingEn._(_root);
+	late final TranslationsHealthProfileEn healthProfile = TranslationsHealthProfileEn._(_root);
+	late final TranslationsMessagingEn messaging = TranslationsMessagingEn._(_root);
 	late final TranslationsNursingEn nursing = TranslationsNursingEn._(_root);
 	late final TranslationsPaymentEn payment = TranslationsPaymentEn._(_root);
 	late final TranslationsPharmacyEn pharmacy = TranslationsPharmacyEn._(_root);
+	late final TranslationsPricingEn pricing = TranslationsPricingEn._(_root);
 	late final TranslationsSettingsEn settings = TranslationsSettingsEn._(_root);
+	late final TranslationsSharedBookingEn sharedBooking = TranslationsSharedBookingEn._(_root);
 	late final TranslationsStoreEn store = TranslationsStoreEn._(_root);
 }
 
@@ -91,6 +97,108 @@ class TranslationsBookingEn {
 	late final TranslationsBookingProfessionalDetailEn professional_detail = TranslationsBookingProfessionalDetailEn._(_root);
 	late final TranslationsBookingProfessionalSearchEn professional_search = TranslationsBookingProfessionalSearchEn._(_root);
 	late final TranslationsBookingScheduleEn schedule = TranslationsBookingScheduleEn._(_root);
+}
+
+// Path: chatbot
+class TranslationsChatbotEn {
+	TranslationsChatbotEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'M2Health AI Assistant'
+	String get title => 'M2Health AI Assistant';
+
+	/// en: 'Hi! I'm your'
+	String get heroGreeting => 'Hi! I\'m your';
+
+	/// en: 'M2Health AI Health Assistant.'
+	String get heroName => 'M2Health AI Health Assistant.';
+
+	/// en: 'Tell me what's bothering you, and I'll help you understand what you can do next.'
+	String get heroBody => 'Tell me what\'s bothering you, and I\'ll help you understand what you can do next.';
+
+	/// en: 'Type your message...'
+	String get composerHint => 'Type your message...';
+
+	/// en: 'Or type your question here...'
+	String get composerHintWelcome => 'Or type your question here...';
+
+	/// en: 'Send'
+	String get send => 'Send';
+
+	/// en: '(HIPAA Privacy)'
+	String get privacyLabel => '(HIPAA Privacy)';
+
+	/// en: 'Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.'
+	String get privacyDetail => 'Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.';
+
+	/// en: 'The assistant is unavailable'
+	String get errorTitle => 'The assistant is unavailable';
+
+	/// en: 'Try again'
+	String get retry => 'Try again';
+
+	/// en: 'Conversation history'
+	String get history => 'Conversation history';
+
+	/// en: 'New conversation'
+	String get newConversation => 'New conversation';
+
+	/// en: 'Start a new conversation?'
+	String get newConversationTitle => 'Start a new conversation?';
+
+	/// en: 'This conversation will be kept in your history as read-only.'
+	String get newConversationBody => 'This conversation will be kept in your history as read-only.';
+
+	/// en: 'Start new'
+	String get startNew => 'Start new';
+
+	/// en: 'Cancel'
+	String get cancel => 'Cancel';
+
+	/// en: 'Conversation History'
+	String get historyTitle => 'Conversation History';
+
+	/// en: 'No conversations yet.'
+	String get historyEmpty => 'No conversations yet.';
+
+	/// en: 'Could not load your conversations'
+	String get historyError => 'Could not load your conversations';
+
+	/// en: 'Health conversation'
+	String get sessionUntitled => 'Health conversation';
+
+	/// en: 'Active'
+	String get sessionActive => 'Active';
+
+	/// en: 'Read-only'
+	String get sessionReadOnly => 'Read-only';
+
+	/// en: 'Delete conversation'
+	String get deleteTitle => 'Delete conversation';
+
+	/// en: 'This conversation will be deleted from this device. This cannot be undone.'
+	String get deleteBody => 'This conversation will be deleted from this device. This cannot be undone.';
+
+	/// en: 'Delete'
+	String get delete => 'Delete';
+
+	/// en: 'Voice input'
+	String get voiceInput => 'Voice input';
+
+	/// en: 'Transcribing...'
+	String get transcribing => 'Transcribing...';
+
+	/// en: 'Microphone access required'
+	String get micDeniedTitle => 'Microphone access required';
+
+	/// en: 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.'
+	String get micDeniedBody => 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.';
+
+	/// en: 'Open Settings'
+	String get openSettings => 'Open Settings';
 }
 
 // Path: dashboard
@@ -219,6 +327,76 @@ class TranslationsGlobalEn {
 	String get yes => 'Yes';
 }
 
+// Path: guidedBooking
+class TranslationsGuidedBookingEn {
+	TranslationsGuidedBookingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Book a service'
+	String get namespace_title => 'Book a service';
+
+	late final TranslationsGuidedBookingSubServiceEn sub_service = TranslationsGuidedBookingSubServiceEn._(_root);
+	late final TranslationsGuidedBookingIssuesEn issues = TranslationsGuidedBookingIssuesEn._(_root);
+	late final TranslationsGuidedBookingAddOnsEn add_ons = TranslationsGuidedBookingAddOnsEn._(_root);
+	late final TranslationsGuidedBookingProfessionalEn professional = TranslationsGuidedBookingProfessionalEn._(_root);
+	late final TranslationsGuidedBookingScheduleEn schedule = TranslationsGuidedBookingScheduleEn._(_root);
+	late final TranslationsGuidedBookingReviewEn review = TranslationsGuidedBookingReviewEn._(_root);
+	late final TranslationsGuidedBookingSentEn sent = TranslationsGuidedBookingSentEn._(_root);
+	late final TranslationsGuidedBookingCtaEn cta = TranslationsGuidedBookingCtaEn._(_root);
+}
+
+// Path: healthProfile
+class TranslationsHealthProfileEn {
+	TranslationsHealthProfileEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Health profile'
+	String get namespace_title => 'Health profile';
+
+	/// en: 'My health profile'
+	String get entry_tile => 'My health profile';
+
+	late final TranslationsHealthProfileListEn list = TranslationsHealthProfileListEn._(_root);
+	late final TranslationsHealthProfileSectionEn section = TranslationsHealthProfileSectionEn._(_root);
+}
+
+// Path: messaging
+class TranslationsMessagingEn {
+	TranslationsMessagingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Messages'
+	String get title => 'Messages';
+
+	/// en: 'No conversations yet'
+	String get emptyTitle => 'No conversations yet';
+
+	/// en: 'When you send a booking request, you can talk to the professional here.'
+	String get emptyBody => 'When you send a booking request, you can talk to the professional here.';
+
+	/// en: 'Write a message'
+	String get composerHint => 'Write a message';
+
+	/// en: 'This conversation is closed.'
+	String get threadClosed => 'This conversation is closed.';
+
+	/// en: 'Say hello'
+	String get sayHello => 'Say hello';
+
+	late final TranslationsMessagingTimeProposalEn timeProposal = TranslationsMessagingTimeProposalEn._(_root);
+	late final TranslationsMessagingEstimateRevisionEn estimateRevision = TranslationsMessagingEstimateRevisionEn._(_root);
+	late final TranslationsMessagingChatEn chat = TranslationsMessagingChatEn._(_root);
+}
+
 // Path: nursing
 class TranslationsNursingEn {
 	TranslationsNursingEn._(this._root);
@@ -290,6 +468,105 @@ class TranslationsPharmacyEn {
 	String get title => 'iRX Pharmacist Service';
 }
 
+// Path: pricing
+class TranslationsPricingEn {
+	TranslationsPricingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Estimate'
+	String get estimate_title => 'Estimate';
+
+	/// en: 'Estimated total'
+	String get estimate_total => 'Estimated total';
+
+	/// en: 'This is an estimate. You pay the professional at the visit.'
+	String get estimate_disclaimer => 'This is an estimate. You pay the professional at the visit.';
+
+	/// en: 'Pick a service to see an estimate.'
+	String get estimate_empty => 'Pick a service to see an estimate.';
+
+	/// en: 'Add-ons'
+	String get add_ons => 'Add-ons';
+
+	/// en: '{count} hours'
+	String hours({required Object count}) => '${count} hours';
+
+	/// en: '{price} per hour'
+	String per_hour({required Object price}) => '${price} per hour';
+
+	/// en: 'My service rates'
+	String get rates_title => 'My service rates';
+
+	/// en: 'Set what you charge for each service. You can charge above the standard price, never below it.'
+	String get rates_subtitle => 'Set what you charge for each service. You can charge above the standard price, never below it.';
+
+	/// en: 'You have not added any services yet.'
+	String get rates_empty => 'You have not added any services yet.';
+
+	/// en: 'We could not load your rates.'
+	String get rates_error => 'We could not load your rates.';
+
+	/// en: 'Your rates were saved.'
+	String get rates_saved => 'Your rates were saved.';
+
+	/// en: 'Your price'
+	String get your_price => 'Your price';
+
+	/// en: 'Standard price {price}'
+	String standard_price({required Object price}) => 'Standard price ${price}';
+
+	/// en: 'Must be at least {price}'
+	String at_least({required Object price}) => 'Must be at least ${price}';
+
+	/// en: 'Enter a price'
+	String get not_a_number => 'Enter a price';
+
+	/// en: 'Charging the standard price'
+	String get charging_standard => 'Charging the standard price';
+
+	/// en: 'Save'
+	String get save => 'Save';
+
+	/// en: 'Standard prices'
+	String get floor_title => 'Standard prices';
+
+	/// en: 'The floor every professional charges from. Raising it lifts anyone charging below.'
+	String get floor_subtitle => 'The floor every professional charges from. Raising it lifts anyone charging below.';
+
+	/// en: 'We could not load the standard prices.'
+	String get floor_error => 'We could not load the standard prices.';
+
+	/// en: 'Standard price updated.'
+	String get floor_saved => 'Standard price updated.';
+
+	/// en: '{count} professional rates were lifted to the new price.'
+	String floor_lifted({required Object count}) => '${count} professional rates were lifted to the new price.';
+
+	/// en: 'New standard price'
+	String get floor_new_price => 'New standard price';
+
+	/// en: 'Revised estimate'
+	String get revision_title => 'Revised estimate';
+
+	/// en: 'Revision proposed'
+	String get revision_proposed => 'Revision proposed';
+
+	/// en: 'Approved'
+	String get revision_approved => 'Approved';
+
+	/// en: 'Declined'
+	String get revision_rejected => 'Declined';
+
+	/// en: 'Was {price}'
+	String revision_was({required Object price}) => 'Was ${price}';
+
+	/// en: 'Now {price}'
+	String revision_now({required Object price}) => 'Now ${price}';
+}
+
 // Path: settings
 class TranslationsSettingsEn {
 	TranslationsSettingsEn._(this._root);
@@ -306,6 +583,33 @@ class TranslationsSettingsEn {
 
 	/// en: 'Settings'
 	String get settings => 'Settings';
+}
+
+// Path: sharedBooking
+class TranslationsSharedBookingEn {
+	TranslationsSharedBookingEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Starting from {price}'
+	String starting_from({required Object price}) => 'Starting from ${price}';
+
+	/// en: 'from {price}'
+	String from_price({required Object price}) => 'from ${price}';
+
+	/// en: 'Nothing here yet'
+	String get empty_title => 'Nothing here yet';
+
+	/// en: 'Something went wrong'
+	String get error_title => 'Something went wrong';
+
+	/// en: 'Try again'
+	String get retry => 'Try again';
+
+	late final TranslationsSharedBookingStatusEn status = TranslationsSharedBookingStatusEn._(_root);
+	late final TranslationsSharedBookingLocationEn location = TranslationsSharedBookingLocationEn._(_root);
 }
 
 // Path: store
@@ -749,8 +1053,8 @@ class TranslationsDashboardHomeEn {
 	/// en: 'Professional care for you and your loved ones.'
 	String get section_subtitle => 'Professional care for you and your loved ones.';
 
-	/// en: 'View All Services'
-	String get view_all => 'View All Services';
+	/// en: 'View All'
+	String get view_all => 'View All';
 
 	/// en: 'All Services'
 	String get all_services_title => 'All Services';
@@ -847,6 +1151,446 @@ class TranslationsGlobalMessagesEn {
 
 	/// en: 'Updated successfully'
 	String get updated_success => 'Updated successfully';
+}
+
+// Path: guidedBooking.sub_service
+class TranslationsGuidedBookingSubServiceEn {
+	TranslationsGuidedBookingSubServiceEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Which service do you need?'
+	String get title => 'Which service do you need?';
+
+	/// en: 'No services are available here yet.'
+	String get empty => 'No services are available here yet.';
+}
+
+// Path: guidedBooking.issues
+class TranslationsGuidedBookingIssuesEn {
+	TranslationsGuidedBookingIssuesEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'What can we help you with?'
+	String get title => 'What can we help you with?';
+
+	/// en: 'Choose one or more.'
+	String get subtitle => 'Choose one or more.';
+
+	/// en: 'Remarks (optional)'
+	String get remarks_label => 'Remarks (optional)';
+
+	/// en: 'Anything else you would like our healthcare professional to know?'
+	String get remarks_hint => 'Anything else you would like our healthcare professional to know?';
+
+	/// en: 'Add procedures or extras'
+	String get add_ons_link => 'Add procedures or extras';
+
+	/// en: 'We could not load the issue list.'
+	String get error => 'We could not load the issue list.';
+
+	/// en: 'No reasons are listed for this service yet.'
+	String get empty => 'No reasons are listed for this service yet.';
+}
+
+// Path: guidedBooking.add_ons
+class TranslationsGuidedBookingAddOnsEn {
+	TranslationsGuidedBookingAddOnsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Anything else to add?'
+	String get title => 'Anything else to add?';
+
+	/// en: 'Optional. Priced individually.'
+	String get subtitle => 'Optional. Priced individually.';
+
+	/// en: 'No extras are available for this service.'
+	String get empty => 'No extras are available for this service.';
+
+	/// en: '{count} added'
+	String selected({required Object count}) => '${count} added';
+
+	/// en: 'No additional details for this add-on yet.'
+	String get no_description => 'No additional details for this add-on yet.';
+}
+
+// Path: guidedBooking.professional
+class TranslationsGuidedBookingProfessionalEn {
+	TranslationsGuidedBookingProfessionalEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Choose a professional'
+	String get title => 'Choose a professional';
+
+	/// en: 'View profile'
+	String get view_profile => 'View profile';
+
+	/// en: 'Choose this professional'
+	String get select_cta => 'Choose this professional';
+
+	/// en: 'Visit address'
+	String get location_label => 'Visit address';
+
+	/// en: 'Add an address to see who is available'
+	String get location_empty => 'Add an address to see who is available';
+
+	/// en: 'Finding your saved addresses'
+	String get location_loading => 'Finding your saved addresses';
+
+	/// en: 'Change'
+	String get change_location => 'Change';
+
+	/// en: 'Where should we visit?'
+	String get picker_title => 'Where should we visit?';
+
+	/// en: 'Add a new address'
+	String get add_address => 'Add a new address';
+
+	/// en: 'Finding professionals near you'
+	String get loading => 'Finding professionals near you';
+
+	/// en: 'No professionals cover this address yet. Try another address.'
+	String get empty => 'No professionals cover this address yet. Try another address.';
+
+	/// en: 'We could not load the professional list.'
+	String get error => 'We could not load the professional list.';
+
+	/// en: '{years} yrs experience'
+	String years({required Object years}) => '${years} yrs experience';
+
+	/// en: '({count})'
+	String reviews({required Object count}) => '(${count})';
+
+	/// en: 'Choose this professional'
+	String get choose_cta => 'Choose this professional';
+
+	/// en: 'Search by name'
+	String get search_hint => 'Search by name';
+}
+
+// Path: guidedBooking.schedule
+class TranslationsGuidedBookingScheduleEn {
+	TranslationsGuidedBookingScheduleEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'When suits you?'
+	String get title => 'When suits you?';
+
+	/// en: 'Select a date'
+	String get select_date => 'Select a date';
+
+	/// en: 'Select a time'
+	String get select_hour => 'Select a time';
+
+	/// en: '{day} at {time}'
+	String chosen({required Object day, required Object time}) => '${day} at ${time}';
+
+	/// en: 'Checking availability'
+	String get loading => 'Checking availability';
+
+	/// en: 'No open times on this day.'
+	String get empty => 'No open times on this day.';
+
+	/// en: 'We could not load the available times.'
+	String get error => 'We could not load the available times.';
+
+	/// en: 'This professional has no open times right now.'
+	String get no_days => 'This professional has no open times right now.';
+}
+
+// Path: guidedBooking.review
+class TranslationsGuidedBookingReviewEn {
+	TranslationsGuidedBookingReviewEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Review your request'
+	String get title => 'Review your request';
+
+	/// en: 'Service'
+	String get service => 'Service';
+
+	/// en: 'Reasons for the visit'
+	String get issues => 'Reasons for the visit';
+
+	/// en: 'Remarks'
+	String get remarks => 'Remarks';
+
+	/// en: 'Extras'
+	String get add_ons => 'Extras';
+
+	/// en: 'Visit address'
+	String get location => 'Visit address';
+
+	/// en: 'Professional'
+	String get professional => 'Professional';
+
+	/// en: 'Preferred time'
+	String get schedule => 'Preferred time';
+
+	/// en: 'Estimated total'
+	String get estimate => 'Estimated total';
+
+	/// en: 'An estimate only. Nothing is charged now — payment happens at the visit.'
+	String get estimate_note => 'An estimate only. Nothing is charged now — payment happens at the visit.';
+
+	/// en: 'Edit'
+	String get edit => 'Edit';
+
+	/// en: 'None'
+	String get none => 'None';
+
+	/// en: 'Send request'
+	String get send => 'Send request';
+}
+
+// Path: guidedBooking.sent
+class TranslationsGuidedBookingSentEn {
+	TranslationsGuidedBookingSentEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Request sent'
+	String get title => 'Request sent';
+
+	/// en: 'We have passed your request to {name}. We will notify you as soon as they respond.'
+	String body({required Object name}) => 'We have passed your request to ${name}. We will notify you as soon as they respond.';
+
+	/// en: 'We have passed your request on. We will notify you as soon as it is picked up.'
+	String get body_generic => 'We have passed your request on. We will notify you as soon as it is picked up.';
+
+	/// en: 'Message your professional'
+	String get message => 'Message your professional';
+
+	/// en: 'View booking'
+	String get view_status => 'View booking';
+
+	/// en: 'Back to home'
+	String get done => 'Back to home';
+}
+
+// Path: guidedBooking.cta
+class TranslationsGuidedBookingCtaEn {
+	TranslationsGuidedBookingCtaEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Continue'
+	String get kContinue => 'Continue';
+
+	/// en: 'Skip'
+	String get skip => 'Skip';
+}
+
+// Path: healthProfile.list
+class TranslationsHealthProfileListEn {
+	TranslationsHealthProfileListEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Update only what you want. Everything here is optional.'
+	String get subtitle => 'Update only what you want. Everything here is optional.';
+
+	/// en: 'Not started'
+	String get not_started => 'Not started';
+
+	/// en: 'Updated {date}'
+	String updated({required Object date}) => 'Updated ${date}';
+
+	/// en: 'Loading your health profile'
+	String get loading => 'Loading your health profile';
+
+	/// en: 'No sections are available yet.'
+	String get empty => 'No sections are available yet.';
+
+	/// en: 'We could not load your health profile.'
+	String get error => 'We could not load your health profile.';
+}
+
+// Path: healthProfile.section
+class TranslationsHealthProfileSectionEn {
+	TranslationsHealthProfileSectionEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Answer what you can. You can come back any time.'
+	String get subtitle => 'Answer what you can. You can come back any time.';
+
+	/// en: 'Save'
+	String get save => 'Save';
+
+	/// en: 'Saved'
+	String get saved => 'Saved';
+
+	/// en: 'We could not save this section.'
+	String get save_failed => 'We could not save this section.';
+
+	/// en: 'Loading this section'
+	String get loading => 'Loading this section';
+
+	/// en: 'We could not load this section.'
+	String get error => 'We could not load this section.';
+
+	/// en: 'Add another'
+	String get add_other => 'Add another';
+
+	/// en: 'Add an attachment'
+	String get add_attachment => 'Add an attachment';
+
+	/// en: 'Report {n}'
+	String attachment({required Object n}) => 'Report ${n}';
+
+	/// en: 'Discard your changes?'
+	String get discard_title => 'Discard your changes?';
+
+	/// en: 'This section has unsaved changes.'
+	String get discard_body => 'This section has unsaved changes.';
+
+	/// en: 'Discard'
+	String get discard => 'Discard';
+
+	/// en: 'Keep editing'
+	String get keep_editing => 'Keep editing';
+}
+
+// Path: messaging.timeProposal
+class TranslationsMessagingTimeProposalEn {
+	TranslationsMessagingTimeProposalEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Alternative time proposed'
+	String get title => 'Alternative time proposed';
+
+	/// en: 'You asked for'
+	String get youAskedFor => 'You asked for';
+
+	/// en: 'Proposed'
+	String get proposed => 'Proposed';
+
+	/// en: 'Accept'
+	String get accept => 'Accept';
+
+	/// en: 'Choose Another'
+	String get chooseAnother => 'Choose Another';
+
+	/// en: 'Suggest another time'
+	String get suggestAnother => 'Suggest another time';
+
+	/// en: 'Suggest another time'
+	String get sheetTitleProfessional => 'Suggest another time';
+
+	/// en: 'Which time suits you?'
+	String get sheetTitlePatient => 'Which time suits you?';
+
+	/// en: 'Send suggestion'
+	String get sendSuggestion => 'Send suggestion';
+
+	/// en: 'Send this time'
+	String get sendTime => 'Send this time';
+
+	/// en: 'Why? (optional)'
+	String get reasonLabel => 'Why? (optional)';
+
+	/// en: 'A short reason helps them say yes.'
+	String get reasonHint => 'A short reason helps them say yes.';
+
+	/// en: 'Answer by {when}'
+	String answerBy({required Object when}) => 'Answer by ${when}';
+
+	/// en: 'Today'
+	String get today => 'Today';
+
+	/// en: 'Tomorrow'
+	String get tomorrow => 'Tomorrow';
+}
+
+// Path: messaging.estimateRevision
+class TranslationsMessagingEstimateRevisionEn {
+	TranslationsMessagingEstimateRevisionEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Revised estimate'
+	String get title => 'Revised estimate';
+
+	/// en: 'New estimated total'
+	String get newTotal => 'New estimated total';
+
+	/// en: 'Approve'
+	String get approve => 'Approve';
+
+	/// en: 'Approved'
+	String get approved => 'Approved';
+
+	/// en: 'Withdrawn'
+	String get withdrawn => 'Withdrawn';
+}
+
+// Path: messaging.chat
+class TranslationsMessagingChatEn {
+	TranslationsMessagingChatEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'About this visit'
+	String get aboutTitle => 'About this visit';
+
+	/// en: 'Reason'
+	String get reason => 'Reason';
+
+	/// en: 'Where'
+	String get where => 'Where';
+
+	/// en: 'Estimate'
+	String get estimate => 'Estimate';
+
+	/// en: 'No messages yet. Start with one of these, or write your own.'
+	String get emptyPrompt => 'No messages yet. Start with one of these, or write your own.';
+
+	List<String> get openersProfessional => [
+		'I can take this visit.',
+		'When would suit you?',
+		'Could I check the address with you?',
+	];
+	List<String> get openersPatient => [
+		'Hi, thank you for taking this.',
+		'Is the time still OK?',
+		'How should I prepare?',
+	];
+
+	/// en: 'Read'
+	String get read => 'Read';
 }
 
 // Path: nursing.services
@@ -1020,6 +1764,66 @@ class TranslationsPharmacyServicesEn {
 	late final TranslationsPharmacyServicesHealthCoachingEn health_coaching = TranslationsPharmacyServicesHealthCoachingEn._(_root);
 	late final TranslationsPharmacyServicesReviewAndCounselingEn review_and_counseling = TranslationsPharmacyServicesReviewAndCounselingEn._(_root);
 	late final TranslationsPharmacyServicesSmokingCessationEn smoking_cessation = TranslationsPharmacyServicesSmokingCessationEn._(_root);
+}
+
+// Path: sharedBooking.status
+class TranslationsSharedBookingStatusEn {
+	TranslationsSharedBookingStatusEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Pending approval'
+	String get pending => 'Pending approval';
+
+	/// en: 'Confirmed'
+	String get confirmed => 'Confirmed';
+
+	/// en: 'Alternative proposed'
+	String get proposed => 'Alternative proposed';
+
+	/// en: 'Cancelled'
+	String get cancelled => 'Cancelled';
+}
+
+// Path: sharedBooking.location
+class TranslationsSharedBookingLocationEn {
+	TranslationsSharedBookingLocationEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Where should we visit?'
+	String get title => 'Where should we visit?';
+
+	/// en: 'Search street, area or building'
+	String get search_hint => 'Search street, area or building';
+
+	/// en: 'Pick on map'
+	String get pick_on_map => 'Pick on map';
+
+	/// en: 'Use current location'
+	String get use_current => 'Use current location';
+
+	/// en: 'SAVED ADDRESSES'
+	String get saved_heading => 'SAVED ADDRESSES';
+
+	/// en: 'Location permission is off, so pick an address or a spot on the map.'
+	String get denied => 'Location permission is off, so pick an address or a spot on the map.';
+
+	/// en: 'Visit address'
+	String get picked_label => 'Visit address';
+
+	/// en: 'Finding your address...'
+	String get loading => 'Finding your address...';
+
+	/// en: 'Add an address'
+	String get empty => 'Add an address';
+
+	/// en: 'Visit at'
+	String get bar_title => 'Visit at';
 }
 
 // Path: store.messages
@@ -1648,6 +2452,37 @@ extension on Translations {
 			'booking.schedule.submit_button' => 'Submit',
 			'booking.schedule.submitting_button' => 'Submitting...',
 			'booking.schedule.title' => 'Select Schedule',
+			'chatbot.title' => 'M2Health AI Assistant',
+			'chatbot.heroGreeting' => 'Hi! I\'m your',
+			'chatbot.heroName' => 'M2Health AI Health Assistant.',
+			'chatbot.heroBody' => 'Tell me what\'s bothering you, and I\'ll help you understand what you can do next.',
+			'chatbot.composerHint' => 'Type your message...',
+			'chatbot.composerHintWelcome' => 'Or type your question here...',
+			'chatbot.send' => 'Send',
+			'chatbot.privacyLabel' => '(HIPAA Privacy)',
+			'chatbot.privacyDetail' => 'Your conversation is private. Health details are encrypted and handled in line with our Privacy Policy (PDPA / HIPAA aligned). You can review or delete this chat anytime.',
+			'chatbot.errorTitle' => 'The assistant is unavailable',
+			'chatbot.retry' => 'Try again',
+			'chatbot.history' => 'Conversation history',
+			'chatbot.newConversation' => 'New conversation',
+			'chatbot.newConversationTitle' => 'Start a new conversation?',
+			'chatbot.newConversationBody' => 'This conversation will be kept in your history as read-only.',
+			'chatbot.startNew' => 'Start new',
+			'chatbot.cancel' => 'Cancel',
+			'chatbot.historyTitle' => 'Conversation History',
+			'chatbot.historyEmpty' => 'No conversations yet.',
+			'chatbot.historyError' => 'Could not load your conversations',
+			'chatbot.sessionUntitled' => 'Health conversation',
+			'chatbot.sessionActive' => 'Active',
+			'chatbot.sessionReadOnly' => 'Read-only',
+			'chatbot.deleteTitle' => 'Delete conversation',
+			'chatbot.deleteBody' => 'This conversation will be deleted from this device. This cannot be undone.',
+			'chatbot.delete' => 'Delete',
+			'chatbot.voiceInput' => 'Voice input',
+			'chatbot.transcribing' => 'Transcribing...',
+			'chatbot.micDeniedTitle' => 'Microphone access required',
+			'chatbot.micDeniedBody' => 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.',
+			'chatbot.openSettings' => 'Open Settings',
 			'dashboard.chat_ai_placeholder' => 'Chat With AI doctor for all your health questions',
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
 			'dashboard.greeting_generic' => 'Live Longer & Live Healthier!',
@@ -1655,7 +2490,7 @@ extension on Translations {
 			'dashboard.retry' => 'Retry',
 			'dashboard.home.section_title' => 'Healthcare Services',
 			'dashboard.home.section_subtitle' => 'Professional care for you and your loved ones.',
-			'dashboard.home.view_all' => 'View All Services',
+			'dashboard.home.view_all' => 'View All',
 			'dashboard.home.all_services_title' => 'All Services',
 			'dashboard.home.badge_new' => 'NEW',
 			'dashboard.home.name_pharmacist' => 'Pharmacist Review',
@@ -1711,6 +2546,125 @@ extension on Translations {
 			'global.unknown_location' => 'Unknown Location',
 			'global.update' => 'Update',
 			'global.yes' => 'Yes',
+			'guidedBooking.namespace_title' => 'Book a service',
+			'guidedBooking.sub_service.title' => 'Which service do you need?',
+			'guidedBooking.sub_service.empty' => 'No services are available here yet.',
+			'guidedBooking.issues.title' => 'What can we help you with?',
+			'guidedBooking.issues.subtitle' => 'Choose one or more.',
+			'guidedBooking.issues.remarks_label' => 'Remarks (optional)',
+			'guidedBooking.issues.remarks_hint' => 'Anything else you would like our healthcare professional to know?',
+			'guidedBooking.issues.add_ons_link' => 'Add procedures or extras',
+			'guidedBooking.issues.error' => 'We could not load the issue list.',
+			'guidedBooking.issues.empty' => 'No reasons are listed for this service yet.',
+			'guidedBooking.add_ons.title' => 'Anything else to add?',
+			'guidedBooking.add_ons.subtitle' => 'Optional. Priced individually.',
+			'guidedBooking.add_ons.empty' => 'No extras are available for this service.',
+			'guidedBooking.add_ons.selected' => ({required Object count}) => '${count} added',
+			'guidedBooking.add_ons.no_description' => 'No additional details for this add-on yet.',
+			'guidedBooking.professional.title' => 'Choose a professional',
+			'guidedBooking.professional.view_profile' => 'View profile',
+			'guidedBooking.professional.select_cta' => 'Choose this professional',
+			'guidedBooking.professional.location_label' => 'Visit address',
+			'guidedBooking.professional.location_empty' => 'Add an address to see who is available',
+			'guidedBooking.professional.location_loading' => 'Finding your saved addresses',
+			'guidedBooking.professional.change_location' => 'Change',
+			'guidedBooking.professional.picker_title' => 'Where should we visit?',
+			'guidedBooking.professional.add_address' => 'Add a new address',
+			'guidedBooking.professional.loading' => 'Finding professionals near you',
+			'guidedBooking.professional.empty' => 'No professionals cover this address yet. Try another address.',
+			'guidedBooking.professional.error' => 'We could not load the professional list.',
+			'guidedBooking.professional.years' => ({required Object years}) => '${years} yrs experience',
+			'guidedBooking.professional.reviews' => ({required Object count}) => '(${count})',
+			'guidedBooking.professional.choose_cta' => 'Choose this professional',
+			'guidedBooking.professional.search_hint' => 'Search by name',
+			'guidedBooking.schedule.title' => 'When suits you?',
+			'guidedBooking.schedule.select_date' => 'Select a date',
+			'guidedBooking.schedule.select_hour' => 'Select a time',
+			'guidedBooking.schedule.chosen' => ({required Object day, required Object time}) => '${day} at ${time}',
+			'guidedBooking.schedule.loading' => 'Checking availability',
+			'guidedBooking.schedule.empty' => 'No open times on this day.',
+			'guidedBooking.schedule.error' => 'We could not load the available times.',
+			'guidedBooking.schedule.no_days' => 'This professional has no open times right now.',
+			'guidedBooking.review.title' => 'Review your request',
+			'guidedBooking.review.service' => 'Service',
+			'guidedBooking.review.issues' => 'Reasons for the visit',
+			'guidedBooking.review.remarks' => 'Remarks',
+			'guidedBooking.review.add_ons' => 'Extras',
+			'guidedBooking.review.location' => 'Visit address',
+			'guidedBooking.review.professional' => 'Professional',
+			'guidedBooking.review.schedule' => 'Preferred time',
+			'guidedBooking.review.estimate' => 'Estimated total',
+			'guidedBooking.review.estimate_note' => 'An estimate only. Nothing is charged now — payment happens at the visit.',
+			'guidedBooking.review.edit' => 'Edit',
+			'guidedBooking.review.none' => 'None',
+			'guidedBooking.review.send' => 'Send request',
+			'guidedBooking.sent.title' => 'Request sent',
+			'guidedBooking.sent.body' => ({required Object name}) => 'We have passed your request to ${name}. We will notify you as soon as they respond.',
+			'guidedBooking.sent.body_generic' => 'We have passed your request on. We will notify you as soon as it is picked up.',
+			'guidedBooking.sent.message' => 'Message your professional',
+			'guidedBooking.sent.view_status' => 'View booking',
+			'guidedBooking.sent.done' => 'Back to home',
+			'guidedBooking.cta.kContinue' => 'Continue',
+			'guidedBooking.cta.skip' => 'Skip',
+			'healthProfile.namespace_title' => 'Health profile',
+			'healthProfile.entry_tile' => 'My health profile',
+			'healthProfile.list.subtitle' => 'Update only what you want. Everything here is optional.',
+			'healthProfile.list.not_started' => 'Not started',
+			'healthProfile.list.updated' => ({required Object date}) => 'Updated ${date}',
+			'healthProfile.list.loading' => 'Loading your health profile',
+			'healthProfile.list.empty' => 'No sections are available yet.',
+			'healthProfile.list.error' => 'We could not load your health profile.',
+			'healthProfile.section.subtitle' => 'Answer what you can. You can come back any time.',
+			'healthProfile.section.save' => 'Save',
+			'healthProfile.section.saved' => 'Saved',
+			'healthProfile.section.save_failed' => 'We could not save this section.',
+			'healthProfile.section.loading' => 'Loading this section',
+			'healthProfile.section.error' => 'We could not load this section.',
+			'healthProfile.section.add_other' => 'Add another',
+			'healthProfile.section.add_attachment' => 'Add an attachment',
+			'healthProfile.section.attachment' => ({required Object n}) => 'Report ${n}',
+			'healthProfile.section.discard_title' => 'Discard your changes?',
+			'healthProfile.section.discard_body' => 'This section has unsaved changes.',
+			'healthProfile.section.discard' => 'Discard',
+			'healthProfile.section.keep_editing' => 'Keep editing',
+			'messaging.title' => 'Messages',
+			'messaging.emptyTitle' => 'No conversations yet',
+			'messaging.emptyBody' => 'When you send a booking request, you can talk to the professional here.',
+			'messaging.composerHint' => 'Write a message',
+			'messaging.threadClosed' => 'This conversation is closed.',
+			'messaging.sayHello' => 'Say hello',
+			'messaging.timeProposal.title' => 'Alternative time proposed',
+			'messaging.timeProposal.youAskedFor' => 'You asked for',
+			'messaging.timeProposal.proposed' => 'Proposed',
+			'messaging.timeProposal.accept' => 'Accept',
+			'messaging.timeProposal.chooseAnother' => 'Choose Another',
+			'messaging.timeProposal.suggestAnother' => 'Suggest another time',
+			'messaging.timeProposal.sheetTitleProfessional' => 'Suggest another time',
+			'messaging.timeProposal.sheetTitlePatient' => 'Which time suits you?',
+			'messaging.timeProposal.sendSuggestion' => 'Send suggestion',
+			'messaging.timeProposal.sendTime' => 'Send this time',
+			'messaging.timeProposal.reasonLabel' => 'Why? (optional)',
+			'messaging.timeProposal.reasonHint' => 'A short reason helps them say yes.',
+			'messaging.timeProposal.answerBy' => ({required Object when}) => 'Answer by ${when}',
+			'messaging.timeProposal.today' => 'Today',
+			'messaging.timeProposal.tomorrow' => 'Tomorrow',
+			'messaging.estimateRevision.title' => 'Revised estimate',
+			'messaging.estimateRevision.newTotal' => 'New estimated total',
+			'messaging.estimateRevision.approve' => 'Approve',
+			'messaging.estimateRevision.approved' => 'Approved',
+			'messaging.estimateRevision.withdrawn' => 'Withdrawn',
+			'messaging.chat.aboutTitle' => 'About this visit',
+			'messaging.chat.reason' => 'Reason',
+			'messaging.chat.where' => 'Where',
+			'messaging.chat.estimate' => 'Estimate',
+			'messaging.chat.emptyPrompt' => 'No messages yet. Start with one of these, or write your own.',
+			'messaging.chat.openersProfessional.0' => 'I can take this visit.',
+			'messaging.chat.openersProfessional.1' => 'When would suit you?',
+			'messaging.chat.openersProfessional.2' => 'Could I check the address with you?',
+			'messaging.chat.openersPatient.0' => 'Hi, thank you for taking this.',
+			'messaging.chat.openersPatient.1' => 'Is the time still OK?',
+			'messaging.chat.openersPatient.2' => 'How should I prepare?',
+			'messaging.chat.read' => 'Read',
 			'nursing.services.primary_nursing.description' => 'Monitor and administer nursing procedures from body checking, medication, tube feed and suctioning to injections and wound care.',
 			'nursing.services.primary_nursing.title' => 'Primary Nursing',
 			'nursing.services.specialized_nursing.description' => 'Focus on recovery and leave the complex nursing care in the hands of our experienced nurse Care Pros',
@@ -1758,9 +2712,58 @@ extension on Translations {
 			'pharmacy.services.smoking_cessation.description' => 'Smoking cessation involves quitting smoking through strategies like counseling, medications, and support programs to improve health and reduce the risk of smoking-related diseases.',
 			'pharmacy.services.smoking_cessation.title' => 'Smoking Cessation',
 			'pharmacy.title' => 'iRX Pharmacist Service',
+			'pricing.estimate_title' => 'Estimate',
+			'pricing.estimate_total' => 'Estimated total',
+			'pricing.estimate_disclaimer' => 'This is an estimate. You pay the professional at the visit.',
+			'pricing.estimate_empty' => 'Pick a service to see an estimate.',
+			'pricing.add_ons' => 'Add-ons',
+			'pricing.hours' => ({required Object count}) => '${count} hours',
+			'pricing.per_hour' => ({required Object price}) => '${price} per hour',
+			'pricing.rates_title' => 'My service rates',
+			'pricing.rates_subtitle' => 'Set what you charge for each service. You can charge above the standard price, never below it.',
+			'pricing.rates_empty' => 'You have not added any services yet.',
+			'pricing.rates_error' => 'We could not load your rates.',
+			'pricing.rates_saved' => 'Your rates were saved.',
+			'pricing.your_price' => 'Your price',
+			'pricing.standard_price' => ({required Object price}) => 'Standard price ${price}',
+			'pricing.at_least' => ({required Object price}) => 'Must be at least ${price}',
+			'pricing.not_a_number' => 'Enter a price',
+			'pricing.charging_standard' => 'Charging the standard price',
+			'pricing.save' => 'Save',
+			'pricing.floor_title' => 'Standard prices',
+			'pricing.floor_subtitle' => 'The floor every professional charges from. Raising it lifts anyone charging below.',
+			'pricing.floor_error' => 'We could not load the standard prices.',
+			'pricing.floor_saved' => 'Standard price updated.',
+			'pricing.floor_lifted' => ({required Object count}) => '${count} professional rates were lifted to the new price.',
+			'pricing.floor_new_price' => 'New standard price',
+			'pricing.revision_title' => 'Revised estimate',
+			'pricing.revision_proposed' => 'Revision proposed',
+			'pricing.revision_approved' => 'Approved',
+			'pricing.revision_rejected' => 'Declined',
+			'pricing.revision_was' => ({required Object price}) => 'Was ${price}',
+			'pricing.revision_now' => ({required Object price}) => 'Now ${price}',
 			'settings.account' => 'Account',
 			'settings.app_language' => 'App Language',
 			'settings.settings' => 'Settings',
+			'sharedBooking.starting_from' => ({required Object price}) => 'Starting from ${price}',
+			'sharedBooking.from_price' => ({required Object price}) => 'from ${price}',
+			'sharedBooking.empty_title' => 'Nothing here yet',
+			'sharedBooking.error_title' => 'Something went wrong',
+			'sharedBooking.retry' => 'Try again',
+			'sharedBooking.status.pending' => 'Pending approval',
+			'sharedBooking.status.confirmed' => 'Confirmed',
+			'sharedBooking.status.proposed' => 'Alternative proposed',
+			'sharedBooking.status.cancelled' => 'Cancelled',
+			'sharedBooking.location.title' => 'Where should we visit?',
+			'sharedBooking.location.search_hint' => 'Search street, area or building',
+			'sharedBooking.location.pick_on_map' => 'Pick on map',
+			'sharedBooking.location.use_current' => 'Use current location',
+			'sharedBooking.location.saved_heading' => 'SAVED ADDRESSES',
+			'sharedBooking.location.denied' => 'Location permission is off, so pick an address or a spot on the map.',
+			'sharedBooking.location.picked_label' => 'Visit address',
+			'sharedBooking.location.loading' => 'Finding your address...',
+			'sharedBooking.location.empty' => 'Add an address',
+			'sharedBooking.location.bar_title' => 'Visit at',
 			'store.consumable' => 'Homecare Consumable',
 			'store.messages.load_failed' => 'Failed to load products',
 			'store.no_products' => 'No products available',

@@ -9,7 +9,8 @@ class UpdateSubscriptionPlan {
 
   UpdateSubscriptionPlan(this.repository);
 
-  Future<Either<Failure, SubscriptionPlanEntity>> call(UpdateSubscriptionPlanParams params) async {
+  Future<Either<Failure, SubscriptionPlanEntity>> call(
+      UpdateSubscriptionPlanParams params) async {
     return await repository.updateSubscriptionPlan(params.id, params.body);
   }
 }

@@ -11,19 +11,22 @@ class CertificateModel extends Certificate {
     super.updatedAt,
   });
 
+  static dynamic _pick(Map<String, dynamic> json, String snake, String camel) =>
+      json[snake] ?? json[camel];
+
   factory CertificateModel.fromJson(Map<String, dynamic> json) {
+    final createdAt = _pick(json, 'created_at', 'createdAt') as String?;
+    final updatedAt = _pick(json, 'updated_at', 'updatedAt') as String?;
+
     return CertificateModel(
       id: json['id'] ?? 0,
-      title: json['certificate_title'] ?? '',
-      registrationNumber: json['registration_number'] ?? '',
-      issuedOn: json['issued_on'] ?? '',
-      fileURL: json['file_path'] ?? '',
-      createdAt: json['created_at'] != null
-          ? DateTime.parse(json['created_at'])
-          : null,
-      updatedAt: json['updated_at'] != null
-          ? DateTime.parse(json['updated_at'])
-          : null,
+      title: _pick(json, 'certificate_title', 'certificateTitle') ?? '',
+      registrationNumber:
+          _pick(json, 'registration_number', 'registrationNumber') ?? '',
+      issuedOn: _pick(json, 'issued_on', 'issuedOn') ?? '',
+      fileURL: _pick(json, 'file_path', 'filePath') ?? '',
+      createdAt: createdAt == null ? null : DateTime.tryParse(createdAt),
+      updatedAt: updatedAt == null ? null : DateTime.tryParse(updatedAt),
     );
   }
 }

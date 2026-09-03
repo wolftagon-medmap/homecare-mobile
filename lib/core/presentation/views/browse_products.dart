@@ -54,7 +54,7 @@
 //     if(widget.keyword != null){
 //      _searchController.text = widget.keyword ?? '';
 //       isSearching = true;
-//       keyword = widget.keyword ?? ''; 
+//       keyword = widget.keyword ?? '';
 //     }
 //     fetchData();
 //     _scrollController.addListener(_onScroll);

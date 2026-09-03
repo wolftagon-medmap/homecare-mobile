@@ -6,7 +6,7 @@ import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/appointment/widgets/provider_appointment_action_dialog.dart';
 import 'package:m2health/features/home_health_screening/presentation/bloc/screening_appointment_action_cubit.dart';
-import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 class ScreeningAppointmentListActionButtons extends StatelessWidget {
   final AppointmentEntity appointment;
@@ -80,10 +80,8 @@ class ScreeningAppointmentListActionButtons extends StatelessWidget {
     return ElevatedButton(
       onPressed: () async {
         // Navigate to appointment detail page to upload report
-        GoRouter.of(context).pushNamed(
-          AppRoutes.providerAppointmentDetail,
-          extra: appointment.id,
-        );
+        GoRouter.of(context)
+            .push(AppointmentRoutes.providerDetailPath(appointment.id!));
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.blue,

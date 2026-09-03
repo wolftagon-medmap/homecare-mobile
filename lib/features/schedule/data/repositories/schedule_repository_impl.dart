@@ -86,7 +86,8 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
   }
 
   @override
-  Future<Either<Failure, List<ProviderAvailabilityOverride>>> getAllOverrides() async {
+  Future<Either<Failure, List<ProviderAvailabilityOverride>>>
+      getAllOverrides() async {
     try {
       final result = await remoteDatasource.getAllOverrides();
       return Right(result);

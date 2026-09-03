@@ -27,8 +27,8 @@ class NursingChiefComplaintPage extends StatelessWidget {
           ? const Center(child: Text('No issues recorded'))
           : ListView.separated(
               padding: const EdgeInsets.all(16),
-              itemCount:
-                  issues.length + (complaint != null && complaint.isNotEmpty ? 1 : 0),
+              itemCount: issues.length +
+                  (complaint != null && complaint.isNotEmpty ? 1 : 0),
               separatorBuilder: (_, __) => const Divider(height: 24),
               itemBuilder: (context, index) {
                 if (complaint != null && complaint.isNotEmpty) {

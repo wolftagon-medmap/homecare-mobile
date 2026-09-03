@@ -233,8 +233,7 @@ class NutritionDetail extends ServiceRequestDetail with EquatableMixin {
 
   static NutritionDetail fromJson(Map<String, dynamic> detail) {
     return NutritionDetail(
-      questionnaireResponseId:
-          detail['questionnaire_response_id'] as int?,
+      questionnaireResponseId: detail['questionnaire_response_id'] as int?,
     );
   }
 

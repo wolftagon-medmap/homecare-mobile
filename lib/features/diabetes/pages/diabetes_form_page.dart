@@ -44,8 +44,7 @@ class _DiabetesFormPageState extends State<DiabetesFormPage> {
     if (!success) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content:
-              Text(_getErrorMessage(context, cubit.state.errorMessage)),
+          content: Text(_getErrorMessage(context, cubit.state.errorMessage)),
           backgroundColor: Colors.red,
         ),
       );
@@ -65,12 +64,13 @@ class _DiabetesFormPageState extends State<DiabetesFormPage> {
           );
         }
 
-        if (state.errorMessage != null && !state.isSubmitted && state.errorMessage == 'error_profile_load') {
+        if (state.errorMessage != null &&
+            !state.isSubmitted &&
+            state.errorMessage == 'error_profile_load') {
           return Scaffold(
             appBar: AppBar(title: Text(context.l10n.common_error_title)),
             body: Center(
-              child: Text(
-                  _getErrorMessage(context, state.errorMessage)),
+              child: Text(_getErrorMessage(context, state.errorMessage)),
             ),
           );
         }

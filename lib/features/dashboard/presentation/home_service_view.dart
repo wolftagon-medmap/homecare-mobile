@@ -3,7 +3,6 @@ import 'package:m2health/features/dashboard/domain/entities/home_service.dart';
 import 'package:m2health/features/dashboard/domain/home_service_catalogue.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
-/// Sampled from the client's mock, so these are data rather than theme colours.
 class HomeServiceVisuals {
   final String iconPath;
   final Color accent;
@@ -29,7 +28,7 @@ class HomeServiceView {
     required this.visuals,
   });
 
-  String get route => service.route;
+  String get route => service.destination;
   bool get isNew => service.isNew;
 }
 

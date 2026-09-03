@@ -24,7 +24,7 @@ class MedicalRecordBloc extends Bloc<MedicalRecordEvent, MedicalRecordState> {
     Emitter<MedicalRecordState> emit,
   ) async {
     emit(state.copyWith(listStatus: ListStatus.loading));
-  
+
     final failureOrRecords = await getMedicalRecords();
 
     failureOrRecords.fold(

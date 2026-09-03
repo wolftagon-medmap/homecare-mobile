@@ -8,9 +8,13 @@ import 'package:m2health/features/appointment/bloc/appointment_cubit.dart';
 import 'package:m2health/features/appointment/bloc/patient_inbox_cubit.dart';
 import 'package:m2health/features/appointment/data/models/patient_inbox_item.dart';
 import 'package:m2health/features/appointment/widgets/booking_card.dart';
-import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
+import 'package:m2health/core/presentation/widgets/booking/cancel_appointment_dialog.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
+import 'package:m2health/core/messaging/thread_index_cubit.dart';
+import 'package:m2health/core/messaging/thread_ref.dart';
+import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
 import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 /// The patient Pending tab: the unified inbox of v1 pending appointments +
 /// v2 pre-acceptance care tasks. The other tabs stay on the v1 appointment
@@ -23,6 +27,12 @@ class PatientInboxTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<PatientInboxCubit, PatientInboxState>(
       listener: (context, state) {
+        if (state is PatientInboxLoaded) {
+          // A booking sent moments ago already has a thread on the server, but
+          // this app's index was built before it existed — so the card's chat
+          // entry would render nothing until something else refreshed it.
+          context.read<ThreadIndexCubit>().refresh();
+        }
         if (state is PatientInboxActionSucceed) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -55,8 +65,9 @@ class PatientInboxTab extends StatelessWidget {
             onRetry: () => context.read<PatientInboxCubit>().fetchInbox(),
           );
         }
-        final items =
-            state is PatientInboxLoaded ? state.items : const <PatientInboxItem>[];
+        final items = state is PatientInboxLoaded
+            ? state.items
+            : const <PatientInboxItem>[];
         return RefreshIndicator(
           onRefresh: () => context.read<PatientInboxCubit>().fetchInbox(),
           backgroundColor: Colors.white,
@@ -88,6 +99,10 @@ class _PatientInboxCard extends StatelessWidget {
       case 'pending':
       case 'matched':
         return const Color(0xFFE59500); // Orange
+      case 'time_proposed':
+        return Const.primaryBlue;
+      case 'unmatched':
+        return const Color(0xFFD64545);
       default:
         return Colors.grey;
     }
@@ -106,7 +121,27 @@ class _PatientInboxCard extends StatelessWidget {
         statusColor: _statusColor,
         scheduledStart: item.scheduledStart,
         priceLabel: _estimateLabel,
-        onTap: item.careTaskId != null ? () => _openCareTaskDetail(context) : null,
+        onTap:
+            item.careTaskId != null ? () => _openCareTaskDetail(context) : null,
+        actions: [
+          // An unmatched booking is waiting on the patient, and its threads are
+          // all closed — so the card offers the way out instead of a chat entry
+          // that would render nothing.
+          if (item.careTaskId != null)
+            if (item.isUnmatched)
+              _PickAnotherTimeButton(careTaskId: item.careTaskId!)
+            else
+              // Full width and gradient, the same as the appointment cards it
+              // sits beside in this list: the conversation is the main thing to
+              // do with a booking, whichever kind it is.
+              Expanded(
+                child: MessageActionButton(
+                  threadRef: ThreadRef.forCareTask(item.careTaskId!),
+                  style: MessageActionStyle.gradient,
+                  label: 'Chat',
+                ),
+              ),
+        ],
       );
     }
 
@@ -120,8 +155,10 @@ class _PatientInboxCard extends StatelessWidget {
       priceLabel: item.estimatedPrice != null && item.estimatedPrice! > 0
           ? '\$${item.estimatedPrice!.toStringAsFixed(2)}'
           : null,
-      onTap: () =>
-          context.push(AppRoutes.appointmentDetail, extra: item.appointmentId),
+      onTap: item.appointmentId == null
+          ? null
+          : () =>
+              context.push(AppointmentRoutes.detailPath(item.appointmentId!)),
       actions: _appointmentActions(context),
     );
   }
@@ -133,7 +170,7 @@ class _PatientInboxCard extends StatelessWidget {
 
   Future<void> _openCareTaskDetail(BuildContext context) async {
     final cubit = context.read<PatientInboxCubit>();
-    await context.push(AppRoutes.careTaskDetail, extra: item.careTaskId);
+    await context.push(AppointmentRoutes.careTaskDetailPath(item.careTaskId!));
     // Status may have moved (accepted/cancelled) while the detail was open.
     await cubit.fetchInbox();
   }
@@ -215,6 +252,37 @@ class _PatientInboxCard extends StatelessWidget {
   }
 }
 
+/// Opens the booking so the patient picks a new time there. The detail page
+/// owns the retry — the card only has to stop being a dead end.
+class _PickAnotherTimeButton extends StatelessWidget {
+  final int careTaskId;
+
+  const _PickAnotherTimeButton({required this.careTaskId});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: () async {
+        final cubit = context.read<PatientInboxCubit>();
+        await context.push(AppointmentRoutes.careTaskDetailPath(careTaskId));
+        await cubit.fetchInbox();
+      },
+      icon: const Icon(Icons.event_repeat, size: 16),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Const.aqua,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      ),
+      label: const Text(
+        'Pick another time',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+      ),
+    );
+  }
+}
+
 class _GradientButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
@@ -241,8 +309,8 @@ class _GradientButton extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold),
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ),

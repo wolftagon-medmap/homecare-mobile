@@ -6,7 +6,8 @@ class SecondOpinionImagingFeedbackModel extends SecondOpinionImagingFeedback {
     super.recommendationOpinion,
   });
 
-  factory SecondOpinionImagingFeedbackModel.fromJson(Map<String, dynamic> json) {
+  factory SecondOpinionImagingFeedbackModel.fromJson(
+      Map<String, dynamic> json) {
     return SecondOpinionImagingFeedbackModel(
       diagnosticOpinion: json['diagnostic_opinion'],
       recommendationOpinion: json['recommendation_opinion'],

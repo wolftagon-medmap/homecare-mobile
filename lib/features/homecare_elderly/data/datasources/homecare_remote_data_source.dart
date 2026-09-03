@@ -23,7 +23,9 @@ class HomecareRemoteDataSourceImpl implements HomecareRemoteDataSource {
     );
 
     final data = response.data as List;
-    return data.map((json) => ServiceModel.fromJson(json as Map<String, dynamic>)).toList();
+    return data
+        .map((json) => ServiceModel.fromJson(json as Map<String, dynamic>))
+        .toList();
   }
 
   @override

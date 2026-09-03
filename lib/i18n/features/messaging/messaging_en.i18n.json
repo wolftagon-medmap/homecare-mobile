@@ -1,0 +1,50 @@
+{
+  "title": "Messages",
+  "emptyTitle": "No conversations yet",
+  "emptyBody": "When you send a booking request, you can talk to the professional here.",
+  "composerHint": "Write a message",
+  "threadClosed": "This conversation is closed.",
+  "sayHello": "Say hello",
+  "timeProposal": {
+    "title": "Alternative time proposed",
+    "youAskedFor": "You asked for",
+    "proposed": "Proposed",
+    "accept": "Accept",
+    "chooseAnother": "Choose Another",
+    "suggestAnother": "Suggest another time",
+    "sheetTitleProfessional": "Suggest another time",
+    "sheetTitlePatient": "Which time suits you?",
+    "sendSuggestion": "Send suggestion",
+    "sendTime": "Send this time",
+    "reasonLabel": "Why? (optional)",
+    "reasonHint": "A short reason helps them say yes.",
+    "answerBy": "Answer by {when}",
+    "today": "Today",
+    "tomorrow": "Tomorrow"
+  },
+  "estimateRevision": {
+    "title": "Revised estimate",
+    "newTotal": "New estimated total",
+    "approve": "Approve",
+    "approved": "Approved",
+    "withdrawn": "Withdrawn"
+  },
+  "chat": {
+    "aboutTitle": "About this visit",
+    "reason": "Reason",
+    "where": "Where",
+    "estimate": "Estimate",
+    "emptyPrompt": "No messages yet. Start with one of these, or write your own.",
+    "openersProfessional": [
+      "I can take this visit.",
+      "When would suit you?",
+      "Could I check the address with you?"
+    ],
+    "openersPatient": [
+      "Hi, thank you for taking this.",
+      "Is the time still OK?",
+      "How should I prepare?"
+    ],
+    "read": "Read"
+  }
+}

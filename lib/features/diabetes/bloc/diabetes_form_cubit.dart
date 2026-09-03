@@ -172,8 +172,7 @@ class DiabetesFormCubit extends Cubit<DiabetesFormState> {
       ));
       return true;
     } on DioException catch (dioError, s) {
-      final errorMessage =
-          dioError.response?.data['message'] ?? 'error_submit';
+      final errorMessage = dioError.response?.data['message'] ?? 'error_submit';
       log(
         'Dio error submitting form: $errorMessage',
         name: 'DiabetesFormCubit',
@@ -230,7 +229,8 @@ class DiabetesFormCubit extends Cubit<DiabetesFormState> {
       emit(state.copyWith(isLoading: false, isSubmitted: true));
       return true;
     } catch (e) {
-      log('Error submitting diabetes profile v2: $e', name: 'DiabetesFormCubit');
+      log('Error submitting diabetes profile v2: $e',
+          name: 'DiabetesFormCubit');
       emit(state.copyWith(isLoading: false, errorMessage: 'error_submit'));
       return false;
     }
@@ -279,7 +279,8 @@ class DiabetesFormCubit extends Cubit<DiabetesFormState> {
       return true;
     } catch (e) {
       log('Error loading diabetes profile v2: $e', name: 'DiabetesFormCubit');
-      emit(state.copyWith(isLoading: false, errorMessage: 'error_profile_load'));
+      emit(
+          state.copyWith(isLoading: false, errorMessage: 'error_profile_load'));
       return false;
     }
   }

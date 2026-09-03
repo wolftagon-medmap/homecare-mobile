@@ -8,7 +8,8 @@ import 'package:m2health/features/booking_appointment/professional_directory/dom
 part 'home_health_screening_flow_event.dart';
 part 'home_health_screening_flow_state.dart';
 
-class HomeHealthScreeningFlowBloc extends Bloc<HomeHealthScreeningFlowEvent, HomeHealthScreeningFlowState> {
+class HomeHealthScreeningFlowBloc
+    extends Bloc<HomeHealthScreeningFlowEvent, HomeHealthScreeningFlowState> {
   final CreateScreeningAppointment createScreeningAppointment;
 
   HomeHealthScreeningFlowBloc({
@@ -21,8 +22,8 @@ class HomeHealthScreeningFlowBloc extends Bloc<HomeHealthScreeningFlowEvent, Hom
     on<ScreeningSubmitAppointment>(_onSubmitAppointment);
   }
 
-  void _onStepChanged(
-      ScreeningFlowStepChanged event, Emitter<HomeHealthScreeningFlowState> emit) {
+  void _onStepChanged(ScreeningFlowStepChanged event,
+      Emitter<HomeHealthScreeningFlowState> emit) {
     emit(state.copyWith(currentStep: event.step));
   }
 
@@ -34,23 +35,24 @@ class HomeHealthScreeningFlowBloc extends Bloc<HomeHealthScreeningFlowEvent, Hom
     ));
   }
 
-  void _onProfessionalSelected(
-      ScreeningProfessionalSelected event, Emitter<HomeHealthScreeningFlowState> emit) {
+  void _onProfessionalSelected(ScreeningProfessionalSelected event,
+      Emitter<HomeHealthScreeningFlowState> emit) {
     emit(state.copyWith(
       selectedProfessional: event.professional,
       currentStep: HomeHealthScreeningStep.viewProfessionalDetail,
     ));
   }
 
-  void _onTimeSlotSelected(
-      ScreeningTimeSlotSelected event, Emitter<HomeHealthScreeningFlowState> emit) {
+  void _onTimeSlotSelected(ScreeningTimeSlotSelected event,
+      Emitter<HomeHealthScreeningFlowState> emit) {
     emit(state.copyWith(selectedTimeSlot: event.timeSlot));
     add(ScreeningSubmitAppointment());
   }
 
-  void _onSubmitAppointment(
-      ScreeningSubmitAppointment event, Emitter<HomeHealthScreeningFlowState> emit) async {
-    emit(state.copyWith(submissionStatus: ScreeningSubmissionStatus.submitting));
+  void _onSubmitAppointment(ScreeningSubmitAppointment event,
+      Emitter<HomeHealthScreeningFlowState> emit) async {
+    emit(
+        state.copyWith(submissionStatus: ScreeningSubmissionStatus.submitting));
 
     final params = CreateScreeningAppointmentParams(
       providerId: state.selectedProfessional!.id,
@@ -59,7 +61,7 @@ class HomeHealthScreeningFlowBloc extends Bloc<HomeHealthScreeningFlowEvent, Hom
     );
 
     final result = await createScreeningAppointment(params);
-    
+
     result.fold(
       (failure) {
         emit(state.copyWith(

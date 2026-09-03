@@ -34,10 +34,10 @@ void initHomecareElderlyModule(GetIt sl) {
 
   // Admin Cubit
   sl.registerFactory(() => AdminHomecareCubit(
-    getHomecareRates: sl(),
-    updateHomecareRate: sl(),
-    getSubscriptionPlans: sl(),
-    updateSubscriptionPlan: sl(),
-    toggleSubscriptionPlanActive: sl(),
-  ));
+        getHomecareRates: sl(),
+        updateHomecareRate: sl(),
+        getSubscriptionPlans: sl(),
+        updateSubscriptionPlan: sl(),
+        toggleSubscriptionPlanActive: sl(),
+      ));
 }

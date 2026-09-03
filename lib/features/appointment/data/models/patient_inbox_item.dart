@@ -33,12 +33,17 @@ class PatientInboxItem {
   final String? patientName;
   final String serviceLabel;
   final String status; // raw source status (chip color)
+
   final String statusLabel; // display text
   final DateTime? scheduledStart;
   final DateTime? scheduledEnd;
   final PatientInboxProvider? provider; // null → still finding a professional
   final double? estimatedPrice;
   final String? chiefComplaint;
+
+  /// The structured reasons the booking was raised for, resolved to labels by
+  /// the server. The complaint beside them is the patient's own words.
+  final List<String> issueLabels;
 
   const PatientInboxItem({
     required this.origin,
@@ -54,7 +59,12 @@ class PatientInboxItem {
     required this.provider,
     required this.estimatedPrice,
     required this.chiefComplaint,
+    this.issueLabels = const [],
   });
+
+  /// Everyone available was asked and nobody took it. Not cancelled — it is
+  /// still the patient's booking, waiting on them to pick another time.
+  bool get isUnmatched => status == 'unmatched';
 
   bool get isCareTask => origin == 'care_task';
 
@@ -76,7 +86,12 @@ class PatientInboxItem {
             : null,
         estimatedPrice: (json['estimatedPrice'] as num?)?.toDouble(),
         chiefComplaint: json['chiefComplaint'] as String?,
+        issueLabels: parseIssueLabels(json['issueLabels']),
       );
+
+  static List<String> parseIssueLabels(dynamic value) => value is List
+      ? value.whereType<String>().toList(growable: false)
+      : const <String>[];
 
   static DateTime? _parseDate(dynamic value) =>
       value is String ? DateTime.tryParse(value) : null;

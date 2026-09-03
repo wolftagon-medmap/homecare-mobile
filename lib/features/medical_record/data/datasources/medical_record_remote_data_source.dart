@@ -56,10 +56,10 @@ class MedicalRecordRemoteDataSourceImpl
 
     final Map<String, dynamic> payload = {
       'title': params.title,
-  'diseaseName': params.diseaseName,
-  'diseaseHistory': params.diseaseHistory,
-  'specialConsideration': params.specialConsideration ?? '',
-  'treatmentInfo': params.treatmentInfo ?? '',
+      'diseaseName': params.diseaseName,
+      'diseaseHistory': params.diseaseHistory,
+      'specialConsideration': params.specialConsideration ?? '',
+      'treatmentInfo': params.treatmentInfo ?? '',
       'fileIds': params.fileIds,
     };
 
@@ -88,10 +88,10 @@ class MedicalRecordRemoteDataSourceImpl
 
     final Map<String, dynamic> payload = {
       'title': params.title,
-  'diseaseName': params.diseaseName,
-  'diseaseHistory': params.diseaseHistory,
-  'specialConsideration': params.specialConsideration ?? '',
-  'treatmentInfo': params.treatmentInfo ?? '',
+      'diseaseName': params.diseaseName,
+      'diseaseHistory': params.diseaseHistory,
+      'specialConsideration': params.specialConsideration ?? '',
+      'treatmentInfo': params.treatmentInfo ?? '',
       'fileIds': params.fileIds,
     };
 

@@ -15,10 +15,11 @@ class ServicesSelectionCubit extends Cubit<ServicesSelectionState> {
           selectedServices: initialSelectedServices,
         ));
 
-
-  Future<void> loadServices({required String category, String? subCategory}) async {
+  Future<void> loadServices(
+      {required String category, String? subCategory}) async {
     emit(state.copyWith(status: ServicesSelectionStateStatus.loading));
-    final result = await getServices(category: category, subCategory: subCategory);
+    final result =
+        await getServices(category: category, subCategory: subCategory);
     result.fold(
       (failure) {
         log('Error loading services for category=$category: $failure',

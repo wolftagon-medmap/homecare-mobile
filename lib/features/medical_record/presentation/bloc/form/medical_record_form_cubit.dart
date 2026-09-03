@@ -42,9 +42,9 @@ class MedicalRecordFormCubit extends Cubit<MedicalRecordFormState> {
       diseaseHistory: record.diseaseHistory ?? '',
       specialConsiderations: considerations,
       treatmentInfo: record.treatmentInfo ?? '',
-  existingUploadedFileIds: record.files.map((f) => f.id).toList(),
-  // uploadedFileIds is the final list that will be submitted.
-  uploadedFileIds: record.files.map((f) => f.id).toList(),
+      existingUploadedFileIds: record.files.map((f) => f.id).toList(),
+      // uploadedFileIds is the final list that will be submitted.
+      uploadedFileIds: record.files.map((f) => f.id).toList(),
     ));
   }
 
@@ -158,7 +158,7 @@ class MedicalRecordFormCubit extends Cubit<MedicalRecordFormState> {
   Future<void> submitForm() async {
     if (!state.isFormValid) return;
 
-  if (state.fileUploadStatus == FileUploadStatus.uploading) return;
+    if (state.fileUploadStatus == FileUploadStatus.uploading) return;
 
     emit(state.copyWith(status: FormSubmissionStatus.loading));
 

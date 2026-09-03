@@ -30,7 +30,7 @@ class UpdateRecordParams extends Equatable {
     required this.diseaseHistory,
     this.specialConsideration,
     this.treatmentInfo,
-  this.fileIds = const <int>[],
+    this.fileIds = const <int>[],
   });
 
   @override
@@ -41,6 +41,6 @@ class UpdateRecordParams extends Equatable {
         diseaseHistory,
         specialConsideration,
         treatmentInfo,
-  fileIds,
+        fileIds,
       ];
 }

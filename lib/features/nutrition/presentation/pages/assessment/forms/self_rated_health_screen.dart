@@ -41,7 +41,8 @@ class SelfRatedHealthScreen extends StatelessWidget {
 
                 // Health Rating Text
                 Text(
-                  _getHealthRatingText(context, state.assessment.selfRatedHealth),
+                  _getHealthRatingText(
+                      context, state.assessment.selfRatedHealth),
                   style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
