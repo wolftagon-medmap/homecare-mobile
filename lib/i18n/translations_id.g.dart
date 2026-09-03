@@ -327,7 +327,6 @@ class _TranslationsSharedBookingId implements TranslationsSharedBookingEn {
 	// Translations
 	@override String starting_from({required Object price}) => 'Mulai dari ${price}';
 	@override String from_price({required Object price}) => 'dari ${price}';
-	@override String step_of({required Object current, required Object total}) => 'Langkah ${current} dari ${total}';
 	@override String get empty_title => 'Belum ada apa-apa di sini';
 	@override String get error_title => 'Terjadi kesalahan';
 	@override String get retry => 'Coba lagi';
@@ -654,7 +653,6 @@ class _TranslationsGuidedBookingSubServiceId implements TranslationsGuidedBookin
 
 	// Translations
 	@override String get title => 'Layanan apa yang Anda butuhkan?';
-	@override String get subtitle => 'Pilih yang paling sesuai.';
 	@override String get empty => 'Belum ada layanan yang tersedia di sini.';
 }
 
@@ -666,7 +664,7 @@ class _TranslationsGuidedBookingIssuesId implements TranslationsGuidedBookingIss
 
 	// Translations
 	@override String get title => 'Apa yang bisa kami bantu?';
-	@override String get subtitle => 'Pilih semua yang sesuai. Anda boleh memilih lebih dari satu.';
+	@override String get subtitle => 'Pilih satu atau lebih.';
 	@override String get remarks_label => 'Catatan (opsional)';
 	@override String get remarks_hint => 'Ada hal lain yang perlu diketahui tenaga kesehatan kami?';
 	@override String get add_ons_link => 'Tambah prosedur atau layanan tambahan';
@@ -682,7 +680,7 @@ class _TranslationsGuidedBookingAddOnsId implements TranslationsGuidedBookingAdd
 
 	// Translations
 	@override String get title => 'Ada tambahan lain?';
-	@override String get subtitle => 'Layanan tambahan opsional dengan harga terpisah. Lewati jika ragu.';
+	@override String get subtitle => 'Opsional. Harga terpisah.';
 	@override String get empty => 'Tidak ada layanan tambahan untuk layanan ini.';
 	@override String selected({required Object count}) => '${count} ditambahkan';
 }
@@ -695,7 +693,8 @@ class _TranslationsGuidedBookingProfessionalId implements TranslationsGuidedBook
 
 	// Translations
 	@override String get title => 'Pilih tenaga kesehatan';
-	@override String get subtitle => 'Semua yang tampil melayani alamat kunjungan Anda.';
+	@override String get view_profile => 'Lihat profil';
+	@override String get select_cta => 'Pilih tenaga kesehatan ini';
 	@override String get location_label => 'Alamat kunjungan';
 	@override String get location_empty => 'Tambahkan alamat untuk melihat siapa yang tersedia';
 	@override String get location_loading => 'Mencari alamat tersimpan Anda';
@@ -717,9 +716,11 @@ class _TranslationsGuidedBookingScheduleId implements TranslationsGuidedBookingS
 
 	// Translations
 	@override String get title => 'Kapan waktu yang cocok?';
-	@override String get subtitle => 'Pilih waktu yang Anda inginkan. Kami akan mengonfirmasinya.';
+	@override String get select_date => 'Pilih tanggal';
+	@override String get select_hour => 'Pilih waktu';
+	@override String chosen({required Object day, required Object time}) => '${day} pukul ${time}';
 	@override String get loading => 'Memeriksa ketersediaan';
-	@override String get empty => 'Tidak ada waktu kosong pada hari ini. Coba tanggal lain.';
+	@override String get empty => 'Tidak ada waktu kosong pada hari ini.';
 	@override String get error => 'Kami tidak dapat memuat waktu yang tersedia.';
 	@override String get no_days => 'Tenaga kesehatan ini belum memiliki waktu kosong.';
 }
@@ -732,7 +733,6 @@ class _TranslationsGuidedBookingReviewId implements TranslationsGuidedBookingRev
 
 	// Translations
 	@override String get title => 'Periksa permintaan Anda';
-	@override String get subtitle => 'Pastikan semuanya benar, lalu kirim.';
 	@override String get service => 'Layanan';
 	@override String get issues => 'Alasan kunjungan';
 	@override String get remarks => 'Catatan';
@@ -1531,21 +1531,21 @@ extension on TranslationsId {
 			'global.yes' => 'Ya',
 			'guidedBooking.namespace_title' => 'Pesan layanan',
 			'guidedBooking.sub_service.title' => 'Layanan apa yang Anda butuhkan?',
-			'guidedBooking.sub_service.subtitle' => 'Pilih yang paling sesuai.',
 			'guidedBooking.sub_service.empty' => 'Belum ada layanan yang tersedia di sini.',
 			'guidedBooking.issues.title' => 'Apa yang bisa kami bantu?',
-			'guidedBooking.issues.subtitle' => 'Pilih semua yang sesuai. Anda boleh memilih lebih dari satu.',
+			'guidedBooking.issues.subtitle' => 'Pilih satu atau lebih.',
 			'guidedBooking.issues.remarks_label' => 'Catatan (opsional)',
 			'guidedBooking.issues.remarks_hint' => 'Ada hal lain yang perlu diketahui tenaga kesehatan kami?',
 			'guidedBooking.issues.add_ons_link' => 'Tambah prosedur atau layanan tambahan',
 			'guidedBooking.issues.error' => 'Kami tidak dapat memuat daftar keluhan.',
 			'guidedBooking.issues.empty' => 'Belum ada daftar keluhan untuk layanan ini.',
 			'guidedBooking.add_ons.title' => 'Ada tambahan lain?',
-			'guidedBooking.add_ons.subtitle' => 'Layanan tambahan opsional dengan harga terpisah. Lewati jika ragu.',
+			'guidedBooking.add_ons.subtitle' => 'Opsional. Harga terpisah.',
 			'guidedBooking.add_ons.empty' => 'Tidak ada layanan tambahan untuk layanan ini.',
 			'guidedBooking.add_ons.selected' => ({required Object count}) => '${count} ditambahkan',
 			'guidedBooking.professional.title' => 'Pilih tenaga kesehatan',
-			'guidedBooking.professional.subtitle' => 'Semua yang tampil melayani alamat kunjungan Anda.',
+			'guidedBooking.professional.view_profile' => 'Lihat profil',
+			'guidedBooking.professional.select_cta' => 'Pilih tenaga kesehatan ini',
 			'guidedBooking.professional.location_label' => 'Alamat kunjungan',
 			'guidedBooking.professional.location_empty' => 'Tambahkan alamat untuk melihat siapa yang tersedia',
 			'guidedBooking.professional.location_loading' => 'Mencari alamat tersimpan Anda',
@@ -1558,13 +1558,14 @@ extension on TranslationsId {
 			'guidedBooking.professional.years' => ({required Object years}) => 'Pengalaman ${years} thn',
 			'guidedBooking.professional.reviews' => ({required Object count}) => '(${count})',
 			'guidedBooking.schedule.title' => 'Kapan waktu yang cocok?',
-			'guidedBooking.schedule.subtitle' => 'Pilih waktu yang Anda inginkan. Kami akan mengonfirmasinya.',
+			'guidedBooking.schedule.select_date' => 'Pilih tanggal',
+			'guidedBooking.schedule.select_hour' => 'Pilih waktu',
+			'guidedBooking.schedule.chosen' => ({required Object day, required Object time}) => '${day} pukul ${time}',
 			'guidedBooking.schedule.loading' => 'Memeriksa ketersediaan',
-			'guidedBooking.schedule.empty' => 'Tidak ada waktu kosong pada hari ini. Coba tanggal lain.',
+			'guidedBooking.schedule.empty' => 'Tidak ada waktu kosong pada hari ini.',
 			'guidedBooking.schedule.error' => 'Kami tidak dapat memuat waktu yang tersedia.',
 			'guidedBooking.schedule.no_days' => 'Tenaga kesehatan ini belum memiliki waktu kosong.',
 			'guidedBooking.review.title' => 'Periksa permintaan Anda',
-			'guidedBooking.review.subtitle' => 'Pastikan semuanya benar, lalu kirim.',
 			'guidedBooking.review.service' => 'Layanan',
 			'guidedBooking.review.issues' => 'Alasan kunjungan',
 			'guidedBooking.review.remarks' => 'Catatan',
@@ -1705,7 +1706,6 @@ extension on TranslationsId {
 			'settings.settings' => 'Pengaturan',
 			'sharedBooking.starting_from' => ({required Object price}) => 'Mulai dari ${price}',
 			'sharedBooking.from_price' => ({required Object price}) => 'dari ${price}',
-			'sharedBooking.step_of' => ({required Object current, required Object total}) => 'Langkah ${current} dari ${total}',
 			'sharedBooking.empty_title' => 'Belum ada apa-apa di sini',
 			'sharedBooking.error_title' => 'Terjadi kesalahan',
 			'sharedBooking.retry' => 'Coba lagi',

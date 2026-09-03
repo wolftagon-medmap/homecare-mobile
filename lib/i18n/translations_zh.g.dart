@@ -327,7 +327,6 @@ class _TranslationsSharedBookingZh implements TranslationsSharedBookingEn {
 	// Translations
 	@override String starting_from({required Object price}) => '起价 ${price}';
 	@override String from_price({required Object price}) => '起 ${price}';
-	@override String step_of({required Object current, required Object total}) => '第 ${current} 步，共 ${total} 步';
 	@override String get empty_title => '这里还没有内容';
 	@override String get error_title => '出了点问题';
 	@override String get retry => '重试';
@@ -654,7 +653,6 @@ class _TranslationsGuidedBookingSubServiceZh implements TranslationsGuidedBookin
 
 	// Translations
 	@override String get title => '您需要哪项服务？';
-	@override String get subtitle => '请选择最合适的一项。';
 	@override String get empty => '此处暂无可用服务。';
 }
 
@@ -666,7 +664,7 @@ class _TranslationsGuidedBookingIssuesZh implements TranslationsGuidedBookingIss
 
 	// Translations
 	@override String get title => '我们能为您做些什么？';
-	@override String get subtitle => '请选择所有符合的项目，可多选。';
+	@override String get subtitle => '请选择一项或多项。';
 	@override String get remarks_label => '备注（选填）';
 	@override String get remarks_hint => '还有什么需要让我们的医护人员知道的吗？';
 	@override String get add_ons_link => '添加项目或附加服务';
@@ -682,7 +680,7 @@ class _TranslationsGuidedBookingAddOnsZh implements TranslationsGuidedBookingAdd
 
 	// Translations
 	@override String get title => '还需要添加什么吗？';
-	@override String get subtitle => '可选附加项目，单独计价。不确定可以跳过。';
+	@override String get subtitle => '选填，单独计价。';
 	@override String get empty => '此服务暂无附加项目。';
 	@override String selected({required Object count}) => '已添加 ${count} 项';
 }
@@ -695,7 +693,8 @@ class _TranslationsGuidedBookingProfessionalZh implements TranslationsGuidedBook
 
 	// Translations
 	@override String get title => '选择医护人员';
-	@override String get subtitle => '以下人员均可前往您的上门地址。';
+	@override String get view_profile => '查看资料';
+	@override String get select_cta => '选择这位医护人员';
 	@override String get location_label => '上门地址';
 	@override String get location_empty => '添加地址以查看可服务的人员';
 	@override String get location_loading => '正在查找您保存的地址';
@@ -717,9 +716,11 @@ class _TranslationsGuidedBookingScheduleZh implements TranslationsGuidedBookingS
 
 	// Translations
 	@override String get title => '您希望什么时候？';
-	@override String get subtitle => '请选择您希望的时间，我们会与医护人员确认。';
+	@override String get select_date => '选择日期';
+	@override String get select_hour => '选择时间';
+	@override String chosen({required Object day, required Object time}) => '${day} ${time}';
 	@override String get loading => '正在查询可预约时间';
-	@override String get empty => '当天没有空档，请尝试其他日期。';
+	@override String get empty => '当天没有空档。';
 	@override String get error => '无法加载可预约时间。';
 	@override String get no_days => '该医护人员目前没有空档。';
 }
@@ -732,7 +733,6 @@ class _TranslationsGuidedBookingReviewZh implements TranslationsGuidedBookingRev
 
 	// Translations
 	@override String get title => '核对您的申请';
-	@override String get subtitle => '确认无误后即可发送。';
 	@override String get service => '服务';
 	@override String get issues => '就诊原因';
 	@override String get remarks => '备注';
@@ -1531,21 +1531,21 @@ extension on TranslationsZh {
 			'global.yes' => '是',
 			'guidedBooking.namespace_title' => '预约服务',
 			'guidedBooking.sub_service.title' => '您需要哪项服务？',
-			'guidedBooking.sub_service.subtitle' => '请选择最合适的一项。',
 			'guidedBooking.sub_service.empty' => '此处暂无可用服务。',
 			'guidedBooking.issues.title' => '我们能为您做些什么？',
-			'guidedBooking.issues.subtitle' => '请选择所有符合的项目，可多选。',
+			'guidedBooking.issues.subtitle' => '请选择一项或多项。',
 			'guidedBooking.issues.remarks_label' => '备注（选填）',
 			'guidedBooking.issues.remarks_hint' => '还有什么需要让我们的医护人员知道的吗？',
 			'guidedBooking.issues.add_ons_link' => '添加项目或附加服务',
 			'guidedBooking.issues.error' => '无法加载问题列表。',
 			'guidedBooking.issues.empty' => '此服务暂未列出就诊原因。',
 			'guidedBooking.add_ons.title' => '还需要添加什么吗？',
-			'guidedBooking.add_ons.subtitle' => '可选附加项目，单独计价。不确定可以跳过。',
+			'guidedBooking.add_ons.subtitle' => '选填，单独计价。',
 			'guidedBooking.add_ons.empty' => '此服务暂无附加项目。',
 			'guidedBooking.add_ons.selected' => ({required Object count}) => '已添加 ${count} 项',
 			'guidedBooking.professional.title' => '选择医护人员',
-			'guidedBooking.professional.subtitle' => '以下人员均可前往您的上门地址。',
+			'guidedBooking.professional.view_profile' => '查看资料',
+			'guidedBooking.professional.select_cta' => '选择这位医护人员',
 			'guidedBooking.professional.location_label' => '上门地址',
 			'guidedBooking.professional.location_empty' => '添加地址以查看可服务的人员',
 			'guidedBooking.professional.location_loading' => '正在查找您保存的地址',
@@ -1558,13 +1558,14 @@ extension on TranslationsZh {
 			'guidedBooking.professional.years' => ({required Object years}) => '${years} 年经验',
 			'guidedBooking.professional.reviews' => ({required Object count}) => '（${count}）',
 			'guidedBooking.schedule.title' => '您希望什么时候？',
-			'guidedBooking.schedule.subtitle' => '请选择您希望的时间，我们会与医护人员确认。',
+			'guidedBooking.schedule.select_date' => '选择日期',
+			'guidedBooking.schedule.select_hour' => '选择时间',
+			'guidedBooking.schedule.chosen' => ({required Object day, required Object time}) => '${day} ${time}',
 			'guidedBooking.schedule.loading' => '正在查询可预约时间',
-			'guidedBooking.schedule.empty' => '当天没有空档，请尝试其他日期。',
+			'guidedBooking.schedule.empty' => '当天没有空档。',
 			'guidedBooking.schedule.error' => '无法加载可预约时间。',
 			'guidedBooking.schedule.no_days' => '该医护人员目前没有空档。',
 			'guidedBooking.review.title' => '核对您的申请',
-			'guidedBooking.review.subtitle' => '确认无误后即可发送。',
 			'guidedBooking.review.service' => '服务',
 			'guidedBooking.review.issues' => '就诊原因',
 			'guidedBooking.review.remarks' => '备注',
@@ -1705,7 +1706,6 @@ extension on TranslationsZh {
 			'settings.settings' => '设置',
 			'sharedBooking.starting_from' => ({required Object price}) => '起价 ${price}',
 			'sharedBooking.from_price' => ({required Object price}) => '起 ${price}',
-			'sharedBooking.step_of' => ({required Object current, required Object total}) => '第 ${current} 步，共 ${total} 步',
 			'sharedBooking.empty_title' => '这里还没有内容',
 			'sharedBooking.error_title' => '出了点问题',
 			'sharedBooking.retry' => '重试',

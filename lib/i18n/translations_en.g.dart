@@ -557,9 +557,6 @@ class TranslationsSharedBookingEn {
 	/// en: 'from {price}'
 	String from_price({required Object price}) => 'from ${price}';
 
-	/// en: 'Step {current} of {total}'
-	String step_of({required Object current, required Object total}) => 'Step ${current} of ${total}';
-
 	/// en: 'Nothing here yet'
 	String get empty_title => 'Nothing here yet';
 
@@ -1124,9 +1121,6 @@ class TranslationsGuidedBookingSubServiceEn {
 	/// en: 'Which service do you need?'
 	String get title => 'Which service do you need?';
 
-	/// en: 'Pick the one that fits best.'
-	String get subtitle => 'Pick the one that fits best.';
-
 	/// en: 'No services are available here yet.'
 	String get empty => 'No services are available here yet.';
 }
@@ -1142,8 +1136,8 @@ class TranslationsGuidedBookingIssuesEn {
 	/// en: 'What can we help you with?'
 	String get title => 'What can we help you with?';
 
-	/// en: 'Pick everything that applies. You can choose more than one.'
-	String get subtitle => 'Pick everything that applies. You can choose more than one.';
+	/// en: 'Choose one or more.'
+	String get subtitle => 'Choose one or more.';
 
 	/// en: 'Remarks (optional)'
 	String get remarks_label => 'Remarks (optional)';
@@ -1172,8 +1166,8 @@ class TranslationsGuidedBookingAddOnsEn {
 	/// en: 'Anything else to add?'
 	String get title => 'Anything else to add?';
 
-	/// en: 'Optional extras, priced individually. Skip if you are not sure.'
-	String get subtitle => 'Optional extras, priced individually. Skip if you are not sure.';
+	/// en: 'Optional. Priced individually.'
+	String get subtitle => 'Optional. Priced individually.';
 
 	/// en: 'No extras are available for this service.'
 	String get empty => 'No extras are available for this service.';
@@ -1193,8 +1187,11 @@ class TranslationsGuidedBookingProfessionalEn {
 	/// en: 'Choose a professional'
 	String get title => 'Choose a professional';
 
-	/// en: 'Everyone here covers your visit address.'
-	String get subtitle => 'Everyone here covers your visit address.';
+	/// en: 'View profile'
+	String get view_profile => 'View profile';
+
+	/// en: 'Choose this professional'
+	String get select_cta => 'Choose this professional';
 
 	/// en: 'Visit address'
 	String get location_label => 'Visit address';
@@ -1241,14 +1238,20 @@ class TranslationsGuidedBookingScheduleEn {
 	/// en: 'When suits you?'
 	String get title => 'When suits you?';
 
-	/// en: 'Pick a preferred time. We will confirm it with your professional.'
-	String get subtitle => 'Pick a preferred time. We will confirm it with your professional.';
+	/// en: 'Select a date'
+	String get select_date => 'Select a date';
+
+	/// en: 'Select a time'
+	String get select_hour => 'Select a time';
+
+	/// en: '{day} at {time}'
+	String chosen({required Object day, required Object time}) => '${day} at ${time}';
 
 	/// en: 'Checking availability'
 	String get loading => 'Checking availability';
 
-	/// en: 'No open times on this day. Try another date.'
-	String get empty => 'No open times on this day. Try another date.';
+	/// en: 'No open times on this day.'
+	String get empty => 'No open times on this day.';
 
 	/// en: 'We could not load the available times.'
 	String get error => 'We could not load the available times.';
@@ -1267,9 +1270,6 @@ class TranslationsGuidedBookingReviewEn {
 
 	/// en: 'Review your request'
 	String get title => 'Review your request';
-
-	/// en: 'Check everything over, then send it.'
-	String get subtitle => 'Check everything over, then send it.';
 
 	/// en: 'Service'
 	String get service => 'Service';
@@ -2374,21 +2374,21 @@ extension on Translations {
 			'global.yes' => 'Yes',
 			'guidedBooking.namespace_title' => 'Book a service',
 			'guidedBooking.sub_service.title' => 'Which service do you need?',
-			'guidedBooking.sub_service.subtitle' => 'Pick the one that fits best.',
 			'guidedBooking.sub_service.empty' => 'No services are available here yet.',
 			'guidedBooking.issues.title' => 'What can we help you with?',
-			'guidedBooking.issues.subtitle' => 'Pick everything that applies. You can choose more than one.',
+			'guidedBooking.issues.subtitle' => 'Choose one or more.',
 			'guidedBooking.issues.remarks_label' => 'Remarks (optional)',
 			'guidedBooking.issues.remarks_hint' => 'Anything else you would like our healthcare professional to know?',
 			'guidedBooking.issues.add_ons_link' => 'Add procedures or extras',
 			'guidedBooking.issues.error' => 'We could not load the issue list.',
 			'guidedBooking.issues.empty' => 'No reasons are listed for this service yet.',
 			'guidedBooking.add_ons.title' => 'Anything else to add?',
-			'guidedBooking.add_ons.subtitle' => 'Optional extras, priced individually. Skip if you are not sure.',
+			'guidedBooking.add_ons.subtitle' => 'Optional. Priced individually.',
 			'guidedBooking.add_ons.empty' => 'No extras are available for this service.',
 			'guidedBooking.add_ons.selected' => ({required Object count}) => '${count} added',
 			'guidedBooking.professional.title' => 'Choose a professional',
-			'guidedBooking.professional.subtitle' => 'Everyone here covers your visit address.',
+			'guidedBooking.professional.view_profile' => 'View profile',
+			'guidedBooking.professional.select_cta' => 'Choose this professional',
 			'guidedBooking.professional.location_label' => 'Visit address',
 			'guidedBooking.professional.location_empty' => 'Add an address to see who is available',
 			'guidedBooking.professional.location_loading' => 'Finding your saved addresses',
@@ -2401,13 +2401,14 @@ extension on Translations {
 			'guidedBooking.professional.years' => ({required Object years}) => '${years} yrs experience',
 			'guidedBooking.professional.reviews' => ({required Object count}) => '(${count})',
 			'guidedBooking.schedule.title' => 'When suits you?',
-			'guidedBooking.schedule.subtitle' => 'Pick a preferred time. We will confirm it with your professional.',
+			'guidedBooking.schedule.select_date' => 'Select a date',
+			'guidedBooking.schedule.select_hour' => 'Select a time',
+			'guidedBooking.schedule.chosen' => ({required Object day, required Object time}) => '${day} at ${time}',
 			'guidedBooking.schedule.loading' => 'Checking availability',
-			'guidedBooking.schedule.empty' => 'No open times on this day. Try another date.',
+			'guidedBooking.schedule.empty' => 'No open times on this day.',
 			'guidedBooking.schedule.error' => 'We could not load the available times.',
 			'guidedBooking.schedule.no_days' => 'This professional has no open times right now.',
 			'guidedBooking.review.title' => 'Review your request',
-			'guidedBooking.review.subtitle' => 'Check everything over, then send it.',
 			'guidedBooking.review.service' => 'Service',
 			'guidedBooking.review.issues' => 'Reasons for the visit',
 			'guidedBooking.review.remarks' => 'Remarks',
@@ -2548,7 +2549,6 @@ extension on Translations {
 			'settings.settings' => 'Settings',
 			'sharedBooking.starting_from' => ({required Object price}) => 'Starting from ${price}',
 			'sharedBooking.from_price' => ({required Object price}) => 'from ${price}',
-			'sharedBooking.step_of' => ({required Object current, required Object total}) => 'Step ${current} of ${total}',
 			'sharedBooking.empty_title' => 'Nothing here yet',
 			'sharedBooking.error_title' => 'Something went wrong',
 			'sharedBooking.retry' => 'Try again',
