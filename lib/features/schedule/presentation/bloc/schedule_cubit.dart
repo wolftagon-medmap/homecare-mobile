@@ -95,8 +95,8 @@ class ScheduleCubit extends Cubit<ScheduleState> {
       (failure) =>
           emit(state.copyWith(error: failure.message, successMessage: null)),
       (_) {
-        emit(state.copyWith(
-            successMessage: 'Availability added!', error: null));
+        emit(
+            state.copyWith(successMessage: 'Availability added!', error: null));
         loadSchedules();
       },
     );

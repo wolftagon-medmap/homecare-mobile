@@ -1,0 +1,27 @@
+{
+  "namespace_title": "Profil kesehatan",
+  "entry_tile": "Profil kesehatan saya",
+  "list": {
+    "subtitle": "Perbarui hanya yang Anda inginkan. Semuanya bersifat opsional.",
+    "not_started": "Belum diisi",
+    "updated": "Diperbarui {date}",
+    "loading": "Memuat profil kesehatan Anda",
+    "empty": "Belum ada bagian yang tersedia.",
+    "error": "Kami tidak dapat memuat profil kesehatan Anda."
+  },
+  "section": {
+    "subtitle": "Isi yang Anda bisa. Anda dapat kembali kapan saja.",
+    "save": "Simpan",
+    "saved": "Tersimpan",
+    "save_failed": "Kami tidak dapat menyimpan bagian ini.",
+    "loading": "Memuat bagian ini",
+    "error": "Kami tidak dapat memuat bagian ini.",
+    "add_other": "Tambah lainnya",
+    "add_attachment": "Tambah lampiran",
+    "attachment": "Laporan {n}",
+    "discard_title": "Buang perubahan Anda?",
+    "discard_body": "Bagian ini memiliki perubahan yang belum disimpan.",
+    "discard": "Buang",
+    "keep_editing": "Lanjut mengisi"
+  }
+}

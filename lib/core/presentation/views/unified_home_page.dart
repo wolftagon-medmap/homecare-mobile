@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/blocs/user_role_cubit.dart';
-import 'package:m2health/core/presentation/views/dashboard.dart';
 import 'package:m2health/features/appointment/pages/professional_today_page.dart';
+import 'package:m2health/features/dashboard/presentation/pages/dashboard_page.dart';
 
 /// Picks the home screen for the signed-in role, mirroring
 /// `UnifiedAppointmentPage` and `UnifiedProfilePage`.
@@ -17,7 +17,7 @@ class UnifiedHomePage extends StatelessWidget {
     return BlocBuilder<UserRoleCubit, UserRoleState>(
       builder: (context, state) {
         if (state.isProvider) return const ProfessionalTodayPage();
-        return const Dashboard();
+        return const DashboardPage();
       },
     );
   }

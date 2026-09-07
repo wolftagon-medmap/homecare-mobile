@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/messaging/thread_index_cubit.dart';
+import 'package:m2health/core/messaging/thread_ref.dart';
+import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
@@ -13,7 +17,7 @@ import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/appointment/bloc/appointment_cubit.dart';
 import 'package:m2health/features/appointment/bloc/appointment_detail_cubit.dart';
 import 'package:m2health/features/appointment/widgets/appointment_type_detail_tile.dart';
-import 'package:m2health/features/appointment/widgets/cancel_appoinment_dialog.dart';
+import 'package:m2health/core/presentation/widgets/booking/cancel_appointment_dialog.dart';
 import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
@@ -238,6 +242,31 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
         buttons = [];
     }
 
+    // A visit still ahead is arranged in the conversation: moving it is a
+    // proposal the other side confirms, cancelling is a decision worth a
+    // sentence. So the conversation *replaces* those two buttons — but only
+    // where there is one. A booking made outside the care-task flow has no
+    // thread, and would otherwise be left with no way to cancel at all.
+    final arrangeable = appointment.id != null &&
+        const ['pending', 'accepted', 'upcoming'].contains(status);
+    final threadRef =
+        arrangeable ? ThreadRef.forAppointment(appointment.id!) : null;
+    final hasThread = threadRef != null &&
+        context.select<ThreadIndexCubit, bool>(
+          (cubit) => cubit.state.resolve(threadRef) != null,
+        );
+
+    if (hasThread) {
+      buttons = [
+        MessageActionButton(
+          threadRef: threadRef,
+          style: MessageActionStyle.gradient,
+          label: 'Chat',
+        ),
+      ];
+      isHorizontalLayout = true;
+    }
+
     if (buttons.isEmpty) return const SizedBox.shrink();
 
     return BottomAppBar(
@@ -246,8 +275,9 @@ class _DetailAppointmentPageState extends State<DetailAppointmentPage> {
       child: isHorizontalLayout
           ? Row(
               spacing: 16,
-              children:
-                  buttons.map((button) => Expanded(child: button)).toList(),
+              children: [
+                ...buttons.map((button) => Expanded(child: button)),
+              ],
             )
           : Column(
               mainAxisSize: MainAxisSize.min,

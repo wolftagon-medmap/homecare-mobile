@@ -46,7 +46,7 @@ class PrimaryButton extends StatelessWidget {
           elevation: 0,
         ),
         child: isLoading
-            ?  SizedBox(
+            ? SizedBox(
                 width: size.iconSize,
                 height: size.iconSize,
                 child: const CircularProgressIndicator(

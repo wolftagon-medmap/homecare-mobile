@@ -16,12 +16,12 @@ enum AppointmentSubmissionStatus {
 class PhysiotherapyAppointmentFlowState extends Equatable {
   final PhysiotherapyFlowStep currentStep;
   final PhysiotherapyType type;
-  
+
   final ProfessionalEntity? selectedProfessional;
   final DateTime? selectedTimeSlot;
   final int? selectedDuration;
   final AppointmentEntity? createdAppointment;
-  
+
   final AppointmentSubmissionStatus submissionStatus;
   final String? errorMessage;
 

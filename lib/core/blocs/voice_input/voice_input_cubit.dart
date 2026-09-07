@@ -29,12 +29,14 @@ class VoiceInputCubit extends Cubit<VoiceInputState> {
 
   void _startAmplitudeTimer() {
     _stopAmplitudeTimer();
-    _amplitudeTimer = Timer.periodic(const Duration(milliseconds: 100), (timer) async {
+    _amplitudeTimer =
+        Timer.periodic(const Duration(milliseconds: 100), (timer) async {
       if (state.maybeMap(recording: (_) => true, orElse: () => false)) {
         final amplitude = await _recorder.getAmplitude();
         // Map decibels to 0.0 - 1.0 range (approximately)
         // dB usually ranges from -160 to 0
-        final volume = (math.pow(10, amplitude.current / 20).toDouble()).clamp(0.0, 1.0);
+        final volume =
+            (math.pow(10, amplitude.current / 20).toDouble()).clamp(0.0, 1.0);
         emit(VoiceInputState.recording(amplitude: volume));
       }
     });
@@ -56,13 +58,15 @@ class VoiceInputCubit extends Cubit<VoiceInputState> {
         return;
       }
       if (!status.isGranted) {
-        emit(const VoiceInputState.error(message: 'Microphone permission denied'));
+        emit(const VoiceInputState.error(
+            message: 'Microphone permission denied'));
         emit(const VoiceInputState.idle());
         return;
       }
 
       final tempDir = await getTemporaryDirectory();
-      _currentPath = '${tempDir.path}/audio_input_${DateTime.now().millisecondsSinceEpoch}.wav';
+      _currentPath =
+          '${tempDir.path}/audio_input_${DateTime.now().millisecondsSinceEpoch}.wav';
 
       await _recorder.start(
         const RecordConfig(

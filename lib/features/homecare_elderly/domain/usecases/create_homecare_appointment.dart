@@ -33,5 +33,6 @@ class CreateHomecareAppointmentParams extends Equatable {
   });
 
   @override
-  List<Object?> get props => [type, providerId, startDatetime, tasks, billingType];
+  List<Object?> get props =>
+      [type, providerId, startDatetime, tasks, billingType];
 }

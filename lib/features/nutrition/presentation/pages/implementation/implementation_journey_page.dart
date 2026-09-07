@@ -9,7 +9,8 @@ class ImplementationJourneyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: context.l10n.precision_implementation_journey),
+      appBar:
+          CustomAppBar(title: context.l10n.precision_implementation_journey),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -21,7 +22,8 @@ class ImplementationJourneyPage extends StatelessWidget {
                   children: [
                     FeatureDetailCard(
                       iconData: Icons.description_outlined,
-                      title: context.l10n.precision_implementation_indepth_assessment,
+                      title: context
+                          .l10n.precision_implementation_indepth_assessment,
                       child: const Column(
                         children: [
                           CardBulletPoint(
@@ -60,7 +62,8 @@ class ImplementationJourneyPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            PrimaryButton(text: context.l10n.precision_book_now, onPressed: () {}),
+            PrimaryButton(
+                text: context.l10n.precision_book_now, onPressed: () {}),
           ],
         ),
       ),

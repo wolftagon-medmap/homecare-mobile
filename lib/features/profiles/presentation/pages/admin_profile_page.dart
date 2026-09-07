@@ -4,10 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/auth_guard_dialog.dart';
+import 'package:m2health/core/presentation/widgets/profile_shared_widgets.dart';
+import 'package:m2health/features/pricing/pricing_routes.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
-import 'package:m2health/core/presentation/widgets/profile_shared_widgets.dart';
+import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class AdminProfilePage extends StatefulWidget {
@@ -134,6 +136,19 @@ class _AdminSection extends StatelessWidget {
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
               onTap: () {
                 context.push(AppRoutes.adminProfessionals);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.price_change, color: Color(0xFF35C5CF)),
+              title: Text(context.t.pricing.floor_title),
+              titleTextStyle: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+              onTap: () {
+                context.push(PricingRoutes.floorPrices);
               },
             ),
             ListTile(

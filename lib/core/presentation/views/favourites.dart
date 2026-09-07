@@ -95,9 +95,8 @@ class _FavouritesPageState extends State<FavouritesPage> {
 
   void _onRouteChanged() {
     if (!mounted) return;
-    final isOnThisTab =
-        _router!.routerDelegate.currentConfiguration.uri.path ==
-            AppRoutes.favourite;
+    final isOnThisTab = _router!.routerDelegate.currentConfiguration.uri.path ==
+        AppRoutes.favourite;
     // Only refetch on the transition onto the tab, not on every router tick.
     if (isOnThisTab && !_wasOnThisTab) _fetchFavoritePharmacists();
     _wasOnThisTab = isOnThisTab;

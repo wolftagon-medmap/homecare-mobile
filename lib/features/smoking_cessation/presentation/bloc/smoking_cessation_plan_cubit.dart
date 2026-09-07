@@ -66,8 +66,8 @@ class SmokingCessationPlanCubit extends Cubit<SmokingCessationPlanState> {
         submitStatus: SmokingCessationPlanStatus.failure,
         errorMessage: failure.message,
       )),
-      (_) =>
-          emit(state.copyWith(submitStatus: SmokingCessationPlanStatus.success)),
+      (_) => emit(
+          state.copyWith(submitStatus: SmokingCessationPlanStatus.success)),
     );
   }
 }

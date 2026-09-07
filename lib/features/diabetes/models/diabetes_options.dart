@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 
 // Helper to find enum by value
-T? _fromValue<T>(List<T> values, String? value, String Function(T) valueGetter) {
+T? _fromValue<T>(
+    List<T> values, String? value, String Function(T) valueGetter) {
   if (value == null) return null;
   try {
     return values.firstWhere((e) => valueGetter(e) == value);

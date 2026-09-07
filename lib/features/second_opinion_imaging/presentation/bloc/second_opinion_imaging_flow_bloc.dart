@@ -53,7 +53,8 @@ class FlowFormSubmitted extends SecondOpinionImagingFlowEvent {
 
 class FlowSubmitAppointment extends SecondOpinionImagingFlowEvent {}
 
-class SecondOpinionImagingFlowBloc extends Bloc<SecondOpinionImagingFlowEvent, SecondOpinionImagingFlowState> {
+class SecondOpinionImagingFlowBloc
+    extends Bloc<SecondOpinionImagingFlowEvent, SecondOpinionImagingFlowState> {
   final SecondOpinionImagingRepository repository;
 
   SecondOpinionImagingFlowBloc({
@@ -67,11 +68,13 @@ class SecondOpinionImagingFlowBloc extends Bloc<SecondOpinionImagingFlowEvent, S
     on<FlowSubmitAppointment>(_onSubmitAppointment);
   }
 
-  void _onStepChanged(FlowStepChanged event, Emitter<SecondOpinionImagingFlowState> emit) {
+  void _onStepChanged(
+      FlowStepChanged event, Emitter<SecondOpinionImagingFlowState> emit) {
     emit(state.copyWith(currentStep: event.step));
   }
 
-  void _onFormSubmitted(FlowFormSubmitted event, Emitter<SecondOpinionImagingFlowState> emit) {
+  void _onFormSubmitted(
+      FlowFormSubmitted event, Emitter<SecondOpinionImagingFlowState> emit) {
     emit(state.copyWith(
       diseaseName: event.diseaseName,
       diseaseHistory: event.diseaseHistory,
@@ -81,22 +84,26 @@ class SecondOpinionImagingFlowBloc extends Bloc<SecondOpinionImagingFlowEvent, S
     ));
   }
 
-  void _onProfessionalSelected(FlowProfessionalSelected event, Emitter<SecondOpinionImagingFlowState> emit) {
+  void _onProfessionalSelected(FlowProfessionalSelected event,
+      Emitter<SecondOpinionImagingFlowState> emit) {
     emit(state.copyWith(
       selectedProfessional: event.professional,
       currentStep: SecondOpinionImagingFlowStep.viewProfessionalDetail,
     ));
   }
 
-  void _onTimeSlotSelected(FlowTimeSlotSelected event, Emitter<SecondOpinionImagingFlowState> emit) {
+  void _onTimeSlotSelected(
+      FlowTimeSlotSelected event, Emitter<SecondOpinionImagingFlowState> emit) {
     emit(state.copyWith(
       selectedTimeSlot: event.timeSlot,
     ));
     add(FlowSubmitAppointment());
   }
 
-  void _onSubmitAppointment(FlowSubmitAppointment event, Emitter<SecondOpinionImagingFlowState> emit) async {
-    emit(state.copyWith(submissionStatus: AppointmentSubmissionStatus.submitting));
+  void _onSubmitAppointment(FlowSubmitAppointment event,
+      Emitter<SecondOpinionImagingFlowState> emit) async {
+    emit(state.copyWith(
+        submissionStatus: AppointmentSubmissionStatus.submitting));
 
     final params = CreateSecondOpinionImagingAppointmentParams(
       providerId: state.selectedProfessional!.id,

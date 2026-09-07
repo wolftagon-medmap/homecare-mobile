@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
+import 'package:m2health/features/booking_appointment/pharmacy/const.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class HealthCoaching extends StatefulWidget {
@@ -31,8 +32,8 @@ class _HealthCoachingState extends State<HealthCoaching> {
               imagePath: 'assets/images/illu_weight.png',
               backgroundColor: const Color(0xFF9AE1FF).withValues(alpha: 0.33),
               onTap: () {
-                GoRouter.of(context)
-                    .push(AppRoutes.pharmacyBookAppointmentFlow);
+                GoRouter.of(context).push(AppRoutes.pharmacyBookAppointmentFlow,
+                    extra: PharmacyCoachingTopic.weightManagement.code);
               },
             ),
             ServiceSelectionCard(
@@ -42,8 +43,8 @@ class _HealthCoachingState extends State<HealthCoaching> {
               imagePath: 'assets/images/ilu_diabetes.png',
               backgroundColor: const Color(0xFFB28CFF).withValues(alpha: 0.2),
               onTap: () {
-                GoRouter.of(context)
-                    .push(AppRoutes.pharmacyBookAppointmentFlow);
+                GoRouter.of(context).push(AppRoutes.pharmacyBookAppointmentFlow,
+                    extra: PharmacyCoachingTopic.diabetesManagement.code);
               },
             ),
             ServiceSelectionCard(
@@ -53,8 +54,8 @@ class _HealthCoachingState extends State<HealthCoaching> {
               imagePath: 'assets/images/ilu_blood.png',
               backgroundColor: const Color(0xFFFF9A9A).withValues(alpha: 0.19),
               onTap: () {
-                GoRouter.of(context)
-                    .push(AppRoutes.pharmacyBookAppointmentFlow);
+                GoRouter.of(context).push(AppRoutes.pharmacyBookAppointmentFlow,
+                    extra: PharmacyCoachingTopic.bloodPressureManagement.code);
               },
             ),
             ServiceSelectionCard(
@@ -64,8 +65,8 @@ class _HealthCoachingState extends State<HealthCoaching> {
               imagePath: 'assets/images/ilu_colestrol.png',
               backgroundColor: const Color(0xFFEDE6FC).withValues(alpha: 0.33),
               onTap: () {
-                GoRouter.of(context)
-                    .push(AppRoutes.pharmacyBookAppointmentFlow);
+                GoRouter.of(context).push(AppRoutes.pharmacyBookAppointmentFlow,
+                    extra: PharmacyCoachingTopic.cholesterolManagement.code);
               },
             ),
           ],

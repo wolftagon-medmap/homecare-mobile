@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
+import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class DiabeticCare extends StatelessWidget {
@@ -33,6 +34,7 @@ class DiabeticCare extends StatelessWidget {
         child: ListView(
           children: [
             ServiceSelectionCard(
+              priceTag: const StartingFromPrice(category: 'screening'),
               title: context.l10n.diabetic_retinal_photography,
               description: context.l10n.diabetic_retinal_photography_desc,
               imagePath: 'assets/images/ilu_diabet_retina.png',
@@ -42,6 +44,7 @@ class DiabeticCare extends StatelessWidget {
               },
             ),
             ServiceSelectionCard(
+              priceTag: const StartingFromPrice(category: 'screening'),
               title: context.l10n.diabetic_foot_screening,
               description: context.l10n.diabetic_foot_screening_desc,
               imagePath: 'assets/images/ilu_diabet_foot.png',

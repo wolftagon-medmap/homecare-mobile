@@ -1,0 +1,78 @@
+{
+  "namespace_title": "Book a service",
+  "sub_service": {
+    "title": "Which service do you need?",
+    "empty": "No services are available here yet."
+  },
+  "issues": {
+    "title": "What can we help you with?",
+    "subtitle": "Choose one or more.",
+    "remarks_label": "Remarks (optional)",
+    "remarks_hint": "Anything else you would like our healthcare professional to know?",
+    "add_ons_link": "Add procedures or extras",
+    "error": "We could not load the issue list.",
+    "empty": "No reasons are listed for this service yet."
+  },
+  "add_ons": {
+    "title": "Anything else to add?",
+    "subtitle": "Optional. Priced individually.",
+    "empty": "No extras are available for this service.",
+    "selected": "{count} added",
+    "no_description": "No additional details for this add-on yet."
+  },
+  "professional": {
+    "title": "Choose a professional",
+    "view_profile": "View profile",
+    "select_cta": "Choose this professional",
+    "location_label": "Visit address",
+    "location_empty": "Add an address to see who is available",
+    "location_loading": "Finding your saved addresses",
+    "change_location": "Change",
+    "picker_title": "Where should we visit?",
+    "add_address": "Add a new address",
+    "loading": "Finding professionals near you",
+    "empty": "No professionals cover this address yet. Try another address.",
+    "error": "We could not load the professional list.",
+    "years": "{years} yrs experience",
+    "reviews": "({count})",
+    "choose_cta": "Choose this professional",
+    "search_hint": "Search by name"
+  },
+  "schedule": {
+    "title": "When suits you?",
+    "select_date": "Select a date",
+    "select_hour": "Select a time",
+    "chosen": "{day} at {time}",
+    "loading": "Checking availability",
+    "empty": "No open times on this day.",
+    "error": "We could not load the available times.",
+    "no_days": "This professional has no open times right now."
+  },
+  "review": {
+    "title": "Review your request",
+    "service": "Service",
+    "issues": "Reasons for the visit",
+    "remarks": "Remarks",
+    "add_ons": "Extras",
+    "location": "Visit address",
+    "professional": "Professional",
+    "schedule": "Preferred time",
+    "estimate": "Estimated total",
+    "estimate_note": "An estimate only. Nothing is charged now — payment happens at the visit.",
+    "edit": "Edit",
+    "none": "None",
+    "send": "Send request"
+  },
+  "sent": {
+    "title": "Request sent",
+    "body": "We have passed your request to {name}. We will notify you as soon as they respond.",
+    "body_generic": "We have passed your request on. We will notify you as soon as it is picked up.",
+    "message": "Message your professional",
+    "view_status": "View booking",
+    "done": "Back to home"
+  },
+  "cta": {
+    "continue": "Continue",
+    "skip": "Skip"
+  }
+}

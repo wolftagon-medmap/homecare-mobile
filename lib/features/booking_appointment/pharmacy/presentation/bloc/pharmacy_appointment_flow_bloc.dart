@@ -16,9 +16,11 @@ part 'pharmacy_appointment_flow_state.dart';
 class PharmacyAppointmentFlowBloc
     extends Bloc<PharmacyAppointmentFlowEvent, PharmacyAppointmentFlowState> {
   final CreatePharmacyAppointment createPharmacyAppointment;
+  final String? coachingTopic;
 
   PharmacyAppointmentFlowBloc({
     required this.createPharmacyAppointment,
+    this.coachingTopic,
   }) : super(PharmacyAppointmentFlowState.initial()) {
     on<FlowStepChanged>(_onStepChanged);
     on<FlowPersonalIssueUpdated>(_onPersonalCaseUpdated);
@@ -92,6 +94,7 @@ class PharmacyAppointmentFlowBloc
         mobilityStatus: state.healthStatus?.mobilityStatus,
         relatedHealthRecordId: state.healthStatus?.relatedHealthRecordId,
         addOnServices: state.selectedAddOnServices,
+        coachingTopic: coachingTopic,
       ),
     );
 

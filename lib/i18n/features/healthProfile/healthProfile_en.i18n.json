@@ -1,0 +1,27 @@
+{
+  "namespace_title": "Health profile",
+  "entry_tile": "My health profile",
+  "list": {
+    "subtitle": "Update only what you want. Everything here is optional.",
+    "not_started": "Not started",
+    "updated": "Updated {date}",
+    "loading": "Loading your health profile",
+    "empty": "No sections are available yet.",
+    "error": "We could not load your health profile."
+  },
+  "section": {
+    "subtitle": "Answer what you can. You can come back any time.",
+    "save": "Save",
+    "saved": "Saved",
+    "save_failed": "We could not save this section.",
+    "loading": "Loading this section",
+    "error": "We could not load this section.",
+    "add_other": "Add another",
+    "add_attachment": "Add an attachment",
+    "attachment": "Report {n}",
+    "discard_title": "Discard your changes?",
+    "discard_body": "This section has unsaved changes.",
+    "discard": "Discard",
+    "keep_editing": "Keep editing"
+  }
+}

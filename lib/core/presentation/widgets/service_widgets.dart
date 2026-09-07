@@ -12,6 +12,10 @@ class ServiceSelectionCard extends StatelessWidget {
   final double? imageWidth;
   final double? imageHeight;
 
+  /// Optional `Starting from $X` pill. A widget rather than a price, so this
+  /// shared card keeps no dependency on the pricing feature.
+  final Widget? priceTag;
+
   const ServiceSelectionCard({
     super.key,
     required this.title,
@@ -22,6 +26,7 @@ class ServiceSelectionCard extends StatelessWidget {
     this.isLoading = false,
     this.imageWidth = 160,
     this.imageHeight = 120,
+    this.priceTag,
   });
 
   @override
@@ -75,6 +80,10 @@ class ServiceSelectionCard extends StatelessWidget {
                       ),
                     ),
                   ),
+                  if (priceTag != null) ...[
+                    const SizedBox(height: 10),
+                    priceTag!,
+                  ],
                   const SizedBox(height: 10),
                   TextButton(
                     onPressed: onTap,

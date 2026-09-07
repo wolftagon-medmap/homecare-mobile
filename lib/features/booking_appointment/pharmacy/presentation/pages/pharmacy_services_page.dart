@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/health_coaching.dart';
-import 'package:m2health/core/presentation/widgets/service_widgets.dart';
+import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/features/smoking_cessation/presentation/bloc/smoking_cessation_flow_cubit.dart';
 import 'package:m2health/features/smoking_cessation/presentation/pages/smoking_cessation_flow_page.dart';
 import 'package:m2health/i18n/translations.g.dart';
@@ -32,6 +33,7 @@ class PharmacyServicesPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ServiceSelectionCard(
+                priceTag: const StartingFromPrice(category: 'pharmacy'),
                 title: context.t.pharmacy.services.review_and_counseling.title,
                 description: context
                     .t.pharmacy.services.review_and_counseling.description,
@@ -42,6 +44,7 @@ class PharmacyServicesPage extends StatelessWidget {
                 },
               ),
               ServiceSelectionCard(
+                priceTag: const StartingFromPrice(category: 'pharmacy'),
                 title: context.t.pharmacy.services.health_coaching.title,
                 description:
                     context.t.pharmacy.services.health_coaching.description,
@@ -58,6 +61,7 @@ class PharmacyServicesPage extends StatelessWidget {
                 },
               ),
               ServiceSelectionCard(
+                priceTag: const StartingFromPrice(category: 'pharmacy'),
                 title: context.t.pharmacy.services.smoking_cessation.title,
                 description:
                     context.t.pharmacy.services.smoking_cessation.description,

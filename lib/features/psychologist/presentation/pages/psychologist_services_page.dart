@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
+import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class PsychologistServicesPage extends StatelessWidget {
@@ -22,6 +23,7 @@ class PsychologistServicesPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ServiceSelectionCard(
+                priceTag: const StartingFromPrice(category: 'psychology'),
                 title: 'Psychology Consultation',
                 description:
                     'Talk to a licensed psychologist about stress, anxiety, '

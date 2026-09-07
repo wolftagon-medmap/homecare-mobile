@@ -7,7 +7,8 @@ sealed class PsychologistBookingFlowEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class PsychologistFlowProfessionalSelected extends PsychologistBookingFlowEvent {
+class PsychologistFlowProfessionalSelected
+    extends PsychologistBookingFlowEvent {
   final ProfessionalEntity professional;
   const PsychologistFlowProfessionalSelected(this.professional);
   @override

@@ -1,0 +1,50 @@
+{
+  "title": "Pesan",
+  "emptyTitle": "Belum ada percakapan",
+  "emptyBody": "Setelah Anda mengirim permintaan, Anda bisa berbicara dengan tenaga kesehatan di sini.",
+  "composerHint": "Tulis pesan",
+  "threadClosed": "Percakapan ini sudah ditutup.",
+  "sayHello": "Sapa dulu",
+  "timeProposal": {
+    "title": "Usulan waktu lain",
+    "youAskedFor": "Anda meminta",
+    "proposed": "Diusulkan",
+    "accept": "Terima",
+    "chooseAnother": "Pilih Lain",
+    "suggestAnother": "Usulkan waktu lain",
+    "sheetTitleProfessional": "Usulkan waktu lain",
+    "sheetTitlePatient": "Waktu mana yang cocok?",
+    "sendSuggestion": "Kirim usulan",
+    "sendTime": "Kirim waktu ini",
+    "reasonLabel": "Alasan? (opsional)",
+    "reasonHint": "Alasan singkat membantu mereka menyetujui.",
+    "answerBy": "Jawab sebelum {when}",
+    "today": "Hari ini",
+    "tomorrow": "Besok"
+  },
+  "estimateRevision": {
+    "title": "Perkiraan biaya direvisi",
+    "newTotal": "Perkiraan total baru",
+    "approve": "Setujui",
+    "approved": "Disetujui",
+    "withdrawn": "Dibatalkan"
+  },
+  "chat": {
+    "aboutTitle": "Tentang kunjungan ini",
+    "reason": "Alasan",
+    "where": "Lokasi",
+    "estimate": "Perkiraan biaya",
+    "emptyPrompt": "Belum ada pesan. Mulai dengan salah satu berikut, atau tulis sendiri.",
+    "openersProfessional": [
+      "Saya bisa menangani kunjungan ini.",
+      "Kapan waktu yang cocok untuk Anda?",
+      "Boleh saya konfirmasi alamatnya?"
+    ],
+    "openersPatient": [
+      "Halo, terima kasih sudah menerima permintaan ini.",
+      "Apakah waktunya masih sesuai?",
+      "Apa yang perlu saya siapkan?"
+    ],
+    "read": "Dibaca"
+  }
+}

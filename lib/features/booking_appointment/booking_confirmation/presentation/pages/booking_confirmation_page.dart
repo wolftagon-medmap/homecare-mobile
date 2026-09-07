@@ -69,9 +69,7 @@ class BookingConfirmationPage extends StatelessWidget {
           _Section(
             title: t.address_label,
             child: Text(
-              address?.formattedAddress ??
-                  address?.label ??
-                  t.no_address,
+              address?.formattedAddress ?? address?.label ?? t.no_address,
               style: const TextStyle(fontSize: 15),
             ),
           ),
@@ -130,8 +128,8 @@ class BookingConfirmationPage extends StatelessWidget {
               const Spacer(),
               Text(
                 '\$${_totalPrice.toStringAsFixed(2)}',
-                style: const TextStyle(
-                    fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(width: 16),
               ElevatedButton(
@@ -141,8 +139,8 @@ class BookingConfirmationPage extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 24, vertical: 14),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                 ),
                 child: isSubmitting
                     ? const SizedBox(

@@ -47,8 +47,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     if (result.status == AuthResultStatus.success) {
       String resetToken = otp;
       if (result.data != null && result.data is Map) {
-        resetToken =
-            result.data['resetToken'] ?? result.data['token'] ?? otp;
+        resetToken = result.data['resetToken'] ?? result.data['token'] ?? otp;
       }
       emit(ForgotPasswordOtpVerified(email, resetToken));
     } else {
@@ -67,7 +66,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
       emit(ForgotPasswordFailure(result.message ?? 'Failed to reset password'));
     }
   }
-  
+
   void resetState() {
     emit(ForgotPasswordInitial());
   }

@@ -51,7 +51,8 @@ class SubscriptionRepositoryImpl implements SubscriptionRepository {
   }
 
   @override
-  Future<Either<Failure, SubscriptionPlanEntity>> createSubscriptionPlan(Map<String, dynamic> body) async {
+  Future<Either<Failure, SubscriptionPlanEntity>> createSubscriptionPlan(
+      Map<String, dynamic> body) async {
     try {
       final result = await remoteDataSource.createSubscriptionPlan(body);
       return Right(result);
@@ -63,7 +64,8 @@ class SubscriptionRepositoryImpl implements SubscriptionRepository {
   }
 
   @override
-  Future<Either<Failure, SubscriptionPlanEntity>> updateSubscriptionPlan(int id, Map<String, dynamic> body) async {
+  Future<Either<Failure, SubscriptionPlanEntity>> updateSubscriptionPlan(
+      int id, Map<String, dynamic> body) async {
     try {
       final result = await remoteDataSource.updateSubscriptionPlan(id, body);
       return Right(result);
@@ -75,7 +77,8 @@ class SubscriptionRepositoryImpl implements SubscriptionRepository {
   }
 
   @override
-  Future<Either<Failure, SubscriptionPlanEntity>> toggleSubscriptionPlanActive(int id) async {
+  Future<Either<Failure, SubscriptionPlanEntity>> toggleSubscriptionPlanActive(
+      int id) async {
     try {
       final result = await remoteDataSource.toggleSubscriptionPlanActive(id);
       return Right(result);

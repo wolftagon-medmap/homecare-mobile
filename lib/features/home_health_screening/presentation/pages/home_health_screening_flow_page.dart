@@ -11,8 +11,8 @@ import 'package:m2health/features/booking_appointment/professional_directory/pre
 import 'package:m2health/features/booking_appointment/professional_directory/presentation/pages/search_professional_page.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/bloc/schedule_appointment_cubit.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
-import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 class HomeHealthScreeningFlowPage extends StatefulWidget {
   const HomeHealthScreeningFlowPage({super.key});
@@ -71,8 +71,8 @@ class _HomeHealthScreeningFlowPageState
             content: Text(context.l10n.home_health_screening_booked_success),
             backgroundColor: Colors.green,
           ));
-          GoRouter.of(context).goNamed(AppRoutes.appointmentDetail,
-              extra: state.createdAppointment!.id!);
+          GoRouter.of(context)
+              .go(AppointmentRoutes.detailPath(state.createdAppointment!.id!));
         }
 
         if (state.submissionStatus == ScreeningSubmissionStatus.failure) {
@@ -161,9 +161,8 @@ class _HomeHealthScreeningFlowPageState
                         isSubmitting: state.submissionStatus ==
                             ScreeningSubmissionStatus.submitting,
                         onSlotSelected: (timeSlot) {
-                          context
-                              .read<HomeHealthScreeningFlowBloc>()
-                              .add(ScreeningTimeSlotSelected(timeSlot.startTime));
+                          context.read<HomeHealthScreeningFlowBloc>().add(
+                              ScreeningTimeSlotSelected(timeSlot.startTime));
                         },
                       ),
                     ),

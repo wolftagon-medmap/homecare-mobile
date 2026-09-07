@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -245,6 +246,24 @@ class SettingSection extends StatelessWidget {
                 trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                 onTap: () {
                   context.pushNamed(AppRoutes.savedAddresses);
+                },
+              ),
+            if (kDebugMode)
+              ListTile(
+                leading: const Icon(Icons.flag_outlined, color: Const.aqua),
+                title: const Text('Feature flags'),
+                titleTextStyle: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                  fontWeight: FontWeight.normal,
+                ),
+                subtitle: const Text(
+                  'Debug builds only',
+                  style: TextStyle(fontSize: 12),
+                ),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                onTap: () {
+                  context.pushNamed(AppRoutes.debugFeatureFlags);
                 },
               ),
           ],

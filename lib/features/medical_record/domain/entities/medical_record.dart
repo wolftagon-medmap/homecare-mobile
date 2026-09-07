@@ -10,7 +10,7 @@ class FileUpload extends Equatable {
 
   const FileUpload({
     required this.id,
-  this.originalName,
+    this.originalName,
     this.path,
     this.url,
     this.createdAt,
@@ -18,7 +18,8 @@ class FileUpload extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, originalName, path, url, createdAt, updatedAt];
+  List<Object?> get props =>
+      [id, originalName, path, url, createdAt, updatedAt];
 }
 
 class MedicalRecord extends Equatable {
@@ -47,7 +48,7 @@ class MedicalRecord extends Equatable {
     this.specialConsideration,
     this.treatmentInfo,
     this.fileUrl,
-  this.files = const <FileUpload>[],
+    this.files = const <FileUpload>[],
     required this.createdAt,
     required this.updatedAt,
   });
@@ -63,7 +64,7 @@ class MedicalRecord extends Equatable {
         specialConsideration,
         treatmentInfo,
         fileUrl,
-  files,
+        files,
         createdAt,
         updatedAt,
       ];

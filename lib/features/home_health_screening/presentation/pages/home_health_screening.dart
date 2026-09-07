@@ -5,6 +5,7 @@ import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/features/home_health_screening/presentation/bloc/home_health_screening_flow_bloc.dart';
 import 'package:m2health/features/home_health_screening/presentation/pages/home_health_screening_flow_page.dart';
+import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
@@ -30,6 +31,7 @@ class _HomeHealthState extends State<HomeHealth> {
         child: ListView(
           children: [
             ServiceSelectionCard(
+              priceTag: const StartingFromPrice(category: 'screening'),
               title: context.l10n.home_health_at_home_diagnostic,
               description: context.l10n.home_health_at_home_diagnostic_desc,
               imagePath: 'assets/images/ilu_diagnostic.png',
@@ -48,6 +50,7 @@ class _HomeHealthState extends State<HomeHealth> {
               },
             ),
             ServiceSelectionCard(
+              priceTag: const StartingFromPrice(category: 'screening'),
               title: context.l10n.home_health_point_of_care,
               description: context.l10n.home_health_point_of_care_desc,
               imagePath: 'assets/images/ilu_pointofcare.png',

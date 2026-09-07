@@ -1,0 +1,25 @@
+{
+  "starting_from": "起价 {price}",
+  "from_price": "起 {price}",
+  "empty_title": "这里还没有内容",
+  "error_title": "出了点问题",
+  "retry": "重试",
+  "status": {
+    "pending": "等待确认",
+    "confirmed": "已确认",
+    "proposed": "已提议其他时间",
+    "cancelled": "已取消"
+  },
+  "location": {
+    "title": "我们上门到哪里？",
+    "search_hint": "搜索街道、区域或建筑",
+    "pick_on_map": "在地图上选择",
+    "use_current": "使用当前位置",
+    "saved_heading": "已保存的地址",
+    "denied": "定位权限已关闭，请选择地址或在地图上选点。",
+    "picked_label": "上门地址",
+    "loading": "正在查找您的地址...",
+    "empty": "添加地址",
+    "bar_title": "上门地点"
+  }
+}

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -9,6 +10,12 @@ import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/auth/data/datasources/google_auth_source.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
+import 'package:m2health/features/chatbot/chatbot_providers.dart';
+import 'package:m2health/features/chatbot_legacy/chatbot_legacy_providers.dart';
+import 'package:m2health/features/guided_booking/guided_booking_providers.dart';
+import 'package:m2health/features/health_profile/health_profile_providers.dart';
+import 'package:m2health/features/messaging/messaging_providers.dart';
+import 'package:m2health/features/pricing/pricing_providers.dart';
 import 'package:m2health/features/medical_record/domain/usecases/delete_medical_record.dart';
 import 'package:m2health/features/medical_record/domain/usecases/get_medical_records.dart';
 import 'package:m2health/features/medical_record/presentation/bloc/medical_record_bloc.dart';
@@ -42,6 +49,7 @@ import 'package:device_preview_screenshot/device_preview_screenshot.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import 'const.dart';
+import 'core/presentation/app_shell_metrics.dart';
 import 'core/services/app_config_service.dart';
 import 'core/presentation/widgets/app_update_dialog.dart';
 import 'core/services/fcm_service.dart';
@@ -77,7 +85,10 @@ void main() async {
   try {
     tz.initializeTimeZones();
     final String currentTimeZone =
-        (await FlutterTimezone.getLocalTimezone()).identifier;
+        (await FlutterTimezone.getLocalTimezone().timeout(
+      const Duration(seconds: 5),
+    ))
+            .identifier;
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
   } catch (e, st) {
     debugPrint('Timezone setup failed: $e\n$st');
@@ -86,13 +97,17 @@ void main() async {
   // Google OAuth setup
   try {
     final googleSource = sl<GoogleAuthSource>();
-    await googleSource.init();
+    await googleSource.init().timeout(const Duration(seconds: 5));
   } catch (e, st) {
     debugPrint('GoogleAuthSource init failed: $e\n$st');
   }
 
   final localeCubit = LocaleCubit();
-  await localeCubit.loadSavedLocale();
+  try {
+    await localeCubit.loadSavedLocale();
+  } catch (e) {
+    debugPrint('loadSavedLocale failed: $e');
+  }
 
   WidgetsBinding.instance.addPostFrameCallback((_) => _checkForAppUpdate());
 
@@ -102,11 +117,12 @@ void main() async {
       enabled: false,
       tools: [
         ...DevicePreview.defaultTools,
-        DevicePreviewScreenshot(
-            onScreenshot: screenshotAsFiles(
-          // Save screenshots to the 'screenshots' directory in the app's documents directory
-          Directory('${Directory.current.path}/screenshots'),
-        )),
+        // dart:io Directory is unsupported on web and throws during startup.
+        if (!kIsWeb)
+          DevicePreviewScreenshot(
+              onScreenshot: screenshotAsFiles(
+            Directory('${Directory.current.path}/screenshots'),
+          )),
       ],
       builder: (context) => TranslationProvider(
         child: MultiBlocProvider(
@@ -185,10 +201,16 @@ class M2HealthApp extends StatelessWidget {
               DiabetesFormCubit(sl<Dio>(), sl<QuestionnaireService>()),
         ),
         BlocProvider(create: (context) => sl<SubscriptionCubit>()),
+
+        ...GuidedBookingProviders.providers,
+        ...MessagingProviders.providers,
+        ...PricingProviders.providers,
+        ...ChatbotProviders.providers,
+        ...ChatbotLegacyProviders.providers,
+        ...HealthProfileProviders.providers,
       ],
       child: BlocBuilder<LocaleCubit, AppLocale>(builder: (context, locale) {
         return MaterialApp.router(
-          useInheritedMediaQuery: true,
           scaffoldMessengerKey: rootScaffoldMessengerKey,
           debugShowCheckedModeBanner: false,
           title: 'm2health',
@@ -361,7 +383,8 @@ class AppShell extends StatelessWidget {
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 32),
+            padding: const EdgeInsets.only(
+                bottom: AppShellMetrics.shellBottomPadding),
             child: navigationShell,
           ),
           Align(
@@ -382,7 +405,7 @@ class AppShell extends StatelessWidget {
         final destinations = roleState.isProvider
             ? const [
                 _NavDestination(
-                    branch: 0, icon: Icons.home_outlined, label: 'Home'),
+                    branch: 0, icon: Icons.home_rounded, label: 'Home'),
                 _NavDestination(
                     branch: 1,
                     icon: Icons.calendar_month_outlined,
@@ -392,7 +415,7 @@ class AppShell extends StatelessWidget {
               ]
             : const [
                 _NavDestination(
-                    branch: 0, icon: Icons.home_outlined, label: 'Home'),
+                    branch: 0, icon: Icons.home_rounded, label: 'Home'),
                 _NavDestination(
                     branch: 1,
                     icon: Icons.calendar_month_outlined,
@@ -410,16 +433,21 @@ class AppShell extends StatelessWidget {
               ];
 
         return Container(
-          height: 80,
-          margin: const EdgeInsets.only(bottom: 20, left: 24, right: 24),
+          height: AppShellMetrics.navBarHeight,
+          margin: const EdgeInsets.only(
+            bottom: AppShellMetrics.navBarBottomMargin,
+            left: AppShellMetrics.navBarSideMargin,
+            right: AppShellMetrics.navBarSideMargin,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
+                color: const Color(0xFF232F55).withValues(alpha: 0.10),
+                blurRadius: 18,
+                offset: const Offset(0, 6),
               ),
             ],
           ),
@@ -430,9 +458,7 @@ class AppShell extends StatelessWidget {
                 _NavButton(
                   destination: d,
                   selected: navigationShell.currentIndex == d.branch,
-                  // Labels only for professionals. The patient bar has always
-                  // been icon-only and changing it is not worth the churn.
-                  showLabel: roleState.isProvider,
+                  showLabel: true,
                   onTap: () => navigationShell.goBranch(d.branch),
                 ),
             ],
@@ -468,8 +494,8 @@ class _NavButton extends StatelessWidget {
   final bool showLabel;
   final VoidCallback onTap;
 
-  static const _active = Color(0xFF40E0D0);
-  static const _inactive = Color(0xFF8A96BC);
+  static const _active = Color(0xFF12B3C7);
+  static const _inactive = Color(0xFF97A2BC);
 
   @override
   Widget build(BuildContext context) {
@@ -478,19 +504,22 @@ class _NavButton extends StatelessWidget {
     return Expanded(
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(destination.icon, size: showLabel ? 24 : 28, color: color),
+            Icon(destination.icon, size: showLabel ? 23 : 27, color: color),
             if (showLabel) ...[
-              const SizedBox(height: 2),
+              const SizedBox(height: 4),
               Text(
                 destination.label,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 9,
+                  height: 1.1,
+                  letterSpacing: -0.2,
                   color: color,
                   fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                 ),

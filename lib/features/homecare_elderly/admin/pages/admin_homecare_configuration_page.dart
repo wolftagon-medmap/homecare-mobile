@@ -181,7 +181,9 @@ class _SubscriptionPlansTab extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(context.l10n.admin_homecare_plan_details(
-                    plan.price.toString(), plan.quotaAmount, plan.validityDays)),
+                    plan.price.toString(),
+                    plan.quotaAmount,
+                    plan.validityDays)),
                 Text(
                   plan.isActive
                       ? context.l10n.admin_homecare_active
@@ -270,8 +272,7 @@ class _EditPlanSheetState extends State<_EditPlanSheet> {
             controller: _priceController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-                labelText: context.l10n.admin_homecare_price,
-                prefixText: '\$'),
+                labelText: context.l10n.admin_homecare_price, prefixText: '\$'),
           ),
           const SizedBox(height: 12),
           Row(

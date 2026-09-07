@@ -73,8 +73,7 @@ class _Bubble extends StatelessWidget {
                   em: baseStyle.copyWith(fontStyle: FontStyle.italic),
                   listBullet: baseStyle,
                   a: baseStyle.copyWith(
-                      color: Const.aqua,
-                      decoration: TextDecoration.underline),
+                      color: Const.aqua, decoration: TextDecoration.underline),
                   h1: baseStyle.copyWith(
                       fontSize: 18, fontWeight: FontWeight.bold),
                   h2: baseStyle.copyWith(

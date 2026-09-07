@@ -129,10 +129,12 @@ class _FileViewerPageState extends State<FileViewerPage> {
                       autoSpacing: false,
                       pageFling: false,
                       onError: (error) {
-                        log('PDFView Error.', error: error, name: 'FileViewerPage');
+                        log('PDFView Error.',
+                            error: error, name: 'FileViewerPage');
                       },
                       onPageError: (page, error) {
-                        log('PDFView Page Error.', error: error, name: 'FileViewerPage');
+                        log('PDFView Page Error.',
+                            error: error, name: 'FileViewerPage');
                       },
                     );
                   }

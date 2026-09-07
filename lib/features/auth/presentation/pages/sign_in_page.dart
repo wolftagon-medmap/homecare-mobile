@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -300,7 +300,7 @@ class _SignInPageState extends State<SignInPage> {
                       loginButton,
                       const SizedBox(height: 11.0),
                       createAccountText,
-                      if (!Platform.isIOS) ...[
+                      if (defaultTargetPlatform != TargetPlatform.iOS) ...[
                         continueWithText,
                         socialIcons,
                       ],

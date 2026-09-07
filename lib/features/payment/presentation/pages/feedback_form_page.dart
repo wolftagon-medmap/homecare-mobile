@@ -6,7 +6,7 @@ import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/features/payment/presentation/cubit/feedback_cubit.dart';
 import 'package:m2health/features/payment/presentation/pages/feedback_success_page.dart';
-import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 class FeedbackFormPage extends StatefulWidget {
   final AppointmentEntity appointment;
@@ -65,9 +65,8 @@ class _FeedbackFormPageState extends State<FeedbackFormPage> {
             MaterialPageRoute(
               builder: (context) => FeedbackSuccessPage(
                 onButtonPressed: () {
-                  // Go to appointment detail and clear the stack
-                  GoRouter.of(context).goNamed(AppRoutes.appointmentDetail,
-                      extra: widget.appointment.id!);
+                  GoRouter.of(context)
+                      .go(AppointmentRoutes.detailPath(widget.appointment.id!));
                 },
               ),
             ),

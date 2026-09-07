@@ -32,7 +32,8 @@ class DeleteAccountCubit extends Cubit<DeleteAccountState> {
   }
 
   Future<void> confirmDeleteAccount(String otp) async {
-    emit(state.copyWith(confirmDeleteState: DeleteAccountActionState.loading()));
+    emit(
+        state.copyWith(confirmDeleteState: DeleteAccountActionState.loading()));
     final result = await deleteAccountRepository.confirmDeleteAccount(
       otp: otp,
       reason: state.selectedReason!,
@@ -40,7 +41,8 @@ class DeleteAccountCubit extends Cubit<DeleteAccountState> {
     );
 
     if (result.status == DeleteAccountResultStatus.success) {
-      emit(state.copyWith(confirmDeleteState: DeleteAccountActionState.success()));
+      emit(state.copyWith(
+          confirmDeleteState: DeleteAccountActionState.success()));
     } else {
       emit(state.copyWith(
           confirmDeleteState: DeleteAccountActionState.error(result.message)));

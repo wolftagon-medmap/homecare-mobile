@@ -32,5 +32,6 @@ class CreatePhysiotherapyAppointmentParams extends Equatable {
   });
 
   @override
-  List<Object?> get props => [type, providerId, startDatetime, duration, physioType];
+  List<Object?> get props =>
+      [type, providerId, startDatetime, duration, physioType];
 }

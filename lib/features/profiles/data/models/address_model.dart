@@ -13,17 +13,25 @@ class AddressModel extends Address {
     super.isDefault,
   });
 
+  /// The API serialises model columns in camelCase and hand-assembled keys in
+  /// snake_case, so both spellings have to be accepted.
+  static dynamic _pick(Map<String, dynamic> json, String snake, String camel) =>
+      json[snake] ?? json[camel];
+
   factory AddressModel.fromJson(Map<String, dynamic> json) {
     return AddressModel(
       id: json['id'],
-      latitude: double.parse(json['latitude'].toString()),
-      longitude: double.parse(json['longitude'].toString()),
-      googlePlaceId: json['google_place_id'],
+      latitude: double.tryParse('${json['latitude']}') ?? 0,
+      longitude: double.tryParse('${json['longitude']}') ?? 0,
+      googlePlaceId: _pick(json, 'google_place_id', 'googlePlaceId') as String?,
       name: json['name'],
-      formattedAddress: json['formatted_address'],
-      shortFormattedAddress: json['short_formatted_address'],
+      formattedAddress:
+          _pick(json, 'formatted_address', 'formattedAddress') as String?,
+      shortFormattedAddress:
+          _pick(json, 'short_formatted_address', 'shortFormattedAddress')
+              as String?,
       label: json['label'],
-      isDefault: json['is_default'] == true,
+      isDefault: _pick(json, 'is_default', 'isDefault') == true,
     );
   }
 

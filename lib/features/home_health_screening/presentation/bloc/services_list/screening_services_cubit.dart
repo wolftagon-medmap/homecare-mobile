@@ -8,20 +8,24 @@ class ScreeningServicesState {
   final List<ServiceEntity> services;
   final String? error;
 
-  ScreeningServicesState({this.isLoading = false, this.services = const [], this.error});
+  ScreeningServicesState(
+      {this.isLoading = false, this.services = const [], this.error});
 }
 
 class ScreeningServicesCubit extends Cubit<ScreeningServicesState> {
   final GetScreeningServices getScreeningServices;
 
-  ScreeningServicesCubit(this.getScreeningServices) : super(ScreeningServicesState(isLoading: true));
+  ScreeningServicesCubit(this.getScreeningServices)
+      : super(ScreeningServicesState(isLoading: true));
 
   Future<void> loadServices() async {
     emit(ScreeningServicesState(isLoading: true));
     final result = await getScreeningServices();
     result.fold(
-      (failure) => emit(ScreeningServicesState(isLoading: false, error: failure.message)),
-      (services) => emit(ScreeningServicesState(isLoading: false, services: services)),
+      (failure) => emit(
+          ScreeningServicesState(isLoading: false, error: failure.message)),
+      (services) =>
+          emit(ScreeningServicesState(isLoading: false, services: services)),
     );
   }
 }

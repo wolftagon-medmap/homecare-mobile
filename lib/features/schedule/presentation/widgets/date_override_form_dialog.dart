@@ -82,7 +82,8 @@ class _DateOverrideFormDialogState extends State<DateOverrideFormDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            DateFormat('MMMM d, yyyy', Localizations.localeOf(context).toString())
+            DateFormat(
+                    'MMMM d, yyyy', Localizations.localeOf(context).toString())
                 .format(widget.selectedDate),
             style: TextStyle(color: Colors.grey.shade900),
           ),

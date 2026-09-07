@@ -36,7 +36,8 @@ class CreateSecondOpinionImagingAppointmentParams extends Equatable {
   final String? biomarker;
   final List<SecondOpinionImageFile> images;
 
-  String get summary => 'Second Opinion of $serviceType analysis ($diseaseName)';
+  String get summary =>
+      'Second Opinion of $serviceType analysis ($diseaseName)';
 
   const CreateSecondOpinionImagingAppointmentParams({
     required this.providerId,
@@ -73,4 +74,3 @@ class SecondOpinionImageFile extends Equatable {
   @override
   List<Object?> get props => [file, imageType];
 }
-

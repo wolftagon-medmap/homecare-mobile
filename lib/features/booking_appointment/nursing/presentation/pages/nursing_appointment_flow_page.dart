@@ -18,8 +18,8 @@ import 'package:m2health/features/booking_appointment/professional_directory/pre
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
 import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
-import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 class NursingAppointmentFlowPage extends StatefulWidget {
   const NursingAppointmentFlowPage({super.key});
@@ -91,16 +91,15 @@ class _NursingAppointmentFlowPageState
             ),
           );
 
-          GoRouter.of(context).goNamed(
-            AppRoutes.appointmentDetail,
-            extra: state.createdAppointment!.id!,
-          );
+          GoRouter.of(context)
+              .go(AppointmentRoutes.detailPath(state.createdAppointment!.id!));
         }
         if (state.submissionStatus == AppointmentSubmissionStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                state.errorMessage ?? context.l10n.booking_appointment_created_failed,
+                state.errorMessage ??
+                    context.l10n.booking_appointment_created_failed,
               ),
               backgroundColor: Colors.red,
             ),
@@ -141,7 +140,6 @@ class _NursingAppointmentFlowPageState
                       context
                           .read<NursingAppointmentFlowBloc>()
                           .add(FlowPersonalIssueUpdated(issues));
-                    
                     },
                   ),
                 ),
@@ -170,10 +168,12 @@ class _NursingAppointmentFlowPageState
                   ),
                   child: SearchProfessionalPage(
                     role: 'nurse',
-                    serviceIds: state.selectedAddOnServices.map((e) => e.id).toList(),
-                    serviceSubCategory: state.serviceType == NurseServiceType.specializedNurse
-                        ? 'Specialized'
-                        : null,
+                    serviceIds:
+                        state.selectedAddOnServices.map((e) => e.id).toList(),
+                    serviceSubCategory:
+                        state.serviceType == NurseServiceType.specializedNurse
+                            ? 'Specialized'
+                            : null,
                     onProfessionalSelected: (prof) {
                       context
                           .read<NursingAppointmentFlowBloc>()
@@ -227,7 +227,8 @@ class _NursingAppointmentFlowPageState
                           : '';
                       return BookingConfirmationPage(
                         patientName: patientName,
-                        onChangePatient: () => showProfileSwitcherSheet(context),
+                        onChangePatient: () =>
+                            showProfileSwitcherSheet(context),
                         address: state.selectedLocation,
                         services: state.selectedAddOnServices,
                         professionalName: state.selectedProfessional!.name,

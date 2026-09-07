@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:flutter/foundation.dart';
 
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
@@ -37,9 +37,9 @@ class AppConfigService {
 
   /// Fetches the platform-specific version config.
   Future<AppConfig> fetch() async {
-    final platform = switch (Platform.operatingSystem) {
-      'ios' => 'ios',
-      'android' => 'android',
+    final platform = switch (defaultTargetPlatform) {
+      TargetPlatform.iOS => 'ios',
+      TargetPlatform.android => 'android',
       _ => throw UnsupportedError('Unsupported platform for app config'),
     };
 

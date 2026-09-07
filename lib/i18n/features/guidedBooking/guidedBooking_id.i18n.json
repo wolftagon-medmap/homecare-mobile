@@ -1,0 +1,78 @@
+{
+  "namespace_title": "Pesan layanan",
+  "sub_service": {
+    "title": "Layanan apa yang Anda butuhkan?",
+    "empty": "Belum ada layanan yang tersedia di sini."
+  },
+  "issues": {
+    "title": "Apa yang bisa kami bantu?",
+    "subtitle": "Pilih satu atau lebih.",
+    "remarks_label": "Catatan (opsional)",
+    "remarks_hint": "Ada hal lain yang perlu diketahui tenaga kesehatan kami?",
+    "add_ons_link": "Tambah prosedur atau layanan tambahan",
+    "error": "Kami tidak dapat memuat daftar keluhan.",
+    "empty": "Belum ada daftar keluhan untuk layanan ini."
+  },
+  "add_ons": {
+    "title": "Ada tambahan lain?",
+    "subtitle": "Opsional. Harga terpisah.",
+    "empty": "Tidak ada layanan tambahan untuk layanan ini.",
+    "selected": "{count} ditambahkan",
+    "no_description": "Belum ada detail tambahan untuk layanan ini."
+  },
+  "professional": {
+    "title": "Pilih tenaga kesehatan",
+    "view_profile": "Lihat profil",
+    "select_cta": "Pilih tenaga kesehatan ini",
+    "location_label": "Alamat kunjungan",
+    "location_empty": "Tambahkan alamat untuk melihat siapa yang tersedia",
+    "location_loading": "Mencari alamat tersimpan Anda",
+    "change_location": "Ubah",
+    "picker_title": "Ke mana kami harus datang?",
+    "add_address": "Tambah alamat baru",
+    "loading": "Mencari tenaga kesehatan di dekat Anda",
+    "empty": "Belum ada tenaga kesehatan untuk alamat ini. Coba alamat lain.",
+    "error": "Kami tidak dapat memuat daftar tenaga kesehatan.",
+    "years": "Pengalaman {years} thn",
+    "reviews": "({count})",
+    "choose_cta": "Pilih profesional ini",
+    "search_hint": "Cari berdasarkan nama"
+  },
+  "schedule": {
+    "title": "Kapan waktu yang cocok?",
+    "select_date": "Pilih tanggal",
+    "select_hour": "Pilih waktu",
+    "chosen": "{day} pukul {time}",
+    "loading": "Memeriksa ketersediaan",
+    "empty": "Tidak ada waktu kosong pada hari ini.",
+    "error": "Kami tidak dapat memuat waktu yang tersedia.",
+    "no_days": "Tenaga kesehatan ini belum memiliki waktu kosong."
+  },
+  "review": {
+    "title": "Periksa permintaan Anda",
+    "service": "Layanan",
+    "issues": "Alasan kunjungan",
+    "remarks": "Catatan",
+    "add_ons": "Tambahan",
+    "location": "Alamat kunjungan",
+    "professional": "Tenaga kesehatan",
+    "schedule": "Waktu yang diinginkan",
+    "estimate": "Perkiraan total",
+    "estimate_note": "Hanya perkiraan. Tidak ada tagihan sekarang — pembayaran dilakukan saat kunjungan.",
+    "edit": "Ubah",
+    "none": "Tidak ada",
+    "send": "Kirim permintaan"
+  },
+  "sent": {
+    "title": "Permintaan terkirim",
+    "body": "Permintaan Anda sudah kami teruskan ke {name}. Kami akan memberi tahu begitu ada jawaban.",
+    "body_generic": "Permintaan Anda sudah kami teruskan. Kami akan memberi tahu begitu ada yang menerima.",
+    "message": "Kirim pesan ke tenaga kesehatan",
+    "view_status": "Lihat pemesanan",
+    "done": "Kembali ke beranda"
+  },
+  "cta": {
+    "continue": "Lanjut",
+    "skip": "Lewati"
+  }
+}

@@ -6,7 +6,7 @@ import 'package:m2health/features/booking_appointment/personal_issue/domain/repo
 class GetPersonalIssues {
   final PersonalIssueRepository repository;
 
- GetPersonalIssues(this.repository);
+  GetPersonalIssues(this.repository);
 
   Future<Either<Failure, List<PersonalIssue>>> call(String serviceType) async {
     return await repository.getPersonalIssues(serviceType);

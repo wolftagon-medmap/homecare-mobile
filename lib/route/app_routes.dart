@@ -19,6 +19,7 @@ class AppRoutes {
   static const String resetPasswordSuccess = '/reset-password-success';
 
   // Dasboard Services
+  static const String allServices = '/all-services';
   static const String pharmaServices = '/pharma-services';
   static const String nursingServices = '/nursing-services';
   static const String diabeticCare = '/diabetic-care';
@@ -79,6 +80,17 @@ class AppRoutes {
   static const String personal = '/personal';
   static const String nursing = '/nursing';
   static const String submenu = '/submenu';
+
+  // === Client-feedback build — feature entry points (A0 owns this block) ===
+  // One entry point per feature. Internal paths live on that feature's own
+  // <slug>_routes.dart class, so nobody needs to reopen this file.
+  static const String guidedBooking = '/guided-booking'; // A1
+  static const String messages = '/messages'; // A2
+  static const String providerServiceRates = '/provider/service-rates'; // A3
+  static const String healthProfile = '/health-profile'; // A5
+
+  // Debug-only. Feature flag toggles; gated behind kDebugMode at the entry tile.
+  static const String debugFeatureFlags = '/debug/feature-flags';
 
   // Settings
   static const String appLanguageSetting = '/settings/language';

@@ -27,10 +27,10 @@ class SubscriptionCubit extends Cubit<SubscriptionState> {
       getUserSubscriptions(),
     ]);
 
-    final plansResult = results[0]
-        as Either<Failure, List<SubscriptionPlanEntity>>;
-    final subsResult = results[1]
-        as Either<Failure, List<UserSubscriptionEntity>>;
+    final plansResult =
+        results[0] as Either<Failure, List<SubscriptionPlanEntity>>;
+    final subsResult =
+        results[1] as Either<Failure, List<UserSubscriptionEntity>>;
 
     List<SubscriptionPlanEntity> plans = state.plans;
     List<UserSubscriptionEntity> subs = state.userSubscriptions;
@@ -59,12 +59,12 @@ class SubscriptionCubit extends Cubit<SubscriptionState> {
   }
 
   Future<void> refreshBalance() async {
-      // Just refresh user subs, silent update
-      final subsResult = await getUserSubscriptions();
-      subsResult.fold(
-        (l) => null,
-        (r) => emit(state.copyWith(userSubscriptions: r)),
-      );
+    // Just refresh user subs, silent update
+    final subsResult = await getUserSubscriptions();
+    subsResult.fold(
+      (l) => null,
+      (r) => emit(state.copyWith(userSubscriptions: r)),
+    );
   }
 
   Future<void> purchase(int planId) async {
@@ -72,8 +72,8 @@ class SubscriptionCubit extends Cubit<SubscriptionState> {
         purchaseStatus: SubscriptionPurchaseStatus.submitting,
         purchaseErrorMessage: null));
 
-    final result = await purchaseSubscription(
-        PurchaseSubscriptionParams(planId: planId));
+    final result =
+        await purchaseSubscription(PurchaseSubscriptionParams(planId: planId));
 
     result.fold(
       (l) => emit(state.copyWith(
@@ -82,15 +82,16 @@ class SubscriptionCubit extends Cubit<SubscriptionState> {
       )),
       (r) async {
         // Success
-        emit(state.copyWith(purchaseStatus: SubscriptionPurchaseStatus.success));
-        
+        emit(
+            state.copyWith(purchaseStatus: SubscriptionPurchaseStatus.success));
+
         // Refresh subscriptions to update balance
         await refreshBalance();
 
         // Reset status after a delay to allow UI to show success
         await Future.delayed(const Duration(seconds: 2));
-        emit(state.copyWith(
-            purchaseStatus: SubscriptionPurchaseStatus.initial));
+        emit(
+            state.copyWith(purchaseStatus: SubscriptionPurchaseStatus.initial));
       },
     );
   }

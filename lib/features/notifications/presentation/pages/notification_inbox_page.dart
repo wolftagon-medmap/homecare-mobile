@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/notifications/domain/entities/app_notification.dart';
 import 'package:m2health/features/notifications/presentation/bloc/notifications_cubit.dart';
+import 'package:m2health/core/messaging/messaging_entry.dart';
 import 'package:m2health/route/app_routes.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 /// The notification inbox. Unread items are visually distinct (tint + dot +
 /// bold), items are grouped by day, tapping marks read and deep-links to the
@@ -49,6 +51,13 @@ class _NotificationInboxPageState extends State<NotificationInboxPage> {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         actions: [
+          // The thread list lives behind the bell, not in the dashboard header:
+          // this is already where people look for what is new.
+          IconButton(
+            tooltip: 'Messages',
+            onPressed: () => context.push(MessagingEntry.list),
+            icon: const Icon(Icons.forum_outlined, color: Const.aqua, size: 22),
+          ),
           BlocBuilder<NotificationsCubit, NotificationsState>(
             builder: (context, state) {
               if (state is! NotificationsLoaded || state.unread == 0) {
@@ -266,8 +275,8 @@ class _NotificationTile extends StatelessWidget {
                         const SizedBox(width: 8),
                         Text(
                           _relativeTime(notification.createdAt),
-                          style: TextStyle(
-                              fontSize: 12, color: Colors.grey[500]),
+                          style:
+                              TextStyle(fontSize: 12, color: Colors.grey[500]),
                         ),
                       ],
                     ),
@@ -300,6 +309,11 @@ class _NotificationTile extends StatelessWidget {
     context.read<NotificationsCubit>().markRead(notification);
 
     final type = notification.type ?? '';
+    // A message notification always points at its conversation.
+    if (notification.threadId != null) {
+      context.push(MessagingEntry.threadPath(notification.threadId!));
+      return;
+    }
     // Nurse offer → the Pending inbox tab (same target as the FCM tap).
     // `/appointment` is a bottom-nav shell branch: switch to it with `go` —
     // pushing a branch route duplicates the shell page key and crashes.
@@ -308,12 +322,12 @@ class _NotificationTile extends StatelessWidget {
       return;
     }
     if (notification.appointmentId != null) {
-      context.push(AppRoutes.appointmentDetail,
-          extra: notification.appointmentId);
+      context.push(AppointmentRoutes.detailPath(notification.appointmentId!));
       return;
     }
     if (notification.careTaskId != null) {
-      context.push(AppRoutes.careTaskDetail, extra: notification.careTaskId);
+      context
+          .push(AppointmentRoutes.careTaskDetailPath(notification.careTaskId!));
     }
   }
 
@@ -333,6 +347,15 @@ class _NotificationTile extends StatelessWidget {
     }
     if (t == 'offer.received' || t == 'appointment.pending') {
       return (icon: Icons.assignment_outlined, color: Const.aqua);
+    }
+    if (t == 'message.received') {
+      return (icon: Icons.forum_outlined, color: Const.aqua);
+    }
+    if (t == 'time.proposed' || t == 'time.accepted' || t == 'time.declined') {
+      return (icon: Icons.event_repeat, color: Const.primaryBlue);
+    }
+    if (t == 'estimate.revised') {
+      return (icon: Icons.receipt_long_outlined, color: Const.tosca);
     }
     if (t == 'handoff.requested' || t == 'intake.halted') {
       return (icon: Icons.support_agent, color: Colors.deepOrange);

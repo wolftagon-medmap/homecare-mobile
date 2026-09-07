@@ -3,7 +3,7 @@ import 'package:m2health/features/medical_record/domain/entities/medical_record.
 class FileUploadModel extends FileUpload {
   const FileUploadModel({
     required super.id,
-  super.originalName,
+    super.originalName,
     super.path,
     super.url,
     super.createdAt,
@@ -19,7 +19,7 @@ class FileUploadModel extends FileUpload {
 
     return FileUploadModel(
       id: json['id'] ?? 0,
-  originalName: (json['originalName'] ?? json['original_name']) as String?,
+      originalName: (json['originalName'] ?? json['original_name']) as String?,
       path: json['path'],
       url: json['url'],
       createdAt: tryParseDate(json['created_at']),
@@ -30,7 +30,7 @@ class FileUploadModel extends FileUpload {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-  'original_name': originalName,
+      'original_name': originalName,
       'path': path,
       'url': url,
       'created_at': createdAt?.toIso8601String(),
@@ -50,19 +50,19 @@ class MedicalRecordModel extends MedicalRecord {
     super.specialConsideration,
     super.treatmentInfo,
     super.fileUrl,
-  super.files,
+    super.files,
     required super.createdAt,
     required super.updatedAt,
   });
 
   factory MedicalRecordModel.fromJson(Map<String, dynamic> json) {
-  final filesJson = json['files'];
-  final files = (filesJson is List)
-    ? filesJson
-      .whereType<Map<String, dynamic>>()
-      .map((f) => FileUploadModel.fromJson(f))
-      .toList()
-    : <FileUploadModel>[];
+    final filesJson = json['files'];
+    final files = (filesJson is List)
+        ? filesJson
+            .whereType<Map<String, dynamic>>()
+            .map((f) => FileUploadModel.fromJson(f))
+            .toList()
+        : <FileUploadModel>[];
 
     return MedicalRecordModel(
       id: json['id'] ?? 0,
@@ -74,7 +74,7 @@ class MedicalRecordModel extends MedicalRecord {
       specialConsideration: json['special_consideration'],
       treatmentInfo: json['treatment_info'],
       fileUrl: json['file_url'],
-  files: files,
+      files: files,
       createdAt: DateTime.parse(
           json['created_at'] ?? DateTime.now().toIso8601String()),
       updatedAt: DateTime.parse(

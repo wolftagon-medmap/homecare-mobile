@@ -129,7 +129,7 @@ class _PaymentPageState extends State<PaymentPage> {
           method: selectedPaymentMethod!.code,
           amount: totalCost,
         );
-    }
+  }
 
   @override
   Widget build(BuildContext context) {

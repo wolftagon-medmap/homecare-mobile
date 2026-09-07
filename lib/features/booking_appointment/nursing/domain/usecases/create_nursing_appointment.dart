@@ -36,6 +36,12 @@ class CreateNursingAppointmentParams extends Equatable {
   });
 
   @override
-  List<Object?> get props =>
-      [type, providerId, startDatetime, patientProfileId, location, nursingCase];
+  List<Object?> get props => [
+        type,
+        providerId,
+        startDatetime,
+        patientProfileId,
+        location,
+        nursingCase
+      ];
 }

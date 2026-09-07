@@ -9,7 +9,8 @@ class ToggleSubscriptionPlanActive {
 
   ToggleSubscriptionPlanActive(this.repository);
 
-  Future<Either<Failure, SubscriptionPlanEntity>> call(ToggleSubscriptionPlanActiveParams params) async {
+  Future<Either<Failure, SubscriptionPlanEntity>> call(
+      ToggleSubscriptionPlanActiveParams params) async {
     return await repository.toggleSubscriptionPlanActive(params.id);
   }
 }

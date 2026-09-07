@@ -117,7 +117,9 @@ class _DateSpecificHoursTabState extends State<DateSpecificHoursTab> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              DateFormat('EEEE, MMM d', Localizations.localeOf(context).toString()).format(_selectedDay),
+              DateFormat(
+                      'EEEE, MMM d', Localizations.localeOf(context).toString())
+                  .format(_selectedDay),
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             if (isRealOverride)
@@ -142,8 +144,8 @@ class _DateSpecificHoursTabState extends State<DateSpecificHoursTab> {
             border: Border.all(color: Colors.grey.shade200),
           ),
           child: SwitchListTile(
-            title:
-                Text(context.l10n.schedule_i_am_unavailable, style: const TextStyle(fontSize: 14)),
+            title: Text(context.l10n.schedule_i_am_unavailable,
+                style: const TextStyle(fontSize: 14)),
             subtitle: Text(context.l10n.schedule_mark_day_off,
                 style: const TextStyle(fontSize: 12)),
             value: override.isUnavailble,
@@ -174,7 +176,8 @@ class _DateSpecificHoursTabState extends State<DateSpecificHoursTab> {
             children: [
               Text(
                 context.l10n.schedule_specific_hours,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               IconButton(
                 onPressed: () => _showAddSlotDialog(context),
@@ -266,17 +269,18 @@ class _DateSpecificHoursTabState extends State<DateSpecificHoursTab> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(context.l10n.schedule_reset_default_title),
-        content: Text(
-            context.l10n.schedule_reset_default_content),
+        content: Text(context.l10n.schedule_reset_default_content),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(ctx), child: Text(context.l10n.common_cancel)),
+              onPressed: () => Navigator.pop(ctx),
+              child: Text(context.l10n.common_cancel)),
           TextButton(
               onPressed: () {
                 Navigator.pop(ctx);
                 context.read<ScheduleCubit>().revertToWeekly(_selectedDay);
               },
-              child: Text(context.l10n.schedule_reset_btn, style: const TextStyle(color: Colors.red))),
+              child: Text(context.l10n.schedule_reset_btn,
+                  style: const TextStyle(color: Colors.red))),
         ],
       ),
     );

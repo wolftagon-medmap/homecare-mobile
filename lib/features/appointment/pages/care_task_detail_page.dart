@@ -2,16 +2,20 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/messaging/thread_index_cubit.dart';
+import 'package:m2health/core/messaging/thread_ref.dart';
+import 'package:m2health/core/presentation/widgets/messaging/message_action_button.dart';
+import 'package:m2health/core/presentation/widgets/messaging/propose_time_sheet.dart';
+
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/appointment/bloc/care_task_detail_cubit.dart';
 import 'package:m2health/features/appointment/data/models/patient_care_task_detail.dart';
 import 'package:m2health/features/settings/language/locale_cubit.dart';
-import 'package:m2health/core/presentation/widgets/buttons/gradient_button.dart';
 import 'package:m2health/i18n/translations.g.dart';
-import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
+import 'package:m2health/route/appointment_routes.dart';
 
 /// Detail page for a pre-acceptance booking (v2 care task) — the patient-side
 /// mirror of the appointment detail page. Once the booking is accepted it
@@ -39,8 +43,8 @@ class CareTaskDetailPage extends StatelessWidget {
             // detail now.
             if (state is CareTaskDetailLoaded &&
                 state.detail.appointmentId != null) {
-              context.pushReplacement(AppRoutes.appointmentDetail,
-                  extra: state.detail.appointmentId);
+              context.pushReplacement(
+                  AppointmentRoutes.detailPath(state.detail.appointmentId!));
             }
           },
           builder: (context, state) {
@@ -64,26 +68,133 @@ class CareTaskDetailPage extends StatelessWidget {
             return const Center(child: Text('Something went wrong.'));
           },
         ),
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          height: 80,
-          child: Builder(
-            builder: (context) => GradientButton(
-              text: 'Continue in AI Chat',
-              gradient: const LinearGradient(
-                colors: [Color(0xFF35C5CF), Color(0xFF9DCEFF)],
-                begin: Alignment.bottomRight,
-                end: Alignment.topLeft,
+        bottomNavigationBar:
+            BlocBuilder<CareTaskDetailCubit, CareTaskDetailState>(
+          // Two different bars, because the booking is in one of two situations.
+          // Waiting on a professional, it offers the conversation. Waiting on
+          // the patient, it offers the way out — anything else is a screen that
+          // tells someone to act and gives them nothing to act with.
+          builder: (context, state) {
+            final unmatched =
+                state is CareTaskDetailLoaded && state.detail.isUnmatched;
+            if (unmatched) {
+              return _RetryBar(careTaskId: careTaskId);
+            }
+
+            final threadRef = ThreadRef.forCareTask(careTaskId);
+            final hasThread = context.select<ThreadIndexCubit, bool>(
+              (cubit) => cubit.state.resolve(threadRef) != null,
+            );
+            if (!hasThread) return const SizedBox.shrink();
+
+            return BottomAppBar(
+              color: Colors.white,
+              height: 80,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: MessageActionButton(
+                      threadRef: threadRef,
+                      style: MessageActionStyle.gradient,
+                      label: 'Chat',
+                    ),
+                  ),
+                ],
               ),
-              onPressed: () async {
-                await GoRouter.of(context).push(AppRoutes.intakeBooking);
-                if (context.mounted) {
-                  context.read<CareTaskDetailCubit>().fetchDetail(careTaskId);
-                }
-              },
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+/// The way out of `unmatched`. Nobody took the booking, so the next move is
+/// the patient's: a different time, asked of everyone again.
+class _RetryBar extends StatefulWidget {
+  final int careTaskId;
+
+  const _RetryBar({required this.careTaskId});
+
+  @override
+  State<_RetryBar> createState() => _RetryBarState();
+}
+
+class _RetryBarState extends State<_RetryBar> {
+  bool _busy = false;
+
+  Future<void> _pickAnotherTime() async {
+    final slot = await showProposeTimeSheet(
+      context,
+      title: 'Pick another time',
+      confirmLabel: 'Ask again',
+      askReason: false,
+    );
+    if (slot == null || !mounted) return;
+
+    setState(() => _busy = true);
+    final outcome = await context
+        .read<CareTaskDetailCubit>()
+        .retryAtNewTime(widget.careTaskId, start: slot.start);
+    if (!mounted) return;
+    setState(() => _busy = false);
+
+    final message = switch (outcome) {
+      CareTaskRetryOutcome.asked =>
+        'We are asking professionals about the new time.',
+      CareTaskRetryOutcome.nobodyAvailable =>
+        'Nobody is free then either. Your booking is still here — try another time.',
+      CareTaskRetryOutcome.failed =>
+        'That did not go through. Please try again.',
+    };
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        content: Text(message),
+        backgroundColor: outcome == CareTaskRetryOutcome.asked
+            ? Colors.green
+            : Colors.grey.shade800,
+        duration: const Duration(seconds: 4),
+      ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+      color: Colors.white,
+      height: 80,
+      child: Row(
+        children: [
+          Expanded(
+            child: ElevatedButton.icon(
+              onPressed: _busy ? null : _pickAnotherTime,
+              icon: _busy
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
+                    )
+                  : const Icon(Icons.event_repeat, size: 18),
+              label: const Text('Pick another time'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Const.aqua,
+                foregroundColor: Colors.white,
+                elevation: 0,
+                minimumSize: const Size.fromHeight(48),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                textStyle: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -101,15 +212,22 @@ class _Content extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (detail.isUnmatched) ...[
+            const _UnmatchedBanner(),
+            const SizedBox(height: 16),
+          ],
           _ProviderCard(detail: detail),
           const SizedBox(height: 16),
           _ScheduleSection(detail: detail),
           const SizedBox(height: 16),
           _PatientSection(detail: detail),
-          if (detail.chiefComplaint != null &&
-              detail.chiefComplaint!.isNotEmpty) ...[
+          if (detail.issueLabels.isNotEmpty ||
+              (detail.chiefComplaint?.isNotEmpty ?? false)) ...[
             const SizedBox(height: 16),
-            _ComplaintSection(complaint: detail.chiefComplaint!),
+            _VisitReasonSection(
+              labels: detail.issueLabels,
+              remark: detail.chiefComplaint,
+            ),
           ],
           const SizedBox(height: 16),
           _EstimateSection(detail: detail),
@@ -148,10 +266,10 @@ class _ProviderCard extends StatelessWidget {
           CircleAvatar(
             radius: 40,
             backgroundColor: Colors.grey.shade200,
-            backgroundImage: (provider?.avatar != null &&
-                    provider!.avatar!.isNotEmpty)
-                ? NetworkImage(provider.avatar!)
-                : null,
+            backgroundImage:
+                (provider?.avatar != null && provider!.avatar!.isNotEmpty)
+                    ? NetworkImage(provider.avatar!)
+                    : null,
             child: (provider?.avatar == null || provider!.avatar!.isEmpty)
                 ? Icon(provider == null ? Icons.person_search : Icons.person,
                     size: 40, color: Colors.grey)
@@ -169,7 +287,9 @@ class _ProviderCard extends StatelessWidget {
                 ),
                 Text(provider != null
                     ? (provider.jobTitle ?? detail.serviceLabel)
-                    : 'We are finding the right professional for you'),
+                    : detail.isUnmatched
+                        ? detail.serviceLabel
+                        : 'We are finding the right professional for you'),
                 const SizedBox(height: 8),
                 _StatusTag(label: detail.statusLabel, status: detail.status),
               ],
@@ -194,7 +314,8 @@ class _ScheduleSection extends StatelessWidget {
         if (detail.scheduledStart != null) {
           final localStart = detail.scheduledStart!.toLocal();
           date = DateFormat.yMMMMEEEEd(locale.languageCode).format(localStart);
-          final startHour = DateFormat.jm(locale.languageCode).format(localStart);
+          final startHour =
+              DateFormat.jm(locale.languageCode).format(localStart);
           final localEnd = detail.scheduledEnd?.toLocal();
           hour = localEnd != null
               ? '$startHour - ${DateFormat.jm(locale.languageCode).format(localEnd)}'
@@ -258,31 +379,108 @@ class _PatientSection extends StatelessWidget {
   }
 }
 
-class _ComplaintSection extends StatelessWidget {
-  final String complaint;
-  const _ComplaintSection({required this.complaint});
+/// Nobody available took this booking. It is still the patient's — what it
+/// needs is a different time or a different professional.
+class _UnmatchedBanner extends StatelessWidget {
+  const _UnmatchedBanner();
 
   @override
   Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFDECEC),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFFD64545)),
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'No professional could take this time',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+                color: Color(0xFFD64545)),
+          ),
+          SizedBox(height: 4),
+          Text(
+            'Your booking has not been cancelled. Pick another time below and '
+            'we will ask again.',
+            style: TextStyle(fontSize: 13),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Why the visit was booked: the reasons picked in guided booking, and the
+/// patient's own remark underneath. They are one section because they are one
+/// answer — the chips are what was chosen, the remark is what was added to it.
+class _VisitReasonSection extends StatelessWidget {
+  final List<String> labels;
+  final String? remark;
+
+  const _VisitReasonSection({required this.labels, this.remark});
+
+  @override
+  Widget build(BuildContext context) {
+    final note = remark?.trim() ?? '';
+    // Bookings sent before the backend stopped echoing the reasons into the
+    // complaint still carry the labels as their remark. Showing it would just
+    // repeat the chips above.
+    final showNote = note.isNotEmpty && note != labels.join(', ');
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Chief Complaint',
+            'Reason for the visit',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-          const SizedBox(height: 8),
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(8),
+          if (labels.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final label in labels)
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Const.tosca.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      label,
+                      style: const TextStyle(fontSize: 13, color: Const.tosca),
+                    ),
+                  ),
+              ],
             ),
-            child: Text(complaint, style: const TextStyle(fontSize: 14)),
-          ),
+          ],
+          if (showNote) ...[
+            const SizedBox(height: 12),
+            const Text(
+              'Remarks',
+              style: TextStyle(fontSize: 13, color: Const.contentTextColor),
+            ),
+            const SizedBox(height: 6),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(note, style: const TextStyle(fontSize: 14)),
+            ),
+          ],
         ],
       ),
     );

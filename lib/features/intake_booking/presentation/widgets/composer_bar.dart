@@ -74,16 +74,15 @@ class _ComposerBarState extends State<ComposerBar> {
             success: (text) => _controller.text = text,
             error: (message) => ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                  content: Text(message),
-                  behavior: SnackBarBehavior.floating),
+                  content: Text(message), behavior: SnackBarBehavior.floating),
             ),
             permissionPermanentlyDenied: () => _showMicSettingsDialog(context),
           );
         },
         child: BlocBuilder<VoiceInputCubit, VoiceInputState>(
           builder: (context, voiceState) {
-            final isRecording =
-                voiceState.maybeWhen(recording: (_) => true, orElse: () => false);
+            final isRecording = voiceState.maybeWhen(
+                recording: (_) => true, orElse: () => false);
             final isPaused =
                 voiceState.maybeWhen(paused: (_) => true, orElse: () => false);
             final isTranscribing = voiceState.maybeWhen(
@@ -126,7 +125,8 @@ class _ComposerBarState extends State<ComposerBar> {
               hintText: isTranscribing
                   ? 'Transcribing…'
                   : (widget.composer.placeholder ?? 'Type your message…'),
-              hintStyle: const TextStyle(color: Color(0xFF8A96BC), fontSize: 14),
+              hintStyle:
+                  const TextStyle(color: Color(0xFF8A96BC), fontSize: 14),
               filled: true,
               fillColor: const Color(0xFFF1F3F8),
               contentPadding:
@@ -160,7 +160,8 @@ class _ComposerBarState extends State<ComposerBar> {
                       child: CircularProgressIndicator(
                           strokeWidth: 2, color: Colors.white),
                     )
-                  : const Icon(Icons.send_rounded, color: Colors.white, size: 20),
+                  : const Icon(Icons.send_rounded,
+                      color: Colors.white, size: 20),
             ),
           ),
         ),

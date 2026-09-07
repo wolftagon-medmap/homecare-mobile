@@ -14,8 +14,7 @@ class CarePlanModel extends CarePlanEntity {
 
   factory CarePlanModel.fromJson(Map<String, dynamic> json) {
     final activities = (json['activities'] as List? ?? [])
-        .map((e) =>
-            CarePlanActivityModel.fromJson(e as Map<String, dynamic>))
+        .map((e) => CarePlanActivityModel.fromJson(e as Map<String, dynamic>))
         .toList();
     return CarePlanModel(
       id: json['id'] as int,

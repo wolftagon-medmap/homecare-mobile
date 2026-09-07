@@ -4,7 +4,6 @@ import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/domain/entities/time_slot.dart';
 import 'package:m2health/features/booking_appointment/schedule_appointment/domain/repositories/schedule_appointment_repository.dart';
 
-
 class GetAvailableTimeSlots {
   final ScheduleAppointmentRepository repository;
   GetAvailableTimeSlots(this.repository);
