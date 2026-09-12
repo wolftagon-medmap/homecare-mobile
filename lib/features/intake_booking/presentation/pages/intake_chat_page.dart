@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/chatbot_legacy/presentation/widgets/ai_data_consent.dart';
+import 'package:m2health/features/_legacy/chatbot_legacy/presentation/widgets/ai_data_consent.dart';
 import 'package:m2health/features/intake_booking/domain/entities/session_summary.dart';
 import 'package:m2health/features/intake_booking/presentation/bloc/intake_cubit.dart';
 import 'package:m2health/features/intake_booking/presentation/bloc/intake_sessions_cubit.dart';

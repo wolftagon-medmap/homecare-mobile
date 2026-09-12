@@ -3,15 +3,15 @@ import 'package:m2health/core/domain/entities/care_plan_entity.dart';
 import 'package:m2health/core/domain/entities/diagnostic_report_entity.dart';
 import 'package:m2health/core/domain/entities/order_entity.dart';
 import 'package:m2health/core/domain/entities/service_request_entity.dart';
-import 'package:m2health/features/home_health_screening/data/models/screening_request_data.dart';
-import 'package:m2health/features/homecare_elderly/domain/entities/homecare_request_data.dart';
+import 'package:m2health/features/_legacy/booking_appointment/home_health_screening/data/models/screening_request_data.dart';
+import 'package:m2health/features/_legacy/booking_appointment/homecare_elderly/domain/entities/homecare_request_data.dart';
 import 'package:m2health/features/payment/domain/entities/payment.dart';
-import 'package:m2health/features/booking_appointment/nursing/domain/entities/nursing_case.dart';
-import 'package:m2health/features/booking_appointment/pharmacy/domain/entities/pharmacy_case.dart';
-import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
-import 'package:m2health/features/physiotherapy/domain/entities/physiotherapy_request_data.dart';
-import 'package:m2health/features/second_opinion_imaging/domain/entities/second_opinion_imaging_feedback.dart';
-import 'package:m2health/features/second_opinion_imaging/domain/entities/second_opinion_imaging_request_data.dart';
+import 'package:m2health/features/_legacy/booking_appointment/nursing/domain/entities/nursing_case.dart';
+import 'package:m2health/features/_legacy/booking_appointment/pharmacy/domain/entities/pharmacy_case.dart';
+import 'package:m2health/features/_legacy/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
+import 'package:m2health/features/_legacy/booking_appointment/physiotherapy/domain/entities/physiotherapy_request_data.dart';
+import 'package:m2health/features/_legacy/booking_appointment/second_opinion_imaging/domain/entities/second_opinion_imaging_feedback.dart';
+import 'package:m2health/features/_legacy/booking_appointment/second_opinion_imaging/domain/entities/second_opinion_imaging_request_data.dart';
 import 'package:m2health/features/profiles/domain/entities/profile.dart';
 
 class AppointmentEntity extends Equatable {

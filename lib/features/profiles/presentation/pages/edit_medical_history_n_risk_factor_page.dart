@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
-import 'package:m2health/features/diabetes/bloc/diabetes_form_state.dart';
-import 'package:m2health/features/diabetes/pages/form/risk_factor_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/diabetes/bloc/diabetes_form_cubit.dart';
+import 'package:m2health/features/_legacy/booking_appointment/diabetes/bloc/diabetes_form_state.dart';
+import 'package:m2health/features/_legacy/booking_appointment/diabetes/pages/form/risk_factor_page.dart';
 
 class EditMedicalHistoryNRiskFactorPage extends StatefulWidget {
   const EditMedicalHistoryNRiskFactorPage({super.key});

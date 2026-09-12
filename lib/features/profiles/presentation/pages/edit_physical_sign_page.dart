@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
-import 'package:m2health/features/diabetes/bloc/diabetes_form_state.dart';
-import 'package:m2health/features/diabetes/pages/form/physical_signs_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/diabetes/bloc/diabetes_form_cubit.dart';
+import 'package:m2health/features/_legacy/booking_appointment/diabetes/bloc/diabetes_form_state.dart';
+import 'package:m2health/features/_legacy/booking_appointment/diabetes/pages/form/physical_signs_page.dart';
 
 class EditPhysicalSignPage extends StatefulWidget {
   const EditPhysicalSignPage({super.key});

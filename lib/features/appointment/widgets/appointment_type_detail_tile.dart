@@ -3,12 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/domain/entities/service_request_detail.dart';
-import 'package:m2health/features/booking_appointment/nursing/presentation/pages/nursing_chief_complaint_page.dart';
-import 'package:m2health/features/booking_appointment/pharmacy/presentation/pages/pharmacy_chief_complaint_page.dart';
-import 'package:m2health/features/home_health_screening/presentation/pages/home_screening_appointment_detail_page.dart';
-import 'package:m2health/features/second_opinion_imaging/presentation/pages/second_opinion_request_detail_page.dart';
-import 'package:m2health/features/nutrition/presentation/pages/nutrition_appointment_overview_page.dart';
-import 'package:m2health/features/smoking_cessation/presentation/pages/smoking_cessation_appointment_detail_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/nursing/presentation/pages/nursing_chief_complaint_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/pharmacy/presentation/pages/pharmacy_chief_complaint_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/home_health_screening/presentation/pages/home_screening_appointment_detail_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/second_opinion_imaging/presentation/pages/second_opinion_request_detail_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/nutrition/presentation/pages/nutrition_appointment_overview_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/smoking_cessation/presentation/pages/smoking_cessation_appointment_detail_page.dart';
 import 'package:m2health/route/app_routes.dart';
 
 /// Renders a styled navigation card for appointment-type-specific content.

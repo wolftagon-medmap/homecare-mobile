@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/buttons/primary_button.dart';
-import 'package:m2health/features/diabetes/widgets/diabetes_form_widget.dart';
+import 'package:m2health/features/_legacy/booking_appointment/diabetes/widgets/diabetes_form_widget.dart';
 import 'package:m2health/features/profiles/domain/entities/mental_health_state.dart';
 import 'package:m2health/features/profiles/presentation/bloc/mental_health_state_cubit.dart';
 import 'package:m2health/features/profiles/presentation/bloc/mental_health_state_state.dart';

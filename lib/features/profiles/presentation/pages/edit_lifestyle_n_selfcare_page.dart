@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
-import 'package:m2health/features/diabetes/bloc/diabetes_form_state.dart';
-import 'package:m2health/features/diabetes/pages/form/lifestyle_self_care_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/diabetes/bloc/diabetes_form_cubit.dart';
+import 'package:m2health/features/_legacy/booking_appointment/diabetes/bloc/diabetes_form_state.dart';
+import 'package:m2health/features/_legacy/booking_appointment/diabetes/pages/form/lifestyle_self_care_page.dart';
 
 class EditLifestyleNSelfcarePage extends StatefulWidget {
   const EditLifestyleNSelfcarePage({super.key});

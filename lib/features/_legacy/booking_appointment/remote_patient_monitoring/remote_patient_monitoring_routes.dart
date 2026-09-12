@@ -1,0 +1,35 @@
+import 'package:go_router/go_router.dart';
+import 'package:m2health/features/_legacy/booking_appointment/remote_patient_monitoring/enums/vital_category.dart';
+import 'package:m2health/features/_legacy/booking_appointment/remote_patient_monitoring/pages/bluetooth_search_device_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/remote_patient_monitoring/pages/manual_add_device_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/remote_patient_monitoring/pages/scan_device_page.dart';
+import 'package:m2health/route/app_routes.dart';
+
+class RemotePatientMonitoringRoutes {
+  static List<GoRoute> routes = [
+    GoRoute(
+      path: AppRoutes.monitoringBluetoothSearchDevice,
+      name: AppRoutes.monitoringBluetoothSearchDevice,
+      builder: (context, state) {
+        final category = state.extra != null
+            ? state.extra as VitalCategory
+            : VitalCategory.heartPerformance;
+        return BluetoothSearchDevicePage(vitalCategory: category);
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.monitoringSupportedDevices,
+      name: AppRoutes.monitoringSupportedDevices,
+      builder: (context, state) {
+        return const ManualAddDevicePage();
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.monitoringScanDevice,
+      name: AppRoutes.monitoringScanDevice,
+      builder: (context, state) {
+        return const ScanDevicePage();
+      },
+    ),
+  ];
+}

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/core/domain/entities/order_entity.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
-import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
+import 'package:m2health/features/_legacy/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:m2health/features/payment/presentation/widgets/offline_payment_success_dialog.dart';
 import 'package:m2health/features/payment/presentation/widgets/payment_success_dialog.dart';
