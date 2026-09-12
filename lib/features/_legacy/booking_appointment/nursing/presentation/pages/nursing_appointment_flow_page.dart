@@ -15,9 +15,9 @@ import 'package:m2health/features/_legacy/booking_appointment/personal_issue/pre
 import 'package:m2health/features/_legacy/booking_appointment/personal_issue/presentation/pages/personal_issues_page.dart';
 import 'package:m2health/features/_legacy/booking_appointment/professional_directory/presentation/pages/search_professional_page.dart';
 import 'package:m2health/features/_legacy/booking_appointment/professional_directory/presentation/pages/professional_details_page.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
-import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_state.dart';
+import 'package:m2health/features/user_profiles/presentation/widgets/profile_switcher_sheet.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/route/appointment_routes.dart';
 

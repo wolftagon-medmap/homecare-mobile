@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:m2health/features/_legacy/booking_appointment/professional_directory/domain/entities/reviewer.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
 import 'package:m2health/features/professional_profile/domain/entities/care_style.dart';
 import 'package:m2health/features/professional_profile/domain/entities/certificate.dart';
 import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';

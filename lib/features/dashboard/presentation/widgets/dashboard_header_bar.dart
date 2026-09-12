@@ -10,7 +10,7 @@ import 'package:m2health/features/dashboard/presentation/widgets/ai_assistant_ba
 import 'package:m2health/features/dashboard/presentation/widgets/notification_bell.dart';
 import 'package:m2health/features/dashboard/presentation/widgets/profile_avatar.dart';
 import 'package:m2health/features/notifications/presentation/bloc/notifications_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 class DashboardHeaderBar extends StatelessWidget {

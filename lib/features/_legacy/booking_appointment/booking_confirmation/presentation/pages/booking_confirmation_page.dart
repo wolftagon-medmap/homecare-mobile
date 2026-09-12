@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 /// Shared "review before you book" step: patient, visit address, services,

@@ -13,8 +13,8 @@ import 'package:m2health/core/domain/entities/order_entity.dart';
 import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/features/appointment/models/paginated_appointment_response.dart';
 import 'package:m2health/core/data/models/appointment_model.dart';
-import 'package:m2health/features/profiles/data/models/profile_model.dart';
-import 'package:m2health/features/profiles/domain/entities/profile.dart';
+import 'package:m2health/features/user_profiles/data/models/profile_model.dart';
+import 'package:m2health/features/user_profiles/domain/entities/profile.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/utils.dart';
 

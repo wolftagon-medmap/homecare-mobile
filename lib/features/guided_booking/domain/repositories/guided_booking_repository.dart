@@ -5,7 +5,7 @@ import 'package:m2health/features/guided_booking/domain/entities/booking_request
 import 'package:m2health/features/guided_booking/domain/entities/booking_slot.dart';
 import 'package:m2health/features/guided_booking/domain/entities/guided_booking_draft.dart';
 import 'package:m2health/features/guided_booking/domain/entities/issue_catalogue.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
 
 abstract class IssueCatalogueRepository {
   Future<Either<Failure, IssueCatalogue>> getCatalogue(String category);

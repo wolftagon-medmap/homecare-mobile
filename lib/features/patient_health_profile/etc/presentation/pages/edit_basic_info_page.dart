@@ -6,13 +6,13 @@ import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/extensions/string_extensions.dart';
 import 'package:m2health/core/presentation/widgets/country_picker_field.dart';
-import 'package:m2health/features/profiles/domain/entities/profile.dart';
+import 'package:m2health/features/user_profiles/domain/entities/profile.dart';
 import 'dart:io';
-import 'package:m2health/features/profiles/domain/usecases/create_profile.dart';
-import 'package:m2health/features/profiles/domain/usecases/update_profile.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
-import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
+import 'package:m2health/features/user_profiles/domain/usecases/create_profile.dart';
+import 'package:m2health/features/user_profiles/domain/usecases/update_profile.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_state.dart';
+import 'package:m2health/features/user_profiles/presentation/widgets/profile_switcher_sheet.dart';
 
 /// Edits the active profile, or adds a family member when [isCreate] is set.
 class EditBasicInfoPage extends StatefulWidget {

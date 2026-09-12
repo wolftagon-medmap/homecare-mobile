@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 class VisitAddressBar extends StatelessWidget {

@@ -20,7 +20,7 @@ import 'package:m2health/features/appointment/widgets/appointment_type_detail_ti
 import 'package:m2health/core/presentation/widgets/booking/cancel_appointment_dialog.dart';
 import 'package:m2health/features/_legacy/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
 import 'package:m2health/features/_legacy/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
-import 'package:m2health/features/profiles/domain/entities/profile.dart';
+import 'package:m2health/features/user_profiles/domain/entities/profile.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';

@@ -1,7 +1,7 @@
 import 'package:m2health/core/location/current_location_service.dart';
 import 'package:m2health/core/location/visit_location.dart';
 import 'package:m2health/core/location/visit_location_picker.dart';
-import 'package:m2health/features/profiles/domain/usecases/create_address.dart';
+import 'package:m2health/features/user_profiles/domain/usecases/create_address.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -12,9 +12,9 @@ import 'package:m2health/features/_legacy/booking_appointment/professional_direc
 import 'package:m2health/features/_legacy/booking_appointment/professional_directory/presentation/bloc/professional/professional_event.dart';
 import 'package:m2health/features/_legacy/booking_appointment/professional_directory/presentation/bloc/professional/professional_state.dart';
 import 'package:m2health/features/_legacy/booking_appointment/professional_directory/presentation/widgets/visit_address_bar.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
-import 'package:m2health/features/profiles/presentation/bloc/saved_addresses_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/saved_addresses_state.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/saved_addresses_cubit.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/saved_addresses_state.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/service_locator.dart';
 

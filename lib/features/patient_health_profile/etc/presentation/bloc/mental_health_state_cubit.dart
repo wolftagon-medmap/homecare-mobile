@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/services/questionnaire_service.dart';
 import 'package:m2health/features/patient_health_profile/etc/domain/entities/mental_health_state.dart';
-import 'package:m2health/features/profiles/domain/repositories/profile_repository.dart';
+import 'package:m2health/features/user_profiles/domain/repositories/profile_repository.dart';
 import 'package:m2health/features/patient_health_profile/etc/presentation/bloc/mental_health_state_state.dart';
 
 class MentalHealthStateCubit extends Cubit<MentalHealthStateState> {

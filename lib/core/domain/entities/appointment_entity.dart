@@ -12,7 +12,7 @@ import 'package:m2health/features/_legacy/booking_appointment/professional_direc
 import 'package:m2health/features/_legacy/booking_appointment/physiotherapy/domain/entities/physiotherapy_request_data.dart';
 import 'package:m2health/features/_legacy/booking_appointment/second_opinion_imaging/domain/entities/second_opinion_imaging_feedback.dart';
 import 'package:m2health/features/_legacy/booking_appointment/second_opinion_imaging/domain/entities/second_opinion_imaging_request_data.dart';
-import 'package:m2health/features/profiles/domain/entities/profile.dart';
+import 'package:m2health/features/user_profiles/domain/entities/profile.dart';
 
 class AppointmentEntity extends Equatable {
   final int? id;

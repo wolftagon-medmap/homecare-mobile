@@ -1,5 +1,5 @@
 import 'package:m2health/core/data/models/service_model.dart';
-import 'package:m2health/features/profiles/data/models/address_model.dart';
+import 'package:m2health/features/user_profiles/data/models/address_model.dart';
 import 'package:m2health/features/professional_profile/data/models/expertise_model.dart';
 import 'package:m2health/features/professional_profile/data/models/service_area_model.dart';
 import 'package:m2health/features/_legacy/booking_appointment/professional_directory/data/models/review_model.dart';

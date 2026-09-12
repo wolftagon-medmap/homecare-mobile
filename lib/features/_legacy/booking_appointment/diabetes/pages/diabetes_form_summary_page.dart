@@ -8,7 +8,7 @@ import 'package:m2health/features/_legacy/booking_appointment/nursing/presentati
 import 'package:m2health/features/_legacy/booking_appointment/nursing/presentation/pages/nursing_appointment_flow_page.dart';
 import 'package:m2health/features/_legacy/booking_appointment/diabetes/bloc/diabetes_form_cubit.dart';
 import 'package:m2health/features/_legacy/booking_appointment/diabetes/bloc/diabetes_form_state.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/features/_legacy/booking_appointment/diabetes/models/diabetes_options.dart';
 import 'package:m2health/features/_legacy/booking_appointment/nursing/const.dart';
 import 'package:m2health/route/app_routes.dart';

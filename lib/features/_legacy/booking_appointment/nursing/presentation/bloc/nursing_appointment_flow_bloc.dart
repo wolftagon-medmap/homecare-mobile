@@ -10,8 +10,8 @@ import 'package:m2health/features/_legacy/booking_appointment/nursing/domain/ent
 import 'package:m2health/features/_legacy/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
 import 'package:m2health/features/_legacy/booking_appointment/nursing/domain/usecases/create_nursing_appointment.dart';
 import 'package:m2health/features/_legacy/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_cubit.dart';
 
 part 'nursing_appointment_flow_event.dart';
 part 'nursing_appointment_flow_state.dart';

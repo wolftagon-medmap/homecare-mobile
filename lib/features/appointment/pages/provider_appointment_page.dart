@@ -13,7 +13,7 @@ import 'package:m2health/service_locator.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/appointment/widgets/provider_appointment_action_dialog.dart';
 import 'package:m2health/features/_legacy/booking_appointment/home_health_screening/presentation/widgets/screening_appointment_list_action_buttons.dart';
-import 'package:m2health/features/profiles/domain/entities/profile.dart';
+import 'package:m2health/features/user_profiles/domain/entities/profile.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/route/appointment_routes.dart';
 

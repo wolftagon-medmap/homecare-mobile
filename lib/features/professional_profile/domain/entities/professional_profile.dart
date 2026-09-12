@@ -5,7 +5,7 @@ import 'package:m2health/features/professional_profile/domain/entities/emergency
 import 'package:m2health/features/professional_profile/domain/entities/expertise.dart';
 import 'package:m2health/features/professional_profile/domain/entities/service_area.dart';
 import 'package:m2health/features/professional_profile/domain/entities/work_preferences.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
 import 'package:m2health/features/professional_profile/domain/entities/certificate.dart';
 import 'package:m2health/features/professional_profile/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/schedule/domain/entities/provider_availability.dart';

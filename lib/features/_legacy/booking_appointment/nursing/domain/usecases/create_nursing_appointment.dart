@@ -4,7 +4,7 @@ import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/_legacy/booking_appointment/nursing/domain/entities/nursing_case.dart';
 import 'package:m2health/features/_legacy/booking_appointment/nursing/domain/repositories/nursing_appointment_repository.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
 
 class CreateNursingAppointment {
   final NursingAppointmentRepository repository;

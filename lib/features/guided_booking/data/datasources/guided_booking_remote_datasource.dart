@@ -4,7 +4,7 @@ import 'package:m2health/features/guided_booking/data/datasources/guided_booking
 import 'package:m2health/features/guided_booking/data/models/booking_models.dart';
 import 'package:m2health/features/guided_booking/data/models/issue_catalogue_model.dart';
 import 'package:m2health/features/guided_booking/domain/entities/guided_booking_draft.dart';
-import 'package:m2health/features/profiles/data/models/address_model.dart';
+import 'package:m2health/features/user_profiles/data/models/address_model.dart';
 import 'package:m2health/utils.dart';
 
 class IssueCatalogueRemoteDataSource implements IssueCatalogueDataSource {

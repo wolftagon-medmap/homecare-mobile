@@ -5,7 +5,7 @@ import 'package:m2health/features/_legacy/booking_appointment/nursing/const.dart
 import 'package:m2health/features/_legacy/booking_appointment/nursing/presentation/bloc/nursing_appointment_flow_bloc.dart';
 import 'package:m2health/features/_legacy/booking_appointment/nursing/presentation/pages/nursing_appointment_flow_page.dart';
 import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/service_locator.dart';
 

@@ -11,8 +11,8 @@ import 'package:m2health/features/_legacy/chat_intake_booking/presentation/pages
 import 'package:m2health/features/_legacy/chat_intake_booking/presentation/widgets/block_view.dart';
 import 'package:m2health/features/_legacy/chat_intake_booking/presentation/widgets/composer_bar.dart';
 import 'package:m2health/features/_legacy/chat_intake_booking/presentation/widgets/intake_bubbles.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
-import 'package:m2health/features/profiles/presentation/pages/address_map_page.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/presentation/pages/address_map_page.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/utils.dart';
 

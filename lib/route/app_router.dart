@@ -23,7 +23,7 @@ import 'package:go_router/go_router.dart';
 import 'package:m2health/route/go_router_refresh_stream.dart';
 import 'package:m2health/route/navigator_keys.dart';
 import 'package:m2health/features/professional_profile/professional_profile_routes.dart';
-import 'package:m2health/features/profiles/profile_detail_routes.dart';
+import 'package:m2health/features/user_profiles/profile_detail_routes.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/core/presentation/views/splashscreen.dart';
 import 'package:m2health/core/presentation/views/medical_disclaimer.dart';

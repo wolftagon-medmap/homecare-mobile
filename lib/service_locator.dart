@@ -22,7 +22,7 @@ import 'package:m2health/features/notifications/injection.dart';
 import 'package:m2health/features/payment/injection.dart';
 import 'package:m2health/features/patient_health_profile/pharmacogenomics/injection.dart';
 import 'package:m2health/features/professional_profile/injection.dart';
-import 'package:m2health/features/profiles/injection.dart';
+import 'package:m2health/features/user_profiles/injection.dart';
 import 'package:m2health/features/schedule/injection.dart';
 import 'package:m2health/features/settings/injection.dart';
 import 'package:m2health/features/_legacy/booking_appointment/smoking_cessation/injection.dart';

@@ -4,7 +4,7 @@ import 'package:m2health/core/data/models/order_model.dart';
 import 'package:m2health/core/data/models/service_request_model.dart';
 import 'package:m2health/core/domain/entities/appointment_entity.dart';
 import 'package:m2health/features/_legacy/booking_appointment/professional_directory/data/models/professional_model.dart';
-import 'package:m2health/features/profiles/data/models/profile_model.dart';
+import 'package:m2health/features/user_profiles/data/models/profile_model.dart';
 
 class AppointmentModel extends AppointmentEntity {
   const AppointmentModel({

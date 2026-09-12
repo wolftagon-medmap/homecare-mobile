@@ -9,9 +9,9 @@ import 'package:m2health/features/dashboard/presentation/widgets/dashboard_heade
 import 'package:m2health/features/dashboard/presentation/widgets/dashboard_notice_banner.dart';
 import 'package:m2health/features/dashboard/presentation/widgets/home_services_section.dart';
 import 'package:m2health/features/notifications/presentation/bloc/notifications_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
-import 'package:m2health/features/profiles/presentation/widgets/profile_switcher_sheet.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_state.dart';
+import 'package:m2health/features/user_profiles/presentation/widgets/profile_switcher_sheet.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
