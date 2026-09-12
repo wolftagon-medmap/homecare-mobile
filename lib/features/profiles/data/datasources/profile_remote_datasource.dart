@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/error/failures.dart';
-import 'package:m2health/features/profiles/data/models/mental_health_state_model.dart';
+import 'package:m2health/features/patient_health_profile/etc/data/models/mental_health_state_model.dart';
 import 'package:m2health/features/profiles/data/models/profile_model.dart';
 import 'package:m2health/utils.dart';
 import 'package:path/path.dart' as p;

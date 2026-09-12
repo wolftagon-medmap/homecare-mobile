@@ -2,10 +2,10 @@ import 'package:dartz/dartz.dart' show Option, none, some;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/features/_legacy/booking_appointment/personal_issue/domain/entities/health_status.dart';
-import 'package:m2health/features/medical_record/domain/entities/medical_record.dart';
-import 'package:m2health/features/medical_record/presentation/bloc/medical_record_bloc.dart';
-import 'package:m2health/features/medical_record/presentation/bloc/medical_record_event.dart';
-import 'package:m2health/features/medical_record/presentation/bloc/medical_record_state.dart';
+import 'package:m2health/features/patient_health_profile/medical_record/domain/entities/medical_record.dart';
+import 'package:m2health/features/patient_health_profile/medical_record/presentation/bloc/medical_record_bloc.dart';
+import 'package:m2health/features/patient_health_profile/medical_record/presentation/bloc/medical_record_event.dart';
+import 'package:m2health/features/patient_health_profile/medical_record/presentation/bloc/medical_record_state.dart';
 import 'package:m2health/features/_legacy/booking_appointment/personal_issue/domain/entities/mobility_status.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
