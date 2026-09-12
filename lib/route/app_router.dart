@@ -8,7 +8,7 @@ import 'package:m2health/features/_legacy/chatbot_legacy/chatbot_legacy_routes.d
 import 'package:m2health/features/guided_booking/guided_booking_routes.dart';
 import 'package:m2health/features/messaging/messaging_routes.dart';
 import 'package:m2health/features/pricing/pricing_routes.dart';
-import 'package:m2health/features/intake_booking/intake_booking_routes.dart';
+import 'package:m2health/features/_legacy/chat_intake_booking/intake_booking_routes.dart';
 import 'package:m2health/features/payment/domain/usecases/pay_order.dart';
 import 'package:m2health/features/payment/presentation/cubit/payment_cubit.dart';
 import 'package:m2health/features/payment/presentation/pages/payment_page.dart';

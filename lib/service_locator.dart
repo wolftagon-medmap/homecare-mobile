@@ -15,7 +15,7 @@ import 'package:m2health/features/dashboard/injection.dart';
 import 'package:m2health/features/guided_booking/injection.dart';
 import 'package:m2health/features/messaging/injection.dart';
 import 'package:m2health/features/pricing/injection.dart';
-import 'package:m2health/features/intake_booking/injection.dart';
+import 'package:m2health/features/_legacy/chat_intake_booking/injection.dart';
 import 'package:m2health/features/_legacy/booking_appointment/home_health_screening/injection.dart';
 import 'package:m2health/features/medical_record/injection.dart';
 import 'package:m2health/features/notifications/injection.dart';
