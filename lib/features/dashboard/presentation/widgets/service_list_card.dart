@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:m2health/features/dashboard/domain/service_pricing_category.dart';
 import 'package:m2health/features/dashboard/presentation/dashboard_palette.dart';
 import 'package:m2health/features/dashboard/presentation/home_service_view.dart';
-import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
+import 'package:m2health/features/etc/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 class ServiceListCard extends StatelessWidget {

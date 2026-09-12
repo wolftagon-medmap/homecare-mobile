@@ -1,20 +1,20 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:m2health/core/error/failures.dart';
-import 'package:m2health/features/pricing/data/datasources/floor_price_datasource.dart';
-import 'package:m2health/features/pricing/data/datasources/price_table_datasource.dart';
-import 'package:m2health/features/pricing/data/datasources/provider_rate_datasource.dart';
-import 'package:m2health/features/pricing/data/models/price_table_model.dart';
-import 'package:m2health/features/pricing/data/repositories/pricing_repository_impl.dart';
-import 'package:m2health/features/pricing/data/datasources/estimate_revision_datasource.dart';
-import 'package:m2health/features/pricing/domain/entities/estimate_revision.dart';
-import 'package:m2health/features/pricing/domain/entities/floor_price_update.dart';
-import 'package:m2health/features/pricing/domain/entities/price_table.dart';
-import 'package:m2health/features/pricing/domain/entities/provider_service_rate.dart';
-import 'package:m2health/features/pricing/domain/entities/service_price.dart';
-import 'package:m2health/features/pricing/domain/repositories/pricing_repository.dart';
-import 'package:m2health/features/pricing/presentation/bloc/floor_price_cubit.dart';
-import 'package:m2health/features/pricing/presentation/bloc/provider_rates_cubit.dart';
+import 'package:m2health/features/etc/pricing/data/datasources/floor_price_datasource.dart';
+import 'package:m2health/features/etc/pricing/data/datasources/price_table_datasource.dart';
+import 'package:m2health/features/etc/pricing/data/datasources/provider_rate_datasource.dart';
+import 'package:m2health/features/etc/pricing/data/models/price_table_model.dart';
+import 'package:m2health/features/etc/pricing/data/repositories/pricing_repository_impl.dart';
+import 'package:m2health/features/etc/pricing/data/datasources/estimate_revision_datasource.dart';
+import 'package:m2health/features/etc/pricing/domain/entities/estimate_revision.dart';
+import 'package:m2health/features/etc/pricing/domain/entities/floor_price_update.dart';
+import 'package:m2health/features/etc/pricing/domain/entities/price_table.dart';
+import 'package:m2health/features/etc/pricing/domain/entities/provider_service_rate.dart';
+import 'package:m2health/features/etc/pricing/domain/entities/service_price.dart';
+import 'package:m2health/features/etc/pricing/domain/repositories/pricing_repository.dart';
+import 'package:m2health/features/etc/pricing/presentation/bloc/floor_price_cubit.dart';
+import 'package:m2health/features/etc/pricing/presentation/bloc/provider_rates_cubit.dart';
 
 const _woundCare = ServicePrice(
   id: 1,

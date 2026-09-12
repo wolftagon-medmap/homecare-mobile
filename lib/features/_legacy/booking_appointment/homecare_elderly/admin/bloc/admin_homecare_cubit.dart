@@ -2,9 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/features/_legacy/booking_appointment/homecare_elderly/admin/bloc/admin_homecare_state.dart';
 import 'package:m2health/features/_legacy/booking_appointment/homecare_elderly/domain/usecases/get_homecare_rates.dart';
 import 'package:m2health/features/_legacy/booking_appointment/homecare_elderly/domain/usecases/update_homecare_rate.dart';
-import 'package:m2health/features/subscription/domain/usecases/get_subscription_plans.dart';
-import 'package:m2health/features/subscription/domain/usecases/toggle_subscription_plan_active.dart';
-import 'package:m2health/features/subscription/domain/usecases/update_subscription_plan.dart';
+import 'package:m2health/features/etc/subscription/domain/usecases/get_subscription_plans.dart';
+import 'package:m2health/features/etc/subscription/domain/usecases/toggle_subscription_plan_active.dart';
+import 'package:m2health/features/etc/subscription/domain/usecases/update_subscription_plan.dart';
 
 class AdminHomecareCubit extends Cubit<AdminHomecareState> {
   final GetHomecareRates getHomecareRates;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
-import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
+import 'package:m2health/features/etc/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/features/_legacy/booking_appointment/second_opinion_imaging/presentation/bloc/second_opinion_imaging_flow_bloc.dart';
 import 'package:m2health/features/_legacy/booking_appointment/second_opinion_imaging/presentation/pages/second_opinion_imaging_flow_page.dart';
 import 'package:m2health/service_locator.dart';

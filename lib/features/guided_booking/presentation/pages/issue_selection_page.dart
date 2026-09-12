@@ -7,7 +7,7 @@ import 'package:m2health/features/guided_booking/guided_booking_routes.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_cubit.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_state.dart';
 import 'package:m2health/features/guided_booking/presentation/widgets/remarks_field.dart';
-import 'package:m2health/features/pricing/presentation/bloc/price_table_cubit.dart';
+import 'package:m2health/features/etc/pricing/presentation/bloc/price_table_cubit.dart';
 import 'package:m2health/features/guided_booking/presentation/widgets/booking_flow_progress.dart';
 import 'package:m2health/i18n/translations.g.dart';
 

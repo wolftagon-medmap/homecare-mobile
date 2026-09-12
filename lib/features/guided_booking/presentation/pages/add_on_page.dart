@@ -6,7 +6,7 @@ import 'package:m2health/features/guided_booking/guided_booking_routes.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_cubit.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_state.dart';
 import 'package:m2health/features/guided_booking/presentation/widgets/add_on_detail_sheet.dart';
-import 'package:m2health/features/pricing/presentation/bloc/price_table_cubit.dart';
+import 'package:m2health/features/etc/pricing/presentation/bloc/price_table_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 /// A detour, not a step: it passes no `step` to the header, so the counter and

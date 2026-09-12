@@ -5,7 +5,7 @@ import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/features/_legacy/booking_appointment/home_health_screening/presentation/bloc/home_health_screening_flow_bloc.dart';
 import 'package:m2health/features/_legacy/booking_appointment/home_health_screening/presentation/pages/home_health_screening_flow_page.dart';
-import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
+import 'package:m2health/features/etc/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 

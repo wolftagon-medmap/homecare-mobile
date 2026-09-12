@@ -5,7 +5,7 @@ import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/_legacy/booking_appointment/homecare_elderly/admin/bloc/admin_homecare_cubit.dart';
 import 'package:m2health/features/_legacy/booking_appointment/homecare_elderly/admin/bloc/admin_homecare_state.dart';
-import 'package:m2health/features/subscription/domain/entities/subscription_plan_entity.dart';
+import 'package:m2health/features/etc/subscription/domain/entities/subscription_plan_entity.dart';
 import 'package:m2health/service_locator.dart';
 
 class AdminHomecareConfigurationPage extends StatelessWidget {

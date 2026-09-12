@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
-import 'package:m2health/features/subscription/domain/entities/subscription_plan_entity.dart';
+import 'package:m2health/features/etc/subscription/domain/entities/subscription_plan_entity.dart';
 
 enum AdminActionStatus { initial, submitting, success, failure }
 

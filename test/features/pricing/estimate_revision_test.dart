@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:m2health/features/pricing/data/datasources/estimate_revision_datasource.dart';
-import 'package:m2health/features/pricing/data/fixtures/estimate_revision_fixture.dart';
-import 'package:m2health/features/pricing/data/models/estimate_revision_model.dart';
-import 'package:m2health/features/pricing/domain/entities/estimate.dart';
-import 'package:m2health/features/pricing/domain/entities/estimate_revision.dart';
+import 'package:m2health/features/etc/pricing/data/datasources/estimate_revision_datasource.dart';
+import 'package:m2health/features/etc/pricing/data/fixtures/estimate_revision_fixture.dart';
+import 'package:m2health/features/etc/pricing/data/models/estimate_revision_model.dart';
+import 'package:m2health/features/etc/pricing/domain/entities/estimate.dart';
+import 'package:m2health/features/etc/pricing/domain/entities/estimate_revision.dart';
 
 void main() {
   group('the revision fixture round-trips through fromJson', () {

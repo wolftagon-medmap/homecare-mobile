@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:m2health/features/patient_health_profile/medical_record/domain/entities/medical_record.dart';
 import 'package:m2health/features/patient_health_profile/medical_record/domain/usecases/create_medical_record.dart';
 import 'package:m2health/features/patient_health_profile/medical_record/domain/usecases/update_medical_record.dart';
-import 'package:m2health/features/file_upload/data/datasources/file_upload_remote_data_source.dart';
+import 'package:m2health/features/etc/file_upload/data/datasources/file_upload_remote_data_source.dart';
 import 'medical_record_form_state.dart';
 
 class MedicalRecordFormCubit extends Cubit<MedicalRecordFormState> {

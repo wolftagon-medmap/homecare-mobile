@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/features/_legacy/booking_appointment/diabetes/bloc/diabetes_form_cubit.dart';
-import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
+import 'package:m2health/features/etc/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/route/app_routes.dart';
 
 class DiabeticCare extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:m2health/features/file_upload/data/datasources/file_upload_remote_data_source.dart';
+import 'package:m2health/features/etc/file_upload/data/datasources/file_upload_remote_data_source.dart';
 import 'package:m2health/features/patient_health_profile/medical_record/data/datasources/medical_record_remote_data_source.dart';
 import 'package:m2health/features/patient_health_profile/medical_record/data/repositories/medical_record_repository_impl.dart';
 import 'package:m2health/features/patient_health_profile/medical_record/domain/repositories/medical_record_repository.dart';

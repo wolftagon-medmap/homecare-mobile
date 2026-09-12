@@ -3,7 +3,7 @@ import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/features/_legacy/booking_appointment/physiotherapy/presentation/pages/musculoskeletal_physiotherapy_page.dart';
 import 'package:m2health/features/_legacy/booking_appointment/physiotherapy/presentation/pages/neurological_physiotherapy_page.dart';
-import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
+import 'package:m2health/features/etc/pricing/presentation/widgets/starting_from_price.dart';
 
 class PhysiotherapyPage extends StatelessWidget {
   const PhysiotherapyPage({super.key});

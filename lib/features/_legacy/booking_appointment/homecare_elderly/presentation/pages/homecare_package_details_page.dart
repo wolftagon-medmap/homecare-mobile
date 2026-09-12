@@ -4,10 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/features/payment/presentation/pages/subscription_payment_page.dart';
-import 'package:m2health/features/subscription/domain/entities/subscription_plan_entity.dart';
-import 'package:m2health/features/subscription/domain/entities/user_subscription_entity.dart';
-import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
-import 'package:m2health/features/subscription/presentation/bloc/subscription_state.dart';
+import 'package:m2health/features/etc/subscription/domain/entities/subscription_plan_entity.dart';
+import 'package:m2health/features/etc/subscription/domain/entities/user_subscription_entity.dart';
+import 'package:m2health/features/etc/subscription/presentation/bloc/subscription_cubit.dart';
+import 'package:m2health/features/etc/subscription/presentation/bloc/subscription_state.dart';
 
 class HomecarePackageDetailsPage extends StatefulWidget {
   const HomecarePackageDetailsPage({super.key});

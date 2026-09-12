@@ -6,9 +6,9 @@ import 'package:m2health/features/_legacy/booking_appointment/homecare_elderly/p
 import 'package:m2health/features/_legacy/booking_appointment/homecare_elderly/presentation/pages/house_cleaning_page.dart';
 import 'package:m2health/features/_legacy/booking_appointment/homecare_elderly/presentation/pages/kitchen_bathroom_repair_page.dart';
 import 'package:m2health/features/_legacy/booking_appointment/homecare_elderly/presentation/pages/living_security_page.dart';
-import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
-import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
-import 'package:m2health/features/subscription/presentation/bloc/subscription_state.dart';
+import 'package:m2health/features/etc/pricing/presentation/widgets/starting_from_price.dart';
+import 'package:m2health/features/etc/subscription/presentation/bloc/subscription_cubit.dart';
+import 'package:m2health/features/etc/subscription/presentation/bloc/subscription_state.dart';
 
 class HomecareElderlyServicePage extends StatefulWidget {
   const HomecareElderlyServicePage({super.key});

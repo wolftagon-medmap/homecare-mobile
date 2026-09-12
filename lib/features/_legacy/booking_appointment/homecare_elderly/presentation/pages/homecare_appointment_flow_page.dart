@@ -15,8 +15,8 @@ import 'package:m2health/features/_legacy/booking_appointment/homecare_elderly/p
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
-import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
-import 'package:m2health/features/subscription/presentation/bloc/subscription_state.dart';
+import 'package:m2health/features/etc/subscription/presentation/bloc/subscription_cubit.dart';
+import 'package:m2health/features/etc/subscription/presentation/bloc/subscription_state.dart';
 import 'package:m2health/route/appointment_routes.dart';
 
 class HomecareAppointmentFlowPage extends StatefulWidget {
