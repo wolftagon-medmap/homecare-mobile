@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:m2health/features/schedule/domain/entities/provider_availability.dart';
-import 'package:m2health/features/schedule/domain/entities/provider_availability_override.dart';
-import 'package:m2health/features/schedule/domain/entities/time_slot.dart';
+import 'package:m2health/features/professional_profile/domain/entities/provider_availability.dart';
+import 'package:m2health/features/professional_profile/domain/entities/provider_availability_override.dart';
+import 'package:m2health/features/professional_profile/domain/entities/time_slot.dart';
 
 class ScheduleState extends Equatable {
   final bool isLoading;

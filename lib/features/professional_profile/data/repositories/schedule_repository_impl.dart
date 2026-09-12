@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:m2health/core/error/failures.dart';
-import 'package:m2health/features/schedule/data/datasources/schedule_datasource.dart';
-import 'package:m2health/features/schedule/data/models/provider_availability_override_model.dart';
-import 'package:m2health/features/schedule/domain/entities/provider_availability.dart';
-import 'package:m2health/features/schedule/domain/entities/provider_availability_override.dart';
-import 'package:m2health/features/schedule/domain/entities/time_slot.dart';
-import 'package:m2health/features/schedule/domain/repositories/schedule_repository.dart';
-import 'package:m2health/features/schedule/domain/usecases/index.dart';
+import 'package:m2health/features/professional_profile/data/datasources/schedule_datasource.dart';
+import 'package:m2health/features/professional_profile/data/models/provider_availability_override_model.dart';
+import 'package:m2health/features/professional_profile/domain/entities/provider_availability.dart';
+import 'package:m2health/features/professional_profile/domain/entities/provider_availability_override.dart';
+import 'package:m2health/features/professional_profile/domain/entities/time_slot.dart';
+import 'package:m2health/features/professional_profile/domain/repositories/schedule_repository.dart';
+import 'package:m2health/features/professional_profile/domain/usecases/index.dart';
 
 class ScheduleRepositoryImpl implements ScheduleRepository {
   final ScheduleRemoteDatasource remoteDatasource;

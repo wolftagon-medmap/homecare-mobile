@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:m2health/features/schedule/domain/entities/time_slot.dart';
+import 'package:m2health/features/professional_profile/domain/entities/time_slot.dart';
 
 class ProviderAvailabilityOverride extends Equatable {
   final DateTime date;

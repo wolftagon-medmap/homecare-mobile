@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/schedule/presentation/bloc/schedule_cubit.dart';
-import 'package:m2health/features/schedule/presentation/bloc/schedule_state.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/schedule_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/schedule_state.dart';
 
 /// Lets a provider apply one time range to several weekday at once
 /// (e.g. 09:00–17:00 for Monday–Friday), instead of adding each day separately.

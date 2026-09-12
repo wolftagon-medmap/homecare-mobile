@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/schedule/data/models/provider_availability_model.dart';
-import 'package:m2health/features/schedule/data/models/provider_availability_override_model.dart';
-import 'package:m2health/features/schedule/data/models/time_slot_model.dart';
+import 'package:m2health/features/professional_profile/data/models/provider_availability_model.dart';
+import 'package:m2health/features/professional_profile/data/models/provider_availability_override_model.dart';
+import 'package:m2health/features/professional_profile/data/models/time_slot_model.dart';
 import 'package:m2health/utils.dart';
 
 abstract class ScheduleRemoteDatasource {

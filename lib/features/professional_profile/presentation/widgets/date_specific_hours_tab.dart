@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/schedule/domain/entities/provider_availability_override.dart';
-import 'package:m2health/features/schedule/domain/entities/time_slot.dart';
-import 'package:m2health/features/schedule/presentation/bloc/schedule_cubit.dart';
-import 'package:m2health/features/schedule/presentation/bloc/schedule_state.dart';
-import 'package:m2health/features/schedule/presentation/widgets/date_override_form_dialog.dart';
+import 'package:m2health/features/professional_profile/domain/entities/provider_availability_override.dart';
+import 'package:m2health/features/professional_profile/domain/entities/time_slot.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/schedule_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/schedule_state.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/date_override_form_dialog.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class DateSpecificHoursTab extends StatefulWidget {

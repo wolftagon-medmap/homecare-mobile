@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:m2health/const.dart';
-import 'package:m2health/features/schedule/domain/entities/provider_availability.dart';
-import 'package:m2health/features/schedule/domain/usecases/add_availability.dart';
-import 'package:m2health/features/schedule/domain/usecases/update_availability.dart';
-import 'package:m2health/features/schedule/presentation/bloc/schedule_cubit.dart';
+import 'package:m2health/features/professional_profile/domain/entities/provider_availability.dart';
+import 'package:m2health/features/professional_profile/domain/usecases/add_availability.dart';
+import 'package:m2health/features/professional_profile/domain/usecases/update_availability.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/schedule_cubit.dart';
 
 class AvailabilityFormDialog extends StatefulWidget {
   final int dayIndex;

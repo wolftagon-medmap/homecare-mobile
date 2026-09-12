@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
-import 'package:m2health/features/schedule/data/models/time_slot_model.dart';
-import 'package:m2health/features/schedule/domain/entities/provider_availability_override.dart';
+import 'package:m2health/features/professional_profile/data/models/time_slot_model.dart';
+import 'package:m2health/features/professional_profile/domain/entities/provider_availability_override.dart';
 
 class ProviderAvailabilityOverrideModel extends ProviderAvailabilityOverride {
   const ProviderAvailabilityOverrideModel({

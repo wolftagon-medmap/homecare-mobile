@@ -20,7 +20,7 @@ import 'package:m2health/features/professional_profile/presentation/pages/servic
 import 'package:m2health/features/professional_profile/presentation/pages/verification_hub_page.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/where_i_work_page.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/work_preferences_page.dart';
-import 'package:m2health/features/schedule/presentation/pages/working_schedule_page.dart';
+import 'package:m2health/features/professional_profile/presentation/pages/working_schedule_page.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 

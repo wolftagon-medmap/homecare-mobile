@@ -8,7 +8,7 @@ import 'package:m2health/features/professional_profile/data/models/service_area_
 import 'package:m2health/features/professional_profile/data/models/work_preferences_model.dart';
 import 'package:m2health/features/professional_profile/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
-import 'package:m2health/features/schedule/data/models/provider_availability_model.dart';
+import 'package:m2health/features/professional_profile/data/models/provider_availability_model.dart';
 
 class ProfessionalProfileModel extends ProfessionalProfile {
   const ProfessionalProfileModel({

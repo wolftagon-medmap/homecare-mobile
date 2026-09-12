@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/schedule/presentation/bloc/schedule_cubit.dart';
-import 'package:m2health/features/schedule/presentation/bloc/schedule_state.dart';
-import 'package:m2health/features/schedule/presentation/widgets/date_specific_hours_tab.dart';
-import 'package:m2health/features/schedule/presentation/widgets/schedule_preview_tab.dart';
-import 'package:m2health/features/schedule/presentation/widgets/weekly_hours_tab.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/schedule_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/schedule_state.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/date_specific_hours_tab.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/schedule_preview_tab.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/weekly_hours_tab.dart';
 import 'package:m2health/service_locator.dart';
 
 class WorkingSchedulePage extends StatefulWidget {

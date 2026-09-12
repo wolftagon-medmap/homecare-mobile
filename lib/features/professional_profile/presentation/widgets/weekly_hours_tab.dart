@@ -6,11 +6,11 @@ import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
-import 'package:m2health/features/schedule/domain/entities/provider_availability.dart';
-import 'package:m2health/features/schedule/presentation/bloc/schedule_cubit.dart';
-import 'package:m2health/features/schedule/presentation/bloc/schedule_state.dart';
-import 'package:m2health/features/schedule/presentation/widgets/availability_form_dialog.dart';
-import 'package:m2health/features/schedule/presentation/widgets/batch_availability_dialog.dart';
+import 'package:m2health/features/professional_profile/domain/entities/provider_availability.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/schedule_cubit.dart';
+import 'package:m2health/features/professional_profile/presentation/bloc/schedule_state.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/availability_form_dialog.dart';
+import 'package:m2health/features/professional_profile/presentation/widgets/batch_availability_dialog.dart';
 
 class WeeklyHoursTab extends StatelessWidget {
   const WeeklyHoursTab({super.key});

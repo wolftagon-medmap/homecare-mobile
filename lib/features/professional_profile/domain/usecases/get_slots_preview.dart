@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:m2health/core/error/failures.dart';
-import 'package:m2health/features/schedule/domain/entities/time_slot.dart';
-import 'package:m2health/features/schedule/domain/repositories/schedule_repository.dart';
+import 'package:m2health/features/professional_profile/domain/entities/time_slot.dart';
+import 'package:m2health/features/professional_profile/domain/repositories/schedule_repository.dart';
 
 class GetSlotsPreview {
   final ScheduleRepository repository;

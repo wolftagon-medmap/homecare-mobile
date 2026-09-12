@@ -8,7 +8,7 @@ import 'package:m2health/features/professional_profile/domain/entities/work_pref
 import 'package:m2health/features/user_profiles/domain/entities/address.dart';
 import 'package:m2health/features/professional_profile/domain/entities/certificate.dart';
 import 'package:m2health/features/professional_profile/domain/entities/onboarding_status.dart';
-import 'package:m2health/features/schedule/domain/entities/provider_availability.dart';
+import 'package:m2health/features/professional_profile/domain/entities/provider_availability.dart';
 
 class ProfessionalProfile extends Equatable {
   final int id;

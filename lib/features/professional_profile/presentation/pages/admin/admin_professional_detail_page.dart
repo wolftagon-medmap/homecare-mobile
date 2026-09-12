@@ -7,7 +7,7 @@ import 'package:m2health/core/domain/entities/service_entity.dart';
 import 'package:m2health/features/professional_profile/data/datasources/professional_profile_remote_datasource.dart';
 import 'package:m2health/features/professional_profile/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
-import 'package:m2health/features/schedule/domain/entities/provider_availability.dart';
+import 'package:m2health/features/professional_profile/domain/entities/provider_availability.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/admin_professional_detail_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/edit_professional_profile.dart';
 import 'package:m2health/features/professional_profile/presentation/widgets/certificate_preview_page.dart';
