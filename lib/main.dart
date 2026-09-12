@@ -13,7 +13,6 @@ import 'package:m2health/features/_legacy/booking_appointment/diabetes/bloc/diab
 import 'package:m2health/features/chatbot/chatbot_providers.dart';
 import 'package:m2health/features/_legacy/chatbot_legacy/chatbot_legacy_providers.dart';
 import 'package:m2health/features/guided_booking/guided_booking_providers.dart';
-import 'package:m2health/features/health_profile/health_profile_providers.dart';
 import 'package:m2health/features/messaging/messaging_providers.dart';
 import 'package:m2health/features/pricing/pricing_providers.dart';
 import 'package:m2health/features/medical_record/domain/usecases/delete_medical_record.dart';
@@ -207,7 +206,6 @@ class M2HealthApp extends StatelessWidget {
         ...PricingProviders.providers,
         ...ChatbotProviders.providers,
         ...ChatbotLegacyProviders.providers,
-        ...HealthProfileProviders.providers,
       ],
       child: BlocBuilder<LocaleCubit, AppLocale>(builder: (context, locale) {
         return MaterialApp.router(

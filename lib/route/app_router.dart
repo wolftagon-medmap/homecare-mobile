@@ -6,7 +6,6 @@ import 'package:m2health/features/_legacy/booking_appointment/pharmacy/pharmacy_
 import 'package:m2health/features/chatbot/chatbot_routes.dart';
 import 'package:m2health/features/_legacy/chatbot_legacy/chatbot_legacy_routes.dart';
 import 'package:m2health/features/guided_booking/guided_booking_routes.dart';
-import 'package:m2health/features/health_profile/health_profile_routes.dart';
 import 'package:m2health/features/messaging/messaging_routes.dart';
 import 'package:m2health/features/pricing/pricing_routes.dart';
 import 'package:m2health/features/intake_booking/intake_booking_routes.dart';
@@ -121,7 +120,6 @@ final GoRouter router = GoRouter(
     ...GuidedBookingRoutes.routes,
     ...MessagingRoutes.routes,
     ...PricingRoutes.routes,
-    ...HealthProfileRoutes.routes,
 
     // Debug-only screen; the entry tile is gated behind kDebugMode.
     ...FeatureFlagsRoutes.routes,
