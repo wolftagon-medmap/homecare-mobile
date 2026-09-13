@@ -5,7 +5,7 @@ import 'package:m2health/features/guided_booking/domain/entities/booking_slot.da
 import 'package:m2health/features/guided_booking/domain/entities/guided_booking_draft.dart';
 import 'package:m2health/features/guided_booking/domain/entities/issue_catalogue.dart';
 import 'package:m2health/core/location/visit_location.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
 
 enum BookingLoadStatus { initial, loading, ready, failure }
 

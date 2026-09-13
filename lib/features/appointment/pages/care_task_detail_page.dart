@@ -222,11 +222,11 @@ class _Content extends StatelessWidget {
           const SizedBox(height: 16),
           _PatientSection(detail: detail),
           if (detail.issueLabels.isNotEmpty ||
-              (detail.chiefComplaint?.isNotEmpty ?? false)) ...[
+              (detail.remarks?.isNotEmpty ?? false)) ...[
             const SizedBox(height: 16),
             _VisitReasonSection(
               labels: detail.issueLabels,
-              remark: detail.chiefComplaint,
+              remark: detail.remarks,
             ),
           ],
           const SizedBox(height: 16),

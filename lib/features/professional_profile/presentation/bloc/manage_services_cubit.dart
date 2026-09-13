@@ -2,8 +2,8 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
-import 'package:m2health/features/booking_appointment/nursing/const.dart';
-import 'package:m2health/features/booking_appointment/services_selection/domain/repositories/services_repository.dart';
+import 'package:m2health/features/_legacy/booking_appointment/nursing/const.dart';
+import 'package:m2health/features/_legacy/booking_appointment/services_selection/domain/repositories/services_repository.dart';
 import 'package:m2health/features/professional_profile/data/datasources/professional_profile_remote_datasource.dart';
 import 'package:m2health/features/professional_profile/domain/entities/provided_services.dart';
 

@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:m2health/core/data/models/service_model.dart';
 import 'package:m2health/core/domain/entities/service_entity.dart';
-import 'package:m2health/features/booking_appointment/personal_issue/data/models/personal_issue_model.dart';
-import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/mobility_status.dart';
-import 'package:m2health/features/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
+import 'package:m2health/features/_legacy/booking_appointment/personal_issue/data/models/personal_issue_model.dart';
+import 'package:m2health/features/_legacy/booking_appointment/personal_issue/domain/entities/mobility_status.dart';
+import 'package:m2health/features/_legacy/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
 
 sealed class ServiceRequestDetail {}
 

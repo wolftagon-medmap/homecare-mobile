@@ -5,33 +5,32 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:m2health/core/blocs/user_role_cubit.dart';
-import 'package:m2health/features/home_health_screening/presentation/bloc/screening_appointment_action_cubit.dart';
+import 'package:m2health/features/_legacy/booking_appointment/home_health_screening/presentation/bloc/screening_appointment_action_cubit.dart';
 import 'package:m2health/features/settings/language/locale_cubit.dart';
 import 'package:m2health/features/auth/data/datasources/google_auth_source.dart';
 import 'package:m2health/features/auth/presentation/cubit/auth_cubit.dart';
-import 'package:m2health/features/diabetes/bloc/diabetes_form_cubit.dart';
+import 'package:m2health/features/_legacy/booking_appointment/diabetes/bloc/diabetes_form_cubit.dart';
 import 'package:m2health/features/chatbot/chatbot_providers.dart';
-import 'package:m2health/features/chatbot_legacy/chatbot_legacy_providers.dart';
+import 'package:m2health/features/_legacy/chatbot_legacy/chatbot_legacy_providers.dart';
 import 'package:m2health/features/guided_booking/guided_booking_providers.dart';
-import 'package:m2health/features/health_profile/health_profile_providers.dart';
 import 'package:m2health/features/messaging/messaging_providers.dart';
-import 'package:m2health/features/pricing/pricing_providers.dart';
-import 'package:m2health/features/medical_record/domain/usecases/delete_medical_record.dart';
-import 'package:m2health/features/medical_record/domain/usecases/get_medical_records.dart';
-import 'package:m2health/features/medical_record/presentation/bloc/medical_record_bloc.dart';
-import 'package:m2health/features/pharmacogenomics/domain/usecases/delete_pharmacogenomics.dart';
-import 'package:m2health/features/pharmacogenomics/domain/usecases/store_pharmacogenomics.dart';
-import 'package:m2health/features/pharmacogenomics/presentation/bloc/pharmacogenomics_cubit.dart';
-import 'package:m2health/features/pharmacogenomics/domain/usecases/get_pharmacogenomics.dart';
+import 'package:m2health/features/etc/pricing/pricing_providers.dart';
+import 'package:m2health/features/patient_health_profile/medical_record/domain/usecases/delete_medical_record.dart';
+import 'package:m2health/features/patient_health_profile/medical_record/domain/usecases/get_medical_records.dart';
+import 'package:m2health/features/patient_health_profile/medical_record/presentation/bloc/medical_record_bloc.dart';
+import 'package:m2health/features/patient_health_profile/pharmacogenomics/domain/usecases/delete_pharmacogenomics.dart';
+import 'package:m2health/features/patient_health_profile/pharmacogenomics/domain/usecases/store_pharmacogenomics.dart';
+import 'package:m2health/features/patient_health_profile/pharmacogenomics/presentation/bloc/pharmacogenomics_cubit.dart';
+import 'package:m2health/features/patient_health_profile/pharmacogenomics/domain/usecases/get_pharmacogenomics.dart';
 import 'package:m2health/core/services/questionnaire_service.dart';
-import 'package:m2health/features/nutrition/domain/usecases/create_nutrition_appointment.dart';
-import 'package:m2health/features/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
+import 'package:m2health/features/_legacy/booking_appointment/nutrition/domain/usecases/create_nutrition_appointment.dart';
+import 'package:m2health/features/_legacy/booking_appointment/nutrition/presentation/bloc/nutrition_flow_bloc.dart';
 import 'package:m2health/features/professional_profile/domain/usecases/index.dart';
-import 'package:m2health/features/profiles/domain/usecases/index.dart';
+import 'package:m2health/features/user_profiles/domain/usecases/index.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/certificate_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
-import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
+import 'package:m2health/features/etc/subscription/presentation/bloc/subscription_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/l10n/app_localizations.dart';
 import 'package:m2health/route/app_router.dart';
@@ -207,7 +206,6 @@ class M2HealthApp extends StatelessWidget {
         ...PricingProviders.providers,
         ...ChatbotProviders.providers,
         ...ChatbotLegacyProviders.providers,
-        ...HealthProfileProviders.providers,
       ],
       child: BlocBuilder<LocaleCubit, AppLocale>(builder: (context, locale) {
         return MaterialApp.router(

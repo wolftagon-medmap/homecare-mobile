@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:m2health/features/booking_appointment/professional_directory/data/models/professional_model.dart';
+import 'package:m2health/features/_legacy/booking_appointment/professional_directory/data/models/professional_model.dart';
 
 /// `GET /v1/professionals/:id` spreads `professional.serialize()`, which Lucid
 /// emits in camelCase, and then adds its own keys in snake_case. Both spellings

@@ -11,10 +11,10 @@ import 'package:m2health/features/guided_booking/presentation/widgets/booking_fl
 import 'package:m2health/features/guided_booking/presentation/widgets/professional_avatar.dart';
 import 'package:m2health/features/guided_booking/presentation/widgets/professional_stats.dart';
 import 'package:m2health/features/guided_booking/presentation/widgets/review_section.dart';
-import 'package:m2health/features/pricing/domain/entities/estimate.dart';
-import 'package:m2health/features/pricing/presentation/bloc/price_table_cubit.dart';
-import 'package:m2health/features/pricing/presentation/widgets/estimate_breakdown.dart';
-import 'package:m2health/features/pricing/presentation/widgets/starting_from_price.dart';
+import 'package:m2health/features/etc/pricing/domain/entities/estimate.dart';
+import 'package:m2health/features/etc/pricing/presentation/bloc/price_table_cubit.dart';
+import 'package:m2health/features/etc/pricing/presentation/widgets/estimate_breakdown.dart';
+import 'package:m2health/features/etc/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 class ReviewAndSendPage extends StatelessWidget {

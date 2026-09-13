@@ -22,10 +22,8 @@ String _tomorrowAt(int hour) {
 /// took it, and it is waiting on them rather than cancelled.
 List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
       {
-        'origin': 'care_task',
         'createdAt': _at(const Duration(minutes: 12)),
         'key': 'task:5001',
-        'appointmentId': null,
         'careTaskId': 5001,
         'patientName': 'Ahmad Zulkifli',
         'serviceLabel': 'Home Nursing',
@@ -40,14 +38,12 @@ List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
           'jobTitle': 'Registered Nurse',
         },
         'estimatedPrice': 30.0,
-        'chiefComplaint': 'Pressure ulcer dressing, lower back',
+        'remarks': 'Pressure ulcer dressing, lower back',
         'issueLabels': ['Wound care', 'Dressing change'],
       },
       {
-        'origin': 'care_task',
         'createdAt': _at(const Duration(hours: 3)),
         'key': 'task:5002',
-        'appointmentId': null,
         'careTaskId': 5002,
         'patientName': 'Ahmad Zulkifli',
         'serviceLabel': 'Home Nursing',
@@ -62,14 +58,12 @@ List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
           'jobTitle': 'Registered Nurse',
         },
         'estimatedPrice': 30.0,
-        'chiefComplaint': 'Pressure ulcer dressing, lower back',
+        'remarks': 'Pressure ulcer dressing, lower back',
         'issueLabels': ['Wound care', 'Dressing change'],
       },
       {
-        'origin': 'care_task',
         'createdAt': _at(const Duration(days: 2)),
         'key': 'task:5003',
-        'appointmentId': null,
         'careTaskId': 5003,
         'patientName': 'Ahmad Zulkifli',
         'serviceLabel': 'Physiotherapy',
@@ -79,7 +73,7 @@ List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
         'scheduledEnd': _tomorrowAt(9),
         'provider': null,
         'estimatedPrice': 45.0,
-        'chiefComplaint': 'Post-op knee mobility, week 2',
+        'remarks': 'Post-op knee mobility, week 2',
         'issueLabels': ['Post-surgery rehab'],
       },
     ];
@@ -88,8 +82,8 @@ List<Map<String, dynamic>> kPatientInboxDemoFixture() => [
 /// "Suggest another time" has something to sit on.
 List<Map<String, dynamic>> kProviderInboxDemoFixture() => [
       {
-        'origin': 'v2_offer',
         'key': 'offer:5001',
+        'careTaskId': 5001,
         'title': 'Ahmad Zulkifli',
         'serviceLabel': 'Home Nursing',
         'summary': {
@@ -105,24 +99,9 @@ List<Map<String, dynamic>> kProviderInboxDemoFixture() => [
         'estimatedIncome': 24.0,
         'expiresAt': _ahead(const Duration(minutes: 22)),
         'actions': [
-          {
-            'kind': 'accept',
-            'entity': 'offer',
-            'entityId': 5001,
-            'requiresReason': false,
-          },
-          {
-            'kind': 'propose_time',
-            'entity': 'offer',
-            'entityId': 5001,
-            'requiresReason': false,
-          },
-          {
-            'kind': 'decline',
-            'entity': 'offer',
-            'entityId': 5001,
-            'requiresReason': false,
-          },
+          {'kind': 'accept', 'requiresReason': false},
+          {'kind': 'propose_time', 'requiresReason': false},
+          {'kind': 'decline', 'requiresReason': false},
         ],
       },
     ];

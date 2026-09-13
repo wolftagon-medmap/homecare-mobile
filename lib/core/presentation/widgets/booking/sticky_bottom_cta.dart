@@ -5,7 +5,8 @@ import 'package:m2health/const.dart';
 ///
 /// Put it in `Scaffold.bottomNavigationBar` so it sizes itself and the
 /// scrollable body keeps the rest of the screen. It adds the device's bottom
-/// inset itself, so no `SafeArea` wrapper is needed.
+/// inset itself, so no `SafeArea` wrapper is needed. It also adds the
+/// keyboard inset, since `bottomNavigationBar` does not shift up on its own.
 class StickyBottomCta extends StatelessWidget {
   const StickyBottomCta({
     super.key,
@@ -39,7 +40,9 @@ class StickyBottomCta extends StatelessWidget {
         16,
         12,
         16,
-        12 + MediaQuery.of(context).padding.bottom,
+        12 +
+            MediaQuery.of(context).padding.bottom +
+            MediaQuery.of(context).viewInsets.bottom,
       ),
       decoration: const BoxDecoration(
         color: Colors.white,

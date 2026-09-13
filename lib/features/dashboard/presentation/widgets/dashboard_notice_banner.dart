@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/features/dashboard/presentation/dashboard_palette.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_state.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 class DashboardNoticeBanner extends StatelessWidget {

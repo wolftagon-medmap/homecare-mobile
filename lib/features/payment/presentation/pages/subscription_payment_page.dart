@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/subscription/domain/entities/subscription_plan_entity.dart';
-import 'package:m2health/features/subscription/presentation/bloc/subscription_cubit.dart';
-import 'package:m2health/features/subscription/presentation/bloc/subscription_state.dart';
+import 'package:m2health/features/etc/subscription/domain/entities/subscription_plan_entity.dart';
+import 'package:m2health/features/etc/subscription/presentation/bloc/subscription_cubit.dart';
+import 'package:m2health/features/etc/subscription/presentation/bloc/subscription_state.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 class PaymentMethod {

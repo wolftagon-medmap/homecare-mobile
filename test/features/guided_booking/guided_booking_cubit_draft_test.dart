@@ -11,7 +11,7 @@ import 'package:m2health/features/guided_booking/domain/entities/issue_catalogue
 import 'package:m2health/features/guided_booking/domain/repositories/guided_booking_repository.dart';
 import 'package:m2health/features/guided_booking/domain/usecases/guided_booking_usecases.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_cubit.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
 
 class _InMemoryDraftRepository implements BookingDraftRepository {
   final Map<String, GuidedBookingDraft> store = {};

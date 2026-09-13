@@ -7,8 +7,8 @@ import 'package:m2health/features/professional_profile/presentation/bloc/coverag
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_cubit.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/professional_profile_state.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/area_picker_page.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
-import 'package:m2health/features/profiles/presentation/pages/address_map_page.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/presentation/pages/address_map_page.dart';
 import 'package:m2health/route/app_routes.dart';
 
 /// The three location settings in one place, because splitting them across two

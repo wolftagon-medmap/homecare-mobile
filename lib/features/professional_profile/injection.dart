@@ -3,12 +3,15 @@ import 'package:dio/dio.dart';
 import 'package:m2health/features/professional_profile/data/datasources/certificate_remote_datasource.dart';
 import 'package:m2health/features/professional_profile/data/datasources/expertise_remote_datasource.dart';
 import 'package:m2health/features/professional_profile/data/datasources/professional_profile_remote_datasource.dart';
+import 'package:m2health/features/professional_profile/data/datasources/schedule_datasource.dart';
 import 'package:m2health/features/professional_profile/data/datasources/service_area_remote_datasource.dart';
 import 'package:m2health/features/professional_profile/data/datasources/work_preference_remote_datasource.dart';
 import 'package:m2health/features/professional_profile/data/repositories/certificate_repository_impl.dart';
 import 'package:m2health/features/professional_profile/data/repositories/professional_profile_repository_impl.dart';
+import 'package:m2health/features/professional_profile/data/repositories/schedule_repository_impl.dart';
 import 'package:m2health/features/professional_profile/domain/repositories/certificate_repository.dart';
 import 'package:m2health/features/professional_profile/domain/repositories/professional_profile_repository.dart';
+import 'package:m2health/features/professional_profile/domain/repositories/schedule_repository.dart';
 import 'package:m2health/features/professional_profile/domain/usecases/index.dart';
 
 void initProfessionalProfileModule(GetIt sl) {
@@ -19,6 +22,15 @@ void initProfessionalProfileModule(GetIt sl) {
   sl.registerLazySingleton(() => CreateCertificate(sl()));
   sl.registerLazySingleton(() => UpdateCertificate(sl()));
   sl.registerLazySingleton(() => DeleteCertificate(sl()));
+  sl.registerLazySingleton(() => GetAvailabilities(sl()));
+  sl.registerLazySingleton(() => AddAvailability(sl()));
+  sl.registerLazySingleton(() => AddAvailabilitiesBulk(sl()));
+  sl.registerLazySingleton(() => UpdateAvailability(sl()));
+  sl.registerLazySingleton(() => DeleteAvailability(sl()));
+  sl.registerLazySingleton(() => GetAllOverrides(sl()));
+  sl.registerLazySingleton(() => UpdateOverride(sl()));
+  sl.registerLazySingleton(() => DeleteOverride(sl()));
+  sl.registerLazySingleton(() => GetSlotsPreview(sl()));
 
   // Repositories
   sl.registerLazySingleton<ProfessionalProfileRepository>(
@@ -31,6 +43,9 @@ void initProfessionalProfileModule(GetIt sl) {
   );
   sl.registerLazySingleton<CertificateRepository>(
     () => CertificateRepositoryImpl(remoteDatasource: sl()),
+  );
+  sl.registerLazySingleton<ScheduleRepository>(
+    () => ScheduleRepositoryImpl(remoteDatasource: sl()),
   );
 
   // Data sources
@@ -48,5 +63,8 @@ void initProfessionalProfileModule(GetIt sl) {
   );
   sl.registerLazySingleton<ServiceAreaRemoteDatasource>(
     () => ServiceAreaRemoteDatasourceImpl(dio: sl<Dio>()),
+  );
+  sl.registerLazySingleton<ScheduleRemoteDatasource>(
+    () => ScheduleRemoteDatasourceImpl(dio: sl()),
   );
 }

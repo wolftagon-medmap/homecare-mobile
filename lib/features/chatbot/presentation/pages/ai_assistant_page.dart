@@ -14,7 +14,7 @@ import 'package:m2health/features/chatbot/presentation/widgets/assistant_compose
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_hero.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_privacy_label.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_theme.dart';
-import 'package:m2health/features/chatbot_legacy/presentation/widgets/ai_data_consent.dart';
+import 'package:m2health/features/_legacy/chatbot_legacy/presentation/widgets/ai_data_consent.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/utils.dart';

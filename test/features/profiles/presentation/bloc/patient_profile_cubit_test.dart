@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:m2health/core/error/failures.dart';
-import 'package:m2health/features/profiles/domain/entities/mental_health_state.dart';
-import 'package:m2health/features/profiles/domain/entities/profile.dart';
-import 'package:m2health/features/profiles/domain/repositories/profile_repository.dart';
-import 'package:m2health/features/profiles/domain/usecases/index.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_cubit.dart';
-import 'package:m2health/features/profiles/presentation/bloc/patient_profile_state.dart';
+import 'package:m2health/features/patient_health_profile/etc/domain/entities/mental_health_state.dart';
+import 'package:m2health/features/user_profiles/domain/entities/profile.dart';
+import 'package:m2health/features/user_profiles/domain/repositories/profile_repository.dart';
+import 'package:m2health/features/user_profiles/domain/usecases/index.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_state.dart';
 
 const _primary = Profile(
   id: 1,

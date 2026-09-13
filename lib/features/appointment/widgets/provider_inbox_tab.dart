@@ -147,7 +147,7 @@ class _InboxCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                _OriginBadge(isOffer: item.isOffer, risk: item.summary.risk),
+                if (item.summary.risk == 'high') const _RiskBadge(),
               ],
             ),
             const SizedBox(height: 12),
@@ -226,40 +226,39 @@ class _InboxCard extends StatelessWidget {
                 : const SizedBox.shrink(),
             // The conversation and the counter-proposal sit with the offer,
             // because they are what the accept/decline decision is made from.
-            if (item.isOffer)
-              Row(
-                children: [
-                  MessageActionButton(
-                    threadRef: ThreadRef.forCareTask(item.summaryEntityId),
-                    label: 'Message',
-                  ),
-                  if (proposeTime != null) ...[
-                    const SizedBox(width: 8),
-                    Flexible(
-                      child: OutlinedButton(
-                        onPressed: () => _onProposeTime(context, proposeTime),
-                        style: OutlinedButton.styleFrom(
-                          side: const BorderSide(color: Const.tosca),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
+            Row(
+              children: [
+                MessageActionButton(
+                  threadRef: ThreadRef.forCareTask(item.careTaskId),
+                  label: 'Message',
+                ),
+                if (proposeTime != null) ...[
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: OutlinedButton(
+                      onPressed: () => _onProposeTime(context, proposeTime),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Const.tosca),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        child: const Text(
-                          'Suggest another time',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Const.tosca,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
+                      ),
+                      child: const Text(
+                        'Suggest another time',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Const.tosca,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ],
-              ),
+              ],
+            ),
             Row(
               children: [
                 const Spacer(),
@@ -378,28 +377,21 @@ class _InboxCard extends StatelessWidget {
   }
 }
 
-class _OriginBadge extends StatelessWidget {
-  final bool isOffer;
-  final String? risk;
-  const _OriginBadge({required this.isOffer, this.risk});
+class _RiskBadge extends StatelessWidget {
+  const _RiskBadge();
 
   @override
   Widget build(BuildContext context) {
-    final highRisk = risk == 'high';
-    final color =
-        highRisk ? Colors.red : (isOffer ? Const.aqua : Colors.orange);
-    final label =
-        highRisk ? 'High risk' : (isOffer ? 'System Offer' : 'Direct Request');
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
+        color: Colors.red.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(4),
       ),
-      child: Text(
-        label,
-        style:
-            TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.w600),
+      child: const Text(
+        'High risk',
+        style: TextStyle(
+            color: Colors.red, fontSize: 11, fontWeight: FontWeight.w600),
       ),
     );
   }
