@@ -10,6 +10,21 @@ class ServiceGridCard extends StatelessWidget {
 
   const ServiceGridCard({super.key, required this.service});
 
+  static const _titleFontSize = 11.5;
+  static const _titleLineHeight = 1.2;
+
+  static const _titleStyle = TextStyle(
+    color: DashboardPalette.navy,
+    fontSize: _titleFontSize,
+    height: _titleLineHeight,
+    letterSpacing: -0.1,
+    fontWeight: FontWeight.w700,
+  );
+
+  // Reserved for exactly two lines, so the description below starts at the
+  // same y across cards in a row whether the title takes one line or two.
+  static const _titleBoxHeight = _titleFontSize * _titleLineHeight * 2;
+
   @override
   Widget build(BuildContext context) {
     final visuals = service.visuals;
@@ -55,23 +70,25 @@ class ServiceGridCard extends StatelessWidget {
                 ),
                 SvgPicture.asset(visuals.iconPath, width: 34, height: 34),
                 const SizedBox(height: 10),
-                Text(
-                  service.title,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: DashboardPalette.navy,
-                    fontSize: 11.5,
-                    height: 1.2,
-                    letterSpacing: -0.1,
-                    fontWeight: FontWeight.w700,
+                SizedBox(
+                  height: _titleBoxHeight,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      service.title,
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: _titleStyle,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 5),
                 Text(
                   service.description,
                   textAlign: TextAlign.center,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     color: DashboardPalette.muted,
                     fontSize: 9.8,

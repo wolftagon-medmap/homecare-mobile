@@ -1092,8 +1092,8 @@ class TranslationsDashboardHomeEn {
 	/// en: 'Homecare for Elderly'
 	String get name_homecare_elderly => 'Homecare for Elderly';
 
-	/// en: 'Expert advice on your medications and support to help you quit smoking.'
-	String get desc_pharmacist => 'Expert advice on your medications and support to help you quit smoking.';
+	/// en: 'Expert advice on your medications and support.'
+	String get desc_pharmacist => 'Expert advice on your medications and support.';
 
 	/// en: 'Manage pain, improve mobility and recover better.'
 	String get desc_physiotherapy => 'Manage pain, improve mobility and recover better.';
@@ -1101,8 +1101,8 @@ class TranslationsDashboardHomeEn {
 	/// en: 'Get support for stress, emotions and mental well-being.'
 	String get desc_psychologist => 'Get support for stress, emotions and mental well-being.';
 
-	/// en: 'Personalised nutrition support for a healthier you.'
-	String get desc_dietitian => 'Personalised nutrition support for a healthier you.';
+	/// en: 'Personalised nutrition support.'
+	String get desc_dietitian => 'Personalised nutrition support.';
 
 	/// en: 'Eye care, vision checks and professional advice.'
 	String get desc_optometrist => 'Eye care, vision checks and professional advice.';
@@ -1110,11 +1110,11 @@ class TranslationsDashboardHomeEn {
 	/// en: 'Professional nursing care in the comfort of your home.'
 	String get desc_nursing => 'Professional nursing care in the comfort of your home.';
 
-	/// en: 'Check your eyes and feet for diabetes-related complications.'
-	String get desc_diabetic_care => 'Check your eyes and feet for diabetes-related complications.';
+	/// en: 'Check your eyes and feet for diabetes.'
+	String get desc_diabetic_care => 'Check your eyes and feet for diabetes.';
 
-	/// en: 'Convenient health checks in the comfort of your home.'
-	String get desc_home_screening => 'Convenient health checks in the comfort of your home.';
+	/// en: 'Convenient health checks in your home.'
+	String get desc_home_screening => 'Convenient health checks in your home.';
 
 	/// en: 'Get an expert second read of your medical scans.'
 	String get desc_second_opinion => 'Get an expert second read of your medical scans.';
@@ -2503,14 +2503,14 @@ extension on Translations {
 			'dashboard.home.name_home_screening' => 'Home Health Screening',
 			'dashboard.home.name_second_opinion' => '2nd Opinion Imaging',
 			'dashboard.home.name_homecare_elderly' => 'Homecare for Elderly',
-			'dashboard.home.desc_pharmacist' => 'Expert advice on your medications and support to help you quit smoking.',
+			'dashboard.home.desc_pharmacist' => 'Expert advice on your medications and support.',
 			'dashboard.home.desc_physiotherapy' => 'Manage pain, improve mobility and recover better.',
 			'dashboard.home.desc_psychologist' => 'Get support for stress, emotions and mental well-being.',
-			'dashboard.home.desc_dietitian' => 'Personalised nutrition support for a healthier you.',
+			'dashboard.home.desc_dietitian' => 'Personalised nutrition support.',
 			'dashboard.home.desc_optometrist' => 'Eye care, vision checks and professional advice.',
 			'dashboard.home.desc_nursing' => 'Professional nursing care in the comfort of your home.',
-			'dashboard.home.desc_diabetic_care' => 'Check your eyes and feet for diabetes-related complications.',
-			'dashboard.home.desc_home_screening' => 'Convenient health checks in the comfort of your home.',
+			'dashboard.home.desc_diabetic_care' => 'Check your eyes and feet for diabetes.',
+			'dashboard.home.desc_home_screening' => 'Convenient health checks in your home.',
 			'dashboard.home.desc_second_opinion' => 'Get an expert second read of your medical scans.',
 			'dashboard.home.desc_homecare_elderly' => 'Daily living support and companionship at home.',
 			'global.add' => 'Add',
