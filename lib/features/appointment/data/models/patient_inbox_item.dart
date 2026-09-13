@@ -1,7 +1,6 @@
-// Patient pending-inbox contract (backend GET /v2/patient/inbox): one shape
-// over two disjoint sources — v1 pending appointments and v2 pre-acceptance
-// care tasks. Parsing is defensive so one malformed item can never crash the
-// whole list.
+// Patient pending-inbox contract (backend GET /v2/patient/inbox), single-sourced
+// from pre-acceptance care tasks as of the CareTask-unify rewrite. Parsing is
+// defensive so one malformed item can never crash the whole list.
 
 class PatientInboxProvider {
   final int id;
@@ -26,10 +25,8 @@ class PatientInboxProvider {
 }
 
 class PatientInboxItem {
-  final String origin; // 'appointment' | 'care_task'
   final String key;
-  final int? appointmentId;
-  final int? careTaskId;
+  final int careTaskId;
   final String? patientName;
   final String serviceLabel;
 
@@ -42,16 +39,14 @@ class PatientInboxItem {
   final DateTime? scheduledEnd;
   final PatientInboxProvider? provider; // null → still finding a professional
   final double? estimatedPrice;
-  final String? chiefComplaint;
+  final String? remarks;
 
   /// The structured reasons the booking was raised for, resolved to labels by
-  /// the server. The complaint beside them is the patient's own words.
+  /// the server. The remark beside them is the patient's own words.
   final List<String> issueLabels;
 
   const PatientInboxItem({
-    required this.origin,
     required this.key,
-    required this.appointmentId,
     required this.careTaskId,
     required this.patientName,
     required this.serviceLabel,
@@ -62,7 +57,7 @@ class PatientInboxItem {
     required this.scheduledEnd,
     required this.provider,
     required this.estimatedPrice,
-    required this.chiefComplaint,
+    required this.remarks,
     this.issueLabels = const [],
   });
 
@@ -70,14 +65,10 @@ class PatientInboxItem {
   /// still the patient's booking, waiting on them to pick another time.
   bool get isUnmatched => status == 'unmatched';
 
-  bool get isCareTask => origin == 'care_task';
-
   factory PatientInboxItem.fromJson(Map<String, dynamic> json) =>
       PatientInboxItem(
-        origin: json['origin'] as String? ?? 'unknown',
         key: json['key'] as String? ?? '',
-        appointmentId: (json['appointmentId'] as num?)?.toInt(),
-        careTaskId: (json['careTaskId'] as num?)?.toInt(),
+        careTaskId: (json['careTaskId'] as num?)?.toInt() ?? 0,
         patientName: json['patientName'] as String?,
         serviceLabel: json['serviceLabel'] as String? ?? '',
         createdAt: _parseDate(json['createdAt']),
@@ -90,7 +81,7 @@ class PatientInboxItem {
                 json['provider'] as Map<String, dynamic>)
             : null,
         estimatedPrice: (json['estimatedPrice'] as num?)?.toDouble(),
-        chiefComplaint: json['chiefComplaint'] as String?,
+        remarks: json['remarks'] as String?,
         issueLabels: parseIssueLabels(json['issueLabels']),
       );
 

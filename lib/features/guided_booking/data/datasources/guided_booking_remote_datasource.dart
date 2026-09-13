@@ -78,7 +78,7 @@ class BookingSubmissionRemoteDataSource implements BookingSubmissionDataSource {
   @override
   Future<SubmittedRequestModel> submit(GuidedBookingDraft draft) async {
     final response = await dio.post(
-      '${Const.URL_API_V2}/guided-booking/requests',
+      '${Const.URL_API_V2}/self-service-booking/requests',
       data: draft.toJson(),
       options: Options(headers: await _authHeaders()),
     );
