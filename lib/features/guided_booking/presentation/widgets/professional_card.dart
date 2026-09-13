@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/guided_booking/domain/entities/booking_professional.dart';
-import 'package:m2health/features/pricing/presentation/bloc/price_table_cubit.dart';
+import 'package:m2health/features/etc/pricing/presentation/bloc/price_table_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 /// The card only presents a professional. Choosing one happens by continuing

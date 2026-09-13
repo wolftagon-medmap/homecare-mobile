@@ -7,10 +7,10 @@ class PatientCareTaskDetail {
   final String statusLabel;
   final String serviceLabel;
   final String? patientName;
-  final String? chiefComplaint;
+  final String? remarks;
 
   /// The structured reasons the booking was raised for, resolved to labels by
-  /// the server. The complaint beside them is the patient's own words.
+  /// the server. The remark beside them is the patient's own words.
   final List<String> issueLabels;
   final String? preferredDate;
   final String? preferredTime;
@@ -27,7 +27,7 @@ class PatientCareTaskDetail {
     required this.statusLabel,
     required this.serviceLabel,
     required this.patientName,
-    required this.chiefComplaint,
+    required this.remarks,
     this.issueLabels = const [],
     required this.preferredDate,
     required this.preferredTime,
@@ -50,7 +50,7 @@ class PatientCareTaskDetail {
         statusLabel: json['statusLabel'] as String? ?? '',
         serviceLabel: json['serviceLabel'] as String? ?? '',
         patientName: json['patientName'] as String?,
-        chiefComplaint: json['chiefComplaint'] as String?,
+        remarks: json['remarks'] as String?,
         issueLabels: PatientInboxItem.parseIssueLabels(json['issueLabels']),
         preferredDate: json['preferredDate'] as String?,
         preferredTime: json['preferredTime'] as String?,

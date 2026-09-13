@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:m2health/features/profiles/data/datasources/countries_remote_datasource.dart';
-import 'package:m2health/features/profiles/data/models/country_model.dart';
+import 'package:m2health/features/user_profiles/data/datasources/countries_remote_datasource.dart';
+import 'package:m2health/features/user_profiles/data/models/country_model.dart';
 import 'package:m2health/service_locator.dart';
 
 class CountryPickerField extends StatefulWidget {

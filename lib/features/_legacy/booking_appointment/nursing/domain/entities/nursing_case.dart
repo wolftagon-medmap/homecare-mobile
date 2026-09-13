@@ -1,0 +1,50 @@
+import 'package:equatable/equatable.dart';
+import 'package:m2health/core/domain/entities/service_entity.dart';
+import 'package:m2health/features/_legacy/booking_appointment/personal_issue/domain/entities/mobility_status.dart';
+import 'package:m2health/features/_legacy/booking_appointment/personal_issue/domain/entities/personal_issue.dart';
+
+class NursingCase extends Equatable {
+  final int? appointmentId;
+  final List<PersonalIssue> issues;
+  final MobilityStatus? mobilityStatus;
+  final String? mobilityStatusDetail;
+  final int? relatedHealthRecordId;
+  final List<ServiceEntity> addOnServices;
+
+  const NursingCase({
+    this.appointmentId,
+    required this.issues,
+    this.mobilityStatus,
+    this.mobilityStatusDetail,
+    this.relatedHealthRecordId,
+    required this.addOnServices,
+  });
+
+  @override
+  List<Object?> get props => [
+        appointmentId,
+        issues,
+        mobilityStatus,
+        mobilityStatusDetail,
+        relatedHealthRecordId,
+        addOnServices,
+      ];
+
+  NursingCase copyWith({
+    int? appointmentId,
+    List<PersonalIssue>? issues,
+    MobilityStatus? mobilityStatus,
+    String? mobilityStatusDetail,
+    int? relatedHealthRecordId,
+    List<ServiceEntity>? addOnServices,
+  }) {
+    return NursingCase(
+      appointmentId: appointmentId ?? this.appointmentId,
+      issues: issues ?? this.issues,
+      mobilityStatus: mobilityStatus ?? this.mobilityStatus,
+      mobilityStatusDetail: mobilityStatusDetail ?? this.mobilityStatusDetail,
+      relatedHealthRecordId: relatedHealthRecordId,
+      addOnServices: addOnServices ?? this.addOnServices,
+    );
+  }
+}

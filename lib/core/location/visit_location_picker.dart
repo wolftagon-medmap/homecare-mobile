@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/location/current_location_service.dart';
 import 'package:m2health/core/location/visit_location.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
-import 'package:m2health/features/profiles/domain/entities/place_detail.dart';
-import 'package:m2health/features/profiles/presentation/pages/address_map_page.dart';
-import 'package:m2health/features/profiles/presentation/pages/address_search_page.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/domain/entities/place_detail.dart';
+import 'package:m2health/features/user_profiles/presentation/pages/address_map_page.dart';
+import 'package:m2health/features/user_profiles/presentation/pages/address_search_page.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 /// Picks where the visit happens, from any of the three sources a patient

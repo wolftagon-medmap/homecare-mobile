@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:m2health/features/appointment/appointment_module.dart';
-import 'package:m2health/features/medical_store/medical_store_routes.dart';
+import 'package:m2health/features/etc/medical_store/medical_store_routes.dart';
 import 'package:m2health/main.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/route/appointment_routes.dart';
@@ -8,7 +8,7 @@ import 'package:m2health/route/dashboard_routes.dart';
 import 'package:m2health/route/navigator_keys.dart';
 import 'package:m2health/core/presentation/views/favourites.dart';
 import 'package:m2health/core/presentation/views/unified_home_page.dart';
-import 'package:m2health/features/medical_store/presentation/pages/medical_store_page.dart';
+import 'package:m2health/features/etc/medical_store/presentation/pages/medical_store_page.dart';
 import 'package:m2health/core/presentation/views/unified_profile_page.dart';
 
 class CoreRoutes {

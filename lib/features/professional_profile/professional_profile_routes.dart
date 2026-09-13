@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:m2health/features/booking_appointment/professional_directory/presentation/bloc/professional_detail/professional_detail_cubit.dart';
+import 'package:m2health/features/_legacy/booking_appointment/professional_directory/presentation/bloc/professional_detail/professional_detail_cubit.dart';
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
 import 'package:m2health/features/professional_profile/domain/entities/work_preferences.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/condition_experience_cubit.dart';
@@ -20,7 +20,7 @@ import 'package:m2health/features/professional_profile/presentation/pages/servic
 import 'package:m2health/features/professional_profile/presentation/pages/verification_hub_page.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/where_i_work_page.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/work_preferences_page.dart';
-import 'package:m2health/features/schedule/presentation/pages/working_schedule_page.dart';
+import 'package:m2health/features/professional_profile/presentation/pages/working_schedule_page.dart';
 import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 

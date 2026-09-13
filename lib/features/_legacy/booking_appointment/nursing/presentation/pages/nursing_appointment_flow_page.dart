@@ -1,0 +1,254 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:m2health/core/extensions/l10n_extensions.dart';
+import 'package:m2health/features/_legacy/booking_appointment/booking_confirmation/presentation/pages/booking_confirmation_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/services_selection/presentation/pages/services_selection_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/nursing/const.dart';
+import 'package:m2health/features/_legacy/booking_appointment/nursing/presentation/bloc/nursing_appointment_flow_bloc.dart';
+import 'package:m2health/features/_legacy/booking_appointment/personal_issue/presentation/bloc/personal_issues_cubit.dart';
+import 'package:m2health/features/_legacy/booking_appointment/professional_directory/presentation/bloc/professional/professional_bloc.dart';
+import 'package:m2health/features/_legacy/booking_appointment/professional_directory/presentation/bloc/professional_detail/professional_detail_cubit.dart';
+import 'package:m2health/features/_legacy/booking_appointment/schedule_appointment/presentation/bloc/schedule_appointment_cubit.dart';
+import 'package:m2health/features/_legacy/booking_appointment/schedule_appointment/presentation/pages/schedule_appointment_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/personal_issue/presentation/pages/health_status_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/personal_issue/presentation/pages/personal_issues_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/professional_directory/presentation/pages/search_professional_page.dart';
+import 'package:m2health/features/_legacy/booking_appointment/professional_directory/presentation/pages/professional_details_page.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_cubit.dart';
+import 'package:m2health/features/user_profiles/presentation/bloc/patient_profile_state.dart';
+import 'package:m2health/features/user_profiles/presentation/widgets/profile_switcher_sheet.dart';
+import 'package:m2health/service_locator.dart';
+import 'package:m2health/route/appointment_routes.dart';
+
+class NursingAppointmentFlowPage extends StatefulWidget {
+  const NursingAppointmentFlowPage({super.key});
+
+  @override
+  State<NursingAppointmentFlowPage> createState() =>
+      _NursingAppointmentFlowPageState();
+}
+
+class _NursingAppointmentFlowPageState
+    extends State<NursingAppointmentFlowPage> {
+  final PageController _pageController = PageController();
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _onBack(BuildContext context) {
+    final state = context.read<NursingAppointmentFlowBloc>().state;
+    final flowBloc = context.read<NursingAppointmentFlowBloc>();
+
+    if (state.submissionStatus == AppointmentSubmissionStatus.submitting) {
+      return; // Prevent back navigation during submission
+    }
+
+    switch (state.currentStep) {
+      case NursingFlowStep.personalCase:
+        Navigator.pop(context);
+        break;
+      case NursingFlowStep.healthStatus:
+        flowBloc.add(const FlowStepChanged(NursingFlowStep.personalCase));
+        break;
+      case NursingFlowStep.addOnService:
+        flowBloc.add(const FlowStepChanged(NursingFlowStep.healthStatus));
+        break;
+      case NursingFlowStep.searchProfessional:
+        flowBloc.add(const FlowStepChanged(NursingFlowStep.addOnService));
+        break;
+      case NursingFlowStep.viewProfessionalDetail:
+        flowBloc.add(const FlowStepChanged(NursingFlowStep.searchProfessional));
+        break;
+      case NursingFlowStep.scheduling:
+        flowBloc
+            .add(const FlowStepChanged(NursingFlowStep.viewProfessionalDetail));
+        break;
+      case NursingFlowStep.confirmation:
+        flowBloc.add(const FlowStepChanged(NursingFlowStep.scheduling));
+        break;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<NursingAppointmentFlowBloc,
+        NursingAppointmentFlowState>(
+      listenWhen: (previous, current) =>
+          previous.submissionStatus != current.submissionStatus ||
+          previous.currentStep != current.currentStep,
+      listener: (context, state) {
+        // --- Handle Submission ---
+        if (state.submissionStatus == AppointmentSubmissionStatus.success &&
+            state.createdAppointment != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(context.l10n.booking_appointment_created_success),
+              backgroundColor: Colors.green,
+            ),
+          );
+
+          GoRouter.of(context)
+              .go(AppointmentRoutes.detailPath(state.createdAppointment!.id!));
+        }
+        if (state.submissionStatus == AppointmentSubmissionStatus.failure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                state.errorMessage ??
+                    context.l10n.booking_appointment_created_failed,
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+
+        if (state.currentStep.index != _pageController.page?.round()) {
+          _pageController.animateToPage(
+            state.currentStep.index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+          );
+        }
+      },
+      builder: (context, state) {
+        return PopScope(
+          canPop: false,
+          onPopInvoked: (bool didPop) {
+            if (didPop) return;
+            _onBack(context);
+          },
+          child: Scaffold(
+            body: PageView(
+              controller: _pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                BlocProvider(
+                  create: (context) => PersonalIssuesCubit(
+                    serviceType: 'nursing',
+                    getPersonalIssues: sl(),
+                    createPersonalIssue: sl(),
+                    updatePersonalIssue: sl(),
+                    deletePersonalIssue: sl(),
+                  ),
+                  child: PersonalIssuesPage(
+                    initialSelectedIssues: state.selectedIssues,
+                    onIssuesSelected: (issues) {
+                      context
+                          .read<NursingAppointmentFlowBloc>()
+                          .add(FlowPersonalIssueUpdated(issues));
+                    },
+                  ),
+                ),
+                HealthStatusPage(
+                  initialHealthStatus: state.healthStatus,
+                  onSubmit: (healthStatus) {
+                    context
+                        .read<NursingAppointmentFlowBloc>()
+                        .add(FlowHealthStatusUpdated(healthStatus));
+                  },
+                ),
+                ServicesSelectionPage(
+                  serviceCategory: state.serviceType.category,
+                  serviceSubCategory: state.serviceType.subCategory,
+                  initialSelectedServices: state.selectedAddOnServices,
+                  onComplete: (services) {
+                    context
+                        .read<NursingAppointmentFlowBloc>()
+                        .add(FlowAddOnServicesUpdated(services));
+                  },
+                ),
+                BlocProvider(
+                  create: (context) => ProfessionalBloc(
+                    getProfessionals: sl(),
+                    toggleFavorite: sl(),
+                  ),
+                  child: SearchProfessionalPage(
+                    role: 'nurse',
+                    serviceIds:
+                        state.selectedAddOnServices.map((e) => e.id).toList(),
+                    serviceSubCategory:
+                        state.serviceType == NurseServiceType.specializedNurse
+                            ? 'Specialized'
+                            : null,
+                    onProfessionalSelected: (prof) {
+                      context
+                          .read<NursingAppointmentFlowBloc>()
+                          .add(FlowProfessionalSelected(prof));
+                    },
+                    onLocationSelected: (address) {
+                      context
+                          .read<NursingAppointmentFlowBloc>()
+                          .add(FlowLocationSelected(address));
+                    },
+                  ),
+                ),
+                if (state.selectedProfessional != null)
+                  BlocProvider(
+                    create: (context) => ProfessionalDetailCubit(
+                      getProfessionalDetail: sl(),
+                    ),
+                    child: ProfessionalDetailsPage(
+                      professionalId: state.selectedProfessional!.id,
+                      role: state.selectedProfessional?.role ?? 'nurse',
+                      onButtonPressed: () {
+                        context.read<NursingAppointmentFlowBloc>().add(
+                            const FlowStepChanged(NursingFlowStep.scheduling));
+                      },
+                    ),
+                  ), // Placeholder
+                if (state.selectedProfessional != null)
+                  BlocProvider(
+                    create: (context) => ScheduleAppointmentCubit(
+                      getAvailableTimeSlots: sl(),
+                      rescheduleAppointment: sl(),
+                    ),
+                    child: ScheduleAppointmentPage(
+                        data: ScheduleAppointmentPageData(
+                      professional: state.selectedProfessional!,
+                      isSubmitting: state.submissionStatus ==
+                          AppointmentSubmissionStatus.submitting,
+                      onSlotSelected: (timeSlot) {
+                        context
+                            .read<NursingAppointmentFlowBloc>()
+                            .add(FlowTimeSlotSelected(timeSlot.startTime));
+                      },
+                    )),
+                  ), // Placeholder
+                if (state.selectedProfessional != null &&
+                    state.selectedTimeSlot != null)
+                  BlocBuilder<PatientProfileCubit, PatientProfileState>(
+                    builder: (context, profileState) {
+                      final patientName = profileState is PatientProfileLoaded
+                          ? profileState.activeProfile.name
+                          : '';
+                      return BookingConfirmationPage(
+                        patientName: patientName,
+                        onChangePatient: () =>
+                            showProfileSwitcherSheet(context),
+                        address: state.selectedLocation,
+                        services: state.selectedAddOnServices,
+                        professionalName: state.selectedProfessional!.name,
+                        professionalRole: state.selectedProfessional!.role,
+                        timeSlot: state.selectedTimeSlot!,
+                        isSubmitting: state.submissionStatus ==
+                            AppointmentSubmissionStatus.submitting,
+                        onConfirm: () {
+                          context
+                              .read<NursingAppointmentFlowBloc>()
+                              .add(FlowSubmitAppointment());
+                        },
+                      );
+                    },
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}

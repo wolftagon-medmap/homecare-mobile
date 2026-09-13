@@ -5,7 +5,7 @@ import 'package:m2health/features/guided_booking/domain/entities/guided_booking_
 import 'package:m2health/features/guided_booking/domain/usecases/guided_booking_usecases.dart';
 import 'package:m2health/core/location/current_location_service.dart';
 import 'package:m2health/core/location/visit_location.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
 import 'package:m2health/features/guided_booking/presentation/bloc/guided_booking_state.dart';
 
 class GuidedBookingCubit extends Cubit<GuidedBookingState> {

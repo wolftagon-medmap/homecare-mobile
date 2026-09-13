@@ -1,24 +1,18 @@
-// Provider inbox contract (backend ADR-0006): one shape over two disjoint
-// sources — v1 pending appointments and v2 care-task offers. Parsing is
-// defensive so one malformed item can never crash the whole list.
+// Provider inbox contract (backend ADR-0006, single-sourced from care-task
+// offers as of the CareTask-unify rewrite). Parsing is defensive so one
+// malformed item can never crash the whole list.
 
 class InboxAction {
   final String kind; // 'accept' | 'decline' | 'propose_time'
-  final String entity; // 'offer' | 'appointment'
-  final int entityId; // careTaskId for offers, appointmentId for appointments
   final bool requiresReason;
 
   const InboxAction({
     required this.kind,
-    required this.entity,
-    required this.entityId,
     required this.requiresReason,
   });
 
   factory InboxAction.fromJson(Map<String, dynamic> json) => InboxAction(
         kind: json['kind'] as String? ?? '',
-        entity: json['entity'] as String? ?? '',
-        entityId: (json['entityId'] as num?)?.toInt() ?? 0,
         requiresReason: json['requiresReason'] as bool? ?? false,
       );
 }
@@ -27,7 +21,7 @@ class InboxItemSummary {
   final String? service;
 
   /// The structured reasons the booking was raised for, resolved to labels by
-  /// the server. Empty for a v1 appointment, which has no guided-booking codes.
+  /// the server.
   final List<String> issueLabels;
   final String? patientLabel;
   final String? location;
@@ -56,8 +50,8 @@ List<String> _parseLabels(dynamic value) => value is List
     : const <String>[];
 
 class InboxItem {
-  final String origin; // 'v1_appointment' | 'v2_offer'
   final String key;
+  final int careTaskId;
   final String title;
   final String serviceLabel;
   final InboxItemSummary summary;
@@ -68,8 +62,8 @@ class InboxItem {
   final List<InboxAction> actions;
 
   const InboxItem({
-    required this.origin,
     required this.key,
+    required this.careTaskId,
     required this.title,
     required this.serviceLabel,
     required this.summary,
@@ -79,13 +73,6 @@ class InboxItem {
     required this.expiresAt,
     required this.actions,
   });
-
-  bool get isOffer => origin == 'v2_offer';
-
-  /// The entity a conversation hangs off: the care task for an offer, the
-  /// appointment for a v1 row. Read from the actions rather than parsed out of
-  /// `key`, so it stays right if the key format ever changes.
-  int get summaryEntityId => actions.isEmpty ? 0 : actions.first.entityId;
 
   InboxAction? actionOfKind(String kind) {
     for (final a in actions) {
@@ -106,8 +93,8 @@ class InboxItem {
         : <InboxAction>[];
 
     return InboxItem(
-      origin: json['origin'] as String? ?? 'unknown',
       key: json['key'] as String? ?? '',
+      careTaskId: (json['careTaskId'] as num?)?.toInt() ?? 0,
       title: json['title'] as String? ?? 'Patient',
       serviceLabel: json['serviceLabel'] as String? ?? '',
       summary: summary,

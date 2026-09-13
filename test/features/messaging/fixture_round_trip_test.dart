@@ -158,10 +158,9 @@ void main() {
     test('the provider offer carries a propose_time action', () {
       final item = kProviderInboxDemoFixture().map(InboxItem.fromJson).single;
 
-      expect(item.isOffer, isTrue);
       expect(item.actionOfKind('propose_time'), isNotNull);
       expect(item.actionOfKind('accept'), isNotNull);
-      expect(item.summaryEntityId, greaterThan(0));
+      expect(item.careTaskId, greaterThan(0));
     });
   });
 }

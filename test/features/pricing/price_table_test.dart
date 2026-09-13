@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:m2health/features/pricing/data/fixtures/price_table_fixture.dart';
-import 'package:m2health/features/pricing/data/models/price_table_model.dart';
-import 'package:m2health/features/pricing/domain/entities/estimate.dart';
-import 'package:m2health/features/pricing/domain/entities/service_price.dart';
-import 'package:m2health/features/pricing/domain/usecases/calculate_estimate.dart';
+import 'package:m2health/features/etc/pricing/data/fixtures/price_table_fixture.dart';
+import 'package:m2health/features/etc/pricing/data/models/price_table_model.dart';
+import 'package:m2health/features/etc/pricing/domain/entities/estimate.dart';
+import 'package:m2health/features/etc/pricing/domain/entities/service_price.dart';
+import 'package:m2health/features/etc/pricing/domain/usecases/calculate_estimate.dart';
 
 const _nursingFloor = 20.0; // nursing.specialized.pain_care_management
 const _homecareFloor = 25.0; // homecare_elderly.hourly_rate, per hour

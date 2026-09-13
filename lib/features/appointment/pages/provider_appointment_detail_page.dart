@@ -13,9 +13,9 @@ import 'package:m2health/features/appointment/bloc/provider_appointment_cubit.da
 import 'package:m2health/features/appointment/bloc/provider_appointment_detail_cubit.dart';
 import 'package:m2health/features/appointment/widgets/appointment_type_detail_tile.dart';
 import 'package:m2health/features/appointment/widgets/provider_appointment_action_dialog.dart';
-import 'package:m2health/features/home_health_screening/presentation/widgets/screening_appointment_detail_action_buttons.dart';
-import 'package:m2health/features/profiles/domain/entities/address.dart';
-import 'package:m2health/features/smoking_cessation/presentation/widgets/prepare_smoking_cessation_plan_button.dart';
+import 'package:m2health/features/_legacy/booking_appointment/home_health_screening/presentation/widgets/screening_appointment_detail_action_buttons.dart';
+import 'package:m2health/features/user_profiles/domain/entities/address.dart';
+import 'package:m2health/features/_legacy/booking_appointment/smoking_cessation/presentation/widgets/prepare_smoking_cessation_plan_button.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/pricing/domain/entities/service_price.dart';
+import 'package:m2health/features/etc/pricing/domain/entities/service_price.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 Future<void> showAddOnDetailSheet(

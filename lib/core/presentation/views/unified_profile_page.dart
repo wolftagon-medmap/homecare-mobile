@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/auth/domain/entities/user_role.dart';
-import 'package:m2health/features/profiles/presentation/pages/admin_profile_page.dart';
-import 'package:m2health/features/profiles/presentation/pages/patient_profile_page.dart';
+import 'package:m2health/features/user_profiles/presentation/pages/admin_profile_page.dart';
+import 'package:m2health/features/user_profiles/presentation/pages/patient_profile_page.dart';
 import 'package:m2health/features/professional_profile/presentation/pages/professional_profile_page.dart';
 import 'package:m2health/utils.dart';
 

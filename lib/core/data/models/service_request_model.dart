@@ -19,7 +19,7 @@ class ServiceRequestModel extends ServiceRequestEntity {
       id: id,
       status: status,
       detail: detail != null ? _parseDetail(detail, appointmentType) : null,
-      chiefComplaint: json['chief_complaint'] as String?,
+      chiefComplaint: json['remarks'] as String?,
     );
   }
 

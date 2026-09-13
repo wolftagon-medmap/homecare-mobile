@@ -6,7 +6,7 @@ import 'package:m2health/const.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/auth_guard_dialog.dart';
 import 'package:m2health/core/presentation/widgets/profile_shared_widgets.dart';
-import 'package:m2health/features/pricing/pricing_routes.dart';
+import 'package:m2health/features/etc/pricing/pricing_routes.dart';
 import 'package:m2health/features/professional_profile/domain/entities/onboarding_status.dart';
 import 'package:m2health/features/professional_profile/domain/entities/professional_profile.dart';
 import 'package:m2health/features/professional_profile/presentation/bloc/manage_services_cubit.dart';

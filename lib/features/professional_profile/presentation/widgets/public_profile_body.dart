@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
-import 'package:m2health/features/booking_appointment/professional_directory/domain/entities/reviewer.dart';
+import 'package:m2health/features/_legacy/booking_appointment/professional_directory/domain/entities/professional_entity.dart';
+import 'package:m2health/features/_legacy/booking_appointment/professional_directory/domain/entities/reviewer.dart';
 import 'package:m2health/features/professional_profile/domain/entities/certificate.dart';
 import 'package:m2health/features/professional_profile/presentation/view/profile_summary.dart';
 import 'package:m2health/features/professional_profile/presentation/widgets/profile_highlights.dart';

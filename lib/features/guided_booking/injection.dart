@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:m2health/core/config/feature_flags.dart';
 import 'package:m2health/core/location/current_location_service.dart';
-import 'package:m2health/features/profiles/domain/usecases/create_address.dart';
+import 'package:m2health/features/user_profiles/domain/usecases/create_address.dart';
 import 'package:m2health/features/guided_booking/data/datasources/guided_booking_datasource.dart';
 import 'package:m2health/features/guided_booking/data/datasources/guided_booking_local_datasource.dart';
 import 'package:m2health/features/guided_booking/data/datasources/guided_booking_remote_datasource.dart';
