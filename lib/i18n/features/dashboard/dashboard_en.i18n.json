@@ -20,14 +20,14 @@
     "name_home_screening": "Home Health Screening",
     "name_second_opinion": "2nd Opinion Imaging",
     "name_homecare_elderly": "Homecare for Elderly",
-    "desc_pharmacist": "Expert advice on your medications and support to help you quit smoking.",
+    "desc_pharmacist": "Expert advice on your medications and support.",
     "desc_physiotherapy": "Manage pain, improve mobility and recover better.",
     "desc_psychologist": "Get support for stress, emotions and mental well-being.",
-    "desc_dietitian": "Personalised nutrition support for a healthier you.",
+    "desc_dietitian": "Personalised nutrition support.",
     "desc_optometrist": "Eye care, vision checks and professional advice.",
     "desc_nursing": "Professional nursing care in the comfort of your home.",
-    "desc_diabetic_care": "Check your eyes and feet for diabetes-related complications.",
-    "desc_home_screening": "Convenient health checks in the comfort of your home.",
+    "desc_diabetic_care": "Check your eyes and feet for diabetes.",
+    "desc_home_screening": "Convenient health checks in your home.",
     "desc_second_opinion": "Get an expert second read of your medical scans.",
     "desc_homecare_elderly": "Daily living support and companionship at home."
   }
