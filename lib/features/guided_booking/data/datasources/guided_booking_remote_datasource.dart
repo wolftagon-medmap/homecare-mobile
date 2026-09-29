@@ -101,42 +101,6 @@ class BookingAddressRemoteDataSource implements BookingAddressDataSource {
   }
 }
 
-class BookingDraftRemoteDataSource implements BookingDraftDataSource {
-  final Dio dio;
-
-  BookingDraftRemoteDataSource(this.dio);
-
-  @override
-  Future<GuidedBookingDraft?> load(String category) async {
-    final response = await dio.get(
-      '${Const.URL_API_V2}/guided-booking/draft',
-      queryParameters: {'category': category},
-      options: Options(headers: await _authHeaders()),
-    );
-    final data = (response.data as Map?)?['data'];
-    if (data is! Map<String, dynamic>) return null;
-    return GuidedBookingDraftModel.fromJson(data);
-  }
-
-  @override
-  Future<void> save(GuidedBookingDraft draft) async {
-    await dio.put(
-      '${Const.URL_API_V2}/guided-booking/draft',
-      data: draft.toJson(),
-      options: Options(headers: await _authHeaders()),
-    );
-  }
-
-  @override
-  Future<void> clear(String category) async {
-    await dio.delete(
-      '${Const.URL_API_V2}/guided-booking/draft',
-      queryParameters: {'category': category},
-      options: Options(headers: await _authHeaders()),
-    );
-  }
-}
-
 Future<Map<String, String>> _authHeaders() async {
   final token = await Utils.getSpString(Const.TOKEN);
   return {'Authorization': 'Bearer $token'};

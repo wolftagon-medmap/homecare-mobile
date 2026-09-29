@@ -1,8 +1,7 @@
 import 'package:m2health/features/chatbot/domain/entities/assistant_block.dart';
 import 'package:m2health/features/chatbot/domain/entities/assistant_script.dart';
 
-/// Parses the guided-conversation payload. The fixture and the remote endpoint
-/// both go through here, so swapping the flag cannot change the shape.
+/// Parses the guided-conversation payload from `GET /v2/assistant/script`.
 class AssistantScriptModel {
   const AssistantScriptModel._();
 

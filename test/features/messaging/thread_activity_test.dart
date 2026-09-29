@@ -6,7 +6,8 @@ import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/core/messaging/thread_index_cubit.dart';
 import 'package:m2health/core/messaging/thread_index_source.dart';
 import 'package:m2health/core/messaging/thread_ref.dart';
-import 'package:m2health/features/messaging/data/datasources/messaging_local_datasource.dart';
+import 'fakes/messaging_local_datasource.dart';
+import 'fakes/thread_stream_local.dart';
 import 'package:m2health/features/messaging/data/datasources/thread_stream.dart';
 import 'package:m2health/features/messaging/data/repositories/messaging_repository_impl.dart';
 import 'package:m2health/features/messaging/data/thread_index_adapter.dart';
@@ -286,8 +287,7 @@ void main() {
   });
 
   group('the local stream', () {
-    test('is inert, so the app behaves exactly as it does with the flag off',
-        () async {
+    test('is inert', () async {
       final local = ThreadStreamLocal();
       await local.connect();
 

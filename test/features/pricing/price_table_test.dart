@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:m2health/features/etc/pricing/data/fixtures/price_table_fixture.dart';
+import 'fakes/price_table_fixture.dart';
 import 'package:m2health/features/etc/pricing/data/models/price_table_model.dart';
 import 'package:m2health/features/etc/pricing/domain/entities/estimate.dart';
 import 'package:m2health/features/etc/pricing/domain/entities/service_price.dart';

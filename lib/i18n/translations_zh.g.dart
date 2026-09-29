@@ -43,7 +43,6 @@ class TranslationsZh with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDashboardZh dashboard = _TranslationsDashboardZh._(_root);
 	@override late final _TranslationsGlobalZh global = _TranslationsGlobalZh._(_root);
 	@override late final _TranslationsGuidedBookingZh guidedBooking = _TranslationsGuidedBookingZh._(_root);
-	@override late final _TranslationsHealthProfileZh healthProfile = _TranslationsHealthProfileZh._(_root);
 	@override late final _TranslationsMessagingZh messaging = _TranslationsMessagingZh._(_root);
 	@override late final _TranslationsNursingZh nursing = _TranslationsNursingZh._(_root);
 	@override late final _TranslationsPaymentZh payment = _TranslationsPaymentZh._(_root);
@@ -201,19 +200,6 @@ class _TranslationsGuidedBookingZh implements TranslationsGuidedBookingEn {
 	@override late final _TranslationsGuidedBookingReviewZh review = _TranslationsGuidedBookingReviewZh._(_root);
 	@override late final _TranslationsGuidedBookingSentZh sent = _TranslationsGuidedBookingSentZh._(_root);
 	@override late final _TranslationsGuidedBookingCtaZh cta = _TranslationsGuidedBookingCtaZh._(_root);
-}
-
-// Path: healthProfile
-class _TranslationsHealthProfileZh implements TranslationsHealthProfileEn {
-	_TranslationsHealthProfileZh._(this._root);
-
-	final TranslationsZh _root; // ignore: unused_field
-
-	// Translations
-	@override String get namespace_title => '健康档案';
-	@override String get entry_tile => '我的健康档案';
-	@override late final _TranslationsHealthProfileListZh list = _TranslationsHealthProfileListZh._(_root);
-	@override late final _TranslationsHealthProfileSectionZh section = _TranslationsHealthProfileSectionZh._(_root);
 }
 
 // Path: messaging
@@ -790,43 +776,6 @@ class _TranslationsGuidedBookingCtaZh implements TranslationsGuidedBookingCtaEn 
 	// Translations
 	@override String get kContinue => '继续';
 	@override String get skip => '跳过';
-}
-
-// Path: healthProfile.list
-class _TranslationsHealthProfileListZh implements TranslationsHealthProfileListEn {
-	_TranslationsHealthProfileListZh._(this._root);
-
-	final TranslationsZh _root; // ignore: unused_field
-
-	// Translations
-	@override String get subtitle => '只更新您想更新的内容，全部为选填。';
-	@override String get not_started => '尚未填写';
-	@override String updated({required Object date}) => '更新于 ${date}';
-	@override String get loading => '正在加载您的健康档案';
-	@override String get empty => '暂无可填写的部分。';
-	@override String get error => '无法加载您的健康档案。';
-}
-
-// Path: healthProfile.section
-class _TranslationsHealthProfileSectionZh implements TranslationsHealthProfileSectionEn {
-	_TranslationsHealthProfileSectionZh._(this._root);
-
-	final TranslationsZh _root; // ignore: unused_field
-
-	// Translations
-	@override String get subtitle => '能填多少填多少，随时可以回来继续。';
-	@override String get save => '保存';
-	@override String get saved => '已保存';
-	@override String get save_failed => '无法保存此部分。';
-	@override String get loading => '正在加载此部分';
-	@override String get error => '无法加载此部分。';
-	@override String get add_other => '添加其他';
-	@override String get add_attachment => '添加附件';
-	@override String attachment({required Object n}) => '报告 ${n}';
-	@override String get discard_title => '放弃修改？';
-	@override String get discard_body => '此部分有未保存的修改。';
-	@override String get discard => '放弃';
-	@override String get keep_editing => '继续填写';
 }
 
 // Path: messaging.timeProposal
@@ -1681,27 +1630,6 @@ extension on TranslationsZh {
 			'guidedBooking.sent.done' => '返回首页',
 			'guidedBooking.cta.kContinue' => '继续',
 			'guidedBooking.cta.skip' => '跳过',
-			'healthProfile.namespace_title' => '健康档案',
-			'healthProfile.entry_tile' => '我的健康档案',
-			'healthProfile.list.subtitle' => '只更新您想更新的内容，全部为选填。',
-			'healthProfile.list.not_started' => '尚未填写',
-			'healthProfile.list.updated' => ({required Object date}) => '更新于 ${date}',
-			'healthProfile.list.loading' => '正在加载您的健康档案',
-			'healthProfile.list.empty' => '暂无可填写的部分。',
-			'healthProfile.list.error' => '无法加载您的健康档案。',
-			'healthProfile.section.subtitle' => '能填多少填多少，随时可以回来继续。',
-			'healthProfile.section.save' => '保存',
-			'healthProfile.section.saved' => '已保存',
-			'healthProfile.section.save_failed' => '无法保存此部分。',
-			'healthProfile.section.loading' => '正在加载此部分',
-			'healthProfile.section.error' => '无法加载此部分。',
-			'healthProfile.section.add_other' => '添加其他',
-			'healthProfile.section.add_attachment' => '添加附件',
-			'healthProfile.section.attachment' => ({required Object n}) => '报告 ${n}',
-			'healthProfile.section.discard_title' => '放弃修改？',
-			'healthProfile.section.discard_body' => '此部分有未保存的修改。',
-			'healthProfile.section.discard' => '放弃',
-			'healthProfile.section.keep_editing' => '继续填写',
 			'messaging.title' => '消息',
 			'messaging.emptyTitle' => '暂无对话',
 			'messaging.emptyBody' => '发送预约请求后，您可以在此与专业人员沟通。',

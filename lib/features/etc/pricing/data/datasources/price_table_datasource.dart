@@ -1,17 +1,8 @@
 import 'package:m2health/features/etc/pricing/data/datasources/pricing_endpoint_client.dart';
-import 'package:m2health/features/etc/pricing/data/fixtures/price_table_fixture.dart';
 import 'package:m2health/features/etc/pricing/data/models/price_table_model.dart';
 
 abstract class PriceTableDataSource {
   Future<PriceTableModel> fetch();
-}
-
-class PriceTableLocalDataSource implements PriceTableDataSource {
-  const PriceTableLocalDataSource();
-
-  @override
-  Future<PriceTableModel> fetch() async =>
-      PriceTableModel.fromJson(kPriceTableFixture);
 }
 
 class PriceTableRemoteDataSource extends PricingEndpointClient

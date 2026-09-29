@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:m2health/core/blocs/voice_input/voice_input_cubit.dart';
 import 'package:m2health/core/services/ai_tools_service.dart';
+import 'package:m2health/features/chatbot/data/datasources/assistant_script_datasource.dart';
 import 'package:m2health/features/chatbot/domain/entities/assistant_block.dart';
 import 'package:m2health/features/chatbot/injection.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_cubit.dart';
@@ -13,10 +14,11 @@ import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Drives the assistant through the app's real `get_it` graph rather than
-/// hand-built collaborators, because the wiring is what the widget tests cannot
-/// see: a registration missing from `initChatbotModule` compiles perfectly and
-/// throws the moment a screen opens.
+import 'fakes/assistant_script_local_datasource.dart';
+
+/// Drives the assistant through the app's real `get_it` graph, with only the
+/// network script source swapped for the fixture, because a registration
+/// missing from `initChatbotModule` compiles and throws when a screen opens.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -27,6 +29,10 @@ void main() {
       () => VoiceInputCubit(aiToolsService: AIToolsService(Dio())),
     );
     initChatbotModule(sl);
+    sl.unregister<AssistantScriptDataSource>();
+    sl.registerLazySingleton<AssistantScriptDataSource>(
+      () => const AssistantScriptLocalDataSource(),
+    );
   });
 
   tearDown(() => sl.reset());

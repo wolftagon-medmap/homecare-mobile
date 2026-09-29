@@ -1,12 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:m2health/core/error/failures.dart';
-import 'package:m2health/features/etc/pricing/data/datasources/floor_price_datasource.dart';
+import 'fakes/pricing_local_datasources.dart';
 import 'package:m2health/features/etc/pricing/data/datasources/price_table_datasource.dart';
-import 'package:m2health/features/etc/pricing/data/datasources/provider_rate_datasource.dart';
 import 'package:m2health/features/etc/pricing/data/models/price_table_model.dart';
 import 'package:m2health/features/etc/pricing/data/repositories/pricing_repository_impl.dart';
-import 'package:m2health/features/etc/pricing/data/datasources/estimate_revision_datasource.dart';
 import 'package:m2health/features/etc/pricing/domain/entities/estimate_revision.dart';
 import 'package:m2health/features/etc/pricing/domain/entities/floor_price_update.dart';
 import 'package:m2health/features/etc/pricing/domain/entities/price_table.dart';
