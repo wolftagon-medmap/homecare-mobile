@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:m2health/core/config/feature_flags.dart';
 import 'package:m2health/features/etc/pricing/data/datasources/estimate_revision_datasource.dart';
 import 'package:m2health/features/etc/pricing/data/datasources/floor_price_datasource.dart';
 import 'package:m2health/features/etc/pricing/data/datasources/price_table_datasource.dart';
@@ -12,36 +11,23 @@ import 'package:m2health/features/etc/pricing/presentation/bloc/floor_price_cubi
 import 'package:m2health/features/etc/pricing/presentation/bloc/price_table_cubit.dart';
 import 'package:m2health/features/etc/pricing/presentation/bloc/provider_rates_cubit.dart';
 
-/// Dependency registrations for pricing and estimates. Owned by A3.
-///
-/// Called from `service_locator.dart` — do not open that file.
-/// Data sources resolve through `AppFlags.remote(Feature.x)`; see
-/// `lib/core/config/feature_flags.dart`.
+/// Dependency registrations for pricing and estimates. Called from
+/// `service_locator.dart`.
 void initPricingModule(GetIt sl) {
   sl.registerLazySingleton<PriceTableDataSource>(
-    () => AppFlags.remote(Feature.servicePricing)
-        ? PriceTableRemoteDataSource(dio: sl<Dio>())
-        : const PriceTableLocalDataSource(),
+    () => PriceTableRemoteDataSource(dio: sl<Dio>()),
   );
 
   sl.registerLazySingleton<ProviderRateDataSource>(
-    () => AppFlags.remote(Feature.professionalPricing)
-        ? ProviderRateRemoteDataSource(dio: sl<Dio>())
-        : ProviderRateLocalDataSource(sl<PriceTableDataSource>()),
+    () => ProviderRateRemoteDataSource(dio: sl<Dio>()),
   );
 
-  // The admin floor shares the professionalPricing flag: both write the same
-  // price columns and there is no case for cutting one over without the other.
   sl.registerLazySingleton<FloorPriceDataSource>(
-    () => AppFlags.remote(Feature.professionalPricing)
-        ? FloorPriceRemoteDataSource(dio: sl<Dio>())
-        : FloorPriceLocalDataSource(sl<PriceTableDataSource>()),
+    () => FloorPriceRemoteDataSource(dio: sl<Dio>()),
   );
 
   sl.registerLazySingleton<EstimateRevisionDataSource>(
-    () => AppFlags.remote(Feature.estimateRevision)
-        ? EstimateRevisionRemoteDataSource(dio: sl<Dio>())
-        : EstimateRevisionLocalDataSource(),
+    () => EstimateRevisionRemoteDataSource(dio: sl<Dio>()),
   );
 
   sl.registerLazySingleton<PricingRepository>(

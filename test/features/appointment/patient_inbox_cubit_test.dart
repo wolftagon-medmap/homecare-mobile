@@ -2,13 +2,9 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:m2health/core/config/feature_flags.dart';
 import 'package:m2health/features/appointment/bloc/patient_inbox_cubit.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-/// Records every request and answers from a script. A call it was not scripted
-/// for is a failure, which is how "the flag-off path never touches the network"
-/// is asserted rather than assumed.
+/// Records every request and answers from a script.
 class _RecordingAdapter implements HttpClientAdapter {
   final List<String> calls = [];
   final Map<String, dynamic>? body;
@@ -38,32 +34,9 @@ class _RecordingAdapter implements HttpClientAdapter {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  setUp(() async {
-    SharedPreferences.setMockInitialValues({});
-    AppFlags.clearServerFlags();
-    await AppFlags.init(await SharedPreferences.getInstance());
-    await AppFlags.clearOverrides();
-  });
-
   Dio dioWith(HttpClientAdapter adapter) => Dio()..httpClientAdapter = adapter;
 
-  test('flag off: fixture rows only, and the network is never called',
-      () async {
-    final adapter = _RecordingAdapter();
-    final cubit = PatientInboxCubit(dioWith(adapter));
-
-    await cubit.fetchInbox();
-
-    expect(adapter.calls, isEmpty);
-    final state = cubit.state;
-    expect(state, isA<PatientInboxLoaded>());
-    expect((state as PatientInboxLoaded).items, isNotEmpty);
-    expect(state.items.map((i) => i.status),
-        containsAll(<String>['time_proposed', 'unmatched']));
-  });
-
-  test('flag on: server rows only, no fixture merged in', () async {
-    await AppFlags.setOverride(Feature.timeProposal, true);
+  test('loads server rows only', () async {
     final adapter = _RecordingAdapter(body: {
       'items': [
         {
@@ -88,8 +61,7 @@ void main() {
     expect(items.single.issueLabels, ['Wound care']);
   });
 
-  test('flag on: a failure is an error state, not a fixture', () async {
-    await AppFlags.setOverride(Feature.timeProposal, true);
+  test('a failure is an error state', () async {
     final cubit = PatientInboxCubit(dioWith(_RecordingAdapter(fail: true)));
 
     await cubit.fetchInbox();

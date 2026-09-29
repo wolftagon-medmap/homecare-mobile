@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:m2health/features/messaging/data/datasources/messaging_local_datasource.dart';
+import 'fakes/messaging_local_datasource.dart';
 import 'package:m2health/features/messaging/data/repositories/messaging_repository_impl.dart';
 import 'package:m2health/features/messaging/domain/entities/chat_message.dart';
 import 'package:m2health/features/messaging/domain/entities/time_proposal.dart';
@@ -8,9 +8,8 @@ import 'package:m2health/core/messaging/thread_index_cubit.dart';
 import 'package:m2health/core/messaging/thread_ref.dart';
 import 'package:m2health/features/messaging/data/thread_index_adapter.dart';
 
-/// The demo has to survive being tapped through, not just rendered. These run
-/// the local data source for real — no mocks — because what is being tested is
-/// exactly that the scripted conversation responds.
+/// These run the local data source for real, no mocks, because what is being
+/// tested is that the scripted conversation responds.
 void main() {
   ThreadCubit cubitFor(int threadId) => ThreadCubit(
       MessagingRepositoryImpl(MessagingLocalDataSource()), threadId);

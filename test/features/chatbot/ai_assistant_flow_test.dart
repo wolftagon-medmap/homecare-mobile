@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:m2health/core/blocs/voice_input/voice_input_cubit.dart';
 import 'package:m2health/core/services/ai_tools_service.dart';
-import 'package:m2health/features/chatbot/data/datasources/assistant_script_datasource.dart';
+import 'fakes/assistant_script_local_datasource.dart';
 import 'package:m2health/features/chatbot/data/datasources/assistant_session_store.dart';
 import 'package:m2health/features/chatbot/data/repositories/assistant_repository_impl.dart';
 import 'package:m2health/features/chatbot/data/repositories/assistant_session_repository_impl.dart';

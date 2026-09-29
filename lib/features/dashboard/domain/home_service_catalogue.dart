@@ -65,7 +65,7 @@ const List<HomeService> homeServiceCatalogue = [
 extension HomeServiceDestination on HomeService {
   String get destination {
     final category = guidedCategory;
-    if (category == null || !AppFlags.remote(Feature.guidedBookingFlow)) {
+    if (category == null || !AppFlags.isOn(Feature.guidedBookingFlow)) {
       return route;
     }
     return GuidedBookingRoutes.entryFor(category);

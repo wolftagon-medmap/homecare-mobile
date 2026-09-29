@@ -1,19 +1,15 @@
 import 'dart:math' as math;
 
-import '../fixtures/thread_fixtures.dart';
-import '../models/chat_message_model.dart';
-import '../models/estimate_revision_model.dart';
-import '../models/message_thread_model.dart';
-import '../models/time_proposal_model.dart';
-import 'messaging_datasource.dart';
+import 'package:m2health/features/messaging/data/datasources/messaging_datasource.dart';
+import 'package:m2health/features/messaging/data/models/chat_message_model.dart';
+import 'package:m2health/features/messaging/data/models/estimate_revision_model.dart';
+import 'package:m2health/features/messaging/data/models/message_thread_model.dart';
+import 'package:m2health/features/messaging/data/models/time_proposal_model.dart';
 
-/// The demo conversation. Deliberately **stateful**: sending appends, accepting
-/// flips the card and posts the system line, choosing another time posts a fresh
-/// proposal. A read-only fixture would let the client tap a button and watch
-/// nothing happen.
-///
-/// State lives for the life of the process, so a cold start replays the script
-/// from the top — which is what you want between two run-throughs.
+import 'thread_fixtures.dart';
+
+/// In-memory thread store for tests. Stateful: sending appends, accepting a
+/// proposal flips its card and posts the system line.
 class MessagingLocalDataSource implements MessagingDataSource {
   final Map<int, List<Map<String, dynamic>>> _messages =
       kThreadMessagesFixture();
