@@ -1,11 +1,12 @@
 {
-  "chat_ai_placeholder": "Tanya dokter AI seputar kesehatan Anda",
+  "chat_ai_title": "Chat dengan dokter AI",
+  "chat_ai_subtitle": "Tanyakan soal kesehatan Anda",
   "greeting": "Hidup Lebih Lama & Sehat, {displayName}!",
   "greeting_generic": "Hidup Lebih Lama & Sehat!",
   "header_error": "Profil Anda gagal dimuat.",
   "retry": "Coba lagi",
   "home": {
-    "section_title": "Layanan Kesehatan",
+    "section_title": "Layanan",
     "section_subtitle": "Perawatan profesional untuk Anda dan keluarga.",
     "view_all": "Lihat Semua",
     "all_services_title": "Semua Layanan",
@@ -19,16 +20,16 @@
     "name_diabetic_care": "Skrining Diabetes",
     "name_home_screening": "Skrining Kesehatan di Rumah",
     "name_second_opinion": "Opini Kedua Citra Medis",
-    "name_homecare_elderly": "Perawatan Lansia di Rumah",
-    "desc_pharmacist": "Saran ahli untuk obat Anda dan dukungan berhenti merokok.",
-    "desc_physiotherapy": "Atasi nyeri, tingkatkan mobilitas, dan pulih lebih baik.",
-    "desc_psychologist": "Dukungan untuk stres, emosi, dan kesehatan mental.",
-    "desc_dietitian": "Dukungan nutrisi personal untuk hidup lebih sehat.",
-    "desc_optometrist": "Perawatan mata, pemeriksaan penglihatan, dan saran ahli.",
-    "desc_nursing": "Perawatan profesional dengan nyaman di rumah Anda.",
-    "desc_diabetic_care": "Periksa mata dan kaki untuk komplikasi terkait diabetes.",
-    "desc_home_screening": "Pemeriksaan kesehatan praktis di rumah Anda.",
-    "desc_second_opinion": "Dapatkan pembacaan kedua dari ahli untuk hasil pencitraan Anda.",
-    "desc_homecare_elderly": "Bantuan aktivitas harian dan pendampingan di rumah."
+    "name_homecare_elderly": "Perawatan Lansia",
+    "desc_pharmacist": "Dukungan obat",
+    "desc_physiotherapy": "Nyeri & mobilitas",
+    "desc_psychologist": "Pikiran & emosi",
+    "desc_dietitian": "Dukungan gizi",
+    "desc_optometrist": "Perawatan mata",
+    "desc_nursing": "Perawatan di rumah",
+    "desc_diabetic_care": "Deteksi dini",
+    "desc_home_screening": "Cek kesehatan",
+    "desc_second_opinion": "Tinjauan ahli",
+    "desc_homecare_elderly": "Bantuan harian"
   }
 }
