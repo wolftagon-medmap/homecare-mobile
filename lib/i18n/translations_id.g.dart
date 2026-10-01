@@ -120,13 +120,17 @@ class _TranslationsChatbotId implements TranslationsChatbotEn {
 	@override String get sessionActive => 'Aktif';
 	@override String get sessionReadOnly => 'Hanya-baca';
 	@override String get deleteTitle => 'Hapus percakapan';
-	@override String get deleteBody => 'Percakapan ini akan dihapus dari perangkat ini. Tindakan ini tidak dapat dibatalkan.';
+	@override String get deleteBody => 'Percakapan ini akan dihapus. Tindakan ini tidak dapat dibatalkan.';
 	@override String get delete => 'Hapus';
 	@override String get voiceInput => 'Masukan suara';
 	@override String get transcribing => 'Menyalin suara...';
 	@override String get micDeniedTitle => 'Izin mikrofon diperlukan';
 	@override String get micDeniedBody => 'Izin mikrofon ditolak. Aktifkan di Pengaturan perangkat Anda untuk memakai masukan suara.';
 	@override String get openSettings => 'Buka Pengaturan';
+	@override String get teamLabel => 'Tim M2Health';
+	@override String get confirm => 'Konfirmasi';
+	@override String get reconnecting => 'Menyambungkan ulang…';
+	@override String get readOnlyNotice => 'Percakapan ini hanya bisa dibaca.';
 }
 
 // Path: dashboard
@@ -1500,13 +1504,17 @@ extension on TranslationsId {
 			'chatbot.sessionActive' => 'Aktif',
 			'chatbot.sessionReadOnly' => 'Hanya-baca',
 			'chatbot.deleteTitle' => 'Hapus percakapan',
-			'chatbot.deleteBody' => 'Percakapan ini akan dihapus dari perangkat ini. Tindakan ini tidak dapat dibatalkan.',
+			'chatbot.deleteBody' => 'Percakapan ini akan dihapus. Tindakan ini tidak dapat dibatalkan.',
 			'chatbot.delete' => 'Hapus',
 			'chatbot.voiceInput' => 'Masukan suara',
 			'chatbot.transcribing' => 'Menyalin suara...',
 			'chatbot.micDeniedTitle' => 'Izin mikrofon diperlukan',
 			'chatbot.micDeniedBody' => 'Izin mikrofon ditolak. Aktifkan di Pengaturan perangkat Anda untuk memakai masukan suara.',
 			'chatbot.openSettings' => 'Buka Pengaturan',
+			'chatbot.teamLabel' => 'Tim M2Health',
+			'chatbot.confirm' => 'Konfirmasi',
+			'chatbot.reconnecting' => 'Menyambungkan ulang…',
+			'chatbot.readOnlyNotice' => 'Percakapan ini hanya bisa dibaca.',
 			'dashboard.chat_ai_placeholder' => 'Tanya dokter AI seputar kesehatan Anda',
 			'dashboard.greeting' => ({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!',
 			'dashboard.greeting_generic' => 'Hidup Lebih Lama & Sehat!',

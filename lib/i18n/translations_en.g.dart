@@ -178,8 +178,8 @@ class TranslationsChatbotEn {
 	/// en: 'Delete conversation'
 	String get deleteTitle => 'Delete conversation';
 
-	/// en: 'This conversation will be deleted from this device. This cannot be undone.'
-	String get deleteBody => 'This conversation will be deleted from this device. This cannot be undone.';
+	/// en: 'This conversation will be deleted. This cannot be undone.'
+	String get deleteBody => 'This conversation will be deleted. This cannot be undone.';
 
 	/// en: 'Delete'
 	String get delete => 'Delete';
@@ -198,6 +198,18 @@ class TranslationsChatbotEn {
 
 	/// en: 'Open Settings'
 	String get openSettings => 'Open Settings';
+
+	/// en: 'M2Health team'
+	String get teamLabel => 'M2Health team';
+
+	/// en: 'Confirm'
+	String get confirm => 'Confirm';
+
+	/// en: 'Reconnecting…'
+	String get reconnecting => 'Reconnecting…';
+
+	/// en: 'This conversation is read-only.'
+	String get readOnlyNotice => 'This conversation is read-only.';
 }
 
 // Path: dashboard
@@ -2382,13 +2394,17 @@ extension on Translations {
 			'chatbot.sessionActive' => 'Active',
 			'chatbot.sessionReadOnly' => 'Read-only',
 			'chatbot.deleteTitle' => 'Delete conversation',
-			'chatbot.deleteBody' => 'This conversation will be deleted from this device. This cannot be undone.',
+			'chatbot.deleteBody' => 'This conversation will be deleted. This cannot be undone.',
 			'chatbot.delete' => 'Delete',
 			'chatbot.voiceInput' => 'Voice input',
 			'chatbot.transcribing' => 'Transcribing...',
 			'chatbot.micDeniedTitle' => 'Microphone access required',
 			'chatbot.micDeniedBody' => 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.',
 			'chatbot.openSettings' => 'Open Settings',
+			'chatbot.teamLabel' => 'M2Health team',
+			'chatbot.confirm' => 'Confirm',
+			'chatbot.reconnecting' => 'Reconnecting…',
+			'chatbot.readOnlyNotice' => 'This conversation is read-only.',
 			'dashboard.chat_ai_placeholder' => 'Chat With AI doctor for all your health questions',
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
 			'dashboard.greeting_generic' => 'Live Longer & Live Healthier!',

@@ -21,50 +21,83 @@ class AssistantFailed extends AssistantState {
   List<Object?> get props => [message];
 }
 
+sealed class AssistantNavigation extends Equatable {
+  const AssistantNavigation();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class OpenGuidedBooking extends AssistantNavigation {
+  final BookingPrefill booking;
+
+  const OpenGuidedBooking(this.booking);
+
+  @override
+  List<Object?> get props => [booking];
+}
+
+class OpenAllServices extends AssistantNavigation {
+  const OpenAllServices();
+}
+
 class AssistantReady extends AssistantState {
+  final String sessionId;
+  final bool readOnly;
   final List<AssistantBlock> blocks;
-
-  /// Block id to the reply token already chosen on it. A resolved block renders
-  /// read-only, which is what stops a question being answered twice.
   final Map<int, String> resolved;
-
-  /// In-progress multi-choice ticks, by block id.
-  final Map<int, List<String>> selections;
-
-  /// Answer key to the phrase it contributed, for summary rows.
-  final Map<String, String> answers;
-
-  /// One-shot navigation request. `copyWith` drops it unless it is passed
-  /// again, so the page cannot push the same route twice.
-  final String? pendingRoute;
+  final Map<int, Set<int>> selections;
+  final bool awaitingReply;
+  final bool connected;
+  final String? actionError;
+  final AssistantNavigation? navigation;
 
   const AssistantReady({
-    required this.blocks,
-    required this.resolved,
-    required this.selections,
-    required this.answers,
-    this.pendingRoute,
+    required this.sessionId,
+    this.readOnly = false,
+    this.blocks = const [],
+    this.resolved = const {},
+    this.selections = const {},
+    this.awaitingReply = false,
+    this.connected = false,
+    this.actionError,
+    this.navigation,
   });
-
-  bool get isEmpty => blocks.isEmpty;
 
   AssistantReady copyWith({
     List<AssistantBlock>? blocks,
     Map<int, String>? resolved,
-    Map<int, List<String>>? selections,
-    Map<String, String>? answers,
-    String? pendingRoute,
+    Map<int, Set<int>>? selections,
+    bool? awaitingReply,
+    bool? connected,
+    String? actionError,
+    bool clearActionError = false,
+    AssistantNavigation? navigation,
+    bool clearNavigation = false,
   }) {
     return AssistantReady(
+      sessionId: sessionId,
+      readOnly: readOnly,
       blocks: blocks ?? this.blocks,
       resolved: resolved ?? this.resolved,
       selections: selections ?? this.selections,
-      answers: answers ?? this.answers,
-      pendingRoute: pendingRoute,
+      awaitingReply: awaitingReply ?? this.awaitingReply,
+      connected: connected ?? this.connected,
+      actionError: clearActionError ? null : (actionError ?? this.actionError),
+      navigation: clearNavigation ? null : (navigation ?? this.navigation),
     );
   }
 
   @override
-  List<Object?> get props =>
-      [blocks, resolved, selections, answers, pendingRoute];
+  List<Object?> get props => [
+        sessionId,
+        readOnly,
+        blocks,
+        resolved,
+        selections,
+        awaitingReply,
+        connected,
+        actionError,
+        navigation,
+      ];
 }

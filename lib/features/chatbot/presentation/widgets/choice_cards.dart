@@ -4,16 +4,16 @@ import 'package:m2health/features/chatbot/presentation/widgets/assistant_bubbles
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_theme.dart';
 
 class SingleChoiceCard extends StatelessWidget {
-  final SingleChoiceBlock block;
+  final QuestionBlock block;
   final bool active;
-  final String? chosenReplyId;
-  final ValueChanged<String>? onSelect;
+  final String? chosenValue;
+  final ValueChanged<int>? onSelect;
 
   const SingleChoiceCard({
     super.key,
     required this.block,
     required this.active,
-    required this.chosenReplyId,
+    required this.chosenValue,
     required this.onSelect,
   });
 
@@ -22,7 +22,7 @@ class SingleChoiceCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _ChoicePrompt(prompt: block.prompt, hint: block.hint),
+        _ChoicePrompt(prompt: block.text, hint: block.hint),
         AssistantCard(
           padding: EdgeInsets.zero,
           child: Column(
@@ -31,10 +31,10 @@ class SingleChoiceCard extends StatelessWidget {
                 if (i > 0) const _RowDivider(),
                 _ChoiceRow(
                   label: block.options[i].label,
-                  selected: chosenReplyId == block.options[i].replyId,
+                  selected: chosenValue == '${block.options[i].index}',
                   multi: false,
                   onTap: active && onSelect != null
-                      ? () => onSelect!(block.options[i].replyId)
+                      ? () => onSelect!(block.options[i].index)
                       : null,
                 ),
               ],
@@ -47,11 +47,11 @@ class SingleChoiceCard extends StatelessWidget {
 }
 
 class MultiChoiceCard extends StatelessWidget {
-  final MultiChoiceBlock block;
+  final QuestionBlock block;
   final bool active;
-  final List<String> selected;
+  final Set<int> selected;
   final bool resolved;
-  final ValueChanged<String>? onToggle;
+  final ValueChanged<int>? onToggle;
   final VoidCallback? onSubmit;
 
   const MultiChoiceCard({
@@ -70,7 +70,7 @@ class MultiChoiceCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _ChoicePrompt(prompt: block.prompt, hint: block.hint),
+        _ChoicePrompt(prompt: block.text, hint: block.hint),
         AssistantCard(
           padding: EdgeInsets.zero,
           child: Column(
@@ -79,10 +79,10 @@ class MultiChoiceCard extends StatelessWidget {
                 if (i > 0) const _RowDivider(),
                 _ChoiceRow(
                   label: block.options[i].label,
-                  selected: selected.contains(block.options[i].replyId),
+                  selected: selected.contains(block.options[i].index),
                   multi: true,
                   onTap: active && onToggle != null
-                      ? () => onToggle!(block.options[i].replyId)
+                      ? () => onToggle!(block.options[i].index)
                       : null,
                 ),
               ],
@@ -103,7 +103,7 @@ class MultiChoiceCard extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
                       child: Text(
-                        block.continueLabel,
+                        block.continueLabel ?? 'Continue',
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
