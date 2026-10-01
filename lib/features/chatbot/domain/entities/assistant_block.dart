@@ -1,18 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-/// One rendered turn in the assistant transcript.
-///
-/// The shape mirrors the server-driven block pattern used by conversational
-/// booking, but the kinds are the assistant's own. The client holds no clinical
-/// logic: it renders what the script describes and echoes back reply tokens.
 sealed class AssistantBlock extends Equatable {
   final int id;
 
   const AssistantBlock({required this.id});
-
-  /// A copy carrying a fresh transcript id. Script blocks are templates: the
-  /// same step can be entered twice, so every appended block is re-identified.
-  AssistantBlock copyWithId(int id);
 
   @override
   List<Object?> get props => [id];
@@ -20,24 +11,22 @@ sealed class AssistantBlock extends Equatable {
 
 class AssistantTextBlock extends AssistantBlock {
   final String text;
+  final bool fromTeam;
 
-  const AssistantTextBlock({required super.id, required this.text});
+  const AssistantTextBlock({
+    required super.id,
+    required this.text,
+    this.fromTeam = false,
+  });
 
   @override
-  AssistantTextBlock copyWithId(int id) =>
-      AssistantTextBlock(id: id, text: text);
-
-  @override
-  List<Object?> get props => [...super.props, text];
+  List<Object?> get props => [...super.props, text, fromTeam];
 }
 
 class UserTextBlock extends AssistantBlock {
   final String text;
 
   const UserTextBlock({required super.id, required this.text});
-
-  @override
-  UserTextBlock copyWithId(int id) => UserTextBlock(id: id, text: text);
 
   @override
   List<Object?> get props => [...super.props, text];
@@ -54,69 +43,42 @@ class TopicGridBlock extends AssistantBlock {
   });
 
   @override
-  TopicGridBlock copyWithId(int id) =>
-      TopicGridBlock(id: id, title: title, topics: topics);
-
-  @override
   List<Object?> get props => [...super.props, title, topics];
 }
 
-class SingleChoiceBlock extends AssistantBlock {
-  final String prompt;
+enum QuestionMode { single, multi }
+
+class QuestionBlock extends AssistantBlock {
+  final String questionId;
+  final String text;
+  final QuestionMode mode;
   final String? hint;
-  final List<AssistantChoice> options;
+  final List<QuestionOption> options;
+  final String? continueLabel;
+  final int? exclusiveIndex;
 
-  const SingleChoiceBlock({
+  const QuestionBlock({
     required super.id,
-    required this.prompt,
-    required this.hint,
-    required this.options,
-  });
-
-  @override
-  SingleChoiceBlock copyWithId(int id) => SingleChoiceBlock(
-        id: id,
-        prompt: prompt,
-        hint: hint,
-        options: options,
-      );
-
-  @override
-  List<Object?> get props => [...super.props, prompt, hint, options];
-}
-
-class MultiChoiceBlock extends AssistantBlock {
-  final String prompt;
-  final String? hint;
-  final List<AssistantChoice> options;
-  final String continueLabel;
-
-  /// Selecting this option clears every other one — the mock's
-  /// `None of the above`.
-  final String? exclusiveOptionId;
-
-  const MultiChoiceBlock({
-    required super.id,
-    required this.prompt,
+    required this.questionId,
+    required this.text,
+    required this.mode,
     required this.hint,
     required this.options,
     required this.continueLabel,
-    required this.exclusiveOptionId,
+    required this.exclusiveIndex,
   });
 
   @override
-  MultiChoiceBlock copyWithId(int id) => MultiChoiceBlock(
-        id: id,
-        prompt: prompt,
-        hint: hint,
-        options: options,
-        continueLabel: continueLabel,
-        exclusiveOptionId: exclusiveOptionId,
-      );
-
-  @override
-  List<Object?> get props =>
-      [...super.props, prompt, hint, options, continueLabel, exclusiveOptionId];
+  List<Object?> get props => [
+        ...super.props,
+        questionId,
+        text,
+        mode,
+        hint,
+        options,
+        continueLabel,
+        exclusiveIndex,
+      ];
 }
 
 class SummaryBlock extends AssistantBlock {
@@ -140,18 +102,6 @@ class SummaryBlock extends AssistantBlock {
   });
 
   @override
-  SummaryBlock copyWithId(int id) => SummaryBlock(
-        id: id,
-        title: title,
-        rows: rows,
-        footnote: footnote,
-        editLabel: editLabel,
-        confirmLabel: confirmLabel,
-        editReplyId: editReplyId,
-        confirmReplyId: confirmReplyId,
-      );
-
-  @override
   List<Object?> get props => [
         ...super.props,
         title,
@@ -167,6 +117,7 @@ class SummaryBlock extends AssistantBlock {
 class GuidanceBlock extends AssistantBlock {
   final String title;
   final String body;
+  final String? disclaimer;
   final String? suggestionsTitle;
   final List<ServiceSuggestion> suggestions;
 
@@ -174,22 +125,14 @@ class GuidanceBlock extends AssistantBlock {
     required super.id,
     required this.title,
     required this.body,
+    required this.disclaimer,
     required this.suggestionsTitle,
     required this.suggestions,
   });
 
   @override
-  GuidanceBlock copyWithId(int id) => GuidanceBlock(
-        id: id,
-        title: title,
-        body: body,
-        suggestionsTitle: suggestionsTitle,
-        suggestions: suggestions,
-      );
-
-  @override
   List<Object?> get props =>
-      [...super.props, title, body, suggestionsTitle, suggestions];
+      [...super.props, title, body, disclaimer, suggestionsTitle, suggestions];
 }
 
 class NextStepBlock extends AssistantBlock {
@@ -198,22 +141,29 @@ class NextStepBlock extends AssistantBlock {
   const NextStepBlock({required super.id, required this.actions});
 
   @override
-  NextStepBlock copyWithId(int id) => NextStepBlock(id: id, actions: actions);
-
-  @override
   List<Object?> get props => [...super.props, actions];
 }
 
-/// A kind this client version cannot render. Keeps a future server payload from
-/// breaking the transcript.
+class ConfirmRequestBlock extends AssistantBlock {
+  final String text;
+  final String confirmId;
+  final String cancelId;
+
+  const ConfirmRequestBlock({
+    required super.id,
+    required this.text,
+    required this.confirmId,
+    required this.cancelId,
+  });
+
+  @override
+  List<Object?> get props => [...super.props, text, confirmId, cancelId];
+}
+
 class UnknownAssistantBlock extends AssistantBlock {
   final String kind;
 
   const UnknownAssistantBlock({required super.id, required this.kind});
-
-  @override
-  UnknownAssistantBlock copyWithId(int id) =>
-      UnknownAssistantBlock(id: id, kind: kind);
 
   @override
   List<Object?> get props => [...super.props, kind];
@@ -224,66 +174,58 @@ class AssistantTopic extends Equatable {
   final String label;
   final String icon;
   final String tone;
-  final String? echo;
 
   const AssistantTopic({
     required this.replyId,
     required this.label,
     required this.icon,
     required this.tone,
-    required this.echo,
   });
 
-  String get echoText => echo ?? label;
-
   @override
-  List<Object?> get props => [replyId, label, icon, tone, echo];
+  List<Object?> get props => [replyId, label, icon, tone];
 }
 
-class AssistantChoice extends Equatable {
-  final String replyId;
+class QuestionOption extends Equatable {
+  final int index;
   final String label;
 
-  /// What the user's own bubble reads once this option is picked.
-  final String? echo;
-
-  /// The short phrase this answer contributes to the summary and to any
-  /// `{stepId}` placeholder in later copy.
-  final String? summary;
-
-  const AssistantChoice({
-    required this.replyId,
-    required this.label,
-    required this.echo,
-    required this.summary,
-  });
-
-  String get echoText => echo ?? label;
-  String get summaryText => summary ?? label;
+  const QuestionOption({required this.index, required this.label});
 
   @override
-  List<Object?> get props => [replyId, label, echo, summary];
+  List<Object?> get props => [index, label];
 }
 
 class SummaryRow extends Equatable {
   final String icon;
   final String label;
-
-  /// Literal value, used when [fromStep] recorded no answer.
-  final String? value;
-
-  /// Step whose recorded answer fills this row.
-  final String? fromStep;
+  final String value;
 
   const SummaryRow({
     required this.icon,
     required this.label,
     required this.value,
-    required this.fromStep,
   });
 
   @override
-  List<Object?> get props => [icon, label, value, fromStep];
+  List<Object?> get props => [icon, label, value];
+}
+
+class BookingPrefill extends Equatable {
+  final String category;
+  final String? subCategory;
+  final List<String> issueCodes;
+  final String remarks;
+
+  const BookingPrefill({
+    required this.category,
+    required this.subCategory,
+    required this.issueCodes,
+    required this.remarks,
+  });
+
+  @override
+  List<Object?> get props => [category, subCategory, issueCodes, remarks];
 }
 
 class ServiceSuggestion extends Equatable {
@@ -292,7 +234,7 @@ class ServiceSuggestion extends Equatable {
   final String subtitle;
   final String icon;
   final String tone;
-  final String? route;
+  final BookingPrefill? booking;
 
   const ServiceSuggestion({
     required this.replyId,
@@ -300,41 +242,32 @@ class ServiceSuggestion extends Equatable {
     required this.subtitle,
     required this.icon,
     required this.tone,
-    required this.route,
+    required this.booking,
   });
 
   @override
-  List<Object?> get props => [replyId, title, subtitle, icon, tone, route];
+  List<Object?> get props => [replyId, title, subtitle, icon, tone, booking];
 }
+
+enum NextStepKind { exploreServices, newConversation, reply, unknown }
 
 class NextStepAction extends Equatable {
   final String replyId;
+  final NextStepKind kind;
   final String title;
   final String subtitle;
   final String icon;
   final String tone;
 
-  /// App route to push, or null when the action only appends a scripted reply.
-  final String? route;
-
-  /// Scripted assistant line appended when the action is taken.
-  final String? reply;
-
-  /// Clears the transcript and re-enters the entry step.
-  final bool restart;
-
   const NextStepAction({
     required this.replyId,
+    required this.kind,
     required this.title,
     required this.subtitle,
     required this.icon,
     required this.tone,
-    required this.route,
-    required this.reply,
-    required this.restart,
   });
 
   @override
-  List<Object?> get props =>
-      [replyId, title, subtitle, icon, tone, route, reply, restart];
+  List<Object?> get props => [replyId, kind, title, subtitle, icon, tone];
 }

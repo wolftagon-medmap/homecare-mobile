@@ -120,13 +120,22 @@ class _TranslationsChatbotId implements TranslationsChatbotEn {
 	@override String get sessionActive => 'Aktif';
 	@override String get sessionReadOnly => 'Hanya-baca';
 	@override String get deleteTitle => 'Hapus percakapan';
-	@override String get deleteBody => 'Percakapan ini akan dihapus dari perangkat ini. Tindakan ini tidak dapat dibatalkan.';
+	@override String get deleteBody => 'Percakapan ini akan dihapus. Tindakan ini tidak dapat dibatalkan.';
 	@override String get delete => 'Hapus';
 	@override String get voiceInput => 'Masukan suara';
 	@override String get transcribing => 'Menyalin suara...';
 	@override String get micDeniedTitle => 'Izin mikrofon diperlukan';
 	@override String get micDeniedBody => 'Izin mikrofon ditolak. Aktifkan di Pengaturan perangkat Anda untuk memakai masukan suara.';
 	@override String get openSettings => 'Buka Pengaturan';
+	@override String get teamLabel => 'Tim M2Health';
+	@override String get confirm => 'Konfirmasi';
+	@override String get reconnecting => 'Menyambungkan ulang…';
+	@override String get readOnlyNotice => 'Percakapan ini hanya bisa dibaca.';
+	@override String get errorLoad => 'Terjadi kesalahan. Silakan coba lagi.';
+	@override String get errorSend => 'Gagal mengirim. Silakan coba lagi.';
+	@override String get errorNoReply => 'Belum ada balasan. Silakan coba lagi.';
+	@override String get typing => 'Asisten sedang membalas';
+	@override String get continueAction => 'Lanjutkan';
 }
 
 // Path: dashboard
@@ -1501,13 +1510,22 @@ extension on TranslationsId {
 			'chatbot.sessionActive' => 'Aktif',
 			'chatbot.sessionReadOnly' => 'Hanya-baca',
 			'chatbot.deleteTitle' => 'Hapus percakapan',
-			'chatbot.deleteBody' => 'Percakapan ini akan dihapus dari perangkat ini. Tindakan ini tidak dapat dibatalkan.',
+			'chatbot.deleteBody' => 'Percakapan ini akan dihapus. Tindakan ini tidak dapat dibatalkan.',
 			'chatbot.delete' => 'Hapus',
 			'chatbot.voiceInput' => 'Masukan suara',
 			'chatbot.transcribing' => 'Menyalin suara...',
 			'chatbot.micDeniedTitle' => 'Izin mikrofon diperlukan',
 			'chatbot.micDeniedBody' => 'Izin mikrofon ditolak. Aktifkan di Pengaturan perangkat Anda untuk memakai masukan suara.',
 			'chatbot.openSettings' => 'Buka Pengaturan',
+			'chatbot.teamLabel' => 'Tim M2Health',
+			'chatbot.confirm' => 'Konfirmasi',
+			'chatbot.reconnecting' => 'Menyambungkan ulang…',
+			'chatbot.readOnlyNotice' => 'Percakapan ini hanya bisa dibaca.',
+			'chatbot.errorLoad' => 'Terjadi kesalahan. Silakan coba lagi.',
+			'chatbot.errorSend' => 'Gagal mengirim. Silakan coba lagi.',
+			'chatbot.errorNoReply' => 'Belum ada balasan. Silakan coba lagi.',
+			'chatbot.typing' => 'Asisten sedang membalas',
+			'chatbot.continueAction' => 'Lanjutkan',
 			'dashboard.chat_ai_title' => 'Chat dengan dokter AI',
 			'dashboard.chat_ai_subtitle' => 'Tanyakan soal kesehatan Anda',
 			'dashboard.greeting' => ({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!',

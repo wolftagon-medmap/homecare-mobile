@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/features/chatbot/domain/repositories/assistant_session_repository.dart';
+import 'package:m2health/features/chatbot/domain/repositories/assistant_repository.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_sessions_state.dart';
 
 class AssistantSessionsCubit extends Cubit<AssistantSessionsState> {
-  final AssistantSessionRepository repository;
+  final AssistantRepository repository;
   final String? currentSessionId;
 
   AssistantSessionsCubit({
@@ -31,13 +31,12 @@ class AssistantSessionsCubit extends Cubit<AssistantSessionsState> {
     emit(AssistantSessionsLoaded(
       current.sessions.where((session) => session.id != id).toList(),
     ));
-    final result = await repository.delete(id);
-    await result.fold(
-      (failure) async {
-        log('delete failed', name: 'chatbot.sessions', error: failure);
-        await load();
-      },
-      (_) async {},
+    final result = await repository.deleteSession(id);
+    result.fold(
+      (failure) =>
+          log('delete failed', name: 'chatbot.sessions', error: failure),
+      (_) {},
     );
+    await load();
   }
 }

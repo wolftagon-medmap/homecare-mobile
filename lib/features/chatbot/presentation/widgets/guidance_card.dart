@@ -41,6 +41,17 @@ class GuidanceCard extends StatelessWidget {
                         height: 1.5,
                       ),
                     ),
+                    if (block.disclaimer != null) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        block.disclaimer!,
+                        style: const TextStyle(
+                          color: AssistantPalette.body,
+                          fontSize: 11.5,
+                          height: 1.4,
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -69,7 +80,9 @@ class GuidanceCard extends StatelessWidget {
             for (final suggestion in block.suggestions)
               _SuggestionRow(
                 suggestion: suggestion,
-                onTap: onOpen == null ? null : () => onOpen!(suggestion),
+                onTap: onOpen == null || suggestion.booking == null
+                    ? null
+                    : () => onOpen!(suggestion),
               ),
           ],
         ],
@@ -133,11 +146,12 @@ class _SuggestionRow extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Icon(
-                  Icons.chevron_right,
-                  color: AssistantPalette.muted,
-                  size: 20,
-                ),
+                if (suggestion.booking != null)
+                  const Icon(
+                    Icons.chevron_right,
+                    color: AssistantPalette.muted,
+                    size: 20,
+                  ),
               ],
             ),
           ),

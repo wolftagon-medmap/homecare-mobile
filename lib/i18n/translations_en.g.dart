@@ -178,8 +178,8 @@ class TranslationsChatbotEn {
 	/// en: 'Delete conversation'
 	String get deleteTitle => 'Delete conversation';
 
-	/// en: 'This conversation will be deleted from this device. This cannot be undone.'
-	String get deleteBody => 'This conversation will be deleted from this device. This cannot be undone.';
+	/// en: 'This conversation will be deleted. This cannot be undone.'
+	String get deleteBody => 'This conversation will be deleted. This cannot be undone.';
 
 	/// en: 'Delete'
 	String get delete => 'Delete';
@@ -198,6 +198,33 @@ class TranslationsChatbotEn {
 
 	/// en: 'Open Settings'
 	String get openSettings => 'Open Settings';
+
+	/// en: 'M2Health team'
+	String get teamLabel => 'M2Health team';
+
+	/// en: 'Confirm'
+	String get confirm => 'Confirm';
+
+	/// en: 'Reconnecting…'
+	String get reconnecting => 'Reconnecting…';
+
+	/// en: 'This conversation is read-only.'
+	String get readOnlyNotice => 'This conversation is read-only.';
+
+	/// en: 'Something went wrong. Please try again.'
+	String get errorLoad => 'Something went wrong. Please try again.';
+
+	/// en: 'Could not send. Please try again.'
+	String get errorSend => 'Could not send. Please try again.';
+
+	/// en: 'No reply yet. Please try again.'
+	String get errorNoReply => 'No reply yet. Please try again.';
+
+	/// en: 'The assistant is replying'
+	String get typing => 'The assistant is replying';
+
+	/// en: 'Continue'
+	String get continueAction => 'Continue';
 }
 
 // Path: dashboard
@@ -2385,13 +2412,22 @@ extension on Translations {
 			'chatbot.sessionActive' => 'Active',
 			'chatbot.sessionReadOnly' => 'Read-only',
 			'chatbot.deleteTitle' => 'Delete conversation',
-			'chatbot.deleteBody' => 'This conversation will be deleted from this device. This cannot be undone.',
+			'chatbot.deleteBody' => 'This conversation will be deleted. This cannot be undone.',
 			'chatbot.delete' => 'Delete',
 			'chatbot.voiceInput' => 'Voice input',
 			'chatbot.transcribing' => 'Transcribing...',
 			'chatbot.micDeniedTitle' => 'Microphone access required',
 			'chatbot.micDeniedBody' => 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.',
 			'chatbot.openSettings' => 'Open Settings',
+			'chatbot.teamLabel' => 'M2Health team',
+			'chatbot.confirm' => 'Confirm',
+			'chatbot.reconnecting' => 'Reconnecting…',
+			'chatbot.readOnlyNotice' => 'This conversation is read-only.',
+			'chatbot.errorLoad' => 'Something went wrong. Please try again.',
+			'chatbot.errorSend' => 'Could not send. Please try again.',
+			'chatbot.errorNoReply' => 'No reply yet. Please try again.',
+			'chatbot.typing' => 'The assistant is replying',
+			'chatbot.continueAction' => 'Continue',
 			'dashboard.chat_ai_title' => 'Chat with an AI doctor',
 			'dashboard.chat_ai_subtitle' => 'Ask your health question',
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',

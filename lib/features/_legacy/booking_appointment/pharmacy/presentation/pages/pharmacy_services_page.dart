@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/core/presentation/widgets/service_widgets.dart';
 import 'package:m2health/core/services/questionnaire_service.dart';
+import 'package:m2health/features/chatbot/chatbot_routes.dart';
 import 'package:m2health/features/_legacy/booking_appointment/pharmacy/presentation/pages/health_coaching.dart';
 import 'package:m2health/features/etc/pricing/presentation/widgets/starting_from_price.dart';
 import 'package:m2health/features/_legacy/booking_appointment/smoking_cessation/presentation/bloc/smoking_cessation_flow_cubit.dart';
 import 'package:m2health/features/_legacy/booking_appointment/smoking_cessation/presentation/pages/smoking_cessation_flow_page.dart';
 import 'package:m2health/i18n/translations.g.dart';
-import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/service_locator.dart';
 
 class PharmacyServicesPage extends StatelessWidget {
@@ -40,7 +40,7 @@ class PharmacyServicesPage extends StatelessWidget {
                 imagePath: 'assets/icons/ilu_pharmacist.png',
                 backgroundColor: const Color(0xFFF79E1B).withValues(alpha: 0.1),
                 onTap: () {
-                  GoRouter.of(context).push(AppRoutes.chatPharmaAI);
+                  GoRouter.of(context).push(ChatbotRoutes.aiAssistant);
                 },
               ),
               ServiceSelectionCard(

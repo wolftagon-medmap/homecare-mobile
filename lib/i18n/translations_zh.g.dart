@@ -120,13 +120,22 @@ class _TranslationsChatbotZh implements TranslationsChatbotEn {
 	@override String get sessionActive => '进行中';
 	@override String get sessionReadOnly => '只读';
 	@override String get deleteTitle => '删除对话';
-	@override String get deleteBody => '此对话将从本设备删除，且无法恢复。';
+	@override String get deleteBody => '此对话将被删除，且无法恢复。';
 	@override String get delete => '删除';
 	@override String get voiceInput => '语音输入';
 	@override String get transcribing => '正在转写…';
 	@override String get micDeniedTitle => '需要麦克风权限';
 	@override String get micDeniedBody => '麦克风权限已被拒绝。请在设备设置中开启后再使用语音输入。';
 	@override String get openSettings => '打开设置';
+	@override String get teamLabel => 'M2Health 团队';
+	@override String get confirm => '确认';
+	@override String get reconnecting => '正在重新连接…';
+	@override String get readOnlyNotice => '此对话为只读。';
+	@override String get errorLoad => '出了点问题，请重试。';
+	@override String get errorSend => '发送失败，请重试。';
+	@override String get errorNoReply => '暂无回复，请重试。';
+	@override String get typing => '助手正在回复';
+	@override String get continueAction => '继续';
 }
 
 // Path: dashboard
@@ -1501,13 +1510,22 @@ extension on TranslationsZh {
 			'chatbot.sessionActive' => '进行中',
 			'chatbot.sessionReadOnly' => '只读',
 			'chatbot.deleteTitle' => '删除对话',
-			'chatbot.deleteBody' => '此对话将从本设备删除，且无法恢复。',
+			'chatbot.deleteBody' => '此对话将被删除，且无法恢复。',
 			'chatbot.delete' => '删除',
 			'chatbot.voiceInput' => '语音输入',
 			'chatbot.transcribing' => '正在转写…',
 			'chatbot.micDeniedTitle' => '需要麦克风权限',
 			'chatbot.micDeniedBody' => '麦克风权限已被拒绝。请在设备设置中开启后再使用语音输入。',
 			'chatbot.openSettings' => '打开设置',
+			'chatbot.teamLabel' => 'M2Health 团队',
+			'chatbot.confirm' => '确认',
+			'chatbot.reconnecting' => '正在重新连接…',
+			'chatbot.readOnlyNotice' => '此对话为只读。',
+			'chatbot.errorLoad' => '出了点问题，请重试。',
+			'chatbot.errorSend' => '发送失败，请重试。',
+			'chatbot.errorNoReply' => '暂无回复，请重试。',
+			'chatbot.typing' => '助手正在回复',
+			'chatbot.continueAction' => '继续',
 			'dashboard.chat_ai_title' => '与AI医生聊天',
 			'dashboard.chat_ai_subtitle' => '咨询您的健康问题',
 			'dashboard.greeting' => ({required Object displayName}) => '更长寿，更健康，${displayName}！',

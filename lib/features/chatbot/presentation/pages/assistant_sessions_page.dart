@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/features/chatbot/domain/entities/assistant_session.dart';
+import 'package:m2health/features/chatbot/domain/entities/assistant_session_summary.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_sessions_cubit.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_sessions_state.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_theme.dart';
@@ -48,13 +48,12 @@ class AssistantSessionsPage extends StatelessWidget {
                   separatorBuilder: (_, __) => const Divider(height: 1),
                   itemBuilder: (context, index) {
                     final session = sessions[index];
-                    final current =
-                        context.read<AssistantSessionsCubit>().currentSessionId;
                     return _SessionTile(
                       session: session,
-                      isCurrent: session.id == current,
-                      onTap: () =>
-                          Navigator.pop<AssistantSession>(context, session),
+                      onTap: () => Navigator.pop<AssistantSessionSummary>(
+                        context,
+                        session,
+                      ),
                       onDelete: () => context
                           .read<AssistantSessionsCubit>()
                           .delete(session.id),
@@ -100,14 +99,12 @@ class _Failed extends StatelessWidget {
 }
 
 class _SessionTile extends StatelessWidget {
-  final AssistantSession session;
-  final bool isCurrent;
+  final AssistantSessionSummary session;
   final VoidCallback onTap;
   final VoidCallback onDelete;
 
   const _SessionTile({
     required this.session,
-    required this.isCurrent,
     required this.onTap,
     required this.onDelete,
   });
@@ -127,11 +124,13 @@ class _SessionTile extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        isCurrent ? t.sessionActive : t.sessionReadOnly,
+        session.active ? t.sessionActive : t.sessionReadOnly,
         style: TextStyle(
-          color: isCurrent ? AssistantPalette.primary : AssistantPalette.muted,
+          color: session.active
+              ? AssistantPalette.primary
+              : AssistantPalette.muted,
           fontSize: 12,
-          fontWeight: isCurrent ? FontWeight.w600 : FontWeight.w400,
+          fontWeight: session.active ? FontWeight.w600 : FontWeight.w400,
         ),
       ),
       trailing: Text(
@@ -141,7 +140,7 @@ class _SessionTile extends StatelessWidget {
       onTap: onTap,
     );
 
-    if (isCurrent) return tile;
+    if (session.active) return tile;
 
     return Dismissible(
       key: ValueKey(session.id),
@@ -159,7 +158,9 @@ class _SessionTile extends StatelessWidget {
   }
 
   String get _date {
-    final local = session.updatedAt.toLocal();
+    final moment = session.lastMessageAt ?? session.createdAt;
+    if (moment == null) return '';
+    final local = moment.toLocal();
     String two(int n) => n.toString().padLeft(2, '0');
     return '${two(local.day)}/${two(local.month)}/${local.year}';
   }
