@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/presentation/responsive/responsive.dart';
 import 'package:m2health/features/dashboard/domain/entities/home_service.dart';
 import 'package:m2health/features/dashboard/presentation/bloc/home_services_cubit.dart';
 import 'package:m2health/features/dashboard/presentation/dashboard_layout.dart';
@@ -19,81 +20,71 @@ class HomeServicesSection extends StatelessWidget {
     final t = context.t.dashboard.home;
     final services = homeServiceViews(context);
 
-    return Center(
-      child: ConstrainedBox(
-        constraints:
-            const BoxConstraints(maxWidth: DashboardLayout.maxContentWidth),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 26, 16, 8),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final columns = DashboardLayout.columnsFor(
-                  constraints.maxWidth, services.length);
+    return TextScaleCap(
+      child: Center(
+        child: ConstrainedBox(
+          constraints:
+              const BoxConstraints(maxWidth: DashboardLayout.maxContentWidth),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 26, 16, 8),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final columns = DashboardLayout.columnsFor(
+                    constraints.maxWidth, services.length);
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              t.section_title,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: DashboardPalette.navy,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                              ),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            t.section_title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: DashboardPalette.navy,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w800,
                             ),
-                            const SizedBox(height: 4),
-                            Text(
-                              t.section_subtitle,
-                              style: const TextStyle(
-                                color: DashboardPalette.muted,
-                                fontSize: 11,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
+                        const _LayoutToggle(),
+                        const SizedBox(width: 4),
+                        _ViewAllButton(label: t.view_all),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      t.section_subtitle,
+                      style: const TextStyle(
+                        color: DashboardPalette.muted,
+                        fontSize: 12,
                       ),
-                      // const SizedBox(height: 12),
-                      const _LayoutToggle(),
-                      const SizedBox(width: 4),
-                      _ViewAllButton(label: t.view_all),
-                      // Expanded(
-                      //   child: Align(
-                      //     alignment: Alignment.centerRight,
-                      //     child: _ViewAllButton(label: t.view_all),
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  BlocBuilder<HomeServicesCubit, HomeServicesState>(
-                    builder: (context, state) {
-                      if (state.layout == HomeServicesLayout.grid) {
-                        return ServiceGrid(
-                          services: services,
-                          columns: columns,
-                        );
-                      }
-                      return Column(
-                        children: [
-                          for (final service in services) ...[
-                            ServiceListCard(service: service),
-                            const SizedBox(height: 10),
+                    ),
+                    const SizedBox(height: 16),
+                    BlocBuilder<HomeServicesCubit, HomeServicesState>(
+                      builder: (context, state) {
+                        if (state.layout == HomeServicesLayout.grid) {
+                          return ServiceGrid(
+                            services: services,
+                            columns: columns,
+                          );
+                        }
+                        return Column(
+                          children: [
+                            for (final service in services) ...[
+                              ServiceListCard(service: service),
+                              const SizedBox(height: 10),
+                            ],
                           ],
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              );
-            },
+                        );
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

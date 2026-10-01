@@ -33,6 +33,17 @@ Future<void> _pump(WidgetTester tester, Widget child, double width) async {
   );
 }
 
+Set<Size> _cardSizes(WidgetTester tester) => tester
+    .widgetList<ServiceGridCard>(find.byType(ServiceGridCard))
+    .map((card) => tester.getSize(find.byWidget(card)))
+    .toSet();
+
+int _rowCount(WidgetTester tester) => tester
+    .widgetList<ServiceGridCard>(find.byType(ServiceGridCard))
+    .map((card) => tester.getTopLeft(find.byWidget(card)).dy)
+    .toSet()
+    .length;
+
 void main() {
   testWidgets('renders every service as a card', (tester) async {
     await _pump(tester, ServiceGrid(services: _views(9), columns: 3), 360);
@@ -43,31 +54,26 @@ void main() {
   testWidgets('lays nine services into three rows of three', (tester) async {
     await _pump(tester, ServiceGrid(services: _views(9), columns: 3), 360);
 
-    expect(find.byType(IntrinsicHeight), findsNWidgets(3));
+    expect(_rowCount(tester), 3);
   });
 
   testWidgets('lays nine services into two rows at five columns',
       (tester) async {
     await _pump(tester, ServiceGrid(services: _views(9), columns: 5), 1024);
 
-    expect(find.byType(IntrinsicHeight), findsNWidgets(2));
+    expect(_rowCount(tester), 2);
     expect(find.byType(ServiceGridCard), findsNWidgets(9));
   });
 
-  testWidgets('cards keep a uniform width when the last row is short',
+  testWidgets('every card shares one size, even on a short last row',
       (tester) async {
     await _pump(tester, ServiceGrid(services: _views(8), columns: 3), 360);
 
-    final widths = tester
-        .widgetList<ServiceGridCard>(find.byType(ServiceGridCard))
-        .map((card) => tester.getSize(find.byWidget(card)).width)
-        .toSet();
-
-    expect(widths.length, 1);
+    expect(_cardSizes(tester).length, 1);
   });
 
   testWidgets('does not overflow at a narrow phone width', (tester) async {
-    await _pump(tester, ServiceGrid(services: _views(9), columns: 3), 320);
+    await _pump(tester, ServiceGrid(services: _views(9), columns: 3), 288);
 
     expect(tester.takeException(), isNull);
   });

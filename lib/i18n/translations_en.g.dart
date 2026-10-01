@@ -208,8 +208,11 @@ class TranslationsDashboardEn {
 
 	// Translations
 
-	/// en: 'Chat With AI doctor for all your health questions'
-	String get chat_ai_placeholder => 'Chat With AI doctor for all your health questions';
+	/// en: 'Chat with an AI doctor'
+	String get chat_ai_title => 'Chat with an AI doctor';
+
+	/// en: 'Ask your health question'
+	String get chat_ai_subtitle => 'Ask your health question';
 
 	/// en: 'Live Longer & Live Healthier, {displayName}!'
 	String greeting({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!';
@@ -1028,8 +1031,8 @@ class TranslationsDashboardHomeEn {
 
 	// Translations
 
-	/// en: 'Healthcare Services'
-	String get section_title => 'Healthcare Services';
+	/// en: 'Services'
+	String get section_title => 'Services';
 
 	/// en: 'Professional care for you and your loved ones.'
 	String get section_subtitle => 'Professional care for you and your loved ones.';
@@ -1070,38 +1073,38 @@ class TranslationsDashboardHomeEn {
 	/// en: '2nd Opinion Imaging'
 	String get name_second_opinion => '2nd Opinion Imaging';
 
-	/// en: 'Homecare for Elderly'
-	String get name_homecare_elderly => 'Homecare for Elderly';
+	/// en: 'Homecare'
+	String get name_homecare_elderly => 'Homecare';
 
-	/// en: 'Expert advice on your medications and support.'
-	String get desc_pharmacist => 'Expert advice on your medications and support.';
+	/// en: 'Medication support'
+	String get desc_pharmacist => 'Medication support';
 
-	/// en: 'Manage pain, improve mobility and recover better.'
-	String get desc_physiotherapy => 'Manage pain, improve mobility and recover better.';
+	/// en: 'Pain & mobility'
+	String get desc_physiotherapy => 'Pain & mobility';
 
-	/// en: 'Get support for stress, emotions and mental well-being.'
-	String get desc_psychologist => 'Get support for stress, emotions and mental well-being.';
+	/// en: 'Mind & emotions'
+	String get desc_psychologist => 'Mind & emotions';
 
-	/// en: 'Personalised nutrition support.'
-	String get desc_dietitian => 'Personalised nutrition support.';
+	/// en: 'Nutrition support'
+	String get desc_dietitian => 'Nutrition support';
 
-	/// en: 'Eye care, vision checks and professional advice.'
-	String get desc_optometrist => 'Eye care, vision checks and professional advice.';
+	/// en: 'Eye care'
+	String get desc_optometrist => 'Eye care';
 
-	/// en: 'Professional nursing care in the comfort of your home.'
-	String get desc_nursing => 'Professional nursing care in the comfort of your home.';
+	/// en: 'Care at home'
+	String get desc_nursing => 'Care at home';
 
-	/// en: 'Check your eyes and feet for diabetes.'
-	String get desc_diabetic_care => 'Check your eyes and feet for diabetes.';
+	/// en: 'Early detection'
+	String get desc_diabetic_care => 'Early detection';
 
-	/// en: 'Convenient health checks in your home.'
-	String get desc_home_screening => 'Convenient health checks in your home.';
+	/// en: 'Health check'
+	String get desc_home_screening => 'Health check';
 
-	/// en: 'Get an expert second read of your medical scans.'
-	String get desc_second_opinion => 'Get an expert second read of your medical scans.';
+	/// en: 'Expert scan review'
+	String get desc_second_opinion => 'Expert scan review';
 
-	/// en: 'Daily living support and companionship at home.'
-	String get desc_homecare_elderly => 'Daily living support and companionship at home.';
+	/// en: 'Daily support'
+	String get desc_homecare_elderly => 'Daily support';
 }
 
 // Path: global.dialog
@@ -2389,12 +2392,13 @@ extension on Translations {
 			'chatbot.micDeniedTitle' => 'Microphone access required',
 			'chatbot.micDeniedBody' => 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.',
 			'chatbot.openSettings' => 'Open Settings',
-			'dashboard.chat_ai_placeholder' => 'Chat With AI doctor for all your health questions',
+			'dashboard.chat_ai_title' => 'Chat with an AI doctor',
+			'dashboard.chat_ai_subtitle' => 'Ask your health question',
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
 			'dashboard.greeting_generic' => 'Live Longer & Live Healthier!',
 			'dashboard.header_error' => 'We couldn\'t load your profile.',
 			'dashboard.retry' => 'Retry',
-			'dashboard.home.section_title' => 'Healthcare Services',
+			'dashboard.home.section_title' => 'Services',
 			'dashboard.home.section_subtitle' => 'Professional care for you and your loved ones.',
 			'dashboard.home.view_all' => 'View All',
 			'dashboard.home.all_services_title' => 'All Services',
@@ -2408,17 +2412,17 @@ extension on Translations {
 			'dashboard.home.name_diabetic_care' => 'Diabetes Screening',
 			'dashboard.home.name_home_screening' => 'Home Health Screening',
 			'dashboard.home.name_second_opinion' => '2nd Opinion Imaging',
-			'dashboard.home.name_homecare_elderly' => 'Homecare for Elderly',
-			'dashboard.home.desc_pharmacist' => 'Expert advice on your medications and support.',
-			'dashboard.home.desc_physiotherapy' => 'Manage pain, improve mobility and recover better.',
-			'dashboard.home.desc_psychologist' => 'Get support for stress, emotions and mental well-being.',
-			'dashboard.home.desc_dietitian' => 'Personalised nutrition support.',
-			'dashboard.home.desc_optometrist' => 'Eye care, vision checks and professional advice.',
-			'dashboard.home.desc_nursing' => 'Professional nursing care in the comfort of your home.',
-			'dashboard.home.desc_diabetic_care' => 'Check your eyes and feet for diabetes.',
-			'dashboard.home.desc_home_screening' => 'Convenient health checks in your home.',
-			'dashboard.home.desc_second_opinion' => 'Get an expert second read of your medical scans.',
-			'dashboard.home.desc_homecare_elderly' => 'Daily living support and companionship at home.',
+			'dashboard.home.name_homecare_elderly' => 'Homecare',
+			'dashboard.home.desc_pharmacist' => 'Medication support',
+			'dashboard.home.desc_physiotherapy' => 'Pain & mobility',
+			'dashboard.home.desc_psychologist' => 'Mind & emotions',
+			'dashboard.home.desc_dietitian' => 'Nutrition support',
+			'dashboard.home.desc_optometrist' => 'Eye care',
+			'dashboard.home.desc_nursing' => 'Care at home',
+			'dashboard.home.desc_diabetic_care' => 'Early detection',
+			'dashboard.home.desc_home_screening' => 'Health check',
+			'dashboard.home.desc_second_opinion' => 'Expert scan review',
+			'dashboard.home.desc_homecare_elderly' => 'Daily support',
 			'global.add' => 'Add',
 			'global.book_now' => 'Book Now',
 			'global.cancel' => 'Cancel',
