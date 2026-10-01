@@ -26,6 +26,10 @@ class GuidedBookingArgs {
   });
 }
 
+/// Every step after the entry receives the one [GuidedBookingCubit] created
+/// there — that is what makes back-and-edit work without a step refetching.
+/// [returnToReview] flips a step's CTA from "push the next step" to "pop back
+/// to review", so an edit link never stacks a second copy of the flow.
 class GuidedBookingStepArgs {
   final GuidedBookingCubit cubit;
   final bool returnToReview;
