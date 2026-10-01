@@ -38,7 +38,14 @@ class AssistantCubit extends Cubit<AssistantState> {
       _isInteractiveKind,
       orElse: () => const UnknownAssistantBlock(id: 0, kind: 'none'),
     );
-    return _isInteractiveKind(block) && last.id == block.id;
+    if (!_isInteractiveKind(block) || last.id != block.id) return false;
+    // A reload does not restore `resolved`; a stored reply (positive id, not the
+    // optimistic bubble) after the card shows it was already answered.
+    if (block is TopicGridBlock) return true;
+    final index = state.blocks.indexWhere((b) => b.id == block.id);
+    return !state.blocks
+        .skip(index + 1)
+        .any((b) => b is UserTextBlock && b.id > 0);
   }
 
   static bool _isInteractiveKind(AssistantBlock block) =>

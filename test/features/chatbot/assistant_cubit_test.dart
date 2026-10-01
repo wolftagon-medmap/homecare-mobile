@@ -299,4 +299,29 @@ void main() {
     await cubit.chooseOption(20, _single(), 0);
     expect(AssistantCubit.isInteractive(_ready(cubit), _single()), isFalse);
   });
+
+  test('after a reload, a card followed by a stored reply is not interactive',
+      () async {
+    await startWith([
+      _grid(),
+      _summary(),
+      const UserTextBlock(id: 40, text: 'Looks good'),
+      _guidance(),
+      _nextStep(),
+    ]);
+    final state = _ready(cubit);
+
+    expect(AssistantCubit.isInteractive(state, _summary()), isFalse);
+    expect(AssistantCubit.isInteractive(state, _grid()), isFalse);
+  });
+
+  test('an optimistic bubble after a failed tap keeps the card answerable',
+      () async {
+    await startWith([_grid(), _single()]);
+    repository.failNextSend = true;
+
+    await cubit.chooseOption(20, _single(), 0);
+
+    expect(AssistantCubit.isInteractive(_ready(cubit), _single()), isTrue);
+  });
 }
