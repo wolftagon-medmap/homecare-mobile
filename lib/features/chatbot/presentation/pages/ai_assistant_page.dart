@@ -298,7 +298,7 @@ class _ReconnectingBar extends StatelessWidget {
       child: Text(
         context.t.chatbot.reconnecting,
         textAlign: TextAlign.center,
-        style: const TextStyle(color: AssistantPalette.muted, fontSize: 12),
+        style: const TextStyle(color: AssistantPalette.body, fontSize: 12),
       ),
     );
   }

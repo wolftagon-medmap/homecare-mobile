@@ -116,7 +116,7 @@ class _TeamBubble extends StatelessWidget {
           child: Text(
             context.t.chatbot.teamLabel,
             style: const TextStyle(
-              color: AssistantPalette.muted,
+              color: AssistantPalette.body,
               fontSize: 11.5,
               fontWeight: FontWeight.w600,
             ),

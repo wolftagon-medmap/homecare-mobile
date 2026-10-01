@@ -46,7 +46,7 @@ class GuidanceCard extends StatelessWidget {
                       Text(
                         block.disclaimer!,
                         style: const TextStyle(
-                          color: AssistantPalette.muted,
+                          color: AssistantPalette.body,
                           fontSize: 11.5,
                           height: 1.4,
                         ),
