@@ -36,3 +36,11 @@ Against a local backend with the backend issues 05 to 09 and `MODEL_PROVIDER=moc
 Then the full check with the real model is backend issue 11.
 
 ## Comments
+
+Agent checks, 2026-10-01 (commits 6a7cbd87, 97d1a6e9, 7b1edbb7): analyze 75 issues (same set as the `develop` baseline), format applied, 238 tests pass, no import from `_legacy/chat_intake_booking` in `features/chatbot` or `features/guided_booking`, no reference to the 12 deleted files.
+
+Release notes (patient-facing):
+- The AI Assistant now asks follow-up questions about what you describe and gives a short summary and general guidance.
+- It can suggest M2Health services and open the booking form with your details already filled in.
+- Your conversations are saved to your account, so you can read them on any device.
+- The AI button on the Pharmacy page now opens the new assistant.
