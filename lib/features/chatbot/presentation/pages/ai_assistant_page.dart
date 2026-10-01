@@ -12,6 +12,7 @@ import 'package:m2health/features/chatbot/presentation/pages/assistant_sessions_
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_block_view.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_bubbles.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_composer.dart';
+import 'package:m2health/features/chatbot/presentation/widgets/assistant_error_text.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_hero.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_privacy_label.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_theme.dart';
@@ -89,7 +90,9 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
       cubit.errorShown();
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
-        ..showSnackBar(SnackBar(content: Text(error)));
+        ..showSnackBar(
+          SnackBar(content: Text(assistantErrorText(context, error))),
+        );
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -219,7 +222,8 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
                 color: AssistantPalette.primary,
               ),
             ),
-          AssistantFailed(:final message) => _Failure(message: message),
+          AssistantFailed(:final error) =>
+            _Failure(message: assistantErrorText(context, error)),
           AssistantReady() => _Conversation(
               state: state,
               scrollController: _scrollController,

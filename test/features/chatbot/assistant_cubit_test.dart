@@ -60,7 +60,7 @@ void main() {
 
     expect(
       cubit.state,
-      const AssistantFailed('Something went wrong. Please try again.'),
+      const AssistantFailed(AssistantError.load),
     );
   });
 
@@ -195,7 +195,7 @@ void main() {
     await cubit.selectTopic(1, _grid().topics.first);
 
     final state = _ready(cubit);
-    expect(state.actionError, 'Could not send. Please try again.');
+    expect(state.actionError, AssistantError.send);
     expect(state.awaitingReply, isFalse);
     expect(state.resolved.containsKey(1), isFalse);
     expect(state.blocks.last, isA<UserTextBlock>());

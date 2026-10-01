@@ -15,9 +15,6 @@ class AssistantCubit extends Cubit<AssistantState> {
 
   static const _reconnectDelay = Duration(seconds: 3);
   static const _replyWatchdog = Duration(seconds: 70);
-  static const _loadFailed = 'Something went wrong. Please try again.';
-  static const _sendFailed = 'Could not send. Please try again.';
-  static const _noReply = 'No reply yet. Please try again.';
 
   StreamSubscription<AssistantBlock>? _subscription;
   Timer? _reconnectTimer;
@@ -64,7 +61,7 @@ class AssistantCubit extends Cubit<AssistantState> {
     final id = started.fold<String?>((_) => null, (value) => value);
     if (isClosed) return;
     if (id == null) {
-      emit(const AssistantFailed(_loadFailed));
+      emit(const AssistantFailed(AssistantError.load));
       return;
     }
 
@@ -72,7 +69,7 @@ class AssistantCubit extends Cubit<AssistantState> {
     final blocks = loaded.fold<List<AssistantBlock>?>((_) => null, (b) => b);
     if (isClosed) return;
     if (blocks == null) {
-      emit(const AssistantFailed(_loadFailed));
+      emit(const AssistantFailed(AssistantError.load));
       return;
     }
 
@@ -89,7 +86,7 @@ class AssistantCubit extends Cubit<AssistantState> {
     final loaded = await repository.history(sessionId);
     if (isClosed) return;
     loaded.fold(
-      (_) => emit(const AssistantFailed(_loadFailed)),
+      (_) => emit(const AssistantFailed(AssistantError.load)),
       (blocks) => emit(AssistantReady(
         sessionId: sessionId,
         readOnly: true,
@@ -178,7 +175,8 @@ class AssistantCubit extends Cubit<AssistantState> {
       if (isClosed) return;
       final latest = state;
       if (latest is AssistantReady && latest.awaitingReply) {
-        emit(latest.copyWith(awaitingReply: false, actionError: _noReply));
+        emit(latest.copyWith(
+            awaitingReply: false, actionError: AssistantError.noReply));
       }
     });
 
@@ -195,7 +193,7 @@ class AssistantCubit extends Cubit<AssistantState> {
         emit(latest.copyWith(
           resolved: resolved,
           awaitingReply: false,
-          actionError: _sendFailed,
+          actionError: AssistantError.send,
         ));
       },
       (_) {},

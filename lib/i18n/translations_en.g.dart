@@ -210,6 +210,21 @@ class TranslationsChatbotEn {
 
 	/// en: 'This conversation is read-only.'
 	String get readOnlyNotice => 'This conversation is read-only.';
+
+	/// en: 'Something went wrong. Please try again.'
+	String get errorLoad => 'Something went wrong. Please try again.';
+
+	/// en: 'Could not send. Please try again.'
+	String get errorSend => 'Could not send. Please try again.';
+
+	/// en: 'No reply yet. Please try again.'
+	String get errorNoReply => 'No reply yet. Please try again.';
+
+	/// en: 'The assistant is replying'
+	String get typing => 'The assistant is replying';
+
+	/// en: 'Continue'
+	String get continueAction => 'Continue';
 }
 
 // Path: dashboard
@@ -2405,6 +2420,11 @@ extension on Translations {
 			'chatbot.confirm' => 'Confirm',
 			'chatbot.reconnecting' => 'Reconnecting…',
 			'chatbot.readOnlyNotice' => 'This conversation is read-only.',
+			'chatbot.errorLoad' => 'Something went wrong. Please try again.',
+			'chatbot.errorSend' => 'Could not send. Please try again.',
+			'chatbot.errorNoReply' => 'No reply yet. Please try again.',
+			'chatbot.typing' => 'The assistant is replying',
+			'chatbot.continueAction' => 'Continue',
 			'dashboard.chat_ai_placeholder' => 'Chat With AI doctor for all your health questions',
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
 			'dashboard.greeting_generic' => 'Live Longer & Live Healthier!',

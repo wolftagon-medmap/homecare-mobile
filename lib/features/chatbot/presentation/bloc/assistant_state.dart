@@ -12,13 +12,15 @@ class AssistantLoading extends AssistantState {
   const AssistantLoading();
 }
 
-class AssistantFailed extends AssistantState {
-  final String message;
+enum AssistantError { load, send, noReply }
 
-  const AssistantFailed(this.message);
+class AssistantFailed extends AssistantState {
+  final AssistantError error;
+
+  const AssistantFailed(this.error);
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [error];
 }
 
 sealed class AssistantNavigation extends Equatable {
@@ -49,7 +51,7 @@ class AssistantReady extends AssistantState {
   final Map<int, Set<int>> selections;
   final bool awaitingReply;
   final bool connected;
-  final String? actionError;
+  final AssistantError? actionError;
   final AssistantNavigation? navigation;
 
   const AssistantReady({
@@ -70,7 +72,7 @@ class AssistantReady extends AssistantState {
     Map<int, Set<int>>? selections,
     bool? awaitingReply,
     bool? connected,
-    String? actionError,
+    AssistantError? actionError,
     bool clearActionError = false,
     AssistantNavigation? navigation,
     bool clearNavigation = false,

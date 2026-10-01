@@ -131,6 +131,11 @@ class _TranslationsChatbotZh implements TranslationsChatbotEn {
 	@override String get confirm => '确认';
 	@override String get reconnecting => '正在重新连接…';
 	@override String get readOnlyNotice => '此对话为只读。';
+	@override String get errorLoad => '出了点问题，请重试。';
+	@override String get errorSend => '发送失败，请重试。';
+	@override String get errorNoReply => '暂无回复，请重试。';
+	@override String get typing => '助手正在回复';
+	@override String get continueAction => '继续';
 }
 
 // Path: dashboard
@@ -1515,6 +1520,11 @@ extension on TranslationsZh {
 			'chatbot.confirm' => '确认',
 			'chatbot.reconnecting' => '正在重新连接…',
 			'chatbot.readOnlyNotice' => '此对话为只读。',
+			'chatbot.errorLoad' => '出了点问题，请重试。',
+			'chatbot.errorSend' => '发送失败，请重试。',
+			'chatbot.errorNoReply' => '暂无回复，请重试。',
+			'chatbot.typing' => '助手正在回复',
+			'chatbot.continueAction' => '继续',
 			'dashboard.chat_ai_placeholder' => '咨询AI医生，解答您的健康疑问',
 			'dashboard.greeting' => ({required Object displayName}) => '更长寿，更健康，${displayName}！',
 			'dashboard.greeting_generic' => '更长寿，更健康！',

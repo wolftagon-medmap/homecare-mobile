@@ -33,5 +33,10 @@
   "teamLabel": "M2Health 团队",
   "confirm": "确认",
   "reconnecting": "正在重新连接…",
-  "readOnlyNotice": "此对话为只读。"
+  "readOnlyNotice": "此对话为只读。",
+  "errorLoad": "出了点问题，请重试。",
+  "errorSend": "发送失败，请重试。",
+  "errorNoReply": "暂无回复，请重试。",
+  "typing": "助手正在回复",
+  "continueAction": "继续"
 }

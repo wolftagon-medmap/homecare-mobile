@@ -5,6 +5,7 @@ import 'package:m2health/features/chatbot/presentation/bloc/assistant_cubit.dart
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_state.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_block_view.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_composer.dart';
+import 'package:m2health/features/chatbot/presentation/widgets/assistant_error_text.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_privacy_label.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_theme.dart';
 import 'package:m2health/i18n/translations.g.dart';
@@ -55,11 +56,11 @@ class _AssistantSessionViewerPageState
                 color: AssistantPalette.primary,
               ),
             ),
-          AssistantFailed(:final message) => Center(
+          AssistantFailed(:final error) => Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Text(
-                  message,
+                  assistantErrorText(context, error),
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: AssistantPalette.body),
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:m2health/features/chatbot/domain/entities/assistant_block.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_bubbles.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_theme.dart';
+import 'package:m2health/i18n/translations.g.dart';
 
 class SingleChoiceCard extends StatelessWidget {
   final QuestionBlock block;
@@ -103,7 +104,7 @@ class MultiChoiceCard extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
                       child: Text(
-                        block.continueLabel ?? 'Continue',
+                        block.continueLabel ?? context.t.chatbot.continueAction,
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,

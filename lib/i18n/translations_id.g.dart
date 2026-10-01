@@ -131,6 +131,11 @@ class _TranslationsChatbotId implements TranslationsChatbotEn {
 	@override String get confirm => 'Konfirmasi';
 	@override String get reconnecting => 'Menyambungkan ulang…';
 	@override String get readOnlyNotice => 'Percakapan ini hanya bisa dibaca.';
+	@override String get errorLoad => 'Terjadi kesalahan. Silakan coba lagi.';
+	@override String get errorSend => 'Gagal mengirim. Silakan coba lagi.';
+	@override String get errorNoReply => 'Belum ada balasan. Silakan coba lagi.';
+	@override String get typing => 'Asisten sedang membalas';
+	@override String get continueAction => 'Lanjutkan';
 }
 
 // Path: dashboard
@@ -1515,6 +1520,11 @@ extension on TranslationsId {
 			'chatbot.confirm' => 'Konfirmasi',
 			'chatbot.reconnecting' => 'Menyambungkan ulang…',
 			'chatbot.readOnlyNotice' => 'Percakapan ini hanya bisa dibaca.',
+			'chatbot.errorLoad' => 'Terjadi kesalahan. Silakan coba lagi.',
+			'chatbot.errorSend' => 'Gagal mengirim. Silakan coba lagi.',
+			'chatbot.errorNoReply' => 'Belum ada balasan. Silakan coba lagi.',
+			'chatbot.typing' => 'Asisten sedang membalas',
+			'chatbot.continueAction' => 'Lanjutkan',
 			'dashboard.chat_ai_placeholder' => 'Tanya dokter AI seputar kesehatan Anda',
 			'dashboard.greeting' => ({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!',
 			'dashboard.greeting_generic' => 'Hidup Lebih Lama & Sehat!',

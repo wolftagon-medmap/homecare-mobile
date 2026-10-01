@@ -33,5 +33,10 @@
   "teamLabel": "Tim M2Health",
   "confirm": "Konfirmasi",
   "reconnecting": "Menyambungkan ulang…",
-  "readOnlyNotice": "Percakapan ini hanya bisa dibaca."
+  "readOnlyNotice": "Percakapan ini hanya bisa dibaca.",
+  "errorLoad": "Terjadi kesalahan. Silakan coba lagi.",
+  "errorSend": "Gagal mengirim. Silakan coba lagi.",
+  "errorNoReply": "Belum ada balasan. Silakan coba lagi.",
+  "typing": "Asisten sedang membalas",
+  "continueAction": "Lanjutkan"
 }
