@@ -79,6 +79,8 @@ void initGuidedBookingModule(GetIt sl) {
     (args, _) => GuidedBookingCubit(
       category: args.category,
       subCategory: args.subCategory,
+      initialIssueCodes: args.issueCodes,
+      initialRemarks: args.remarks,
       getIssueCatalogue: sl<GetIssueCatalogue>(),
       getProfessionals: sl<GetBookingProfessionals>(),
       getAvailability: sl<GetBookingAvailability>(),

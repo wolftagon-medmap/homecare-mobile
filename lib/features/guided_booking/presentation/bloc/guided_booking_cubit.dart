@@ -21,12 +21,15 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
   static const Duration _saveDebounce = Duration(milliseconds: 400);
   Timer? _saveTimer;
   final String? _entrySubCategory;
+  final bool _hasPrefill;
   final CurrentLocationService currentLocation;
   final Future<int> Function(VisitLocation) createAddress;
 
   GuidedBookingCubit({
     required String category,
     String? subCategory,
+    List<String> initialIssueCodes = const [],
+    String? initialRemarks,
     required this.getIssueCatalogue,
     required this.getProfessionals,
     required this.getAvailability,
@@ -38,15 +41,18 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
     required this.currentLocation,
     required this.createAddress,
   })  : _entrySubCategory = subCategory,
+        _hasPrefill = initialIssueCodes.isNotEmpty ||
+            (initialRemarks?.isNotEmpty ?? false),
         super(GuidedBookingState(
           draft: GuidedBookingDraft(
             category: category,
             subCategory: subCategory,
-          ),
+            issueCodes: initialIssueCodes,
+          ).withRemarks(initialRemarks ?? ''),
         ));
 
   Future<void> loadCatalogue() async {
-    await restoreDraft();
+    if (!_hasPrefill) await restoreDraft();
     emit(state.copyWith(
       catalogueStatus: BookingLoadStatus.loading,
       clearError: true,
@@ -63,13 +69,26 @@ class GuidedBookingCubit extends Cubit<GuidedBookingState> {
             ? catalogue.subCategories.first.code
             : state.draft.subCategory;
 
+        var draft = autoSelected == state.draft.subCategory
+            ? state.draft
+            : state.draft.withSubCategory(autoSelected, sharesIssueList: true);
+
+        final codesUnverifiable =
+            draft.subCategory == null && catalogue.needsSubServiceStep;
+        if (_hasPrefill && !codesUnverifiable) {
+          final valid = catalogue
+              .issuesFor(draft.subCategory)
+              .map((issue) => issue.code)
+              .toSet();
+          draft = draft.withIssueCodes(
+            draft.issueCodes.where(valid.contains).toList(),
+          );
+        }
+
         emit(state.copyWith(
           catalogueStatus: BookingLoadStatus.ready,
           catalogue: catalogue,
-          draft: autoSelected == state.draft.subCategory
-              ? state.draft
-              : state.draft
-                  .withSubCategory(autoSelected, sharesIssueList: true),
+          draft: draft,
         ));
       },
     );
