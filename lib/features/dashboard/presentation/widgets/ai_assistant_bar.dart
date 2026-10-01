@@ -1,6 +1,10 @@
+import 'dart:math' as math;
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:m2health/core/presentation/responsive/responsive.dart';
 import 'package:m2health/features/chatbot/chatbot_routes.dart';
 import 'package:m2health/features/dashboard/presentation/dashboard_palette.dart';
 import 'package:m2health/i18n/translations.g.dart';
@@ -8,18 +12,22 @@ import 'package:m2health/i18n/translations.g.dart';
 class AiAssistantBar extends StatelessWidget {
   const AiAssistantBar({super.key});
 
-  static const _titleSize = 15.0;
-  static const _subtitleSize = 12.0;
+  static const _range = FluidRange(360, 834);
   static const _lineHeight = 1.25;
   static const _lineGap = 2.0;
 
-  static double textHeightOf(TextScaler scaler) =>
-      (scaler.scale(_titleSize) + scaler.scale(_subtitleSize)) * _lineHeight +
-      _lineGap;
+  static double contentHeightOf(double screenWidth, TextScaler scaler) {
+    final sizes = _AiBarSizes.of(screenWidth);
+    final text = (scaler.scale(sizes.title) + scaler.scale(sizes.subtitle)) *
+            _lineHeight +
+        _lineGap;
+    return math.max(text, sizes.button);
+  }
 
   @override
   Widget build(BuildContext context) {
     final t = context.t.dashboard;
+    final sizes = _AiBarSizes.of(MediaQuery.sizeOf(context).width);
 
     return Semantics(
       button: true,
@@ -38,8 +46,8 @@ class AiAssistantBar extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   'assets/icons/ic_ai_robot.svg',
-                  width: 34,
-                  height: 34,
+                  width: sizes.icon,
+                  height: sizes.icon,
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -47,13 +55,14 @@ class AiAssistantBar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
+                      AutoSizeText(
                         t.chat_ai_title,
                         maxLines: 1,
+                        minFontSize: 12,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: DashboardPalette.navy,
-                          fontSize: _titleSize,
+                          fontSize: sizes.title.roundToDouble(),
                           height: _lineHeight,
                           fontWeight: FontWeight.w700,
                         ),
@@ -63,9 +72,9 @@ class AiAssistantBar extends StatelessWidget {
                         t.chat_ai_subtitle,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: DashboardPalette.muted,
-                          fontSize: _subtitleSize,
+                          fontSize: sizes.subtitle,
                           height: _lineHeight,
                         ),
                       ),
@@ -74,20 +83,49 @@ class AiAssistantBar extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Container(
-                  width: 38,
-                  height: 38,
+                  width: sizes.button,
+                  height: sizes.button,
                   decoration: const BoxDecoration(
                     color: Color(0xFF038E9F),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.arrow_forward,
-                      size: 18, color: Colors.white),
+                  child: Icon(
+                    Icons.arrow_forward,
+                    size: sizes.button * 0.47,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _AiBarSizes {
+  final double title;
+  final double subtitle;
+  final double icon;
+  final double button;
+
+  const _AiBarSizes({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.button,
+  });
+
+  factory _AiBarSizes.of(double screenWidth) {
+    double size(double min, double max) =>
+        AiAssistantBar._range.lerp(screenWidth, min, max);
+
+    return _AiBarSizes(
+      title: size(15, 19),
+      subtitle: size(12, 15),
+      icon: size(34, 44),
+      button: size(38, 48),
     );
   }
 }

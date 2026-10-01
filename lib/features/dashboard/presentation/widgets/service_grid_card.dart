@@ -1,29 +1,21 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/features/dashboard/presentation/dashboard_palette.dart';
+import 'package:m2health/features/dashboard/presentation/home_grid_metrics.dart';
 import 'package:m2health/features/dashboard/presentation/home_service_view.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
 class ServiceGridCard extends StatelessWidget {
   final HomeServiceView service;
+  final HomeGridMetrics metrics;
 
-  const ServiceGridCard({super.key, required this.service});
-
-  static const _titleFontSize = 11.5;
-  static const _titleLineHeight = 1.2;
-
-  static const _titleStyle = TextStyle(
-    color: DashboardPalette.navy,
-    fontSize: _titleFontSize,
-    height: _titleLineHeight,
-    letterSpacing: -0.1,
-    fontWeight: FontWeight.w700,
-  );
-
-  // Reserved for exactly two lines, so the description below starts at the
-  // same y across cards in a row whether the title takes one line or two.
-  static const _titleBoxHeight = _titleFontSize * _titleLineHeight * 2;
+  const ServiceGridCard({
+    super.key,
+    required this.service,
+    required this.metrics,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,77 +31,112 @@ class ServiceGridCard extends StatelessWidget {
         child: InkWell(
           onTap: () => context.push(service.route),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(8, 12, 8, 10),
+            padding: EdgeInsets.symmetric(
+              horizontal: metrics.horizontalPadding,
+              vertical: metrics.verticalPadding,
+            ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 18,
+                  height: metrics.badgeHeight,
                   child: service.isNew
                       ? Align(
                           alignment: Alignment.topRight,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 7, vertical: 2),
-                            decoration: BoxDecoration(
-                              color: visuals.accent,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              context.t.dashboard.home.badge_new,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 8.5,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 0.3,
-                              ),
-                            ),
+                          child: _NewBadge(
+                            color: visuals.accent,
+                            fontSize: metrics.badgeSize,
                           ),
                         )
                       : null,
                 ),
-                SvgPicture.asset(visuals.iconPath, width: 34, height: 34),
-                const SizedBox(height: 10),
+                SvgPicture.asset(
+                  visuals.iconPath,
+                  width: metrics.iconSize,
+                  height: metrics.iconSize,
+                ),
+                SizedBox(height: metrics.gap),
                 SizedBox(
-                  height: _titleBoxHeight,
+                  height: metrics.titleBoxHeight,
                   child: Align(
                     alignment: Alignment.topCenter,
-                    child: Text(
+                    child: AutoSizeText(
                       service.title,
                       textAlign: TextAlign.center,
-                      maxLines: 2,
+                      maxLines: HomeGridMetrics.titleLines,
+                      wrapWords: false,
+                      minFontSize: metrics.minTitleSize,
+                      stepGranularity: 0.5,
                       overflow: TextOverflow.ellipsis,
-                      style: _titleStyle,
+                      style: TextStyle(
+                        color: DashboardPalette.navy,
+                        fontSize: metrics.titleSize,
+                        height: HomeGridMetrics.titleLineHeight,
+                        letterSpacing: -0.1,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 5),
-                Text(
-                  service.description,
-                  textAlign: TextAlign.center,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: DashboardPalette.muted,
-                    fontSize: 9.8,
-                    height: 1.32,
+                SizedBox(height: metrics.gap / 2),
+                SizedBox(
+                  height: metrics.descriptionBoxHeight,
+                  child: Text(
+                    service.description,
+                    textAlign: TextAlign.center,
+                    maxLines: HomeGridMetrics.descriptionLines,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: DashboardPalette.muted,
+                      fontSize: metrics.descriptionSize,
+                      height: HomeGridMetrics.descriptionLineHeight,
+                    ),
                   ),
                 ),
-                const Spacer(),
-                const SizedBox(height: 8),
+                SizedBox(height: metrics.gap),
                 Container(
-                  width: 26,
-                  height: 26,
+                  width: metrics.arrowSize,
+                  height: metrics.arrowSize,
                   decoration: BoxDecoration(
                     color: visuals.accent.withValues(alpha: 0.12),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.arrow_forward,
-                      size: 14, color: visuals.accent),
+                  child: Icon(
+                    Icons.arrow_forward,
+                    size: metrics.arrowSize * 0.55,
+                    color: visuals.accent,
+                  ),
                 ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NewBadge extends StatelessWidget {
+  final Color color;
+  final double fontSize;
+
+  const _NewBadge({required this.color, required this.fontSize});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Text(
+        context.t.dashboard.home.badge_new,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: fontSize,
+          height: HomeGridMetrics.badgeLineHeight,
+          fontWeight: FontWeight.w700,
+          letterSpacing: 0.3,
         ),
       ),
     );
