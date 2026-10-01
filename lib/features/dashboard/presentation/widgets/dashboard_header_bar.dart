@@ -29,7 +29,7 @@ class DashboardHeaderBar extends StatelessWidget {
   static const _bottomPadding = 25.0;
   static const _greetingSize = 13.0;
   static const _greetingLineHeight = 1.2;
-  static const _assistantMinContent = 34.0;
+  static const _assistantMinContent = 38.0;
   static const _assistantVerticalPadding = 18.0;
   static const _maxTextScale = 1.3;
 
@@ -39,11 +39,9 @@ class DashboardHeaderBar extends StatelessWidget {
   static double heightOf(BuildContext context) {
     final scaler = scalerOf(context);
     final greeting = scaler.scale(_greetingSize) * _greetingLineHeight;
-    final assistantText = scaler.scale(AiAssistantBar.textSize) *
-        AiAssistantBar.textLineHeight *
-        AiAssistantBar.textMaxLines;
-    final assistant = math.max(_assistantMinContent, assistantText) +
-        _assistantVerticalPadding;
+    final assistant =
+        math.max(_assistantMinContent, AiAssistantBar.textHeightOf(scaler)) +
+            _assistantVerticalPadding;
 
     return _avatarRowHeight +
         _gapBelowAvatarRow +

@@ -136,7 +136,8 @@ class _TranslationsDashboardId implements TranslationsDashboardEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get chat_ai_placeholder => 'Tanya dokter AI seputar kesehatan Anda';
+	@override String get chat_ai_title => 'Chat dengan dokter AI';
+	@override String get chat_ai_subtitle => 'Tanyakan soal kesehatan Anda';
 	@override String greeting({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!';
 	@override String get greeting_generic => 'Hidup Lebih Lama & Sehat!';
 	@override String get header_error => 'Profil Anda gagal dimuat.';
@@ -598,7 +599,7 @@ class _TranslationsDashboardHomeId implements TranslationsDashboardHomeEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get section_title => 'Layanan Kesehatan';
+	@override String get section_title => 'Layanan';
 	@override String get section_subtitle => 'Perawatan profesional untuk Anda dan keluarga.';
 	@override String get view_all => 'Lihat Semua';
 	@override String get all_services_title => 'Semua Layanan';
@@ -612,17 +613,17 @@ class _TranslationsDashboardHomeId implements TranslationsDashboardHomeEn {
 	@override String get name_diabetic_care => 'Skrining Diabetes';
 	@override String get name_home_screening => 'Skrining Kesehatan di Rumah';
 	@override String get name_second_opinion => 'Opini Kedua Citra Medis';
-	@override String get name_homecare_elderly => 'Perawatan Lansia di Rumah';
-	@override String get desc_pharmacist => 'Saran ahli untuk obat Anda dan dukungan berhenti merokok.';
-	@override String get desc_physiotherapy => 'Atasi nyeri, tingkatkan mobilitas, dan pulih lebih baik.';
-	@override String get desc_psychologist => 'Dukungan untuk stres, emosi, dan kesehatan mental.';
-	@override String get desc_dietitian => 'Dukungan nutrisi personal untuk hidup lebih sehat.';
-	@override String get desc_optometrist => 'Perawatan mata, pemeriksaan penglihatan, dan saran ahli.';
-	@override String get desc_nursing => 'Perawatan profesional dengan nyaman di rumah Anda.';
-	@override String get desc_diabetic_care => 'Periksa mata dan kaki untuk komplikasi terkait diabetes.';
-	@override String get desc_home_screening => 'Pemeriksaan kesehatan praktis di rumah Anda.';
-	@override String get desc_second_opinion => 'Dapatkan pembacaan kedua dari ahli untuk hasil pencitraan Anda.';
-	@override String get desc_homecare_elderly => 'Bantuan aktivitas harian dan pendampingan di rumah.';
+	@override String get name_homecare_elderly => 'Perawatan Lansia';
+	@override String get desc_pharmacist => 'Dukungan obat';
+	@override String get desc_physiotherapy => 'Nyeri & mobilitas';
+	@override String get desc_psychologist => 'Pikiran & emosi';
+	@override String get desc_dietitian => 'Dukungan gizi';
+	@override String get desc_optometrist => 'Perawatan mata';
+	@override String get desc_nursing => 'Perawatan di rumah';
+	@override String get desc_diabetic_care => 'Deteksi dini';
+	@override String get desc_home_screening => 'Cek kesehatan';
+	@override String get desc_second_opinion => 'Tinjauan ahli';
+	@override String get desc_homecare_elderly => 'Bantuan harian';
 }
 
 // Path: global.dialog
@@ -1507,12 +1508,13 @@ extension on TranslationsId {
 			'chatbot.micDeniedTitle' => 'Izin mikrofon diperlukan',
 			'chatbot.micDeniedBody' => 'Izin mikrofon ditolak. Aktifkan di Pengaturan perangkat Anda untuk memakai masukan suara.',
 			'chatbot.openSettings' => 'Buka Pengaturan',
-			'dashboard.chat_ai_placeholder' => 'Tanya dokter AI seputar kesehatan Anda',
+			'dashboard.chat_ai_title' => 'Chat dengan dokter AI',
+			'dashboard.chat_ai_subtitle' => 'Tanyakan soal kesehatan Anda',
 			'dashboard.greeting' => ({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!',
 			'dashboard.greeting_generic' => 'Hidup Lebih Lama & Sehat!',
 			'dashboard.header_error' => 'Profil Anda gagal dimuat.',
 			'dashboard.retry' => 'Coba lagi',
-			'dashboard.home.section_title' => 'Layanan Kesehatan',
+			'dashboard.home.section_title' => 'Layanan',
 			'dashboard.home.section_subtitle' => 'Perawatan profesional untuk Anda dan keluarga.',
 			'dashboard.home.view_all' => 'Lihat Semua',
 			'dashboard.home.all_services_title' => 'Semua Layanan',
@@ -1526,17 +1528,17 @@ extension on TranslationsId {
 			'dashboard.home.name_diabetic_care' => 'Skrining Diabetes',
 			'dashboard.home.name_home_screening' => 'Skrining Kesehatan di Rumah',
 			'dashboard.home.name_second_opinion' => 'Opini Kedua Citra Medis',
-			'dashboard.home.name_homecare_elderly' => 'Perawatan Lansia di Rumah',
-			'dashboard.home.desc_pharmacist' => 'Saran ahli untuk obat Anda dan dukungan berhenti merokok.',
-			'dashboard.home.desc_physiotherapy' => 'Atasi nyeri, tingkatkan mobilitas, dan pulih lebih baik.',
-			'dashboard.home.desc_psychologist' => 'Dukungan untuk stres, emosi, dan kesehatan mental.',
-			'dashboard.home.desc_dietitian' => 'Dukungan nutrisi personal untuk hidup lebih sehat.',
-			'dashboard.home.desc_optometrist' => 'Perawatan mata, pemeriksaan penglihatan, dan saran ahli.',
-			'dashboard.home.desc_nursing' => 'Perawatan profesional dengan nyaman di rumah Anda.',
-			'dashboard.home.desc_diabetic_care' => 'Periksa mata dan kaki untuk komplikasi terkait diabetes.',
-			'dashboard.home.desc_home_screening' => 'Pemeriksaan kesehatan praktis di rumah Anda.',
-			'dashboard.home.desc_second_opinion' => 'Dapatkan pembacaan kedua dari ahli untuk hasil pencitraan Anda.',
-			'dashboard.home.desc_homecare_elderly' => 'Bantuan aktivitas harian dan pendampingan di rumah.',
+			'dashboard.home.name_homecare_elderly' => 'Perawatan Lansia',
+			'dashboard.home.desc_pharmacist' => 'Dukungan obat',
+			'dashboard.home.desc_physiotherapy' => 'Nyeri & mobilitas',
+			'dashboard.home.desc_psychologist' => 'Pikiran & emosi',
+			'dashboard.home.desc_dietitian' => 'Dukungan gizi',
+			'dashboard.home.desc_optometrist' => 'Perawatan mata',
+			'dashboard.home.desc_nursing' => 'Perawatan di rumah',
+			'dashboard.home.desc_diabetic_care' => 'Deteksi dini',
+			'dashboard.home.desc_home_screening' => 'Cek kesehatan',
+			'dashboard.home.desc_second_opinion' => 'Tinjauan ahli',
+			'dashboard.home.desc_homecare_elderly' => 'Bantuan harian',
 			'global.add' => 'Tambah',
 			'global.book_now' => 'Pesan Sekarang',
 			'global.cancel' => 'Batal',
