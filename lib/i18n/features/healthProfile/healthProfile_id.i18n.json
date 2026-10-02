@@ -1,0 +1,33 @@
+{
+  "namespace_title": "Profil kesehatan",
+  "entry_tile": "Profil kesehatan",
+  "retry": "Coba lagi",
+  "list": {
+    "loading": "Memuat profil kesehatan Anda",
+    "load_failed": "Profil kesehatan Anda tidak dapat dimuat.",
+    "empty": "Belum ada bagian yang tersedia."
+  },
+  "section": {
+    "loading": "Memuat bagian ini",
+    "load_failed": "Bagian ini tidak dapat dimuat.",
+    "last_updated": "Terakhir diperbarui {date}",
+    "save": "Simpan",
+    "saved": "Tersimpan",
+    "save_failed": "Bagian ini tidak tersimpan.",
+    "add_other": "Tambah lainnya",
+    "add": "Tambah",
+    "own_answer_hint": "Ketik jawaban Anda",
+    "remove": "Hapus {label}",
+    "selected": "Dipilih",
+    "discard_title": "Buang perubahan Anda?",
+    "discard_body": "Perubahan pada bagian ini belum disimpan.",
+    "discard": "Buang",
+    "keep_editing": "Lanjut mengedit"
+  },
+  "reason": {
+    "network": "Periksa koneksi internet Anda, lalu coba lagi.",
+    "not_found": "Profil atau bagian ini sudah tidak tersedia.",
+    "invalid": "Beberapa jawaban tidak diterima. Periksa lalu coba lagi.",
+    "server": "Terjadi kendala di sistem kami. Coba lagi sebentar lagi."
+  }
+}

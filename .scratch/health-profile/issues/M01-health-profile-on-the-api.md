@@ -1,6 +1,6 @@
 # The health profile reads and saves through the API
 
-Status: ready-for-agent
+Status: done
 Priority: P0
 Size: M
 Depends on: none
@@ -13,14 +13,16 @@ The health profile is a working feature on `develop` that talks only to `/v2/hea
 
 ## Acceptance criteria
 
-- [ ] `lib/features/health_profile` follows `AGENTS.md`: `domain`, `data`, `presentation`; repository returns `Either<Failure, T>`; Cubits; `go_router`; its own `injection.dart` registered in `service_locator.dart`; routes in `app_router.dart`.
-- [ ] One data source, the remote one. No local data source, no fixture, no flag, nothing under `lib/` that returns made-up data.
-- [ ] Entities match contract C3 (`layout`, `icon`, no `chip_multi_choice` type, no attachments). Parsing follows the forward-compatibility rules in C3, including `chip_multi_choice` read as `multi_choice` with `layout: chips`.
-- [ ] Saving sends the whole answer set (C4): answers to questions the app does not show are sent back unchanged; answers to follow-ups that no longer apply are left out.
-- [ ] `patient_profile_id` is the active profile's id, or omitted for the account holder.
-- [ ] A `404` or `422` from the API becomes a failure with a translated message; the raw server text is never shown.
-- [ ] Strings live in `lib/i18n/features/healthProfile/` in en, id, and zh, generated with `fvm dart run slang`. Only the strings the pages use; no subtitles.
-- [ ] Tests under `test/features/health_profile/`: model parsing (every C3 field, unknown values, `chip_multi_choice`), cubit behaviour (load, select, exclusive, own text, follow-up hidden and dropped, dirty state, save success and failure), with fakes under `test/`.
-- [ ] `fvm flutter analyze` shows no new issues against the `develop` baseline; `fvm flutter test` passes; changed files formatted.
+- [x] `lib/features/health_profile` follows `AGENTS.md`: `domain`, `data`, `presentation`; repository returns `Either<Failure, T>`; Cubits; `go_router`; its own `injection.dart` registered in `service_locator.dart`; routes in `app_router.dart`.
+- [x] One data source, the remote one. No local data source, no fixture, no flag, nothing under `lib/` that returns made-up data.
+- [x] Entities match contract C3 (`layout`, `icon`, no `chip_multi_choice` type, no attachments). Parsing follows the forward-compatibility rules in C3, including `chip_multi_choice` read as `multi_choice` with `layout: chips`.
+- [x] Saving sends the whole answer set (C4): answers to questions the app does not show are sent back unchanged; answers to follow-ups that no longer apply are left out.
+- [x] `patient_profile_id` is the active profile's id, or omitted for the account holder.
+- [x] A `404` or `422` from the API becomes a failure with a translated message; the raw server text is never shown.
+- [x] Strings live in `lib/i18n/features/healthProfile/` in en, id, and zh, generated with `fvm dart run slang`. Only the strings the pages use; no subtitles.
+- [x] Tests under `test/features/health_profile/`: model parsing (every C3 field, unknown values, `chip_multi_choice`), cubit behaviour (load, select, exclusive, own text, follow-up hidden and dropped, dirty state, save success and failure), with fakes under `test/`.
+- [x] `fvm flutter analyze` shows no new issues against the `develop` baseline; `fvm flutter test` passes; changed files formatted.
 
 ## Comments
+
+2026-10-02: Done together with M02 (the pages need the layout widgets to compile), committed as one change. Restored from `f15cd738^` and reworked: one remote data source; failures mapped from the HTTP status and shown as translated text per failure type; answers to unknown question types sent back unchanged; strings in `lib/i18n/features/healthProfile/` (en, id, zh). Not restored: the local data source, the fixture, the attachment field and data source, the `.gitkeep` files. Tests in `test/features/health_profile/` with a fake data source under `test/`. Analyze: 75 issues, identical to the `develop` baseline. Tests: 297 passed (baseline 271).
