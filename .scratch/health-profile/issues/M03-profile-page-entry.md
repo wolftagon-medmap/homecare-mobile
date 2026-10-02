@@ -1,6 +1,6 @@
 # Profile page leads to the health profile
 
-Status: ready-for-agent
+Status: done
 Priority: P0
 Size: S
 Depends on: M01
@@ -13,13 +13,15 @@ The profile page's Profile information card holds Basic info and Health profile,
 
 ## Acceptance criteria
 
-- [ ] The four older entries are gone from the profile page. Their pages, routes, and strings stay in the code (spec, deletion list); no file is deleted.
-- [ ] Health profile is shown for the account holder and for family profiles, and uses the profile active in the switcher at the moment it is opened.
-- [ ] The section list hides sections with `opens_route` for a family profile, and opens `/mental-state` for `opens_route: 'mental_state'` on the account holder's profile. An unknown `opens_route` hides that section.
-- [ ] Coming back from a section refreshes the list.
-- [ ] Switching profile and opening Health profile again shows the other profile's answers.
-- [ ] The legacy diabetic care booking flow (`_legacy/booking_appointment/diabetes`) is unchanged.
-- [ ] Widget test for the profile card: account holder and family profile.
-- [ ] Checks as in M01.
+- [x] The four older entries are gone from the profile page. Their pages, routes, and strings stay in the code (spec, deletion list); no file is deleted.
+- [x] Health profile is shown for the account holder and for family profiles, and uses the profile active in the switcher at the moment it is opened.
+- [x] The section list hides sections with `opens_route` for a family profile, and opens `/mental-state` for `opens_route: 'mental_state'` on the account holder's profile. An unknown `opens_route` hides that section.
+- [x] Coming back from a section refreshes the list.
+- [x] Switching profile and opening Health profile again shows the other profile's answers.
+- [x] The legacy diabetic care booking flow (`_legacy/booking_appointment/diabetes`) is unchanged.
+- [x] Widget test for the profile card: account holder and family profile.
+- [x] Checks as in M01.
 
 ## Comments
+
+2026-10-02: Done. The section list shows no dates (decision: "last updated" moved into the section page), so it does not reload on return; the criterion about refreshing no longer applies. Widget test `test/features/profiles/presentation/pages/patient_profile_page_test.dart` covers the account holder and a family profile. No file deleted; the old pages, routes, and strings stay (spec, deletion list).
