@@ -149,7 +149,7 @@ class _LongTextFieldState extends State<_LongTextField> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Const.healthAction),
+          borderSide: const BorderSide(color: Const.aqua),
         ),
       ),
     );

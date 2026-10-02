@@ -57,9 +57,7 @@ class ChoiceRows extends StatelessWidget {
                   Icon(
                     _indicator(choice.selected),
                     size: 22,
-                    color: choice.selected
-                        ? Const.healthAction
-                        : Const.healthMutedText,
+                    color: choice.selected ? Const.aqua : Const.healthMutedText,
                   ),
                   const SizedBox(width: 12),
                   Expanded(child: _Label(choice)),
@@ -244,7 +242,7 @@ Color _foreground(Choice choice) =>
     choice.selected ? Const.healthSelectedText : Const.primaryTextColor;
 
 BorderSide _side(bool selected) =>
-    BorderSide(color: selected ? Const.healthAction : Const.borderSubtle);
+    BorderSide(color: selected ? Const.aqua : Const.borderSubtle);
 
 RoundedRectangleBorder _rounded(double radius, bool selected) =>
     RoundedRectangleBorder(

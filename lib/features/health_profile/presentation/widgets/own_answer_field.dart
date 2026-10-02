@@ -47,7 +47,7 @@ class _OwnAnswerFieldState extends State<OwnAnswerField> {
         child: TextButton.icon(
           onPressed: widget.enabled ? () => setState(() => _open = true) : null,
           style: TextButton.styleFrom(
-            foregroundColor: Const.healthAction,
+            foregroundColor: Const.aqua,
             minimumSize: const Size(48, 48),
           ),
           icon: const Icon(Icons.add, size: 20),
@@ -73,7 +73,7 @@ class _OwnAnswerFieldState extends State<OwnAnswerField> {
                   OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Const.healthAction),
+                borderSide: const BorderSide(color: Const.aqua),
               ),
             ),
           ),
@@ -83,7 +83,7 @@ class _OwnAnswerFieldState extends State<OwnAnswerField> {
           height: 48,
           child: TextButton(
             onPressed: _submit,
-            style: TextButton.styleFrom(foregroundColor: Const.healthAction),
+            style: TextButton.styleFrom(foregroundColor: Const.aqua),
             child: Text(t.add),
           ),
         ),

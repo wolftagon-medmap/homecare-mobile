@@ -26,7 +26,7 @@ class HealthLoadingMessage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const CircularProgressIndicator(color: Const.healthAction),
+            const CircularProgressIndicator(color: Const.aqua),
             const SizedBox(height: 16),
             Text(
               message,
@@ -73,8 +73,8 @@ class HealthErrorMessage extends StatelessWidget {
             OutlinedButton(
               onPressed: onRetry,
               style: OutlinedButton.styleFrom(
-                foregroundColor: Const.healthAction,
-                side: const BorderSide(color: Const.healthAction),
+                foregroundColor: Const.aqua,
+                side: const BorderSide(color: Const.aqua),
                 minimumSize: const Size(120, 48),
               ),
               child: Text(context.t.healthProfile.retry),

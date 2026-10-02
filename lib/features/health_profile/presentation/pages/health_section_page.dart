@@ -34,12 +34,12 @@ class _HealthSectionPageState extends State<HealthSectionPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(false),
-            style: TextButton.styleFrom(foregroundColor: Const.healthAction),
+            style: TextButton.styleFrom(foregroundColor: Const.aqua),
             child: Text(t.keep_editing),
           ),
           TextButton(
             onPressed: () => Navigator.of(dialogContext).pop(true),
-            style: TextButton.styleFrom(foregroundColor: Const.healthAction),
+            style: TextButton.styleFrom(foregroundColor: Const.aqua),
             child: Text(t.discard),
           ),
         ],
@@ -225,7 +225,7 @@ class _SaveBar extends StatelessWidget {
           child: FilledButton(
             onPressed: saving ? () {} : onPressed,
             style: FilledButton.styleFrom(
-              backgroundColor: Const.healthAction,
+              backgroundColor: Const.aqua,
               foregroundColor: Colors.white,
               disabledBackgroundColor: Const.borderSubtle,
               disabledForegroundColor: Const.primaryTextColor,
