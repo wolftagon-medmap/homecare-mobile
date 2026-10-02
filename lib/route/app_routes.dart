@@ -87,6 +87,7 @@ class AppRoutes {
   static const String guidedBooking = '/guided-booking'; // A1
   static const String messages = '/messages'; // A2
   static const String providerServiceRates = '/provider/service-rates'; // A3
+  static const String healthProfile = '/health-profile';
 
   // Settings
   static const String appLanguageSetting = '/settings/language';

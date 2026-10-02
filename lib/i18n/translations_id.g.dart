@@ -43,6 +43,7 @@ class TranslationsId with BaseTranslations<AppLocale, Translations> implements T
 	@override late final _TranslationsDashboardId dashboard = _TranslationsDashboardId._(_root);
 	@override late final _TranslationsGlobalId global = _TranslationsGlobalId._(_root);
 	@override late final _TranslationsGuidedBookingId guidedBooking = _TranslationsGuidedBookingId._(_root);
+	@override late final _TranslationsHealthProfileId healthProfile = _TranslationsHealthProfileId._(_root);
 	@override late final _TranslationsMessagingId messaging = _TranslationsMessagingId._(_root);
 	@override late final _TranslationsNursingId nursing = _TranslationsNursingId._(_root);
 	@override late final _TranslationsPaymentId payment = _TranslationsPaymentId._(_root);
@@ -210,6 +211,21 @@ class _TranslationsGuidedBookingId implements TranslationsGuidedBookingEn {
 	@override late final _TranslationsGuidedBookingReviewId review = _TranslationsGuidedBookingReviewId._(_root);
 	@override late final _TranslationsGuidedBookingSentId sent = _TranslationsGuidedBookingSentId._(_root);
 	@override late final _TranslationsGuidedBookingCtaId cta = _TranslationsGuidedBookingCtaId._(_root);
+}
+
+// Path: healthProfile
+class _TranslationsHealthProfileId implements TranslationsHealthProfileEn {
+	_TranslationsHealthProfileId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get namespace_title => 'Profil Kesehatan';
+	@override String get entry_tile => 'Profil Kesehatan';
+	@override String get retry => 'Coba lagi';
+	@override late final _TranslationsHealthProfileListId list = _TranslationsHealthProfileListId._(_root);
+	@override late final _TranslationsHealthProfileSectionId section = _TranslationsHealthProfileSectionId._(_root);
+	@override late final _TranslationsHealthProfileReasonId reason = _TranslationsHealthProfileReasonId._(_root);
 }
 
 // Path: messaging
@@ -786,6 +802,55 @@ class _TranslationsGuidedBookingCtaId implements TranslationsGuidedBookingCtaEn 
 	// Translations
 	@override String get kContinue => 'Lanjut';
 	@override String get skip => 'Lewati';
+}
+
+// Path: healthProfile.list
+class _TranslationsHealthProfileListId implements TranslationsHealthProfileListEn {
+	_TranslationsHealthProfileListId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get loading => 'Memuat profil kesehatan Anda';
+	@override String get load_failed => 'Profil kesehatan Anda tidak dapat dimuat.';
+	@override String get empty => 'Belum ada bagian yang tersedia.';
+}
+
+// Path: healthProfile.section
+class _TranslationsHealthProfileSectionId implements TranslationsHealthProfileSectionEn {
+	_TranslationsHealthProfileSectionId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get loading => 'Memuat bagian ini';
+	@override String get load_failed => 'Bagian ini tidak dapat dimuat.';
+	@override String last_updated({required Object date}) => 'Terakhir diperbarui ${date}';
+	@override String get save => 'Simpan';
+	@override String get saved => 'Tersimpan';
+	@override String get save_failed => 'Bagian ini tidak tersimpan.';
+	@override String get add_other => 'Tambah lainnya';
+	@override String get add => 'Tambah';
+	@override String get own_answer_hint => 'Ketik jawaban Anda';
+	@override String remove({required Object label}) => 'Hapus ${label}';
+	@override String get selected => 'Dipilih';
+	@override String get discard_title => 'Buang perubahan Anda?';
+	@override String get discard_body => 'Perubahan pada bagian ini belum disimpan.';
+	@override String get discard => 'Buang';
+	@override String get keep_editing => 'Lanjut mengedit';
+}
+
+// Path: healthProfile.reason
+class _TranslationsHealthProfileReasonId implements TranslationsHealthProfileReasonEn {
+	_TranslationsHealthProfileReasonId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get network => 'Periksa koneksi internet Anda, lalu coba lagi.';
+	@override String get not_found => 'Profil atau bagian ini sudah tidak tersedia.';
+	@override String get invalid => 'Beberapa jawaban tidak diterima. Periksa lalu coba lagi.';
+	@override String get server => 'Terjadi kendala di sistem kami. Coba lagi sebentar lagi.';
 }
 
 // Path: messaging.timeProposal
@@ -1650,6 +1715,31 @@ extension on TranslationsId {
 			'guidedBooking.sent.done' => 'Kembali ke beranda',
 			'guidedBooking.cta.kContinue' => 'Lanjut',
 			'guidedBooking.cta.skip' => 'Lewati',
+			'healthProfile.namespace_title' => 'Profil Kesehatan',
+			'healthProfile.entry_tile' => 'Profil Kesehatan',
+			'healthProfile.retry' => 'Coba lagi',
+			'healthProfile.list.loading' => 'Memuat profil kesehatan Anda',
+			'healthProfile.list.load_failed' => 'Profil kesehatan Anda tidak dapat dimuat.',
+			'healthProfile.list.empty' => 'Belum ada bagian yang tersedia.',
+			'healthProfile.section.loading' => 'Memuat bagian ini',
+			'healthProfile.section.load_failed' => 'Bagian ini tidak dapat dimuat.',
+			'healthProfile.section.last_updated' => ({required Object date}) => 'Terakhir diperbarui ${date}',
+			'healthProfile.section.save' => 'Simpan',
+			'healthProfile.section.saved' => 'Tersimpan',
+			'healthProfile.section.save_failed' => 'Bagian ini tidak tersimpan.',
+			'healthProfile.section.add_other' => 'Tambah lainnya',
+			'healthProfile.section.add' => 'Tambah',
+			'healthProfile.section.own_answer_hint' => 'Ketik jawaban Anda',
+			'healthProfile.section.remove' => ({required Object label}) => 'Hapus ${label}',
+			'healthProfile.section.selected' => 'Dipilih',
+			'healthProfile.section.discard_title' => 'Buang perubahan Anda?',
+			'healthProfile.section.discard_body' => 'Perubahan pada bagian ini belum disimpan.',
+			'healthProfile.section.discard' => 'Buang',
+			'healthProfile.section.keep_editing' => 'Lanjut mengedit',
+			'healthProfile.reason.network' => 'Periksa koneksi internet Anda, lalu coba lagi.',
+			'healthProfile.reason.not_found' => 'Profil atau bagian ini sudah tidak tersedia.',
+			'healthProfile.reason.invalid' => 'Beberapa jawaban tidak diterima. Periksa lalu coba lagi.',
+			'healthProfile.reason.server' => 'Terjadi kendala di sistem kami. Coba lagi sebentar lagi.',
 			'messaging.title' => 'Pesan',
 			'messaging.emptyTitle' => 'Belum ada percakapan',
 			'messaging.emptyBody' => 'Setelah Anda mengirim permintaan, Anda bisa berbicara dengan tenaga kesehatan di sini.',

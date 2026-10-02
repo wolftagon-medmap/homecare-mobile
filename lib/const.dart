@@ -157,6 +157,13 @@ class Const {
 
   /// The quiet grey-blue used for chat day separators and timestamps.
   static const Color chatMutedColor = Color(0xFF8A96BC);
+
+  /// Health profile. White on [aqua] is 2.1:1, so the action and the picked
+  /// answers use darker teals that keep text at WCAG AA (5.1:1 and 6.7:1).
+  static const Color healthAction = Color(0xFF0B7A82);
+  static const Color healthSelectedSurface = Color(0xFFE6F8F9);
+  static const Color healthSelectedText = Color(0xFF0B5F66);
+  static const Color healthMutedText = Color(0xFF6B7489);
   static const String submenu_report = 'assets/icons/submenu_report.png';
   static const String submenu_event = ' assets/icons/submenu_event.png';
   static const String submenu_design = 'assets/icons/submenu_design.png';
