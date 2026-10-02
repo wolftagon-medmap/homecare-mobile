@@ -42,3 +42,9 @@ Antislop Delivery Gate (UI of this feature):
 - Dials ENERGY 1 / RHYTHM 1 / MOTION 1, direction from the guided booking screens (Adel's design).
 
 Still for a person: screenshots in English and Indonesian on a small and a large phone, sent to the PM for Adel; one line for the release notes (draft: "Keep a health profile for yourself and your family: conditions, lifestyle, and family history, updated whenever you like."); a run on a real Android or iOS device.
+
+2026-10-02, automated end to end: `test/e2e/health_profile_e2e_test.dart` runs the real pages, cubits, and Dio data source against a running API and database (skipped without `--dart-define=E2E_API_URL`). Against the backend branch at `6e3e0329` with seed data, 5 of 5 passed: account holder answers My Lifestyle (follow-up, chips, grid, own answer), saves, reopens with "Last updated", switches to "No" and the follow-up answer is dropped on the server; My Health exclusive answer stored alone; Mental Wellbeing opens the mental state page; a family profile has three sections and its own stored answers; an unknown profile shows the translated not-found error; Indonesian labels with English question text. Run it with:
+
+    fvm flutter test test/e2e --dart-define=E2E_API_URL=http://127.0.0.1:3333
+
+It uses the seed account `patient@mail.com` (override with `E2E_EMAIL` and `E2E_PASSWORD`) and overwrites that account's health profile answers, so run it only against a development database.
