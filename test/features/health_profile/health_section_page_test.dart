@@ -138,6 +138,26 @@ void main() {
     expect(find.text('list'), findsOneWidget);
   });
 
+  testWidgets('going back with unsaved changes asks first', (tester) async {
+    await pumpSection(tester, 'my_health');
+    await tester.tap(find.text('Diabetes'));
+    await tester.pump();
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.text('Discard your changes?'), findsOneWidget);
+
+    await tester.tap(find.text('Keep editing'));
+    await tester.pumpAndSettle();
+    expect(find.text('Diabetes'), findsOneWidget);
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Discard'));
+    await tester.pumpAndSettle();
+    expect(find.text('list'), findsOneWidget);
+  });
+
   testWidgets('a section saved before shows its last updated date',
       (tester) async {
     source = FakeHealthProfileDataSource(sectionJson: {
