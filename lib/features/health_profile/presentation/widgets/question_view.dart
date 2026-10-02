@@ -75,15 +75,7 @@ class _ChoiceQuestion extends StatelessWidget {
         _choiceFor(option, selected),
     ];
 
-    void onTap(String value) {
-      if (question.isCustomValue(value)) {
-        cubit.removeValue(question, value);
-      } else if (single) {
-        cubit.selectOne(question, value);
-      } else {
-        cubit.toggleMany(question, value);
-      }
-    }
+    void onTap(String value) => cubit.tap(question, value);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -134,16 +126,6 @@ class _LongTextField extends StatefulWidget {
 
 class _LongTextFieldState extends State<_LongTextField> {
   late final _controller = TextEditingController(text: widget.initialValue);
-
-  @override
-  void didUpdateWidget(covariant _LongTextField oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    // A save returns the stored text; only adopt it when it differs, so the
-    // cursor does not jump while typing.
-    if (widget.initialValue != _controller.text) {
-      _controller.text = widget.initialValue;
-    }
-  }
 
   @override
   void dispose() {

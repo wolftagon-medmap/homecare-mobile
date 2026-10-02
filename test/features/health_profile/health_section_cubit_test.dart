@@ -57,12 +57,12 @@ void main() {
     await cubit.load();
     final conditions = questionOf(cubit, 'conditions');
 
-    cubit.toggleMany(conditions, 'diabetes');
-    cubit.toggleMany(conditions, 'high_blood_pressure');
-    cubit.toggleMany(conditions, 'not_sure');
+    cubit.tap(conditions, 'diabetes');
+    cubit.tap(conditions, 'high_blood_pressure');
+    cubit.tap(conditions, 'not_sure');
     expect(cubit.state.selection('conditions'), ['not_sure']);
 
-    cubit.toggleMany(conditions, 'diabetes');
+    cubit.tap(conditions, 'diabetes');
     expect(cubit.state.selection('conditions'), ['diabetes']);
   });
 
@@ -71,7 +71,7 @@ void main() {
     await cubit.load();
     final conditions = questionOf(cubit, 'conditions');
 
-    cubit.toggleMany(conditions, 'not_sure');
+    cubit.tap(conditions, 'not_sure');
     cubit.addCustomValue(conditions, '  Gout  ');
     expect(cubit.state.selection('conditions'), ['Gout']);
 
@@ -82,7 +82,7 @@ void main() {
     expect(cubit.canAddCustomValue(conditions), isFalse);
 
     cubit.addCustomValue(conditions, 'x' * (maxOwnTextLength + 1));
-    cubit.removeValue(conditions, 'Gout');
+    cubit.tap(conditions, 'Gout');
     expect(cubit.state.selection('conditions'), ['A', 'B', 'C', 'D']);
   });
 
@@ -96,13 +96,13 @@ void main() {
 
     expect(cubit.state.visibleQuestions, isNot(contains(cigarettes)));
 
-    cubit.selectOne(smoke, 'daily');
-    cubit.selectOne(cigarettes, '6_10');
+    cubit.tap(smoke, 'daily');
+    cubit.tap(cigarettes, '6_10');
     expect(cubit.state.visibleQuestions, contains(cigarettes));
     expect(cubit.state.payload,
         {'smoke_or_vape': 'daily', 'cigarettes_per_day': '6_10'});
 
-    cubit.selectOne(smoke, 'no');
+    cubit.tap(smoke, 'no');
     expect(cubit.state.visibleQuestions, isNot(contains(cigarettes)));
     expect(cubit.state.payload, {'smoke_or_vape': 'no'});
   });
@@ -112,7 +112,7 @@ void main() {
     await cubit.load();
     expect(cubit.state.canSave, isFalse);
 
-    cubit.toggleMany(questionOf(cubit, 'conditions'), 'diabetes');
+    cubit.tap(questionOf(cubit, 'conditions'), 'diabetes');
     expect(cubit.state.canSave, isTrue);
 
     expect(await cubit.save(), isTrue);
@@ -151,7 +151,7 @@ void main() {
     final cubit = cubitFor('my_health');
     await cubit.load();
 
-    cubit.toggleMany(questionOf(cubit, 'conditions'), 'not_sure');
+    cubit.tap(questionOf(cubit, 'conditions'), 'not_sure');
     await cubit.save();
 
     expect(cubit.state.visibleQuestions.map((q) => q.code),

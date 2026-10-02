@@ -2,28 +2,21 @@ import 'package:equatable/equatable.dart';
 import 'package:m2health/features/health_profile/domain/entities/health_question.dart';
 
 /// A section with no questions of its own opens a page the app already has.
-enum HealthSectionRoute {
-  mentalState,
-
-  /// A route this app version does not know; the section is hidden.
-  unknown,
-}
+enum HealthSectionRoute { mentalState, unknown }
 
 class HealthSectionSummary extends Equatable {
   final String code;
   final String title;
   final HealthSectionRoute? opensRoute;
-  final DateTime? updatedAt;
 
   const HealthSectionSummary({
     required this.code,
     required this.title,
     this.opensRoute,
-    this.updatedAt,
   });
 
   @override
-  List<Object?> get props => [code, title, opensRoute, updatedAt];
+  List<Object?> get props => [code, title, opensRoute];
 }
 
 class HealthSection extends Equatable {
@@ -41,8 +34,7 @@ class HealthSection extends Equatable {
     this.updatedAt,
   });
 
-  /// Questions that apply to [answers], in order. A follow-up always comes
-  /// after the question that controls it, so one pass resolves chains.
+  /// Follow-ups come after their controlling question, so one pass resolves chains.
   List<HealthQuestion> applicableFor(Map<String, Object> answers) {
     final shown = <String>{};
     final result = <HealthQuestion>[];

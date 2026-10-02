@@ -3,7 +3,7 @@ import 'package:m2health/const.dart';
 import 'package:m2health/features/health_profile/presentation/bloc/health_section_cubit.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
-/// "Add another condition" / "Other": a button that opens a field in place.
+/// A button ("Add another condition", "Other") that opens a field in place.
 class OwnAnswerField extends StatefulWidget {
   const OwnAnswerField({
     super.key,

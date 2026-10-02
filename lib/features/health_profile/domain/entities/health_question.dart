@@ -5,11 +5,8 @@ enum HealthQuestionType {
   multiChoice,
   longText,
 
-  /// Sent by a newer API. The question is not shown, and its stored answer is
-  /// sent back unchanged so a save from this app never erases it.
-  unknown;
-
-  bool get isChoice => this == singleChoice || this == multiChoice;
+  /// From a newer API: not shown, and its stored answer is sent back unchanged.
+  unknown,
 }
 
 enum HealthQuestionLayout { rows, chips, grid }
@@ -20,8 +17,7 @@ class HealthOption extends Equatable {
   final String code;
   final String label;
 
-  /// Clears every other answer on its question when picked, and is cleared by
-  /// them. "I'm not sure" cannot coexist with a named condition.
+  /// Stands alone: picking it clears the others ("I'm not sure").
   final bool exclusive;
   final HealthOptionIcon? icon;
 

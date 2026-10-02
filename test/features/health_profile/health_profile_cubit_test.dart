@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/features/health_profile/data/repositories/health_profile_repository_impl.dart';
-import 'package:m2health/features/health_profile/domain/entities/health_profile_subject.dart';
 import 'package:m2health/features/health_profile/domain/usecases/health_profile_usecases.dart';
 import 'package:m2health/features/health_profile/presentation/bloc/health_profile_cubit.dart';
 import 'package:m2health/features/health_profile/presentation/bloc/health_profile_state.dart';
@@ -22,18 +21,18 @@ void main() {
 
   late FakeHealthProfileDataSource source;
 
-  HealthProfileCubit cubitFor(HealthProfileSubject subject) =>
+  HealthProfileCubit cubitFor({int? profileId, required bool accountHolder}) =>
       HealthProfileCubit(
         getSections: GetHealthSections(HealthProfileRepositoryImpl(source)),
-        subject: subject,
+        patientProfileId: profileId,
+        isAccountHolder: accountHolder,
       );
 
   setUp(() => source = FakeHealthProfileDataSource(sections: sections));
 
   test('the account holder sees Mental Wellbeing; unknown routes are hidden',
       () async {
-    final cubit = cubitFor(const HealthProfileSubject(
-        patientProfileId: null, isAccountHolder: true));
+    final cubit = cubitFor(accountHolder: true);
 
     await cubit.load();
 
@@ -43,8 +42,7 @@ void main() {
   });
 
   test('a family member does not see Mental Wellbeing', () async {
-    final cubit = cubitFor(const HealthProfileSubject(
-        patientProfileId: 9, isAccountHolder: false));
+    final cubit = cubitFor(profileId: 9, accountHolder: false);
 
     await cubit.load();
 
@@ -55,8 +53,7 @@ void main() {
 
   test('a failed load becomes the error state', () async {
     source.failNext = const ServerFailure('server');
-    final cubit = cubitFor(const HealthProfileSubject(
-        patientProfileId: null, isAccountHolder: true));
+    final cubit = cubitFor(accountHolder: true);
 
     await cubit.load();
 

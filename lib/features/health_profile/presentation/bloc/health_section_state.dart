@@ -23,8 +23,7 @@ class HealthSectionState extends Equatable {
           if (question.type != HealthQuestionType.unknown) question,
       ];
 
-  /// What a save sends: answers to questions that apply, unknown types
-  /// included unchanged, nothing empty.
+  /// What a save sends: non-empty answers to questions that apply.
   Map<String, Object> get payload => _payloadFor(answers);
 
   bool get isDirty {

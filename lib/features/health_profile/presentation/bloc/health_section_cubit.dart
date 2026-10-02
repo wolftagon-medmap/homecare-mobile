@@ -3,8 +3,7 @@ import 'package:m2health/features/health_profile/domain/entities/health_question
 import 'package:m2health/features/health_profile/domain/usecases/health_profile_usecases.dart';
 import 'package:m2health/features/health_profile/presentation/bloc/health_section_state.dart';
 
-/// Matches the API's limits (contract C4), so the app never sends a save the
-/// server will refuse.
+/// The API's limits (contract C4), so a save is never refused for length.
 const int maxOwnTextLength = 100;
 const int maxOwnTexts = 5;
 const int maxLongTextLength = 2000;
@@ -44,12 +43,23 @@ class HealthSectionCubit extends Cubit<HealthSectionState> {
   void setText(HealthQuestion question, String value) =>
       _write(question.code, value);
 
-  void selectOne(HealthQuestion question, String value) {
+  /// A tap on an option, or on one of the patient's own answers (removes it).
+  void tap(HealthQuestion question, String value) {
+    if (question.isCustomValue(value)) {
+      _removeValue(question, value);
+    } else if (question.type == HealthQuestionType.singleChoice) {
+      _selectOne(question, value);
+    } else {
+      _toggleMany(question, value);
+    }
+  }
+
+  void _selectOne(HealthQuestion question, String value) {
     final current = state.answers[question.code];
     _write(question.code, current == value ? '' : value);
   }
 
-  void toggleMany(HealthQuestion question, String value) {
+  void _toggleMany(HealthQuestion question, String value) {
     final selected = List<String>.from(state.selection(question.code));
 
     if (selected.contains(value)) {
@@ -95,7 +105,7 @@ class HealthSectionCubit extends Cubit<HealthSectionState> {
     _write(question.code, trimmed);
   }
 
-  void removeValue(HealthQuestion question, String value) {
+  void _removeValue(HealthQuestion question, String value) {
     if (question.type == HealthQuestionType.multiChoice) {
       final selected = List<String>.from(state.selection(question.code))
         ..remove(value);
@@ -137,9 +147,6 @@ class HealthSectionCubit extends Cubit<HealthSectionState> {
   }
 
   void _write(String key, Object value) {
-    emit(state.copyWith(
-      status: HealthSectionStatus.ready,
-      answers: {...state.answers, key: value},
-    ));
+    emit(state.copyWith(answers: {...state.answers, key: value}));
   }
 }

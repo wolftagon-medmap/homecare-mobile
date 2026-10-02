@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/features/health_profile/domain/entities/health_question.dart';
 
-/// One tappable answer. The patient's own answers are choices too, shown
-/// selected, and tapping one removes it.
+/// One tappable answer. The patient's own answers are choices too.
 class Choice {
   final String value;
   final String label;
@@ -42,95 +41,43 @@ class ChoiceRows extends StatelessWidget {
         for (final (index, choice) in choices.indexed) ...[
           if (index == firstExclusive && index > 0)
             const Padding(
-              padding: EdgeInsets.symmetric(vertical: 8),
+              padding: EdgeInsets.only(bottom: 8),
               child: Divider(height: 1, color: Const.borderSubtle),
             ),
           Padding(
             padding: const EdgeInsets.only(bottom: 8),
-            child: _ChoiceRow(
+            child: _SelectableTile(
               choice: choice,
               single: single,
-              onTap: () => onTap(choice.value),
+              onTap: onTap,
+              shape: _rounded(14, choice.selected),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              child: Row(
+                children: [
+                  Icon(
+                    _indicator(choice.selected),
+                    size: 22,
+                    color: choice.selected
+                        ? Const.healthAction
+                        : Const.healthMutedText,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(child: _Label(choice)),
+                ],
+              ),
             ),
           ),
         ],
       ],
     );
   }
-}
 
-class _ChoiceRow extends StatelessWidget {
-  const _ChoiceRow({
-    required this.choice,
-    required this.single,
-    required this.onTap,
-  });
-
-  final Choice choice;
-  final bool single;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final selected = choice.selected;
-
-    return Semantics(
-      selected: selected,
-      inMutuallyExclusiveGroup: single,
-      button: true,
-      excludeSemantics: true,
-      label: choice.label,
-      child: Material(
-        color: selected ? Const.healthSelectedSurface : Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
-          side: BorderSide(
-            color: selected ? Const.healthAction : Const.borderSubtle,
-          ),
-        ),
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(14),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 48),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              child: Row(
-                children: [
-                  Icon(
-                    _indicator(single: single, selected: selected),
-                    size: 22,
-                    color:
-                        selected ? Const.healthAction : Const.healthMutedText,
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      choice.label,
-                      style: ProText.body.copyWith(
-                        color: selected
-                            ? Const.healthSelectedText
-                            : Const.primaryTextColor,
-                        fontWeight:
-                            selected ? FontWeight.w600 : FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  IconData _indicator({required bool single, required bool selected}) {
-    if (single) {
-      return selected ? Icons.radio_button_checked : Icons.radio_button_off;
-    }
-    return selected ? Icons.check_box : Icons.check_box_outline_blank;
-  }
+  IconData _indicator(bool selected) => switch ((single, selected)) {
+        (true, true) => Icons.radio_button_checked,
+        (true, false) => Icons.radio_button_off,
+        (false, true) => Icons.check_box,
+        (false, false) => Icons.check_box_outline_blank,
+      };
 }
 
 class ChoiceChips extends StatelessWidget {
@@ -152,51 +99,13 @@ class ChoiceChips extends StatelessWidget {
       runSpacing: 8,
       children: [
         for (final choice in choices)
-          Semantics(
-            selected: choice.selected,
-            inMutuallyExclusiveGroup: single,
-            button: true,
-            excludeSemantics: true,
-            label: choice.label,
-            child: Material(
-              color:
-                  choice.selected ? Const.healthSelectedSurface : Colors.white,
-              shape: StadiumBorder(
-                side: BorderSide(
-                  color:
-                      choice.selected ? Const.healthAction : Const.borderSubtle,
-                ),
-              ),
-              child: InkWell(
-                onTap: () => onTap(choice.value),
-                customBorder: const StadiumBorder(),
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: 48),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            choice.label,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: choice.selected
-                                  ? FontWeight.w600
-                                  : FontWeight.w500,
-                              color: choice.selected
-                                  ? Const.healthSelectedText
-                                  : Const.primaryTextColor,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          _SelectableTile(
+            choice: choice,
+            single: single,
+            onTap: onTap,
+            shape: StadiumBorder(side: _side(choice.selected)),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            child: _Label(choice),
           ),
       ],
     );
@@ -231,10 +140,24 @@ class ChoiceGrid extends StatelessWidget {
             for (final choice in choices)
               SizedBox(
                 width: tileWidth,
-                child: _GridTile(
+                child: _SelectableTile(
                   choice: choice,
                   single: single,
-                  onTap: () => onTap(choice.value),
+                  onTap: onTap,
+                  shape: _rounded(12, choice.selected),
+                  minHeight: 72,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (_iconFor(choice.icon) case final icon?) ...[
+                        Icon(icon, size: 24, color: _foreground(choice)),
+                        const SizedBox(height: 6),
+                      ],
+                      _Label(choice, center: true),
+                    ],
+                  ),
                 ),
               ),
           ],
@@ -242,66 +165,54 @@ class ChoiceGrid extends StatelessWidget {
       },
     );
   }
+
+  IconData? _iconFor(HealthOptionIcon? icon) => switch (icon) {
+        HealthOptionIcon.walk => Icons.directions_walk,
+        HealthOptionIcon.gym => Icons.fitness_center,
+        HealthOptionIcon.run => Icons.directions_run,
+        HealthOptionIcon.swim => Icons.pool,
+        HealthOptionIcon.bike => Icons.directions_bike,
+        null => null,
+      };
 }
 
-class _GridTile extends StatelessWidget {
-  const _GridTile({
+/// The shared shell: selected colours, tap target, and screen reader state.
+class _SelectableTile extends StatelessWidget {
+  const _SelectableTile({
     required this.choice,
     required this.single,
     required this.onTap,
+    required this.shape,
+    required this.padding,
+    required this.child,
+    this.minHeight = 48,
   });
 
   final Choice choice;
   final bool single;
-  final VoidCallback onTap;
+  final ValueChanged<String> onTap;
+  final ShapeBorder shape;
+  final EdgeInsets padding;
+  final double minHeight;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    final selected = choice.selected;
-    final foreground =
-        selected ? Const.healthSelectedText : Const.primaryTextColor;
-    final icon = optionIconData(choice.icon);
-
     return Semantics(
-      selected: selected,
+      selected: choice.selected,
       inMutuallyExclusiveGroup: single,
       button: true,
       excludeSemantics: true,
       label: choice.label,
       child: Material(
-        color: selected ? Const.healthSelectedSurface : Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(
-            color: selected ? Const.healthAction : Const.borderSubtle,
-          ),
-        ),
+        color: choice.selected ? Const.healthSelectedSurface : Colors.white,
+        shape: shape,
         child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(12),
+          onTap: () => onTap(choice.value),
+          customBorder: shape,
           child: ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 72),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (icon != null) ...[
-                    Icon(icon, size: 24, color: foreground),
-                    const SizedBox(height: 6),
-                  ],
-                  Text(
-                    choice.label,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-                      color: foreground,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            constraints: BoxConstraints(minHeight: minHeight),
+            child: Padding(padding: padding, child: child),
           ),
         ),
       ),
@@ -309,11 +220,34 @@ class _GridTile extends StatelessWidget {
   }
 }
 
-IconData? optionIconData(HealthOptionIcon? icon) => switch (icon) {
-      HealthOptionIcon.walk => Icons.directions_walk,
-      HealthOptionIcon.gym => Icons.fitness_center,
-      HealthOptionIcon.run => Icons.directions_run,
-      HealthOptionIcon.swim => Icons.pool,
-      HealthOptionIcon.bike => Icons.directions_bike,
-      null => null,
-    };
+class _Label extends StatelessWidget {
+  const _Label(this.choice, {this.center = false});
+
+  final Choice choice;
+  final bool center;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      choice.label,
+      textAlign: center ? TextAlign.center : TextAlign.start,
+      style: TextStyle(
+        fontSize: center ? 13 : 14,
+        fontWeight: choice.selected ? FontWeight.w600 : FontWeight.w500,
+        color: _foreground(choice),
+      ),
+    );
+  }
+}
+
+Color _foreground(Choice choice) =>
+    choice.selected ? Const.healthSelectedText : Const.primaryTextColor;
+
+BorderSide _side(bool selected) =>
+    BorderSide(color: selected ? Const.healthAction : Const.borderSubtle);
+
+RoundedRectangleBorder _rounded(double radius, bool selected) =>
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(radius),
+      side: _side(selected),
+    );

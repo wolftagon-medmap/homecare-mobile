@@ -70,7 +70,6 @@ class HealthSectionSummaryModel extends HealthSectionSummary {
     required super.code,
     required super.title,
     super.opensRoute,
-    super.updatedAt,
   });
 
   factory HealthSectionSummaryModel.fromJson(Map<String, dynamic> json) {
@@ -78,7 +77,6 @@ class HealthSectionSummaryModel extends HealthSectionSummary {
       code: json['code'] as String,
       title: json['title'] as String,
       opensRoute: _routeFromWire(json['opens_route'] as String?),
-      updatedAt: _parseDate(json['updated_at']),
     );
   }
 }
