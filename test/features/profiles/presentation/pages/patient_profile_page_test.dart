@@ -92,12 +92,12 @@ void main() {
 
       expect(find.text(familyMember ? 'Family member' : 'Account holder'),
           findsWidgets);
-      expect(find.text('Health profile'), findsOneWidget);
+      expect(find.text('Health Profile'), findsOneWidget);
       expect(find.text('Medical History & Risk Factors'), findsNothing);
       expect(find.text('Lifestyle & Self Care'), findsNothing);
       expect(find.text('Physical Sign'), findsNothing);
 
-      await tester.tap(find.text('Health profile'));
+      await tester.tap(find.text('Health Profile'));
       await tester.pumpAndSettle();
       expect(find.text('health profile page'), findsOneWidget);
     });
