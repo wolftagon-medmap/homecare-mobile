@@ -46,6 +46,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 	late final TranslationsDashboardEn dashboard = TranslationsDashboardEn._(_root);
 	late final TranslationsGlobalEn global = TranslationsGlobalEn._(_root);
 	late final TranslationsGuidedBookingEn guidedBooking = TranslationsGuidedBookingEn._(_root);
+	late final TranslationsHealthProfileEn healthProfile = TranslationsHealthProfileEn._(_root);
 	late final TranslationsMessagingEn messaging = TranslationsMessagingEn._(_root);
 	late final TranslationsNursingEn nursing = TranslationsNursingEn._(_root);
 	late final TranslationsPaymentEn payment = TranslationsPaymentEn._(_root);
@@ -375,6 +376,28 @@ class TranslationsGuidedBookingEn {
 	late final TranslationsGuidedBookingReviewEn review = TranslationsGuidedBookingReviewEn._(_root);
 	late final TranslationsGuidedBookingSentEn sent = TranslationsGuidedBookingSentEn._(_root);
 	late final TranslationsGuidedBookingCtaEn cta = TranslationsGuidedBookingCtaEn._(_root);
+}
+
+// Path: healthProfile
+class TranslationsHealthProfileEn {
+	TranslationsHealthProfileEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Health Profile'
+	String get namespace_title => 'Health Profile';
+
+	/// en: 'Health Profile'
+	String get entry_tile => 'Health Profile';
+
+	/// en: 'Try again'
+	String get retry => 'Try again';
+
+	late final TranslationsHealthProfileListEn list = TranslationsHealthProfileListEn._(_root);
+	late final TranslationsHealthProfileSectionEn section = TranslationsHealthProfileSectionEn._(_root);
+	late final TranslationsHealthProfileReasonEn reason = TranslationsHealthProfileReasonEn._(_root);
 }
 
 // Path: messaging
@@ -1411,6 +1434,99 @@ class TranslationsGuidedBookingCtaEn {
 
 	/// en: 'Skip'
 	String get skip => 'Skip';
+}
+
+// Path: healthProfile.list
+class TranslationsHealthProfileListEn {
+	TranslationsHealthProfileListEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Loading your health profile'
+	String get loading => 'Loading your health profile';
+
+	/// en: 'Your health profile could not load.'
+	String get load_failed => 'Your health profile could not load.';
+
+	/// en: 'No sections are available yet.'
+	String get empty => 'No sections are available yet.';
+}
+
+// Path: healthProfile.section
+class TranslationsHealthProfileSectionEn {
+	TranslationsHealthProfileSectionEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Loading this section'
+	String get loading => 'Loading this section';
+
+	/// en: 'This section could not load.'
+	String get load_failed => 'This section could not load.';
+
+	/// en: 'Last updated {date}'
+	String last_updated({required Object date}) => 'Last updated ${date}';
+
+	/// en: 'Save'
+	String get save => 'Save';
+
+	/// en: 'Saved'
+	String get saved => 'Saved';
+
+	/// en: 'This section was not saved.'
+	String get save_failed => 'This section was not saved.';
+
+	/// en: 'Add another'
+	String get add_other => 'Add another';
+
+	/// en: 'Add'
+	String get add => 'Add';
+
+	/// en: 'Type your answer'
+	String get own_answer_hint => 'Type your answer';
+
+	/// en: 'Remove {label}'
+	String remove({required Object label}) => 'Remove ${label}';
+
+	/// en: 'Selected'
+	String get selected => 'Selected';
+
+	/// en: 'Discard your changes?'
+	String get discard_title => 'Discard your changes?';
+
+	/// en: 'Your changes to this section are not saved.'
+	String get discard_body => 'Your changes to this section are not saved.';
+
+	/// en: 'Discard'
+	String get discard => 'Discard';
+
+	/// en: 'Keep editing'
+	String get keep_editing => 'Keep editing';
+}
+
+// Path: healthProfile.reason
+class TranslationsHealthProfileReasonEn {
+	TranslationsHealthProfileReasonEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Check your internet connection and try again.'
+	String get network => 'Check your internet connection and try again.';
+
+	/// en: 'This profile or section is no longer available.'
+	String get not_found => 'This profile or section is no longer available.';
+
+	/// en: 'Some answers are not accepted. Check them and try again.'
+	String get invalid => 'Some answers are not accepted. Check them and try again.';
+
+	/// en: 'Something went wrong on our side. Try again in a moment.'
+	String get server => 'Something went wrong on our side. Try again in a moment.';
 }
 
 // Path: messaging.timeProposal
@@ -2552,6 +2668,31 @@ extension on Translations {
 			'guidedBooking.sent.done' => 'Back to home',
 			'guidedBooking.cta.kContinue' => 'Continue',
 			'guidedBooking.cta.skip' => 'Skip',
+			'healthProfile.namespace_title' => 'Health Profile',
+			'healthProfile.entry_tile' => 'Health Profile',
+			'healthProfile.retry' => 'Try again',
+			'healthProfile.list.loading' => 'Loading your health profile',
+			'healthProfile.list.load_failed' => 'Your health profile could not load.',
+			'healthProfile.list.empty' => 'No sections are available yet.',
+			'healthProfile.section.loading' => 'Loading this section',
+			'healthProfile.section.load_failed' => 'This section could not load.',
+			'healthProfile.section.last_updated' => ({required Object date}) => 'Last updated ${date}',
+			'healthProfile.section.save' => 'Save',
+			'healthProfile.section.saved' => 'Saved',
+			'healthProfile.section.save_failed' => 'This section was not saved.',
+			'healthProfile.section.add_other' => 'Add another',
+			'healthProfile.section.add' => 'Add',
+			'healthProfile.section.own_answer_hint' => 'Type your answer',
+			'healthProfile.section.remove' => ({required Object label}) => 'Remove ${label}',
+			'healthProfile.section.selected' => 'Selected',
+			'healthProfile.section.discard_title' => 'Discard your changes?',
+			'healthProfile.section.discard_body' => 'Your changes to this section are not saved.',
+			'healthProfile.section.discard' => 'Discard',
+			'healthProfile.section.keep_editing' => 'Keep editing',
+			'healthProfile.reason.network' => 'Check your internet connection and try again.',
+			'healthProfile.reason.not_found' => 'This profile or section is no longer available.',
+			'healthProfile.reason.invalid' => 'Some answers are not accepted. Check them and try again.',
+			'healthProfile.reason.server' => 'Something went wrong on our side. Try again in a moment.',
 			'messaging.title' => 'Messages',
 			'messaging.emptyTitle' => 'No conversations yet',
 			'messaging.emptyBody' => 'When you send a booking request, you can talk to the professional here.',

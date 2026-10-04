@@ -1,0 +1,33 @@
+{
+  "namespace_title": "Health Profile",
+  "entry_tile": "Health Profile",
+  "retry": "Try again",
+  "list": {
+    "loading": "Loading your health profile",
+    "load_failed": "Your health profile could not load.",
+    "empty": "No sections are available yet."
+  },
+  "section": {
+    "loading": "Loading this section",
+    "load_failed": "This section could not load.",
+    "last_updated": "Last updated {date}",
+    "save": "Save",
+    "saved": "Saved",
+    "save_failed": "This section was not saved.",
+    "add_other": "Add another",
+    "add": "Add",
+    "own_answer_hint": "Type your answer",
+    "remove": "Remove {label}",
+    "selected": "Selected",
+    "discard_title": "Discard your changes?",
+    "discard_body": "Your changes to this section are not saved.",
+    "discard": "Discard",
+    "keep_editing": "Keep editing"
+  },
+  "reason": {
+    "network": "Check your internet connection and try again.",
+    "not_found": "This profile or section is no longer available.",
+    "invalid": "Some answers are not accepted. Check them and try again.",
+    "server": "Something went wrong on our side. Try again in a moment."
+  }
+}

@@ -13,6 +13,7 @@ import 'package:m2health/features/chatbot/injection.dart';
 import 'package:m2health/features/_legacy/chatbot_legacy/injection.dart';
 import 'package:m2health/features/dashboard/injection.dart';
 import 'package:m2health/features/guided_booking/injection.dart';
+import 'package:m2health/features/health_profile/injection.dart';
 import 'package:m2health/features/messaging/injection.dart';
 import 'package:m2health/features/etc/pricing/injection.dart';
 import 'package:m2health/features/_legacy/chat_intake_booking/injection.dart';
@@ -114,4 +115,5 @@ Future<void> setupLocator() async {
   initGuidedBookingModule(sl);
   initMessagingModule(sl);
   initPricingModule(sl);
+  initHealthProfileModule(sl);
 }

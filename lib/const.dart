@@ -16,8 +16,8 @@ class Const {
   /// - Android Emulator:       http://10.0.2.2:3333
   /// - HP fisik (WiFi sama):   http://<IP_PC>:3333 (mis. 192.168.1.5)
   /// - Production:             https://homecare-api.med-map.org
-  // static const String BASE_URL = 'http://127.0.0.1:3350';
-  // static const String BASE_URL = 'http://10.0.2.2:3350'; // Android emulator
+//   static const String BASE_URL = 'http://127.0.0.1:3333';
+//   static const String BASE_URL = 'http://10.0.2.2:3333'; // Android emulator
   static const String BASE_URL = 'https://homecare-api.med-map.org';
 
   static const String URL_API = '$BASE_URL/v1';
@@ -157,6 +157,11 @@ class Const {
 
   /// The quiet grey-blue used for chat day separators and timestamps.
   static const Color chatMutedColor = Color(0xFF8A96BC);
+
+  /// Health profile: picked answers on an [aqua] tint, with dark text for contrast.
+  static const Color healthSelectedSurface = Color(0xFFE6F8F9);
+  static const Color healthSelectedText = Color(0xFF0B5F66);
+  static const Color healthMutedText = Color(0xFF6B7489);
   static const String submenu_report = 'assets/icons/submenu_report.png';
   static const String submenu_event = ' assets/icons/submenu_event.png';
   static const String submenu_design = 'assets/icons/submenu_design.png';
