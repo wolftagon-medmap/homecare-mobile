@@ -3,13 +3,6 @@ import 'package:m2health/features/dashboard/domain/entities/home_service.dart';
 import 'package:m2health/features/guided_booking/guided_booking_routes.dart';
 import 'package:m2health/route/app_routes.dart';
 
-/// Nine services sit on the home grid so it fills three rows evenly; 2nd
-/// Opinion Imaging is reachable from All Services.
-///
-/// `guidedCategory` is the guided booking flow's category. A tile without one
-/// stays on its legacy page: Elderly Care and 2nd Opinion have no issue list,
-/// and Dietitian is held back by the standing decision to leave the
-/// precision-nutrition timeline alone in this build.
 const List<HomeService> homeServiceCatalogue = [
   HomeService(
     id: HomeServiceId.pharmacist,
@@ -30,6 +23,7 @@ const List<HomeService> homeServiceCatalogue = [
   HomeService(
     id: HomeServiceId.dietitian,
     route: AppRoutes.precisionNutrition,
+    guidedCategory: 'nutrition',
   ),
   HomeService(
     id: HomeServiceId.optometrist,
@@ -65,7 +59,7 @@ const List<HomeService> homeServiceCatalogue = [
 extension HomeServiceDestination on HomeService {
   String get destination {
     final category = guidedCategory;
-    if (category == null || !AppFlags.remote(Feature.guidedBookingFlow)) {
+    if (category == null || !AppFlags.isOn(Feature.guidedBookingFlow)) {
       return route;
     }
     return GuidedBookingRoutes.entryFor(category);

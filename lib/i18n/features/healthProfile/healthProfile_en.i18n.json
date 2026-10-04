@@ -1,27 +1,33 @@
 {
-  "namespace_title": "Health profile",
-  "entry_tile": "My health profile",
+  "namespace_title": "Health Profile",
+  "entry_tile": "Health Profile",
+  "retry": "Try again",
   "list": {
-    "subtitle": "Update only what you want. Everything here is optional.",
-    "not_started": "Not started",
-    "updated": "Updated {date}",
     "loading": "Loading your health profile",
-    "empty": "No sections are available yet.",
-    "error": "We could not load your health profile."
+    "load_failed": "Your health profile could not load.",
+    "empty": "No sections are available yet."
   },
   "section": {
-    "subtitle": "Answer what you can. You can come back any time.",
+    "loading": "Loading this section",
+    "load_failed": "This section could not load.",
+    "last_updated": "Last updated {date}",
     "save": "Save",
     "saved": "Saved",
-    "save_failed": "We could not save this section.",
-    "loading": "Loading this section",
-    "error": "We could not load this section.",
+    "save_failed": "This section was not saved.",
     "add_other": "Add another",
-    "add_attachment": "Add an attachment",
-    "attachment": "Report {n}",
+    "add": "Add",
+    "own_answer_hint": "Type your answer",
+    "remove": "Remove {label}",
+    "selected": "Selected",
     "discard_title": "Discard your changes?",
-    "discard_body": "This section has unsaved changes.",
+    "discard_body": "Your changes to this section are not saved.",
     "discard": "Discard",
     "keep_editing": "Keep editing"
+  },
+  "reason": {
+    "network": "Check your internet connection and try again.",
+    "not_found": "This profile or section is no longer available.",
+    "invalid": "Some answers are not accepted. Check them and try again.",
+    "server": "Something went wrong on our side. Try again in a moment."
   }
 }

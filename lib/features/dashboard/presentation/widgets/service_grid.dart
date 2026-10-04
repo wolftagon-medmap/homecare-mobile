@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:m2health/features/dashboard/presentation/dashboard_layout.dart';
+import 'package:m2health/features/dashboard/presentation/home_grid_metrics.dart';
 import 'package:m2health/features/dashboard/presentation/home_service_view.dart';
 import 'package:m2health/features/dashboard/presentation/widgets/service_grid_card.dart';
 
-/// Each row is as tall as its tallest card. A GridView would force one aspect
-/// ratio on every cell and truncate the longer descriptors.
 class ServiceGrid extends StatelessWidget {
   final List<HomeServiceView> services;
   final int columns;
@@ -11,40 +11,33 @@ class ServiceGrid extends StatelessWidget {
   const ServiceGrid({
     super.key,
     required this.services,
-    this.columns = 3,
+    this.columns = DashboardLayout.minColumns,
   });
-
-  static const _gap = 10.0;
 
   @override
   Widget build(BuildContext context) {
-    final rows = <List<HomeServiceView>>[];
-    for (var i = 0; i < services.length; i += columns) {
-      rows.add(services.sublist(i, (i + columns).clamp(0, services.length)));
-    }
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final metrics = HomeGridMetrics.of(
+          DashboardLayout.cardWidthFor(constraints.maxWidth, columns),
+          MediaQuery.textScalerOf(context),
+        );
 
-    return Column(
-      children: [
-        for (var r = 0; r < rows.length; r++) ...[
-          if (r > 0) const SizedBox(height: _gap),
-          IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                for (var i = 0; i < columns; i++) ...[
-                  if (i > 0) const SizedBox(width: _gap),
-                  // Empty slots keep a short last row's cards full width.
-                  Expanded(
-                    child: i < rows[r].length
-                        ? ServiceGridCard(service: rows[r][i])
-                        : const SizedBox.shrink(),
-                  ),
-                ],
-              ],
-            ),
+        return GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.zero,
+          itemCount: services.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: columns,
+            crossAxisSpacing: DashboardLayout.gridGap,
+            mainAxisSpacing: DashboardLayout.gridGap,
+            mainAxisExtent: metrics.cardHeight,
           ),
-        ],
-      ],
+          itemBuilder: (_, i) =>
+              ServiceGridCard(service: services[i], metrics: metrics),
+        );
+      },
     );
   }
 }

@@ -15,8 +15,15 @@ import 'package:m2health/route/app_routes.dart';
 class GuidedBookingArgs {
   final String category;
   final String? subCategory;
+  final List<String> issueCodes;
+  final String? remarks;
 
-  const GuidedBookingArgs({required this.category, this.subCategory});
+  const GuidedBookingArgs({
+    required this.category,
+    this.subCategory,
+    this.issueCodes = const [],
+    this.remarks,
+  });
 }
 
 /// Every step after the entry receives the one [GuidedBookingCubit] created

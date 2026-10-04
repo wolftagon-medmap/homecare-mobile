@@ -121,13 +121,22 @@ class _TranslationsChatbotZh implements TranslationsChatbotEn {
 	@override String get sessionActive => '进行中';
 	@override String get sessionReadOnly => '只读';
 	@override String get deleteTitle => '删除对话';
-	@override String get deleteBody => '此对话将从本设备删除，且无法恢复。';
+	@override String get deleteBody => '此对话将被删除，且无法恢复。';
 	@override String get delete => '删除';
 	@override String get voiceInput => '语音输入';
 	@override String get transcribing => '正在转写…';
 	@override String get micDeniedTitle => '需要麦克风权限';
 	@override String get micDeniedBody => '麦克风权限已被拒绝。请在设备设置中开启后再使用语音输入。';
 	@override String get openSettings => '打开设置';
+	@override String get teamLabel => 'M2Health 团队';
+	@override String get confirm => '确认';
+	@override String get reconnecting => '正在重新连接…';
+	@override String get readOnlyNotice => '此对话为只读。';
+	@override String get errorLoad => '出了点问题，请重试。';
+	@override String get errorSend => '发送失败，请重试。';
+	@override String get errorNoReply => '暂无回复，请重试。';
+	@override String get typing => '助手正在回复';
+	@override String get continueAction => '继续';
 }
 
 // Path: dashboard
@@ -137,7 +146,8 @@ class _TranslationsDashboardZh implements TranslationsDashboardEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get chat_ai_placeholder => '咨询AI医生，解答您的健康疑问';
+	@override String get chat_ai_title => '与AI医生聊天';
+	@override String get chat_ai_subtitle => '咨询您的健康问题';
 	@override String greeting({required Object displayName}) => '更长寿，更健康，${displayName}！';
 	@override String get greeting_generic => '更长寿，更健康！';
 	@override String get header_error => '无法加载您的个人资料。';
@@ -211,9 +221,11 @@ class _TranslationsHealthProfileZh implements TranslationsHealthProfileEn {
 
 	// Translations
 	@override String get namespace_title => '健康档案';
-	@override String get entry_tile => '我的健康档案';
+	@override String get entry_tile => '健康档案';
+	@override String get retry => '重试';
 	@override late final _TranslationsHealthProfileListZh list = _TranslationsHealthProfileListZh._(_root);
 	@override late final _TranslationsHealthProfileSectionZh section = _TranslationsHealthProfileSectionZh._(_root);
+	@override late final _TranslationsHealthProfileReasonZh reason = _TranslationsHealthProfileReasonZh._(_root);
 }
 
 // Path: messaging
@@ -612,7 +624,7 @@ class _TranslationsDashboardHomeZh implements TranslationsDashboardHomeEn {
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get section_title => '医疗服务';
+	@override String get section_title => '服务';
 	@override String get section_subtitle => '为您和家人提供专业照护。';
 	@override String get view_all => '查看全部服务';
 	@override String get all_services_title => '全部服务';
@@ -626,17 +638,17 @@ class _TranslationsDashboardHomeZh implements TranslationsDashboardHomeEn {
 	@override String get name_diabetic_care => '糖尿病筛查';
 	@override String get name_home_screening => '居家健康检查';
 	@override String get name_second_opinion => '医学影像第二意见';
-	@override String get name_homecare_elderly => '长者居家照护';
-	@override String get desc_pharmacist => '专业用药建议，并提供戒烟支持。';
-	@override String get desc_physiotherapy => '缓解疼痛，改善活动能力，加快康复。';
-	@override String get desc_psychologist => '为压力、情绪与心理健康提供支持。';
-	@override String get desc_dietitian => '为您量身定制的营养方案，助您更健康。';
-	@override String get desc_optometrist => '眼部护理、视力检查与专业建议。';
-	@override String get desc_nursing => '在家中享受专业护理服务。';
-	@override String get desc_diabetic_care => '检查眼部与足部，及早发现糖尿病并发症。';
-	@override String get desc_home_screening => '足不出户，轻松完成健康检查。';
-	@override String get desc_second_opinion => '由专家为您的影像检查提供第二诊断意见。';
-	@override String get desc_homecare_elderly => '日常生活协助与陪伴服务。';
+	@override String get name_homecare_elderly => '居家照护';
+	@override String get desc_pharmacist => '用药支持';
+	@override String get desc_physiotherapy => '疼痛与活动';
+	@override String get desc_psychologist => '心理与情绪';
+	@override String get desc_dietitian => '营养支持';
+	@override String get desc_optometrist => '眼部护理';
+	@override String get desc_nursing => '居家护理';
+	@override String get desc_diabetic_care => '早期筛查';
+	@override String get desc_home_screening => '健康检查';
+	@override String get desc_second_opinion => '影像专家复核';
+	@override String get desc_homecare_elderly => '日常照护';
 }
 
 // Path: global.dialog
@@ -799,12 +811,9 @@ class _TranslationsHealthProfileListZh implements TranslationsHealthProfileListE
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get subtitle => '只更新您想更新的内容，全部为选填。';
-	@override String get not_started => '尚未填写';
-	@override String updated({required Object date}) => '更新于 ${date}';
 	@override String get loading => '正在加载您的健康档案';
-	@override String get empty => '暂无可填写的部分。';
-	@override String get error => '无法加载您的健康档案。';
+	@override String get load_failed => '无法加载您的健康档案。';
+	@override String get empty => '暂无可用的部分。';
 }
 
 // Path: healthProfile.section
@@ -814,19 +823,34 @@ class _TranslationsHealthProfileSectionZh implements TranslationsHealthProfileSe
 	final TranslationsZh _root; // ignore: unused_field
 
 	// Translations
-	@override String get subtitle => '能填多少填多少，随时可以回来继续。';
+	@override String get loading => '正在加载此部分';
+	@override String get load_failed => '无法加载此部分。';
+	@override String last_updated({required Object date}) => '最后更新于 ${date}';
 	@override String get save => '保存';
 	@override String get saved => '已保存';
-	@override String get save_failed => '无法保存此部分。';
-	@override String get loading => '正在加载此部分';
-	@override String get error => '无法加载此部分。';
+	@override String get save_failed => '此部分未保存。';
 	@override String get add_other => '添加其他';
-	@override String get add_attachment => '添加附件';
-	@override String attachment({required Object n}) => '报告 ${n}';
-	@override String get discard_title => '放弃修改？';
-	@override String get discard_body => '此部分有未保存的修改。';
+	@override String get add => '添加';
+	@override String get own_answer_hint => '输入您的答案';
+	@override String remove({required Object label}) => '删除 ${label}';
+	@override String get selected => '已选择';
+	@override String get discard_title => '放弃更改？';
+	@override String get discard_body => '您对此部分的更改尚未保存。';
 	@override String get discard => '放弃';
-	@override String get keep_editing => '继续填写';
+	@override String get keep_editing => '继续编辑';
+}
+
+// Path: healthProfile.reason
+class _TranslationsHealthProfileReasonZh implements TranslationsHealthProfileReasonEn {
+	_TranslationsHealthProfileReasonZh._(this._root);
+
+	final TranslationsZh _root; // ignore: unused_field
+
+	// Translations
+	@override String get network => '请检查网络连接后重试。';
+	@override String get not_found => '此档案或部分已不可用。';
+	@override String get invalid => '部分答案无法接受，请检查后重试。';
+	@override String get server => '我们这边出了点问题，请稍后重试。';
 }
 
 // Path: messaging.timeProposal
@@ -1551,19 +1575,29 @@ extension on TranslationsZh {
 			'chatbot.sessionActive' => '进行中',
 			'chatbot.sessionReadOnly' => '只读',
 			'chatbot.deleteTitle' => '删除对话',
-			'chatbot.deleteBody' => '此对话将从本设备删除，且无法恢复。',
+			'chatbot.deleteBody' => '此对话将被删除，且无法恢复。',
 			'chatbot.delete' => '删除',
 			'chatbot.voiceInput' => '语音输入',
 			'chatbot.transcribing' => '正在转写…',
 			'chatbot.micDeniedTitle' => '需要麦克风权限',
 			'chatbot.micDeniedBody' => '麦克风权限已被拒绝。请在设备设置中开启后再使用语音输入。',
 			'chatbot.openSettings' => '打开设置',
-			'dashboard.chat_ai_placeholder' => '咨询AI医生，解答您的健康疑问',
+			'chatbot.teamLabel' => 'M2Health 团队',
+			'chatbot.confirm' => '确认',
+			'chatbot.reconnecting' => '正在重新连接…',
+			'chatbot.readOnlyNotice' => '此对话为只读。',
+			'chatbot.errorLoad' => '出了点问题，请重试。',
+			'chatbot.errorSend' => '发送失败，请重试。',
+			'chatbot.errorNoReply' => '暂无回复，请重试。',
+			'chatbot.typing' => '助手正在回复',
+			'chatbot.continueAction' => '继续',
+			'dashboard.chat_ai_title' => '与AI医生聊天',
+			'dashboard.chat_ai_subtitle' => '咨询您的健康问题',
 			'dashboard.greeting' => ({required Object displayName}) => '更长寿，更健康，${displayName}！',
 			'dashboard.greeting_generic' => '更长寿，更健康！',
 			'dashboard.header_error' => '无法加载您的个人资料。',
 			'dashboard.retry' => '重试',
-			'dashboard.home.section_title' => '医疗服务',
+			'dashboard.home.section_title' => '服务',
 			'dashboard.home.section_subtitle' => '为您和家人提供专业照护。',
 			'dashboard.home.view_all' => '查看全部服务',
 			'dashboard.home.all_services_title' => '全部服务',
@@ -1577,17 +1611,17 @@ extension on TranslationsZh {
 			'dashboard.home.name_diabetic_care' => '糖尿病筛查',
 			'dashboard.home.name_home_screening' => '居家健康检查',
 			'dashboard.home.name_second_opinion' => '医学影像第二意见',
-			'dashboard.home.name_homecare_elderly' => '长者居家照护',
-			'dashboard.home.desc_pharmacist' => '专业用药建议，并提供戒烟支持。',
-			'dashboard.home.desc_physiotherapy' => '缓解疼痛，改善活动能力，加快康复。',
-			'dashboard.home.desc_psychologist' => '为压力、情绪与心理健康提供支持。',
-			'dashboard.home.desc_dietitian' => '为您量身定制的营养方案，助您更健康。',
-			'dashboard.home.desc_optometrist' => '眼部护理、视力检查与专业建议。',
-			'dashboard.home.desc_nursing' => '在家中享受专业护理服务。',
-			'dashboard.home.desc_diabetic_care' => '检查眼部与足部，及早发现糖尿病并发症。',
-			'dashboard.home.desc_home_screening' => '足不出户，轻松完成健康检查。',
-			'dashboard.home.desc_second_opinion' => '由专家为您的影像检查提供第二诊断意见。',
-			'dashboard.home.desc_homecare_elderly' => '日常生活协助与陪伴服务。',
+			'dashboard.home.name_homecare_elderly' => '居家照护',
+			'dashboard.home.desc_pharmacist' => '用药支持',
+			'dashboard.home.desc_physiotherapy' => '疼痛与活动',
+			'dashboard.home.desc_psychologist' => '心理与情绪',
+			'dashboard.home.desc_dietitian' => '营养支持',
+			'dashboard.home.desc_optometrist' => '眼部护理',
+			'dashboard.home.desc_nursing' => '居家护理',
+			'dashboard.home.desc_diabetic_care' => '早期筛查',
+			'dashboard.home.desc_home_screening' => '健康检查',
+			'dashboard.home.desc_second_opinion' => '影像专家复核',
+			'dashboard.home.desc_homecare_elderly' => '日常照护',
 			'global.add' => '添加',
 			'global.book_now' => '立即预订',
 			'global.cancel' => '取消',
@@ -1682,26 +1716,30 @@ extension on TranslationsZh {
 			'guidedBooking.cta.kContinue' => '继续',
 			'guidedBooking.cta.skip' => '跳过',
 			'healthProfile.namespace_title' => '健康档案',
-			'healthProfile.entry_tile' => '我的健康档案',
-			'healthProfile.list.subtitle' => '只更新您想更新的内容，全部为选填。',
-			'healthProfile.list.not_started' => '尚未填写',
-			'healthProfile.list.updated' => ({required Object date}) => '更新于 ${date}',
+			'healthProfile.entry_tile' => '健康档案',
+			'healthProfile.retry' => '重试',
 			'healthProfile.list.loading' => '正在加载您的健康档案',
-			'healthProfile.list.empty' => '暂无可填写的部分。',
-			'healthProfile.list.error' => '无法加载您的健康档案。',
-			'healthProfile.section.subtitle' => '能填多少填多少，随时可以回来继续。',
+			'healthProfile.list.load_failed' => '无法加载您的健康档案。',
+			'healthProfile.list.empty' => '暂无可用的部分。',
+			'healthProfile.section.loading' => '正在加载此部分',
+			'healthProfile.section.load_failed' => '无法加载此部分。',
+			'healthProfile.section.last_updated' => ({required Object date}) => '最后更新于 ${date}',
 			'healthProfile.section.save' => '保存',
 			'healthProfile.section.saved' => '已保存',
-			'healthProfile.section.save_failed' => '无法保存此部分。',
-			'healthProfile.section.loading' => '正在加载此部分',
-			'healthProfile.section.error' => '无法加载此部分。',
+			'healthProfile.section.save_failed' => '此部分未保存。',
 			'healthProfile.section.add_other' => '添加其他',
-			'healthProfile.section.add_attachment' => '添加附件',
-			'healthProfile.section.attachment' => ({required Object n}) => '报告 ${n}',
-			'healthProfile.section.discard_title' => '放弃修改？',
-			'healthProfile.section.discard_body' => '此部分有未保存的修改。',
+			'healthProfile.section.add' => '添加',
+			'healthProfile.section.own_answer_hint' => '输入您的答案',
+			'healthProfile.section.remove' => ({required Object label}) => '删除 ${label}',
+			'healthProfile.section.selected' => '已选择',
+			'healthProfile.section.discard_title' => '放弃更改？',
+			'healthProfile.section.discard_body' => '您对此部分的更改尚未保存。',
 			'healthProfile.section.discard' => '放弃',
-			'healthProfile.section.keep_editing' => '继续填写',
+			'healthProfile.section.keep_editing' => '继续编辑',
+			'healthProfile.reason.network' => '请检查网络连接后重试。',
+			'healthProfile.reason.not_found' => '此档案或部分已不可用。',
+			'healthProfile.reason.invalid' => '部分答案无法接受，请检查后重试。',
+			'healthProfile.reason.server' => '我们这边出了点问题，请稍后重试。',
 			'messaging.title' => '消息',
 			'messaging.emptyTitle' => '暂无对话',
 			'messaging.emptyBody' => '发送预约请求后，您可以在此与专业人员沟通。',

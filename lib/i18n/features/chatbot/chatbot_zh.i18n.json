@@ -23,11 +23,20 @@
   "sessionActive": "进行中",
   "sessionReadOnly": "只读",
   "deleteTitle": "删除对话",
-  "deleteBody": "此对话将从本设备删除，且无法恢复。",
+  "deleteBody": "此对话将被删除，且无法恢复。",
   "delete": "删除",
   "voiceInput": "语音输入",
   "transcribing": "正在转写…",
   "micDeniedTitle": "需要麦克风权限",
   "micDeniedBody": "麦克风权限已被拒绝。请在设备设置中开启后再使用语音输入。",
-  "openSettings": "打开设置"
+  "openSettings": "打开设置",
+  "teamLabel": "M2Health 团队",
+  "confirm": "确认",
+  "reconnecting": "正在重新连接…",
+  "readOnlyNotice": "此对话为只读。",
+  "errorLoad": "出了点问题，请重试。",
+  "errorSend": "发送失败，请重试。",
+  "errorNoReply": "暂无回复，请重试。",
+  "typing": "助手正在回复",
+  "continueAction": "继续"
 }

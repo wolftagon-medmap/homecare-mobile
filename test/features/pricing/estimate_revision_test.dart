@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:m2health/features/etc/pricing/data/datasources/estimate_revision_datasource.dart';
-import 'package:m2health/features/etc/pricing/data/fixtures/estimate_revision_fixture.dart';
+import 'fakes/estimate_revision_fixture.dart';
+import 'fakes/pricing_local_datasources.dart';
 import 'package:m2health/features/etc/pricing/data/models/estimate_revision_model.dart';
 import 'package:m2health/features/etc/pricing/domain/entities/estimate.dart';
 import 'package:m2health/features/etc/pricing/domain/entities/estimate_revision.dart';
@@ -28,7 +28,7 @@ void main() {
       expect(revision.proposedTotal, 120);
     });
 
-    test('the demo covers both an open and a settled revision', () {
+    test('the fixture covers both an open and a settled revision', () {
       expect(
         EstimateRevisionModel.fromJson(kEstimateRevisionFixture[1]!.single)
             .awaitingPatient,

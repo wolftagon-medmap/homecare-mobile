@@ -2,10 +2,8 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
-import 'package:m2health/core/config/feature_flags.dart';
 import 'package:m2health/features/appointment/data/models/patient_inbox_item.dart';
 import 'package:m2health/features/appointment/data/patient_inbox_service.dart';
-import 'package:m2health/features/appointment/data/fixtures/inbox_demo_fixture.dart';
 
 part 'patient_inbox_state.dart';
 
@@ -20,11 +18,6 @@ class PatientInboxCubit extends Cubit<PatientInboxState> {
         super(PatientInboxInitial());
 
   Future<void> fetchInbox() async {
-    if (!AppFlags.remote(Feature.timeProposal)) {
-      emit(PatientInboxLoaded(
-          kPatientInboxDemoFixture().map(PatientInboxItem.fromJson).toList()));
-      return;
-    }
     try {
       emit(PatientInboxLoading());
       emit(PatientInboxLoaded(await _inbox.fetchInbox()));

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m2health/features/chatbot/domain/entities/assistant_session.dart';
+import 'package:m2health/features/chatbot/domain/entities/assistant_session_summary.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_cubit.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_state.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_block_view.dart';
+import 'package:m2health/features/chatbot/presentation/widgets/assistant_composer.dart';
+import 'package:m2health/features/chatbot/presentation/widgets/assistant_error_text.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_privacy_label.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_theme.dart';
 import 'package:m2health/i18n/translations.g.dart';
 
-/// A past conversation, rebuilt by replaying its recorded replies. No callbacks
-/// are passed down, so every block renders inert.
 class AssistantSessionViewerPage extends StatefulWidget {
-  final AssistantSession session;
+  final AssistantSessionSummary session;
 
   const AssistantSessionViewerPage({super.key, required this.session});
 
@@ -26,7 +26,7 @@ class _AssistantSessionViewerPageState
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => context.read<AssistantCubit>().open(widget.session),
+      (_) => context.read<AssistantCubit>().view(widget.session.id),
     );
   }
 
@@ -56,11 +56,11 @@ class _AssistantSessionViewerPageState
                 color: AssistantPalette.primary,
               ),
             ),
-          AssistantFailed(:final message) => Center(
+          AssistantFailed(:final error) => Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Text(
-                  message,
+                  assistantErrorText(context, error),
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: AssistantPalette.body),
                 ),
@@ -75,15 +75,17 @@ class _AssistantSessionViewerPageState
                     itemCount: state.blocks.length,
                     itemBuilder: (context, index) => AssistantBlockView(
                       block: state.blocks[index],
-                      isLast: false,
-                      chosenReplyId: state.resolved[state.blocks[index].id],
-                      selection:
-                          state.selections[state.blocks[index].id] ?? const [],
-                      answers: state.answers,
+                      state: state,
+                      cubit: null,
                     ),
                   ),
                 ),
-                const SizedBox(height: 12),
+                AssistantComposer(
+                  hint: '',
+                  enabled: false,
+                  notice: t.readOnlyNotice,
+                  onSend: (_) {},
+                ),
               ],
             ),
         },

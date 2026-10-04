@@ -20,13 +20,15 @@ class GuidedBookingEntryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<GuidedBookingCubit>(
       create: (_) => sl<GuidedBookingCubit>(param1: args)..loadCatalogue(),
-      child: const _GuidedBookingEntryView(),
+      child: _GuidedBookingEntryView(args: args),
     );
   }
 }
 
 class _GuidedBookingEntryView extends StatelessWidget {
-  const _GuidedBookingEntryView();
+  const _GuidedBookingEntryView({required this.args});
+
+  final GuidedBookingArgs args;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,8 @@ class _GuidedBookingEntryView extends StatelessWidget {
             );
           case BookingLoadStatus.ready:
             final needsSubService =
-                state.catalogue?.needsSubServiceStep ?? false;
+                (state.catalogue?.needsSubServiceStep ?? false) &&
+                    args.subCategory == null;
             return needsSubService
                 ? const SubServicePage()
                 : IssueSelectionPage(

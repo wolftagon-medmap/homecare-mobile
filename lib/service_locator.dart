@@ -13,6 +13,7 @@ import 'package:m2health/features/chatbot/injection.dart';
 import 'package:m2health/features/_legacy/chatbot_legacy/injection.dart';
 import 'package:m2health/features/dashboard/injection.dart';
 import 'package:m2health/features/guided_booking/injection.dart';
+import 'package:m2health/features/health_profile/injection.dart';
 import 'package:m2health/features/messaging/injection.dart';
 import 'package:m2health/features/etc/pricing/injection.dart';
 import 'package:m2health/features/_legacy/chat_intake_booking/injection.dart';
@@ -70,8 +71,6 @@ Future<void> setupLocator() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerSingleton<SharedPreferences>(sharedPreferences);
 
-  // Data-source flags (contract C2). Must load before any feature module
-  // registers, because a module may resolve its data source right here.
   await AppFlags.init(sharedPreferences);
   sl.registerLazySingleton(() => FeatureFlagsRemoteSource(sl<Dio>()));
   // Unawaited: a hang here would cost a cold start, and init() has already
@@ -116,4 +115,5 @@ Future<void> setupLocator() async {
   initGuidedBookingModule(sl);
   initMessagingModule(sl);
   initPricingModule(sl);
+  initHealthProfileModule(sl);
 }

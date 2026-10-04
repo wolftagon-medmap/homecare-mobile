@@ -1,27 +1,33 @@
 {
-  "namespace_title": "Profil kesehatan",
-  "entry_tile": "Profil kesehatan saya",
+  "namespace_title": "Profil Kesehatan",
+  "entry_tile": "Profil Kesehatan",
+  "retry": "Coba lagi",
   "list": {
-    "subtitle": "Perbarui hanya yang Anda inginkan. Semuanya bersifat opsional.",
-    "not_started": "Belum diisi",
-    "updated": "Diperbarui {date}",
     "loading": "Memuat profil kesehatan Anda",
-    "empty": "Belum ada bagian yang tersedia.",
-    "error": "Kami tidak dapat memuat profil kesehatan Anda."
+    "load_failed": "Profil kesehatan Anda tidak dapat dimuat.",
+    "empty": "Belum ada bagian yang tersedia."
   },
   "section": {
-    "subtitle": "Isi yang Anda bisa. Anda dapat kembali kapan saja.",
+    "loading": "Memuat bagian ini",
+    "load_failed": "Bagian ini tidak dapat dimuat.",
+    "last_updated": "Terakhir diperbarui {date}",
     "save": "Simpan",
     "saved": "Tersimpan",
-    "save_failed": "Kami tidak dapat menyimpan bagian ini.",
-    "loading": "Memuat bagian ini",
-    "error": "Kami tidak dapat memuat bagian ini.",
+    "save_failed": "Bagian ini tidak tersimpan.",
     "add_other": "Tambah lainnya",
-    "add_attachment": "Tambah lampiran",
-    "attachment": "Laporan {n}",
+    "add": "Tambah",
+    "own_answer_hint": "Ketik jawaban Anda",
+    "remove": "Hapus {label}",
+    "selected": "Dipilih",
     "discard_title": "Buang perubahan Anda?",
-    "discard_body": "Bagian ini memiliki perubahan yang belum disimpan.",
+    "discard_body": "Perubahan pada bagian ini belum disimpan.",
     "discard": "Buang",
-    "keep_editing": "Lanjut mengisi"
+    "keep_editing": "Lanjut mengedit"
+  },
+  "reason": {
+    "network": "Periksa koneksi internet Anda, lalu coba lagi.",
+    "not_found": "Profil atau bagian ini sudah tidak tersedia.",
+    "invalid": "Beberapa jawaban tidak diterima. Periksa lalu coba lagi.",
+    "server": "Terjadi kendala di sistem kami. Coba lagi sebentar lagi."
   }
 }

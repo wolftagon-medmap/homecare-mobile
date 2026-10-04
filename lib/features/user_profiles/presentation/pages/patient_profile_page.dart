@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:m2health/const.dart';
-import 'package:m2health/core/config/feature_flags.dart';
 import 'package:m2health/core/extensions/l10n_extensions.dart';
 import 'package:m2health/core/presentation/widgets/auth_guard_dialog.dart';
 import 'package:m2health/features/user_profiles/domain/entities/profile.dart';
@@ -88,8 +87,7 @@ class _PatientProfilePageState extends State<PatientProfilePage> {
                       lastUpdated: formatDateTime(profile.updatedAt),
                     ),
                     const SizedBox(height: 16),
-                    _ProfileInformationSection(
-                        isAccountHolder: profile.isPrimary),
+                    const _ProfileInformationSection(),
                     const SizedBox(height: 16),
                     // Clinical records belong to the account, not to a single
                     // profile, so showing them under a family member's name
@@ -120,11 +118,7 @@ class _PatientProfilePageState extends State<PatientProfilePage> {
 }
 
 class _ProfileInformationSection extends StatelessWidget {
-  /// The clinical pages below read account-level records, so a family member
-  /// gets basic info only rather than the account holder's data under their name.
-  final bool isAccountHolder;
-
-  const _ProfileInformationSection({required this.isAccountHolder});
+  const _ProfileInformationSection();
 
   @override
   Widget build(BuildContext context) {
@@ -147,45 +141,13 @@ class _ProfileInformationSection extends StatelessWidget {
                 context.push(AppRoutes.profileBasicInfo);
               },
             ),
-            if (AppFlags.remote(Feature.healthProfileFlow))
-              _CustomListTile(
-                title: context.t.healthProfile.entry_tile,
-                svgAsset: 'assets/icons/lab_profile.svg',
-                onTap: () {
-                  context.push(AppRoutes.healthProfile);
-                },
-              )
-            else if (isAccountHolder) ...[
-              _CustomListTile(
-                title:
-                    context.l10n.profile_patient_medical_history_n_risk_factor,
-                svgAsset: 'assets/icons/medical_report.svg',
-                onTap: () {
-                  context.push(AppRoutes.profileMedicalHistory);
-                },
-              ),
-              _CustomListTile(
-                title: context.l10n.profile_patient_lifestyle_n_selfcare,
-                svgAsset: 'assets/icons/muscle.svg',
-                onTap: () {
-                  context.push(AppRoutes.profileLifestyle);
-                },
-              ),
-              _CustomListTile(
-                title: context.l10n.profile_patient_physical_sign,
-                svgAsset: 'assets/icons/physical_sign.svg',
-                onTap: () {
-                  context.push(AppRoutes.profilePhysicalSigns);
-                },
-              ),
-              _CustomListTile(
-                title: context.l10n.profile_patient_mental_state,
-                svgAsset: 'assets/icons/mental_health.svg',
-                onTap: () {
-                  context.push(AppRoutes.profileMentalState);
-                },
-              ),
-            ],
+            _CustomListTile(
+              title: context.t.healthProfile.entry_tile,
+              svgAsset: 'assets/icons/medical_report.svg',
+              onTap: () {
+                context.push(AppRoutes.healthProfile);
+              },
+            ),
           ],
         ),
       ),

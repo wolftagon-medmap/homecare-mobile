@@ -23,11 +23,20 @@
   "sessionActive": "Active",
   "sessionReadOnly": "Read-only",
   "deleteTitle": "Delete conversation",
-  "deleteBody": "This conversation will be deleted from this device. This cannot be undone.",
+  "deleteBody": "This conversation will be deleted. This cannot be undone.",
   "delete": "Delete",
   "voiceInput": "Voice input",
   "transcribing": "Transcribing...",
   "micDeniedTitle": "Microphone access required",
   "micDeniedBody": "Microphone permission has been denied. Please enable it in your device Settings to use voice input.",
-  "openSettings": "Open Settings"
+  "openSettings": "Open Settings",
+  "teamLabel": "M2Health team",
+  "confirm": "Confirm",
+  "reconnecting": "Reconnecting…",
+  "readOnlyNotice": "This conversation is read-only.",
+  "errorLoad": "Something went wrong. Please try again.",
+  "errorSend": "Could not send. Please try again.",
+  "errorNoReply": "No reply yet. Please try again.",
+  "typing": "The assistant is replying",
+  "continueAction": "Continue"
 }

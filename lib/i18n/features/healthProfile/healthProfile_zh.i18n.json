@@ -1,27 +1,33 @@
 {
   "namespace_title": "健康档案",
-  "entry_tile": "我的健康档案",
+  "entry_tile": "健康档案",
+  "retry": "重试",
   "list": {
-    "subtitle": "只更新您想更新的内容，全部为选填。",
-    "not_started": "尚未填写",
-    "updated": "更新于 {date}",
     "loading": "正在加载您的健康档案",
-    "empty": "暂无可填写的部分。",
-    "error": "无法加载您的健康档案。"
+    "load_failed": "无法加载您的健康档案。",
+    "empty": "暂无可用的部分。"
   },
   "section": {
-    "subtitle": "能填多少填多少，随时可以回来继续。",
+    "loading": "正在加载此部分",
+    "load_failed": "无法加载此部分。",
+    "last_updated": "最后更新于 {date}",
     "save": "保存",
     "saved": "已保存",
-    "save_failed": "无法保存此部分。",
-    "loading": "正在加载此部分",
-    "error": "无法加载此部分。",
+    "save_failed": "此部分未保存。",
     "add_other": "添加其他",
-    "add_attachment": "添加附件",
-    "attachment": "报告 {n}",
-    "discard_title": "放弃修改？",
-    "discard_body": "此部分有未保存的修改。",
+    "add": "添加",
+    "own_answer_hint": "输入您的答案",
+    "remove": "删除 {label}",
+    "selected": "已选择",
+    "discard_title": "放弃更改？",
+    "discard_body": "您对此部分的更改尚未保存。",
     "discard": "放弃",
-    "keep_editing": "继续填写"
+    "keep_editing": "继续编辑"
+  },
+  "reason": {
+    "network": "请检查网络连接后重试。",
+    "not_found": "此档案或部分已不可用。",
+    "invalid": "部分答案无法接受，请检查后重试。",
+    "server": "我们这边出了点问题，请稍后重试。"
   }
 }

@@ -179,8 +179,8 @@ class TranslationsChatbotEn {
 	/// en: 'Delete conversation'
 	String get deleteTitle => 'Delete conversation';
 
-	/// en: 'This conversation will be deleted from this device. This cannot be undone.'
-	String get deleteBody => 'This conversation will be deleted from this device. This cannot be undone.';
+	/// en: 'This conversation will be deleted. This cannot be undone.'
+	String get deleteBody => 'This conversation will be deleted. This cannot be undone.';
 
 	/// en: 'Delete'
 	String get delete => 'Delete';
@@ -199,6 +199,33 @@ class TranslationsChatbotEn {
 
 	/// en: 'Open Settings'
 	String get openSettings => 'Open Settings';
+
+	/// en: 'M2Health team'
+	String get teamLabel => 'M2Health team';
+
+	/// en: 'Confirm'
+	String get confirm => 'Confirm';
+
+	/// en: 'Reconnecting…'
+	String get reconnecting => 'Reconnecting…';
+
+	/// en: 'This conversation is read-only.'
+	String get readOnlyNotice => 'This conversation is read-only.';
+
+	/// en: 'Something went wrong. Please try again.'
+	String get errorLoad => 'Something went wrong. Please try again.';
+
+	/// en: 'Could not send. Please try again.'
+	String get errorSend => 'Could not send. Please try again.';
+
+	/// en: 'No reply yet. Please try again.'
+	String get errorNoReply => 'No reply yet. Please try again.';
+
+	/// en: 'The assistant is replying'
+	String get typing => 'The assistant is replying';
+
+	/// en: 'Continue'
+	String get continueAction => 'Continue';
 }
 
 // Path: dashboard
@@ -209,8 +236,11 @@ class TranslationsDashboardEn {
 
 	// Translations
 
-	/// en: 'Chat With AI doctor for all your health questions'
-	String get chat_ai_placeholder => 'Chat With AI doctor for all your health questions';
+	/// en: 'Chat with an AI doctor'
+	String get chat_ai_title => 'Chat with an AI doctor';
+
+	/// en: 'Ask your health question'
+	String get chat_ai_subtitle => 'Ask your health question';
 
 	/// en: 'Live Longer & Live Healthier, {displayName}!'
 	String greeting({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!';
@@ -356,14 +386,18 @@ class TranslationsHealthProfileEn {
 
 	// Translations
 
-	/// en: 'Health profile'
-	String get namespace_title => 'Health profile';
+	/// en: 'Health Profile'
+	String get namespace_title => 'Health Profile';
 
-	/// en: 'My health profile'
-	String get entry_tile => 'My health profile';
+	/// en: 'Health Profile'
+	String get entry_tile => 'Health Profile';
+
+	/// en: 'Try again'
+	String get retry => 'Try again';
 
 	late final TranslationsHealthProfileListEn list = TranslationsHealthProfileListEn._(_root);
 	late final TranslationsHealthProfileSectionEn section = TranslationsHealthProfileSectionEn._(_root);
+	late final TranslationsHealthProfileReasonEn reason = TranslationsHealthProfileReasonEn._(_root);
 }
 
 // Path: messaging
@@ -1047,8 +1081,8 @@ class TranslationsDashboardHomeEn {
 
 	// Translations
 
-	/// en: 'Healthcare Services'
-	String get section_title => 'Healthcare Services';
+	/// en: 'Services'
+	String get section_title => 'Services';
 
 	/// en: 'Professional care for you and your loved ones.'
 	String get section_subtitle => 'Professional care for you and your loved ones.';
@@ -1089,38 +1123,38 @@ class TranslationsDashboardHomeEn {
 	/// en: '2nd Opinion Imaging'
 	String get name_second_opinion => '2nd Opinion Imaging';
 
-	/// en: 'Homecare for Elderly'
-	String get name_homecare_elderly => 'Homecare for Elderly';
+	/// en: 'Homecare'
+	String get name_homecare_elderly => 'Homecare';
 
-	/// en: 'Expert advice on your medications and support.'
-	String get desc_pharmacist => 'Expert advice on your medications and support.';
+	/// en: 'Medication support'
+	String get desc_pharmacist => 'Medication support';
 
-	/// en: 'Manage pain, improve mobility and recover better.'
-	String get desc_physiotherapy => 'Manage pain, improve mobility and recover better.';
+	/// en: 'Pain & mobility'
+	String get desc_physiotherapy => 'Pain & mobility';
 
-	/// en: 'Get support for stress, emotions and mental well-being.'
-	String get desc_psychologist => 'Get support for stress, emotions and mental well-being.';
+	/// en: 'Mind & emotions'
+	String get desc_psychologist => 'Mind & emotions';
 
-	/// en: 'Personalised nutrition support.'
-	String get desc_dietitian => 'Personalised nutrition support.';
+	/// en: 'Nutrition support'
+	String get desc_dietitian => 'Nutrition support';
 
-	/// en: 'Eye care, vision checks and professional advice.'
-	String get desc_optometrist => 'Eye care, vision checks and professional advice.';
+	/// en: 'Eye care'
+	String get desc_optometrist => 'Eye care';
 
-	/// en: 'Professional nursing care in the comfort of your home.'
-	String get desc_nursing => 'Professional nursing care in the comfort of your home.';
+	/// en: 'Care at home'
+	String get desc_nursing => 'Care at home';
 
-	/// en: 'Check your eyes and feet for diabetes.'
-	String get desc_diabetic_care => 'Check your eyes and feet for diabetes.';
+	/// en: 'Early detection'
+	String get desc_diabetic_care => 'Early detection';
 
-	/// en: 'Convenient health checks in your home.'
-	String get desc_home_screening => 'Convenient health checks in your home.';
+	/// en: 'Health check'
+	String get desc_home_screening => 'Health check';
 
-	/// en: 'Get an expert second read of your medical scans.'
-	String get desc_second_opinion => 'Get an expert second read of your medical scans.';
+	/// en: 'Expert scan review'
+	String get desc_second_opinion => 'Expert scan review';
 
-	/// en: 'Daily living support and companionship at home.'
-	String get desc_homecare_elderly => 'Daily living support and companionship at home.';
+	/// en: 'Daily support'
+	String get desc_homecare_elderly => 'Daily support';
 }
 
 // Path: global.dialog
@@ -1410,23 +1444,14 @@ class TranslationsHealthProfileListEn {
 
 	// Translations
 
-	/// en: 'Update only what you want. Everything here is optional.'
-	String get subtitle => 'Update only what you want. Everything here is optional.';
-
-	/// en: 'Not started'
-	String get not_started => 'Not started';
-
-	/// en: 'Updated {date}'
-	String updated({required Object date}) => 'Updated ${date}';
-
 	/// en: 'Loading your health profile'
 	String get loading => 'Loading your health profile';
 
+	/// en: 'Your health profile could not load.'
+	String get load_failed => 'Your health profile could not load.';
+
 	/// en: 'No sections are available yet.'
 	String get empty => 'No sections are available yet.';
-
-	/// en: 'We could not load your health profile.'
-	String get error => 'We could not load your health profile.';
 }
 
 // Path: healthProfile.section
@@ -1437,8 +1462,14 @@ class TranslationsHealthProfileSectionEn {
 
 	// Translations
 
-	/// en: 'Answer what you can. You can come back any time.'
-	String get subtitle => 'Answer what you can. You can come back any time.';
+	/// en: 'Loading this section'
+	String get loading => 'Loading this section';
+
+	/// en: 'This section could not load.'
+	String get load_failed => 'This section could not load.';
+
+	/// en: 'Last updated {date}'
+	String last_updated({required Object date}) => 'Last updated ${date}';
 
 	/// en: 'Save'
 	String get save => 'Save';
@@ -1446,35 +1477,56 @@ class TranslationsHealthProfileSectionEn {
 	/// en: 'Saved'
 	String get saved => 'Saved';
 
-	/// en: 'We could not save this section.'
-	String get save_failed => 'We could not save this section.';
-
-	/// en: 'Loading this section'
-	String get loading => 'Loading this section';
-
-	/// en: 'We could not load this section.'
-	String get error => 'We could not load this section.';
+	/// en: 'This section was not saved.'
+	String get save_failed => 'This section was not saved.';
 
 	/// en: 'Add another'
 	String get add_other => 'Add another';
 
-	/// en: 'Add an attachment'
-	String get add_attachment => 'Add an attachment';
+	/// en: 'Add'
+	String get add => 'Add';
 
-	/// en: 'Report {n}'
-	String attachment({required Object n}) => 'Report ${n}';
+	/// en: 'Type your answer'
+	String get own_answer_hint => 'Type your answer';
+
+	/// en: 'Remove {label}'
+	String remove({required Object label}) => 'Remove ${label}';
+
+	/// en: 'Selected'
+	String get selected => 'Selected';
 
 	/// en: 'Discard your changes?'
 	String get discard_title => 'Discard your changes?';
 
-	/// en: 'This section has unsaved changes.'
-	String get discard_body => 'This section has unsaved changes.';
+	/// en: 'Your changes to this section are not saved.'
+	String get discard_body => 'Your changes to this section are not saved.';
 
 	/// en: 'Discard'
 	String get discard => 'Discard';
 
 	/// en: 'Keep editing'
 	String get keep_editing => 'Keep editing';
+}
+
+// Path: healthProfile.reason
+class TranslationsHealthProfileReasonEn {
+	TranslationsHealthProfileReasonEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Check your internet connection and try again.'
+	String get network => 'Check your internet connection and try again.';
+
+	/// en: 'This profile or section is no longer available.'
+	String get not_found => 'This profile or section is no longer available.';
+
+	/// en: 'Some answers are not accepted. Check them and try again.'
+	String get invalid => 'Some answers are not accepted. Check them and try again.';
+
+	/// en: 'Something went wrong on our side. Try again in a moment.'
+	String get server => 'Something went wrong on our side. Try again in a moment.';
 }
 
 // Path: messaging.timeProposal
@@ -2476,19 +2528,29 @@ extension on Translations {
 			'chatbot.sessionActive' => 'Active',
 			'chatbot.sessionReadOnly' => 'Read-only',
 			'chatbot.deleteTitle' => 'Delete conversation',
-			'chatbot.deleteBody' => 'This conversation will be deleted from this device. This cannot be undone.',
+			'chatbot.deleteBody' => 'This conversation will be deleted. This cannot be undone.',
 			'chatbot.delete' => 'Delete',
 			'chatbot.voiceInput' => 'Voice input',
 			'chatbot.transcribing' => 'Transcribing...',
 			'chatbot.micDeniedTitle' => 'Microphone access required',
 			'chatbot.micDeniedBody' => 'Microphone permission has been denied. Please enable it in your device Settings to use voice input.',
 			'chatbot.openSettings' => 'Open Settings',
-			'dashboard.chat_ai_placeholder' => 'Chat With AI doctor for all your health questions',
+			'chatbot.teamLabel' => 'M2Health team',
+			'chatbot.confirm' => 'Confirm',
+			'chatbot.reconnecting' => 'Reconnecting…',
+			'chatbot.readOnlyNotice' => 'This conversation is read-only.',
+			'chatbot.errorLoad' => 'Something went wrong. Please try again.',
+			'chatbot.errorSend' => 'Could not send. Please try again.',
+			'chatbot.errorNoReply' => 'No reply yet. Please try again.',
+			'chatbot.typing' => 'The assistant is replying',
+			'chatbot.continueAction' => 'Continue',
+			'dashboard.chat_ai_title' => 'Chat with an AI doctor',
+			'dashboard.chat_ai_subtitle' => 'Ask your health question',
 			'dashboard.greeting' => ({required Object displayName}) => 'Live Longer & Live Healthier, ${displayName}!',
 			'dashboard.greeting_generic' => 'Live Longer & Live Healthier!',
 			'dashboard.header_error' => 'We couldn\'t load your profile.',
 			'dashboard.retry' => 'Retry',
-			'dashboard.home.section_title' => 'Healthcare Services',
+			'dashboard.home.section_title' => 'Services',
 			'dashboard.home.section_subtitle' => 'Professional care for you and your loved ones.',
 			'dashboard.home.view_all' => 'View All',
 			'dashboard.home.all_services_title' => 'All Services',
@@ -2502,17 +2564,17 @@ extension on Translations {
 			'dashboard.home.name_diabetic_care' => 'Diabetes Screening',
 			'dashboard.home.name_home_screening' => 'Home Health Screening',
 			'dashboard.home.name_second_opinion' => '2nd Opinion Imaging',
-			'dashboard.home.name_homecare_elderly' => 'Homecare for Elderly',
-			'dashboard.home.desc_pharmacist' => 'Expert advice on your medications and support.',
-			'dashboard.home.desc_physiotherapy' => 'Manage pain, improve mobility and recover better.',
-			'dashboard.home.desc_psychologist' => 'Get support for stress, emotions and mental well-being.',
-			'dashboard.home.desc_dietitian' => 'Personalised nutrition support.',
-			'dashboard.home.desc_optometrist' => 'Eye care, vision checks and professional advice.',
-			'dashboard.home.desc_nursing' => 'Professional nursing care in the comfort of your home.',
-			'dashboard.home.desc_diabetic_care' => 'Check your eyes and feet for diabetes.',
-			'dashboard.home.desc_home_screening' => 'Convenient health checks in your home.',
-			'dashboard.home.desc_second_opinion' => 'Get an expert second read of your medical scans.',
-			'dashboard.home.desc_homecare_elderly' => 'Daily living support and companionship at home.',
+			'dashboard.home.name_homecare_elderly' => 'Homecare',
+			'dashboard.home.desc_pharmacist' => 'Medication support',
+			'dashboard.home.desc_physiotherapy' => 'Pain & mobility',
+			'dashboard.home.desc_psychologist' => 'Mind & emotions',
+			'dashboard.home.desc_dietitian' => 'Nutrition support',
+			'dashboard.home.desc_optometrist' => 'Eye care',
+			'dashboard.home.desc_nursing' => 'Care at home',
+			'dashboard.home.desc_diabetic_care' => 'Early detection',
+			'dashboard.home.desc_home_screening' => 'Health check',
+			'dashboard.home.desc_second_opinion' => 'Expert scan review',
+			'dashboard.home.desc_homecare_elderly' => 'Daily support',
 			'global.add' => 'Add',
 			'global.book_now' => 'Book Now',
 			'global.cancel' => 'Cancel',
@@ -2606,27 +2668,31 @@ extension on Translations {
 			'guidedBooking.sent.done' => 'Back to home',
 			'guidedBooking.cta.kContinue' => 'Continue',
 			'guidedBooking.cta.skip' => 'Skip',
-			'healthProfile.namespace_title' => 'Health profile',
-			'healthProfile.entry_tile' => 'My health profile',
-			'healthProfile.list.subtitle' => 'Update only what you want. Everything here is optional.',
-			'healthProfile.list.not_started' => 'Not started',
-			'healthProfile.list.updated' => ({required Object date}) => 'Updated ${date}',
+			'healthProfile.namespace_title' => 'Health Profile',
+			'healthProfile.entry_tile' => 'Health Profile',
+			'healthProfile.retry' => 'Try again',
 			'healthProfile.list.loading' => 'Loading your health profile',
+			'healthProfile.list.load_failed' => 'Your health profile could not load.',
 			'healthProfile.list.empty' => 'No sections are available yet.',
-			'healthProfile.list.error' => 'We could not load your health profile.',
-			'healthProfile.section.subtitle' => 'Answer what you can. You can come back any time.',
+			'healthProfile.section.loading' => 'Loading this section',
+			'healthProfile.section.load_failed' => 'This section could not load.',
+			'healthProfile.section.last_updated' => ({required Object date}) => 'Last updated ${date}',
 			'healthProfile.section.save' => 'Save',
 			'healthProfile.section.saved' => 'Saved',
-			'healthProfile.section.save_failed' => 'We could not save this section.',
-			'healthProfile.section.loading' => 'Loading this section',
-			'healthProfile.section.error' => 'We could not load this section.',
+			'healthProfile.section.save_failed' => 'This section was not saved.',
 			'healthProfile.section.add_other' => 'Add another',
-			'healthProfile.section.add_attachment' => 'Add an attachment',
-			'healthProfile.section.attachment' => ({required Object n}) => 'Report ${n}',
+			'healthProfile.section.add' => 'Add',
+			'healthProfile.section.own_answer_hint' => 'Type your answer',
+			'healthProfile.section.remove' => ({required Object label}) => 'Remove ${label}',
+			'healthProfile.section.selected' => 'Selected',
 			'healthProfile.section.discard_title' => 'Discard your changes?',
-			'healthProfile.section.discard_body' => 'This section has unsaved changes.',
+			'healthProfile.section.discard_body' => 'Your changes to this section are not saved.',
 			'healthProfile.section.discard' => 'Discard',
 			'healthProfile.section.keep_editing' => 'Keep editing',
+			'healthProfile.reason.network' => 'Check your internet connection and try again.',
+			'healthProfile.reason.not_found' => 'This profile or section is no longer available.',
+			'healthProfile.reason.invalid' => 'Some answers are not accepted. Check them and try again.',
+			'healthProfile.reason.server' => 'Something went wrong on our side. Try again in a moment.',
 			'messaging.title' => 'Messages',
 			'messaging.emptyTitle' => 'No conversations yet',
 			'messaging.emptyBody' => 'When you send a booking request, you can talk to the professional here.',

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:m2health/features/appointment/data/fixtures/inbox_demo_fixture.dart';
+import 'fakes/inbox_demo_fixture.dart';
 import 'package:m2health/features/appointment/data/models/patient_care_task_detail.dart';
 import 'package:m2health/features/appointment/data/models/patient_inbox_item.dart';
 
@@ -8,7 +8,7 @@ import 'package:m2health/features/appointment/data/models/patient_inbox_item.dar
 /// the status string ever drifts, those branches silently go back to being a
 /// dead end — which is exactly the bug this fixes.
 void main() {
-  test('the demo inbox is ordered by newest request first', () {
+  test('the inbox fixture is ordered by newest request first', () {
     final items =
         kPatientInboxDemoFixture().map(PatientInboxItem.fromJson).toList();
     final asked = [
@@ -16,14 +16,14 @@ void main() {
         if (item.createdAt != null) item.createdAt!,
     ];
 
-    // Mirrors the order the server sends, so the demo is not a different app.
+    // Mirrors the order the server sends.
     expect(asked, hasLength(items.length));
     for (var i = 1; i < asked.length; i++) {
       expect(asked[i].isAfter(asked[i - 1]), isFalse);
     }
   });
 
-  test('the demo inbox still carries an unmatched booking', () {
+  test('the inbox fixture carries an unmatched booking', () {
     final items =
         kPatientInboxDemoFixture().map(PatientInboxItem.fromJson).toList();
 

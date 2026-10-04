@@ -5,22 +5,19 @@ import 'package:m2health/features/chatbot/presentation/widgets/assistant_theme.d
 
 class SummaryCard extends StatelessWidget {
   final SummaryBlock block;
-  final Map<String, String> answers;
   final bool active;
-  final String? chosenReplyId;
-  final ValueChanged<String>? onSelect;
+  final void Function({required bool confirm})? onAnswer;
 
   const SummaryCard({
     super.key,
     required this.block,
-    required this.answers,
     required this.active,
-    required this.chosenReplyId,
-    required this.onSelect,
+    required this.onAnswer,
   });
 
   @override
   Widget build(BuildContext context) {
+    final enabled = active && onAnswer != null;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -39,11 +36,7 @@ class SummaryCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 14),
-              for (final row in block.rows)
-                _SummaryRowView(
-                  row: row,
-                  value: _valueOf(row),
-                ),
+              for (final row in block.rows) _SummaryRowView(row: row),
             ],
           ),
         ),
@@ -54,9 +47,7 @@ class SummaryCard extends StatelessWidget {
             children: [
               Expanded(
                 child: OutlinedButton(
-                  onPressed: active && onSelect != null
-                      ? () => onSelect!(block.editReplyId)
-                      : null,
+                  onPressed: enabled ? () => onAnswer!(confirm: false) : null,
                   style: OutlinedButton.styleFrom(
                     foregroundColor: AssistantPalette.primary,
                     side: const BorderSide(color: AssistantPalette.primary),
@@ -77,9 +68,7 @@ class SummaryCard extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: FilledButton(
-                  onPressed: active && onSelect != null
-                      ? () => onSelect!(block.confirmReplyId)
-                      : null,
+                  onPressed: enabled ? () => onAnswer!(confirm: true) : null,
                   style: FilledButton.styleFrom(
                     backgroundColor: AssistantPalette.primary,
                     disabledBackgroundColor: AssistantPalette.border,
@@ -103,29 +92,25 @@ class SummaryCard extends StatelessWidget {
       ],
     );
   }
-
-  String? _valueOf(SummaryRow row) {
-    final key = row.fromStep;
-    if (key != null && answers[key] != null) return answers[key];
-    return row.value;
-  }
 }
 
 class _SummaryRowView extends StatelessWidget {
   final SummaryRow row;
-  final String? value;
 
-  const _SummaryRowView({required this.row, required this.value});
+  const _SummaryRowView({required this.row});
 
   @override
   Widget build(BuildContext context) {
-    if (value == null) return const SizedBox.shrink();
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ToneIcon(icon: row.icon, tone: 'teal', size: 30),
+          ToneIcon(
+            icon: row.icon == 'issue' ? 'issue' : 'answer',
+            tone: 'teal',
+            size: 30,
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -140,7 +125,7 @@ class _SummaryRowView extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  value!,
+                  row.value,
                   style: const TextStyle(
                     color: AssistantPalette.navy,
                     fontSize: 14,

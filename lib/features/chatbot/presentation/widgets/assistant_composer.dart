@@ -12,6 +12,7 @@ class AssistantComposer extends StatefulWidget {
   final String hint;
   final ValueChanged<String> onSend;
   final bool enabled;
+  final bool busy;
   final String? notice;
 
   const AssistantComposer({
@@ -19,6 +20,7 @@ class AssistantComposer extends StatefulWidget {
     required this.hint,
     required this.onSend,
     this.enabled = true,
+    this.busy = false,
     this.notice,
   });
 
@@ -45,7 +47,7 @@ class _AssistantComposerState extends State<AssistantComposer> {
 
   void _send() {
     final text = _controller.text.trim();
-    if (text.isEmpty) return;
+    if (text.isEmpty || widget.busy) return;
     _controller.clear();
     widget.onSend(text);
   }
@@ -157,7 +159,7 @@ class _AssistantComposerState extends State<AssistantComposer> {
                     controller: _controller,
                     minLines: 1,
                     maxLines: 4,
-                    enabled: !isTranscribing,
+                    enabled: !isTranscribing && !widget.busy,
                     textInputAction: TextInputAction.send,
                     onSubmitted: (_) => _send(),
                     style: const TextStyle(
@@ -192,13 +194,13 @@ class _AssistantComposerState extends State<AssistantComposer> {
           button: true,
           label: t.send,
           child: Material(
-            color: isTranscribing
+            color: isTranscribing || widget.busy
                 ? AssistantPalette.muted
                 : AssistantPalette.primary,
             shape: const CircleBorder(),
             child: InkWell(
               customBorder: const CircleBorder(),
-              onTap: isTranscribing ? null : _send,
+              onTap: isTranscribing || widget.busy ? null : _send,
               child: const SizedBox(
                 width: 42,
                 height: 42,

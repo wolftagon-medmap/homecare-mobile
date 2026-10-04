@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:m2health/features/chatbot/domain/entities/assistant_block.dart';
-import 'package:m2health/features/chatbot/domain/entities/assistant_session.dart';
+import 'package:m2health/features/chatbot/domain/entities/assistant_session_summary.dart';
+import 'package:m2health/features/chatbot/domain/repositories/assistant_repository.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_cubit.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_sessions_cubit.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_state.dart';
@@ -11,9 +12,13 @@ import 'package:m2health/features/chatbot/presentation/pages/assistant_sessions_
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_block_view.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_bubbles.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_composer.dart';
+import 'package:m2health/features/chatbot/presentation/widgets/assistant_error_text.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_hero.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_privacy_label.dart';
 import 'package:m2health/features/chatbot/presentation/widgets/assistant_theme.dart';
+import 'package:m2health/features/chatbot/presentation/widgets/assistant_typing_bubble.dart';
+import 'package:m2health/features/guided_booking/guided_booking_routes.dart';
+import 'package:m2health/route/app_routes.dart';
 import 'package:m2health/features/_legacy/chatbot_legacy/presentation/widgets/ai_data_consent.dart';
 import 'package:m2health/i18n/translations.g.dart';
 import 'package:m2health/service_locator.dart';
@@ -59,11 +64,35 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
   void _onStateChange(BuildContext context, AssistantState state) {
     if (state is! AssistantReady) return;
 
-    final route = state.pendingRoute;
-    if (route != null) {
-      context.read<AssistantCubit>().routeConsumed();
-      context.push(route);
+    final cubit = context.read<AssistantCubit>();
+    final navigation = state.navigation;
+    if (navigation != null) {
+      cubit.navigationConsumed();
+      switch (navigation) {
+        case OpenGuidedBooking(:final booking):
+          context.push(
+            GuidedBookingRoutes.entry,
+            extra: GuidedBookingArgs(
+              category: booking.category,
+              subCategory: booking.subCategory,
+              issueCodes: booking.issueCodes,
+              remarks: booking.remarks,
+            ),
+          );
+        case OpenAllServices():
+          context.push(AppRoutes.allServices);
+      }
       return;
+    }
+
+    final error = state.actionError;
+    if (error != null) {
+      cubit.errorShown();
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(content: Text(assistantErrorText(context, error))),
+        );
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -80,11 +109,11 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
 
   Future<void> _openHistory() async {
     final cubit = context.read<AssistantCubit>();
-    final picked = await Navigator.of(context).push<AssistantSession>(
+    final picked = await Navigator.of(context).push<AssistantSessionSummary>(
       MaterialPageRoute(
         builder: (_) => BlocProvider(
           create: (_) => AssistantSessionsCubit(
-            repository: sl(),
+            repository: sl<AssistantRepository>(),
             currentSessionId: cubit.sessionId,
           )..load(),
           child: const AssistantSessionsPage(),
@@ -126,7 +155,7 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
       ),
     );
     if (confirmed != true || !mounted) return;
-    context.read<AssistantCubit>().newConversation();
+    context.read<AssistantCubit>().start(fresh: true);
   }
 
   @override
@@ -193,10 +222,12 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
                 color: AssistantPalette.primary,
               ),
             ),
-          AssistantFailed(:final message) => _Failure(message: message),
+          AssistantFailed(:final error) =>
+            _Failure(message: assistantErrorText(context, error)),
           AssistantReady() => _Conversation(
               state: state,
               scrollController: _scrollController,
+              onNewConversation: _startNewConversation,
             ),
         },
       ),
@@ -207,38 +238,40 @@ class _AiAssistantPageState extends State<AiAssistantPage> {
 class _Conversation extends StatelessWidget {
   final AssistantReady state;
   final ScrollController scrollController;
+  final VoidCallback onNewConversation;
 
-  const _Conversation({required this.state, required this.scrollController});
+  const _Conversation({
+    required this.state,
+    required this.scrollController,
+    required this.onNewConversation,
+  });
 
   bool get _isWelcome =>
-      state.blocks.length == 1 && state.blocks.first is TopicGridBlock;
+      state.blocks.isEmpty ||
+      (state.blocks.length == 1 && state.blocks.first is TopicGridBlock);
 
   @override
   Widget build(BuildContext context) {
     final t = context.t.chatbot;
     final cubit = context.read<AssistantCubit>();
     final items = <Widget>[
-      if (state.blocks.isNotEmpty && state.blocks.first is TopicGridBlock)
+      if (state.blocks.isEmpty || state.blocks.first is TopicGridBlock)
         const AssistantHero(),
-      for (var i = 0; i < state.blocks.length; i++)
+      for (final block in state.blocks)
         AssistantBlockView(
-          block: state.blocks[i],
-          isLast: i == state.blocks.length - 1,
-          chosenReplyId: state.resolved[state.blocks[i].id],
-          selection: state.selections[state.blocks[i].id] ?? const [],
-          answers: state.answers,
-          onSelect: (replyId) => cubit.choose(state.blocks[i].id, replyId),
-          onToggle: (optionId) => cubit.toggle(state.blocks[i].id, optionId),
-          onSubmit: () => cubit.submitSelection(state.blocks[i].id),
-          onAct: cubit.act,
-          onOpenSuggestion: cubit.openSuggestion,
+          block: block,
+          state: state,
+          cubit: cubit,
+          onNewConversation: onNewConversation,
         ),
+      if (state.awaitingReply) const AssistantTypingBubble(),
       const SizedBox(height: 8),
     ];
 
     return Column(
       children: [
         const AssistantPrivacyLabel(),
+        if (!state.connected) const _ReconnectingBar(),
         Expanded(
           child: ListView.builder(
             controller: scrollController,
@@ -249,9 +282,28 @@ class _Conversation extends StatelessWidget {
         ),
         AssistantComposer(
           hint: _isWelcome ? t.composerHintWelcome : t.composerHint,
+          busy: state.awaitingReply,
           onSend: cubit.sendText,
         ),
       ],
+    );
+  }
+}
+
+class _ReconnectingBar extends StatelessWidget {
+  const _ReconnectingBar();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: AssistantPalette.bubble,
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Text(
+        context.t.chatbot.reconnecting,
+        textAlign: TextAlign.center,
+        style: const TextStyle(color: AssistantPalette.body, fontSize: 12),
+      ),
     );
   }
 }

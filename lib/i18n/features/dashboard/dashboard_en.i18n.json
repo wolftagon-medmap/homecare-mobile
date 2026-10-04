@@ -1,11 +1,12 @@
 {
-  "chat_ai_placeholder": "Chat With AI doctor for all your health questions",
+  "chat_ai_title": "Chat with an AI doctor",
+  "chat_ai_subtitle": "Ask your health question",
   "greeting": "Live Longer & Live Healthier, {displayName}!",
   "greeting_generic": "Live Longer & Live Healthier!",
   "header_error": "We couldn't load your profile.",
   "retry": "Retry",
   "home": {
-    "section_title": "Healthcare Services",
+    "section_title": "Services",
     "section_subtitle": "Professional care for you and your loved ones.",
     "view_all": "View All",
     "all_services_title": "All Services",
@@ -19,16 +20,16 @@
     "name_diabetic_care": "Diabetes Screening",
     "name_home_screening": "Home Health Screening",
     "name_second_opinion": "2nd Opinion Imaging",
-    "name_homecare_elderly": "Homecare for Elderly",
-    "desc_pharmacist": "Expert advice on your medications and support.",
-    "desc_physiotherapy": "Manage pain, improve mobility and recover better.",
-    "desc_psychologist": "Get support for stress, emotions and mental well-being.",
-    "desc_dietitian": "Personalised nutrition support.",
-    "desc_optometrist": "Eye care, vision checks and professional advice.",
-    "desc_nursing": "Professional nursing care in the comfort of your home.",
-    "desc_diabetic_care": "Check your eyes and feet for diabetes.",
-    "desc_home_screening": "Convenient health checks in your home.",
-    "desc_second_opinion": "Get an expert second read of your medical scans.",
-    "desc_homecare_elderly": "Daily living support and companionship at home."
+    "name_homecare_elderly": "Homecare",
+    "desc_pharmacist": "Medication support",
+    "desc_physiotherapy": "Pain & mobility",
+    "desc_psychologist": "Mind & emotions",
+    "desc_dietitian": "Nutrition support",
+    "desc_optometrist": "Eye care",
+    "desc_nursing": "Care at home",
+    "desc_diabetic_care": "Early detection",
+    "desc_home_screening": "Health check",
+    "desc_second_opinion": "Expert scan review",
+    "desc_homecare_elderly": "Daily support"
   }
 }

@@ -17,9 +17,14 @@ class NextStepList extends StatelessWidget {
           for (final action in block.actions)
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
-              child: _ActionRow(
-                action: action,
-                onTap: onAct == null ? null : () => onAct!(action),
+              child: Opacity(
+                opacity: action.kind == NextStepKind.unknown ? 0.5 : 1,
+                child: _ActionRow(
+                  action: action,
+                  onTap: onAct == null || action.kind == NextStepKind.unknown
+                      ? null
+                      : () => onAct!(action),
+                ),
               ),
             ),
         ],

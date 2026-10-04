@@ -1,10 +1,9 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:m2health/const.dart';
 import 'package:m2health/core/blocs/user_role_cubit.dart';
+import 'package:m2health/core/presentation/responsive/responsive.dart';
 import 'package:m2health/features/dashboard/domain/entities/dashboard_header.dart';
 import 'package:m2health/features/dashboard/presentation/widgets/ai_assistant_bar.dart';
 import 'package:m2health/features/dashboard/presentation/widgets/notification_bell.dart';
@@ -29,20 +28,16 @@ class DashboardHeaderBar extends StatelessWidget {
   static const _bottomPadding = 25.0;
   static const _greetingSize = 13.0;
   static const _greetingLineHeight = 1.2;
-  static const _assistantMinContent = 34.0;
   static const _assistantVerticalPadding = 18.0;
-  static const _maxTextScale = 1.3;
 
   static TextScaler scalerOf(BuildContext context) =>
-      MediaQuery.textScalerOf(context).clamp(maxScaleFactor: _maxTextScale);
+      TextScaleCap.scalerOf(context);
 
   static double heightOf(BuildContext context) {
     final scaler = scalerOf(context);
     final greeting = scaler.scale(_greetingSize) * _greetingLineHeight;
-    final assistantText = scaler.scale(AiAssistantBar.textSize) *
-        AiAssistantBar.textLineHeight *
-        AiAssistantBar.textMaxLines;
-    final assistant = math.max(_assistantMinContent, assistantText) +
+    final assistant = AiAssistantBar.contentHeightOf(
+            MediaQuery.sizeOf(context).width, scaler) +
         _assistantVerticalPadding;
 
     return _avatarRowHeight +
@@ -70,8 +65,7 @@ class DashboardHeaderBar extends StatelessWidget {
       canSwitchProfile: canSwitchProfile,
     );
 
-    return MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaler: scalerOf(context)),
+    return TextScaleCap(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

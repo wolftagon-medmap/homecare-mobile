@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:m2health/features/chatbot/domain/entities/assistant_session.dart';
+import 'package:m2health/features/chatbot/domain/entities/assistant_session_summary.dart';
 
 sealed class AssistantSessionsState extends Equatable {
   const AssistantSessionsState();
@@ -22,7 +22,7 @@ class AssistantSessionsFailed extends AssistantSessionsState {
 }
 
 class AssistantSessionsLoaded extends AssistantSessionsState {
-  final List<AssistantSession> sessions;
+  final List<AssistantSessionSummary> sessions;
 
   const AssistantSessionsLoaded(this.sessions);
 

@@ -1,413 +1,385 @@
+import 'dart:async';
 import 'dart:developer';
 
+import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m2health/core/error/failures.dart';
 import 'package:m2health/features/chatbot/domain/entities/assistant_block.dart';
-import 'package:m2health/features/chatbot/domain/entities/assistant_script.dart';
-import 'package:m2health/features/chatbot/domain/entities/assistant_session.dart';
 import 'package:m2health/features/chatbot/domain/repositories/assistant_repository.dart';
-import 'package:m2health/features/chatbot/domain/repositories/assistant_session_repository.dart';
 import 'package:m2health/features/chatbot/presentation/bloc/assistant_state.dart';
-import 'package:uuid/uuid.dart';
 
-/// Drives the guided assistant conversation over a scripted step graph.
-///
-/// There is no model call here. Every reply is a token the script already
-/// declares, so the transcript is reproducible: the same taps always produce
-/// the same conversation. That is also what makes history cheap — a saved
-/// conversation is the tokens, replayed.
 class AssistantCubit extends Cubit<AssistantState> {
   final AssistantRepository repository;
-  final AssistantSessionRepository sessions;
 
-  AssistantCubit({
-    required this.repository,
-    required this.sessions,
-  }) : super(const AssistantLoading());
+  AssistantCubit({required this.repository}) : super(const AssistantLoading());
 
-  AssistantScript? _script;
-  ScriptStep? _step;
-  int _nextBlockId = 0;
+  static const _reconnectDelay = Duration(seconds: 3);
+  static const _replyWatchdog = Duration(seconds: 70);
 
-  AssistantSession? _session;
-  List<AssistantTurn> _turns = [];
-  bool _recording = true;
+  StreamSubscription<AssistantBlock>? _subscription;
+  Timer? _reconnectTimer;
+  Timer? _watchdog;
+  final Set<int> _seen = {};
+  int _lastEventId = 0;
+  int _localId = 0;
 
-  String? get sessionId => _session?.id;
-
-  Future<void> start() async {
-    final script = await _loadScript();
-    if (script == null) return;
-    _recording = true;
-    _beginSession();
+  String? get sessionId {
+    final current = state;
+    return current is AssistantReady ? current.sessionId : null;
   }
 
-  /// Opens a clean conversation. The outgoing one needs no archiving step —
-  /// every turn was already written to the store as it happened.
-  void newConversation() {
-    if (_script == null) return;
-    _recording = true;
-    _beginSession();
+  static bool isInteractive(AssistantReady state, AssistantBlock block) {
+    if (state.readOnly || state.awaitingReply) return false;
+    if (state.resolved.containsKey(block.id)) return false;
+    final last = state.blocks.lastWhere(
+      _isInteractiveKind,
+      orElse: () => const UnknownAssistantBlock(id: 0, kind: 'none'),
+    );
+    if (!_isInteractiveKind(block) || last.id != block.id) return false;
+    // A reload does not restore `resolved`; a stored reply (positive id, not the
+    // optimistic bubble) after the card shows it was already answered.
+    if (block is TopicGridBlock) return true;
+    final index = state.blocks.indexWhere((b) => b.id == block.id);
+    return !state.blocks
+        .skip(index + 1)
+        .any((b) => b is UserTextBlock && b.id > 0);
   }
 
-  /// Rebuilds a saved conversation read-only. Nothing is recorded and no route
-  /// is ever requested, so a replayed `next_step` action cannot navigate.
-  Future<void> open(AssistantSession session) async {
-    final script = await _loadScript();
-    if (script == null) return;
-    _recording = false;
-    _session = session;
-    _turns = [];
-    _reset();
-    for (final turn in session.turns) {
-      _apply(turn);
-    }
-  }
+  static bool _isInteractiveKind(AssistantBlock block) =>
+      block is TopicGridBlock ||
+      block is QuestionBlock ||
+      block is SummaryBlock ||
+      block is ConfirmRequestBlock;
 
-  void restart() {
-    if (_script == null) return;
-    _reset();
-  }
-
-  Future<AssistantScript?> _loadScript() async {
+  Future<void> start({bool fresh = false}) async {
+    _stopStream();
+    _seen.clear();
+    _lastEventId = 0;
     emit(const AssistantLoading());
-    final result = await repository.script();
-    return result.fold(
-      (failure) {
-        log('assistant script failed', name: 'chatbot.cubit', error: failure);
-        emit(AssistantFailed(failure.message));
-        return null;
-      },
-      (script) {
-        _script = script;
-        return script;
-      },
-    );
-  }
 
-  void _beginSession() {
-    final now = DateTime.now();
-    _turns = [];
-    _session = AssistantSession(
-      id: const Uuid().v4(),
-      scriptId: _script?.scriptId ?? '',
-      startedAt: now,
-      updatedAt: now,
-      preview: null,
-      turns: const [],
-    );
-    _reset();
-  }
-
-  void _reset() {
-    _nextBlockId = 0;
-    _step = null;
-    emit(const AssistantReady(
-      blocks: [],
-      resolved: {},
-      selections: {},
-      answers: {},
-    ));
-    _enter(_script!.entryStep);
-  }
-
-  void _enter(String stepId) {
-    final current = state;
-    if (current is! AssistantReady) return;
-    final step = _script?.step(stepId);
-    if (step == null) {
-      log('unknown step $stepId', name: 'chatbot.cubit');
+    final started = await repository.startSession(fresh: fresh);
+    final id = started.fold<String?>((_) => null, (value) => value);
+    if (isClosed) return;
+    if (id == null) {
+      emit(const AssistantFailed(AssistantError.load));
       return;
     }
-    _step = step;
+
+    final loaded = await repository.history(id);
+    final blocks = loaded.fold<List<AssistantBlock>?>((_) => null, (b) => b);
+    if (isClosed) return;
+    if (blocks == null) {
+      emit(const AssistantFailed(AssistantError.load));
+      return;
+    }
+
+    for (final block in blocks) {
+      _seen.add(block.id);
+      if (block.id > _lastEventId) _lastEventId = block.id;
+    }
+    emit(AssistantReady(sessionId: id, blocks: blocks));
+    _subscribe(id);
+  }
+
+  Future<void> view(String sessionId) async {
+    emit(const AssistantLoading());
+    final loaded = await repository.history(sessionId);
+    if (isClosed) return;
+    loaded.fold(
+      (_) => emit(const AssistantFailed(AssistantError.load)),
+      (blocks) => emit(AssistantReady(
+        sessionId: sessionId,
+        readOnly: true,
+        blocks: blocks,
+        connected: true,
+      )),
+    );
+  }
+
+  void _subscribe(String sessionId) {
+    _subscription?.cancel();
+    _subscription =
+        repository.stream(sessionId, lastEventId: _lastEventId).listen(
+              _onBlock,
+              onError: (Object error) {
+                log('stream error', name: 'chatbot.cubit', error: error);
+                _onConnectionLost(sessionId);
+              },
+              onDone: () => _onConnectionLost(sessionId),
+            );
+    final current = state;
+    if (current is AssistantReady) emit(current.copyWith(connected: true));
+  }
+
+  void _onBlock(AssistantBlock block) {
+    final current = state;
+    if (current is! AssistantReady) return;
+    if (_seen.contains(block.id)) return;
+    _seen.add(block.id);
+    if (block.id > _lastEventId) _lastEventId = block.id;
+    _watchdog?.cancel();
+    emit(current.copyWith(
+      blocks: [...current.blocks, block],
+      awaitingReply: false,
+      connected: true,
+    ));
+  }
+
+  void _onConnectionLost(String sessionId) {
+    if (isClosed) return;
+    final current = state;
+    if (current is! AssistantReady || current.readOnly) return;
+    emit(current.copyWith(connected: false));
+    _reconnectTimer?.cancel();
+    _reconnectTimer = Timer(_reconnectDelay, () {
+      if (isClosed) return;
+      final latest = state;
+      if (latest is AssistantReady && !latest.readOnly) _subscribe(sessionId);
+    });
+  }
+
+  void _stopStream() {
+    _subscription?.cancel();
+    _subscription = null;
+    _reconnectTimer?.cancel();
+    _watchdog?.cancel();
+  }
+
+  Future<void> _send({
+    required String label,
+    required Future<Either<Failure, Unit>> Function(String sessionId) call,
+    int? resolveBlockId,
+    String? resolveValue,
+  }) async {
+    final current = state;
+    if (current is! AssistantReady ||
+        current.readOnly ||
+        current.awaitingReply) {
+      return;
+    }
+
     emit(current.copyWith(
       blocks: [
         ...current.blocks,
-        ...step.blocks.map((block) => block.copyWithId(_nextBlockId++)),
+        UserTextBlock(id: --_localId, text: label),
       ],
-    ));
-  }
-
-  void choose(int blockId, String replyId) {
-    final current = state;
-    if (current is! AssistantReady) return;
-    if (current.resolved.containsKey(blockId)) return;
-
-    final block = _blockOf(current, blockId);
-    final echo = switch (block) {
-      SingleChoiceBlock(:final options) => _choice(options, replyId)?.echoText,
-      TopicGridBlock(:final topics) => _topic(topics, replyId)?.echoText,
-      _ => null,
-    };
-    final summary = switch (block) {
-      SingleChoiceBlock(:final options) =>
-        _choice(options, replyId)?.summaryText,
-      _ => null,
-    };
-
-    final step = _step;
-    emit(current.copyWith(
-      resolved: {...current.resolved, blockId: replyId},
-      answers: _record(current.answers, step?.answerKey, summary),
-      blocks: echo == null
-          ? current.blocks
-          : [...current.blocks, UserTextBlock(id: _nextBlockId++, text: echo)],
+      resolved: resolveBlockId == null
+          ? null
+          : {...current.resolved, resolveBlockId: resolveValue!},
+      awaitingReply: true,
+      clearActionError: true,
     ));
 
-    _remember(AssistantTurn(
-      kind: AssistantTurnKind.choose,
-      replyIds: [replyId],
-    ));
+    _watchdog?.cancel();
+    _watchdog = Timer(_replyWatchdog, () {
+      if (isClosed) return;
+      final latest = state;
+      if (latest is AssistantReady && latest.awaitingReply) {
+        emit(latest.copyWith(
+            awaitingReply: false, actionError: AssistantError.noReply));
+      }
+    });
 
-    final next = step?.nextFor(replyId);
-    if (next != null) _enter(next);
-  }
-
-  void toggle(int blockId, String optionId) {
-    final current = state;
-    if (current is! AssistantReady) return;
-    if (current.resolved.containsKey(blockId)) return;
-
-    final block = _blockOf(current, blockId);
-    if (block is! MultiChoiceBlock) return;
-
-    final picked = [...?current.selections[blockId]];
-    final exclusive = block.exclusiveOptionId;
-
-    if (picked.contains(optionId)) {
-      picked.remove(optionId);
-    } else if (optionId == exclusive) {
-      picked
-        ..clear()
-        ..add(optionId);
-    } else {
-      picked
-        ..remove(exclusive)
-        ..add(optionId);
-    }
-
-    emit(current.copyWith(
-      selections: {...current.selections, blockId: picked},
-    ));
-  }
-
-  void submitSelection(int blockId) {
-    final current = state;
-    if (current is! AssistantReady) return;
-    if (current.resolved.containsKey(blockId)) return;
-
-    final block = _blockOf(current, blockId);
-    if (block is! MultiChoiceBlock) return;
-
-    final picked = current.selections[blockId] ?? const <String>[];
-    if (picked.isEmpty) return;
-
-    final labels = block.options
-        .where((option) => picked.contains(option.replyId))
-        .map((option) => option.summaryText)
-        .join(', ');
-
-    final step = _step;
-    emit(current.copyWith(
-      resolved: {...current.resolved, blockId: picked.join(',')},
-      answers: _record(current.answers, step?.answerKey, labels),
-      blocks: [
-        ...current.blocks,
-        UserTextBlock(id: _nextBlockId++, text: labels),
-      ],
-    ));
-
-    _remember(AssistantTurn(
-      kind: AssistantTurnKind.submit,
-      replyIds: List<String>.of(picked),
-    ));
-
-    final next = step?.nextFor(picked.first);
-    if (next != null) _enter(next);
-  }
-
-  void act(NextStepAction action) {
-    final current = state;
-    if (current is! AssistantReady) return;
-
-    if (action.restart) {
-      if (_recording) newConversation();
-      return;
-    }
-
-    final reply = action.reply;
-    emit(current.copyWith(
-      blocks: reply == null
-          ? [
-              ...current.blocks,
-              UserTextBlock(id: _nextBlockId++, text: action.title),
-            ]
-          : [
-              ...current.blocks,
-              UserTextBlock(id: _nextBlockId++, text: action.title),
-              AssistantTextBlock(id: _nextBlockId++, text: reply),
-            ],
-      pendingRoute: _recording ? action.route : null,
-    ));
-
-    _remember(AssistantTurn(
-      kind: AssistantTurnKind.act,
-      replyIds: [action.replyId],
-    ));
-  }
-
-  void openSuggestion(ServiceSuggestion suggestion) {
-    final current = state;
-    if (current is! AssistantReady) return;
-    if (!_recording) return;
-    if (suggestion.route == null) return;
-    emit(current.copyWith(pendingRoute: suggestion.route));
-  }
-
-  void routeConsumed() {
-    final current = state;
-    if (current is! AssistantReady) return;
-    emit(current.copyWith());
-  }
-
-  void sendText(String text) {
-    final current = state;
-    if (current is! AssistantReady) return;
-    final trimmed = text.trim();
-    if (trimmed.isEmpty) return;
-
-    final step = _step;
-    final blocks = [
-      ...current.blocks,
-      UserTextBlock(id: _nextBlockId++, text: trimmed),
-    ];
-
-    final advanceTo = step?.textNext;
-    if (advanceTo != null) {
-      emit(current.copyWith(blocks: blocks));
-      _remember(AssistantTurn(kind: AssistantTurnKind.text, text: trimmed));
-      _enter(advanceTo);
-      return;
-    }
-
-    final reply = step?.textReply ?? _script?.offTopicReply ?? '';
-    emit(current.copyWith(
-      blocks: [
-        ...blocks,
-        if (reply.isNotEmpty)
-          AssistantTextBlock(id: _nextBlockId++, text: reply),
-      ],
-    ));
-    _remember(AssistantTurn(kind: AssistantTurnKind.text, text: trimmed));
-  }
-
-  /// Re-applies one recorded turn against whatever question is currently open.
-  /// A token the script no longer declares simply stops the replay, leaving a
-  /// partial transcript rather than throwing.
-  void _apply(AssistantTurn turn) {
-    final current = state;
-    if (current is! AssistantReady) return;
-
-    switch (turn.kind) {
-      case AssistantTurnKind.text:
-        sendText(turn.text ?? '');
-      case AssistantTurnKind.choose:
-        final id = _openBlockId(current);
-        if (id != null && turn.replyIds.isNotEmpty) {
-          choose(id, turn.replyIds.first);
-        }
-      case AssistantTurnKind.submit:
-        final id = _openBlockId(current);
-        if (id == null) return;
-        for (final optionId in turn.replyIds) {
-          toggle(id, optionId);
-        }
-        submitSelection(id);
-      case AssistantTurnKind.act:
-        final block = current.blocks.whereType<NextStepBlock>().lastOrNull;
-        if (block == null || turn.replyIds.isEmpty) return;
-        for (final action in block.actions) {
-          if (action.replyId == turn.replyIds.first) {
-            act(action);
-            return;
-          }
-        }
-    }
-  }
-
-  /// The question still awaiting an answer — the last unresolved interactive
-  /// block, not simply the last block, because free text appends bubbles after
-  /// an open question.
-  int? _openBlockId(AssistantReady current) {
-    for (final block in current.blocks.reversed) {
-      if (current.resolved.containsKey(block.id)) continue;
-      final interactive = block is TopicGridBlock ||
-          block is SingleChoiceBlock ||
-          block is MultiChoiceBlock ||
-          block is SummaryBlock;
-      if (interactive) return block.id;
-    }
-    return null;
-  }
-
-  void _remember(AssistantTurn turn) {
-    if (!_recording) return;
-    _turns.add(turn);
-    _persist();
-  }
-
-  Future<void> _persist() async {
-    final session = _session;
-    if (!_recording || session == null || _turns.isEmpty) return;
-    final updated = session.copyWith(
-      updatedAt: DateTime.now(),
-      preview: _preview(),
-      turns: List<AssistantTurn>.of(_turns),
-    );
-    _session = updated;
-    final result = await sessions.save(updated);
+    final result = await call(current.sessionId);
+    if (isClosed) return;
     result.fold(
-      (failure) =>
-          log('session save failed', name: 'chatbot.cubit', error: failure),
+      (failure) {
+        log('send failed', name: 'chatbot.cubit', error: failure);
+        _watchdog?.cancel();
+        final latest = state;
+        if (latest is! AssistantReady) return;
+        final resolved = Map<int, String>.of(latest.resolved);
+        if (resolveBlockId != null) resolved.remove(resolveBlockId);
+        emit(latest.copyWith(
+          resolved: resolved,
+          awaitingReply: false,
+          actionError: AssistantError.send,
+        ));
+      },
       (_) {},
     );
   }
 
-  String? _preview() {
+  Future<void> sendText(String text) {
+    final trimmed = text.trim();
+    if (trimmed.isEmpty) return Future.value();
+    return _send(
+      label: trimmed,
+      call: (id) => repository.sendText(id, trimmed),
+    );
+  }
+
+  Future<void> selectTopic(int blockId, AssistantTopic topic) {
+    if (_isResolved(blockId)) return Future.value();
+    return _send(
+      label: topic.label,
+      call: (id) => repository.sendReply(
+        id,
+        replyId: topic.replyId,
+        label: topic.label,
+      ),
+      resolveBlockId: blockId,
+      resolveValue: topic.replyId,
+    );
+  }
+
+  Future<void> chooseOption(int blockId, QuestionBlock question, int index) {
+    if (question.mode != QuestionMode.single || _isResolved(blockId)) {
+      return Future.value();
+    }
+    final label = _labelOf(question, index);
+    if (label == null) return Future.value();
+    return _send(
+      label: label,
+      call: (id) => repository.sendReply(
+        id,
+        replyId: 'hc:${question.questionId}:$index',
+        label: label,
+      ),
+      resolveBlockId: blockId,
+      resolveValue: '$index',
+    );
+  }
+
+  void toggleOption(int blockId, QuestionBlock question, int index) {
     final current = state;
-    if (current is! AssistantReady) return null;
-    for (final block in current.blocks) {
-      if (block is UserTextBlock) return block.text;
+    if (current is! AssistantReady || current.readOnly) return;
+    if (question.mode != QuestionMode.multi || _isResolved(blockId)) return;
+
+    final picked = {...?current.selections[blockId]};
+    if (picked.contains(index)) {
+      picked.remove(index);
+    } else if (index == question.exclusiveIndex) {
+      picked
+        ..clear()
+        ..add(index);
+    } else {
+      picked
+        ..remove(question.exclusiveIndex)
+        ..add(index);
+    }
+    emit(
+        current.copyWith(selections: {...current.selections, blockId: picked}));
+  }
+
+  Future<void> submitSelection(int blockId, QuestionBlock question) {
+    final current = state;
+    if (current is! AssistantReady || question.mode != QuestionMode.multi) {
+      return Future.value();
+    }
+    if (_isResolved(blockId)) return Future.value();
+    final picked = (current.selections[blockId] ?? const <int>{}).toList()
+      ..sort();
+    if (picked.isEmpty) return Future.value();
+
+    final labels = [
+      for (final index in picked)
+        if (_labelOf(question, index) != null) _labelOf(question, index)!,
+    ].join(', ');
+    return _send(
+      label: labels,
+      call: (id) => repository.sendReply(
+        id,
+        replyId: 'hc:${question.questionId}:${picked.join(',')}',
+        label: labels,
+      ),
+      resolveBlockId: blockId,
+      resolveValue: 'submitted',
+    );
+  }
+
+  Future<void> answerSummary(
+    int blockId,
+    SummaryBlock summary, {
+    required bool confirm,
+  }) {
+    if (_isResolved(blockId)) return Future.value();
+    final replyId = confirm ? summary.confirmReplyId : summary.editReplyId;
+    final label = confirm ? summary.confirmLabel : summary.editLabel;
+    return _send(
+      label: label,
+      call: (id) => repository.sendReply(id, replyId: replyId, label: label),
+      resolveBlockId: blockId,
+      resolveValue: replyId,
+    );
+  }
+
+  Future<void> answerConfirmRequest(
+    int blockId,
+    ConfirmRequestBlock request, {
+    required bool confirm,
+    required String label,
+  }) {
+    if (_isResolved(blockId)) return Future.value();
+    final replyId = confirm ? request.confirmId : request.cancelId;
+    return _send(
+      label: label,
+      call: (id) => repository.sendReply(id, replyId: replyId, label: label),
+      resolveBlockId: blockId,
+      resolveValue: replyId,
+    );
+  }
+
+  Future<void> act(NextStepAction action) {
+    final current = state;
+    if (current is! AssistantReady || current.readOnly) return Future.value();
+    switch (action.kind) {
+      case NextStepKind.exploreServices:
+        emit(current.copyWith(navigation: const OpenAllServices()));
+        return Future.value();
+      case NextStepKind.reply:
+        return _send(
+          label: action.title,
+          call: (id) => repository.sendReply(
+            id,
+            replyId: action.replyId,
+            label: action.title,
+          ),
+        );
+      case NextStepKind.newConversation:
+      case NextStepKind.unknown:
+        return Future.value();
+    }
+  }
+
+  void openSuggestion(ServiceSuggestion suggestion) {
+    final current = state;
+    final booking = suggestion.booking;
+    if (current is! AssistantReady || current.readOnly || booking == null) {
+      return;
+    }
+    emit(current.copyWith(navigation: OpenGuidedBooking(booking)));
+  }
+
+  void navigationConsumed() {
+    final current = state;
+    if (current is AssistantReady) {
+      emit(current.copyWith(clearNavigation: true));
+    }
+  }
+
+  void errorShown() {
+    final current = state;
+    if (current is AssistantReady) {
+      emit(current.copyWith(clearActionError: true));
+    }
+  }
+
+  bool _isResolved(int blockId) {
+    final current = state;
+    return current is! AssistantReady || current.resolved.containsKey(blockId);
+  }
+
+  String? _labelOf(QuestionBlock question, int index) {
+    for (final option in question.options) {
+      if (option.index == index) return option.label;
     }
     return null;
   }
 
-  Map<String, String> _record(
-    Map<String, String> answers,
-    String? key,
-    String? value,
-  ) {
-    if (key == null || value == null || value.isEmpty) return answers;
-    return {...answers, key: value};
-  }
-
-  AssistantBlock? _blockOf(AssistantReady state, int blockId) {
-    for (final block in state.blocks) {
-      if (block.id == blockId) return block;
-    }
-    return null;
-  }
-
-  AssistantChoice? _choice(List<AssistantChoice> options, String replyId) {
-    for (final option in options) {
-      if (option.replyId == replyId) return option;
-    }
-    return null;
-  }
-
-  AssistantTopic? _topic(List<AssistantTopic> topics, String replyId) {
-    for (final topic in topics) {
-      if (topic.replyId == replyId) return topic;
-    }
-    return null;
+  @override
+  Future<void> close() {
+    _stopStream();
+    return super.close();
   }
 }

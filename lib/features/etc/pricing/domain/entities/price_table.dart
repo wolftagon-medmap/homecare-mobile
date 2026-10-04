@@ -7,9 +7,8 @@ import 'package:m2health/features/etc/pricing/domain/usecases/calculate_estimate
 /// Every price in the app, in one place: the admin floors, the add-on
 /// catalogue, and what each professional charges.
 ///
-/// This is the surface other features call. Do not read the fixture map
-/// directly and do not sum prices by hand — [estimateFor] is the only
-/// calculation.
+/// This is the surface other features call. Do not sum prices by hand:
+/// [estimateFor] is the only calculation.
 class PriceTable extends Equatable {
   final List<ServicePrice> services;
   final List<ServicePrice> addOns;

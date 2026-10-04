@@ -6,7 +6,7 @@ class TopicGrid extends StatelessWidget {
   final TopicGridBlock block;
   final bool active;
   final String? chosenReplyId;
-  final ValueChanged<String>? onSelect;
+  final ValueChanged<AssistantTopic>? onSelect;
 
   const TopicGrid({
     super.key,
@@ -47,7 +47,7 @@ class TopicGrid extends StatelessWidget {
                         topic: topic,
                         selected: chosenReplyId == topic.replyId,
                         onTap: active && onSelect != null
-                            ? () => onSelect!(topic.replyId)
+                            ? () => onSelect!(topic)
                             : null,
                       ),
                     ),

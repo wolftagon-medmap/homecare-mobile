@@ -7,14 +7,3 @@ abstract class ThreadStream {
 
   Future<void> disconnect();
 }
-
-class ThreadStreamLocal implements ThreadStream {
-  @override
-  Stream<ThreadEvent> get events => const Stream<ThreadEvent>.empty();
-
-  @override
-  Future<void> connect() async {}
-
-  @override
-  Future<void> disconnect() async {}
-}

@@ -121,13 +121,22 @@ class _TranslationsChatbotId implements TranslationsChatbotEn {
 	@override String get sessionActive => 'Aktif';
 	@override String get sessionReadOnly => 'Hanya-baca';
 	@override String get deleteTitle => 'Hapus percakapan';
-	@override String get deleteBody => 'Percakapan ini akan dihapus dari perangkat ini. Tindakan ini tidak dapat dibatalkan.';
+	@override String get deleteBody => 'Percakapan ini akan dihapus. Tindakan ini tidak dapat dibatalkan.';
 	@override String get delete => 'Hapus';
 	@override String get voiceInput => 'Masukan suara';
 	@override String get transcribing => 'Menyalin suara...';
 	@override String get micDeniedTitle => 'Izin mikrofon diperlukan';
 	@override String get micDeniedBody => 'Izin mikrofon ditolak. Aktifkan di Pengaturan perangkat Anda untuk memakai masukan suara.';
 	@override String get openSettings => 'Buka Pengaturan';
+	@override String get teamLabel => 'Tim M2Health';
+	@override String get confirm => 'Konfirmasi';
+	@override String get reconnecting => 'Menyambungkan ulang…';
+	@override String get readOnlyNotice => 'Percakapan ini hanya bisa dibaca.';
+	@override String get errorLoad => 'Terjadi kesalahan. Silakan coba lagi.';
+	@override String get errorSend => 'Gagal mengirim. Silakan coba lagi.';
+	@override String get errorNoReply => 'Belum ada balasan. Silakan coba lagi.';
+	@override String get typing => 'Asisten sedang membalas';
+	@override String get continueAction => 'Lanjutkan';
 }
 
 // Path: dashboard
@@ -137,7 +146,8 @@ class _TranslationsDashboardId implements TranslationsDashboardEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get chat_ai_placeholder => 'Tanya dokter AI seputar kesehatan Anda';
+	@override String get chat_ai_title => 'Chat dengan dokter AI';
+	@override String get chat_ai_subtitle => 'Tanyakan soal kesehatan Anda';
 	@override String greeting({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!';
 	@override String get greeting_generic => 'Hidup Lebih Lama & Sehat!';
 	@override String get header_error => 'Profil Anda gagal dimuat.';
@@ -210,10 +220,12 @@ class _TranslationsHealthProfileId implements TranslationsHealthProfileEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get namespace_title => 'Profil kesehatan';
-	@override String get entry_tile => 'Profil kesehatan saya';
+	@override String get namespace_title => 'Profil Kesehatan';
+	@override String get entry_tile => 'Profil Kesehatan';
+	@override String get retry => 'Coba lagi';
 	@override late final _TranslationsHealthProfileListId list = _TranslationsHealthProfileListId._(_root);
 	@override late final _TranslationsHealthProfileSectionId section = _TranslationsHealthProfileSectionId._(_root);
+	@override late final _TranslationsHealthProfileReasonId reason = _TranslationsHealthProfileReasonId._(_root);
 }
 
 // Path: messaging
@@ -612,7 +624,7 @@ class _TranslationsDashboardHomeId implements TranslationsDashboardHomeEn {
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get section_title => 'Layanan Kesehatan';
+	@override String get section_title => 'Layanan';
 	@override String get section_subtitle => 'Perawatan profesional untuk Anda dan keluarga.';
 	@override String get view_all => 'Lihat Semua';
 	@override String get all_services_title => 'Semua Layanan';
@@ -626,17 +638,17 @@ class _TranslationsDashboardHomeId implements TranslationsDashboardHomeEn {
 	@override String get name_diabetic_care => 'Skrining Diabetes';
 	@override String get name_home_screening => 'Skrining Kesehatan di Rumah';
 	@override String get name_second_opinion => 'Opini Kedua Citra Medis';
-	@override String get name_homecare_elderly => 'Perawatan Lansia di Rumah';
-	@override String get desc_pharmacist => 'Saran ahli untuk obat Anda dan dukungan berhenti merokok.';
-	@override String get desc_physiotherapy => 'Atasi nyeri, tingkatkan mobilitas, dan pulih lebih baik.';
-	@override String get desc_psychologist => 'Dukungan untuk stres, emosi, dan kesehatan mental.';
-	@override String get desc_dietitian => 'Dukungan nutrisi personal untuk hidup lebih sehat.';
-	@override String get desc_optometrist => 'Perawatan mata, pemeriksaan penglihatan, dan saran ahli.';
-	@override String get desc_nursing => 'Perawatan profesional dengan nyaman di rumah Anda.';
-	@override String get desc_diabetic_care => 'Periksa mata dan kaki untuk komplikasi terkait diabetes.';
-	@override String get desc_home_screening => 'Pemeriksaan kesehatan praktis di rumah Anda.';
-	@override String get desc_second_opinion => 'Dapatkan pembacaan kedua dari ahli untuk hasil pencitraan Anda.';
-	@override String get desc_homecare_elderly => 'Bantuan aktivitas harian dan pendampingan di rumah.';
+	@override String get name_homecare_elderly => 'Perawatan Lansia';
+	@override String get desc_pharmacist => 'Dukungan obat';
+	@override String get desc_physiotherapy => 'Nyeri & mobilitas';
+	@override String get desc_psychologist => 'Pikiran & emosi';
+	@override String get desc_dietitian => 'Dukungan gizi';
+	@override String get desc_optometrist => 'Perawatan mata';
+	@override String get desc_nursing => 'Perawatan di rumah';
+	@override String get desc_diabetic_care => 'Deteksi dini';
+	@override String get desc_home_screening => 'Cek kesehatan';
+	@override String get desc_second_opinion => 'Tinjauan ahli';
+	@override String get desc_homecare_elderly => 'Bantuan harian';
 }
 
 // Path: global.dialog
@@ -799,12 +811,9 @@ class _TranslationsHealthProfileListId implements TranslationsHealthProfileListE
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get subtitle => 'Perbarui hanya yang Anda inginkan. Semuanya bersifat opsional.';
-	@override String get not_started => 'Belum diisi';
-	@override String updated({required Object date}) => 'Diperbarui ${date}';
 	@override String get loading => 'Memuat profil kesehatan Anda';
+	@override String get load_failed => 'Profil kesehatan Anda tidak dapat dimuat.';
 	@override String get empty => 'Belum ada bagian yang tersedia.';
-	@override String get error => 'Kami tidak dapat memuat profil kesehatan Anda.';
 }
 
 // Path: healthProfile.section
@@ -814,19 +823,34 @@ class _TranslationsHealthProfileSectionId implements TranslationsHealthProfileSe
 	final TranslationsId _root; // ignore: unused_field
 
 	// Translations
-	@override String get subtitle => 'Isi yang Anda bisa. Anda dapat kembali kapan saja.';
+	@override String get loading => 'Memuat bagian ini';
+	@override String get load_failed => 'Bagian ini tidak dapat dimuat.';
+	@override String last_updated({required Object date}) => 'Terakhir diperbarui ${date}';
 	@override String get save => 'Simpan';
 	@override String get saved => 'Tersimpan';
-	@override String get save_failed => 'Kami tidak dapat menyimpan bagian ini.';
-	@override String get loading => 'Memuat bagian ini';
-	@override String get error => 'Kami tidak dapat memuat bagian ini.';
+	@override String get save_failed => 'Bagian ini tidak tersimpan.';
 	@override String get add_other => 'Tambah lainnya';
-	@override String get add_attachment => 'Tambah lampiran';
-	@override String attachment({required Object n}) => 'Laporan ${n}';
+	@override String get add => 'Tambah';
+	@override String get own_answer_hint => 'Ketik jawaban Anda';
+	@override String remove({required Object label}) => 'Hapus ${label}';
+	@override String get selected => 'Dipilih';
 	@override String get discard_title => 'Buang perubahan Anda?';
-	@override String get discard_body => 'Bagian ini memiliki perubahan yang belum disimpan.';
+	@override String get discard_body => 'Perubahan pada bagian ini belum disimpan.';
 	@override String get discard => 'Buang';
-	@override String get keep_editing => 'Lanjut mengisi';
+	@override String get keep_editing => 'Lanjut mengedit';
+}
+
+// Path: healthProfile.reason
+class _TranslationsHealthProfileReasonId implements TranslationsHealthProfileReasonEn {
+	_TranslationsHealthProfileReasonId._(this._root);
+
+	final TranslationsId _root; // ignore: unused_field
+
+	// Translations
+	@override String get network => 'Periksa koneksi internet Anda, lalu coba lagi.';
+	@override String get not_found => 'Profil atau bagian ini sudah tidak tersedia.';
+	@override String get invalid => 'Beberapa jawaban tidak diterima. Periksa lalu coba lagi.';
+	@override String get server => 'Terjadi kendala di sistem kami. Coba lagi sebentar lagi.';
 }
 
 // Path: messaging.timeProposal
@@ -1551,19 +1575,29 @@ extension on TranslationsId {
 			'chatbot.sessionActive' => 'Aktif',
 			'chatbot.sessionReadOnly' => 'Hanya-baca',
 			'chatbot.deleteTitle' => 'Hapus percakapan',
-			'chatbot.deleteBody' => 'Percakapan ini akan dihapus dari perangkat ini. Tindakan ini tidak dapat dibatalkan.',
+			'chatbot.deleteBody' => 'Percakapan ini akan dihapus. Tindakan ini tidak dapat dibatalkan.',
 			'chatbot.delete' => 'Hapus',
 			'chatbot.voiceInput' => 'Masukan suara',
 			'chatbot.transcribing' => 'Menyalin suara...',
 			'chatbot.micDeniedTitle' => 'Izin mikrofon diperlukan',
 			'chatbot.micDeniedBody' => 'Izin mikrofon ditolak. Aktifkan di Pengaturan perangkat Anda untuk memakai masukan suara.',
 			'chatbot.openSettings' => 'Buka Pengaturan',
-			'dashboard.chat_ai_placeholder' => 'Tanya dokter AI seputar kesehatan Anda',
+			'chatbot.teamLabel' => 'Tim M2Health',
+			'chatbot.confirm' => 'Konfirmasi',
+			'chatbot.reconnecting' => 'Menyambungkan ulang…',
+			'chatbot.readOnlyNotice' => 'Percakapan ini hanya bisa dibaca.',
+			'chatbot.errorLoad' => 'Terjadi kesalahan. Silakan coba lagi.',
+			'chatbot.errorSend' => 'Gagal mengirim. Silakan coba lagi.',
+			'chatbot.errorNoReply' => 'Belum ada balasan. Silakan coba lagi.',
+			'chatbot.typing' => 'Asisten sedang membalas',
+			'chatbot.continueAction' => 'Lanjutkan',
+			'dashboard.chat_ai_title' => 'Chat dengan dokter AI',
+			'dashboard.chat_ai_subtitle' => 'Tanyakan soal kesehatan Anda',
 			'dashboard.greeting' => ({required Object displayName}) => 'Hidup Lebih Lama & Sehat, ${displayName}!',
 			'dashboard.greeting_generic' => 'Hidup Lebih Lama & Sehat!',
 			'dashboard.header_error' => 'Profil Anda gagal dimuat.',
 			'dashboard.retry' => 'Coba lagi',
-			'dashboard.home.section_title' => 'Layanan Kesehatan',
+			'dashboard.home.section_title' => 'Layanan',
 			'dashboard.home.section_subtitle' => 'Perawatan profesional untuk Anda dan keluarga.',
 			'dashboard.home.view_all' => 'Lihat Semua',
 			'dashboard.home.all_services_title' => 'Semua Layanan',
@@ -1577,17 +1611,17 @@ extension on TranslationsId {
 			'dashboard.home.name_diabetic_care' => 'Skrining Diabetes',
 			'dashboard.home.name_home_screening' => 'Skrining Kesehatan di Rumah',
 			'dashboard.home.name_second_opinion' => 'Opini Kedua Citra Medis',
-			'dashboard.home.name_homecare_elderly' => 'Perawatan Lansia di Rumah',
-			'dashboard.home.desc_pharmacist' => 'Saran ahli untuk obat Anda dan dukungan berhenti merokok.',
-			'dashboard.home.desc_physiotherapy' => 'Atasi nyeri, tingkatkan mobilitas, dan pulih lebih baik.',
-			'dashboard.home.desc_psychologist' => 'Dukungan untuk stres, emosi, dan kesehatan mental.',
-			'dashboard.home.desc_dietitian' => 'Dukungan nutrisi personal untuk hidup lebih sehat.',
-			'dashboard.home.desc_optometrist' => 'Perawatan mata, pemeriksaan penglihatan, dan saran ahli.',
-			'dashboard.home.desc_nursing' => 'Perawatan profesional dengan nyaman di rumah Anda.',
-			'dashboard.home.desc_diabetic_care' => 'Periksa mata dan kaki untuk komplikasi terkait diabetes.',
-			'dashboard.home.desc_home_screening' => 'Pemeriksaan kesehatan praktis di rumah Anda.',
-			'dashboard.home.desc_second_opinion' => 'Dapatkan pembacaan kedua dari ahli untuk hasil pencitraan Anda.',
-			'dashboard.home.desc_homecare_elderly' => 'Bantuan aktivitas harian dan pendampingan di rumah.',
+			'dashboard.home.name_homecare_elderly' => 'Perawatan Lansia',
+			'dashboard.home.desc_pharmacist' => 'Dukungan obat',
+			'dashboard.home.desc_physiotherapy' => 'Nyeri & mobilitas',
+			'dashboard.home.desc_psychologist' => 'Pikiran & emosi',
+			'dashboard.home.desc_dietitian' => 'Dukungan gizi',
+			'dashboard.home.desc_optometrist' => 'Perawatan mata',
+			'dashboard.home.desc_nursing' => 'Perawatan di rumah',
+			'dashboard.home.desc_diabetic_care' => 'Deteksi dini',
+			'dashboard.home.desc_home_screening' => 'Cek kesehatan',
+			'dashboard.home.desc_second_opinion' => 'Tinjauan ahli',
+			'dashboard.home.desc_homecare_elderly' => 'Bantuan harian',
 			'global.add' => 'Tambah',
 			'global.book_now' => 'Pesan Sekarang',
 			'global.cancel' => 'Batal',
@@ -1681,27 +1715,31 @@ extension on TranslationsId {
 			'guidedBooking.sent.done' => 'Kembali ke beranda',
 			'guidedBooking.cta.kContinue' => 'Lanjut',
 			'guidedBooking.cta.skip' => 'Lewati',
-			'healthProfile.namespace_title' => 'Profil kesehatan',
-			'healthProfile.entry_tile' => 'Profil kesehatan saya',
-			'healthProfile.list.subtitle' => 'Perbarui hanya yang Anda inginkan. Semuanya bersifat opsional.',
-			'healthProfile.list.not_started' => 'Belum diisi',
-			'healthProfile.list.updated' => ({required Object date}) => 'Diperbarui ${date}',
+			'healthProfile.namespace_title' => 'Profil Kesehatan',
+			'healthProfile.entry_tile' => 'Profil Kesehatan',
+			'healthProfile.retry' => 'Coba lagi',
 			'healthProfile.list.loading' => 'Memuat profil kesehatan Anda',
+			'healthProfile.list.load_failed' => 'Profil kesehatan Anda tidak dapat dimuat.',
 			'healthProfile.list.empty' => 'Belum ada bagian yang tersedia.',
-			'healthProfile.list.error' => 'Kami tidak dapat memuat profil kesehatan Anda.',
-			'healthProfile.section.subtitle' => 'Isi yang Anda bisa. Anda dapat kembali kapan saja.',
+			'healthProfile.section.loading' => 'Memuat bagian ini',
+			'healthProfile.section.load_failed' => 'Bagian ini tidak dapat dimuat.',
+			'healthProfile.section.last_updated' => ({required Object date}) => 'Terakhir diperbarui ${date}',
 			'healthProfile.section.save' => 'Simpan',
 			'healthProfile.section.saved' => 'Tersimpan',
-			'healthProfile.section.save_failed' => 'Kami tidak dapat menyimpan bagian ini.',
-			'healthProfile.section.loading' => 'Memuat bagian ini',
-			'healthProfile.section.error' => 'Kami tidak dapat memuat bagian ini.',
+			'healthProfile.section.save_failed' => 'Bagian ini tidak tersimpan.',
 			'healthProfile.section.add_other' => 'Tambah lainnya',
-			'healthProfile.section.add_attachment' => 'Tambah lampiran',
-			'healthProfile.section.attachment' => ({required Object n}) => 'Laporan ${n}',
+			'healthProfile.section.add' => 'Tambah',
+			'healthProfile.section.own_answer_hint' => 'Ketik jawaban Anda',
+			'healthProfile.section.remove' => ({required Object label}) => 'Hapus ${label}',
+			'healthProfile.section.selected' => 'Dipilih',
 			'healthProfile.section.discard_title' => 'Buang perubahan Anda?',
-			'healthProfile.section.discard_body' => 'Bagian ini memiliki perubahan yang belum disimpan.',
+			'healthProfile.section.discard_body' => 'Perubahan pada bagian ini belum disimpan.',
 			'healthProfile.section.discard' => 'Buang',
-			'healthProfile.section.keep_editing' => 'Lanjut mengisi',
+			'healthProfile.section.keep_editing' => 'Lanjut mengedit',
+			'healthProfile.reason.network' => 'Periksa koneksi internet Anda, lalu coba lagi.',
+			'healthProfile.reason.not_found' => 'Profil atau bagian ini sudah tidak tersedia.',
+			'healthProfile.reason.invalid' => 'Beberapa jawaban tidak diterima. Periksa lalu coba lagi.',
+			'healthProfile.reason.server' => 'Terjadi kendala di sistem kami. Coba lagi sebentar lagi.',
 			'messaging.title' => 'Pesan',
 			'messaging.emptyTitle' => 'Belum ada percakapan',
 			'messaging.emptyBody' => 'Setelah Anda mengirim permintaan, Anda bisa berbicara dengan tenaga kesehatan di sini.',

@@ -23,11 +23,20 @@
   "sessionActive": "Aktif",
   "sessionReadOnly": "Hanya-baca",
   "deleteTitle": "Hapus percakapan",
-  "deleteBody": "Percakapan ini akan dihapus dari perangkat ini. Tindakan ini tidak dapat dibatalkan.",
+  "deleteBody": "Percakapan ini akan dihapus. Tindakan ini tidak dapat dibatalkan.",
   "delete": "Hapus",
   "voiceInput": "Masukan suara",
   "transcribing": "Menyalin suara...",
   "micDeniedTitle": "Izin mikrofon diperlukan",
   "micDeniedBody": "Izin mikrofon ditolak. Aktifkan di Pengaturan perangkat Anda untuk memakai masukan suara.",
-  "openSettings": "Buka Pengaturan"
+  "openSettings": "Buka Pengaturan",
+  "teamLabel": "Tim M2Health",
+  "confirm": "Konfirmasi",
+  "reconnecting": "Menyambungkan ulang…",
+  "readOnlyNotice": "Percakapan ini hanya bisa dibaca.",
+  "errorLoad": "Terjadi kesalahan. Silakan coba lagi.",
+  "errorSend": "Gagal mengirim. Silakan coba lagi.",
+  "errorNoReply": "Belum ada balasan. Silakan coba lagi.",
+  "typing": "Asisten sedang membalas",
+  "continueAction": "Lanjutkan"
 }

@@ -49,6 +49,9 @@ class GuidedBookingDraft extends Equatable {
             : value,
       );
 
+  GuidedBookingDraft withIssueCodes(List<String> codes) =>
+      _copyWith(issueCodes: codes);
+
   GuidedBookingDraft withSubCategory(
     String? code, {
     required bool sharesIssueList,
